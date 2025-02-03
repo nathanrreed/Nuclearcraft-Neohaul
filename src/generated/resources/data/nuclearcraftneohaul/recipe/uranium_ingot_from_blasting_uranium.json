@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "uranium",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:uranium"
+    },
+    {
+      "item": "nuclearcraftneohaul:uranium_deepslate_ore"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:uranium_ingot"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    "C": {
+      "item": "nuclearcraftneohaul:crystal_binder"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:du_plating"
+    }
+  },
+  "pattern": [
+    "CBC",
+    "BPB",
+    "CBC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:elite_plating"
+  }
+}

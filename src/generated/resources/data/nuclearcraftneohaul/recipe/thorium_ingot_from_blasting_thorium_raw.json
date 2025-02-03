@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "thorium",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:thorium_raw"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:thorium_ingot"
+  }
+}

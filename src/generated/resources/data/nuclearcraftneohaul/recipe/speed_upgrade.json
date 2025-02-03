@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "minecraft:heavy_weighted_pressure_plate"
+    }
+  },
+  "pattern": [
+    "LRL",
+    "RWR",
+    "LRL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:speed_upgrade"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "nuclearcraftneohaul:block/cube_all_overlayed",
+  "textures": {
+    "all": "minecraft:block/deepslate",
+    "overlay": "nuclearcraftneohaul:block/ore/lead"
+  }
+}

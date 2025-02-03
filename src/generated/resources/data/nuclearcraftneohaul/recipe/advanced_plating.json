@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    " R ",
+    "TPT",
+    " R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:advanced_plating"
+  }
+}

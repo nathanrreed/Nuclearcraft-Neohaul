@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:boron_block"
+  }
+}

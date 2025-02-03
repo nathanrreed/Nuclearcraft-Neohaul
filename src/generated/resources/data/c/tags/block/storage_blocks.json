@@ -1,0 +1,26 @@
+{
+  "values": [
+    "nuclearcraftneohaul:aluminum_block",
+    "nuclearcraftneohaul:beryllium_block",
+    "nuclearcraftneohaul:boron_block",
+    "nuclearcraftneohaul:graphite_block",
+    "nuclearcraftneohaul:lead_block",
+    "nuclearcraftneohaul:lithium_block",
+    "nuclearcraftneohaul:magnesium_block",
+    "nuclearcraftneohaul:manganese_block",
+    "nuclearcraftneohaul:manganese_dioxide_block",
+    "nuclearcraftneohaul:manganese_oxide_block",
+    "nuclearcraftneohaul:silver_block",
+    "nuclearcraftneohaul:thorium_block",
+    "nuclearcraftneohaul:tin_block",
+    "nuclearcraftneohaul:uranium_block",
+    "nuclearcraftneohaul:zirconium_block",
+    "nuclearcraftneohaul:raw_boron_block",
+    "nuclearcraftneohaul:raw_lead_block",
+    "nuclearcraftneohaul:raw_lithium_block",
+    "nuclearcraftneohaul:raw_magnesium_block",
+    "nuclearcraftneohaul:raw_thorium_block",
+    "nuclearcraftneohaul:raw_tin_block",
+    "nuclearcraftneohaul:raw_uranium_block"
+  ]
+}

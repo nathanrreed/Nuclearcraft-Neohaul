@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "tin",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:tin_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:tin_ingot"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:manganese_dioxide_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "nuclearcraftneohaul:manganese_dioxide_ingot"
+  }
+}

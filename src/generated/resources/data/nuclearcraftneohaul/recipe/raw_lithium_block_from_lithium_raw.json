@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_raw"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:raw_lithium_block"
+  }
+}

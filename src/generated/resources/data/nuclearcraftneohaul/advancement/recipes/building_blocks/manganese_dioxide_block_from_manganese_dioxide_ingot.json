@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_manganese_dioxide_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:manganese_dioxide_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:manganese_dioxide_block_from_manganese_dioxide_ingot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_manganese_dioxide_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:manganese_dioxide_block_from_manganese_dioxide_ingot"
+    ]
+  }
+}

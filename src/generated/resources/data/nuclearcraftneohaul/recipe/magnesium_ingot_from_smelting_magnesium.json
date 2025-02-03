@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "magnesium",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:magnesium"
+    },
+    {
+      "item": "nuclearcraftneohaul:magnesium_deepslate_ore"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:magnesium_ingot"
+  }
+}

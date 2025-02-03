@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "F": {
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "  S",
+    "FP ",
+    "CF "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:liner_actuator"
+  }
+}

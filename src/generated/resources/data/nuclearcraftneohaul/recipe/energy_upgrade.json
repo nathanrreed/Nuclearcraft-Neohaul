@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "tag": "c:dusts/obsidian"
+    },
+    "Q": {
+      "tag": "c:dusts/quartz"
+    },
+    "W": {
+      "item": "minecraft:light_weighted_pressure_plate"
+    }
+  },
+  "pattern": [
+    "OQO",
+    "QWQ",
+    "OQO"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:energy_upgrade"
+  }
+}

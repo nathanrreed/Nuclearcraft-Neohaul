@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "boron",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:boron_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:boron_ingot"
+  }
+}

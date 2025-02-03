@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "magnesium",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:magnesium_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:magnesium_ingot"
+  }
+}

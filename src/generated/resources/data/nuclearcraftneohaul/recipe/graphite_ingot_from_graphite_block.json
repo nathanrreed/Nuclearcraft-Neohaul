@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:graphite_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "nuclearcraftneohaul:graphite_ingot"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "boron",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:boron"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_deepslate_ore"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:boron_ingot"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "tag": "c:dusts/end_stone"
+    },
+    {
+      "tag": "c:dusts/obsidian"
+    },
+    {
+      "tag": "c:dusts/obsidian"
+    },
+    {
+      "tag": "c:dusts/obsidian"
+    },
+    {
+      "tag": "c:dusts/obsidian"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "nuclearcraftneohaul:dimensional_blend"
+  }
+}

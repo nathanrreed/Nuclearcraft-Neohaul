@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:uranium_ingot_from_uranium_nugget"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_uranium_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:uranium_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_uranium_nugget"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:uranium_ingot_from_uranium_nugget"
+    ]
+  }
+}

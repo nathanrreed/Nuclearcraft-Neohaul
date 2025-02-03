@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    },
+    {
+      "item": "nuclearcraftneohaul:boron_nugget"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:boron_ingot"
+  }
+}

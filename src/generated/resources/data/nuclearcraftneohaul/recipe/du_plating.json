@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:sulfur_gem_dust"
+    },
+    "U": {
+      "item": "minecraft:barrier"
+    }
+  },
+  "pattern": [
+    "SUS",
+    "UPU",
+    "SUS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:du_plating"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "T T",
+    "PSP"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nuclearcraftneohaul:empty_heat_sink"
+  }
+}

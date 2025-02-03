@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:raw_thorium_block_from_thorium_raw"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_thorium_raw": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:thorium_raw"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_thorium_raw"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:raw_thorium_block_from_thorium_raw"
+    ]
+  }
+}

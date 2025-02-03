@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_manganese_oxide_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:manganese_oxide_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:manganese_oxide_ingot_from_manganese_oxide_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_manganese_oxide_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:manganese_oxide_ingot_from_manganese_oxide_block"
+    ]
+  }
+}
