@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.datagen;
 
+import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -16,8 +17,11 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ORE_MAP;
+import static com.nred.nuclearcraft.registration.FluidRegistration.GASSES;
+import static com.nred.nuclearcraft.registration.FluidRegistration.MOLTEN;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 class ModItemTagProvider extends ItemTagsProvider {
@@ -45,6 +49,13 @@ class ModItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.create(Tags.Items.INGOTS.location().withSuffix("/steel"))).add(ALLOY_MAP.get("steel").asItem());
 //        simpleTag(ALLOYS, ALLOY_MAP, Tags.Items.ALLO); //TODO
 
+        buckets();
+    }
+
+    private void buckets() {
+        for (Fluids fluid : fluidValues(GASSES, MOLTEN)) {
+            tag(Tags.Items.BUCKETS).add(fluid.bucket.get());
+        }
     }
 
     private void simpleTag(List<String> list, HashMap<String, DeferredItem<Item>> map, TagKey<Item> tag) {

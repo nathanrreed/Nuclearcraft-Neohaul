@@ -2,16 +2,10 @@ package com.nred.nuclearcraft;
 
 import com.mojang.logging.LogUtils;
 import com.nred.nuclearcraft.registration.Registration;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
 @Mod(NuclearcraftNeohaul.MODID)
@@ -28,11 +22,9 @@ public class NuclearcraftNeohaul {
 //            }).build());
 
     public NuclearcraftNeohaul(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::commonSetup);
-
         Registration.register(modEventBus);
 
-        NeoForge.EVENT_BUS.register(this);
+//        NeoForge.EVENT_BUS.register(this);
 
         // Register the item to a creative tab
 //        modEventBus.addListener(this::addCreative);
@@ -41,24 +33,10 @@ public class NuclearcraftNeohaul {
 //        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-//        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-    }
 
 //    private void addCreative(BuildCreativeModeTabContentsEvent event) {
 //        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS){
 //               event.accept(EXAMPLE_BLOCK_ITEM);
 //        }
 //    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-    }
-
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-        }
-    }
 }

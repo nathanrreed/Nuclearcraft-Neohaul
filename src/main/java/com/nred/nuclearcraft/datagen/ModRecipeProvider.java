@@ -100,7 +100,7 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
                 .unlockedBy(getHasName(PART_MAP.get("basic_plating")), has(PART_MAP.get("basic_plating"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PART_MAP.get("du_plating")).pattern("SUS").pattern("UPU").pattern("SUS")
-                .define('S', GEM_DUST_MAP.get("sulfur")).define('P', PART_MAP.get("advanced_plating")).define('U', Items.BARRIER) //TODO ALLOY_MAP.get("uranium")
+                .define('S', GEM_DUST_MAP.get("sulfur")).define('P', PART_MAP.get("advanced_plating")).define('U', URANIUM_MAP.get("238"))
                 .unlockedBy(getHasName(PART_MAP.get("advanced_plating")), has(PART_MAP.get("advanced_plating"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PART_MAP.get("elite_plating")).pattern("CBC").pattern("BPB").pattern("CBC")

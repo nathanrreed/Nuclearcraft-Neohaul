@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.datagen;
 
+import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
@@ -14,8 +15,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 
 class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -30,6 +33,14 @@ class ModBlockStateProvider extends BlockStateProvider {
         }
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, "ingot_block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "raw_block");
+
+        fluids();
+    }
+
+    private void fluids() {
+        for (Fluids fluid : fluidValues(GASSES, MOLTEN, CUSTOM_FLUID, HOT_GAS, SUGAR, CHOCOLATE, FISSION, STEAM, SALT_SOLUTION, ACID, FLAMMABLE, HOT_COOLANT, COOLANT)) {
+            simpleBlock(fluid.block.get(), models().cubeAll(fluid.block.get().getName().getString(), fluid.client.getStillTexture()));
+        }
     }
 
     private void simpleBlocks(List<String> list, HashMap<String, DeferredBlock<Block>> map, String folder) {
@@ -60,7 +71,7 @@ class ModBlockStateProvider extends BlockStateProvider {
 
     private void blockWithItem(String name, DeferredBlock<Block> deferredBlock, String folder) {
         Block block = deferredBlock.get();
-        String texture =  ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
+        String texture = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile model = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture));
         simpleBlock(block, model);
         simpleBlockItem(block, model);

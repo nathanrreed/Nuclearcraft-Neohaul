@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 public class ModLanguageProvider extends LanguageProvider {
@@ -52,8 +54,49 @@ public class ModLanguageProvider extends LanguageProvider {
         //Blocks
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, " Block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "Block of Raw ", "");
+
+        buckets(GASSES, Map.of("helium_3", "Helium-3"));
+        buckets(MOLTEN, Map.of("boron_10", "Boron-10",
+                "boron_11", "Boron-11",
+                "lithium_6", "Lithium-6",
+                "lithium_7", "Lithium-7",
+                "lif", "Lithium Fluoride",
+                "bef2", "Beryllium Fluoride",
+                "flibe", "FLiBe Salt Mixture",
+                "naoh", "Sodium Hydroxide",
+                "koh", "Potassium Hydroxide",
+                "bas", "Boron Arsenide"), "Molten ");
+        buckets(HOT_GAS, Map.of());
+        buckets(SUGAR, Map.of());
+        buckets(CHOCOLATE, Map.of());
+        buckets(FISSION, Map.of("strontium_90", "Strontium-90",
+                "ruthenium_106", "Ruthenium-106",
+                "caesium_137", "Caesium-137",
+                "promethium_147", "Promethium-147",
+                "europium_155", "Europium-155"));
+        buckets(STEAM, Map.of());
+        buckets(SALT_SOLUTION, Map.of());
+        buckets(ACID, Map.of());
+        buckets(FLAMMABLE, Map.of());
+        buckets(HOT_COOLANT, Map.of());
+        buckets(COOLANT, Map.of("nak", "Nak Alloy",
+                "nak_hot", "Nak Alloy"), "Hot Eutectic ");
+        buckets(CUSTOM_FLUID, Map.of("radaway", "RadAway Fluid",
+                "radaway_slow", "Slow-Acting RadAway Fluid"));
     }
 
+    private void buckets(Map<String, Fluids> type, Map<String, String> replacers) {
+        buckets(type, replacers, "");
+    }
+
+    private void buckets(Map<String, Fluids> type, Map<String, String> replacers, String prefix) {
+        for (String fluid : type.keySet()) {
+            String name = replacers.getOrDefault(fluid, capitalize(fluid));
+            add(type.get(fluid).bucket.asItem(), prefix + name + " Bucket");
+            add(type.get(fluid).type.get().getDescriptionId(), prefix + name);
+            add(type.get(fluid).block.get(), prefix + name);
+        }
+    }
 
     private void tooltips() {
         add("tooltip.radiation", "Radiation: %s %sRad/t");
