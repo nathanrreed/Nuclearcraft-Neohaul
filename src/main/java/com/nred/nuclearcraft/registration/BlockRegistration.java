@@ -1,5 +1,9 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.block.collector.CobbleGenerator;
+import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
+import com.nred.nuclearcraft.block.collector.NitrogenCollector;
+import com.nred.nuclearcraft.block.collector.WaterSource;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -22,6 +26,7 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> ORE_MAP = createOres();
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> RAW_BLOCK_MAP = createBlocks(RAWS, "raw", "block", Blocks.RAW_IRON_BLOCK);
+    public static final HashMap<String, DeferredBlock<Block>> COLLECTOR_MAP = createCollectors();
 
     private static HashMap<String, DeferredBlock<Block>> createOres() {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
@@ -49,6 +54,24 @@ public class BlockRegistration {
             String reg_name = (!prepend.isEmpty() ? (prepend + "_") : "") + name + "_" + append;
             map.put(name, BLOCKS.register(reg_name, () -> new Block(BlockBehaviour.Properties.ofFullCopy(copy))));
             ITEMS.registerSimpleBlockItem(reg_name, map.get(name));
+        }
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createCollectors() {
+        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
+            String name = "cobblestone_generator" + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
+            map.put(name, BLOCKS.register(name, () -> new CobbleGenerator(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
+            ITEMS.registerSimpleBlockItem(name, map.get(name));
+
+            name = "water_source" + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
+            map.put(name, BLOCKS.register(name, () -> new WaterSource(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
+            ITEMS.registerSimpleBlockItem(name, map.get(name));
+
+            name = "nitrogen_collector" + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
+            map.put(name, BLOCKS.register(name, () -> new NitrogenCollector(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
+            ITEMS.registerSimpleBlockItem(name, map.get(name));
         }
         return map;
     }

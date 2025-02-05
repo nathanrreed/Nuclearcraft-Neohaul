@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
@@ -83,6 +84,14 @@ public class ModLanguageProvider extends LanguageProvider {
                 "nak_hot", "Nak Alloy"), "Hot Eutectic ");
         buckets(CUSTOM_FLUID, Map.of("radaway", "RadAway Fluid",
                 "radaway_slow", "Slow-Acting RadAway Fluid"));
+
+        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
+            for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
+                String type = level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase();
+                add(COLLECTOR_MAP.get(machine + type).asItem(), capitalize(type + "_" + machine));
+            }
+        }
+
     }
 
     private void buckets(Map<String, Fluids> type, Map<String, String> replacers) {
@@ -100,6 +109,8 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void tooltips() {
         add("tooltip.radiation", "Radiation: %s %sRad/t");
+        add("tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");
+        add("tooltip.collector", "Produces %s mb/t of %s constantly.");
     }
 
     private void fuelTypeItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
@@ -148,6 +159,6 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private String capitalize(String input) {
-        return String.join(" ", Arrays.stream(input.split("_")).map(StringUtils::capitalize).toList());
+        return String.join(" ", Arrays.stream(input.split("_")).map(StringUtils::capitalize).toList()).trim();
     }
 }

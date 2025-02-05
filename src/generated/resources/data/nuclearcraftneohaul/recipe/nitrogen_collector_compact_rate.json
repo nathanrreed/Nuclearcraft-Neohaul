@@ -1,0 +1,10 @@
+{
+  "type": "nuclearcraftneohaul:collector_recipe",
+  "fluidResult": {
+    "amount": 40,
+    "id": "nuclearcraftneohaul:nitrogen"
+  },
+  "itemResult": {},
+  "level": "COMPACT",
+  "rate": 40.0
+}

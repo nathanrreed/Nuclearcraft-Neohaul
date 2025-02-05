@@ -14,6 +14,23 @@
     "nuclearcraftneohaul:thorium_ingot",
     "nuclearcraftneohaul:tin_ingot",
     "nuclearcraftneohaul:uranium_ingot",
-    "nuclearcraftneohaul:zirconium_ingot"
+    "nuclearcraftneohaul:zirconium_ingot",
+    "nuclearcraftneohaul:bronze_alloy",
+    "nuclearcraftneohaul:extreme_alloy",
+    "nuclearcraftneohaul:ferroboron_alloy",
+    "nuclearcraftneohaul:hard_carbon_alloy",
+    "nuclearcraftneohaul:hsla_steel_alloy",
+    "nuclearcraftneohaul:lead_platinum_alloy",
+    "nuclearcraftneohaul:lithium_manganese_dioxide_alloy",
+    "nuclearcraftneohaul:magnesium_diboride_alloy",
+    "nuclearcraftneohaul:shibuichi_alloy",
+    "nuclearcraftneohaul:sic_sic_cmc_alloy",
+    "nuclearcraftneohaul:silicon_carbide_alloy",
+    "nuclearcraftneohaul:steel_alloy",
+    "nuclearcraftneohaul:thermoconducting_alloy",
+    "nuclearcraftneohaul:tin_silver_alloy",
+    "nuclearcraftneohaul:tough_alloy",
+    "nuclearcraftneohaul:zircaloy_alloy",
+    "nuclearcraftneohaul:zirconium_molybdenum_alloy"
   ]
 }

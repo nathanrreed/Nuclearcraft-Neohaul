@@ -13,6 +13,15 @@
     "nuclearcraftneohaul:uranium",
     "nuclearcraftneohaul:lead_deepslate_ore",
     "nuclearcraftneohaul:boron",
-    "nuclearcraftneohaul:lithium_deepslate_ore"
+    "nuclearcraftneohaul:lithium_deepslate_ore",
+    "nuclearcraftneohaul:cobblestone_generator",
+    "nuclearcraftneohaul:nitrogen_collector",
+    "nuclearcraftneohaul:water_source_dense",
+    "nuclearcraftneohaul:water_source_compact",
+    "nuclearcraftneohaul:nitrogen_collector_compact",
+    "nuclearcraftneohaul:water_source",
+    "nuclearcraftneohaul:cobblestone_generator_dense",
+    "nuclearcraftneohaul:nitrogen_collector_dense",
+    "nuclearcraftneohaul:cobblestone_generator_compact"
   ]
 }

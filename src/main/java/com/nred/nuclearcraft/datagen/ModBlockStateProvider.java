@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.datagen;
 
+import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -33,6 +34,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         }
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, "ingot_block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "raw_block");
+
+        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
+            for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
+                String name = machine + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
+                blockWithItem(name, COLLECTOR_MAP.get(name), "collectors");
+            }
+        }
 
         fluids();
     }

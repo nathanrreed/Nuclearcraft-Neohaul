@@ -1,0 +1,10 @@
+{
+  "type": "nuclearcraftneohaul:collector_recipe",
+  "fluidResult": {
+    "amount": 80,
+    "id": "minecraft:water"
+  },
+  "itemResult": {},
+  "level": "COMPACT",
+  "rate": 80.0
+}

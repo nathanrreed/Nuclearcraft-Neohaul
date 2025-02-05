@@ -1,0 +1,10 @@
+{
+  "type": "nuclearcraftneohaul:collector_recipe",
+  "fluidResult": {},
+  "itemResult": {
+    "count": 1,
+    "id": "minecraft:cobblestone"
+  },
+  "level": "DENSE",
+  "rate": 8.0
+}

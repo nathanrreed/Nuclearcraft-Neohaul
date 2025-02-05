@@ -1,0 +1,10 @@
+{
+  "type": "nuclearcraftneohaul:collector_recipe",
+  "fluidResult": {
+    "amount": 320,
+    "id": "nuclearcraftneohaul:nitrogen"
+  },
+  "itemResult": {},
+  "level": "DENSE",
+  "rate": 320.0
+}

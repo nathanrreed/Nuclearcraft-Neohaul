@@ -82,7 +82,7 @@ public class Fluids {
         this(name, tint, new TypeInfo(type.gaseous, type.still, type.flowing, type.properties.temperature(temperature)));
     }
 
-    public Fluids(String name, int tint, TypeInfo type) {
+    public Fluids(String name, int tint, TypeInfo type) { //TODO add effects and damage
         this.type = FLUID_TYPES.register(name + "_type", () -> new FluidType(type.properties));
         this.gaseous = type.gaseous;
 

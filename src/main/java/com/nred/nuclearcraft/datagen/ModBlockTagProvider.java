@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.helpers.Concat.blockValues;
 import static com.nred.nuclearcraft.info.Names.INGOTS;
 import static com.nred.nuclearcraft.info.Names.RAWS;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
@@ -28,7 +29,7 @@ class ModBlockTagProvider extends BlockTagsProvider {
     @Override
     public void addTags(HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(ORE_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+                .add(blockValues(ORE_MAP, COLLECTOR_MAP).toArray(Block[]::new));
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ORE_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new));

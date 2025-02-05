@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/beryllium"
+    },
+    "E": {
+      "item": "minecraft:bucket"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "E E",
+    "PBP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:nitrogen_collector"
+  }
+}

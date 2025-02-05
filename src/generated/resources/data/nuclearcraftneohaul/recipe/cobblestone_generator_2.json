@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "minecraft:lava_bucket"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "PTP",
+    "L W",
+    "PTP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:cobblestone_generator"
+  }
+}

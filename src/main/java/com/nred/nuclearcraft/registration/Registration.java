@@ -10,6 +10,9 @@ public class Registration {
         BlockRegistration.init();
         ItemRegistration.init();
         FluidRegistration.init();
+        BlockEntityRegistration.init();
+        RecipeSerializerRegistration.init();
+        RecipeTypeRegistration.init();
     }
 
     public static void register(IEventBus modEventBus){
@@ -18,5 +21,8 @@ public class Registration {
         ITEMS.register(modEventBus);
         FLUIDS.register(modEventBus);
         FLUID_TYPES.register(modEventBus);
+        BLOCK_ENTITY_TYPES.register(modEventBus);
+        RECIPE_TYPES.register(modEventBus);
+        RECIPE_SERIALIZERS.register(modEventBus);
     }
 }

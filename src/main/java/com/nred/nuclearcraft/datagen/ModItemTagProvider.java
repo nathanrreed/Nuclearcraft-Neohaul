@@ -39,15 +39,13 @@ class ModItemTagProvider extends ItemTagsProvider {
             tag(Tags.Items.ORES_IN_GROUND_STONE).add(ORE_MAP.get(name).asItem());
         }
         simpleTag(INGOTS, INGOT_MAP, Tags.Items.INGOTS);
+        simpleTag(ALLOYS, ALLOY_MAP, Tags.Items.INGOTS);
         simpleTag(GEMS, GEM_MAP, Tags.Items.GEMS);
         simpleTag(DUSTS, DUST_MAP, Tags.Items.DUSTS);
         simpleTag(GEM_DUSTS, GEM_DUST_MAP, Tags.Items.DUSTS);
         simpleTag(COMPOUNDS, COMPOUND_MAP, Tags.Items.DUSTS);
         simpleTag(RAWS, RAW_MAP, Tags.Items.RAW_MATERIALS);
         simpleTag(NUGGETS, NUGGET_MAP, Tags.Items.NUGGETS);
-
-        tag(ItemTags.create(Tags.Items.INGOTS.location().withSuffix("/steel"))).add(ALLOY_MAP.get("steel").asItem());
-//        simpleTag(ALLOYS, ALLOY_MAP, Tags.Items.ALLO); //TODO
 
         buckets();
     }

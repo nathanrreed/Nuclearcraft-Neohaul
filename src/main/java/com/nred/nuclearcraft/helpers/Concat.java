@@ -1,6 +1,9 @@
 package com.nred.nuclearcraft.helpers;
 
 import com.nred.nuclearcraft.info.Fluids;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,12 +14,19 @@ public class Concat {
     public static List<String> fluidKeys(Map<String, Fluids>... args) {
         return Arrays.stream(args).flatMap(m -> m.keySet().stream()).toList();
     }
+
     @SafeVarargs
     public static List<Map.Entry<String, Fluids>> fluidEntries(Map<String, Fluids>... args) {
         return Arrays.stream(args).flatMap(m -> m.entrySet().stream()).toList();
     }
+
     @SafeVarargs
     public static List<Fluids> fluidValues(Map<String, Fluids>... args) {
         return Arrays.stream(args).flatMap(m -> m.values().stream()).toList();
+    }
+
+    @SafeVarargs
+    public static List<Block> blockValues(Map<String, DeferredBlock<Block>>... args) {
+        return Arrays.stream(args).flatMap(m -> m.values().stream()).map(DeferredHolder::get).toList();
     }
 }
