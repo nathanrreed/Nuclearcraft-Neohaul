@@ -39,103 +39,97 @@ public class Config {
 
         BUILDER.comment("Processor Settings").push("processor");
 
-
         BUILDER.comment("Alloy Furnace").push("alloy_furnace");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 64000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Assembler").push("assembler");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 6000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Centrifuge").push("centrifuge");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 16000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Chemical Reactor").push("chemical_reactor");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
         BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
         BUILDER.pop();
-
 
         BUILDER.comment("Crystallizer").push("crystallizer");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 16000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Decay Hastener").push("decay_hastener");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 152110, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Electric Furnace").push("electric_furnace");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 4000, 1, Integer.MAX_VALUE);
         BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Electrolyzer").push("electrolyzer");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
-        BUILDER.pop();
-
-
-        BUILDER.comment("Enricher").push("fluid_enricher");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
-        BUILDER.pop();
-
-        BUILDER.comment("Extractor").push("fluid_extractor");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 128000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 40, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Fuel Reprocessor").push("fuel_reprocessor");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 8000, 1, Integer.MAX_VALUE);
         BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
-        BUILDER.comment("Infuser").push("fluid_infuser");
+        BUILDER.comment("Fluid Enricher").push("fluid_enricher");
+        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 6000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+
+        BUILDER.comment("Fluid Extractor").push("fluid_extractor");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
         BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+
+        BUILDER.comment("Fluid Infuser").push("fluid_infuser");
+        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 24000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+
+        BUILDER.comment("Fluid Mixer").push("fluid_mixer");
+        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 16000, 1, Integer.MAX_VALUE);
         BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Ingot Former").push("ingot_former");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Manufactory").push("manufactory");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 24000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 30, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Melter").push("melter");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 576000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 40, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Pressurizer").push("pressurizer");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("capacity", 54000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 40, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Rock Crusher").push("rock_crusher");
@@ -143,19 +137,12 @@ public class Config {
         BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
-        BUILDER.comment("Supercooler").push("supercooler");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
-        BUILDER.pop();
-
-        BUILDER.comment("Salt Mixer").push("fluid_mixer");
-        BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
-        BUILDER.pop();
-
         BUILDER.comment("Separator").push("separator");
+        BUILDER.defineInRange("capacity", 48000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("processing_power", 10, 1, Integer.MAX_VALUE);
+        BUILDER.pop();
+
+        BUILDER.comment("Supercooler").push("supercooler");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
         BUILDER.defineInRange("capacity", 12000, 1, Integer.MAX_VALUE);
         BUILDER.defineInRange("processing_power", 20, 1, Integer.MAX_VALUE);
@@ -173,7 +160,7 @@ public class Config {
         CommentedConfig config = Objects.requireNonNull(event.getConfig().getLoadedConfig()).config();
 
         for (String processor : PROCESSOR_MAP.keySet()) {
-            PROCESSOR_CONFIG_MAP.put(processor, new ProcessorConfig(config.getInt("processor." + processor + ".capacity"), config.getInt("processor." + processor + ".processing_power"), config.getIntOrElse("processor." + processor + ".fluid_capacity", 0)));
+            PROCESSOR_CONFIG_MAP.put(processor, new ProcessorConfig(config.getIntOrElse("processor." + processor + ".capacity", 0), config.getIntOrElse("processor." + processor + ".processing_power", 0), config.getIntOrElse("processor." + processor + ".fluid_capacity", 0)));
         }
     }
 }

@@ -8,6 +8,6 @@ import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 
 public class ManufactoryScreen extends ProcessorScreen<ManufactoryMenu> {
     public ManufactoryScreen(ManufactoryMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, "manufactory", PROCESSOR_CONFIG_MAP.get("manufactory").processing_power(), 74, 36);
+        super(menu, playerInventory, title, "manufactory", PROCESSOR_CONFIG_MAP.get("manufactory").processing_power(), 74, 35);
     }
 }

@@ -32,7 +32,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -41,6 +40,7 @@ import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.helpers.GuiHelper.blitTile;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
 public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractContainerScreen<T> {
@@ -259,8 +259,10 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
             guiGraphics.blitSprite(BASE, 256, 256, 0, 0, leftPos, topPos, 175, 256);
 
             // Draw FE Bar
-            int varLen = ((int) Math.ceil((double) menu.energyStorage.getEnergyStored() / menu.energyStorage.getMaxEnergyStored() * (74.0 + offset)));
-            guiGraphics.blitSprite(BASE, 256, 256, 176, 164 - varLen + offset, leftPos + 8, topPos + 80 - varLen + offset, 16, varLen);
+            if (menu.energyStorage != null) {
+                int varLen = ((int) Math.ceil((double) menu.energyStorage.getEnergyStored() / menu.energyStorage.getMaxEnergyStored() * (74.0 + offset)));
+                guiGraphics.blitSprite(BASE, 256, 256, 176, 164 - varLen + offset, leftPos + 8, topPos + 80 - varLen + offset, 16, varLen);
+            }
 
             // Draw Progress Bar
             guiGraphics.blitSprite(BASE, 256, 256, 176, 3, leftPos + progressX, topPos + progressY, (int) ((menu.progress.get() / 100.0) * 37), 38);
@@ -274,14 +276,18 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
             guiGraphics.setColor(1f, 1f, 1f, 1f);
 
             if (ENERGY_BAR.containsPoint(mouseX, mouseY)) {
-                int speed = 1 + menu.itemHandler.getStackInSlot(ProcessorMenu.SPEED).getCount();
-                float energy = Math.max(speed, ((float) speed / (menu.itemHandler.getStackInSlot(ProcessorMenu.ENERGY).getCount() + 1f)) * speed);
-                guiGraphics.renderComponentTooltip(font, List.of(
-                        Component.translatable("tooltip.processor.energy.stored", menu.energyStorage.getEnergyStored(), menu.energyStorage.getMaxEnergyStored()),
-                        Component.translatable("tooltip.processor.energy.using", new DecimalFormat("#.##").format(baseSpeed * energy)),
-                        Component.translatable("tooltip.processor.energy.speed", speed),
-                        Component.translatable("tooltip.processor.energy.energy", new DecimalFormat("#.##").format(energy))
-                ), mouseX, mouseY);
+                if (menu.energyStorage != null) {
+                    int speed = 1 + menu.itemHandler.getStackInSlot(ProcessorMenu.SPEED).getCount();
+                    float energy = Math.max(speed, ((float) speed / (menu.itemHandler.getStackInSlot(ProcessorMenu.ENERGY).getCount() + 1f)) * speed);
+                    guiGraphics.renderComponentTooltip(font, List.of(
+                            Component.translatable("tooltip.processor.energy.stored", getFEString(menu.energyStorage.getEnergyStored()), getFEString(menu.energyStorage.getMaxEnergyStored())),
+                            Component.translatable("tooltip.processor.energy.using", getFEString(baseSpeed * energy)),
+                            Component.translatable("tooltip.processor.energy.speed", speed),
+                            Component.translatable("tooltip.processor.energy.energy", getFEString(energy))
+                    ), mouseX, mouseY);
+                } else {
+                    guiGraphics.renderTooltip(font, Component.translatable("tooltip.processor.energy.not_required").withStyle(ChatFormatting.RED), mouseX, mouseY);
+                }
             }
         }
     }

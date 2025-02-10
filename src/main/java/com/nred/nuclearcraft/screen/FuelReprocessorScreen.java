@@ -8,6 +8,6 @@ import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 
 public class FuelReprocessorScreen extends ProcessorScreen<FuelReprocessorMenu> {
     public FuelReprocessorScreen(FuelReprocessorMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, "fuel_reprocessor", PROCESSOR_CONFIG_MAP.get("fuel_reprocessor").processing_power(), 48, 31, 12);
+        super(menu, playerInventory, title, "fuel_reprocessor", PROCESSOR_CONFIG_MAP.get("fuel_reprocessor").processing_power(), 48, 30, 12);
     }
 }

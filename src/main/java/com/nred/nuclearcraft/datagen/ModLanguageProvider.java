@@ -116,10 +116,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.radiation", "Radiation: %s %sRad/t");
         add("tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");
         add("tooltip.collector", "Produces %s mb/t of %s constantly.");
-        add("tooltip.processor.energy.stored", "§dEnergy Stored:§r %s FE / %s FE");
-        add("tooltip.processor.energy.using", "§dProcess Power:§r %s FE/t");
+        add("tooltip.processor.energy.stored", "§dEnergy Stored:§r %s / %s");
+        add("tooltip.processor.energy.using", "§dProcess Power:§r %s/t");
         add("tooltip.processor.energy.speed", "§bSpeed Multiplier:§r x%s");
         add("tooltip.processor.energy.energy", "§bPower Multiplier:§r x%s");
+        add("tooltip.processor.energy.not_required", "Does not require energy!");
 
         add("tooltip.alloy_furnace", "Combines base metals into alloys.");
         add("tooltip.assembler", "Combines components into a complex product.");
@@ -172,8 +173,6 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.side_config.slot_setting.default", "DEFAULT");
         add("tooltip.side_config.slot_setting.void_excess", "VOID EXCESS");
         add("tooltip.side_config.slot_setting.void_all", "VOID ALL");
-
-
     }
 
     private void menus() {

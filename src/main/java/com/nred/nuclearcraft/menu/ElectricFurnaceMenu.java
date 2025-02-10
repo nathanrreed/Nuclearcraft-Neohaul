@@ -7,8 +7,8 @@ import net.minecraft.world.inventory.DataSlot;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class ElectricFurnaceMenu extends ProcessorMenu {
-    public static int INPUT = 0;
-    public static int OUTPUT = 1;
+    public static final int INPUT = 2;
+    public static final int OUTPUT = 3;
 
     public ElectricFurnaceMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress);

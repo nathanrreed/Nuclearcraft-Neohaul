@@ -6,11 +6,11 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 
 public class ElectrolyzerMenu extends ProcessorMenu {
-    public static int INPUT = 0;
-    public static int OUTPUT_1 = 1;
-    public static int OUTPUT_2 = 2;
-    public static int OUTPUT_3 = 3;
-    public static int OUTPUT_4 = 4;
+    public static final int INPUT = 0;
+    public static final int OUTPUT_1 = 1;
+    public static final int OUTPUT_2 = 2;
+    public static final int OUTPUT_3 = 3;
+    public static final int OUTPUT_4 = 4;
 
     public ElectrolyzerMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress, 12);

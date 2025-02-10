@@ -48,9 +48,6 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
         this.itemHandler = inventory.player.level().getCapability(Capabilities.ItemHandler.BLOCK, info.pos(), null);
         this.fluidHandler = (CustomFluidStackHandler) inventory.player.level().getCapability(Capabilities.FluidHandler.BLOCK, info.pos(), null);
 
-        SPEED_SLOT = this.addSlot(new SlotItemHandler(itemHandler, SPEED, 132, 64 + offset));
-        ENERGY_SLOT = this.addSlot(new SlotItemHandler(itemHandler, ENERGY, 152, 64 + offset));
-
         // Progress
         this.addDataSlot(this.progress);
 
@@ -58,6 +55,10 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
         for (int[] slotInfo : listPlayerInventoryHotbarPos(offset)) {
             this.addSlot(new Slot(inventory, slotInfo[0], slotInfo[1], slotInfo[2]));
         }
+
+        // Upgrade slots
+        SPEED_SLOT = this.addSlot(new SlotItemHandler(itemHandler, SPEED, 132, 64 + offset));
+        ENERGY_SLOT = this.addSlot(new SlotItemHandler(itemHandler, ENERGY, 152, 64 + offset));
     }
 
     protected ProcessorMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {

@@ -6,8 +6,8 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 
 public class SupercoolerMenu extends ProcessorMenu {
-    public static int INPUT = 0;
-    public static int OUTPUT = 1;
+    public static final int INPUT = 0;
+    public static final int OUTPUT = 1;
 
     public SupercoolerMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress);

@@ -7,11 +7,11 @@ import net.minecraft.world.inventory.DataSlot;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class AssemblerMenu extends ProcessorMenu {
-    public static int INPUT_1 = 1;
-    public static int INPUT_2 = 2;
-    public static int INPUT_3 = 3;
-    public static int INPUT_4 = 4;
-    public static int OUTPUT = 1;
+    public static final int INPUT_1 = 2;
+    public static final int INPUT_2 = 3;
+    public static final int INPUT_3 = 4;
+    public static final int INPUT_4 = 5;
+    public static final int OUTPUT = 6;
 
     public AssemblerMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress, 12);

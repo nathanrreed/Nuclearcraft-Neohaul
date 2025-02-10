@@ -12,4 +12,18 @@ public class SimpleHelper {
         Collections.shuffle(rtn);
         return rtn;
     }
+
+    public static String getFEString(double power) {
+        if ((power / 1000000000.0) >= 0.999999) {
+            return String.format("%.1f GFE", power / 1000000000.0);
+        } else if ((power / 1000000.0) >= 0.999999) {
+            return String.format("%.1f MFE", power / 1000000.0);
+        } else if ((power / 1000.0) >= 0.999999) {
+            return String.format("%.1f kFE", power / 1000.0);
+        } else {
+            return String.format("%.1f FE", power);
+        }
+    }
+
+    //new DecimalFormat("#.##").format
 }

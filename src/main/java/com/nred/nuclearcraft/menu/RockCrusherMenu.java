@@ -7,10 +7,10 @@ import net.minecraft.world.inventory.DataSlot;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class RockCrusherMenu extends ProcessorMenu {
-    public static int INPUT = 2;
-    public static int OUTPUT_1 = 3;
-    public static int OUTPUT_2 = 4;
-    public static int OUTPUT_3 = 5;
+    public static final int INPUT = 2;
+    public static final int OUTPUT_1 = 3;
+    public static final int OUTPUT_2 = 4;
+    public static final int OUTPUT_3 = 5;
 
     public RockCrusherMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress);

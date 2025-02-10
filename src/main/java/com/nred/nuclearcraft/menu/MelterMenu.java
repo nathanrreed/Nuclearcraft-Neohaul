@@ -7,8 +7,8 @@ import net.minecraft.world.inventory.DataSlot;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class MelterMenu extends ProcessorMenu {
-    public static int INPUT = 0;
-    public static int OUTPUT = 0;
+    public static final int INPUT = 2;
+    public static final int OUTPUT = 0;
 
     public MelterMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress);

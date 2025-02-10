@@ -7,8 +7,8 @@ import net.minecraft.world.inventory.DataSlot;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class CrystallizerMenu extends ProcessorMenu {
-    public static int FLUID_INPUT = 0;
-    public static int OUTPUT = 0;
+    public static final int FLUID_INPUT = 0;
+    public static final int OUTPUT = 2;
 
     public CrystallizerMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress);

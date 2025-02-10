@@ -39,11 +39,19 @@ public class CustomEnergyHandler extends EnergyStorage {
 
     // Normal insert and extract for use within the mod
     public int internalInsertEnergy(int toReceive, boolean simulate) {
-        return super.receiveEnergy(toReceive, simulate);
+        int rtn = super.receiveEnergy(toReceive, simulate);
+        if (rtn > 0 && !simulate) {
+            onContentsChanged();
+        }
+        return rtn;
     }
 
     public int internalExtractEnergy(int toExtract, boolean simulate) {
-        return super.extractEnergy(toExtract, simulate);
+        int rtn = super.extractEnergy(toExtract, simulate);
+        if (rtn > 0 && !simulate) {
+            onContentsChanged();
+        }
+        return rtn;
     }
 
     protected void onContentsChanged() {

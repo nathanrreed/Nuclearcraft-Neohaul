@@ -8,6 +8,6 @@ import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 
 public class RockCrusherScreen extends ProcessorScreen<RockCrusherMenu> {
     public RockCrusherScreen(RockCrusherMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, "rock_crusher", PROCESSOR_CONFIG_MAP.get("rock_crusher").processing_power(), 56, 36);
+        super(menu, playerInventory, title, "rock_crusher", PROCESSOR_CONFIG_MAP.get("rock_crusher").processing_power(), 56, 35);
     }
 }

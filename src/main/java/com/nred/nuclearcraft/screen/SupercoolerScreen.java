@@ -8,6 +8,6 @@ import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 
 public class SupercoolerScreen extends ProcessorScreen<SupercoolerMenu> {
     public SupercoolerScreen(SupercoolerMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, "supercooler", PROCESSOR_CONFIG_MAP.get("supercooler").processing_power(), 74, 36);
+        super(menu, playerInventory, title, "supercooler", PROCESSOR_CONFIG_MAP.get("supercooler").processing_power(), 74, 35);
     }
 }

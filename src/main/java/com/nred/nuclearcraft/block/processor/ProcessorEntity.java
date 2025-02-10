@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
 import com.nred.nuclearcraft.helpers.CustomItemStackHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -20,7 +21,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.extensions.IMenuProviderExtension;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.IItemHandler;
 
 import static com.nred.nuclearcraft.block.processor.Processor.POWERED;
 import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
@@ -117,14 +121,27 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity entity) {
-        if (!(redstoneMode && state.getValue(POWERED))) {
+        if (!(redstoneMode && state.getValue(POWERED)) && energyHandler.getEnergyStored() >= PROCESSOR_CONFIG_MAP.get(this.typeName).processing_power()) {
             if (!state.getValue(PROCESSOR_ON)) {
                 level.setBlockAndUpdate(pos, state.setValue(PROCESSOR_ON, true));
             }
             progressSlot.set((progress + 1) % 100);
+            energyHandler.internalExtractEnergy(PROCESSOR_CONFIG_MAP.get(this.typeName).processing_power(), false);
         } else if (state.getValue(PROCESSOR_ON)) {
             level.setBlockAndUpdate(pos, state.setValue(PROCESSOR_ON, false));
         }
+    }
+
+    public IItemHandler getItemHandler(Direction side) { // TODO use side config
+        return itemStackHandler;
+    }
+
+    public IEnergyStorage getEnergyHandler(Direction side) {
+        return energyHandler;
+    }
+
+    public IFluidHandler getFluidHandler(Direction side) {
+        return fluidHandler;
     }
 
     @Override

@@ -6,9 +6,9 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 
 public class SaltMixerMenu extends ProcessorMenu {
-    public static int INPUT_1 = 0;
-    public static int INPUT_2 = 1;
-    public static int OUTPUT = 2;
+    public static final int INPUT_1 = 0;
+    public static final int INPUT_2 = 1;
+    public static final int OUTPUT = 2;
 
     public SaltMixerMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress);

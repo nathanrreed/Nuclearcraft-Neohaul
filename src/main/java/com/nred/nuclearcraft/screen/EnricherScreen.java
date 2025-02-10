@@ -8,6 +8,6 @@ import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 
 public class EnricherScreen extends ProcessorScreen<EnricherMenu> {
     public EnricherScreen(EnricherMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, "fluid_enricher", PROCESSOR_CONFIG_MAP.get("fluid_enricher").processing_power(), 84, 36);
+        super(menu, playerInventory, title, "fluid_enricher", PROCESSOR_CONFIG_MAP.get("fluid_enricher").processing_power(), 84, 35);
     }
 }
