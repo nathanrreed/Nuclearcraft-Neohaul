@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    },
+    "E": {
+      "item": "nuclearcraftneohaul:electric_motor"
+    },
+    "G": {
+      "item": "nuclearcraftneohaul:graphite_ingot"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    }
+  },
+  "pattern": [
+    "PGP",
+    "CMC",
+    "PEP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:electrolyzer"
+  }
+}

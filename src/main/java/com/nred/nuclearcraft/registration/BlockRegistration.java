@@ -1,9 +1,29 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.block.collector.CobbleGenerator;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
-import com.nred.nuclearcraft.block.collector.NitrogenCollector;
-import com.nred.nuclearcraft.block.collector.WaterSource;
+import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGenerator;
+import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollector;
+import com.nred.nuclearcraft.block.collector.water_source.WaterSource;
+import com.nred.nuclearcraft.block.processor.alloy_furnace.AlloyFurnace;
+import com.nred.nuclearcraft.block.processor.assembler.Assembler;
+import com.nred.nuclearcraft.block.processor.centrifuge.Centrifuge;
+import com.nred.nuclearcraft.block.processor.chemical_reactor.ChemicalReactor;
+import com.nred.nuclearcraft.block.processor.crystallizer.Crystallizer;
+import com.nred.nuclearcraft.block.processor.decay_hastener.DecayHastener;
+import com.nred.nuclearcraft.block.processor.electric_furnace.ElectricFurnace;
+import com.nred.nuclearcraft.block.processor.electrolyzer.Electrolyzer;
+import com.nred.nuclearcraft.block.processor.enricher.Enricher;
+import com.nred.nuclearcraft.block.processor.extractor.Extractor;
+import com.nred.nuclearcraft.block.processor.fuel_reprocessor.FuelReprocessor;
+import com.nred.nuclearcraft.block.processor.infuser.Infuser;
+import com.nred.nuclearcraft.block.processor.ingot_former.IngotFormer;
+import com.nred.nuclearcraft.block.processor.manufactory.Manufactory;
+import com.nred.nuclearcraft.block.processor.melter.Melter;
+import com.nred.nuclearcraft.block.processor.pressurizer.Pressurizer;
+import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusher;
+import com.nred.nuclearcraft.block.processor.salt_mixer.SaltMixer;
+import com.nred.nuclearcraft.block.processor.separator.Separator;
+import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -27,6 +47,10 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> RAW_BLOCK_MAP = createBlocks(RAWS, "raw", "block", Blocks.RAW_IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> COLLECTOR_MAP = createCollectors();
+
+    private static final BlockBehaviour.Properties BASE_PROPERTIES = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 1200.0F).isValidSpawn(Blocks::never).isRedstoneConductor((a, b, c) -> false);
+
+    public static final HashMap<String, DeferredBlock<Block>> PROCESSOR_MAP = createProcessors();
 
     private static HashMap<String, DeferredBlock<Block>> createOres() {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
@@ -61,18 +85,44 @@ public class BlockRegistration {
     private static HashMap<String, DeferredBlock<Block>> createCollectors() {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
-            String name = "cobblestone_generator" + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
+            String type = level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase();
+            String name = "cobblestone_generator" + type;
             map.put(name, BLOCKS.register(name, () -> new CobbleGenerator(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
             ITEMS.registerSimpleBlockItem(name, map.get(name));
 
-            name = "water_source" + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
+            name = "water_source" + type;
             map.put(name, BLOCKS.register(name, () -> new WaterSource(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
             ITEMS.registerSimpleBlockItem(name, map.get(name));
 
-            name = "nitrogen_collector" + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
+            name = "nitrogen_collector" + type;
             map.put(name, BLOCKS.register(name, () -> new NitrogenCollector(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
             ITEMS.registerSimpleBlockItem(name, map.get(name));
         }
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createProcessors() {
+        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        map.put("alloy_furnace", registerBlockItem("alloy_furnace", () -> new AlloyFurnace(BASE_PROPERTIES)));
+        map.put("assembler", registerBlockItem("assembler", () -> new Assembler(BASE_PROPERTIES)));
+        map.put("centrifuge", registerBlockItem("centrifuge", () -> new Centrifuge(BASE_PROPERTIES)));
+        map.put("chemical_reactor", registerBlockItem("chemical_reactor", () -> new ChemicalReactor(BASE_PROPERTIES)));
+        map.put("crystallizer", registerBlockItem("crystallizer", () -> new Crystallizer(BASE_PROPERTIES)));
+        map.put("decay_hastener", registerBlockItem("decay_hastener", () -> new DecayHastener(BASE_PROPERTIES)));
+        map.put("electric_furnace", registerBlockItem("electric_furnace", () -> new ElectricFurnace(BASE_PROPERTIES)));
+        map.put("electrolyzer", registerBlockItem("electrolyzer", () -> new Electrolyzer(BASE_PROPERTIES)));
+        map.put("fluid_enricher", registerBlockItem("fluid_enricher", () -> new Enricher(BASE_PROPERTIES)));
+        map.put("fluid_extractor", registerBlockItem("fluid_extractor", () -> new Extractor(BASE_PROPERTIES)));
+        map.put("fuel_reprocessor", registerBlockItem("fuel_reprocessor", () -> new FuelReprocessor(BASE_PROPERTIES)));
+        map.put("fluid_infuser", registerBlockItem("fluid_infuser", () -> new Infuser(BASE_PROPERTIES)));
+        map.put("ingot_former", registerBlockItem("ingot_former", () -> new IngotFormer(BASE_PROPERTIES)));
+        map.put("manufactory", registerBlockItem("manufactory", () -> new Manufactory(BASE_PROPERTIES)));
+        map.put("melter", registerBlockItem("melter", () -> new Melter(BASE_PROPERTIES)));
+        map.put("pressurizer", registerBlockItem("pressurizer", () -> new Pressurizer(BASE_PROPERTIES)));
+        map.put("rock_crusher", registerBlockItem("rock_crusher", () -> new RockCrusher(BASE_PROPERTIES)));
+        map.put("fluid_mixer", registerBlockItem("fluid_mixer", () -> new SaltMixer(BASE_PROPERTIES)));
+        map.put("separator", registerBlockItem("separator", () -> new Separator(BASE_PROPERTIES)));
+        map.put("supercooler", registerBlockItem("supercooler", () -> new Supercooler(BASE_PROPERTIES)));
         return map;
     }
 

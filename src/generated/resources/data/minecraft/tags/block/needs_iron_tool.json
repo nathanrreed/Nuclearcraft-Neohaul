@@ -13,6 +13,26 @@
     "nuclearcraftneohaul:uranium",
     "nuclearcraftneohaul:lead_deepslate_ore",
     "nuclearcraftneohaul:boron",
-    "nuclearcraftneohaul:lithium_deepslate_ore"
+    "nuclearcraftneohaul:lithium_deepslate_ore",
+    "nuclearcraftneohaul:rock_crusher",
+    "nuclearcraftneohaul:decay_hastener",
+    "nuclearcraftneohaul:crystallizer",
+    "nuclearcraftneohaul:assembler",
+    "nuclearcraftneohaul:alloy_furnace",
+    "nuclearcraftneohaul:electrolyzer",
+    "nuclearcraftneohaul:pressurizer",
+    "nuclearcraftneohaul:supercooler",
+    "nuclearcraftneohaul:separator",
+    "nuclearcraftneohaul:fluid_mixer",
+    "nuclearcraftneohaul:fluid_extractor",
+    "nuclearcraftneohaul:melter",
+    "nuclearcraftneohaul:electric_furnace",
+    "nuclearcraftneohaul:centrifuge",
+    "nuclearcraftneohaul:chemical_reactor",
+    "nuclearcraftneohaul:fluid_infuser",
+    "nuclearcraftneohaul:ingot_former",
+    "nuclearcraftneohaul:fluid_enricher",
+    "nuclearcraftneohaul:fuel_reprocessor",
+    "nuclearcraftneohaul:manufactory"
   ]
 }

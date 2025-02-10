@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,nuclearcraftneohaul_processor_on=false,powered=false": {
+      "model": "nuclearcraftneohaul:block/assembler_off",
+      "y": 90
+    },
+    "facing=east,nuclearcraftneohaul_processor_on=false,powered=true": {
+      "model": "nuclearcraftneohaul:block/assembler_off",
+      "y": 90
+    },
+    "facing=east,nuclearcraftneohaul_processor_on=true,powered=false": {
+      "model": "nuclearcraftneohaul:block/assembler_on",
+      "y": 90
+    },
+    "facing=east,nuclearcraftneohaul_processor_on=true,powered=true": {
+      "model": "nuclearcraftneohaul:block/assembler_on",
+      "y": 90
+    },
+    "facing=north,nuclearcraftneohaul_processor_on=false,powered=false": {
+      "model": "nuclearcraftneohaul:block/assembler_off"
+    },
+    "facing=north,nuclearcraftneohaul_processor_on=false,powered=true": {
+      "model": "nuclearcraftneohaul:block/assembler_off"
+    },
+    "facing=north,nuclearcraftneohaul_processor_on=true,powered=false": {
+      "model": "nuclearcraftneohaul:block/assembler_on"
+    },
+    "facing=north,nuclearcraftneohaul_processor_on=true,powered=true": {
+      "model": "nuclearcraftneohaul:block/assembler_on"
+    },
+    "facing=south,nuclearcraftneohaul_processor_on=false,powered=false": {
+      "model": "nuclearcraftneohaul:block/assembler_off",
+      "y": 180
+    },
+    "facing=south,nuclearcraftneohaul_processor_on=false,powered=true": {
+      "model": "nuclearcraftneohaul:block/assembler_off",
+      "y": 180
+    },
+    "facing=south,nuclearcraftneohaul_processor_on=true,powered=false": {
+      "model": "nuclearcraftneohaul:block/assembler_on",
+      "y": 180
+    },
+    "facing=south,nuclearcraftneohaul_processor_on=true,powered=true": {
+      "model": "nuclearcraftneohaul:block/assembler_on",
+      "y": 180
+    },
+    "facing=west,nuclearcraftneohaul_processor_on=false,powered=false": {
+      "model": "nuclearcraftneohaul:block/assembler_off",
+      "y": 270
+    },
+    "facing=west,nuclearcraftneohaul_processor_on=false,powered=true": {
+      "model": "nuclearcraftneohaul:block/assembler_off",
+      "y": 270
+    },
+    "facing=west,nuclearcraftneohaul_processor_on=true,powered=false": {
+      "model": "nuclearcraftneohaul:block/assembler_on",
+      "y": 270
+    },
+    "facing=west,nuclearcraftneohaul_processor_on=true,powered=true": {
+      "model": "nuclearcraftneohaul:block/assembler_on",
+      "y": 270
+    }
+  }
+}

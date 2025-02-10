@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "C": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "L": {
+      "item": "nuclearcraftneohaul:lead_ingot"
+    }
+  },
+  "pattern": [
+    "LIL",
+    "BFB",
+    "LCL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:electric_furnace"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "nuclearcraftneohaul:electric_motor"
+    },
+    "L": {
+      "item": "nuclearcraftneohaul:linear_actuator"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "PEP",
+    "LML",
+    "PTP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:rock_crusher"
+  }
+}

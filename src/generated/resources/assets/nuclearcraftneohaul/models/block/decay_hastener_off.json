@@ -1,0 +1,6 @@
+{
+  "parent": "nuclearcraftneohaul:block/processor",
+  "textures": {
+    "front": "nuclearcraftneohaul:block/processor/decay_hastener_front_off"
+  }
+}

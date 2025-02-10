@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "nuclearcraftneohaul:magnesium_ingot"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    }
+  },
+  "pattern": [
+    "PAP",
+    "BMB",
+    "PSP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fluid_extractor"
+  }
+}

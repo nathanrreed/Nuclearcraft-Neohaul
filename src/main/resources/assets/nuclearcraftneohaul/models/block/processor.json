@@ -1,0 +1,10 @@
+{
+    "parent": "nuclearcraftneohaul:block/machine",
+    "textures": {
+        "top": "nuclearcraftneohaul:block/processor/top",
+        "bottom": "nuclearcraftneohaul:block/processor/bottom",
+        "front": "#front",
+        "side": "nuclearcraftneohaul:block/processor/side",
+        "back": "nuclearcraftneohaul:block/processor/back"
+    }
+}

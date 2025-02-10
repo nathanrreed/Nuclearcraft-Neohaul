@@ -14,7 +14,7 @@ public abstract class CollectorEntity extends BlockEntity {
     }
 
     public abstract double getAmountPerTick(Level level);
-    public abstract int getMax(); //TODO get from config?
+    public abstract int getMax();
 
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
     }

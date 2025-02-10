@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "GMG",
+    "PSP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fluid_infuser"
+  }
+}

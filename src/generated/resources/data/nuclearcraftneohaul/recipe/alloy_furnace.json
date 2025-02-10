@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "C": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "PRP",
+    "BFB",
+    "PCP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:alloy_furnace"
+  }
+}

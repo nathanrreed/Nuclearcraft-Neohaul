@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
-import com.nred.nuclearcraft.recipe.CollectorRecipeBuilder;
+import com.nred.nuclearcraft.recipe.collector.CollectorRecipeBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -66,10 +66,13 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
         full9Block(recipeOutput, INGOTS, INGOT_MAP, INGOT_BLOCK_MAP);
         full9Block(recipeOutput, RAWS, RAW_MAP, RAW_BLOCK_MAP);
-
         full9Item(recipeOutput, NUGGETS, NUGGET_MAP, INGOT_MAP);
 
         parts(recipeOutput);
+        upgrades(recipeOutput);
+        compounds(recipeOutput);
+        collectors(recipeOutput);
+        processors(recipeOutput);
     }
 
     private void full9Block(RecipeOutput recipeOutput, List<String> list, HashMap<String, DeferredItem<Item>> itemMap, HashMap<String, DeferredBlock<Block>> resultMap) {
@@ -94,7 +97,6 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
         ItemLike result = PART_MAP.get("basic_plating");
         TagKey<Item> tag = tag(Tags.Items.INGOTS, "lead");
 
-        // Parts
         ShapedRecipeBuilder.shaped(MISC, result, 2).pattern("LG").pattern("GL")
                 .define('L', tag(Tags.Items.INGOTS, "lead")).define('G', tag(Tags.Items.DUSTS, "graphite"))
                 .unlockedBy(getHasName(result), has(tag)).save(recipeOutput, MODID + ":basic_plating_1");
@@ -130,7 +132,7 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
                 .define('S', tag(Tags.Items.INGOTS, "steel")).define('I', tag(Tags.Items.INGOTS, "iron")).define('G', Items.GOLD_NUGGET).define('C', PART_MAP.get("copper_solenoid"))
                 .unlockedBy(getHasName(PART_MAP.get("copper_solenoid")), has(PART_MAP.get("copper_solenoid"))).save(recipeOutput);
 
-        ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("liner_actuator"), 1).pattern("  S").pattern("FP ").pattern("CF ")
+        ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("linear_actuator"), 1).pattern("  S").pattern("FP ").pattern("CF ")
                 .define('S', tag(Tags.Items.INGOTS, "steel")).define('P', Items.PISTON).define('C', tag(Tags.Items.INGOTS, "copper")).define('F', ALLOY_MAP.get("ferroboron"))
                 .unlockedBy(getHasName(ALLOY_MAP.get("ferroboron")), has(ALLOY_MAP.get("ferroboron"))).save(recipeOutput);
 
@@ -149,8 +151,9 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
         ShapedRecipeBuilder.shaped(MISC, PART_BLOCK_MAP.get("empty_heat_sink"), 8).pattern("PSP").pattern("T T").pattern("PSP")
                 .define('S', tag(Tags.Items.INGOTS, "steel")).define('P', PART_MAP.get("advanced_plating")).define('T', ALLOY_MAP.get("tough"))
                 .unlockedBy(getHasName(PART_MAP.get("advanced_plating")), has(PART_MAP.get("advanced_plating"))).save(recipeOutput);
+    }
 
-        // Upgrades
+    private void upgrades(RecipeOutput recipeOutput) {
         ShapedRecipeBuilder.shaped(MISC, UPGRADE_MAP.get("speed"), 1).pattern("LRL").pattern("RWR").pattern("LRL")
                 .define('L', Items.LAPIS_LAZULI).define('R', Items.REDSTONE).define('W', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
                 .unlockedBy(getHasName(Items.LAPIS_LAZULI), has(Items.LAPIS_LAZULI)).save(recipeOutput);
@@ -158,9 +161,9 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
         ShapedRecipeBuilder.shaped(MISC, UPGRADE_MAP.get("energy"), 1).pattern("OQO").pattern("QWQ").pattern("OQO")
                 .define('Q', tag(Tags.Items.DUSTS, "quartz")).define('O', tag(Tags.Items.DUSTS, "obsidian")).define('W', Items.LIGHT_WEIGHTED_PRESSURE_PLATE)
                 .unlockedBy(getHasName(Items.LAPIS_LAZULI), has(Items.LAPIS_LAZULI)).save(recipeOutput);
+    }
 
-
-        // Compounds
+    private void compounds(RecipeOutput recipeOutput) {
         ShapelessRecipeBuilder.shapeless(MISC, COMPOUND_MAP.get("crystal_binder"), 2)
                 .requires(ingredient(Tags.Items.DUSTS, "rhodochrosite"), 1)
                 .requires(ingredient(Tags.Items.DUSTS, "obsidian"), 1)
@@ -182,8 +185,9 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
                 .requires(ingredient(Tags.Items.DUSTS, "graphite"), 1)
                 .requires(ingredient(Tags.Items.DUSTS, "manganese"), 1)
                 .unlockedBy(getHasName(Items.GLOWSTONE), has(Items.GLOWSTONE)).save(recipeOutput);
+    }
 
-        // Simple Machines
+    private void collectors(RecipeOutput recipeOutput) {
         ShapedRecipeBuilder.shaped(MISC, COLLECTOR_MAP.get("cobblestone_generator"), 1).pattern("PTP").pattern("W L").pattern("PTP")
                 .define('P', PART_MAP.get("basic_plating")).define('T', tag(Tags.Items.INGOTS, "tin")).define('W', Items.WATER_BUCKET).define('L', Items.LAVA_BUCKET)
                 .unlockedBy(getHasName(PART_MAP.get("basic_plating")), has(PART_MAP.get("basic_plating"))).save(recipeOutput, MODID + ":cobblestone_generator_1");
@@ -235,6 +239,109 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
         new CollectorRecipeBuilder(new FluidStack(GASSES.get("nitrogen").still, 40), MACHINE_LEVEL.COMPACT).save(recipeOutput, MODID + ":nitrogen_collector_compact_rate");
         new CollectorRecipeBuilder(new FluidStack(GASSES.get("nitrogen").still, 320), MACHINE_LEVEL.DENSE).save(recipeOutput, MODID + ":nitrogen_collector_dense_rate");
     }
+
+    private void processors(RecipeOutput recipeOutput) {
+        // Alloy Furnace
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("alloy_furnace"), 1).pattern("PRP").pattern("BFB").pattern("PCP")
+                .define('P', PART_MAP.get("basic_plating")).define('R', Items.REDSTONE).define('B', Items.BRICK).define('F', Items.FURNACE).define('C', PART_MAP.get("copper_solenoid"))
+                .unlockedBy(getHasName(PART_MAP.get("basic_plating")), has(PART_MAP.get("basic_plating"))).save(recipeOutput);
+
+        // Assembler
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("assembler"), 1).pattern("PHP").pattern("LML").pattern("PEP")
+                .define('P', PART_MAP.get("basic_plating")).define('H', ALLOY_MAP.get("hard_carbon")).define('E', PART_MAP.get("electric_motor")).define('L', PART_MAP.get("linear_actuator")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Centrifuge
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("centrifuge"), 1).pattern("PFP").pattern("EME").pattern("PSP")
+                .define('P', PART_MAP.get("advanced_plating")).define('F', ALLOY_MAP.get("ferroboron")).define('E', PART_MAP.get("electric_motor")).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Chemical Reactor
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("chemical_reactor"), 1).pattern("PEP").pattern("GMG").pattern("PSP")
+                .define('P', PART_MAP.get("advanced_plating")).define('G', Items.GLOWSTONE_DUST).define('E', PART_MAP.get("electric_motor")).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Crystallizer
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("crystallizer"), 1).pattern("PSP").pattern("SMS").pattern("PCP")
+                .define('P', PART_MAP.get("advanced_plating")).define('S', PART_MAP.get("copper_solenoid")).define('C', Items.CAULDRON).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Decay Hastener
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("decay_hastener"), 1).pattern("PGP").pattern("EME").pattern("PCP")
+                .define('P', PART_MAP.get("advanced_plating")).define('G', Items.GLOWSTONE_DUST).define('E', Items.ENDER_PEARL).define('C', PART_MAP.get("copper_solenoid")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Electric Furnace
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("electric_furnace"), 1).pattern("LIL").pattern("BFB").pattern("LCL")
+                .define('L', INGOT_MAP.get("lead")).define('I', Items.IRON_INGOT).define('B', Items.BRICK).define('F', Items.FURNACE).define('C', PART_MAP.get("copper_solenoid"))
+                .unlockedBy(getHasName(INGOT_MAP.get("lead")), has(INGOT_MAP.get("lead"))).save(recipeOutput);
+
+        // Electrolyzer
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("electrolyzer"), 1).pattern("PGP").pattern("CMC").pattern("PEP")
+                .define('P', PART_MAP.get("advanced_plating")).define('G', INGOT_MAP.get("graphite")).define('C', PART_MAP.get("copper_solenoid")).define('E', PART_MAP.get("electric_motor")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Enricher
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("fluid_enricher"), 1).pattern("PHP").pattern("LML").pattern("PEP")
+                .define('P', PART_MAP.get("advanced_plating")).define('H', Items.HOPPER).define('E', PART_MAP.get("electric_motor")).define('L', Items.LAPIS_LAZULI).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Extractor
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("fluid_extractor"), 1).pattern("PAP").pattern("BMB").pattern("PSP")
+                .define('P', PART_MAP.get("advanced_plating")).define('A', INGOT_MAP.get("magnesium")).define('B', Items.BUCKET).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Fuel Reprocessor
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("fuel_reprocessor"), 1).pattern("PBP").pattern("TMT").pattern("PLP")
+                .define('P', PART_MAP.get("basic_plating")).define('T', ALLOY_MAP.get("tough")).define('B', INGOT_MAP.get("boron")).define('L', PART_MAP.get("linear_actuator")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Infuser
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("fluid_infuser"), 1).pattern("PBP").pattern("GMG").pattern("PSP")
+                .define('P', PART_MAP.get("advanced_plating")).define('B', Items.BUCKET).define('G', Items.GOLD_INGOT).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Ingot Former
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("ingot_former"), 1).pattern("PHP").pattern("FMF").pattern("PTP")
+                .define('P', PART_MAP.get("basic_plating")).define('T', ALLOY_MAP.get("tough")).define('F', ALLOY_MAP.get("ferroboron")).define('H', Items.HOPPER).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Manufactory
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("manufactory"), 1).pattern("LRL").pattern("FPF").pattern("LCL")
+                .define('L', INGOT_MAP.get("lead")).define('R', Items.REDSTONE).define('F', Items.FLINT).define('P', Items.PISTON).define('C', PART_MAP.get("copper_solenoid"))
+                .unlockedBy(getHasName(INGOT_MAP.get("lead")), has(INGOT_MAP.get("lead"))).save(recipeOutput);
+
+        // Melter
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("melter"), 1).pattern("PNP").pattern("NMN").pattern("PSP")
+                .define('P', PART_MAP.get("advanced_plating")).define('N', Items.NETHER_BRICK).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Mixer
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("fluid_mixer"), 1).pattern("PSP").pattern("BMB").pattern("PEP")
+                .define('P', PART_MAP.get("basic_plating")).define('S', ALLOY_MAP.get("steel")).define('E', PART_MAP.get("electric_motor")).define('B', Items.BUCKET).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Pressurizer
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("pressurizer"), 1).pattern("PTP").pattern("LML").pattern("PTP")
+                .define('P', PART_MAP.get("advanced_plating")).define('T', ALLOY_MAP.get("tough")).define('L', PART_MAP.get("linear_actuator")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Rock Crusher
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("rock_crusher"), 1).pattern("PEP").pattern("LML").pattern("PTP")
+                .define('P', PART_MAP.get("advanced_plating")).define('T', ALLOY_MAP.get("tough")).define('E', PART_MAP.get("electric_motor")).define('L', PART_MAP.get("linear_actuator")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Separator
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("separator"), 1).pattern("PEP").pattern("RMR").pattern("PEP")
+                .define('P', PART_MAP.get("basic_plating")).define('R', Items.REDSTONE).define('E', PART_MAP.get("electric_motor")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Supercooler
+        ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("supercooler"), 1).pattern("PDP").pattern("HMH").pattern("PSP")
+                .define('P', PART_MAP.get("advanced_plating")).define('D', ALLOY_MAP.get("magnesium_diboride")).define('H', ALLOY_MAP.get("hard_carbon")).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+    }
+
 
     private TagKey<Item> tag(TagKey<Item> tag, String name) {
         return ItemTags.create(tag.location().withSuffix("/" + name));

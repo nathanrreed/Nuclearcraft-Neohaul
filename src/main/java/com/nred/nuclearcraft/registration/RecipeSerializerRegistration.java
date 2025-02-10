@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.recipe.CollectorSerializer;
+import com.nred.nuclearcraft.recipe.collector.CollectorSerializer;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.registries.DeferredHolder;
 

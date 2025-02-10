@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "nuclearcraftneohaul:electric_motor"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    }
+  },
+  "pattern": [
+    "PHP",
+    "LML",
+    "PEP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fluid_enricher"
+  }
+}

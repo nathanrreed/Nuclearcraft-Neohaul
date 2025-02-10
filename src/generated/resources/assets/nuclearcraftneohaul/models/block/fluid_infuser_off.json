@@ -1,0 +1,6 @@
+{
+  "parent": "nuclearcraftneohaul:block/processor",
+  "textures": {
+    "front": "nuclearcraftneohaul:block/processor/fluid_infuser_front_off"
+  }
+}

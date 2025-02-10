@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:cauldron"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "SMS",
+    "PCP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:crystallizer"
+  }
+}

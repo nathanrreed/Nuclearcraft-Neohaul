@@ -1,0 +1,6 @@
+{
+  "parent": "nuclearcraftneohaul:block/processor",
+  "textures": {
+    "front": "nuclearcraftneohaul:block/processor/manufactory_front_off"
+  }
+}

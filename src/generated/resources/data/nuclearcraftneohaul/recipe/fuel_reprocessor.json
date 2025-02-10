@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearcraftneohaul:boron_ingot"
+    },
+    "L": {
+      "item": "nuclearcraftneohaul:linear_actuator"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "TMT",
+    "PLP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_reprocessor"
+  }
+}

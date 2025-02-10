@@ -31,6 +31,8 @@ public class ModLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         ores();
         tooltips();
+        menus();
+        creativeTabs();
     }
 
     private void ores() {
@@ -92,6 +94,9 @@ public class ModLanguageProvider extends LanguageProvider {
             }
         }
 
+        for (String typeName : PROCESSOR_MAP.keySet()) {
+            add(PROCESSOR_MAP.get(typeName).get(), capitalize(typeName));
+        }
     }
 
     private void buckets(Map<String, Fluids> type, Map<String, String> replacers) {
@@ -111,6 +116,95 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.radiation", "Radiation: %s %sRad/t");
         add("tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");
         add("tooltip.collector", "Produces %s mb/t of %s constantly.");
+        add("tooltip.processor.energy.stored", "§dEnergy Stored:§r %s FE / %s FE");
+        add("tooltip.processor.energy.using", "§dProcess Power:§r %s FE/t");
+        add("tooltip.processor.energy.speed", "§bSpeed Multiplier:§r x%s");
+        add("tooltip.processor.energy.energy", "§bPower Multiplier:§r x%s");
+
+        add("tooltip.alloy_furnace", "Combines base metals into alloys.");
+        add("tooltip.assembler", "Combines components into a complex product.");
+        add("tooltip.centrifuge", "Separates the isotopes of fluid materials.");
+        add("tooltip.chemical_reactor", "Houses reactions between fluids.");
+        add("tooltip.crystallizer", "Precipitates solids from solution.");
+        add("tooltip.decay_hastener", "Forces radioactive materials to decay.");
+        add("tooltip.electric_furnace", "Smelts items using energy.");
+        add("tooltip.electrolyzer", "Splits compounds into their elements.");
+        add("tooltip.fluid_enricher", "Enriches fluids with materials.");
+        add("tooltip.fluid_extractor", "Draws fluids from materials.");
+        add("tooltip.fuel_reprocessor", "Extracts materials from depleted fuel.");
+        add("tooltip.fluid_infuser", "Enhances materials with fluids.");
+        add("tooltip.ingot_former", "Forms ingots and gems from molten materials.");
+        add("tooltip.manufactory", "A handy machine that has many uses.");
+        add("tooltip.melter", "Melts down materials.");
+        add("tooltip.pressurizer", "Processes items under immense pressure.");
+        add("tooltip.rock_crusher", "Smashes up rock to produce mineral dusts.");
+        add("tooltip.fluid_mixer", "Blends fluids together.");
+        add("tooltip.separator", "Breaks materials into their constituents.");
+        add("tooltip.supercooler", "Lowers the temperature of fluids.");
+
+        add("tooltip.tank", "%s [%s mB / %s mB]");
+        add("tooltip.tank.clear", "Shift Click to clear tank");
+
+        add("tooltip.redstone_control", "Redstone Control");
+        add("tooltip.side_config", "Side Configuration");
+        add("tooltip.side_config.energy_upgrade", "Energy Upgrade Slot Configuration");
+        add("tooltip.side_config.speed_upgrade", "Speed Upgrade Slot Configuration");
+        add("tooltip.side_config.fluid_input", "Input Tank Configuration");
+        add("tooltip.side_config.fluid_output", "Output Tank Configuration");
+        add("tooltip.side_config.item_input", "Input Slot Configuration");
+        add("tooltip.side_config.item_output", "Output Slot Configuration");
+
+        add("tooltip.side_config.top", "TOP: %s");
+        add("tooltip.side_config.left", "LEFT: %s");
+        add("tooltip.side_config.front", "FRONT: %s");
+        add("tooltip.side_config.right", "RIGHT: %s");
+        add("tooltip.side_config.bottom", "BOTTOM: %s");
+        add("tooltip.side_config.back", "BACK: %s");
+
+        add("tooltip.side_config.disabled", "DISABLED");
+        add("tooltip.side_config.input", "INPUT");
+        add("tooltip.side_config.output", "OUTPUT");
+        add("tooltip.side_config.auto_output", "AUTO-OUTPUT");
+
+        add("tooltip.side_config.slot_setting.slot", "Slot Setting: %s");
+        add("tooltip.side_config.slot_setting.tank", "Tank Setting: %s");
+
+        add("tooltip.side_config.slot_setting.default", "DEFAULT");
+        add("tooltip.side_config.slot_setting.void_excess", "VOID EXCESS");
+        add("tooltip.side_config.slot_setting.void_all", "VOID ALL");
+
+
+    }
+
+    private void menus() {
+        add("menu.title.alloy_furnace", "Alloy Furnace");
+        add("menu.title.assembler", "Assembler");
+        add("menu.title.centrifuge", "Centrifuge");
+        add("menu.title.chemical_reactor", "Chemical Reactor");
+        add("menu.title.crystallizer", "Crystallizer");
+        add("menu.title.decay_hastener", "Decay Hastener");
+        add("menu.title.electric_furnace", "Electric Furnace");
+        add("menu.title.electrolyzer", "Electrolyzer");
+        add("menu.title.fluid_enricher", "Fluid Enricher");
+        add("menu.title.fluid_extractor", "Fluid Extractor");
+        add("menu.title.fuel_reprocessor", "Fuel Reprocessor");
+        add("menu.title.fluid_infuser", "Fluid Infuser");
+        add("menu.title.ingot_former", "Ingot Former");
+        add("menu.title.manufactory", "Manufactory");
+        add("menu.title.melter", "Melter");
+        add("menu.title.pressurizer", "Pressurizer");
+        add("menu.title.rock_crusher", "Rock Crusher");
+        add("menu.title.fluid_mixer", "Fluid Mixer");
+        add("menu.title.separator", "Separator");
+        add("menu.title.supercooler", "Supercooler");
+    }
+
+    private void creativeTabs() {
+        add("creative_tab.title.materials", "NuclearCraft Materials");
+        add("creative_tab.title.machines", "NuclearCraft Machines");
+        add("creative_tab.title.multiblocks", "NuclearCraft Multiblocks");
+        add("creative_tab.title.radiation", "NuclearCraft Radiation");
+        add("creative_tab.title.miscellaneous", "NuclearCraft Miscellaneous");
     }
 
     private void fuelTypeItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append) {

@@ -11,7 +11,7 @@ public class Names {
     public static List<String> NUGGETS = ORES;
     public static List<String> GEM_DUSTS = List.of("arsenic", "boron_nitride", "carobbiite", "coal", "diamond", "end_stone", "fluorite", "obsidian", "quartz", "rhodochrosite", "sulfur", "villiaumite");
     public static List<String> ALLOYS = List.of("bronze", "extreme", "ferroboron", "hard_carbon", "hsla_steel", "lead_platinum", "lithium_manganese_dioxide", "magnesium_diboride", "shibuichi", "sic_sic_cmc", "silicon_carbide", "steel", "thermoconducting", "tin_silver", "tough", "zircaloy", "zirconium_molybdenum");
-    public static List<String> PARTS = List.of("advanced_plating", "basic_plating", "bioplastic", "copper_solenoid", "du_plating", "electric_motor", "elite_plating", "liner_actuator", "magnesium_diboride_solenoid", "pyrolytic_carbon", "servomechanism", "silicon_carbide_fiber"); // "extreme_plating"
+    public static List<String> PARTS = List.of("advanced_plating", "basic_plating", "bioplastic", "copper_solenoid", "du_plating", "electric_motor", "elite_plating", "linear_actuator", "magnesium_diboride_solenoid", "pyrolytic_carbon", "servomechanism", "silicon_carbide_fiber"); // "extreme_plating"
     public static List<String> PART_BLOCKS = List.of("empty_frame", "empty_heat_sink", "machine_chassis", "steel_chassis");
     public static List<String> COMPOUNDS = List.of("alugentum", "borax", "c_mn_blend", "calcium_sulfate", "crystal_binder", "dimensional_blend", "energetic_blend", "irradiated_borax", "potassium_fluoride", "potassium_hydroxide", "sodium_fluoride", "sodium_hydroxide");
     public static List<String> UPGRADES = List.of("speed", "energy");

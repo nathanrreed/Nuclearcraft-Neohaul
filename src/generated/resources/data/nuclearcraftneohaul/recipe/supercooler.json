@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "nuclearcraftneohaul:magnesium_diboride_alloy"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:hard_carbon_alloy"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    }
+  },
+  "pattern": [
+    "PDP",
+    "HMH",
+    "PSP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:supercooler"
+  }
+}

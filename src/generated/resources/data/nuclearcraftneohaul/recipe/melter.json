@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "N": {
+      "item": "minecraft:nether_brick"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    }
+  },
+  "pattern": [
+    "PNP",
+    "NMN",
+    "PSP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:melter"
+  }
+}

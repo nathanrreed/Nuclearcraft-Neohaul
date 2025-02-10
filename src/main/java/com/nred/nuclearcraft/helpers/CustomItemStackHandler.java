@@ -1,8 +1,6 @@
 package com.nred.nuclearcraft.helpers;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class CustomItemStackHandler extends ItemStackHandler {
@@ -10,6 +8,7 @@ public class CustomItemStackHandler extends ItemStackHandler {
     private final boolean allowOutput;
 
     public CustomItemStackHandler(int size, boolean allowInput, boolean allowOutput) {
+        super(size);
         this.allowInput = allowInput;
         this.allowOutput = allowOutput;
     }
@@ -40,5 +39,3 @@ public class CustomItemStackHandler extends ItemStackHandler {
         return super.extractItem(slot, amount, simulate);
     }
 }
-
-

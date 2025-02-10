@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
@@ -40,6 +41,10 @@ class ModBlockStateProvider extends BlockStateProvider {
                 String name = machine + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
                 blockWithItem(name, COLLECTOR_MAP.get(name), "collectors");
             }
+        }
+
+        for (String typeName : PROCESSOR_MAP.keySet()) {
+            simpleMachineModel(typeName, PROCESSOR_MAP.get(typeName), "processor");
         }
 
         fluids();
@@ -83,5 +88,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         ModelFile model = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture));
         simpleBlock(block, model);
         simpleBlockItem(block, model);
+    }
+
+    private void simpleMachineModel(String name, DeferredBlock<Block> deferredBlock, String folder) {
+        ModelFile modelOn = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(deferredBlock.get()).getPath() + "_on", modLoc("block/processor")).texture("front", modLoc("block/" + folder + "/" + name + "_front_on"));
+        ModelFile modelOff = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(deferredBlock.get()).getPath() + "_off", modLoc("block/processor")).texture("front", modLoc("block/" + folder + "/" + name + "_front_off"));
+        horizontalBlock(deferredBlock.get(), state -> state.getValue(PROCESSOR_ON) ? modelOn : modelOff);
+
+        simpleBlockItem(deferredBlock.get(), modelOff);
     }
 }

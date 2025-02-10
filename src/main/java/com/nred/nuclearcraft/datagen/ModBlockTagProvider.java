@@ -9,7 +9,6 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,10 +28,10 @@ class ModBlockTagProvider extends BlockTagsProvider {
     @Override
     public void addTags(HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(blockValues(ORE_MAP, COLLECTOR_MAP).toArray(Block[]::new));
+                .add(blockValues(ORE_MAP, COLLECTOR_MAP, PROCESSOR_MAP).toArray(Block[]::new));
 
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(ORE_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+                .add(blockValues(ORE_MAP, PROCESSOR_MAP).toArray(Block[]::new));
 
         tag(BlockTags.NEEDS_DIAMOND_TOOL);
 

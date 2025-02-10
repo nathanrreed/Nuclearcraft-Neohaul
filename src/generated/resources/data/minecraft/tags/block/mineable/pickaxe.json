@@ -22,6 +22,26 @@
     "nuclearcraftneohaul:water_source",
     "nuclearcraftneohaul:cobblestone_generator_dense",
     "nuclearcraftneohaul:nitrogen_collector_dense",
-    "nuclearcraftneohaul:cobblestone_generator_compact"
+    "nuclearcraftneohaul:cobblestone_generator_compact",
+    "nuclearcraftneohaul:rock_crusher",
+    "nuclearcraftneohaul:decay_hastener",
+    "nuclearcraftneohaul:crystallizer",
+    "nuclearcraftneohaul:assembler",
+    "nuclearcraftneohaul:alloy_furnace",
+    "nuclearcraftneohaul:electrolyzer",
+    "nuclearcraftneohaul:pressurizer",
+    "nuclearcraftneohaul:supercooler",
+    "nuclearcraftneohaul:separator",
+    "nuclearcraftneohaul:fluid_mixer",
+    "nuclearcraftneohaul:fluid_extractor",
+    "nuclearcraftneohaul:melter",
+    "nuclearcraftneohaul:electric_furnace",
+    "nuclearcraftneohaul:centrifuge",
+    "nuclearcraftneohaul:chemical_reactor",
+    "nuclearcraftneohaul:fluid_infuser",
+    "nuclearcraftneohaul:ingot_former",
+    "nuclearcraftneohaul:fluid_enricher",
+    "nuclearcraftneohaul:fuel_reprocessor",
+    "nuclearcraftneohaul:manufactory"
   ]
 }

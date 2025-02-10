@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "L": {
+      "item": "nuclearcraftneohaul:lead_ingot"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "LRL",
+    "FPF",
+    "LCL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:manufactory"
+  }
+}

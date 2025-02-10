@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    }
+  },
+  "pattern": [
+    "PGP",
+    "EME",
+    "PCP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:decay_hastener"
+  }
+}

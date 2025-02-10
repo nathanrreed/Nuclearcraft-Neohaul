@@ -1,11 +1,14 @@
 package com.nred.nuclearcraft.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.LevelReader;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
@@ -15,18 +18,25 @@ import static com.nred.nuclearcraft.info.Radiation.RAD_MAP;
 public class ToolTipItem extends Item {
     private Component tooltip;
     private Component shiftTooltip;
+    private final boolean byPassShift;
 
-    public ToolTipItem(Properties properties, boolean tooltip, boolean radiation) {
-        this(properties);
-    }
-
-    public ToolTipItem(Properties properties, boolean tooltip) {
-        this(properties);
-    }
-
-    public ToolTipItem(Properties properties) {
-        //TODO precompile static tooltips
+    public ToolTipItem(Properties properties, boolean tooltip, boolean radiation, boolean byPassShift) {
         super(properties);
+        //TODO precompile static tooltips
+        this.byPassShift = byPassShift;
+    }
+
+    public ToolTipItem(Properties properties, boolean tooltip, boolean byPassShift) {
+        this(properties, tooltip, false, byPassShift);
+    }
+
+    public ToolTipItem(Properties properties, boolean byPassShift) {
+        this(properties, false, false, byPassShift);
+    }
+
+    @Override
+    public boolean doesSneakBypassUse(ItemStack stack, LevelReader level, BlockPos pos, Player player) {
+        return byPassShift;
     }
 
     @Override
