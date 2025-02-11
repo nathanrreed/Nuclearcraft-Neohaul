@@ -14,6 +14,7 @@ public class Registration {
         RecipeTypeRegistration.init();
         MenuRegistration.init();
         CreativeTabsRegistration.init();
+        SoundRegistration.init();
     }
 
     public static void register(IEventBus modEventBus) {
@@ -27,5 +28,6 @@ public class Registration {
         RECIPE_SERIALIZERS.register(modEventBus);
         MENUS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        SOUND_EVENTS.register(modEventBus);
     }
 }

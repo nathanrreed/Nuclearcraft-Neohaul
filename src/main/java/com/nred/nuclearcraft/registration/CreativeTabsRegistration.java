@@ -28,6 +28,16 @@ public class CreativeTabsRegistration {
                 output.acceptAll(itemStackValues(UPGRADE_MAP));
             }).build());
 
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MISC_TAB = CREATIVE_MODE_TABS.register("misc_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("creative_tab.title.miscellaneous"))
+            .withTabsBefore(MACHINES_TAB.getId())
+            .icon(() -> FOOD_MAP.get("smore").asItem().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.acceptAll(itemStackValues(MUSIC_DISC_MAP, FOOD_MAP));
+                output.accept(FOURSMORE);
+                output.accept(PORTABLE_ENDER_CHEST);
+            }).build());
+
     public static void init() {
     }
 }

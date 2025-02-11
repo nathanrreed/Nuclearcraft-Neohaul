@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:music_discs"
+    },
+    {
+      "item": "nuclearcraftneohaul:dimensional_blend"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:music_disc_hyperspace"
+  }
+}

@@ -1,0 +1,18 @@
+{
+	"music_disc.wanderer": {
+		"subtitle": "music_disc.wanderer",
+		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/wanderer", "stream": true } ]
+	},
+	"music_disc.end_of_the_world": {
+		"subtitle": "music_disc.end_of_the_world",
+		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/end_of_the_world", "stream": true } ]
+	},
+	"music_disc.money_for_nothing": {
+		"subtitle": "music_disc.money_for_nothing",
+		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/money_for_nothing", "stream": true } ]
+	},
+	"music_disc.hyperspace": {
+		"subtitle": "music_disc.hyperspace",
+		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/hyperspace", "stream": true } ]
+	}
+}

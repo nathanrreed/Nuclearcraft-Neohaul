@@ -1,6 +1,9 @@
 package com.nred.nuclearcraft.helpers;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,5 +26,9 @@ public class SimpleHelper {
         } else {
             return String.format("%.1f FE", power);
         }
+    }
+
+    public static MobEffectInstance newEffect(Holder<MobEffect> effect, int strength, int ticks) {
+        return new MobEffectInstance(effect, ticks, Math.max(0, strength - 1));
     }
 }

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "minecraft:ender_chest"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    " S ",
+    "WEW",
+    "TWT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:portable_ender_chest"
+  }
+}

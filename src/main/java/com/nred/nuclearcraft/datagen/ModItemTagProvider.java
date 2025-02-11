@@ -46,6 +46,8 @@ class ModItemTagProvider extends ItemTagsProvider {
         simpleTag(COMPOUNDS, COMPOUND_MAP, Tags.Items.DUSTS);
         simpleTag(RAWS, RAW_MAP, Tags.Items.RAW_MATERIALS);
         simpleTag(NUGGETS, NUGGET_MAP, Tags.Items.NUGGETS);
+        simpleTag(MUSIC_DISC_MAP, Tags.Items.MUSIC_DISCS);
+        simpleTag(FOOD_MAP, Tags.Items.FOODS);
 
         buckets();
     }
@@ -61,5 +63,9 @@ class ModItemTagProvider extends ItemTagsProvider {
             tag(tag).add(map.get(name).asItem());
             tag(ItemTags.create(tag.location().withSuffix("/" + name))).add(map.get(name).asItem());
         }
+    }
+
+    private void simpleTag(HashMap<String, DeferredItem<Item>> map, TagKey<Item> tag) {
+        simpleTag(map.keySet().stream().toList(), map, tag);
     }
 }

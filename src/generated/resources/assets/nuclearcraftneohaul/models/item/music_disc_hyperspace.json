@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nuclearcraftneohaul:item/music_disc/music_disc_hyperspace"
+  }
+}

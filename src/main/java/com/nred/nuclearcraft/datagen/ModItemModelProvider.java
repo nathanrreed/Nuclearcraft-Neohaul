@@ -27,24 +27,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         super(output, MODID, existingFileHelper);
     }
 
-//    public ModelBuilder<ItemModelBuilder> bucketItem(BucketItem item) {
-//        withExistingParent(name(entry.getBucket()), entry.flowing().get().getFluidType().getDensity() < 0 ? neoLoc("item/bucket") : neoLoc("item/bucket_drip"))
-//                .customLoader(DynamicFluidContainerModelBuilder::begin)
-//                .fluid(entry.getStill())
-//                .flipGas(entry.flowing().get().getFluidType().getDensity() < 0)
-//                .applyTint(true);
-//    }
-
-//    public ItemModelBuilder metaItem(Item item) {
-//        return metaItem(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)));
-//    }
-
-//    public ItemModelBuilder metaItem(ResourceLocation item) {
-//        return getBuilder(this.folder + "/" + item.getPath()) // Force to put in items
-//                .parent(new ModelFile.UncheckedModelFile("item/generated"))
-//                .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + item.getPath()));
-//    }
-
     @Override
     public void registerModels() {
         simpleItems(INGOTS, INGOT_MAP, "ingot");
@@ -58,8 +40,12 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItems(COMPOUNDS, COMPOUND_MAP, "compound");
         simpleItems(UPGRADES, UPGRADE_MAP, "upgrade");
         simpleItems(URANIUMS, URANIUM_MAP, "uranium");
+        simpleItems(MUSIC_DISC_MAP, "music_disc");
+        simpleItems(FOOD_MAP, "food");
 
         simpleBlocks(List.of("empty_frame", "empty_heat_sink"), PART_BLOCK_MAP, "part");
+
+        basicItem(PORTABLE_ENDER_CHEST.get());
 
         buckets();
     }
@@ -77,6 +63,10 @@ public class ModItemModelProvider extends ItemModelProvider {
                     .parent(new ModelFile.UncheckedModelFile("item/generated"))
                     .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + folder + "/" + name));
         }
+    }
+
+    private void simpleItems(HashMap<String, DeferredItem<Item>> map, String folder) {
+        simpleItems(map.keySet().stream().toList(), map, folder);
     }
 
     private void simpleBlocks(List<String> list, HashMap<String, DeferredItem<Item>> map, String folder) {

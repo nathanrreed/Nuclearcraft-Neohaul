@@ -1,8 +1,10 @@
 package com.nred.nuclearcraft.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -15,23 +17,38 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.info.Radiation.RAD_MAP;
 
-public class ToolTipItem extends Item {
+public class TooltipItem extends Item {
     private Component tooltip;
-    private Component shiftTooltip;
+    private List<MutableComponent> shiftTooltips;
+    private static final Component shiftForDetails = Component.translatable("tooltip.shift_for_info").withStyle(ChatFormatting.GRAY);
     private final boolean byPassShift;
 
-    public ToolTipItem(Properties properties, boolean tooltip, boolean radiation, boolean byPassShift) {
+    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean radiation, boolean byPassShift) {
         super(properties);
-        //TODO precompile static tooltips
+
+        if (tooltips.size() > 1) {
+            shiftTooltips = tooltips;
+        } else if (!tooltips.isEmpty()) {
+            tooltip = tooltips.getFirst();
+        }
+
         this.byPassShift = byPassShift;
     }
 
-    public ToolTipItem(Properties properties, boolean tooltip, boolean byPassShift) {
-        this(properties, tooltip, false, byPassShift);
+    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean byPassShift) {
+        this(properties, tooltips, false, byPassShift);
     }
 
-    public ToolTipItem(Properties properties, boolean byPassShift) {
-        this(properties, false, false, byPassShift);
+    public TooltipItem(Properties properties, List<String> tooltips) {
+        this(properties, tooltips.stream().map(tooltip -> Component.translatable(tooltip).withStyle(ChatFormatting.AQUA)).toList(), false);
+    }
+
+    public TooltipItem(Properties properties) {
+        this(properties, List.of(), false, false);
+    }
+
+    public TooltipItem(Properties properties, boolean byPassShift) {
+        this(properties, List.of(), byPassShift);
     }
 
     @Override
@@ -46,6 +63,16 @@ public class ToolTipItem extends Item {
 
             Triple<Integer, String, Integer> info = radiationColour(radiation);
             tooltipComponents.add(Component.translatable("tooltip.radiation", info.getLeft(), info.getMiddle()).withColor(info.getRight()));
+        }
+
+        if (shiftTooltips != null) {
+            if (Screen.hasShiftDown()) {
+                tooltipComponents.addAll(shiftTooltips);
+            } else {
+                tooltipComponents.add(shiftForDetails);
+            }
+        } else if (tooltip != null) {
+            tooltipComponents.add(tooltip);
         }
     }
 
@@ -63,6 +90,7 @@ public class ToolTipItem extends Item {
         }
     }
 
+    // Reference of colouring from original code
 //    public static TextFormatting getRadiationTextColor(double radiation) {
 //        return radiation < 0.000000001D ? TextFormatting.WHITE : radiation < 0.001D ? TextFormatting.YELLOW : radiation < 0.1D ? TextFormatting.GOLD : radiation < 1D ? TextFormatting.RED : TextFormatting.DARK_RED;
 //    }

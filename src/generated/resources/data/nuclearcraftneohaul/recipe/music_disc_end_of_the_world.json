@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:music_discs"
+    },
+    {
+      "item": "nuclearcraftneohaul:uranium_235"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:music_disc_end_of_the_world"
+  }
+}

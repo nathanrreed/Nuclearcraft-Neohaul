@@ -30,8 +30,7 @@ import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.GASSES;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
-import static net.minecraft.data.recipes.RecipeCategory.BUILDING_BLOCKS;
-import static net.minecraft.data.recipes.RecipeCategory.MISC;
+import static net.minecraft.data.recipes.RecipeCategory.*;
 
 class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
     public ModRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -73,6 +72,31 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
         compounds(recipeOutput);
         collectors(recipeOutput);
         processors(recipeOutput);
+        foods(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
+                .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))
+                .unlockedBy(getHasName(Items.ENDER_CHEST), has(Items.ENDER_CHEST)).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, MUSIC_DISC_MAP.get("music_disc_hyperspace"), 1)
+                .requires(Ingredient.of(Tags.Items.MUSIC_DISCS), 1)
+                .requires(COMPOUND_MAP.get("dimensional_blend"), 1)
+                .unlockedBy(getHasName(COMPOUND_MAP.get("dimensional_blend")), has(COMPOUND_MAP.get("dimensional_blend"))).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, MUSIC_DISC_MAP.get("music_disc_money_for_nothing"), 1)
+                .requires(Ingredient.of(Tags.Items.MUSIC_DISCS), 1)
+                .requires(Ingredient.of(tag(Tags.Items.INGOTS, "silver")), 1)
+                .unlockedBy(getHasName(INGOT_MAP.get("silver")), has(INGOT_MAP.get("silver"))).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, MUSIC_DISC_MAP.get("music_disc_end_of_the_world"), 1)
+                .requires(Ingredient.of(Tags.Items.MUSIC_DISCS), 1)
+                .requires(URANIUM_MAP.get("235"), 1)
+                .unlockedBy(getHasName(URANIUM_MAP.get("235")), has(URANIUM_MAP.get("235"))).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, MUSIC_DISC_MAP.get("music_disc_wanderer"), 1)
+                .requires(Ingredient.of(Tags.Items.MUSIC_DISCS), 1)
+                .requires(ALLOY_MAP.get("tough"), 1)
+                .unlockedBy(getHasName(ALLOY_MAP.get("tough")), has(ALLOY_MAP.get("tough"))).save(recipeOutput);
     }
 
     private void full9Block(RecipeOutput recipeOutput, List<String> list, HashMap<String, DeferredItem<Item>> itemMap, HashMap<String, DeferredBlock<Block>> resultMap) {
@@ -342,6 +366,28 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
     }
 
+
+    private void foods(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(FOOD, FOOD_MAP.get("dominos"), 4).pattern("BBB").pattern("PSC").pattern("MUU")
+                .define('B', Items.BREAD).define('P', Items.COOKED_PORKCHOP).define('S', Items.COOKED_BEEF).define('C', Items.COOKED_CHICKEN).define('M', Items.COOKED_MUTTON).define('U', Items.BROWN_MUSHROOM)
+                .unlockedBy(getHasName(Items.BREAD), has(Items.BREAD)).save(recipeOutput);
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(Items.COCOA_BEANS), RecipeCategory.FOOD, FOOD_MAP.get("roasted_cocoa_beans"), 0.35F, 200).unlockedBy(getHasName(Items.COCOA_BEANS), has(Items.COCOA_BEANS)).save(recipeOutput, MODID + ":roasted_cocoa_beans_smelting");
+        SimpleCookingRecipeBuilder.smoking(Ingredient.of(Items.COCOA_BEANS), RecipeCategory.FOOD, FOOD_MAP.get("roasted_cocoa_beans"), 0.35F, 100).unlockedBy(getHasName(Items.COCOA_BEANS), has(Items.COCOA_BEANS)).save(recipeOutput, MODID + ":roasted_cocoa_beans_smoking");
+        SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(Items.COCOA_BEANS), RecipeCategory.FOOD, FOOD_MAP.get("roasted_cocoa_beans"), 0.35F, 300).unlockedBy(getHasName(Items.COCOA_BEANS), has(Items.COCOA_BEANS)).save(recipeOutput, MODID + ":roasted_cocoa_beans_campfire");
+
+        ShapedRecipeBuilder.shaped(FOOD, FOOD_MAP.get("smore"), 1).pattern("GC").pattern("MG")
+                .define('G', FOOD_MAP.get("graham_cracker")).define('C', FOOD_MAP.get("milk_chocolate")).define('M', FOOD_MAP.get("marshmallow"))
+                .unlockedBy(getHasName(FOOD_MAP.get("marshmallow")), has(FOOD_MAP.get("marshmallow"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(FOOD, FOOD_MAP.get("moresmore"), 1).pattern("SC").pattern("MS")
+                .define('S', FOOD_MAP.get("smore")).define('C', FOOD_MAP.get("milk_chocolate")).define('M', FOOD_MAP.get("marshmallow"))
+                .unlockedBy(getHasName(FOOD_MAP.get("smore")), has(FOOD_MAP.get("smore"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(FOOD, FOURSMORE, 1).pattern("SC").pattern("MS")
+                .define('S', FOOD_MAP.get("moresmore")).define('C', FOOD_MAP.get("milk_chocolate")).define('M', FOOD_MAP.get("marshmallow"))
+                .unlockedBy(getHasName(FOOD_MAP.get("moresmore")), has(FOOD_MAP.get("moresmore"))).save(recipeOutput);
+    }
 
     private TagKey<Item> tag(TagKey<Item> tag, String name) {
         return ItemTags.create(tag.location().withSuffix("/" + name));

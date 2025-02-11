@@ -33,6 +33,7 @@ public class ModLanguageProvider extends LanguageProvider {
         tooltips();
         menus();
         creativeTabs();
+        musicDiscs();
     }
 
     private void ores() {
@@ -53,6 +54,9 @@ public class ModLanguageProvider extends LanguageProvider {
         replacesItems(COMPOUNDS, COMPOUND_MAP, "", "", Map.of("c_mn_blend", "Carbon-Manganese Blend"));
         simpleItems(UPGRADES, UPGRADE_MAP, " Upgrade");
         fuelTypeItems(URANIUMS, URANIUM_MAP, "Uranium-", "");
+        simpleItems(FOOD_MAP, Map.of("dominos", "Domino's Special", "smore", "S'more S'mingot", "moresmore", "MoreS'more DoubleS'mingot"));
+        add(PORTABLE_ENDER_CHEST.get(), "Portable Ender Chest");
+        add(FOURSMORE.get(), "FourS'more QuadS'mingot");
 
         //Blocks
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, " Block");
@@ -173,6 +177,12 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.side_config.slot_setting.default", "DEFAULT");
         add("tooltip.side_config.slot_setting.void_excess", "VOID EXCESS");
         add("tooltip.side_config.slot_setting.void_all", "VOID ALL");
+
+        add("tooltip.shift_for_info", "Hold Shift for more info");
+
+        add("tooltip.portable.ender_chest", "Access your Ender Chest on the move.");
+        add("tooltip.marshmallow", "Many civilizations would not have fallen if they had these on their side.");
+        add("tooltip.dominos", "Paul's favourite - restore 16 hunger points with this beauty.");
     }
 
     private void menus() {
@@ -206,6 +216,21 @@ public class ModLanguageProvider extends LanguageProvider {
         add("creative_tab.title.miscellaneous", "NuclearCraft Miscellaneous");
     }
 
+    private void musicDiscs() {
+        for (DeferredItem<Item> disc : MUSIC_DISC_MAP.values()) {
+            add(disc.get(), "Music Disc");
+        }
+
+        add("music_disc.money_for_nothing", "Dire Straits - Money For Nothing");
+        add("music_disc.money_for_nothing.credit", "8-Bit Cover by 'Omnigrad'");
+        add("music_disc.wanderer", "Dion - The Wanderer");
+        add("music_disc.wanderer.credit", "8-Bit Cover by '8 Bit Universe'");
+        add("music_disc.end_of_the_world", "Skeeter Davis - The End of the World");
+        add("music_disc.end_of_the_world.credit", "8-Bit Cover by 'GermanPikachuGaming'");
+        add("music_disc.hyperspace", "Ur-Quan Masters - Hyperspace");
+        add("music_disc.hyperspace.credit", "8-Bit Cover by 'Riku Nuottajärvi'");
+    }
+
     private void fuelTypeItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
         for (String name : list) {
             add(map.get(name).asItem(), prepend + capitalize(fuelTypes(name)) + append);
@@ -229,6 +254,14 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void simpleItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
         replacesItems(list, map, prepend, append, Map.of());
+    }
+
+    private void simpleItems(HashMap<String, DeferredItem<Item>> map) {
+        replacesItems(map.keySet().stream().toList(), map, "", "", Map.of());
+    }
+
+    private void simpleItems(HashMap<String, DeferredItem<Item>> map, Map<String, String> replacers) {
+        replacesItems(map.keySet().stream().toList(), map, "", "", replacers);
     }
 
     private void replacesItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append, Map<String, String> replacers) {

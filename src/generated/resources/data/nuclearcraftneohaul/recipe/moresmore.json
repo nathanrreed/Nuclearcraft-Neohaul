@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:milk_chocolate"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:marshmallow"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:smore"
+    }
+  },
+  "pattern": [
+    "SC",
+    "MS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:moresmore"
+  }
+}

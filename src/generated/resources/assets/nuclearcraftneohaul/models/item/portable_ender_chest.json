@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nuclearcraftneohaul:item/portable_ender_chest"
+  }
+}

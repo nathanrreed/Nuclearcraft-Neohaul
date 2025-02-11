@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bread"
+    },
+    "C": {
+      "item": "minecraft:cooked_chicken"
+    },
+    "M": {
+      "item": "minecraft:cooked_mutton"
+    },
+    "P": {
+      "item": "minecraft:cooked_porkchop"
+    },
+    "S": {
+      "item": "minecraft:cooked_beef"
+    },
+    "U": {
+      "item": "minecraft:brown_mushroom"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "PSC",
+    "MUU"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:dominos"
+  }
+}
