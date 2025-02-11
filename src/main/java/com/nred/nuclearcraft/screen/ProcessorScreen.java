@@ -32,6 +32,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -283,7 +284,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
                             Component.translatable("tooltip.processor.energy.stored", getFEString(menu.energyStorage.getEnergyStored()), getFEString(menu.energyStorage.getMaxEnergyStored())),
                             Component.translatable("tooltip.processor.energy.using", getFEString(baseSpeed * energy)),
                             Component.translatable("tooltip.processor.energy.speed", speed),
-                            Component.translatable("tooltip.processor.energy.energy", getFEString(energy))
+                            Component.translatable("tooltip.processor.energy.energy", new DecimalFormat("#.##").format(energy))
                     ), mouseX, mouseY);
                 } else {
                     guiGraphics.renderTooltip(font, Component.translatable("tooltip.processor.energy.not_required").withStyle(ChatFormatting.RED), mouseX, mouseY);

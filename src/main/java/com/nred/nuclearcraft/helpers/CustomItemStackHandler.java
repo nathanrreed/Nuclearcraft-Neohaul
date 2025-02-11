@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.helpers;
 
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class CustomItemStackHandler extends ItemStackHandler {
     private final boolean allowInput;
@@ -15,7 +16,7 @@ public class CustomItemStackHandler extends ItemStackHandler {
 
     // Stop other mods using capability from doing unexpected things
     @Override
-    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+    public @NotNull ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         if (allowInput) {
             return super.insertItem(slot, stack, simulate);
         }
@@ -23,7 +24,7 @@ public class CustomItemStackHandler extends ItemStackHandler {
     }
 
     @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+    public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (allowOutput) {
             return super.extractItem(slot, amount, simulate);
         }

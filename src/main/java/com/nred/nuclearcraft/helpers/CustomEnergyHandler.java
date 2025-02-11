@@ -5,6 +5,7 @@ import net.neoforged.neoforge.energy.EnergyStorage;
 public class CustomEnergyHandler extends EnergyStorage {
     private final boolean allowInput;
     private final boolean allowOutput;
+    private int tempEnergy = 0;
 
     public CustomEnergyHandler(int capacity, boolean allowInput, boolean allowOutput) {
         super(capacity);
@@ -30,11 +31,26 @@ public class CustomEnergyHandler extends EnergyStorage {
         if (allowOutput) {
             int rtn = super.extractEnergy(toExtract, simulate);
             if (rtn > 0 && !simulate) {
+                this.tempEnergy = 0;
                 onContentsChanged();
             }
             return rtn;
         }
         return 0;
+    }
+
+    public void setCapacity(int capacity) {
+        if (this.capacity == capacity) return;
+        int oldEnergy = Math.max(energy, this.tempEnergy);
+
+        if (this.tempEnergy > this.capacity) {
+            this.energy = Math.min(this.tempEnergy, capacity);
+        } else {
+            this.energy = Math.min(this.energy, capacity);
+        }
+
+        this.capacity = capacity;
+        this.tempEnergy = oldEnergy; // Save capacity encase of miss-click
     }
 
     // Normal insert and extract for use within the mod
@@ -49,6 +65,7 @@ public class CustomEnergyHandler extends EnergyStorage {
     public int internalExtractEnergy(int toExtract, boolean simulate) {
         int rtn = super.extractEnergy(toExtract, simulate);
         if (rtn > 0 && !simulate) {
+            this.tempEnergy = 0;
             onContentsChanged();
         }
         return rtn;

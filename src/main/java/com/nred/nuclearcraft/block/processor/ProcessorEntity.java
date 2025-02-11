@@ -25,6 +25,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 import static com.nred.nuclearcraft.block.processor.Processor.POWERED;
 import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
@@ -36,9 +37,8 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
 public abstract class ProcessorEntity extends BlockEntity implements MenuProvider, IMenuProviderExtension {
     public boolean redstoneMode = false;
-    private String typeName;
+    private final String typeName;
 
-    //TODO max energy changes with the speed level
     public CustomEnergyHandler energyHandler;
     public CustomFluidStackHandler fluidHandler;
     public CustomItemStackHandler itemStackHandler;
@@ -78,11 +78,31 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
             }
 
             @Override
-            public boolean isItemValid(int slot, ItemStack stack) {
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 if ((slot == SPEED && stack.is(UPGRADE_MAP.get("speed")) || (slot == ENERGY && stack.is(UPGRADE_MAP.get("energy"))))) {
                     return true;
                 }
                 return false;
+            }
+
+            @Override
+            public @NotNull ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+                return super.insertItem(slot, stack, simulate);
+            }
+
+            @Override
+            public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+                return super.extractItem(slot, amount, simulate);
+            }
+
+            @Override
+            public void setStackInSlot(int slot, @NotNull ItemStack stack) { // TODO try to fix flicker
+                super.setStackInSlot(slot, stack);
+                if (slot == SPEED) {
+                    energyHandler.setCapacity(Math.max(((stack.getCount() - this.getStackInSlot(ENERGY).getCount()) + 1), 1) * PROCESSOR_CONFIG_MAP.get(typeName).capacity());
+                } else if (slot == ENERGY) {
+                    energyHandler.setCapacity(Math.max(((this.getStackInSlot(SPEED).getCount() - stack.getCount()) + 1), 1) * PROCESSOR_CONFIG_MAP.get(typeName).capacity());
+                }
             }
         };
 
@@ -104,7 +124,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    protected void loadAdditional(CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         redstoneMode = tag.getBoolean("redstoneMode");
         itemStackHandler.deserializeNBT(registries, tag.getCompound("inventory"));
         fluidHandler.deserializeNBT(registries, tag.getCompound("fluids"));
@@ -113,7 +133,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    protected void saveAdditional(CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         tag.putBoolean("redstoneMode", redstoneMode);
         tag.put("inventory", itemStackHandler.serializeNBT(registries));
         tag.put("fluids", fluidHandler.serializeNBT(registries));
@@ -145,7 +165,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         return Component.translatable("menu.title." + typeName);
     }
 
@@ -160,7 +180,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
         CompoundTag tag = new CompoundTag();
         saveAdditional(tag, registries);
         return tag;
@@ -172,7 +192,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider registries) {
+    public void onDataPacket(@NotNull Connection connection, @NotNull ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider registries) {
         super.onDataPacket(connection, packet, registries);
     }
 }

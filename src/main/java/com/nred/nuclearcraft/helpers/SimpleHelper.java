@@ -24,6 +24,4 @@ public class SimpleHelper {
             return String.format("%.1f FE", power);
         }
     }
-
-    //new DecimalFormat("#.##").format
 }
