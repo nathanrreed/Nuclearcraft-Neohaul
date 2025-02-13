@@ -72,12 +72,16 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         ores();
         collectors();
         processors();
+
+        dropSelf(SOLIDIFIED_CORIUM.get());
+        dropWhenSilkTouch(SUPERCOLD_ICE.get());
     }
 
     @Override
     protected @NotNull Iterable<Block> getKnownBlocks() {
         List<Block> all = new ArrayList<>();
         all.addAll(blockValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP, PROCESSOR_MAP));
+        all.addAll(blockValues(SOLIDIFIED_CORIUM, SUPERCOLD_ICE));
         return all;
     }
 }

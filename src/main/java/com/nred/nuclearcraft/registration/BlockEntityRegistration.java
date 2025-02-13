@@ -13,14 +13,14 @@ import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntityCompa
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntityDense;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusherEntity;
+import com.nred.nuclearcraft.block.solar.SolarPanelEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
-import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
+import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.Registers.BLOCK_ENTITY_TYPES;
 
 public class BlockEntityRegistration {
@@ -28,6 +28,7 @@ public class BlockEntityRegistration {
     public static final Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> WATER_SOURCE_TYPES = createWaterCollector();
     public static final Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> NITROGEN_COLLECTOR_TYPES = createNitrogenCollector();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> PROCESSOR_ENTITY_TYPE = createProcessors();
+    public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends SolarPanelEntity>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
 
     private static Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> createCobblestoneCollector() {
         Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> map = new HashMap<>();
@@ -75,6 +76,15 @@ public class BlockEntityRegistration {
         map.put("fluid_mixer", BLOCK_ENTITY_TYPES.register("fluid_mixer", () -> BlockEntityType.Builder.of(RockCrusherEntity::new, PROCESSOR_MAP.get("fluid_mixer").get()).build(null)));
         map.put("separator", BLOCK_ENTITY_TYPES.register("separator", () -> BlockEntityType.Builder.of(RockCrusherEntity::new, PROCESSOR_MAP.get("separator").get()).build(null)));
         map.put("supercooler", BLOCK_ENTITY_TYPES.register("supercooler", () -> BlockEntityType.Builder.of(RockCrusherEntity::new, PROCESSOR_MAP.get("supercooler").get()).build(null)));
+        return map;
+    }
+
+    private static Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends SolarPanelEntity>>> createSolarPanels() {
+        Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends SolarPanelEntity>>> map = new HashMap<>();
+        map.put(0, BLOCK_ENTITY_TYPES.register("solar_panel_basic", () -> BlockEntityType.Builder.of((pos, state) -> new SolarPanelEntity(pos, state, 0), SOLAR_MAP.get("solar_panel_basic").get()).build(null)));
+        map.put(1, BLOCK_ENTITY_TYPES.register("solar_panel_advanced", () -> BlockEntityType.Builder.of((pos, state) -> new SolarPanelEntity(pos, state, 1), SOLAR_MAP.get("solar_panel_advanced").get()).build(null)));
+        map.put(2, BLOCK_ENTITY_TYPES.register("solar_panel_du", () -> BlockEntityType.Builder.of((pos, state) -> new SolarPanelEntity(pos, state, 2), SOLAR_MAP.get("solar_panel_du").get()).build(null)));
+        map.put(3, BLOCK_ENTITY_TYPES.register("solar_panel_elite", () -> BlockEntityType.Builder.of((pos, state) -> new SolarPanelEntity(pos, state, 3), SOLAR_MAP.get("solar_panel_elite").get()).build(null)));
         return map;
     }
 

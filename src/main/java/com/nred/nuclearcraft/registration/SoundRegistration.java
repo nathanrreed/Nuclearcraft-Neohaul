@@ -24,6 +24,9 @@ public class SoundRegistration {
     public static final Supplier<SoundEvent> HYPERSPACE = SOUND_EVENTS.register("music_disc.hyperspace", SoundEvent::createVariableRangeEvent);
     public static final ResourceKey<JukeboxSong> HYPERSPACE_KEY = createSong("hyperspace");
 
+    public static final Supplier<SoundEvent> RAD_POISONING = SOUND_EVENTS.register("rad_poisoning", SoundEvent::createVariableRangeEvent);
+
+
     public static ResourceKey<JukeboxSong> createSong(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(MODID, name));
     }

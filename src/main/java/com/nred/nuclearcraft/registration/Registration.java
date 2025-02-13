@@ -6,6 +6,7 @@ import static com.nred.nuclearcraft.registration.Registers.*;
 
 public class Registration {
     public static void init() {
+        DamageTypeRegistration.init();
         BlockRegistration.init();
         ItemRegistration.init();
         FluidRegistration.init();

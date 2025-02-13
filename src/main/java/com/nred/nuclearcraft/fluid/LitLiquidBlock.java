@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 
 public class LitLiquidBlock extends LiquidBlock {
-    public LitLiquidBlock(FlowingFluid fluid, Properties properties) {
+    public LitLiquidBlock(FlowingFluid fluid, Properties properties) { // TODO refactor fluids
         super(fluid, properties);
     }
 

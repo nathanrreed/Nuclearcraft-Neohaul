@@ -42,6 +42,7 @@
     "nuclearcraftneohaul:ingot_former",
     "nuclearcraftneohaul:fluid_enricher",
     "nuclearcraftneohaul:fuel_reprocessor",
-    "nuclearcraftneohaul:manufactory"
+    "nuclearcraftneohaul:manufactory",
+    "nuclearcraftneohaul:solidified_corium"
   ]
 }

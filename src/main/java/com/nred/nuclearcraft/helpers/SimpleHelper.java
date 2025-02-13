@@ -17,14 +17,19 @@ public class SimpleHelper {
     }
 
     public static String getFEString(double power) {
+        return getFEString(power, false);
+    }
+
+    public static String getFEString(double power, boolean toInt) {
+        String base = toInt ? "%.0f" : "%.1f";
         if ((power / 1000000000.0) >= 0.999999) {
-            return String.format("%.1f GFE", power / 1000000000.0);
+            return String.format(base + " GFE", power / 1000000000.0);
         } else if ((power / 1000000.0) >= 0.999999) {
-            return String.format("%.1f MFE", power / 1000000.0);
+            return String.format(base + " MFE", power / 1000000.0);
         } else if ((power / 1000.0) >= 0.999999) {
-            return String.format("%.1f kFE", power / 1000.0);
+            return String.format(base + " kFE", power / 1000.0);
         } else {
-            return String.format("%.1f FE", power);
+            return String.format(base + " FE", power);
         }
     }
 

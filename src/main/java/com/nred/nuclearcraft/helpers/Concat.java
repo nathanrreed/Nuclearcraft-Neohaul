@@ -34,6 +34,11 @@ public class Concat {
     }
 
     @SafeVarargs
+    public static List<Block> blockValues(DeferredBlock<Block>... args) {
+        return Arrays.stream(args).map(DeferredHolder::get).toList();
+    }
+
+    @SafeVarargs
     public static List<ItemStack> blockStackValues(Map<String, DeferredBlock<Block>>... args) {
         return Arrays.stream(args).flatMap(m -> m.values().stream()).map(block -> new ItemStack(block.asItem())).toList();
     }

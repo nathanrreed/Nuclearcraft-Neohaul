@@ -1,0 +1,13 @@
+{
+    "entries": [
+        {
+            "enum": "net/minecraft/world/damagesource/DamageEffects",
+            "name": "NUCLEARCRAFTNEOHAUL_RADIATION",
+            "constructor": "(Ljava/lang/String;Ljava/util/function/Supplier;)V",
+            "parameters": {
+                "class": "com/nred/nuclearcraft/registration/ModEnumParams",
+                "method": "getDamageEffectsParameter"
+            }
+        }
+    ]
+}

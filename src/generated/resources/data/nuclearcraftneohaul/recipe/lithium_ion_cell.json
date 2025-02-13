@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:hard_carbon_alloy"
+    },
+    "L": {
+      "tag": "c:ingots/lithium"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:lithium_manganese_dioxide_alloy"
+    }
+  },
+  "pattern": [
+    "HHH",
+    "FLF",
+    "MMM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:lithium_ion_cell"
+  }
+}

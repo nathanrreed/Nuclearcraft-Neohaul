@@ -1,11 +1,11 @@
 {
   "values": [
-    "nuclearcraftneohaul:boron_ore",
-    "nuclearcraftneohaul:lead_ore",
-    "nuclearcraftneohaul:lithium_ore",
-    "nuclearcraftneohaul:magnesium_ore",
-    "nuclearcraftneohaul:thorium_ore",
-    "nuclearcraftneohaul:tin_ore",
-    "nuclearcraftneohaul:uranium_ore"
+    "nuclearcraftneohaul:boron",
+    "nuclearcraftneohaul:lead",
+    "nuclearcraftneohaul:lithium",
+    "nuclearcraftneohaul:magnesium",
+    "nuclearcraftneohaul:thorium",
+    "nuclearcraftneohaul:tin",
+    "nuclearcraftneohaul:uranium"
   ]
 }

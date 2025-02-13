@@ -1,0 +1,6 @@
+{
+  "effects": "nuclearcraftneohaul:radiation",
+  "exhaustion": 0.1,
+  "message_id": "fatal_rads",
+  "scaling": "never"
+}

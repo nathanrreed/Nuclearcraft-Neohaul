@@ -30,17 +30,23 @@ class ModBlockStateProvider extends BlockStateProvider {
     @Override
     public void registerStatesAndModels() {
         for (var ore : ORES) {
-            blockWithItemOverlay(ORE_MAP.get(ore), Blocks.STONE);
-            blockWithItemOverlay(ORE_MAP.get(ore + "_deepslate"), ORE_MAP.get(ore), Blocks.DEEPSLATE);
+            blockWithItemOverlay(ORE_MAP.get(ore), Blocks.STONE, "ore");
+            blockWithItemOverlay(ORE_MAP.get(ore + "_deepslate"), ORE_MAP.get(ore), Blocks.DEEPSLATE, "ore");
         }
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, "ingot_block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "raw_block");
+        blockWithItem(SUPERCOLD_ICE);
+        blockWithItem(SOLIDIFIED_CORIUM);
 
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
             for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
                 String name = machine + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
                 blockWithItem(name, COLLECTOR_MAP.get(name), "collectors");
             }
+        }
+
+        for (String typeName : SOLAR_MAP.keySet()) {
+            blockSidesAndTop(SOLAR_MAP.get(typeName), "solar");
         }
 
         for (String typeName : PROCESSOR_MAP.keySet()) {
@@ -62,6 +68,10 @@ class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
+    private void simpleBlocks(HashMap<String, DeferredBlock<Block>> map, String folder) {
+        simpleBlocks(map.keySet().stream().toList(), map, folder);
+    }
+
     private void blockWithItem(DeferredBlock<Block> deferredBlock) {
         Block block = deferredBlock.get();
         ModelFile model = cubeAll(deferredBlock.get());
@@ -69,14 +79,23 @@ class ModBlockStateProvider extends BlockStateProvider {
         itemModels().getBuilder("item/" + BuiltInRegistries.BLOCK.getKey(block).getPath()).parent(model);
     }
 
-    private void blockWithItemOverlay(DeferredBlock<Block> deferredBlock, Block underlay) {
-        blockWithItemOverlay(deferredBlock, deferredBlock, underlay);
+    private void blockWithItemOverlay(DeferredBlock<Block> deferredBlock, Block underlay, String folder) {
+        blockWithItemOverlay(deferredBlock, deferredBlock, underlay, folder);
     }
 
-    private void blockWithItemOverlay(DeferredBlock<Block> deferredBlock, DeferredBlock<Block> shadow, Block underlay) {
+    private void blockWithItemOverlay(DeferredBlock<Block> deferredBlock, DeferredBlock<Block> shadow, Block underlay, String folder) {
         Block block = deferredBlock.get();
-        String oreTexture = blockTexture(shadow.get()).getPath().replace(ModelProvider.BLOCK_FOLDER + "/", ModelProvider.BLOCK_FOLDER + "/ore/");
+        String oreTexture = blockTexture(shadow.get()).getPath().replace(ModelProvider.BLOCK_FOLDER + "/", ModelProvider.BLOCK_FOLDER + "/" + folder + "/");
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/cube_all_overlayed")).texture("all", blockTexture(underlay)).texture("overlay", modLoc(oreTexture));
+
+        simpleBlock(block, model);
+        simpleBlockItem(block, model);
+    }
+
+    private void blockSidesAndTop(DeferredBlock<Block> deferredBlock, String folder) {
+        Block block = deferredBlock.get();
+        String base = blockTexture(block).getPath().replace(ModelProvider.BLOCK_FOLDER + "/", ModelProvider.BLOCK_FOLDER + "/" + folder + "/");
+        ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/top_sides")).texture("top", modLoc(base + "_top")).texture("sides", modLoc(base + "_side"));
 
         simpleBlock(block, model);
         simpleBlockItem(block, model);

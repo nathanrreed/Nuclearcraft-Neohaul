@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.item.FoodItem;
+import com.nred.nuclearcraft.item.LithiumIonCell;
 import com.nred.nuclearcraft.item.PortableEnderChest;
 import com.nred.nuclearcraft.item.TooltipItem;
 import net.minecraft.world.effect.MobEffects;
@@ -33,6 +34,7 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> MUSIC_DISC_MAP = createMusicDiscs();
     public static final DeferredItem<Item> PORTABLE_ENDER_CHEST = ITEMS.register("portable_ender_chest", () -> new PortableEnderChest(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> FOURSMORE = ITEMS.register("foursmore", () -> new FoodItem(48, 8.6F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 1200), newEffect(MobEffects.DIG_SPEED, 2, 1200), newEffect(MobEffects.ABSORPTION, 2, 1200))));
+    public static final DeferredItem<Item> LITHIUM_ION_CELL = ITEMS.register("lithium_ion_cell", () -> new LithiumIonCell(new Item.Properties()));
 
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String append) {
         return createItems(names, "", append, false);

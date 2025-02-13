@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    },
+    "G": {
+      "tag": "c:dusts/graphite"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "Q": {
+      "tag": "c:dusts/quartz"
+    },
+    "W": {
+      "item": "minecraft:heavy_weighted_pressure_plate"
+    }
+  },
+  "pattern": [
+    "GQG",
+    "WLW",
+    "CWC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:solar_panel_basic"
+  }
+}

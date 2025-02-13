@@ -17,6 +17,7 @@ public class CreativeTabsRegistration {
             .displayItems((parameters, output) -> {
                 output.acceptAll(blockStackValues(ORE_MAP, INGOT_BLOCK_MAP));
                 output.acceptAll(itemStackValues(INGOT_MAP, NUGGET_MAP, RAW_MAP, DUST_MAP, GEM_MAP, GEM_DUST_MAP, ALLOY_MAP, COMPOUND_MAP, PART_MAP, PART_BLOCK_MAP, URANIUM_MAP));
+                output.accept(SUPERCOLD_ICE);
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MACHINES_TAB = CREATIVE_MODE_TABS.register("machines_tab", () -> CreativeModeTab.builder()
@@ -24,8 +25,9 @@ public class CreativeTabsRegistration {
             .withTabsBefore(MATERIALS_TAB.getId())
             .icon(() -> PROCESSOR_MAP.get("manufactory").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.acceptAll(blockStackValues(PROCESSOR_MAP, COLLECTOR_MAP));
+                output.acceptAll(blockStackValues(PROCESSOR_MAP, SOLAR_MAP, COLLECTOR_MAP));
                 output.acceptAll(itemStackValues(UPGRADE_MAP));
+                output.accept(LITHIUM_ION_CELL);
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MISC_TAB = CREATIVE_MODE_TABS.register("misc_tab", () -> CreativeModeTab.builder()
@@ -36,6 +38,7 @@ public class CreativeTabsRegistration {
                 output.acceptAll(itemStackValues(MUSIC_DISC_MAP, FOOD_MAP));
                 output.accept(FOURSMORE);
                 output.accept(PORTABLE_ENDER_CHEST);
+                output.accept(SOLIDIFIED_CORIUM);
             }).build());
 
     public static void init() {

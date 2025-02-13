@@ -8,6 +8,7 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -36,6 +37,14 @@ public class Config {
         BUILDER.defineInRange("dense_capacity", 38400, 1, Integer.MAX_VALUE);
         BUILDER.pop();
         BUILDER.pop();
+
+        BUILDER.comment("Solar Power").push("solar");
+        BUILDER.defineList("production", List.of(5, 20, 80, 320), null, element -> (element instanceof Integer integer && integer > 0));
+        BUILDER.defineList("capacity", List.of(20, 80, 320, 1280), null, element -> (element instanceof Integer integer && integer > 0));
+        BUILDER.pop();
+
+        BUILDER.defineInRange("lithium_ion_cell_capacity", 8000000, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("lithium_ion_cell_transfer_rate", 80000, 1, Integer.MAX_VALUE);
 
         BUILDER.comment("Processor Settings").push("processor");
 
@@ -154,6 +163,10 @@ public class Config {
     }
 
     public static Map<String, ProcessorConfig> PROCESSOR_CONFIG_MAP = new HashMap<>();
+    public static List<Integer> SOLAR_CONFIG_PRODUCTION;
+    public static List<Integer> SOLAR_CONFIG_CAPACITY;
+    public static int LITHIUM_ION_CELL_CAPACITY;
+    public static int LITHIUM_ION_CELL_TRANSFER;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
@@ -162,5 +175,11 @@ public class Config {
         for (String processor : PROCESSOR_MAP.keySet()) {
             PROCESSOR_CONFIG_MAP.put(processor, new ProcessorConfig(config.getIntOrElse("processor." + processor + ".capacity", 0), config.getIntOrElse("processor." + processor + ".processing_power", 0), config.getIntOrElse("processor." + processor + ".fluid_capacity", 0)));
         }
+
+        SOLAR_CONFIG_PRODUCTION = config.get("solar.production");
+        SOLAR_CONFIG_CAPACITY = config.get("solar.capacity");
+
+        LITHIUM_ION_CELL_CAPACITY = config.getInt("lithium_ion_cell_capacity");
+        LITHIUM_ION_CELL_TRANSFER = config.getInt("lithium_ion_cell_transfer_rate");
     }
 }

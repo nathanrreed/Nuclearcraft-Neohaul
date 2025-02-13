@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearcraftneohaul:boron_nitride_gem"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:magnesium_diboride_solenoid"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:elite_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:solar_panel_du"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "SSS",
+    "PMP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:solar_panel_elite"
+  }
+}

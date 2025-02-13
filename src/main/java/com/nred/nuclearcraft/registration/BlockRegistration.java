@@ -1,5 +1,7 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.block.SolidifiedCorium;
+import com.nred.nuclearcraft.block.SupercoldIceBlock;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGenerator;
 import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollector;
@@ -24,6 +26,7 @@ import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusher;
 import com.nred.nuclearcraft.block.processor.salt_mixer.SaltMixer;
 import com.nred.nuclearcraft.block.processor.separator.Separator;
 import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
+import com.nred.nuclearcraft.block.solar.SolarPanel;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -47,10 +50,14 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> RAW_BLOCK_MAP = createBlocks(RAWS, "raw", "block", Blocks.RAW_IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> COLLECTOR_MAP = createCollectors();
+    public static final HashMap<String, DeferredBlock<Block>> SOLAR_MAP = createSolarPanels();
+
 
     private static final BlockBehaviour.Properties BASE_PROPERTIES = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 1200.0F).isValidSpawn(Blocks::never).isRedstoneConductor((a, b, c) -> false);
-
     public static final HashMap<String, DeferredBlock<Block>> PROCESSOR_MAP = createProcessors();
+
+    public static final DeferredBlock<Block> SUPERCOLD_ICE = registerBlockItem("supercold_ice", SupercoldIceBlock::new);
+    public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCorium::new);
 
     private static HashMap<String, DeferredBlock<Block>> createOres() {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
@@ -123,6 +130,14 @@ public class BlockRegistration {
         map.put("fluid_mixer", registerBlockItem("fluid_mixer", () -> new SaltMixer(BASE_PROPERTIES)));
         map.put("separator", registerBlockItem("separator", () -> new Separator(BASE_PROPERTIES)));
         map.put("supercooler", registerBlockItem("supercooler", () -> new Supercooler(BASE_PROPERTIES)));
+        return map;
+    }
+    private static HashMap<String, DeferredBlock<Block>> createSolarPanels() {
+        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        map.put("solar_panel_basic", registerBlockItem("solar_panel_basic", () -> new SolarPanel(0)));
+        map.put("solar_panel_advanced", registerBlockItem("solar_panel_advanced", () -> new SolarPanel(1)));
+        map.put("solar_panel_du", registerBlockItem("solar_panel_du", () -> new SolarPanel(2)));
+        map.put("solar_panel_elite", registerBlockItem("solar_panel_elite", () -> new SolarPanel(3)));
         return map;
     }
 

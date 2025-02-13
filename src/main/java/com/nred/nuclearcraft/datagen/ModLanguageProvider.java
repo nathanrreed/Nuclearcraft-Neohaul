@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.datagen;
 
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.data.DataGenerator;
@@ -16,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
@@ -24,16 +24,24 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 public class ModLanguageProvider extends LanguageProvider {
 
     public ModLanguageProvider(DataGenerator gen, String locale) {
-        super(gen.getPackOutput(), NuclearcraftNeohaul.MODID, locale);
+        super(gen.getPackOutput(), MODID, locale);
     }
 
     @Override
     protected void addTranslations() {
         ores();
+        items();
+        blocks();
+        buckets();
         tooltips();
         menus();
         creativeTabs();
         musicDiscs();
+        damage_types();
+
+        add(SUPERCOLD_ICE.asItem(), capitalize(SUPERCOLD_ICE.getId().getPath()));
+        add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
+        add(LITHIUM_ION_CELL.asItem(), capitalize(LITHIUM_ION_CELL.getId().getPath()));
     }
 
     private void ores() {
@@ -41,27 +49,41 @@ public class ModLanguageProvider extends LanguageProvider {
             add(ORE_MAP.get(ore).get(), StringUtils.capitalize(ore) + " Ore");
             add(ORE_MAP.get(ore + "_deepslate").get(), StringUtils.capitalize(ore) + " Deepslate Ore");
         }
+    }
 
+    private void items() {
         simpleItems(INGOTS, INGOT_MAP, " Ingot");
         simpleItems(GEMS, GEM_MAP, "");
         simpleItems(DUSTS, DUST_MAP, " Dust");
-        replacesItems(GEM_DUSTS, GEM_DUST_MAP, "Crushed ", "", Map.of("boron_nitride", "Hexagonal Boron Nitride", "sulfur", "Sulfur"));
+        replaceItems(GEM_DUSTS, GEM_DUST_MAP, "Crushed ", "", Map.of("boron_nitride", "Hexagonal Boron Nitride", "sulfur", "Sulfur"));
         simpleItems(RAWS, RAW_MAP, "Raw ", "");
         simpleItems(NUGGETS, NUGGET_MAP, " Nugget");
         simpleItems(ALLOYS, ALLOY_MAP, " Alloy Ingot");
-        replacesItems(PARTS, PART_MAP, "", "", Map.of("du_plating", "DU Plating"));
+        replaceItems(PARTS, PART_MAP, "", "", Map.of("du_plating", "DU Plating"));
         simpleItems(PART_BLOCKS, PART_BLOCK_MAP, "");
-        replacesItems(COMPOUNDS, COMPOUND_MAP, "", "", Map.of("c_mn_blend", "Carbon-Manganese Blend"));
+        replaceItems(COMPOUNDS, COMPOUND_MAP, "", "", Map.of("c_mn_blend", "Carbon-Manganese Blend"));
         simpleItems(UPGRADES, UPGRADE_MAP, " Upgrade");
         fuelTypeItems(URANIUMS, URANIUM_MAP, "Uranium-", "");
         simpleItems(FOOD_MAP, Map.of("dominos", "Domino's Special", "smore", "S'more S'mingot", "moresmore", "MoreS'more DoubleS'mingot"));
         add(PORTABLE_ENDER_CHEST.get(), "Portable Ender Chest");
         add(FOURSMORE.get(), "FourS'more QuadS'mingot");
+    }
 
-        //Blocks
+    private void blocks() {
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, " Block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "Block of Raw ", "");
+        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
+            for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
+                String type = level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase();
+                add(COLLECTOR_MAP.get(machine + type).asItem(), capitalize(type + "_" + machine));
+            }
+        }
 
+        simpleBlocks(PROCESSOR_MAP);
+        simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel","solar_panel_advanced", "Advanced Solar Panel","solar_panel_du", "DU Solar Panel","solar_panel_elite", "Elite Solar Panel"));
+    }
+
+    private void buckets() {
         buckets(GASSES, Map.of("helium_3", "Helium-3"));
         buckets(MOLTEN, Map.of("boron_10", "Boron-10",
                 "boron_11", "Boron-11",
@@ -90,17 +112,6 @@ public class ModLanguageProvider extends LanguageProvider {
                 "nak_hot", "Nak Alloy"), "Hot Eutectic ");
         buckets(CUSTOM_FLUID, Map.of("radaway", "RadAway Fluid",
                 "radaway_slow", "Slow-Acting RadAway Fluid"));
-
-        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
-            for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
-                String type = level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase();
-                add(COLLECTOR_MAP.get(machine + type).asItem(), capitalize(type + "_" + machine));
-            }
-        }
-
-        for (String typeName : PROCESSOR_MAP.keySet()) {
-            add(PROCESSOR_MAP.get(typeName).get(), capitalize(typeName));
-        }
     }
 
     private void buckets(Map<String, Fluids> type, Map<String, String> replacers) {
@@ -120,6 +131,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.radiation", "Radiation: %s %sRad/t");
         add("tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");
         add("tooltip.collector", "Produces %s mb/t of %s constantly.");
+        add("tooltip.solar", "Produces %s/t constantly during the daytime.");
         add("tooltip.processor.energy.stored", "§dEnergy Stored:§r %s / %s");
         add("tooltip.processor.energy.using", "§dProcess Power:§r %s/t");
         add("tooltip.processor.energy.speed", "§bSpeed Multiplier:§r x%s");
@@ -183,6 +195,25 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.portable.ender_chest", "Access your Ender Chest on the move.");
         add("tooltip.marshmallow", "Many civilizations would not have fallen if they had these on their side.");
         add("tooltip.dominos", "Paul's favourite - restore 16 hunger points with this beauty.");
+
+        add("tooltip.solidified_corium", "The solidified form of a poisonous mixture of fuel and components produced in fission reactor meltdowns.");
+
+        add("tooltip.energy_stored", "Energy Stored: %s / %s");
+    }
+
+    private void damage_types() {
+        add("death.attack.superfluid_freeze", "%swas Bose-Einstein condensated");
+        add("death.attack.plasma_burn", "%s was incinerated by plasma");
+        add("death.attack.gas_burn", "%s was excruciatingly vaporized");
+        add("death.attack.steam_burn", "%s would have fared better in a kettle");
+        add("death.attack.molten_burn", "%s went to hell but didn't come back");
+        add("death.attack.corium_burn", "%s decided to follow the fate of their fission reactor");
+        add("death.attack.hot_coolant_burn", "%s cooled off at the wrong time and place");
+        add("death.attack.acid_burn", "%s turned out to be far too alkaline");
+        add("death.attack.fluid_burn", "%s was effectively pan-fried");
+        add("death.attack.hypothermia", "%s died as a result of extreme hypothermia");
+        add("death.attack.fission_burn", "%s was fried by a fission reactor");
+        add("death.attack.fatal_rads", "%s died due to fatal radiation poisoning");
     }
 
     private void menus() {
@@ -253,18 +284,36 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void simpleItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
-        replacesItems(list, map, prepend, append, Map.of());
+        replaceItems(list, map, prepend, append, Map.of());
     }
 
     private void simpleItems(HashMap<String, DeferredItem<Item>> map) {
-        replacesItems(map.keySet().stream().toList(), map, "", "", Map.of());
+        replaceItems(map.keySet().stream().toList(), map, "", "", Map.of());
     }
 
     private void simpleItems(HashMap<String, DeferredItem<Item>> map, Map<String, String> replacers) {
-        replacesItems(map.keySet().stream().toList(), map, "", "", replacers);
+        replaceItems(map.keySet().stream().toList(), map, "", "", replacers);
     }
 
-    private void replacesItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append, Map<String, String> replacers) {
+    private void replaceItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append, Map<String, String> replacers) {
+        for (String name : list) {
+            if (replacers.containsKey(name)) {
+                add(map.get(name).asItem(), replacers.get(name));
+            } else {
+                add(map.get(name).asItem(), prepend + capitalize(name) + append);
+            }
+        }
+    }
+
+    private void simpleBlocks(HashMap<String, DeferredBlock<Block>> map) {
+        simpleBlocks(map, Map.of());
+    }
+
+    private void simpleBlocks(HashMap<String, DeferredBlock<Block>> map, Map<String, String> replacers) {
+        replaceBlocks(map.keySet().stream().toList(), map, "", "", replacers);
+    }
+
+    private void replaceBlocks(List<String> list, HashMap<String, DeferredBlock<Block>> map, String prepend, String append, Map<String, String> replacers) {
         for (String name : list) {
             if (replacers.containsKey(name)) {
                 add(map.get(name).asItem(), replacers.get(name));

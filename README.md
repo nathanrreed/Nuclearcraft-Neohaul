@@ -7,11 +7,14 @@ A remake of Nuclearcraft Overhaul to Neoforge 1.21.1, the original for on MC 1.1
 
 For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https://github.com/igentuman/NuclearCraft-Neoteric)
 
+Until ready for public consumption jar files can be found in [Github Actions](https://github.com/nathanrreed/Nuclearcraft-Neohaul/actions/workflows/gradle.yml)
+
 Completed:
 - Ore generation
 - Collectors (Cobblestone, water and nitrogen)
 - Music Discs
 - Foods
+- Solar panels
 
 In progress:
 - Processors (Models work, but recipes don't yet)
@@ -20,7 +23,6 @@ Future Additions:
 - Sounds and Particles
 - Machine Interface
 - Tools and Armour
-- Solar panels
 - Multitool
 - Multiblocks (Reactors, Turbines, etc)
 - Wasteland

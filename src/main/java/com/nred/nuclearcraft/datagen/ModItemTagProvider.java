@@ -25,8 +25,7 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.MOLTEN;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 class ModItemTagProvider extends ItemTagsProvider {
-    public ModItemTagProvider(
-            PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper existingFileHelper) {
+    public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, blockTags, MODID, existingFileHelper);
     }
 

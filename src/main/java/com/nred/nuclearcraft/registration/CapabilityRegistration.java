@@ -6,15 +6,20 @@ import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollecto
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.config.ProcessorConfig;
+import com.nred.nuclearcraft.item.EnergyItem;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.energy.EnergyStorage;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
+import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CELL;
 
 @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD)
 public class CapabilityRegistration {
@@ -35,5 +40,29 @@ public class CapabilityRegistration {
             if (config.fluid_capacity() > 0)
                 event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ProcessorEntity::getFluidHandler);
         }
+
+        for (int tier = 0; tier < 4; tier++) {
+            event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, SOLAR_PANEL_ENTITY_TYPE.get(tier).get(), (entity, context) -> entity.energyHandler);
+        }
+
+        items(event);
+    }
+
+    private static void items(RegisterCapabilitiesEvent event) {
+        event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, context) -> new EnergyStorage(((EnergyItem) stack.getItem()).capacity.get(), ((EnergyItem) stack.getItem()).rate.get(), ((EnergyItem) stack.getItem()).rate.get(), stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("energy")) {
+            @Override
+            public int receiveEnergy(int toReceive, boolean simulate) {
+                int rtn = super.receiveEnergy(toReceive, simulate);
+                stack.update(DataComponents.CUSTOM_DATA, CustomData.EMPTY, data -> data.update(compoundTag -> compoundTag.putInt("energy", this.energy)));
+                return rtn;
+            }
+
+            @Override
+            public int extractEnergy(int toExtract, boolean simulate) {
+                int rtn = super.extractEnergy(toExtract, simulate);
+                stack.update(DataComponents.CUSTOM_DATA, CustomData.EMPTY, data -> data.update(compoundTag -> compoundTag.putInt("energy", this.energy)));
+                return rtn;
+            }
+        }, LITHIUM_ION_CELL);
     }
 }

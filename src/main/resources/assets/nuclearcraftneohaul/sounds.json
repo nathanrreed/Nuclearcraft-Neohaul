@@ -14,5 +14,9 @@
 	"music_disc.hyperspace": {
 		"subtitle": "music_disc.hyperspace",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/hyperspace", "stream": true } ]
+	},
+	"player.rad_poisoning": {
+		"subtitle": "player.rad_poisoning",
+		"sounds": [ { "name": "nuclearcraftneohaul:player/rad_poisoning", "stream": false } ]
 	}
 }

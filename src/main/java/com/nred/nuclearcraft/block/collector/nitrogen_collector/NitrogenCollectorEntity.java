@@ -79,7 +79,7 @@ public class NitrogenCollectorEntity extends CollectorEntity {
         if (level != null && !level.isClientSide && fluidStackHandler.getFluidAmount(0) > 0) {
             for (Direction dir : shuffledDirections()) {
                 if (this.capCache.get(dir) == null) {
-                    this.capCache.put(dir, BlockCapabilityCache.create(Capabilities.FluidHandler.BLOCK, ((ServerLevel) level), pos.relative(dir), dir.getOpposite(), () -> !this.isRemoved(), () -> onCapInvalidate()));
+                    this.capCache.put(dir, BlockCapabilityCache.create(Capabilities.FluidHandler.BLOCK, ((ServerLevel) level), pos.relative(dir), dir.getOpposite(), () -> !this.isRemoved(), this::onCapInvalidate));
                 } else if (capCache.get(dir).getCapability() != null) {
                     @Nullable IFluidHandler cap = capCache.get(dir).getCapability();
                     FluidStack internal = fluidStackHandler.internalExtractFluid(fluidStackHandler.getTankCapacity(0), IFluidHandler.FluidAction.EXECUTE);

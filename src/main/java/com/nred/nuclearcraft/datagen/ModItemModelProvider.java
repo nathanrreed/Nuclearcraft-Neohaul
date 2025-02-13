@@ -46,6 +46,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleBlocks(List.of("empty_frame", "empty_heat_sink"), PART_BLOCK_MAP, "part");
 
         basicItem(PORTABLE_ENDER_CHEST.get());
+        basicItem(LITHIUM_ION_CELL.get());
 
         buckets();
     }

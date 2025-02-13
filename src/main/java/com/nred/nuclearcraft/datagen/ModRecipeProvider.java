@@ -73,6 +73,7 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
         collectors(recipeOutput);
         processors(recipeOutput);
         foods(recipeOutput);
+        solar_panels(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))
@@ -97,6 +98,10 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
                 .requires(Ingredient.of(Tags.Items.MUSIC_DISCS), 1)
                 .requires(ALLOY_MAP.get("tough"), 1)
                 .unlockedBy(getHasName(ALLOY_MAP.get("tough")), has(ALLOY_MAP.get("tough"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, LITHIUM_ION_CELL).pattern("HHH").pattern("FLF").pattern("MMM")
+                .define('H', ALLOY_MAP.get("hard_carbon")).define('F', ALLOY_MAP.get("ferroboron")).define('L', tag(Tags.Items.INGOTS, "lithium")).define('M', ALLOY_MAP.get("lithium_manganese_dioxide"))
+                .unlockedBy(getHasName(Items.ENDER_CHEST), has(Items.ENDER_CHEST)).save(recipeOutput);
     }
 
     private void full9Block(RecipeOutput recipeOutput, List<String> list, HashMap<String, DeferredItem<Item>> itemMap, HashMap<String, DeferredBlock<Block>> resultMap) {
@@ -262,6 +267,24 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
         new CollectorRecipeBuilder(new FluidStack(GASSES.get("nitrogen").still, 5), MACHINE_LEVEL.BASE).save(recipeOutput, MODID + ":nitrogen_collector_rate");
         new CollectorRecipeBuilder(new FluidStack(GASSES.get("nitrogen").still, 40), MACHINE_LEVEL.COMPACT).save(recipeOutput, MODID + ":nitrogen_collector_compact_rate");
         new CollectorRecipeBuilder(new FluidStack(GASSES.get("nitrogen").still, 320), MACHINE_LEVEL.DENSE).save(recipeOutput, MODID + ":nitrogen_collector_dense_rate");
+    }
+
+    private void solar_panels(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(MISC, SOLAR_MAP.get("solar_panel_basic"), 1).pattern("GQG").pattern("WLW").pattern("CWC")
+                .define('G', tag(Tags.Items.DUSTS, "graphite")).define('Q', tag(Tags.Items.DUSTS, "quartz")).define('W', Items.HEAVY_WEIGHTED_PRESSURE_PLATE).define('L', Items.LAPIS_LAZULI).define('C', PART_MAP.get("copper_solenoid"))
+                .unlockedBy(getHasName(Items.LAPIS_LAZULI), has(Items.LAPIS_LAZULI)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, SOLAR_MAP.get("solar_panel_advanced"), 1).pattern("PGP").pattern("SSS").pattern("PCP")
+                .define('P', PART_MAP.get("advanced_plating")).define('G', tag(Tags.Items.DUSTS, "graphite")).define('S', SOLAR_MAP.get("solar_panel_basic")).define('C', PART_MAP.get("copper_solenoid"))
+                .unlockedBy(getHasName(SOLAR_MAP.get("solar_panel_basic")), has(SOLAR_MAP.get("solar_panel_basic"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, SOLAR_MAP.get("solar_panel_du"), 1).pattern("PGP").pattern("SSS").pattern("PMP")
+                .define('P', PART_MAP.get("du_plating")).define('G', tag(Tags.Items.DUSTS, "graphite")).define('S', SOLAR_MAP.get("solar_panel_advanced")).define('M', PART_MAP.get("magnesium_diboride_solenoid"))
+                .unlockedBy(getHasName(SOLAR_MAP.get("solar_panel_advanced")), has(SOLAR_MAP.get("solar_panel_advanced"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, SOLAR_MAP.get("solar_panel_elite"), 1).pattern("PBP").pattern("SSS").pattern("PMP")
+                .define('P', PART_MAP.get("elite_plating")).define('B', GEM_MAP.get("boron_nitride")).define('S', SOLAR_MAP.get("solar_panel_du")).define('M', PART_MAP.get("magnesium_diboride_solenoid"))
+                .unlockedBy(getHasName(SOLAR_MAP.get("solar_panel_du")), has(SOLAR_MAP.get("solar_panel_du"))).save(recipeOutput);
     }
 
     private void processors(RecipeOutput recipeOutput) {
