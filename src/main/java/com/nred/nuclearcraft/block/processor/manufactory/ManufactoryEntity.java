@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.manufactory;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.ManufactoryMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ManufactoryEntity extends ProcessorEntity {
     public ManufactoryEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "manufactory", 4);
+        super(pos, blockState, "manufactory", new HandlerInfo(2, 0, 1, 0));
     }
 
     @Override

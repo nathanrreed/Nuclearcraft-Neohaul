@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.melter;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.MelterMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class MelterEntity extends ProcessorEntity {
     public MelterEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "melter", 3, 1);
+        super(pos, blockState, "melter", new HandlerInfo(1, 1, 1, 0));
     }
 
     @Override

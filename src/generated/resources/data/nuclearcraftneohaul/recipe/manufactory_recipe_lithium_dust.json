@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:lithium"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:lithium_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.25
+}

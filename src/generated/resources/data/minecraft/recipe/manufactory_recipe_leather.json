@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 4,
+      "item": "minecraft:rotten_flesh"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "minecraft:leather"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

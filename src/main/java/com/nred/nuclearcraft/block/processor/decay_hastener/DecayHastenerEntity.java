@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.decay_hastener;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.DecayHastenerMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class DecayHastenerEntity extends ProcessorEntity {
     public DecayHastenerEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "decay_hastener", 4);
+        super(pos, blockState, "decay_hastener", new HandlerInfo(2, 0, 1, 0));
     }
 
     @Override

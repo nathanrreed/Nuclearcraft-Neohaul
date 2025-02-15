@@ -1,0 +1,37 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/zirconium"
+        },
+        {
+          "tag": "c:ingots/zirconium"
+        }
+      ],
+      "count": 7
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/tin"
+        },
+        {
+          "tag": "c:ingots/tin"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 8,
+      "item": "nuclearcraftneohaul:zircaloy_alloy"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 4.0
+}

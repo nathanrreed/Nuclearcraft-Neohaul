@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:quartz"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:quartz_gem_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

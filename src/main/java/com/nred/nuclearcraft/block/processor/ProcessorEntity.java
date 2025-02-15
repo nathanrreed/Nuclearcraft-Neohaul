@@ -4,11 +4,15 @@ import com.nred.nuclearcraft.enumm.ButtonEnum;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
 import com.nred.nuclearcraft.helpers.CustomItemStackHandler;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
+import com.nred.nuclearcraft.recipe.base_types.ItemToItemInput;
+import com.nred.nuclearcraft.recipe.base_types.ItemToItemRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -16,6 +20,8 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,28 +33,40 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static com.nred.nuclearcraft.block.processor.Processor.POWERED;
 import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
+import static com.nred.nuclearcraft.config.Config.UPGRADES_CONFIG;
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.*;
 import static com.nred.nuclearcraft.menu.ProcessorMenu.ENERGY;
 import static com.nred.nuclearcraft.menu.ProcessorMenu.SPEED;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.PROCESSOR_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
 
 public abstract class ProcessorEntity extends BlockEntity implements MenuProvider, IMenuProviderExtension {
     public boolean redstoneMode = false;
     private final String typeName;
+    @NotNull
+    private final HandlerInfo handlerInfo;
 
     public CustomEnergyHandler energyHandler;
     public CustomFluidStackHandler fluidHandler;
     public CustomItemStackHandler itemStackHandler;
     public int progress = 0;
+    public int progressPercentage = 0;
     public DataSlot progressSlot;
+    public RecipeHolder<ItemToItemRecipe> recipe; //TODO
 
-    public ProcessorEntity(BlockPos pos, BlockState blockState, String typeName, int numStacks, int numTanks) {
+    public ProcessorEntity(BlockPos pos, BlockState blockState, String typeName, HandlerInfo handlerInfo) {
         super(PROCESSOR_ENTITY_TYPE.get(typeName).get(), pos, blockState);
         this.typeName = typeName;
-        energyHandler = new CustomEnergyHandler(PROCESSOR_CONFIG_MAP.get(this.typeName).capacity(), true, false) {
+        this.handlerInfo = handlerInfo;
+
+        fluidHandler = new CustomFluidStackHandler(PROCESSOR_CONFIG_MAP.get(this.typeName).fluid_capacity(), handlerInfo.numTanks(), false, true) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -58,17 +76,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
             }
         };
 
-        fluidHandler = new CustomFluidStackHandler(PROCESSOR_CONFIG_MAP.get(this.typeName).fluid_capacity(), numTanks, false, true) {
-            @Override
-            protected void onContentsChanged() {
-                setChanged();
-                if (level != null && !level.isClientSide()) {
-                    level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-                }
-            }
-        };
-
-        itemStackHandler = new CustomItemStackHandler(numStacks, true, true) {
+        itemStackHandler = new CustomItemStackHandler(2 + handlerInfo.numStacks(), true, true) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -78,9 +86,22 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
             }
 
             @Override
+            public int getSlotLimit(int slot) {
+                return switch (slot) {
+                    case SPEED -> UPGRADES_CONFIG.speed_max();
+                    case ENERGY -> UPGRADES_CONFIG.energy_max();
+                    default -> 64;
+                };
+            }
+
+            @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 if ((slot == SPEED && stack.is(UPGRADE_MAP.get("speed")) || (slot == ENERGY && stack.is(UPGRADE_MAP.get("energy"))))) {
                     return true;
+                } else if (slot > ENERGY + handlerInfo.numItemInputs()) { // Outputs can only be done internally so I am just going to assume it's fine
+                    return true;
+                } else if (slot > ENERGY) {
+                    return level.getRecipeManager().getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(typeName).get()).stream().flatMap(itemToItemRecipeRecipeHolder -> itemToItemRecipeRecipeHolder.value().itemInputs.stream()).flatMap(a -> Arrays.stream(a.getItems())).parallel().anyMatch(itemStack -> itemStack.is(stack.getItem()));
                 }
                 return false;
             }
@@ -98,10 +119,18 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
             @Override
             public void setStackInSlot(int slot, @NotNull ItemStack stack) { // TODO try to fix flicker
                 super.setStackInSlot(slot, stack);
-                if (slot == SPEED) {
-                    energyHandler.setCapacity(Math.max(((stack.getCount() - this.getStackInSlot(ENERGY).getCount()) + 1), 1) * PROCESSOR_CONFIG_MAP.get(typeName).capacity());
-                } else if (slot == ENERGY) {
-                    energyHandler.setCapacity(Math.max(((this.getStackInSlot(SPEED).getCount() - stack.getCount()) + 1), 1) * PROCESSOR_CONFIG_MAP.get(typeName).capacity());
+                if (slot == SPEED || slot == ENERGY) {
+                    energyHandler.setCapacity(getEnergyCapacity(getSpeedMultiplier(itemStackHandler), getPowerMultiplier(itemStackHandler)));
+                }
+            }
+        };
+
+        energyHandler = new CustomEnergyHandler(getEnergyCapacity(getSpeedMultiplier(itemStackHandler), getPowerMultiplier(itemStackHandler)), true, false) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+                if (level != null && !level.isClientSide()) {
+                    level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
                 }
             }
         };
@@ -109,27 +138,26 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
         progressSlot = new DataSlot() {
             @Override
             public int get() {
-                return progress;
+                return progressPercentage;
             }
 
             @Override
             public void set(int value) {
-                progress = value;
+                progressPercentage = value;
             }
         };
     }
 
-    public ProcessorEntity(BlockPos pos, BlockState blockState, String typeName, int numStacks) {
-        this(pos, blockState, typeName, numStacks, 0);
-    }
-
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.@NotNull Provider registries) {
+        super.loadAdditional(tag, registries);
+
         redstoneMode = tag.getBoolean("redstoneMode");
         itemStackHandler.deserializeNBT(registries, tag.getCompound("inventory"));
         fluidHandler.deserializeNBT(registries, tag.getCompound("fluids"));
         if (tag.contains("energy"))
             energyHandler.deserializeNBT(registries, tag.get("energy"));
+        progress = tag.getInt("progress");
     }
 
     @Override
@@ -138,18 +166,57 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
         tag.put("inventory", itemStackHandler.serializeNBT(registries));
         tag.put("fluids", fluidHandler.serializeNBT(registries));
         tag.put("energy", energyHandler.serializeNBT(registries));
+        tag.putInt("progress", progress);
+
+        super.saveAdditional(tag, registries);
+    }
+
+    public int getEnergyCapacity(double speedMultiplier, double powerMultiplier) {
+        return (int) (Math.ceil(PROCESSOR_CONFIG_MAP.get(typeName).base_time() / speedMultiplier) * Math.ceil(PROCESSOR_CONFIG_MAP.get(typeName).base_power() * powerMultiplier));
     }
 
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity entity) {
-        if (!(redstoneMode && state.getValue(POWERED)) && energyHandler.getEnergyStored() >= PROCESSOR_CONFIG_MAP.get(this.typeName).processing_power()) {
+        if (!(redstoneMode && state.getValue(POWERED)) && hasRecipe() && energyHandler.getEnergyStored() >= (int) calculateEnergy(typeName, recipe.value().getPowerModifier(), itemStackHandler)) {
             if (!state.getValue(PROCESSOR_ON)) {
                 level.setBlockAndUpdate(pos, state.setValue(PROCESSOR_ON, true));
             }
-            progressSlot.set((progress + 1) % 100);
-            energyHandler.internalExtractEnergy(PROCESSOR_CONFIG_MAP.get(this.typeName).processing_power(), false);
+
+            double ticksNeeded = calculateTicks(typeName, recipe.value().getTimeModifier(), itemStackHandler);
+            progress++;
+            progressSlot.set((int) ((progress / ticksNeeded) * 37));
+            if (progress > ticksNeeded) {
+                progress = 0;
+                progressSlot.set(0);
+                for (int i = 0; i < recipe.value().itemResults.size(); i++) {
+                    itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), false);
+                }
+
+                for (int i = 0; i < recipe.value().itemInputs.size(); i++) {
+                    for (int slot = 0; slot < recipe.value().itemInputs.size(); slot++) { // Find the slot the item is in and decrease it
+                        if (recipe.value().itemInputs.get(i).test(itemStackHandler.getStackInSlot(slot + ENERGY + 1))) {
+                            itemStackHandler.internalExtractItem(slot + ENERGY + 1, recipe.value().itemInputs.get(i).count(), false);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            energyHandler.internalExtractEnergy((int) calculateEnergy(typeName, recipe.value().getPowerModifier(), itemStackHandler), false);
         } else if (state.getValue(PROCESSOR_ON)) {
             level.setBlockAndUpdate(pos, state.setValue(PROCESSOR_ON, false));
+            progress = 0;
+            progressSlot.set(0);
         }
+    }
+
+    private boolean hasRecipe() {
+        ArrayList<ItemStack> stacks = new ArrayList<>(handlerInfo.numItemInputs());
+        for (int i = 1; i <= handlerInfo.numItemInputs(); i++) {
+            stacks.add(itemStackHandler.getStackInSlot(ENERGY + i));
+        }
+
+        recipe = level.getRecipeManager().getRecipeFor(PROCESSOR_RECIPE_TYPES.get(typeName).get(), new ItemToItemInput(stacks), level).orElse(null);
+        return recipe != null;
     }
 
     public IItemHandler getItemHandler(Direction side) { // TODO use side config
@@ -192,7 +259,16 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public void onDataPacket(@NotNull Connection connection, @NotNull ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider registries) {
-        super.onDataPacket(connection, packet, registries);
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        CompoundTag tag = new CompoundTag();
+        saveAdditional(tag, level.registryAccess());
+        components.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        super.collectImplicitComponents(components);
+    }
+
+    @Override
+    protected void applyImplicitComponents(DataComponentInput componentInput) {
+        componentInput.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).loadInto(this, level.registryAccess());
+        super.applyImplicitComponents(componentInput);
     }
 }

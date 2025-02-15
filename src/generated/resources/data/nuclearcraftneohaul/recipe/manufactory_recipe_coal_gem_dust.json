@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:coal"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:coal_gem_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

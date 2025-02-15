@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:obsidian"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:obsidian_gem_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 2.0
+}

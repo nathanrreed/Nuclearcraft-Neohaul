@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:wheat"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:flour"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 0.25
+}

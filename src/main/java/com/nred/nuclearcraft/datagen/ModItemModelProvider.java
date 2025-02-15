@@ -32,6 +32,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItems(INGOTS, INGOT_MAP, "ingot");
         simpleItems(GEMS, GEM_MAP, "gem");
         simpleItems(DUSTS, DUST_MAP, "dust");
+        simpleItems(FISSION_DUSTS, FISSION_DUST_MAP, "fission_dust");
         simpleItems(GEM_DUSTS, GEM_DUST_MAP, "gem_dust");
         simpleItems(RAWS, RAW_MAP, "raw");
         simpleItems(NUGGETS, NUGGET_MAP, "nugget");

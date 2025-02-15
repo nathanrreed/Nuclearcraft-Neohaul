@@ -9,6 +9,7 @@ import com.nred.nuclearcraft.gui.SimpleImageButton;
 import com.nred.nuclearcraft.menu.FluidSlot;
 import com.nred.nuclearcraft.menu.ProcessorMenu;
 import com.nred.nuclearcraft.payload.FluidClearPayload;
+import com.nred.nuclearcraft.recipe.base_types.ItemToItemRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.client.event.ContainerScreenEvent.Render.Background;
 import net.neoforged.neoforge.client.event.ContainerScreenEvent.Render.Foreground;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -33,14 +35,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
+import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 import static com.nred.nuclearcraft.helpers.GuiHelper.blitTile;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.*;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
@@ -48,6 +49,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
     private final ResourceLocation BASE;
     private final String processorType;
     private final int baseSpeed;
+    private final int baseTime;
     private final int offset;
     private static ScreenRectangle ENERGY_BAR = new ScreenRectangle(7, 5, 18, 76);
     public SimpleImageButton sideConfigButton;
@@ -71,12 +73,14 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
     private int configTop = 0;
     private final int progressX;
     private final int progressY;
+    public ResourceLocation recipeKey;
 
-    public ProcessorScreen(T menu, Inventory playerInventory, Component title, String type, int baseSpeed, int progressX, int progressY, int offset) {
+    public ProcessorScreen(T menu, Inventory playerInventory, Component title, String type, int progressX, int progressY, int offset) {
         super(menu, playerInventory, title);
         this.BASE = ncLoc("screen/" + type);
         this.processorType = type;
-        this.baseSpeed = baseSpeed;
+        this.baseSpeed = PROCESSOR_CONFIG_MAP.get(type).base_power();
+        this.baseTime = PROCESSOR_CONFIG_MAP.get(type).base_time();
         this.progressX = progressX;
         this.progressY = progressY;
         this.offset = offset;
@@ -88,8 +92,8 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         this.front = ncLoc("block/processor/" + processorType + "_front_off");
     }
 
-    public ProcessorScreen(T menu, Inventory playerInventory, Component title, String type, int baseSpeed, int progressX, int progressY) {
-        this(menu, playerInventory, title, type, baseSpeed, progressX, progressY, 0);
+    public ProcessorScreen(T menu, Inventory playerInventory, Component title, String type, int progressX, int progressY) {
+        this(menu, playerInventory, title, type, progressX, progressY, 0);
     }
 
     @Override
@@ -266,7 +270,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
             }
 
             // Draw Progress Bar
-            guiGraphics.blitSprite(BASE, 256, 256, 176, 3, leftPos + progressX, topPos + progressY, (int) ((menu.progress.get() / 100.0) * 37), 38);
+            guiGraphics.blitSprite(BASE, 256, 256, 176, 3, leftPos + progressX, topPos + progressY, menu.progress.get(), 38);
         }
 
         if (currentScreen == Screens.NORMAL) {
@@ -278,13 +282,17 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
 
             if (ENERGY_BAR.containsPoint(mouseX, mouseY)) {
                 if (menu.energyStorage != null) {
-                    int speed = 1 + menu.itemHandler.getStackInSlot(ProcessorMenu.SPEED).getCount();
-                    float energy = Math.max(speed, ((float) speed / (menu.itemHandler.getStackInSlot(ProcessorMenu.ENERGY).getCount() + 1f)) * speed);
+                    double recipeMult = 1;
+                    Optional<RecipeHolder<?>> recipeHolder = Minecraft.getInstance().level.getRecipeManager().byKey(recipeKey);
+                    if (recipeHolder.isPresent()) {
+                        recipeMult = ((ItemToItemRecipe) recipeHolder.get().value()).getPowerModifier();
+                    }
+
                     guiGraphics.renderComponentTooltip(font, List.of(
                             Component.translatable("tooltip.processor.energy.stored", getFEString(menu.energyStorage.getEnergyStored()), getFEString(menu.energyStorage.getMaxEnergyStored())),
-                            Component.translatable("tooltip.processor.energy.using", getFEString(baseSpeed * energy)),
-                            Component.translatable("tooltip.processor.energy.speed", speed),
-                            Component.translatable("tooltip.processor.energy.energy", new DecimalFormat("#.##").format(energy))
+                            Component.translatable("tooltip.processor.energy.using", getFEString(calculateEnergy(processorType, recipeMult, menu.itemHandler))),
+                            Component.translatable("tooltip.processor.energy.speed", getSpeedCount(menu.itemHandler)),
+                            Component.translatable("tooltip.processor.energy.energy", new DecimalFormat("#.##").format(getPowerMultiplier(menu.itemHandler)))
                     ), mouseX, mouseY);
                 } else {
                     guiGraphics.renderTooltip(font, Component.translatable("tooltip.processor.energy.not_required").withStyle(ChatFormatting.RED), mouseX, mouseY);

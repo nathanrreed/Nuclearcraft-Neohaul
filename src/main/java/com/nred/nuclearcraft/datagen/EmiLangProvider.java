@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
+import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.PROCESSOR_CATEGORIES;
 import static com.nred.nuclearcraft.info.Names.*;
 
 public class EmiLangProvider extends LanguageProvider {
@@ -21,19 +22,22 @@ public class EmiLangProvider extends LanguageProvider {
         for (String ore : ORES) {
             add(ItemTags.create(Tags.Blocks.ORES.location().withSuffix("/" + ore)), StringUtils.capitalize(ore + " Ores"));
         }
+
         // Items
         simpleName(INGOTS, Tags.Items.INGOTS, " Ingots");
         simpleName(GEMS, Tags.Items.GEMS, "s");
         simpleName(DUSTS, Tags.Items.DUSTS, " Dusts");
         simpleName(GEM_DUSTS, Tags.Items.DUSTS, " Dusts");
+        simpleName(COMPOUNDS, Tags.Items.DUSTS, " Dusts");
         simpleName(RAWS, Tags.Items.RAW_MATERIALS, "", "Raw ");
         simpleName(NUGGETS, Tags.Items.NUGGETS, " Nuggets");
-        simpleName(COMPOUNDS, Tags.Items.DUSTS, " Nuggets");
-//        simpleName(ALLOYS, Tags.Items.NUGGETS, "s"); //TODO
 
         // Blocks
         simpleName(INGOTS, Tags.Blocks.STORAGE_BLOCKS, " Block");
         simpleName(INGOTS, Tags.Blocks.STORAGE_BLOCKS, "Block of Raw ", "", "raw_");
+
+        add("emi.category." + PROCESSOR_CATEGORIES.get("alloy_furnace").getId().toLanguageKey(), "Alloy Furnace");
+        add("emi.category." + PROCESSOR_CATEGORIES.get("manufactory").getId().toLanguageKey(), "Manufactory");
     }
 
     private void simpleName(List<String> list, TagKey<?> key, String append) {

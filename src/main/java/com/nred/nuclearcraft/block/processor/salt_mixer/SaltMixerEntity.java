@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.salt_mixer;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import com.nred.nuclearcraft.menu.SaltMixerMenu;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SaltMixerEntity extends ProcessorEntity {
     public SaltMixerEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "fluid_mixer", 2, 3);
+        super(pos, blockState, "fluid_mixer", new HandlerInfo(0, 3, 0, 2));
     }
 
     @Override

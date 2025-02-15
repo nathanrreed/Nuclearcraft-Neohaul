@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:boron_arsenide_gem"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:thermoconducting_alloy"
+    }
+  ],
+  "powerModifier": 1.5,
+  "timeModifier": 1.5
+}

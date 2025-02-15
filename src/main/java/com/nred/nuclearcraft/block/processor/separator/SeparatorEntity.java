@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.separator;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import com.nred.nuclearcraft.menu.SeparatorMenu;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SeparatorEntity extends ProcessorEntity {
     public SeparatorEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "separator", 5);
+        super(pos, blockState, "separator", new HandlerInfo(3, 0, 1, 0));
     }
 
     @Override

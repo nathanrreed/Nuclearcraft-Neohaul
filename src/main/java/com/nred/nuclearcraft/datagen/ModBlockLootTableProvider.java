@@ -36,7 +36,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
             createOreDrops(ORE_MAP.get(ore).get(), RAW_MAP.get(ore).asItem(), 1, 2);
             createOreDrops(ORE_MAP.get(ore + "_deepslate").get(), RAW_MAP.get(ore).asItem(), 1, 2);
         }
-        for (Block block : blockValues(INGOT_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP)) {
+        for (Block block : blockValues(INGOT_BLOCK_MAP, MATERIAL_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP)) {
             dropSelf(block);
         }
     }
@@ -80,7 +80,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected @NotNull Iterable<Block> getKnownBlocks() {
         List<Block> all = new ArrayList<>();
-        all.addAll(blockValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP, PROCESSOR_MAP));
+        all.addAll(blockValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP, PROCESSOR_MAP, MATERIAL_BLOCK_MAP));
         all.addAll(blockValues(SOLIDIFIED_CORIUM, SUPERCOLD_ICE));
         return all;
     }

@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.alloy_furnace;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.AlloyFurnaceMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class AlloyFurnaceEntity extends ProcessorEntity {
     public AlloyFurnaceEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "alloy_furnace", 5);
+        super(pos, blockState, "alloy_furnace", new HandlerInfo(3, 0, 2, 0));
     }
 
     @Override

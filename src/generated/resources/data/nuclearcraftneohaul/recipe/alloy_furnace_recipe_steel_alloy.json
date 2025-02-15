@@ -1,0 +1,43 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/iron"
+        },
+        {
+          "tag": "c:ingots/iron"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/coal"
+        },
+        {
+          "tag": "c:dusts/graphite"
+        },
+        {
+          "tag": "c:ingots/graphite"
+        },
+        {
+          "item": "minecraft:coal"
+        }
+      ],
+      "count": 2
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:steel_alloy"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

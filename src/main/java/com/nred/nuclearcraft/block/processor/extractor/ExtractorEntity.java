@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.extractor;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.ExtractorMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ExtractorEntity extends ProcessorEntity {
     public ExtractorEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "fluid_extractor", 4, 1);
+        super(pos, blockState, "fluid_extractor", new HandlerInfo(2, 1, 1, 0));
     }
 
     @Override

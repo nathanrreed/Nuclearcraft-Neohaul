@@ -10,7 +10,7 @@ import java.util.HashMap;
 import static com.nred.nuclearcraft.registration.Registers.MENUS;
 
 public class MenuRegistration {
-    public static final HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> MENU_TYPES = createProcessors();
+    public static final HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> PROCESSOR_MENU_TYPES = createProcessors();
 
     private static HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> createProcessors() {
         HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> map = new HashMap<>();

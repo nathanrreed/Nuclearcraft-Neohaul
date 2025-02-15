@@ -8,6 +8,6 @@ import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 
 public class CentrifugeScreen extends ProcessorScreen<CentrifugeMenu> {
     public CentrifugeScreen(CentrifugeMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, "centrifuge", PROCESSOR_CONFIG_MAP.get("centrifuge").processing_power(), 58, 30, 12);
+        super(menu, playerInventory, title, "centrifuge", 58, 30, 12);
     }
 }

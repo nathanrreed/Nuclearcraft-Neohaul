@@ -4,14 +4,19 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nred.nuclearcraft.block.processor.Processor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class Centrifuge extends Processor {
     public Centrifuge(Properties properties) {
         super(properties, "centrifuge");
+
+        particles = List.of(ParticleTypes.END_ROD, ParticleTypes.ASH);
     }
 
     MapCodec<Centrifuge> CODEC = RecordCodecBuilder.mapCodec(instance ->

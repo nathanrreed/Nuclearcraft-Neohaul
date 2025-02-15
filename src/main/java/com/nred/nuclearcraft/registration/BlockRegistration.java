@@ -48,10 +48,10 @@ import static com.nred.nuclearcraft.registration.Registers.ITEMS;
 public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> ORE_MAP = createOres();
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
+    public static final HashMap<String, DeferredBlock<Block>> MATERIAL_BLOCK_MAP = createBlocks(MATERIAL_BLOCKS, "block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> RAW_BLOCK_MAP = createBlocks(RAWS, "raw", "block", Blocks.RAW_IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> COLLECTOR_MAP = createCollectors();
     public static final HashMap<String, DeferredBlock<Block>> SOLAR_MAP = createSolarPanels();
-
 
     private static final BlockBehaviour.Properties BASE_PROPERTIES = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 1200.0F).isValidSpawn(Blocks::never).isRedstoneConductor((a, b, c) -> false);
     public static final HashMap<String, DeferredBlock<Block>> PROCESSOR_MAP = createProcessors();

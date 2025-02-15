@@ -21,6 +21,7 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> INGOT_MAP = createItems(INGOTS, "ingot");
     public static final HashMap<String, DeferredItem<Item>> GEM_MAP = createItems(GEMS, "gem");
     public static final HashMap<String, DeferredItem<Item>> DUST_MAP = createItems(DUSTS, "dust");
+    public static final HashMap<String, DeferredItem<Item>> FISSION_DUST_MAP = createItems(FISSION_DUSTS, "dust");
     public static final HashMap<String, DeferredItem<Item>> GEM_DUST_MAP = createItems(GEM_DUSTS, "gem_dust");
     public static final HashMap<String, DeferredItem<Item>> RAW_MAP = createItems(RAWS, "", "raw");
     public static final HashMap<String, DeferredItem<Item>> NUGGET_MAP = createItems(NUGGETS, "", "nugget");

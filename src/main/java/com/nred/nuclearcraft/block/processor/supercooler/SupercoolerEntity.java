@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.supercooler;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import com.nred.nuclearcraft.menu.SupercoolerMenu;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class SupercoolerEntity extends ProcessorEntity {
     public SupercoolerEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "supercooler", 2, 2);
+        super(pos, blockState, "supercooler", new HandlerInfo(0, 2, 0, 1));
     }
 
     @Override

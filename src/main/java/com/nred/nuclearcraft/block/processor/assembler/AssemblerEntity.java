@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.assembler;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.AssemblerMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class AssemblerEntity extends ProcessorEntity {
     public AssemblerEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "assembler", 7);
+        super(pos, blockState, "assembler", new HandlerInfo(5, 0, 4, 0));
     }
 
     @Override

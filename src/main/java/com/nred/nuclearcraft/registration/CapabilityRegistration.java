@@ -34,7 +34,7 @@ public class CapabilityRegistration {
         for (String typeName : PROCESSOR_MAP.keySet()) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ProcessorEntity::getItemHandler);
             ProcessorConfig config = PROCESSOR_CONFIG_MAP.get(typeName);
-            if (config.capacity() > 0)
+            if (config.base_power() > 0)
                 event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ProcessorEntity::getEnergyHandler);
 
             if (config.fluid_capacity() > 0)

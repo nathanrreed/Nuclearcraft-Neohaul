@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.rock_crusher;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import com.nred.nuclearcraft.menu.RockCrusherMenu;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class RockCrusherEntity extends ProcessorEntity {
     public RockCrusherEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "rock_crusher", 6);
+        super(pos, blockState, "rock_crusher", new HandlerInfo(4, 0, 1, 0));
     }
 
     @Override

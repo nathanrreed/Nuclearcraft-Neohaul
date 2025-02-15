@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "nuclearcraftneohaul:block/ingot_block/iridium_oxide"
+  }
+}

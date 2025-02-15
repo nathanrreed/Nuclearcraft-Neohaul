@@ -55,10 +55,11 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleItems(INGOTS, INGOT_MAP, " Ingot");
         simpleItems(GEMS, GEM_MAP, "");
         simpleItems(DUSTS, DUST_MAP, " Dust");
+        simpleItems(FISSION_DUSTS, FISSION_DUST_MAP, " Dust");
         replaceItems(GEM_DUSTS, GEM_DUST_MAP, "Crushed ", "", Map.of("boron_nitride", "Hexagonal Boron Nitride", "sulfur", "Sulfur"));
         simpleItems(RAWS, RAW_MAP, "Raw ", "");
         simpleItems(NUGGETS, NUGGET_MAP, " Nugget");
-        simpleItems(ALLOYS, ALLOY_MAP, " Alloy Ingot");
+        replaceItems(ALLOYS, ALLOY_MAP, "", " Alloy Ingot", Map.of("hsla_steel", "HSLA Steel"));
         replaceItems(PARTS, PART_MAP, "", "", Map.of("du_plating", "DU Plating"));
         simpleItems(PART_BLOCKS, PART_BLOCK_MAP, "");
         replaceItems(COMPOUNDS, COMPOUND_MAP, "", "", Map.of("c_mn_blend", "Carbon-Manganese Blend"));
@@ -71,6 +72,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void blocks() {
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, " Block");
+        simpleBlocks(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, " Block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "Block of Raw ", "");
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
             for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
@@ -80,7 +82,7 @@ public class ModLanguageProvider extends LanguageProvider {
         }
 
         simpleBlocks(PROCESSOR_MAP);
-        simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel","solar_panel_advanced", "Advanced Solar Panel","solar_panel_du", "DU Solar Panel","solar_panel_elite", "Elite Solar Panel"));
+        simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel", "solar_panel_advanced", "Advanced Solar Panel", "solar_panel_du", "DU Solar Panel", "solar_panel_elite", "Elite Solar Panel"));
     }
 
     private void buckets() {
@@ -199,6 +201,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.solidified_corium", "The solidified form of a poisonous mixture of fuel and components produced in fission reactor meltdowns.");
 
         add("tooltip.energy_stored", "Energy Stored: %s / %s");
+        add("tooltip.process_time", "§aBase Process Time:§r %s");
+        add("tooltip.process_power", "§dBase Process Power:§r %s/t");
     }
 
     private void damage_types() {

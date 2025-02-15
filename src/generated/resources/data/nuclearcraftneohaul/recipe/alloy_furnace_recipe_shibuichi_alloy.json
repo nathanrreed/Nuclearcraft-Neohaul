@@ -1,0 +1,37 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/copper"
+        },
+        {
+          "tag": "c:ingots/copper"
+        }
+      ],
+      "count": 3
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/silver"
+        },
+        {
+          "tag": "c:ingots/silver"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 4,
+      "item": "nuclearcraftneohaul:shibuichi_alloy"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 1.5
+}

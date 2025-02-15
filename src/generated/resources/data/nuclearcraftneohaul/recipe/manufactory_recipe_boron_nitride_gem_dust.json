@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:boron_nitride_gem"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:boron_nitride_gem_dust"
+    }
+  ],
+  "powerModifier": 1.5,
+  "timeModifier": 1.5
+}

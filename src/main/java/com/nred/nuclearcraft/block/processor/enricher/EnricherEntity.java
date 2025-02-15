@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.enricher;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.EnricherMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class EnricherEntity extends ProcessorEntity {
     public EnricherEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "fluid_enricher", 3, 2);
+        super(pos, blockState, "fluid_enricher", new HandlerInfo(1, 2, 1, 1));
     }
 
     @Override

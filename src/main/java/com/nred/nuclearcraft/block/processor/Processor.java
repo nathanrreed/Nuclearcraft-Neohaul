@@ -5,7 +5,10 @@ import com.nred.nuclearcraft.menu.ProcessorMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -27,6 +30,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import org.antlr.v4.runtime.misc.Triple;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -37,6 +41,7 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
 public abstract class Processor extends BaseEntityBlock {
     private final String typeName;
+    public List<ParticleOptions> particles;
 
     protected Processor(Properties properties, String typeName) {
         super(properties);
@@ -100,9 +105,7 @@ public abstract class Processor extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockPos blockpos = context.getClickedPos();
-        Level level = context.getLevel();
-        boolean flag = level.hasNeighborSignal(blockpos);
+        boolean flag = context.getLevel().hasNeighborSignal(context.getClickedPos());
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(POWERED, flag);
     }
 
@@ -111,7 +114,7 @@ public abstract class Processor extends BaseEntityBlock {
         boolean flag = level.hasNeighborSignal(pos);
         if (!this.defaultBlockState().is(block) && flag != state.getValue(POWERED)) {
             ProcessorEntity entity = (ProcessorEntity) level.getBlockEntity(pos);
-            level.setBlock(pos, state.setValue(POWERED, flag).setValue(PROCESSOR_ON, !(entity.redstoneMode && flag)), Block.UPDATE_CLIENTS);
+            level.setBlock(pos, state.setValue(POWERED, flag).setValue(PROCESSOR_ON, !(entity.redstoneMode && flag) && entity.recipe != null), Block.UPDATE_CLIENTS);
         }
     }
 
@@ -123,5 +126,30 @@ public abstract class Processor extends BaseEntityBlock {
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    private static Triple<Double, Double, Double> getParticlePos(Direction dir, BlockPos pos, RandomSource random) {
+        double d0 = pos.getX() + 0.5D;
+        double d1 = pos.getY() + 0.125D + random.nextDouble() * 0.75D;
+        double d2 = pos.getZ() + 0.5D;
+        double d3 = 0.52D;
+        double d4 = random.nextDouble() * 0.6D - 0.3D;
+
+        return switch (dir) {
+            case NORTH -> new Triple<>(d0 + d4, d1, d2 - d3);
+            case SOUTH -> new Triple<>(d0 + d4, d1, d2 + d3);
+            case WEST -> new Triple<>(d0 - d3, d1, d2 + d4);
+            case EAST -> new Triple<>(d0 + d3, d1, d2 + d4);
+            default -> throw new IllegalStateException("Unexpected value: " + dir);
+        };
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (!state.getValue(PROCESSOR_ON)) return;
+        Triple<Double, Double, Double> particlePos = getParticlePos(state.getValue(FACING), pos, random);
+        for (ParticleOptions particle : this.particles) {
+            level.addParticle(particle, particlePos.a, particlePos.b, particlePos.c, 0, 0, 0);
+        }
     }
 }

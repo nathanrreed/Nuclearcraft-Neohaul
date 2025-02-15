@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
+import com.nred.nuclearcraft.datagen.recipes.AlloyFurnaceRecipeProvider;
+import com.nred.nuclearcraft.datagen.recipes.ManufactoryRecipeProvider;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipeBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -32,7 +34,7 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.GASSES;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 
-class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
+public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
     public ModRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
     }
@@ -74,6 +76,9 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
         processors(recipeOutput);
         foods(recipeOutput);
         solar_panels(recipeOutput);
+
+        new AlloyFurnaceRecipeProvider(recipeOutput);
+        new ManufactoryRecipeProvider(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))
@@ -412,7 +417,7 @@ class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
                 .unlockedBy(getHasName(FOOD_MAP.get("moresmore")), has(FOOD_MAP.get("moresmore"))).save(recipeOutput);
     }
 
-    private TagKey<Item> tag(TagKey<Item> tag, String name) {
+    public static TagKey<Item> tag(TagKey<Item> tag, String name) {
         return ItemTags.create(tag.location().withSuffix("/" + name));
     }
 

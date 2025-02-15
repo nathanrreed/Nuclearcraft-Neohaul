@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:diamond"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:diamond_gem_dust"
+    }
+  ],
+  "powerModifier": 1.5,
+  "timeModifier": 1.5
+}

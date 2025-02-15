@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "minecraft:planks"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 4,
+      "item": "minecraft:stick"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 0.25
+}

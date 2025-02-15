@@ -1,0 +1,29 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "c:gems/silicon"
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/graphite"
+        },
+        {
+          "tag": "c:ingots/graphite"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+    }
+  ],
+  "powerModifier": 2.0,
+  "timeModifier": 2.0
+}

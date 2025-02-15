@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "minecraft:sand"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:silicon_gem"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.electrolyzer;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.ElectrolyzerMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ElectrolyzerEntity extends ProcessorEntity {
     public ElectrolyzerEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "electrolyzer", 2, 5);
+        super(pos, blockState, "electrolyzer", new HandlerInfo(0, 5, 0, 1));
     }
 
     @Override

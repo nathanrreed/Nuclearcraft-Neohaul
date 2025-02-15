@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:acacia_planks"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 6,
+      "tag": "minecraft:acacia_logs"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

@@ -1,7 +1,11 @@
 package com.nred.nuclearcraft.menu;
 
+import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
 import com.nred.nuclearcraft.helpers.MenuHelper;
+import com.nred.nuclearcraft.payload.RecipeSetPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -13,12 +17,13 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 
 import static com.nred.nuclearcraft.helpers.MenuHelper.listPlayerInventoryHotbarPos;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
-import static com.nred.nuclearcraft.registration.MenuRegistration.MENU_TYPES;
+import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
 
 public abstract class ProcessorMenu extends AbstractContainerMenu {
     public IItemHandler itemHandler;
@@ -28,8 +33,8 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
     public ContainerLevelAccess access;
     public final ProcessorInfo info;
     public DataSlot progress;
-    public static int SPEED = 0;
-    public static int ENERGY = 1;
+    public static final int SPEED = 0;
+    public static final int ENERGY = 1;
     public ArrayList<Slot> ITEM_INPUTS = new ArrayList<>();
     public ArrayList<Slot> ITEM_OUTPUTS = new ArrayList<>();
     public ArrayList<FluidSlot> FLUID_INPUTS = new ArrayList<>();
@@ -38,7 +43,7 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
     public Slot ENERGY_SLOT;
 
     protected ProcessorMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress, int offset) {
-        super(MENU_TYPES.get(info.typeName()).get(), containerId);
+        super(PROCESSOR_MENU_TYPES.get(info.typeName()).get(), containerId);
         this.inventory = inventory;
         this.access = access;
         this.info = info;
@@ -59,6 +64,18 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
         // Upgrade slots
         SPEED_SLOT = this.addSlot(new SlotItemHandler(itemHandler, SPEED, 132, 64 + offset));
         ENERGY_SLOT = this.addSlot(new SlotItemHandler(itemHandler, ENERGY, 152, 64 + offset));
+    }
+
+    @Override
+    public void broadcastChanges() {
+        if (inventory.player instanceof ServerPlayer player && player.level().getBlockEntity(info.pos()) instanceof ProcessorEntity entity) {
+            if (entity.recipe != null) {
+                PacketDistributor.sendToPlayer(player, new RecipeSetPayload(entity.recipe.id()));
+            } else {
+                PacketDistributor.sendToPlayer(player, new RecipeSetPayload(ResourceLocation.parse("")));
+            }
+        }
+        super.broadcastChanges();
     }
 
     protected ProcessorMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {

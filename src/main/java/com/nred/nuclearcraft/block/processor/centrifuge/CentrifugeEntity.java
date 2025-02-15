@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.processor.centrifuge;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.CentrifugeMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class CentrifugeEntity extends ProcessorEntity {
     public CentrifugeEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "centrifuge", 2, 7);
+        super(pos, blockState, "centrifuge", new HandlerInfo(0, 7, 2, 6));
     }
 
     @Override

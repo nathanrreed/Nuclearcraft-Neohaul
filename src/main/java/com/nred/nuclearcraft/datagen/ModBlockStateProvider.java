@@ -34,6 +34,7 @@ class ModBlockStateProvider extends BlockStateProvider {
             blockWithItemOverlay(ORE_MAP.get(ore + "_deepslate"), ORE_MAP.get(ore), Blocks.DEEPSLATE, "ore");
         }
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, "ingot_block");
+        simpleBlocks(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, "material_block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "raw_block");
         blockWithItem(SUPERCOLD_ICE);
         blockWithItem(SOLIDIFIED_CORIUM);

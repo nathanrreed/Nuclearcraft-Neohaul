@@ -1,0 +1,37 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/steel"
+        },
+        {
+          "tag": "c:ingots/steel"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/boron"
+        },
+        {
+          "tag": "c:ingots/boron"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    }
+  ],
+  "powerModifier": 1.5,
+  "timeModifier": 1.0
+}

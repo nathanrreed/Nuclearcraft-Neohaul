@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:roasted_cocoa_beans"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:ground_cocoa_nibs"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

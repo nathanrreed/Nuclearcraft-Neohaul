@@ -8,6 +8,6 @@ import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 
 public class AlloyFurnaceScreen extends ProcessorScreen<AlloyFurnaceMenu> {
     public AlloyFurnaceScreen(AlloyFurnaceMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, "alloy_furnace", PROCESSOR_CONFIG_MAP.get("alloy_furnace").processing_power(), 84, 33);
+        super(menu, playerInventory, title, "alloy_furnace", 84, 35);
     }
 }

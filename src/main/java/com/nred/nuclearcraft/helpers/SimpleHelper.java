@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.lang.Math.max;
+
 public class SimpleHelper {
     public static List<Direction> shuffledDirections() {
         ArrayList<Direction> rtn = new ArrayList<>(List.of(Direction.values()));
@@ -33,7 +35,34 @@ public class SimpleHelper {
         }
     }
 
+    public static String getTimeString(Double ticks) {
+        if (ticks <= 0) {
+            return "0s";
+        } else if (ticks < 20) {
+            return ticks + "t";
+        }
+
+        double time = max(ticks / 20.0, 0.0);
+        double hours = time / 360.0;
+        time %= 360.0;
+        double mins = time / 60.0;
+        time %= 60.0;
+
+        String str = "";
+        if (hours >= 1) {
+            str += String.format("%dh ", (int) Math.floor(hours));
+        }
+        if (mins >= 1) {
+            str += String.format("%dm ", (int) Math.floor(mins));
+        }
+        if (time >= 0) {
+            str += String.format("%ds", (int) Math.floor(time));
+        }
+
+        return str.trim();
+    }
+
     public static MobEffectInstance newEffect(Holder<MobEffect> effect, int strength, int ticks) {
-        return new MobEffectInstance(effect, ticks, Math.max(0, strength - 1));
+        return new MobEffectInstance(effect, ticks, max(0, strength - 1));
     }
 }
