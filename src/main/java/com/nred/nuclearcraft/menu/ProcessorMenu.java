@@ -41,6 +41,8 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
     public ArrayList<FluidSlot> FLUID_OUTPUTS = new ArrayList<>();
     public Slot SPEED_SLOT;
     public Slot ENERGY_SLOT;
+    private ResourceLocation cachedRecipe;
+
 
     protected ProcessorMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress, int offset) {
         super(PROCESSOR_MENU_TYPES.get(info.typeName()).get(), containerId);
@@ -70,8 +72,13 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
     public void broadcastChanges() {
         if (inventory.player instanceof ServerPlayer player && player.level().getBlockEntity(info.pos()) instanceof ProcessorEntity entity) {
             if (entity.recipe != null) {
-                PacketDistributor.sendToPlayer(player, new RecipeSetPayload(entity.recipe.id()));
-            } else {
+                ResourceLocation temp = entity.recipe.id();
+                if (cachedRecipe == null || !cachedRecipe.equals(temp)) { // Don't send if recipe hasn't changed
+                    cachedRecipe = temp;
+                    PacketDistributor.sendToPlayer(player, new RecipeSetPayload(temp));
+                }
+            } else if (cachedRecipe != null) {
+                cachedRecipe = null;
                 PacketDistributor.sendToPlayer(player, new RecipeSetPayload(ResourceLocation.parse("")));
             }
         }

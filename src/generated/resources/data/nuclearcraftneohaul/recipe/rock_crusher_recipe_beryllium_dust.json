@@ -1,0 +1,35 @@
+{
+  "type": "nuclearcraftneohaul:rock_crusher_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:andesite"
+        },
+        {
+          "item": "minecraft:polished_andesite"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 3276802,
+      "item": "nuclearcraftneohaul:beryllium_dust"
+    },
+    {
+      "count": 1966082,
+      "item": "nuclearcraftneohaul:alugentum"
+    },
+    {
+      "count": 1966081,
+      "item": "nuclearcraftneohaul:arsenic_gem_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

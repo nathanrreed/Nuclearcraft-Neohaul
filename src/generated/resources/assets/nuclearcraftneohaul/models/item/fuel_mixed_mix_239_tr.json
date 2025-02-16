@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nuclearcraftneohaul:item/fuel_mixed/mix_239_tr"
+  }
+}

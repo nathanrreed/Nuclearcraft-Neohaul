@@ -1,8 +1,7 @@
 package com.nred.nuclearcraft.compat.jei;
 
-import com.nred.nuclearcraft.recipe.base_types.ItemToItemRecipe;
-import com.nred.nuclearcraft.recipe.processor.AlloyFurnaceRecipe;
-import com.nred.nuclearcraft.recipe.processor.ManufactoryRecipe;
+import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.processor.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -11,7 +10,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.registration.IRecipeTransferRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -26,7 +24,7 @@ import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSO
 
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin {
-    public static Map<String, IRecipeCategory<? extends ItemToItemRecipe>> PROCESSOR_CATEGORIES = Map.of();
+    public static Map<String, IRecipeCategory<? extends ProcessorRecipe>> PROCESSOR_CATEGORIES = Map.of();
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -49,24 +47,37 @@ public class ModJeiPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-//        registration.addRecipeTransferHandler(InfuserMenu::class.java, ModMenuTypes.INFUSER_MENU.get(), InfuserCategory.TYPE, 0, 3, 3, 36)
-    }
-
-    @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 
         for (String type : PROCESSOR_CATEGORIES.keySet()) {
-            registration.addRecipes((RecipeType<ItemToItemRecipe>) PROCESSOR_CATEGORIES.get(type).getRecipeType(), recipeManager.getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(type).get()).stream().map(RecipeHolder::value).toList());
+            registration.addRecipes((RecipeType<ProcessorRecipe>) PROCESSOR_CATEGORIES.get(type).getRecipeType(), recipeManager.getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(type).get()).stream().map(RecipeHolder::value).toList());
         }
     }
 
-    private static Map<String, IRecipeCategory<? extends ItemToItemRecipe>> makeCategories(IRecipeCategoryRegistration registration) {
+    private static Map<String, IRecipeCategory<? extends ProcessorRecipe>> makeCategories(IRecipeCategoryRegistration registration) {
         IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
-        Map<String, IRecipeCategory<? extends ItemToItemRecipe>> map = new HashMap<>();
-        map.put("alloy_furnace", new JeiItemToItemCategory<>(helper, "alloy_furnace", AlloyFurnaceRecipe.class));
-        map.put("manufactory", new JeiItemToItemCategory<>(helper, "manufactory", ManufactoryRecipe.class));
+        Map<String, IRecipeCategory<? extends ProcessorRecipe>> map = new HashMap<>();
+        map.put("alloy_furnace", new JeiProcessorCategory<>(helper, "alloy_furnace", AlloyFurnaceRecipe.class));
+        map.put("assembler", new JeiProcessorCategory<>(helper, "assembler", AssemblerRecipe.class));
+        map.put("centrifuge", new JeiProcessorCategory<>(helper, "centrifuge", CentrifugeRecipe.class));
+        map.put("chemical_reactor", new JeiProcessorCategory<>(helper, "chemical_reactor", ChemicalReactorRecipe.class));
+        map.put("crystallizer", new JeiProcessorCategory<>(helper, "crystallizer", CrystallizerRecipe.class));
+        map.put("decay_hastener", new JeiProcessorCategory<>(helper, "decay_hastener", DecayHastenerRecipe.class));
+        map.put("electric_furnace", new JeiProcessorCategory<>(helper, "electric_furnace", ElectricFurnaceRecipe.class));
+        map.put("electrolyzer", new JeiProcessorCategory<>(helper, "electrolyzer", ElectrolyzerRecipe.class));
+        map.put("fluid_enricher", new JeiProcessorCategory<>(helper, "fluid_enricher", FluidEnricherRecipe.class));
+        map.put("fluid_extractor", new JeiProcessorCategory<>(helper, "fluid_extractor", FluidExtractorRecipe.class));
+        map.put("fluid_infuser", new JeiProcessorCategory<>(helper, "fluid_infuser", FluidInfuserRecipe.class));
+        map.put("fluid_mixer", new JeiProcessorCategory<>(helper, "fluid_mixer", FluidMixerRecipe.class));
+        map.put("fuel_reprocessor", new JeiProcessorCategory<>(helper, "fuel_reprocessor", FuelReprocessorRecipe.class));
+        map.put("ingot_former", new JeiProcessorCategory<>(helper, "ingot_former", IngotFormerRecipe.class));
+        map.put("manufactory", new JeiProcessorCategory<>(helper, "manufactory", ManufactoryRecipe.class));
+        map.put("melter", new JeiProcessorCategory<>(helper, "melter", MelterRecipe.class));
+        map.put("pressurizer", new JeiProcessorCategory<>(helper, "pressurizer", PressurizerRecipe.class));
+        map.put("rock_crusher", new JeiProcessorCategory<>(helper, "rock_crusher", RockCrusherRecipe.class));
+        map.put("separator", new JeiProcessorCategory<>(helper, "separator", SeparatorRecipe.class));
+        map.put("supercooler", new JeiProcessorCategory<>(helper, "supercooler", SupercoolerRecipe.class));
         return map;
     }
 }

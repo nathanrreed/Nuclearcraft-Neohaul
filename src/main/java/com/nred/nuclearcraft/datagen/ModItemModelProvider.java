@@ -40,9 +40,38 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItems(PARTS, PART_MAP, "part");
         simpleItems(COMPOUNDS, COMPOUND_MAP, "compound");
         simpleItems(UPGRADES, UPGRADE_MAP, "upgrade");
-        simpleItems(URANIUMS, URANIUM_MAP, "uranium");
         simpleItems(MUSIC_DISC_MAP, "music_disc");
         simpleItems(FOOD_MAP, "food");
+
+        simpleItems(AMERICIUM_MAP, "americium");
+        simpleItems(BERKELIUM_MAP, "berkelium");
+        simpleItems(BORON_MAP, "boron");
+        simpleItems(CALIFORNIUM_MAP, "californium");
+        simpleItems(CURIUM_MAP, "curium");
+        simpleItems(DEPLETED_FUEL_AMERICIUM_MAP, "depleted_fuel_americium");
+        simpleItems(DEPLETED_FUEL_BERKELIUM_MAP, "depleted_fuel_berkelium");
+        simpleItems(DEPLETED_FUEL_CALIFORNIUM_MAP, "depleted_fuel_californium");
+        simpleItems(DEPLETED_FUEL_CURIUM_MAP, "depleted_fuel_curium");
+        simpleItems(DEPLETED_FUEL_IC2_MAP, "depleted_fuel_ic2");
+        simpleItems(DEPLETED_FUEL_MIXED_MAP, "depleted_fuel_mixed");
+        simpleItems(DEPLETED_FUEL_NEPTUNIUM_MAP, "depleted_fuel_neptunium");
+        simpleItems(DEPLETED_FUEL_PLUTONIUM_MAP, "depleted_fuel_plutonium");
+        simpleItems(DEPLETED_FUEL_THORIUM_MAP, "depleted_fuel_thorium");
+        simpleItems(DEPLETED_FUEL_URANIUM_MAP, "depleted_fuel_uranium");
+        simpleItems(FUEL_AMERICIUM_MAP, "fuel_americium");
+        simpleItems(FUEL_BERKELIUM_MAP, "fuel_berkelium");
+        simpleItems(FUEL_CALIFORNIUM_MAP, "fuel_californium");
+        simpleItems(FUEL_CURIUM_MAP, "fuel_curium");
+        simpleItems(FUEL_MIXED_MAP, "fuel_mixed");
+        simpleItems(FUEL_NEPTUNIUM_MAP, "fuel_neptunium");
+        simpleItems(FUEL_PLUTONIUM_MAP, "fuel_plutonium");
+        simpleItems(FUEL_THORIUM_MAP, "fuel_thorium");
+        simpleItems(FUEL_URANIUM_MAP, "fuel_uranium");
+        simpleItems(LITHIUM_MAP, "lithium");
+        simpleItems(NEPTUNIUM_MAP, "neptunium");
+        simpleItems(PLUTONIUM_MAP, "plutonium");
+        simpleItems(THORIUM_MAP, "thorium");
+        simpleItems(URANIUM_MAP, "uranium");
 
         simpleBlocks(List.of("empty_frame", "empty_heat_sink"), PART_BLOCK_MAP, "part");
 

@@ -30,12 +30,41 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> PART_BLOCK_MAP = createItems(PART_BLOCKS, "");
     public static final HashMap<String, DeferredItem<Item>> COMPOUND_MAP = createItems(COMPOUNDS, "");
     public static final HashMap<String, DeferredItem<Item>> UPGRADE_MAP = createItems(UPGRADES, "upgrade", true);
-    public static final HashMap<String, DeferredItem<Item>> URANIUM_MAP = createItems(URANIUMS, "uranium", "");
     public static final HashMap<String, DeferredItem<Item>> FOOD_MAP = createFoods();
     public static final HashMap<String, DeferredItem<Item>> MUSIC_DISC_MAP = createMusicDiscs();
     public static final DeferredItem<Item> PORTABLE_ENDER_CHEST = ITEMS.register("portable_ender_chest", () -> new PortableEnderChest(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> FOURSMORE = ITEMS.register("foursmore", () -> new FoodItem(48, 8.6F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 1200), newEffect(MobEffects.DIG_SPEED, 2, 1200), newEffect(MobEffects.ABSORPTION, 2, 1200))));
     public static final DeferredItem<Item> LITHIUM_ION_CELL = ITEMS.register("lithium_ion_cell", () -> new LithiumIonCell(new Item.Properties()));
+
+    public static final HashMap<String, DeferredItem<Item>> AMERICIUM_MAP = createItems(AMERICIUMS, "americium", "");
+    public static final HashMap<String, DeferredItem<Item>> BERKELIUM_MAP = createItems(BERKELIUMS, "berkelium", "");
+    public static final HashMap<String, DeferredItem<Item>> BORON_MAP = createItems(BORONS, "boron", "");
+    public static final HashMap<String, DeferredItem<Item>> CALIFORNIUM_MAP = createItems(CALIFORNIUMS, "californium", "");
+    public static final HashMap<String, DeferredItem<Item>> CURIUM_MAP = createItems(CURIUMS, "curium", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_AMERICIUM_MAP = createItems(DEPLETED_FUEL_AMERICIUMS, "depleted_fuel_americium", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_BERKELIUM_MAP = createItems(DEPLETED_FUEL_BERKELIUMS, "depleted_fuel_berkelium", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_CALIFORNIUM_MAP = createItems(DEPLETED_FUEL_CALIFORNIUMS, "depleted_fuel_californium", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_CURIUM_MAP = createItems(DEPLETED_FUEL_CURIUMS, "depleted_fuel_curium", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_IC2_MAP = createItems(DEPLETED_FUEL_IC2S, "depleted_fuel_ic2", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_MIXED_MAP = createItems(DEPLETED_FUEL_MIXEDS, "depleted_fuel_mixed", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_NEPTUNIUM_MAP = createItems(DEPLETED_FUEL_NEPTUNIUMS, "depleted_fuel_neptunium", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_PLUTONIUM_MAP = createItems(DEPLETED_FUEL_PLUTONIUMS, "depleted_fuel_plutonium", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_THORIUM_MAP = createItems(DEPLETED_FUEL_THORIUMS, "depleted_fuel_thorium", "");
+    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_URANIUM_MAP = createItems(DEPLETED_FUEL_URANIUMS, "depleted_fuel_uranium", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_AMERICIUM_MAP = createItems(FUEL_AMERICIUMS, "fuel_americium", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_BERKELIUM_MAP = createItems(FUEL_BERKELIUMS, "fuel_berkelium", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_CALIFORNIUM_MAP = createItems(FUEL_CALIFORNIUMS, "fuel_californium", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_CURIUM_MAP = createItems(FUEL_CURIUMS, "fuel_curium", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_MIXED_MAP = createItems(FUEL_MIXEDS, "fuel_mixed", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_NEPTUNIUM_MAP = createItems(FUEL_NEPTUNIUMS, "fuel_neptunium", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_PLUTONIUM_MAP = createItems(FUEL_PLUTONIUMS, "fuel_plutonium", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_THORIUM_MAP = createItems(FUEL_THORIUMS, "fuel_thorium", "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_URANIUM_MAP = createItems(FUEL_URANIUMS, "fuel_uranium", "");
+    public static final HashMap<String, DeferredItem<Item>> LITHIUM_MAP = createItems(LITHIUMS, "lithium", "");
+    public static final HashMap<String, DeferredItem<Item>> NEPTUNIUM_MAP = createItems(NEPTUNIUMS, "neptunium", "");
+    public static final HashMap<String, DeferredItem<Item>> PLUTONIUM_MAP = createItems(PLUTONIUMS, "plutonium", "");
+    public static final HashMap<String, DeferredItem<Item>> THORIUM_MAP = createItems(THORIUMS, "thorium", "");
+    public static final HashMap<String, DeferredItem<Item>> URANIUM_MAP = createItems(URANIUMS, "uranium", "");
 
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String append) {
         return createItems(names, "", append, false);

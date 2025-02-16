@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nuclearcraftneohaul:item/depleted_fuel_neptunium/hen_236_za"
+  }
+}

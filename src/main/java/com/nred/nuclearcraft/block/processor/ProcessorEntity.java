@@ -5,8 +5,8 @@ import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
 import com.nred.nuclearcraft.helpers.CustomItemStackHandler;
 import com.nred.nuclearcraft.helpers.HandlerInfo;
-import com.nred.nuclearcraft.recipe.base_types.ItemToItemInput;
-import com.nred.nuclearcraft.recipe.base_types.ItemToItemRecipe;
+import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeInput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -59,7 +59,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     public int progress = 0;
     public int progressPercentage = 0;
     public DataSlot progressSlot;
-    public RecipeHolder<ItemToItemRecipe> recipe; //TODO
+    public RecipeHolder<ProcessorRecipe> recipe;
 
     public ProcessorEntity(BlockPos pos, BlockState blockState, String typeName, HandlerInfo handlerInfo) {
         super(PROCESSOR_ENTITY_TYPE.get(typeName).get(), pos, blockState);
@@ -209,13 +209,13 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
         }
     }
 
-    private boolean hasRecipe() {
+    public boolean hasRecipe() {
         ArrayList<ItemStack> stacks = new ArrayList<>(handlerInfo.numItemInputs());
         for (int i = 1; i <= handlerInfo.numItemInputs(); i++) {
             stacks.add(itemStackHandler.getStackInSlot(ENERGY + i));
         }
 
-        recipe = level.getRecipeManager().getRecipeFor(PROCESSOR_RECIPE_TYPES.get(typeName).get(), new ItemToItemInput(stacks), level).orElse(null);
+        recipe = level.getRecipeManager().getRecipeFor(PROCESSOR_RECIPE_TYPES.get(typeName).get(), new ProcessorRecipeInput(stacks), level).orElse(null);
         return recipe != null;
     }
 

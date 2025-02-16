@@ -1,0 +1,35 @@
+{
+  "type": "nuclearcraftneohaul:rock_crusher_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:diorite"
+        },
+        {
+          "item": "minecraft:polished_diorite"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 3276802,
+      "item": "nuclearcraftneohaul:zirconium_dust"
+    },
+    {
+      "count": 2949122,
+      "item": "nuclearcraftneohaul:fluorite_gem_dust"
+    },
+    {
+      "count": 2293761,
+      "item": "nuclearcraftneohaul:carobbiite_gem_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

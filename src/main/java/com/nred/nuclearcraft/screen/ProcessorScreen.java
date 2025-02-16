@@ -9,7 +9,7 @@ import com.nred.nuclearcraft.gui.SimpleImageButton;
 import com.nred.nuclearcraft.menu.FluidSlot;
 import com.nred.nuclearcraft.menu.ProcessorMenu;
 import com.nred.nuclearcraft.payload.FluidClearPayload;
-import com.nred.nuclearcraft.recipe.base_types.ItemToItemRecipe;
+import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -48,8 +48,6 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractContainerScreen<T> {
     private final ResourceLocation BASE;
     private final String processorType;
-    private final int baseSpeed;
-    private final int baseTime;
     private final int offset;
     private static ScreenRectangle ENERGY_BAR = new ScreenRectangle(7, 5, 18, 76);
     public SimpleImageButton sideConfigButton;
@@ -79,8 +77,6 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         super(menu, playerInventory, title);
         this.BASE = ncLoc("screen/" + type);
         this.processorType = type;
-        this.baseSpeed = PROCESSOR_CONFIG_MAP.get(type).base_power();
-        this.baseTime = PROCESSOR_CONFIG_MAP.get(type).base_time();
         this.progressX = progressX;
         this.progressY = progressY;
         this.offset = offset;
@@ -241,6 +237,8 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
                     guiGraphics.renderComponentTooltip(font, List.of(Component.translatable("tooltip.tank", fluidStack.getHoverName().copy().withStyle(ChatFormatting.GREEN), fluidStack.getAmount(), fluidSlot.getFluidCapacity()), Component.translatable("tooltip.tank.clear").withStyle(ChatFormatting.ITALIC)), mouseX, mouseY);
                 }
             }
+
+            renderTooltip(guiGraphics, mouseX, mouseY);
         } else {
             this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
             NeoForge.EVENT_BUS.post(new Background(this, guiGraphics, mouseX, mouseY));
@@ -285,7 +283,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
                     double recipeMult = 1;
                     Optional<RecipeHolder<?>> recipeHolder = Minecraft.getInstance().level.getRecipeManager().byKey(recipeKey);
                     if (recipeHolder.isPresent()) {
-                        recipeMult = ((ItemToItemRecipe) recipeHolder.get().value()).getPowerModifier();
+                        recipeMult = ((ProcessorRecipe) recipeHolder.get().value()).getPowerModifier();
                     }
 
                     guiGraphics.renderComponentTooltip(font, List.of(

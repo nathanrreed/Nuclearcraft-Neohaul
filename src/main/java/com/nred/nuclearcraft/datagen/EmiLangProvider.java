@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.PROCESSOR_CATEGORIES;
+import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.EMI_PROCESSOR_CATEGORIES;
 import static com.nred.nuclearcraft.info.Names.*;
 
 public class EmiLangProvider extends LanguageProvider {
@@ -36,8 +36,26 @@ public class EmiLangProvider extends LanguageProvider {
         simpleName(INGOTS, Tags.Blocks.STORAGE_BLOCKS, " Block");
         simpleName(INGOTS, Tags.Blocks.STORAGE_BLOCKS, "Block of Raw ", "", "raw_");
 
-        add("emi.category." + PROCESSOR_CATEGORIES.get("alloy_furnace").getId().toLanguageKey(), "Alloy Furnace");
-        add("emi.category." + PROCESSOR_CATEGORIES.get("manufactory").getId().toLanguageKey(), "Manufactory");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("alloy_furnace").getId().toLanguageKey(), "Alloy Furnace");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("assembler").getId().toLanguageKey(), "Assembler");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("centrifuge").getId().toLanguageKey(), "Centrifuge");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("chemical_reactor").getId().toLanguageKey(), "Chemical Reactor");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("crystallizer").getId().toLanguageKey(), "Crystallizer");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("decay_hastener").getId().toLanguageKey(), "Decay Hastener");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("electric_furnace").getId().toLanguageKey(), "Electric Furnace");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("electrolyzer").getId().toLanguageKey(), "Electrolyzer");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("fluid_enricher").getId().toLanguageKey(), "Fluid Enricher");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("fluid_extractor").getId().toLanguageKey(), "Fluid Extractor");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("fuel_reprocessor").getId().toLanguageKey(), "Fuel Reprocessor");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("fluid_infuser").getId().toLanguageKey(), "Fluid Infuser");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("ingot_former").getId().toLanguageKey(), "Ingot Former");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("manufactory").getId().toLanguageKey(), "Manufactory");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("melter").getId().toLanguageKey(), "Melter");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("pressurizer").getId().toLanguageKey(), "Pressurizer");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("rock_crusher").getId().toLanguageKey(), "Rock Crusher");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("fluid_mixer").getId().toLanguageKey(), "Fluid Mixer");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("separator").getId().toLanguageKey(), "Separator");
+        add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("supercooler").getId().toLanguageKey(), "Supercooler");
     }
 
     private void simpleName(List<String> list, TagKey<?> key, String append) {

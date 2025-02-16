@@ -42,6 +42,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(SUPERCOLD_ICE.asItem(), capitalize(SUPERCOLD_ICE.getId().getPath()));
         add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
         add(LITHIUM_ION_CELL.asItem(), capitalize(LITHIUM_ION_CELL.getId().getPath()));
+        add("jei.probability", "Production chance: %s%%");
     }
 
     private void ores() {
@@ -64,7 +65,37 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleItems(PART_BLOCKS, PART_BLOCK_MAP, "");
         replaceItems(COMPOUNDS, COMPOUND_MAP, "", "", Map.of("c_mn_blend", "Carbon-Manganese Blend"));
         simpleItems(UPGRADES, UPGRADE_MAP, " Upgrade");
-        fuelTypeItems(URANIUMS, URANIUM_MAP, "Uranium-", "");
+
+        fuelTypeItems(AMERICIUM_MAP, "Americium-", "");
+        fuelTypeItems(BERKELIUM_MAP, "Berkelium-", "");
+        fuelTypeItems(BORON_MAP, "Boron-", "");
+        fuelTypeItems(CALIFORNIUM_MAP, "Californium-", "");
+        fuelTypeItems(CURIUM_MAP, "Curium-", "");
+        fuelTypeItems(PLUTONIUM_MAP, "Plutonium-", "");
+        fuelTypeItems(THORIUM_MAP, "Thorium-", "");
+        fuelTypeItems(URANIUM_MAP, "Uranium-", "");
+
+        fuelPelletTypeItems(FUEL_AMERICIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_BERKELIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_CALIFORNIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_CURIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_MIXED_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_NEPTUNIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_PLUTONIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_THORIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_URANIUM_MAP, "", " Fuel Pellet");
+
+        fuelPelletTypeItems(DEPLETED_FUEL_AMERICIUM_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_BERKELIUM_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_CALIFORNIUM_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_CURIUM_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_IC2_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_MIXED_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_NEPTUNIUM_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_PLUTONIUM_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_THORIUM_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_URANIUM_MAP, "Depleted ", " Fuel Pellet");
+
         simpleItems(FOOD_MAP, Map.of("dominos", "Domino's Special", "smore", "S'more S'mingot", "moresmore", "MoreS'more DoubleS'mingot"));
         add(PORTABLE_ENDER_CHEST.get(), "Portable Ender Chest");
         add(FOURSMORE.get(), "FourS'more QuadS'mingot");
@@ -266,21 +297,39 @@ public class ModLanguageProvider extends LanguageProvider {
         add("music_disc.hyperspace.credit", "8-Bit Cover by 'Riku Nuottajärvi'");
     }
 
-    private void fuelTypeItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
-        for (String name : list) {
-            add(map.get(name).asItem(), prepend + capitalize(fuelTypes(name)) + append);
+    private void fuelTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
+        for (String name : map.keySet()) {
+            add(map.get(name).asItem(), prepend + capitalize(fuelTypes(name, false)) + append);
         }
     }
 
-    private String fuelTypes(String name) {
+    private void fuelPelletTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
+        for (String name : map.keySet()) {
+            add(map.get(name).asItem(), prepend + fuelTypes(name, true).replace("_", "-") + append);
+        }
+    }
+
+    private String fuelTypes(String name, boolean upperCase) {
         if (!name.contains("_")) return name;
-        return name.substring(0, name.lastIndexOf('_')) + " " + switch (name.substring(name.lastIndexOf('_') + 1)) {
-            case "c" -> "Carbide";
-            case "ni" -> "Nitride";
-            case "ox" -> "Oxide";
-            case "za" -> "Zirconium Alloy";
-            default -> "";
+        String suffix = switch (name.substring(name.lastIndexOf('_') + 1)) {
+            case "c" -> " Carbide";
+            case "ni" -> " Nitride";
+            case "ox" -> " Oxide";
+            case "za" -> "-Zirconium Alloy";
+            case "tr" -> " TRISO";
+            case String val -> {
+                try {
+                    yield " " + Integer.parseInt(val);
+                } catch (Exception e) {
+                    yield "ERROR";
+                }
+            }
         };
+
+        if (upperCase) {
+            return name.substring(0, name.lastIndexOf('_')).toUpperCase().replaceAll("(?<=LEC)M", "m").replaceAll("(?<=LEC)F", "f") + suffix;
+        }
+        return name.substring(0, name.lastIndexOf('_')) + suffix;
     }
 
     private void simpleItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String append) {

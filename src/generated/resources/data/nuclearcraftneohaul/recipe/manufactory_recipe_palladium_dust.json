@@ -1,5 +1,7 @@
 {
   "type": "nuclearcraftneohaul:manufactory_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
   "itemInputs": [
     {
       "count": 1,

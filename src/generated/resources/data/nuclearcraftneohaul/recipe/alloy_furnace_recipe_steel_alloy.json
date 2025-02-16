@@ -1,5 +1,7 @@
 {
   "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
   "itemInputs": [
     {
       "type": "neoforge:compound",

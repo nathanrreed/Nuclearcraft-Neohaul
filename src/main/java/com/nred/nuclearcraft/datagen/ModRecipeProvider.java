@@ -1,8 +1,7 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
-import com.nred.nuclearcraft.datagen.recipes.AlloyFurnaceRecipeProvider;
-import com.nred.nuclearcraft.datagen.recipes.ManufactoryRecipeProvider;
+import com.nred.nuclearcraft.datagen.recipes.*;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipeBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -78,7 +77,24 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         solar_panels(recipeOutput);
 
         new AlloyFurnaceRecipeProvider(recipeOutput);
+        new AssemblerProvider(recipeOutput);
+        new CentrifugeProvider(recipeOutput);
+        new ChemicalReactorProvider(recipeOutput);
+        new CrystallizerProvider(recipeOutput);
+        new DecayHastenerProvider(recipeOutput);
+        new ElectrolyzerProvider(recipeOutput);
+        new FluidEnricherProvider(recipeOutput);
+        new FluidExtractorProvider(recipeOutput);
+        new FluidInfuserProvider(recipeOutput);
+        new FluidMixerProvider(recipeOutput);
+        new FuelReprocessorProvider(recipeOutput);
+        new IngotFormerProvider(recipeOutput);
         new ManufactoryRecipeProvider(recipeOutput);
+        new MelterProvider(recipeOutput);
+        new PressurizerProvider(recipeOutput);
+        new RockCrusherProvider(recipeOutput);
+        new SeparatorProvider(recipeOutput);
+        new SupercoolerProvider(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nuclearcraftneohaul:item/fuel_curium/hecm_245_c"
+  }
+}
