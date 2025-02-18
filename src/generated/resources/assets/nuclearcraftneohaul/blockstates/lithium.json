@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "nuclearcraftneohaul:block/lithium"
+      "model": "nuclearcraftneohaul:block/block.nuclearcraftneohaul.lithium"
     }
   }
 }

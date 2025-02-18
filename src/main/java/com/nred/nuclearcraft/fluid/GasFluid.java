@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -37,18 +36,6 @@ public class GasFluid extends BaseFlowingFluid.Source {
             level.playLocalSound(pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.2f, 1f, false);
         }
     }
-
-    @Override
-    protected void animateTick(Level level, BlockPos pos, FluidState state, RandomSource random) {
-
-    }
-//        super.animateTick(state, level, pos.above(), random);
-//    }
-
-//    @Override
-//    protected void spread(Level level, BlockPos pos, FluidState state) {
-//        super.spread(level, pos, state);
-//    }
 
     @Override
     protected boolean canSpreadTo(BlockGetter level, BlockPos fromPos, BlockState fromBlockState, Direction direction, BlockPos toPos, BlockState toBlockState, FluidState toFluidState, Fluid fluid) {

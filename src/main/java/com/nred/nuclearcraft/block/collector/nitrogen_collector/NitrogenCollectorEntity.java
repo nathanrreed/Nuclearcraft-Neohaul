@@ -27,7 +27,7 @@ import java.util.Map;
 import static com.nred.nuclearcraft.block.collector.MACHINE_LEVEL.BASE;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.shuffledDirections;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.NITROGEN_COLLECTOR_TYPES;
-import static com.nred.nuclearcraft.registration.FluidRegistration.GASSES;
+import static com.nred.nuclearcraft.registration.FluidRegistration.GAS_MAP;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
 public class NitrogenCollectorEntity extends CollectorEntity {
@@ -73,7 +73,7 @@ public class NitrogenCollectorEntity extends CollectorEntity {
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (fluidStackHandler.getFluidAmount(0) < fluidStackHandler.getTankCapacity(0)) {
-            fluidStackHandler.internalInsertFluid(new FluidStack(GASSES.get("nitrogen").still, (int) getAmountPerTick(level)), IFluidHandler.FluidAction.EXECUTE);
+            fluidStackHandler.internalInsertFluid(new FluidStack(GAS_MAP.get("nitrogen").still, (int) getAmountPerTick(level)), IFluidHandler.FluidAction.EXECUTE);
         }
 
         if (level != null && !level.isClientSide && fluidStackHandler.getFluidAmount(0) > 0) {

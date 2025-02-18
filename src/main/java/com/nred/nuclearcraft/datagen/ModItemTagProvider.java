@@ -20,8 +20,8 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ORE_MAP;
-import static com.nred.nuclearcraft.registration.FluidRegistration.GASSES;
-import static com.nred.nuclearcraft.registration.FluidRegistration.MOLTEN;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
+import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 class ModItemTagProvider extends ItemTagsProvider {
@@ -52,7 +52,7 @@ class ModItemTagProvider extends ItemTagsProvider {
     }
 
     private void buckets() {
-        for (Fluids fluid : fluidValues(GASSES, MOLTEN)) {
+        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             tag(Tags.Items.BUCKETS).add(fluid.bucket.get());
         }
     }

@@ -1,18 +1,18 @@
 {
   "values": [
-    "nuclearcraftneohaul:boron",
+    "nuclearcraftneohaul:boron_ore",
     "nuclearcraftneohaul:boron_deepslate_ore",
-    "nuclearcraftneohaul:lead",
+    "nuclearcraftneohaul:lead_ore",
     "nuclearcraftneohaul:lead_deepslate_ore",
-    "nuclearcraftneohaul:lithium",
+    "nuclearcraftneohaul:lithium_ore",
     "nuclearcraftneohaul:lithium_deepslate_ore",
-    "nuclearcraftneohaul:magnesium",
+    "nuclearcraftneohaul:magnesium_ore",
     "nuclearcraftneohaul:magnesium_deepslate_ore",
-    "nuclearcraftneohaul:thorium",
+    "nuclearcraftneohaul:thorium_ore",
     "nuclearcraftneohaul:thorium_deepslate_ore",
-    "nuclearcraftneohaul:tin",
+    "nuclearcraftneohaul:tin_ore",
     "nuclearcraftneohaul:tin_deepslate_ore",
-    "nuclearcraftneohaul:uranium",
+    "nuclearcraftneohaul:uranium_ore",
     "nuclearcraftneohaul:uranium_deepslate_ore"
   ]
 }

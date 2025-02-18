@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "tin",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:tin_ore"
+    },
+    {
+      "item": "nuclearcraftneohaul:tin_deepslate_ore"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:tin_ingot"
+  }
+}

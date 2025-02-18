@@ -38,7 +38,6 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 import static com.nred.nuclearcraft.helpers.GuiHelper.blitTile;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.*;
@@ -282,8 +281,8 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
                 if (menu.energyStorage != null) {
                     double recipeMult = 1;
                     Optional<RecipeHolder<?>> recipeHolder = Minecraft.getInstance().level.getRecipeManager().byKey(recipeKey);
-                    if (recipeHolder.isPresent()) {
-                        recipeMult = ((ProcessorRecipe) recipeHolder.get().value()).getPowerModifier();
+                    if (recipeHolder.isPresent() && recipeHolder.get().value() instanceof ProcessorRecipe processorRecipe) {
+                        recipeMult = processorRecipe.getPowerModifier();
                     }
 
                     guiGraphics.renderComponentTooltip(font, List.of(

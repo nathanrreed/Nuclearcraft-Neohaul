@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "nuclearcraftneohaul:block/magnesium"
+      "model": "nuclearcraftneohaul:block/block.nuclearcraftneohaul.magnesium"
     }
   }
 }

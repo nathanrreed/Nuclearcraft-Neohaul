@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "nuclearcraftneohaul:thorium"
+          "Name": "nuclearcraftneohaul:thorium_ore"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

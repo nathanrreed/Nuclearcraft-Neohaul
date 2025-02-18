@@ -29,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
-import static com.nred.nuclearcraft.registration.FluidRegistration.GASSES;
+import static com.nred.nuclearcraft.registration.FluidRegistration.GAS_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 
@@ -285,9 +285,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new CollectorRecipeBuilder(new FluidStack(Fluids.WATER, 80), MACHINE_LEVEL.COMPACT).save(recipeOutput, MODID + ":water_source_compact_rate");
         new CollectorRecipeBuilder(new FluidStack(Fluids.WATER, 640), MACHINE_LEVEL.DENSE).save(recipeOutput, MODID + ":water_source_dense_rate");
 
-        new CollectorRecipeBuilder(new FluidStack(GASSES.get("nitrogen").still, 5), MACHINE_LEVEL.BASE).save(recipeOutput, MODID + ":nitrogen_collector_rate");
-        new CollectorRecipeBuilder(new FluidStack(GASSES.get("nitrogen").still, 40), MACHINE_LEVEL.COMPACT).save(recipeOutput, MODID + ":nitrogen_collector_compact_rate");
-        new CollectorRecipeBuilder(new FluidStack(GASSES.get("nitrogen").still, 320), MACHINE_LEVEL.DENSE).save(recipeOutput, MODID + ":nitrogen_collector_dense_rate");
+        new CollectorRecipeBuilder(new FluidStack(GAS_MAP.get("nitrogen").still, 5), MACHINE_LEVEL.BASE).save(recipeOutput, MODID + ":nitrogen_collector_rate");
+        new CollectorRecipeBuilder(new FluidStack(GAS_MAP.get("nitrogen").still, 40), MACHINE_LEVEL.COMPACT).save(recipeOutput, MODID + ":nitrogen_collector_compact_rate");
+        new CollectorRecipeBuilder(new FluidStack(GAS_MAP.get("nitrogen").still, 320), MACHINE_LEVEL.DENSE).save(recipeOutput, MODID + ":nitrogen_collector_dense_rate");
     }
 
     private void solar_panels(RecipeOutput recipeOutput) {

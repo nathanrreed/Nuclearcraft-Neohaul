@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "lead",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:lead_ore"
+    },
+    {
+      "item": "nuclearcraftneohaul:lead_deepslate_ore"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:lead_ingot"
+  }
+}

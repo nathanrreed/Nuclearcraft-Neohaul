@@ -16,14 +16,14 @@ import com.nred.nuclearcraft.block.processor.electric_furnace.ElectricFurnace;
 import com.nred.nuclearcraft.block.processor.electrolyzer.Electrolyzer;
 import com.nred.nuclearcraft.block.processor.fluid_enricher.Enricher;
 import com.nred.nuclearcraft.block.processor.fluid_extractor.Extractor;
-import com.nred.nuclearcraft.block.processor.fuel_reprocessor.FuelReprocessor;
 import com.nred.nuclearcraft.block.processor.fluid_infuser.Infuser;
+import com.nred.nuclearcraft.block.processor.fluid_mixer.SaltMixer;
+import com.nred.nuclearcraft.block.processor.fuel_reprocessor.FuelReprocessor;
 import com.nred.nuclearcraft.block.processor.ingot_former.IngotFormer;
 import com.nred.nuclearcraft.block.processor.manufactory.Manufactory;
 import com.nred.nuclearcraft.block.processor.melter.Melter;
 import com.nred.nuclearcraft.block.processor.pressurizer.Pressurizer;
 import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusher;
-import com.nred.nuclearcraft.block.processor.fluid_mixer.SaltMixer;
 import com.nred.nuclearcraft.block.processor.separator.Separator;
 import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
 import com.nred.nuclearcraft.block.solar.SolarPanel;
@@ -62,7 +62,7 @@ public class BlockRegistration {
     private static HashMap<String, DeferredBlock<Block>> createOres() {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
         for (String ore : ORES) {
-            map.put(ore, registerBlockItem(ore, () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F))));
+            map.put(ore, registerBlockItem(ore + "_ore", () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F))));
             map.put(ore + "_deepslate", registerBlockItem(ore + "_deepslate_ore", () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE))));
         }
 
@@ -132,6 +132,7 @@ public class BlockRegistration {
         map.put("supercooler", registerBlockItem("supercooler", () -> new Supercooler(BASE_PROPERTIES)));
         return map;
     }
+
     private static HashMap<String, DeferredBlock<Block>> createSolarPanels() {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
         map.put("solar_panel_basic", registerBlockItem("solar_panel_basic", () -> new SolarPanel(0)));

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "nuclearcraftneohaul:block/thorium"
+      "model": "nuclearcraftneohaul:block/block.nuclearcraftneohaul.thorium"
     }
   }
 }

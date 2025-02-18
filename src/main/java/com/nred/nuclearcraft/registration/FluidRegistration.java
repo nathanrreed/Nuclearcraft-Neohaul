@@ -3,22 +3,24 @@ package com.nred.nuclearcraft.registration;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.util.FastColor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class FluidRegistration {
-    public static final Map<String, Fluids> GASSES = createGasses();
-    public static final Map<String, Fluids> MOLTEN = createMolten();
-    public static final Map<String, Fluids> HOT_GAS = createHotGas();
-    public static final Map<String, Fluids> SUGAR = createSugar();
-    public static final Map<String, Fluids> CHOCOLATE = createChocolate();
-    public static final Map<String, Fluids> FISSION = createFission();
-    public static final Map<String, Fluids> STEAM = createSteam();
-    public static final Map<String, Fluids> SALT_SOLUTION = createSaltSolution();
-    public static final Map<String, Fluids> ACID = createAcid();
-    public static final Map<String, Fluids> FLAMMABLE = createFlammable();
-    public static final Map<String, Fluids> HOT_COOLANT = createHotCoolant();
-    public static final Map<String, Fluids> COOLANT = createCoolant();
+    public static final Map<String, Fluids> GAS_MAP = createGasses();
+    public static final Map<String, Fluids> MOLTEN_MAP = createMolten();
+    public static final Map<String, Fluids> HOT_GAS_MAP = createHotGas();
+    public static final Map<String, Fluids> SUGAR_MAP = createSugar();
+    public static final Map<String, Fluids> CHOCOLATE_MAP = createChocolate();
+    public static final Map<String, Fluids> FISSION_MAP = createFission();
+    public static final Map<String, Fluids> STEAM_MAP = createSteam();
+    public static final Map<String, Fluids> SALT_SOLUTION_MAP = createSaltSolution();
+    public static final Map<String, Fluids> ACID_MAP = createAcid();
+    public static final Map<String, Fluids> FLAMMABLE_MAP = createFlammable();
+    public static final Map<String, Fluids> HOT_COOLANT_MAP = new HashMap<>();
+    public static final Map<String, Fluids> COOLANT_MAP = createCoolant();
     public static final Map<String, Fluids> CUSTOM_FLUID = createCustomFluid();
+    public static final Map<String, Fluids> FISSION_FUEL_MAP = createFissionFuel();
 
     private static Map<String, Fluids> createGasses() {
         Map<String, Fluids> map = new java.util.HashMap<>();
@@ -72,7 +74,38 @@ public class FluidRegistration {
         map.put("bas", new Fluids("bas", 0xFF9B9B89, Fluids.MOLTEN_TYPE));
         map.put("alugentum", new Fluids("alugentum", 0xFFB5C9CB, Fluids.MOLTEN_TYPE));
         map.put("alumina", new Fluids("alumina", 0xFF919880, Fluids.MOLTEN_TYPE));
-        //TODO add molten ores
+
+        map.put("iron", new Fluids("iron", 0xFF8D1515, Fluids.MOLTEN_TYPE));
+//        if (registerCoFHAlt()) {
+//            map.put("redstone", new Fluids("redstone", 0xFFAB1C09, Fluids.MOLTEN_TYPE));
+//        }
+        map.put("quartz", new Fluids("quartz", 0xFFECE9E2, Fluids.MOLTEN_TYPE));
+        map.put("obsidian", new Fluids("obsidian", 0xFF1C1828, Fluids.MOLTEN_TYPE));
+        map.put("nether_brick", new Fluids("nether_brick", 0xFF271317, Fluids.MOLTEN_TYPE));
+//        if (registerCoFHAlt()) {
+//            map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.MOLTEN_TYPE));
+//        }
+        map.put("lapis", new Fluids("lapis", 0xFF27438A, Fluids.MOLTEN_TYPE));
+        map.put("gold", new Fluids("gold", 0xFFE6DA3C, Fluids.MOLTEN_TYPE));
+        map.put("prismarine", new Fluids("prismarine", 0xFF70A695, Fluids.MOLTEN_TYPE));
+        map.put("slime", new Fluids("slime", 0xFF79C865, Fluids.MOLTEN_TYPE));
+        map.put("end_stone", new Fluids("end_stone", 0xFFE7E9B3, Fluids.MOLTEN_TYPE));
+        map.put("purpur", new Fluids("purpur", 0xFFA979A9, Fluids.MOLTEN_TYPE));
+        map.put("diamond", new Fluids("diamond", 0xFF6FDFDA, Fluids.MOLTEN_TYPE));
+        map.put("emerald", new Fluids("emerald", 0xFF51D975, Fluids.MOLTEN_TYPE));
+        map.put("copper", new Fluids("copper", 0xFFAD6544, Fluids.MOLTEN_TYPE));
+        map.put("tin", new Fluids("tin", 0xFFD9DDF0, Fluids.MOLTEN_TYPE));
+        map.put("lead", new Fluids("lead", 0xFF3F4C4C, Fluids.MOLTEN_TYPE));
+        map.put("boron", new Fluids("boron", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
+        map.put("lithium", new Fluids("lithium", 0xFFEFEFEF, Fluids.MOLTEN_TYPE));
+        map.put("magnesium", new Fluids("magnesium", 0xFFEED5E1, Fluids.MOLTEN_TYPE));
+        map.put("manganese", new Fluids("manganese", 0xFF99A1CA, Fluids.MOLTEN_TYPE));
+        map.put("aluminum", new Fluids("aluminum", 0xFFB5ECD5, Fluids.MOLTEN_TYPE));
+        map.put("silver", new Fluids("silver", 0xFFE2DAF6, Fluids.MOLTEN_TYPE));
+        map.put("fluorite", new Fluids("fluorite", 0xFF8AB492, Fluids.MOLTEN_TYPE));
+        map.put("villiaumite", new Fluids("villiaumite", 0xFFB06C56, Fluids.MOLTEN_TYPE));
+        map.put("carobbiite", new Fluids("carobbiite", 0xFF95A251, Fluids.MOLTEN_TYPE));
+
         return map;
     }
 
@@ -116,15 +149,15 @@ public class FluidRegistration {
 
     private static Map<String, Fluids> createSaltSolution() {
         Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("boron_nitride_solution", new Fluids("boron_nitride_solution", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFF6F8E5C), Fluids.SALT_SOLUTION_TYPE));
-        map.put("fluorite_water", new Fluids("fluorite_water", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFF8AB492), Fluids.SALT_SOLUTION_TYPE));
-        map.put("calcium_sulfate_solution", new Fluids("calcium_sulfate_solution", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFFB8B0A6), Fluids.SALT_SOLUTION_TYPE));
-        map.put("sodium_fluoride_solution", new Fluids("sodium_fluoride_solution", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFFC2B1A1), Fluids.SALT_SOLUTION_TYPE));
-        map.put("potassium_fluoride_solution", new Fluids("potassium_fluoride_solution", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFFC1C99D), Fluids.SALT_SOLUTION_TYPE));
-        map.put("sodium_hydroxide_solution", new Fluids("sodium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFFC2B7BB), Fluids.SALT_SOLUTION_TYPE));
-        map.put("potassium_hydroxide_solution", new Fluids("potassium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFFB8C6B0), Fluids.SALT_SOLUTION_TYPE));
-        map.put("borax_solution", new Fluids("borax_solution", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFFEEEEEE), Fluids.SALT_SOLUTION_TYPE));
-        map.put("irradiated_borax_solution", new Fluids("irradiated_borax_solution", FastColor.ARGB32.lerp(0.5f, 0x2F43F4, 0xFFFFD0A3), Fluids.SALT_SOLUTION_TYPE));
+        map.put("boron_nitride_solution", new Fluids("boron_nitride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF6F8E5C), Fluids.SALT_SOLUTION_TYPE));
+        map.put("fluorite_water", new Fluids("fluorite_water", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF8AB492), Fluids.SALT_SOLUTION_TYPE));
+        map.put("calcium_sulfate_solution", new Fluids("calcium_sulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB8B0A6), Fluids.SALT_SOLUTION_TYPE));
+        map.put("sodium_fluoride_solution", new Fluids("sodium_fluoride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC2B1A1), Fluids.SALT_SOLUTION_TYPE));
+        map.put("potassium_fluoride_solution", new Fluids("potassium_fluoride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC1C99D), Fluids.SALT_SOLUTION_TYPE));
+        map.put("sodium_hydroxide_solution", new Fluids("sodium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC2B7BB), Fluids.SALT_SOLUTION_TYPE));
+        map.put("potassium_hydroxide_solution", new Fluids("potassium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB8C6B0), Fluids.SALT_SOLUTION_TYPE));
+        map.put("borax_solution", new Fluids("borax_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFEEEEEE), Fluids.SALT_SOLUTION_TYPE));
+        map.put("irradiated_borax_solution", new Fluids("irradiated_borax_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFFFD0A3), Fluids.SALT_SOLUTION_TYPE));
         return map;
     }
 
@@ -143,7 +176,7 @@ public class FluidRegistration {
         Map<String, Fluids> map = new java.util.HashMap<>();
         map.put("sugar", new Fluids("sugar", 0xFFFFD59A, Fluids.SUGAR_TYPE));
         map.put("gelatin", new Fluids("gelatin", 0xFFDDD09C, Fluids.CHOCOLATE_TYPE));
-        map.put("hydrated_gelatin", new Fluids("hydrated_gelatin", FastColor.ARGB32.lerp(0.8f, 0x2F43F4, 0xFFDDD09C), Fluids.CHOCOLATE_TYPE));
+        map.put("hydrated_gelatin", new Fluids("hydrated_gelatin", FastColor.ARGB32.lerp(0.8f, 0xFF2F43F4, 0xFFDDD09C), Fluids.CHOCOLATE_TYPE));
         return map;
     }
 
@@ -162,15 +195,46 @@ public class FluidRegistration {
     private static Map<String, Fluids> createCoolant() {
         Map<String, Fluids> map = new java.util.HashMap<>();
         map.put("nak", new Fluids("nak", 0xFFFFE5BC, Fluids.COOLANT_TYPE));
-        // TODO add all NaK
+        HOT_COOLANT_MAP.put("nak_hot", new Fluids("nak_hot", FastColor.ARGB32.lerp(0.2f, 0xFFFFD5AC, 0xFFFFE5BC), Fluids.HOT_COOLANT_TYPE));
+
+        addNAKPairs("iron", 0xFF8D1515, map);
+        addNAKPairs("redstone", 0xFFAB1C09, map);
+        addNAKPairs("quartz", 0xFFECE9E2, map);
+        addNAKPairs("obsidian", 0xFF1C1828, map);
+        addNAKPairs("nether_brick", 0xFF271317, map);
+        addNAKPairs("glowstone", 0xFFA38037, map);
+        addNAKPairs("lapis", 0xFF27438A, map);
+        addNAKPairs("gold", 0xFFE6DA3C, map);
+        addNAKPairs("prismarine", 0xFF70A695, map);
+        addNAKPairs("slime", 0xFF79C865, map);
+        addNAKPairs("end_stone", 0xFFE7E9B3, map);
+        addNAKPairs("purpur", 0xFFA979A9, map);
+        addNAKPairs("diamond", 0xFF6FDFDA, map);
+        addNAKPairs("emerald", 0xFF51D975, map);
+        addNAKPairs("copper", 0xFFAD6544, map);
+        addNAKPairs("tin", 0xFFD9DDF0, map);
+        addNAKPairs("lead", 0xFF3F4C4C, map);
+        addNAKPairs("boron", 0xFF7D7D7D, map);
+        addNAKPairs("lithium", 0xFFEFEFEF, map);
+        addNAKPairs("magnesium", 0xFFEED5E1, map);
+        addNAKPairs("manganese", 0xFF99A1CA, map);
+        addNAKPairs("aluminum", 0xFFB5ECD5, map);
+        addNAKPairs("silver", 0xFFE2DAF6, map);
+        addNAKPairs("fluorite", 0xFF8AB492, map);
+        addNAKPairs("villiaumite", 0xFFB06C56, map);
+        addNAKPairs("carobbiite", 0xFF95A251, map);
+        addNAKPairs("arsenic", 0xFF818475, map);
+        addNAKPairs("liquid_nitrogen", 0xFF31C23A, map);
+        addNAKPairs("liquid_helium", 0xFFF3433D, map);
+        addNAKPairs("enderium", 0xFF0B5B5C, map);
+        addNAKPairs("cryotheum", 0xFF0099C1, map);
+
         return map;
     }
 
-    private static Map<String, Fluids> createHotCoolant() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("nak_hot", new Fluids("nak_hot", FastColor.ARGB32.lerp(0.2f, 0xFFFFD5AC, 0xFFFFE5BC), Fluids.HOT_COOLANT_TYPE));
-        // TODO add all NaK
-        return map;
+    private static void addNAKPairs(String name, int colour, Map<String, Fluids> map) {
+        map.put(name + "_nak", new Fluids(name + "_nak", FastColor.ARGB32.lerp(0.375f, colour, 0xFFE5BC), Fluids.COOLANT_TYPE));
+        HOT_COOLANT_MAP.put(name + "_nak_hot", new Fluids(name + "_nak_hot", FastColor.ARGB32.lerp(0.2f, colour, 0xFFE5BC), Fluids.HOT_COOLANT_TYPE));
     }
 
     private static Map<String, Fluids> createHotGas() {
@@ -190,6 +254,116 @@ public class FluidRegistration {
         map.put("promethium_147", new Fluids("promethium_147", 0xFF96C199, Fluids.FISSION_TYPE));
         map.put("europium_155", new Fluids("europium_155", 0xFF74664A, Fluids.FISSION_TYPE));
         return map;
+    }
+
+    private static Map<String, Fluids> createFissionFuel() {
+        Map<String, Fluids> map = new java.util.HashMap<>();
+        map.put("thorium", new Fluids("thorium", 0xFF242424, Fluids.MOLTEN_TYPE));
+        map.put("uranium", new Fluids("uranium", 0xFF375437, Fluids.MOLTEN_TYPE));
+
+        // Isotopes
+        map.put("uranium_233", new Fluids("uranium_233", 0xFF212E20, Fluids.MOLTEN_TYPE));
+        map.put("uranium_235", new Fluids("uranium_235", 0xFF102D10, Fluids.MOLTEN_TYPE));
+        map.put("uranium_238", new Fluids("uranium_238", 0xFF333E32, Fluids.MOLTEN_TYPE));
+        map.put("neptunium_236", new Fluids("neptunium_236", 0xFF293E40, Fluids.MOLTEN_TYPE));
+        map.put("neptunium_237", new Fluids("neptunium_237", 0xFF2E3A42, Fluids.MOLTEN_TYPE));
+        map.put("plutonium_238", new Fluids("plutonium_238", 0xFF999999, Fluids.MOLTEN_TYPE));
+        map.put("plutonium_239", new Fluids("plutonium_239", 0xFF9E9E9E, Fluids.MOLTEN_TYPE));
+        map.put("plutonium_241", new Fluids("plutonium_241", 0xFF909090, Fluids.MOLTEN_TYPE));
+        map.put("plutonium_242", new Fluids("plutonium_242", 0xFFABABAB, Fluids.MOLTEN_TYPE));
+        map.put("americium_241", new Fluids("americium_241", 0xFF393725, Fluids.MOLTEN_TYPE));
+        map.put("americium_242", new Fluids("americium_242", 0xFF332D1A, Fluids.MOLTEN_TYPE));
+        map.put("americium_243", new Fluids("americium_243", 0xFF2C280C, Fluids.MOLTEN_TYPE));
+        map.put("curium_243", new Fluids("curium_243", 0xFF311137, Fluids.MOLTEN_TYPE));
+        map.put("curium_245", new Fluids("curium_245", 0xFF2D102D, Fluids.MOLTEN_TYPE));
+        map.put("curium_246", new Fluids("curium_246", 0xFF3F2442, Fluids.MOLTEN_TYPE));
+        map.put("curium_247", new Fluids("curium_247", 0xFF321635, Fluids.MOLTEN_TYPE));
+        map.put("berkelium_247", new Fluids("berkelium_247", 0xFF5A2301, Fluids.MOLTEN_TYPE));
+        map.put("berkelium_248", new Fluids("berkelium_248", 0xFF602502, Fluids.MOLTEN_TYPE));
+        map.put("californium_249", new Fluids("californium_249", 0xFF460D12, Fluids.MOLTEN_TYPE));
+        map.put("californium_250", new Fluids("californium_250", 0xFF3E0C14, Fluids.MOLTEN_TYPE));
+        map.put("californium_251", new Fluids("californium_251", 0xFF3B0B16, Fluids.MOLTEN_TYPE));
+        map.put("californium_252", new Fluids("californium_252", 0xFF430B0E, Fluids.MOLTEN_TYPE));
+
+        // Fuels
+        addFuelFluids("tbu", 0xFF272727, map);
+
+        addFuelFluids("leu_233", 0xFF1D321B, map);
+        addFuelFluids("heu_233", 0xFF123B0D, map);
+        addFuelFluids("leu_235", 0xFF1D321B, map);
+        addFuelFluids("heu_235", 0xFF123B0D, map);
+
+        addFuelFluids("len_236", 0xFF1B3132, map);
+        addFuelFluids("hen_236", 0xFF0D393B, map);
+
+        addFuelFluids("lep_239", 0xFF949494, map);
+        addFuelFluids("hep_239", 0xFF8A8A8A, map);
+        addFuelFluids("lep_241", 0xFF969696, map);
+        addFuelFluids("hep_241", 0xFF8C8C8C, map);
+
+        addFuelFluids("mix_239", 0xFF485547, map);
+        addFuelFluids("mix_241", 0xFF404E3E, map);
+
+        addFuelFluids("lea_242", 0xFF322C1B, map);
+        addFuelFluids("hea_242", 0xFF3B2F0D, map);
+
+        addFuelFluids("lecm_243", 0xFF301B32, map);
+        addFuelFluids("hecm_243", 0xFF360D3B, map);
+        addFuelFluids("lecm_245", 0xFF2D1A2D, map);
+        addFuelFluids("hecm_245", 0xFF340B2E, map);
+        addFuelFluids("lecm_247", 0xFF331F35, map);
+        addFuelFluids("hecm_247", 0xFF39103E, map);
+
+        addFuelFluids("leb_248", 0xFF4A1B04, map);
+        addFuelFluids("heb_248", 0xFF571B00, map);
+
+        addFuelFluids("lecf_249", 0xFF3D0310, map);
+        addFuelFluids("hecf_249", 0xFF4A0212, map);
+        addFuelFluids("lecf_251", 0xFF3A0313, map);
+        addFuelFluids("hecf_251", 0xFF460215, map);
+
+        addFuelFluids("depleted_tbu", 0xFF1D3826, map);
+
+        addFuelFluids("depleted_leu_233", 0xFF5C5C53, map);
+        addFuelFluids("depleted_heu_233", 0xFF34484B, map);
+        addFuelFluids("depleted_leu_235", 0xFF3A493D, map);
+        addFuelFluids("depleted_heu_235", 0xFF4D5352, map);
+
+        addFuelFluids("depleted_len_236", 0xFF4E4E46, map);
+        addFuelFluids("depleted_hen_236", 0xFF646663, map);
+
+        addFuelFluids("depleted_lep_239", 0xFF5C545D, map);
+        addFuelFluids("depleted_hep_239", 0xFF392D2F, map);
+        addFuelFluids("depleted_lep_241", 0xFF473441, map);
+        addFuelFluids("depleted_hep_241", 0xFF40213A, map);
+
+        addFuelFluids("depleted_mix_239", 0xFF2F342C, map);
+        addFuelFluids("depleted_mix_241", 0xFF2F342F, map);
+
+        addFuelFluids("depleted_lea_242", 0xFF311830, map);
+        addFuelFluids("depleted_hea_242", 0xFF391C28, map);
+
+        addFuelFluids("depleted_lecm_243", 0xFF441F1F, map);
+        addFuelFluids("depleted_hecm_243", 0xFF401920, map);
+        addFuelFluids("depleted_lecm_245", 0xFF49221A, map);
+        addFuelFluids("depleted_hecm_245", 0xFF462119, map);
+        addFuelFluids("depleted_lecm_247", 0xFF431512, map);
+        addFuelFluids("depleted_hecm_247", 0xFF441415, map);
+
+        addFuelFluids("depleted_leb_248", 0xFF471B22, map);
+        addFuelFluids("depleted_heb_248", 0xFF481F26, map);
+
+        addFuelFluids("depleted_lecf_249", 0xFF4B1B23, map);
+        addFuelFluids("depleted_hecf_249", 0xFF491A22, map);
+        addFuelFluids("depleted_lecf_251", 0xFF4A1B23, map);
+        addFuelFluids("depleted_hecf_251", 0xFF4B1B23, map);
+        return map;
+    }
+
+    public static void addFuelFluids(String name, int color, Map<String, Fluids> map) {
+        map.put(name, new Fluids(name, color, Fluids.MOLTEN_TYPE));
+        map.put(name + "_fluoride", new Fluids(name + "_fluoride", FastColor.ARGB32.lerp(0.125f, color, 0xD3C85D), Fluids.MOLTEN_TYPE));
+        map.put(name + "_fluoride_flibe", new Fluids(name + "_fluoride_flibe", FastColor.ARGB32.lerp(0.4f, color, 0xC1C8B0), Fluids.MOLTEN_TYPE));
     }
 
     public static void init() {

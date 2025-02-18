@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.info.Names.*;
@@ -117,8 +118,8 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void buckets() {
-        buckets(GASSES, Map.of("helium_3", "Helium-3"));
-        buckets(MOLTEN, Map.of("boron_10", "Boron-10",
+        buckets(GAS_MAP, Map.of("helium_3", "Helium-3"));
+        buckets(MOLTEN_MAP, Map.of("boron_10", "Boron-10",
                 "boron_11", "Boron-11",
                 "lithium_6", "Lithium-6",
                 "lithium_7", "Lithium-7",
@@ -128,23 +129,22 @@ public class ModLanguageProvider extends LanguageProvider {
                 "naoh", "Sodium Hydroxide",
                 "koh", "Potassium Hydroxide",
                 "bas", "Boron Arsenide"), "Molten ");
-        buckets(HOT_GAS, Map.of());
-        buckets(SUGAR, Map.of());
-        buckets(CHOCOLATE, Map.of());
-        buckets(FISSION, Map.of("strontium_90", "Strontium-90",
+        buckets(HOT_GAS_MAP, Map.of());
+        buckets(SUGAR_MAP, Map.of());
+        buckets(CHOCOLATE_MAP, Map.of());
+        buckets(FISSION_MAP, Map.of("strontium_90", "Strontium-90",
                 "ruthenium_106", "Ruthenium-106",
                 "caesium_137", "Caesium-137",
                 "promethium_147", "Promethium-147",
                 "europium_155", "Europium-155"));
-        buckets(STEAM, Map.of());
-        buckets(SALT_SOLUTION, Map.of());
-        buckets(ACID, Map.of());
-        buckets(FLAMMABLE, Map.of());
-        buckets(HOT_COOLANT, Map.of());
-        buckets(COOLANT, Map.of("nak", "Nak Alloy",
-                "nak_hot", "Nak Alloy"), "Hot Eutectic ");
-        buckets(CUSTOM_FLUID, Map.of("radaway", "RadAway Fluid",
-                "radaway_slow", "Slow-Acting RadAway Fluid"));
+        buckets(STEAM_MAP, Map.of());
+        buckets(SALT_SOLUTION_MAP, Map.of());
+        buckets(ACID_MAP, Map.of());
+        buckets(FLAMMABLE_MAP, Map.of());
+        nakBuckets(HOT_COOLANT_MAP);
+        nakBuckets(COOLANT_MAP);
+        buckets(CUSTOM_FLUID, Map.of("radaway", "RadAway Fluid", "radaway_slow", "Slow-Acting RadAway Fluid"));
+        fissionBuckets(FISSION_FUEL_MAP);
     }
 
     private void buckets(Map<String, Fluids> type, Map<String, String> replacers) {
@@ -153,10 +153,63 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void buckets(Map<String, Fluids> type, Map<String, String> replacers, String prefix) {
         for (String fluid : type.keySet()) {
+
             String name = replacers.getOrDefault(fluid, capitalize(fluid));
             add(type.get(fluid).bucket.asItem(), prefix + name + " Bucket");
             add(type.get(fluid).type.get().getDescriptionId(), prefix + name);
             add(type.get(fluid).block.get(), prefix + name);
+        }
+    }
+
+    private void fissionBuckets(Map<String, Fluids> type) {
+        for (String fluid : type.keySet()) {
+            StringBuilder prefix = new StringBuilder("Molten ");
+            String name = fluid;
+            String suffix = "";
+
+            if (fluid.contains("flibe")) {
+                prefix.append("FLiBe Salt Solution of ");
+                suffix = " Fuel";
+                name = name.replace("flibe", "");
+            }
+
+            if (fluid.contains("depleted")) {
+                prefix.append("Depleted ");
+                name = name.replace("depleted_", "");
+            }
+
+            if (Pattern.compile("hec([mf])").matcher(fluid).find()) {
+                name = capitalize(name.replace("hec", "HEC").replaceFirst("_", "-"));
+            } else if (Pattern.compile("lec([mf])").matcher(fluid).find()) {
+                name = capitalize(name.replace("lec", "LEC").replaceFirst("_", "-"));
+            } else if (Pattern.compile("^.{3}(_\\d{3})?").matcher(name).find()) {
+                name = capitalize(name.substring(0, 3).toUpperCase() + (name.length() > 3 ? (Character.isDigit(name.charAt(4)) ? "-" : "_") + name.substring(4) : ""));
+            } else {
+                name = capitalize(name);
+            }
+
+            add(type.get(fluid).bucket.asItem(), prefix + name + suffix + " Bucket");
+            add(type.get(fluid).type.get().getDescriptionId(), prefix + name + suffix);
+            add(type.get(fluid).block.get(), prefix + name + suffix);
+        }
+    }
+
+    private void nakBuckets(Map<String, Fluids> type) {
+        for (String fluid : type.keySet()) {
+            String name = switch (fluid) {
+                case "nak" -> "Eutectic NaK Alloy";
+                case "nak_hot" -> "Hot Eutectic NaK Alloy";
+                case String temp -> {
+                    String prefix = "";
+                    if (temp.contains("nak_hot")) {
+                        prefix = "Hot ";
+                    }
+                    yield prefix + "Eutectic NaK-" + capitalize(temp.substring(0, temp.indexOf("_nak"))) + " Mixture";
+                }
+            };
+            add(type.get(fluid).bucket.asItem(), name + " Bucket");
+            add(type.get(fluid).type.get().getDescriptionId(), name);
+            add(type.get(fluid).block.get(), name);
         }
     }
 

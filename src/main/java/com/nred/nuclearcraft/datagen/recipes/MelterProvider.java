@@ -5,11 +5,11 @@ import com.nred.nuclearcraft.recipe.processor.MelterRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.ingotDust;
-import static com.nred.nuclearcraft.registration.FluidRegistration.MOLTEN;
+import static com.nred.nuclearcraft.registration.FluidRegistration.MOLTEN_MAP;
 
 public class MelterProvider {
     public MelterProvider(RecipeOutput recipeOutput) {
-        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(ingotDust("steel", 1)).addFluidResult(MOLTEN.get("steel"), 144).save(recipeOutput);
+        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(ingotDust("steel", 1)).addFluidResult(MOLTEN_MAP.get("steel"), 144).save(recipeOutput);
 
     }
 }

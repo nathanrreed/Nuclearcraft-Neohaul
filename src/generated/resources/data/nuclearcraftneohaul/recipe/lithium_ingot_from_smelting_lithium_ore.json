@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "lithium",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:lithium_ore"
+    },
+    {
+      "item": "nuclearcraftneohaul:lithium_deepslate_ore"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:lithium_ingot"
+  }
+}

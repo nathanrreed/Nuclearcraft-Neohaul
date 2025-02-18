@@ -101,7 +101,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
                 } else if (slot > ENERGY + handlerInfo.numItemInputs()) { // Outputs can only be done internally so I am just going to assume it's fine
                     return true;
                 } else if (slot > ENERGY) {
-                    return level.getRecipeManager().getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(typeName).get()).stream().flatMap(itemToItemRecipeRecipeHolder -> itemToItemRecipeRecipeHolder.value().itemInputs.stream()).flatMap(a -> Arrays.stream(a.getItems())).parallel().anyMatch(itemStack -> itemStack.is(stack.getItem()));
+                    return validSlot(stack);
                 }
                 return false;
             }
@@ -148,6 +148,10 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
         };
     }
 
+    public boolean validSlot(@NotNull ItemStack stack) {
+        return level.getRecipeManager().getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(typeName).get()).stream().flatMap(holder -> holder.value().itemInputs.stream()).flatMap(a -> Arrays.stream(a.getItems())).parallel().anyMatch(itemStack -> itemStack.is(stack.getItem()));
+    }
+
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.loadAdditional(tag, registries);
@@ -187,10 +191,8 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
             if (progress > ticksNeeded) {
                 progress = 0;
                 progressSlot.set(0);
-                for (int i = 0; i < recipe.value().itemResults.size(); i++) {
-                    itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), false);
-                }
 
+                recipeOutputs();
                 for (int i = 0; i < recipe.value().itemInputs.size(); i++) {
                     for (int slot = 0; slot < recipe.value().itemInputs.size(); slot++) { // Find the slot the item is in and decrease it
                         if (recipe.value().itemInputs.get(i).test(itemStackHandler.getStackInSlot(slot + ENERGY + 1))) {
@@ -206,6 +208,12 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
             level.setBlockAndUpdate(pos, state.setValue(PROCESSOR_ON, false));
             progress = 0;
             progressSlot.set(0);
+        }
+    }
+
+    public void recipeOutputs() {
+        for (int i = 0; i < recipe.value().itemResults.size(); i++) {
+            itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), false);
         }
     }
 

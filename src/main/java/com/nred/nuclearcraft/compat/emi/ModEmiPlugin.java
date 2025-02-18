@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.compat.emi;
 
+import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
@@ -21,8 +22,10 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.nred.nuclearcraft.helpers.Concat.fluidEntries;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
 
@@ -34,6 +37,10 @@ public class ModEmiPlugin implements EmiPlugin {
     @Override
     public void register(EmiRegistry registry) {
         RecipeManager manager = registry.getRecipeManager();
+
+        for (Map.Entry<String, Fluids> entry : fluidEntries(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+            registry.addEmiStack(EmiStack.of(entry.getValue().bucket));
+        }
 
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, PROCESSOR_WORKSTATIONS.get("electric_furnace"));
         for (String type : EMI_PROCESSOR_CATEGORIES.keySet()) {
