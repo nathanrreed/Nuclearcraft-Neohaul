@@ -28,7 +28,7 @@ public class GasFluid extends BaseFlowingFluid.Source {
     }
 
     @Override
-    public void tick(Level level, BlockPos pos, FluidState state) {
+    public void tick(Level level, BlockPos pos, FluidState state) { // Floats away
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
         if (level.getBlockState(pos.above()).isAir()) {
             level.setBlock(pos.above(), state.createLegacyBlock(), 3);

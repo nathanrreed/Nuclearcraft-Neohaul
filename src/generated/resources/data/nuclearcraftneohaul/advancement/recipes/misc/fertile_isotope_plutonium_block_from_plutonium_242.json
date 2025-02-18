@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_plutonium_242": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:plutonium_242"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:fertile_isotope_plutonium_block_from_plutonium_242"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_plutonium_242"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:fertile_isotope_plutonium_block_from_plutonium_242"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fertile_isotope_curium_block"
+  }
+}

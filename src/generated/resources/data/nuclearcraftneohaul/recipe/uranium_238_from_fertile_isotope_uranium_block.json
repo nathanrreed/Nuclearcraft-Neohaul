@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:fertile_isotope_uranium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "nuclearcraftneohaul:uranium_238"
+  }
+}

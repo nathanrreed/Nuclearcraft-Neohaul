@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_berkelium_247": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:berkelium_247"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:fertile_isotope_berkelium_block_from_berkelium_247"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_berkelium_247"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:fertile_isotope_berkelium_block_from_berkelium_247"
+    ]
+  }
+}

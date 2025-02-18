@@ -72,6 +72,8 @@ public class ModLanguageProvider extends LanguageProvider {
         fuelTypeItems(BORON_MAP, "Boron-", "");
         fuelTypeItems(CALIFORNIUM_MAP, "Californium-", "");
         fuelTypeItems(CURIUM_MAP, "Curium-", "");
+        fuelTypeItems(LITHIUM_MAP, "Lithium-", "");
+        fuelTypeItems(NEPTUNIUM_MAP, "Neptunium-", "");
         fuelTypeItems(PLUTONIUM_MAP, "Plutonium-", "");
         fuelTypeItems(THORIUM_MAP, "Thorium-", "");
         fuelTypeItems(URANIUM_MAP, "Uranium-", "");
@@ -106,6 +108,15 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, " Block");
         simpleBlocks(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, " Block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "Block of Raw ", "");
+
+        add(FERTILE_ISOTOPE_MAP.get("americium").get(), "Americium-243 Block");
+        add(FERTILE_ISOTOPE_MAP.get("berkelium").get(), "Berkelium-247 Block");
+        add(FERTILE_ISOTOPE_MAP.get("californium").get(), "Californium-252 Block");
+        add(FERTILE_ISOTOPE_MAP.get("curium").get(), "Curium-246 Block");
+        add(FERTILE_ISOTOPE_MAP.get("neptunium").get(), "Neptunium-237 Block");
+        add(FERTILE_ISOTOPE_MAP.get("plutonium").get(), "Plutonium-242 Block");
+        add(FERTILE_ISOTOPE_MAP.get("uranium").get(), "Uranium-238 Block");
+
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
             for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
                 String type = level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase();

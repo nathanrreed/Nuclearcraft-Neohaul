@@ -50,6 +50,7 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> MATERIAL_BLOCK_MAP = createBlocks(MATERIAL_BLOCKS, "block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> RAW_BLOCK_MAP = createBlocks(RAWS, "raw", "block", Blocks.RAW_IRON_BLOCK);
+    public static final HashMap<String, DeferredBlock<Block>> FERTILE_ISOTOPE_MAP = createBlocks(FERTILE_ISOTOPES,  "fertile_isotope","block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> COLLECTOR_MAP = createCollectors();
     public static final HashMap<String, DeferredBlock<Block>> SOLAR_MAP = createSolarPanels();
 

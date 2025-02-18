@@ -46,4 +46,5 @@ public class Names {
     public static List<String> PLUTONIUMS = List.of("238", "238_c", "238_ni", "238_ox", "238_za", "239", "239_c", "239_ni", "239_ox", "239_za", "241", "241_c", "241_ni", "241_ox", "241_za", "242", "242_c", "242_ni", "242_ox", "242_za");
     public static List<String> THORIUMS = List.of("232_ni", "232_ox", "232_za", "tbu", "tbu_c");
     public static List<String> URANIUMS = List.of("233", "233_c", "233_ni", "233_ox", "233_za", "235", "235_c", "235_ni", "235_ox", "235_za", "238", "238_c", "238_ni", "238_ox", "238_za");
+    public static List<String> FERTILE_ISOTOPES = List.of("americium", "berkelium", "californium", "curium", "neptunium", "plutonium", "uranium");
 }

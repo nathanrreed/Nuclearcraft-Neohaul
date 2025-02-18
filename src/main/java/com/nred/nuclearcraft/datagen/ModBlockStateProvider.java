@@ -36,6 +36,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, "ingot_block");
         simpleBlocks(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, "material_block");
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "raw_block");
+        simpleBlocks(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, "fertile_isotope");
         blockWithItem(SUPERCOLD_ICE);
         blockWithItem(SOLIDIFIED_CORIUM);
 

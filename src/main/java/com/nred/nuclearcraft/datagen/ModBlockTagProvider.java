@@ -16,8 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.blockValues;
-import static com.nred.nuclearcraft.info.Names.INGOTS;
-import static com.nred.nuclearcraft.info.Names.RAWS;
+import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 
 class ModBlockTagProvider extends BlockTagsProvider {
@@ -37,6 +36,7 @@ class ModBlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.NEEDS_DIAMOND_TOOL);
 
         simpleTag(INGOTS, INGOT_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS);
+        simpleTag(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, Tags.Blocks.STORAGE_BLOCKS);
         simpleTag(RAWS, RAW_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS, "raw_");
     }
 

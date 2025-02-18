@@ -67,6 +67,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         full9Block(recipeOutput, INGOTS, INGOT_MAP, INGOT_BLOCK_MAP);
         full9Block(recipeOutput, RAWS, RAW_MAP, RAW_BLOCK_MAP);
         full9Item(recipeOutput, NUGGETS, NUGGET_MAP, INGOT_MAP);
+        full9Single(recipeOutput, AMERICIUM_MAP.get("243"), FERTILE_ISOTOPE_MAP.get("americium"));
+        full9Single(recipeOutput, BERKELIUM_MAP.get("247"), FERTILE_ISOTOPE_MAP.get("berkelium"));
+        full9Single(recipeOutput, CALIFORNIUM_MAP.get("252"), FERTILE_ISOTOPE_MAP.get("californium"));
+        full9Single(recipeOutput, CURIUM_MAP.get("246"), FERTILE_ISOTOPE_MAP.get("curium"));
+        full9Single(recipeOutput, NEPTUNIUM_MAP.get("237"), FERTILE_ISOTOPE_MAP.get("neptunium"));
+        full9Single(recipeOutput, PLUTONIUM_MAP.get("242"), FERTILE_ISOTOPE_MAP.get("plutonium"));
+        full9Single(recipeOutput, URANIUM_MAP.get("238"), FERTILE_ISOTOPE_MAP.get("uranium"));
 
         parts(recipeOutput);
         upgrades(recipeOutput);
@@ -137,6 +144,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
             ShapelessRecipeBuilder.shapeless(MISC, resultMap.get(name), 1).requires(itemMap.get(name), 9).unlockedBy(getHasName(itemMap.get(name)), has(itemMap.get(name))).save(recipeOutput, getId(resultMap.get(name).asItem(), itemMap.get(name).asItem()));
             ShapelessRecipeBuilder.shapeless(MISC, itemMap.get(name), 9).requires(resultMap.get(name), 1).unlockedBy(getHasName(resultMap.get(name)), has(resultMap.get(name))).save(recipeOutput, getId(itemMap.get(name).asItem(), resultMap.get(name).asItem()));
         }
+    }
+
+    private void full9Single(RecipeOutput recipeOutput, ItemLike item, ItemLike result) {
+        ShapelessRecipeBuilder.shapeless(MISC, result, 1).requires(item, 9).unlockedBy(getHasName(item), has(item)).save(recipeOutput, getId(result.asItem(), item.asItem()));
+        ShapelessRecipeBuilder.shapeless(MISC, item, 9).requires(result, 1).unlockedBy(getHasName(result), has(result)).save(recipeOutput, getId(item.asItem(), result.asItem()));
     }
 
     private String getId(Item result, Item input) {

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:fertile_isotope_californium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "nuclearcraftneohaul:californium_252"
+  }
+}
