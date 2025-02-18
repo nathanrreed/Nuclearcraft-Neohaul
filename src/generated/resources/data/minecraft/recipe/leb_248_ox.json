@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:berkelium_248"
+    },
+    {
+      "item": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "item": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "item": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "item": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "item": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "item": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "item": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "item": "nuclearcraftneohaul:berkelium_247"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_berkelium_leb_248_ox"
+  }
+}

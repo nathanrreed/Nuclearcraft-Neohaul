@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "239",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:fuel_plutonium_hep_239_ni"
+    },
+    {
+      "item": "nuclearcraftneohaul:fuel_plutonium_hep_239_ox"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_plutonium_hep_239"
+  }
+}

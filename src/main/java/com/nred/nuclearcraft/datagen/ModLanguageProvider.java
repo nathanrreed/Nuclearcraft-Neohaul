@@ -57,7 +57,7 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleItems(INGOTS, INGOT_MAP, " Ingot");
         simpleItems(GEMS, GEM_MAP, "");
         simpleItems(DUSTS, DUST_MAP, " Dust");
-        simpleItems(FISSION_DUSTS, FISSION_DUST_MAP, " Dust");
+        replaceItems(FISSION_DUSTS, FISSION_DUST_MAP, "", " Dust", Map.of("tbp", "Protactinium-Enriched Thorium Dust"));
         replaceItems(GEM_DUSTS, GEM_DUST_MAP, "Crushed ", "", Map.of("boron_nitride", "Hexagonal Boron Nitride", "sulfur", "Sulfur"));
         simpleItems(RAWS, RAW_MAP, "Raw ", "");
         simpleItems(NUGGETS, NUGGET_MAP, " Nugget");
@@ -75,14 +75,27 @@ public class ModLanguageProvider extends LanguageProvider {
         fuelTypeItems(LITHIUM_MAP, "Lithium-", "");
         fuelTypeItems(NEPTUNIUM_MAP, "Neptunium-", "");
         fuelTypeItems(PLUTONIUM_MAP, "Plutonium-", "");
-        fuelTypeItems(THORIUM_MAP, "Thorium-", "");
+//        fuelTypeItems(THORIUM_MAP, "Thorium-", "");
         fuelTypeItems(URANIUM_MAP, "Uranium-", "");
 
         fuelPelletTypeItems(FUEL_AMERICIUM_MAP, "", " Fuel Pellet");
         fuelPelletTypeItems(FUEL_BERKELIUM_MAP, "", " Fuel Pellet");
         fuelPelletTypeItems(FUEL_CALIFORNIUM_MAP, "", " Fuel Pellet");
         fuelPelletTypeItems(FUEL_CURIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_MIXED_MAP, "", " Fuel Pellet");
+
+        add(FUEL_MIXED_MAP.get("mix_239").get(), "MIX-239");
+        add(FUEL_MIXED_MAP.get("mix_239_c").get(), "MIX-239 Carbide");
+        add(FUEL_MIXED_MAP.get("mix_239_ni").get(), "MNI-239 Fuel Pellet");
+        add(FUEL_MIXED_MAP.get("mix_239_ox").get(), "MOX-239 Fuel Pellet");
+        add(FUEL_MIXED_MAP.get("mix_239_tr").get(), "MTRISO-239 Fuel Pellet");
+        add(FUEL_MIXED_MAP.get("mix_239_za").get(), "MZA-239 Fuel Pellet");
+        add(FUEL_MIXED_MAP.get("mix_241").get(), "MIX-241");
+        add(FUEL_MIXED_MAP.get("mix_241_c").get(), "MIX-241 Carbide");
+        add(FUEL_MIXED_MAP.get("mix_241_ni").get(), "MNI-241 Fuel Pellet");
+        add(FUEL_MIXED_MAP.get("mix_241_ox").get(), "MOX-241 Fuel Pellet");
+        add(FUEL_MIXED_MAP.get("mix_241_tr").get(), "MTRISO-241 Fuel Pellet");
+        add(FUEL_MIXED_MAP.get("mix_241_za").get(), "MZA-241 Fuel Pellet");
+
         fuelPelletTypeItems(FUEL_NEPTUNIUM_MAP, "", " Fuel Pellet");
         fuelPelletTypeItems(FUEL_PLUTONIUM_MAP, "", " Fuel Pellet");
         fuelPelletTypeItems(FUEL_THORIUM_MAP, "", " Fuel Pellet");
@@ -369,7 +382,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void fuelPelletTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
         for (String name : map.keySet()) {
-            add(map.get(name).asItem(), prepend + fuelTypes(name, true).replace("_", "-") + append);
+            add(map.get(name).asItem(), prepend + fuelTypes(name, true).replace("_", "-") + (name.endsWith("_c") ? "" : append));
         }
     }
 

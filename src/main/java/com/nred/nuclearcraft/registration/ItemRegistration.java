@@ -63,7 +63,7 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> LITHIUM_MAP = createItems(LITHIUMS, "lithium", "");
     public static final HashMap<String, DeferredItem<Item>> NEPTUNIUM_MAP = createItems(NEPTUNIUMS, "neptunium", "");
     public static final HashMap<String, DeferredItem<Item>> PLUTONIUM_MAP = createItems(PLUTONIUMS, "plutonium", "");
-    public static final HashMap<String, DeferredItem<Item>> THORIUM_MAP = createItems(THORIUMS, "thorium", "");
+//    public static final HashMap<String, DeferredItem<Item>> THORIUM_MAP = createItems(THORIUMS, "thorium", "");
     public static final HashMap<String, DeferredItem<Item>> URANIUM_MAP = createItems(URANIUMS, "uranium", "");
 
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String append) {

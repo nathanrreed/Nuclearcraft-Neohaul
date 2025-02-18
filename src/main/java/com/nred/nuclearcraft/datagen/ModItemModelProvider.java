@@ -70,7 +70,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItems(LITHIUM_MAP, "lithium");
         simpleItems(NEPTUNIUM_MAP, "neptunium");
         simpleItems(PLUTONIUM_MAP, "plutonium");
-        simpleItems(THORIUM_MAP, "thorium");
+//        simpleItems(THORIUM_MAP, "thorium");
         simpleItems(URANIUM_MAP, "uranium");
 
         simpleBlocks(List.of("empty_frame", "empty_heat_sink"), PART_BLOCK_MAP, "part");

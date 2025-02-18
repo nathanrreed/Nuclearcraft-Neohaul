@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "243",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:fuel_curium_hecm_243_ni"
+    },
+    {
+      "item": "nuclearcraftneohaul:fuel_curium_hecm_243_ox"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_curium_hecm_243"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:lep_239"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:fuel_plutonium_lep_239"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

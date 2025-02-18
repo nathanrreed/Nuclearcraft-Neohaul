@@ -30,7 +30,7 @@ public class RecipeViewerInfoMap {
         map.put("melter", new RecipeViewerInfo("melter", new ScreenRectangle(52, 27, 88, 32), new ScreenPosition(22, 8), List.of(new ScreenPosition(3, 7)), List.of(new ScreenPosition(59, 3))));
         map.put("pressurizer", new RecipeViewerInfo("pressurizer", new ScreenRectangle(52, 27, 88, 32), new ScreenPosition(22, 8), List.of(new ScreenPosition(3, 7)), List.of(new ScreenPosition(63, 7))));
         map.put("rock_crusher", new RecipeViewerInfo("rock_crusher", new ScreenRectangle(34, 31, 120, 24), new ScreenPosition(22, 4), List.of(new ScreenPosition(3, 3)), List.of(new ScreenPosition(59, 3), new ScreenPosition(79, 3), new ScreenPosition(99, 3))));
-        map.put("separator", new RecipeViewerInfo("separator", new ScreenRectangle(37, 27, 116, 32), new ScreenPosition(23, 8), List.of(new ScreenPosition(4, 7)), List.of(new ScreenPosition(63, 7), new ScreenPosition(91, 7))));
+        map.put("separator", new RecipeViewerInfo("separator", new ScreenRectangle(37, 27, 116, 32), new ScreenPosition(23, 8), List.of(new ScreenPosition(4, 7)), List.of(new ScreenPosition(64, 7), new ScreenPosition(92, 7))));
         map.put("supercooler", new RecipeViewerInfo("supercooler", new ScreenRectangle(52, 27, 88, 32), new ScreenPosition(22, 8), List.of(new ScreenPosition(3, 7)), List.of(new ScreenPosition(59, 3))));
         return map;
     }

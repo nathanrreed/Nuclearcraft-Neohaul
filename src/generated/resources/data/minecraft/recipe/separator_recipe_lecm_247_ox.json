@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:fuel_curium_lecm_247_ox"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:curium_247_ox"
+    },
+    {
+      "count": 8,
+      "item": "nuclearcraftneohaul:curium_246_ox"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

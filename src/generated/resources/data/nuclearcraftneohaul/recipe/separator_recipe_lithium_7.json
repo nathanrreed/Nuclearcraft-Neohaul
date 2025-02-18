@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/lithium"
+        },
+        {
+          "tag": "c:ingots/lithium"
+        }
+      ],
+      "count": 10
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:lithium_7"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:lithium_6"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

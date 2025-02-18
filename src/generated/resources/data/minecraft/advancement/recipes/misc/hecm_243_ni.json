@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_curium_243": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:curium_243"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:hecm_243_ni"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_curium_243"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:hecm_243_ni"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:californium_249"
+    },
+    {
+      "item": "nuclearcraftneohaul:californium_249"
+    },
+    {
+      "item": "nuclearcraftneohaul:californium_249"
+    },
+    {
+      "item": "nuclearcraftneohaul:californium_252"
+    },
+    {
+      "item": "nuclearcraftneohaul:californium_252"
+    },
+    {
+      "item": "nuclearcraftneohaul:californium_252"
+    },
+    {
+      "item": "nuclearcraftneohaul:californium_252"
+    },
+    {
+      "item": "nuclearcraftneohaul:californium_252"
+    },
+    {
+      "item": "nuclearcraftneohaul:californium_252"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_californium_hecf_249"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:assembler_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:fuel_uranium_leu_235_c"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:graphite_dust"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:pyrolytic_carbon"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:fuel_uranium_leu_235_tr"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

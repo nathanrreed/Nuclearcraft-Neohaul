@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:plutonium_241"
+    },
+    {
+      "item": "nuclearcraftneohaul:plutonium_241"
+    },
+    {
+      "item": "nuclearcraftneohaul:plutonium_241"
+    },
+    {
+      "item": "nuclearcraftneohaul:plutonium_242"
+    },
+    {
+      "item": "nuclearcraftneohaul:plutonium_242"
+    },
+    {
+      "item": "nuclearcraftneohaul:plutonium_242"
+    },
+    {
+      "item": "nuclearcraftneohaul:plutonium_242"
+    },
+    {
+      "item": "nuclearcraftneohaul:plutonium_242"
+    },
+    {
+      "item": "nuclearcraftneohaul:plutonium_242"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_plutonium_hep_241"
+  }
+}

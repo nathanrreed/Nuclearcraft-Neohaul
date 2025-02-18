@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_californium_249": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:californium_249"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:lecf_249_ni"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_californium_249"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:lecf_249_ni"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:americium_242"
+    },
+    {
+      "item": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "item": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "item": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "item": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "item": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "item": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "item": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "item": "nuclearcraftneohaul:americium_243"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_americium_lea_242_ni"
+  }
+}

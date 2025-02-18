@@ -1,0 +1,24 @@
+{
+  "type": "nuclearcraftneohaul:infuser_recipe",
+  "fluidInputs": [
+    {
+      "amount": 1000,
+      "fluid": "nuclearcraftneohaul:nitrogen"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:fuel_curium_hecm_245"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:fuel_curium_hecm_245_ni"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

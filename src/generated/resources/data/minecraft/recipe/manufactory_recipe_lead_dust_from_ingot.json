@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:lead_ingot"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:lead_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

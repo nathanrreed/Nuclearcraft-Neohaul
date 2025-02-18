@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "minecraft:fishes"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 4,
+      "item": "nuclearcraftneohaul:gelatin"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

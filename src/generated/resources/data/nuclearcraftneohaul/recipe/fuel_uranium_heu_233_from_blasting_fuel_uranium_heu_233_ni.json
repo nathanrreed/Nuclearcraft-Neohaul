@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "233",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:fuel_uranium_heu_233_ni"
+    },
+    {
+      "item": "nuclearcraftneohaul:fuel_uranium_heu_233_ox"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_uranium_heu_233"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:curium_245"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_245"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_245"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "item": "nuclearcraftneohaul:curium_246"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_curium_hecm_245_za"
+  }
+}

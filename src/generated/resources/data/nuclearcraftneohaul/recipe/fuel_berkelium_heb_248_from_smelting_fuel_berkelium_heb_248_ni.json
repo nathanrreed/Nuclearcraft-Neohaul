@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "248",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:fuel_berkelium_heb_248_ni"
+    },
+    {
+      "item": "nuclearcraftneohaul:fuel_berkelium_heb_248_ox"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_berkelium_heb_248"
+  }
+}

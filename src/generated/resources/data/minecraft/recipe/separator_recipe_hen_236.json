@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:fuel_neptunium_hen_236"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 3,
+      "item": "nuclearcraftneohaul:neptunium_236"
+    },
+    {
+      "count": 6,
+      "item": "nuclearcraftneohaul:neptunium_237"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

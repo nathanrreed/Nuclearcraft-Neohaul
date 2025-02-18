@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:fuel_curium_hecm_247"
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "nuclearcraftneohaul:graphite_ingot"
+        },
+        {
+          "item": "nuclearcraftneohaul:graphite_dust"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:fuel_curium_hecm_247_c"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

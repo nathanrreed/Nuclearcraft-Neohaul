@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:ingot_former_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:hecm_243"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:fuel_curium_hecm_243"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

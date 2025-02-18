@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/boron"
+        },
+        {
+          "tag": "c:ingots/boron"
+        }
+      ],
+      "count": 12
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:boron_11"
+    },
+    {
+      "count": 3,
+      "item": "nuclearcraftneohaul:boron_10"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

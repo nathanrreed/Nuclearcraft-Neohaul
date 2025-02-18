@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:fuel_californium_lecf_251_ni"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:californium_251_ni"
+    },
+    {
+      "count": 8,
+      "item": "nuclearcraftneohaul:californium_252_ni"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

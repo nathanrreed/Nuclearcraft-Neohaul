@@ -39,30 +39,30 @@ public class ManufactoryRecipeProvider {
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.25, 0.5).addItemInput(Items.WHEAT, 1).addItemResult(FOOD_MAP.get("flour"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 1).addItemInput(Items.BONE, 1).addItemResult(Items.BONE_MEAL, 6).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(FOOD_MAP.get("roasted_cocoa_beans"), 1).addItemResult(FOOD_MAP.get("ground_cocoa_nibs"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Items.PORKCHOP, 1).addItemResult(FOOD_MAP.get("gelatin"), 8).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.FISHES, 1).addItemResult(FOOD_MAP.get("gelatin"), 4).save(recipeOutput);
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Items.PORKCHOP, 1).addItemResult(FOOD_MAP.get("gelatin"), 8).save(recipeOutput, "gelatin_from_pork");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.FISHES, 1).addItemResult(FOOD_MAP.get("gelatin"), 4).save(recipeOutput, "gelatin_from_fish");
 
         for (String ore : ORES) {
             new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.25, 1).addItemInput(ORE_MAP.get(ore), 1).addItemResult(DUST_MAP.get(ore), 2).save(recipeOutput);
         }
 
         for (String ingot : INGOT_MAP.keySet()) {
-            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(INGOT_MAP.get(ingot), 1).addItemResult(DUST_MAP.get(ingot), 1).save(recipeOutput);
+            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(INGOT_MAP.get(ingot), 1).addItemResult(DUST_MAP.get(ingot), 1).save(recipeOutput, ingot + "_dust_from_ingot");
         }
 
         for (String raw : RAW_MAP.keySet()) {
-            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(RAW_MAP.get(raw), 1).addItemResult(DUST_MAP.get(raw), 1).save(recipeOutput);
+            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(RAW_MAP.get(raw), 1).addItemResult(DUST_MAP.get(raw), 1).save(recipeOutput, raw + "_dust_from_raw");
         }
 
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.25, 0.5).addItemInput(ItemTags.PLANKS, 1).addItemResult(Items.STICK, 4).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.ACACIA_PLANKS, 1).addItemResult(ItemTags.ACACIA_LOGS, 6).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.BIRCH_PLANKS, 1).addItemResult(ItemTags.BIRCH_LOGS, 6).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.CRIMSON_PLANKS, 1).addItemResult(ItemTags.CRIMSON_STEMS, 6).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.DARK_OAK_PLANKS, 1).addItemResult(ItemTags.DARK_OAK_LOGS, 6).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.JUNGLE_PLANKS, 1).addItemResult(ItemTags.JUNGLE_LOGS, 6).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.OAK_PLANKS, 1).addItemResult(ItemTags.OAK_LOGS, 6).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.SPRUCE_PLANKS, 1).addItemResult(ItemTags.SPRUCE_LOGS, 6).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.WARPED_PLANKS, 1).addItemResult(ItemTags.WARPED_STEMS, 6).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(Blocks.MANGROVE_PLANKS, 1).addItemResult(ItemTags.MANGROVE_LOGS, 6).save(recipeOutput);
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.ACACIA_LOGS, 1).addItemResult(Blocks.ACACIA_PLANKS, 6).save(recipeOutput, "acacia_planks_from_logs");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.BIRCH_LOGS, 1).addItemResult(Blocks.BIRCH_PLANKS, 6).save(recipeOutput, "birch_planks_from_logs");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.CRIMSON_STEMS, 1).addItemResult(Blocks.CRIMSON_PLANKS, 6).save(recipeOutput, "crimson_planks_from_logs");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.DARK_OAK_LOGS, 1).addItemResult(Blocks.DARK_OAK_PLANKS, 6).save(recipeOutput, "dark_oak_planks_from_logs");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.JUNGLE_LOGS, 1).addItemResult(Blocks.JUNGLE_PLANKS, 6).save(recipeOutput, "jungle_planks_from_logs");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.OAK_LOGS, 1).addItemResult(Blocks.OAK_PLANKS, 6).save(recipeOutput, "oak_planks_from_logs");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.SPRUCE_LOGS, 1).addItemResult(Blocks.SPRUCE_PLANKS, 6).save(recipeOutput, "spruce_planks_from_logs");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.WARPED_STEMS, 1).addItemResult(Blocks.WARPED_PLANKS, 6).save(recipeOutput, "warped_planks_from_logs");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.MANGROVE_LOGS, 1).addItemResult(Blocks.MANGROVE_PLANKS, 6).save(recipeOutput, "mangrove_planks_from_logs");
     }
 }

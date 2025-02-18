@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "249",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:fuel_californium_lecf_249_ni"
+    },
+    {
+      "item": "nuclearcraftneohaul:fuel_californium_lecf_249_ox"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fuel_californium_lecf_249"
+  }
+}

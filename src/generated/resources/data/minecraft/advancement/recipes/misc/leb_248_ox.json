@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_berkelium_248": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:berkelium_248"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:leb_248_ox"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_berkelium_248"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:leb_248_ox"
+    ]
+  }
+}
