@@ -30,6 +30,14 @@ public class CreativeTabsRegistration {
                 output.accept(LITHIUM_ION_CELL);
             }).build());
 
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RADIATION_TAB = CREATIVE_MODE_TABS.register("radiation_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("creative_tab.title.radiation"))
+            .withTabsBefore(MACHINES_TAB.getId())
+            .icon(() -> GLOWING_MUSHROOM.asItem().getDefaultInstance()) // TODO change to geiger counter
+            .displayItems((parameters, output) -> {
+                output.accept(GLOWING_MUSHROOM);
+            }).build());
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MISC_TAB = CREATIVE_MODE_TABS.register("misc_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creative_tab.title.miscellaneous"))
             .withTabsBefore(MACHINES_TAB.getId())

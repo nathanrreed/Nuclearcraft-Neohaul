@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:crystallizer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:ammonium_persulfate_solution"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:ammonium_persulfate"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

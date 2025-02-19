@@ -1,0 +1,24 @@
+{
+  "type": "nuclearcraftneohaul:enricher_recipe",
+  "fluidInputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:ammonium_bisulfate_solution"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:ammonium_bisulfate"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:crystallizer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:potassium_fluoride"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

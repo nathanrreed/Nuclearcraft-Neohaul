@@ -19,6 +19,7 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidEntries;
 import static com.nred.nuclearcraft.helpers.Location.neoLoc;
 import static com.nred.nuclearcraft.info.Names.*;
+import static com.nred.nuclearcraft.registration.BlockRegistration.GLOWING_MUSHROOM;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 

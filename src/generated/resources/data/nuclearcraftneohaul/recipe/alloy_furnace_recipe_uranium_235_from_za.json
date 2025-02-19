@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:uranium_235"
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/zirconium"
+        },
+        {
+          "tag": "c:ingots/zirconium"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:uranium_235_c"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

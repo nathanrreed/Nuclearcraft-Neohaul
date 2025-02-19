@@ -22,7 +22,7 @@ import static com.nred.nuclearcraft.info.Names.ORES;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ORE_MAP;
 
 public class ModConfiguredFeatures {
-    public static Map<String, ResourceKey<ConfiguredFeature<?, ?>>> ORE_KEYS = ores();
+    public static final Map<String, ResourceKey<ConfiguredFeature<?, ?>>> ORE_KEYS = ores();
 
     private static Map<String, ResourceKey<ConfiguredFeature<?, ?>>> ores() {
         Map<String, ResourceKey<ConfiguredFeature<?, ?>>> map = new java.util.HashMap<>(Map.of());
@@ -46,7 +46,7 @@ public class ModConfiguredFeatures {
         }
     }
 
-    static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
+    private static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(MODID, name));
     }
 

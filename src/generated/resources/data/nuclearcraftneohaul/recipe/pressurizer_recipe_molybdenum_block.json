@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:pressurizer_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:molybdenum_dust"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:molybdenum_block"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 9.0
+}

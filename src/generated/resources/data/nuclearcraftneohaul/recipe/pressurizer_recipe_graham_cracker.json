@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:pressurizer_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:flour"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:graham_cracker"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

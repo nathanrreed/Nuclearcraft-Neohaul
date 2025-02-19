@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:pressurizer_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:zirconia_dust"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:sintered_zirconia"
+    }
+  ],
+  "powerModifier": 2.0,
+  "timeModifier": 2.0
+}

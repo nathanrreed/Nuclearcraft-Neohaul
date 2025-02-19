@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:pressurizer_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 4,
+      "item": "nuclearcraftneohaul:obsidian_gem_dust"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "minecraft:obsidian"
+    }
+  ],
+  "powerModifier": 1.5,
+  "timeModifier": 1.5
+}

@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:pressurizer_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:graphite_ingot"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:pyrolytic_carbon"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

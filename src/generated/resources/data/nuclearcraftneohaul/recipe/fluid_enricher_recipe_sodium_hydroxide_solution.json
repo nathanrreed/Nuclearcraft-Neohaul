@@ -1,0 +1,24 @@
+{
+  "type": "nuclearcraftneohaul:enricher_recipe",
+  "fluidInputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:sodium_hydroxide_solution"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:sodium_hydroxide"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

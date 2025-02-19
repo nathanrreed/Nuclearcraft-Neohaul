@@ -56,7 +56,7 @@ public class FluidRegistration {
         map.put("hard_carbon", new Fluids("hard_carbon", 0xFF202020, Fluids.MOLTEN_TYPE));
 
 //        if (registerCoFHAlt()) { //TODO add
-//            map.put("coal", new Fluids("coal", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
+            map.put("coal", new Fluids("coal", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
 //        }
         map.put("beryllium", new Fluids("beryllium", 0xFFD4DBC2, Fluids.MOLTEN_TYPE));
         map.put("zirconium", new Fluids("zirconium", 0xFFE0E0B8, Fluids.MOLTEN_TYPE));
@@ -77,13 +77,13 @@ public class FluidRegistration {
 
         map.put("iron", new Fluids("iron", 0xFF8D1515, Fluids.MOLTEN_TYPE));
 //        if (registerCoFHAlt()) {
-//            map.put("redstone", new Fluids("redstone", 0xFFAB1C09, Fluids.MOLTEN_TYPE));
+            map.put("redstone", new Fluids("redstone", 0xFFAB1C09, Fluids.MOLTEN_TYPE));
 //        }
         map.put("quartz", new Fluids("quartz", 0xFFECE9E2, Fluids.MOLTEN_TYPE));
         map.put("obsidian", new Fluids("obsidian", 0xFF1C1828, Fluids.MOLTEN_TYPE));
         map.put("nether_brick", new Fluids("nether_brick", 0xFF271317, Fluids.MOLTEN_TYPE));
 //        if (registerCoFHAlt()) {
-//            map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.MOLTEN_TYPE));
+            map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.MOLTEN_TYPE));
 //        }
         map.put("lapis", new Fluids("lapis", 0xFF27438A, Fluids.MOLTEN_TYPE));
         map.put("gold", new Fluids("gold", 0xFFE6DA3C, Fluids.MOLTEN_TYPE));
@@ -115,13 +115,12 @@ public class FluidRegistration {
         map.put("heavy_water", new Fluids("heavy_water", false, -1));
         map.put("liquid_nitrogen", new Fluids("liquid_nitrogen", "liquid", false, false, 0xFF31C23A, 810, 70, 170, 0));
         //if (registerCoFHAlt()) { TODO
-        //    map.put("ender", new Fluids("ender", "liquid", true, false, 0xFF14584D, 4000, 300, 2500, 3));
-        //    map.put("cryotheum", new Fluids("cryotheum", "liquid", false, 0xFF0099C1));
+        map.put("ender", new Fluids("ender", "liquid_still", true, false, 0xFF14584D, 4000, 300, 2500, 3));
+        map.put("cryotheum", new Fluids("cryotheum", "liquid", 0xFF0099C1, false, false));
         //}
         map.put("plasma", new Fluids("plasma", true, false, -1, 50, 1000000, 100, 0));
         map.put("radaway", new Fluids("radaway", false, -1));
         map.put("radaway_slow", new Fluids("radaway_slow", false, -1));
-        map.put("redstone_ethanol", new Fluids("redstone_ethanol", false, -1));
         map.put("corium", new Fluids("corium", "liquid", 0xFF7C7C6F, false, false));
         map.put("ice", new Fluids("ice", "liquid", false, false, 0xFFAFF1FF, 1000, 250, 2000, 0));
         map.put("slurry_ice", new Fluids("slurry_ice", "liquid", false, false, 0xFF7EAEB7, 950, 270, 4000, 0));
@@ -136,6 +135,8 @@ public class FluidRegistration {
         Map<String, Fluids> map = new java.util.HashMap<>();
         map.put("ethanol", new Fluids("ethanol", 0xFF655140, Fluids.FLAMMABLE_TYPE));
         map.put("methanol", new Fluids("methanol", 0xFF71524C, Fluids.FLAMMABLE_TYPE));
+        map.put("redstone_ethanol", new Fluids("redstone_ethanol", false, -1));
+
         return map;
     }
 
@@ -158,6 +159,12 @@ public class FluidRegistration {
         map.put("potassium_hydroxide_solution", new Fluids("potassium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB8C6B0), Fluids.SALT_SOLUTION_TYPE));
         map.put("borax_solution", new Fluids("borax_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFEEEEEE), Fluids.SALT_SOLUTION_TYPE));
         map.put("irradiated_borax_solution", new Fluids("irradiated_borax_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFFFD0A3), Fluids.SALT_SOLUTION_TYPE));
+        map.put("ammonium_sulfate_solution", new Fluids("ammonium_sulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF6CA377), Fluids.SALT_SOLUTION_TYPE));
+        map.put("ammonium_bisulfate_solution", new Fluids("ammonium_bisulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF5F8450), Fluids.SALT_SOLUTION_TYPE));
+        map.put("ammonium_persulfate_solution", new Fluids("ammonium_persulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF74A364), Fluids.SALT_SOLUTION_TYPE));
+        map.put("hydroquinone_solution", new Fluids("hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB7B7B7), Fluids.SALT_SOLUTION_TYPE));
+        map.put("sodium_hydroquinone_solution", new Fluids("sodium_hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC9B9BA), Fluids.SALT_SOLUTION_TYPE));
+        map.put("potassium_hydroquinone_solution", new Fluids("potassium_hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC6CA94), Fluids.SALT_SOLUTION_TYPE));
         return map;
     }
 
@@ -182,8 +189,8 @@ public class FluidRegistration {
 
     private static Map<String, Fluids> createSteam() {
         Map<String, Fluids> map = new java.util.HashMap<>();
-//        if (registerCoFHAlt()) {
-//            map.put("steam", new Fluids("steam", 0xFF929292, Fluids.STEAM_TYPE, 800));
+//        TODO if (registerCoFHAlt()) {
+            map.put("steam", new Fluids("steam", 0xFF929292, Fluids.STEAM_TYPE, 800));
 //        }
         map.put("high_pressure_steam", new Fluids("high_pressure_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 1200));
         map.put("exhaust_steam", new Fluids("exhaust_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 500));

@@ -19,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.info.Names.*;
+import static com.nred.nuclearcraft.registration.BlockRegistration.GLOWING_MUSHROOM;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ORE_MAP;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_MAP;
@@ -47,6 +48,8 @@ class ModItemTagProvider extends ItemTagsProvider {
         simpleTag(NUGGETS, NUGGET_MAP, Tags.Items.NUGGETS);
         simpleTag(MUSIC_DISC_MAP, Tags.Items.MUSIC_DISCS);
         simpleTag(FOOD_MAP, Tags.Items.FOODS);
+
+        tag(Tags.Items.MUSHROOMS).add(GLOWING_MUSHROOM.asItem());
 
         buckets();
     }

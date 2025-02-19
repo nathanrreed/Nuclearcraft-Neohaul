@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:dusts/graphite"
+        },
+        {
+          "tag": "c:ingots/graphite"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:berkelium_247_za"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

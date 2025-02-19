@@ -67,6 +67,8 @@ public class ModLanguageProvider extends LanguageProvider {
         replaceItems(COMPOUNDS, COMPOUND_MAP, "", "", Map.of("c_mn_blend", "Carbon-Manganese Blend"));
         simpleItems(UPGRADES, UPGRADE_MAP, " Upgrade");
 
+        add(GLOWING_MUSHROOM.get(), "Glowing Mushroom");
+
         fuelTypeItems(AMERICIUM_MAP, "Americium-", "");
         fuelTypeItems(BERKELIUM_MAP, "Berkelium-", "");
         fuelTypeItems(BORON_MAP, "Boron-", "");

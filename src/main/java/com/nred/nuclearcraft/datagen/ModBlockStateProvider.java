@@ -18,6 +18,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
@@ -39,6 +40,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         simpleBlocks(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, "fertile_isotope");
         blockWithItem(SUPERCOLD_ICE);
         blockWithItem(SOLIDIFIED_CORIUM);
+        crossBlock(GLOWING_MUSHROOM);
 
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
             for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
@@ -56,6 +58,12 @@ class ModBlockStateProvider extends BlockStateProvider {
         }
 
         fluids();
+    }
+
+    private void crossBlock(DeferredBlock<Block> deferredBlock) {
+        String location = BuiltInRegistries.BLOCK.getKey(deferredBlock.get()).getPath();
+        simpleBlock(deferredBlock.get(), models().cross(location, blockTexture(deferredBlock.get())).renderType("cutout"));
+        itemModels().getBuilder("item/" + location).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", ncLoc("block/" + location));
     }
 
     private void fluids() {

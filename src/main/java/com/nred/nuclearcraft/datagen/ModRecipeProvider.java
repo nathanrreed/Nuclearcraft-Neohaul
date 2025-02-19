@@ -9,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
@@ -26,10 +28,10 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.helpers.Location.cLoc;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_MAP;
@@ -89,7 +91,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         fuels(recipeOutput);
 
         new AlloyFurnaceRecipeProvider(recipeOutput);
-        new AssemblerProvider(recipeOutput);
         new CentrifugeProvider(recipeOutput);
         new ChemicalReactorProvider(recipeOutput);
         new CrystallizerProvider(recipeOutput);
@@ -530,6 +531,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     public static TagKey<Item> tag(TagKey<Item> tag, String name) {
         return ItemTags.create(tag.location().withSuffix("/" + name));
+    }
+
+    public static TagKey<Fluid> fluidTag(String name) {
+        return FluidTags.create(cLoc(name));
     }
 
     private Ingredient ingredient(TagKey<Item> tag, String name) {
