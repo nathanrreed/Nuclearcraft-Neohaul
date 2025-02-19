@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:hea_242_ox"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 6,
+      "item": "nuclearcraftneohaul:americium_243_ox"
+    },
+    {
+      "count": 3,
+      "item": "nuclearcraftneohaul:americium_242_ox"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

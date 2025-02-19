@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:leb_248_ox"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 8,
+      "item": "nuclearcraftneohaul:berkelium_247_ox"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:berkelium_248_ox"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

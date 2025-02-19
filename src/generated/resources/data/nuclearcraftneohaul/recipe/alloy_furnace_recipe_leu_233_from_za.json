@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:leu_233"
+    },
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "nuclearcraftneohaul:zirconium_ingot"
+        },
+        {
+          "item": "nuclearcraftneohaul:zirconium_dust"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:leu_233_za"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

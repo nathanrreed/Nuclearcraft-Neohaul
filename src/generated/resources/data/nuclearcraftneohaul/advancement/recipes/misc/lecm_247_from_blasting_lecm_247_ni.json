@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lecm_247_ni": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:lecm_247_ni"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:lecm_247_from_blasting_lecm_247_ni"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lecm_247_ni"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:lecm_247_from_blasting_lecm_247_ni"
+    ]
+  }
+}

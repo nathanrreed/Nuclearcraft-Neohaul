@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:hep_241_ni"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 6,
+      "item": "nuclearcraftneohaul:plutonium_242_ni"
+    },
+    {
+      "count": 3,
+      "item": "nuclearcraftneohaul:plutonium_241_ni"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

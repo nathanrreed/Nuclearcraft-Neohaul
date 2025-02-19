@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "tbu",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:tbu_ni"
+    },
+    {
+      "item": "nuclearcraftneohaul:tbu_ox"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:tbu"
+  }
+}

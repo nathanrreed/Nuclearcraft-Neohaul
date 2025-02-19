@@ -28,8 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProcessorRecipeBuilder implements RecipeBuilder {
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
+public class ProcessorRecipeBuilder implements RecipeBuilder {
     private static final Logger log = LoggerFactory.getLogger(ProcessorRecipeBuilder.class);
     private final List<SizedIngredient> itemInputs = new ArrayList<>();
     private final List<SizedIngredient> itemResults = new ArrayList<>();
@@ -189,7 +190,7 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(RecipeOutput output, ResourceLocation key) {
-        key = key.withPrefix(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()) + "_");
+        key = ncLoc(key.withPrefix(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()) + "_").getPath());
         Advancement.Builder advancement = output.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(key))
                 .rewards(AdvancementRewards.Builder.recipe(key))

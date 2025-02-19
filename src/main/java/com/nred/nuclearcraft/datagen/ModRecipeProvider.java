@@ -139,8 +139,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private void fuels(RecipeOutput recipeOutput) {
         fuel(recipeOutput, "233", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 1, "leu_");
-        fuel(recipeOutput, "235", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 1, "leu_");
         fuel(recipeOutput, "233", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 3, "heu_");
+        fuel(recipeOutput, "235", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 1, "leu_");
         fuel(recipeOutput, "235", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 3, "heu_");
 
         fuel(recipeOutput, "236", "237", NEPTUNIUM_MAP, FUEL_NEPTUNIUM_MAP, 1, "len_");
@@ -171,6 +171,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         fuel(recipeOutput, "239", "238", PLUTONIUM_MAP, URANIUM_MAP, FUEL_MIXED_MAP, 1, "mix_");
         fuel(recipeOutput, "241", "238", PLUTONIUM_MAP, URANIUM_MAP, FUEL_MIXED_MAP, 1, "mix_");
+        for (String suffix : List.of("_za", "_c")) {
+            new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(FUEL_MIXED_MAP.get("mix_239" + suffix), 9).addItemResult(URANIUM_MAP.get("238" + suffix), 8).addItemResult(PLUTONIUM_MAP.get("239" + suffix), 1).save(recipeOutput, "mix_239" + suffix);
+            new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(FUEL_MIXED_MAP.get("mix_241" + suffix), 9).addItemResult(URANIUM_MAP.get("238" + suffix), 8).addItemResult(PLUTONIUM_MAP.get("241" + suffix), 1).save(recipeOutput, "mix_241" + suffix);
+        }
 
         fuel(recipeOutput, "tbu", "tbu", new HashMap<>(), FUEL_THORIUM_MAP, 1, "");
     }
@@ -189,20 +193,20 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         oreSmelting(recipeOutput, List.of(Ingredient.of(fuelTypeMap.get(prefix + minor + "_ni"), fuelTypeMap.get(prefix + minor + "_ox"))), MISC, fuelTypeMap.get(prefix + minor), 0.25f, 200, minor, true);
 
-        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + "_ni"), 1).addItemResult(fuelTypeMap.get(prefix + minor), 1).addItemResult(DUST_MAP.get("zirconium"), 1).save(recipeOutput, prefix + minor + "from_ni");
-        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + "_c"), 1).addItemResult(fuelTypeMap.get(prefix + minor), 1).addItemResult(DUST_MAP.get("graphite"), 1).save(recipeOutput, prefix + minor + "from_c");
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + "_za"), 1).addItemResult(fuelTypeMap.get(prefix + minor), 1).addItemResult(DUST_MAP.get("zirconium"), 1).save(recipeOutput, prefix + minor + "_from_za");
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + "_c"), 1).addItemResult(fuelTypeMap.get(prefix + minor), 1).addItemResult(DUST_MAP.get("graphite"), 1).save(recipeOutput, prefix + minor + "_from_c");
 
         if (!prefix.isEmpty()) {
             for (String suffix : List.of("", "_ox", "_ni")) {
-                new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + suffix), 9).addItemResult(typeMap1.get(minor + suffix), amount).addItemResult(typeMap2.get(major + suffix), 9 - amount).save(recipeOutput, prefix + minor + suffix);
+                new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + suffix), 9).addItemResult(typeMap2.get(major + suffix), 9 - amount).addItemResult(typeMap1.get(minor + suffix), amount).save(recipeOutput, prefix + minor + suffix);
             }
         }
 
-        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("graphite"), DUST_MAP.get("graphite")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_c"), 1).save(recipeOutput, prefix + minor + "from_c");
-        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("zirconium"), DUST_MAP.get("zirconium")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_za"), 1).save(recipeOutput, prefix + minor + "from_za");
+        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("graphite"), DUST_MAP.get("graphite")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_c"), 1).save(recipeOutput, prefix + minor + "_from_c");
+        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("zirconium"), DUST_MAP.get("zirconium")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_za"), 1).save(recipeOutput, prefix + minor + "_from_za");
 
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("nitrogen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ni"), 1).save(recipeOutput, prefix + minor + "from_ni");
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("oxygen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ox"), 1).save(recipeOutput, prefix + minor + "from_ox");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("nitrogen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ni"), 1).save(recipeOutput, prefix + minor + "_from_ni");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("oxygen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ox"), 1).save(recipeOutput, prefix + minor + "_from_ox");
 
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get(prefix + minor), 144).addItemResult(fuelTypeMap.get(prefix + minor), 1).save(recipeOutput, prefix + minor);
 

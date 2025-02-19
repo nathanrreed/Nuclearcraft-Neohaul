@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:mix_241_za"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 8,
+      "item": "nuclearcraftneohaul:uranium_238_za"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:plutonium_241_za"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

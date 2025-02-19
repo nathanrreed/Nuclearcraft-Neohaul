@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "242",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:hea_242_ni"
+    },
+    {
+      "item": "nuclearcraftneohaul:hea_242_ox"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:hea_242"
+  }
+}

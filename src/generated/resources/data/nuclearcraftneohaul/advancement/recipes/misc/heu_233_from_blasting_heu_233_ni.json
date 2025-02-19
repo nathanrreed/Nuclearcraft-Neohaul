@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_heu_233_ni": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:heu_233_ni"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:heu_233_from_blasting_heu_233_ni"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_heu_233_ni"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:heu_233_from_blasting_heu_233_ni"
+    ]
+  }
+}

@@ -82,6 +82,10 @@ public class ModLanguageProvider extends LanguageProvider {
         fuelPelletTypeItems(FUEL_BERKELIUM_MAP, "", " Fuel Pellet");
         fuelPelletTypeItems(FUEL_CALIFORNIUM_MAP, "", " Fuel Pellet");
         fuelPelletTypeItems(FUEL_CURIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_NEPTUNIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_PLUTONIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_THORIUM_MAP, "", " Fuel Pellet");
+        fuelPelletTypeItems(FUEL_URANIUM_MAP, "", " Fuel Pellet");
 
         add(FUEL_MIXED_MAP.get("mix_239").get(), "MIX-239");
         add(FUEL_MIXED_MAP.get("mix_239_c").get(), "MIX-239 Carbide");
@@ -95,11 +99,6 @@ public class ModLanguageProvider extends LanguageProvider {
         add(FUEL_MIXED_MAP.get("mix_241_ox").get(), "MOX-241 Fuel Pellet");
         add(FUEL_MIXED_MAP.get("mix_241_tr").get(), "MTRISO-241 Fuel Pellet");
         add(FUEL_MIXED_MAP.get("mix_241_za").get(), "MZA-241 Fuel Pellet");
-
-        fuelPelletTypeItems(FUEL_NEPTUNIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_PLUTONIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_THORIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_URANIUM_MAP, "", " Fuel Pellet");
 
         fuelPelletTypeItems(DEPLETED_FUEL_AMERICIUM_MAP, "Depleted ", " Fuel Pellet");
         fuelPelletTypeItems(DEPLETED_FUEL_BERKELIUM_MAP, "Depleted ", " Fuel Pellet");
@@ -382,12 +381,12 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void fuelPelletTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
         for (String name : map.keySet()) {
-            add(map.get(name).asItem(), prepend + fuelTypes(name, true).replace("_", "-") + (name.endsWith("_c") ? "" : append));
+            add(map.get(name).asItem(), prepend + fuelTypes(name, true).replace("_", "-") + (name.endsWith("_c") || name.split("_").length == 2 ? "" : append));
         }
     }
 
     private String fuelTypes(String name, boolean upperCase) {
-        if (!name.contains("_")) return name;
+        if (!name.contains("_")) return upperCase ? name.toUpperCase() : name;
         String suffix = switch (name.substring(name.lastIndexOf('_') + 1)) {
             case "c" -> " Carbide";
             case "ni" -> " Nitride";
@@ -396,7 +395,7 @@ public class ModLanguageProvider extends LanguageProvider {
             case "tr" -> " TRISO";
             case String val -> {
                 try {
-                    yield " " + Integer.parseInt(val);
+                    yield "-" + Integer.parseInt(val);
                 } catch (Exception e) {
                     yield "ERROR";
                 }
@@ -404,7 +403,7 @@ public class ModLanguageProvider extends LanguageProvider {
         };
 
         if (upperCase) {
-            return name.substring(0, name.lastIndexOf('_')).toUpperCase().replaceAll("(?<=LEC)M", "m").replaceAll("(?<=LEC)F", "f") + suffix;
+            return name.substring(0, name.lastIndexOf('_')).toUpperCase().replaceAll("(?<=[LH]EC)M", "m").replaceAll("(?<=[LH]EC)F", "f") + suffix;
         }
         return name.substring(0, name.lastIndexOf('_')) + suffix;
     }

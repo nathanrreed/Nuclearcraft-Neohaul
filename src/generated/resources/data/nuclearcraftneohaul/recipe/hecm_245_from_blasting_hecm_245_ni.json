@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "245",
+  "ingredient": [
+    {
+      "item": "nuclearcraftneohaul:hecm_245_ni"
+    },
+    {
+      "item": "nuclearcraftneohaul:hecm_245_ox"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:hecm_245"
+  }
+}
