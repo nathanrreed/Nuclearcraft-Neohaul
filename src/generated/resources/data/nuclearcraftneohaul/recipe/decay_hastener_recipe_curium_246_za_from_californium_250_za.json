@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:decay_hastener_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:californium_250_za"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:curium_246_za"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

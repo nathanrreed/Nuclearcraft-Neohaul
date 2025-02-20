@@ -116,7 +116,7 @@ public class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<
 
     // Normal insert and extract for use within the mod
     public int internalInsertFluid(FluidStack resource, FluidAction action) {
-        if (resource.isEmpty()) {//TODO
+        if (resource.isEmpty()) {
             return 0;
         }
         if (action.simulate()) {
@@ -135,43 +135,52 @@ public class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<
             }
             return amount;
         } else {
-            int filled = 0;
             int i = -1; // Will start at 0 always since i++ is right after, just makes continues easier
             for (FluidStack fluid : fluids) {
                 i++;
                 if (!isFluidValid(i, fluid)) continue;
                 if (fluid.isEmpty()) {
-                    int change = Math.min(capacity, resource.getAmount());
-                    fluid.grow(change);
-                    resource.shrink(change);
-                    filled += change;
+                    fluids.set(i, resource.copyWithAmount(Math.min(capacity, resource.getAmount())));
+                    onContentsChanged();
+                    return fluid.getAmount();
                 }
                 if (!FluidStack.isSameFluidSameComponents(fluid, resource)) {
-                    continue;
+                    return 0;
                 }
-                int change = Math.min(capacity - fluid.getAmount(), resource.getAmount());
-                fluid.grow(change);
-                resource.shrink(change);
-                filled += change;
+                int filled = capacity - fluid.getAmount();
+
+                if (resource.getAmount() < filled) {
+                    fluid.grow(resource.getAmount());
+                    filled = resource.getAmount();
+                } else {
+                    fluid.setAmount(capacity);
+                }
+                if (filled > 0) {
+                    onContentsChanged();
+                    return filled;
+                }
             }
-            if (filled > 0)
-                onContentsChanged();
-            return filled;
+            return 0;
         }
     }
 
-    public FluidStack internalExtractFluid(int maxDrain, FluidAction simulate) {
-        return FluidStack.EMPTY;  //TODO
-//        int drained = maxDrain;
-//        if (fluid.getAmount() < drained) {
-//            drained = fluid.getAmount();
-//        }
-//        FluidStack stack = fluid.copyWithAmount(drained);
-//        if (action.execute() && drained > 0) {
-//            fluid.shrink(drained);
-//            onContentsChanged();
-//        }
-//        return stack;
+    public FluidStack internalExtractFluid(int maxDrain, FluidAction action) {
+        for (FluidStack fluid : fluids) {
+            if (fluid.isEmpty()) continue;
+            int drained = maxDrain;
+            if (fluid.getAmount() < drained) {
+                drained = fluid.getAmount();
+            }
+            FluidStack stack = fluid.copyWithAmount(drained);
+            if (action.execute() && drained > 0) {
+                fluid.shrink(drained);
+                onContentsChanged();
+            }
+            if (drained > 0) {
+                return stack;
+            }
+        }
+        return FluidStack.EMPTY;
     }
 
     protected void validateSlotIndex(int slot) {
@@ -179,8 +188,11 @@ public class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<
             throw new RuntimeException("Slot " + slot + " not in valid range - [0," + fluids.size() + ")");
     }
 
-    public FluidStack internalExtractFluid(FluidStack resource, FluidAction simulate) {
-        return FluidStack.EMPTY; //TODO
+    public FluidStack internalExtractFluid(FluidStack resource, FluidAction action) {
+        if (fluids.stream().anyMatch(fluidStack -> fluidStack.is(resource.getFluid()))) {
+            return internalExtractFluid(resource.getAmount(), action);
+        }
+        return FluidStack.EMPTY;
     }
 
     protected void onLoad() {

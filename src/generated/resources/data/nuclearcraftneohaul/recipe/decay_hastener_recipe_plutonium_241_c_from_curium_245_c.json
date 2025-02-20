@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:decay_hastener_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:curium_245_c"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:plutonium_241_c"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

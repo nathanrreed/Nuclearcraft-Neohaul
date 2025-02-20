@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:ingot_former_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:unsweetened_chocolate"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:unsweetened_chocolate"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:ingot_former_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:americium_241"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:americium_241"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

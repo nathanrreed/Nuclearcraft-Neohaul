@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:decay_hastener_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "nuclearcraftneohaul:californium_252"
+        },
+        {
+          "item": "nuclearcraftneohaul:californium_252_ox"
+        },
+        {
+          "item": "nuclearcraftneohaul:californium_252_ni"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:thorium_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

@@ -40,6 +40,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         simpleBlocks(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, "fertile_isotope");
         blockWithItem(SUPERCOLD_ICE);
         blockWithItem(SOLIDIFIED_CORIUM);
+        blockWithItem(UNIVERSAL_BIN);
         crossBlock(GLOWING_MUSHROOM);
 
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {

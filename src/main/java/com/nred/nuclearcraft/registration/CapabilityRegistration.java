@@ -26,9 +26,9 @@ public class CapabilityRegistration {
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, COBBLE_GENERATOR_TYPES.get(level).get(), (machineEntity, direction) -> ((CobbleGeneratorEntity) machineEntity).itemStackHandler);
-            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, WATER_SOURCE_TYPES.get(level).get(), (machineEntity, direction) -> ((WaterSourceEntity) machineEntity).fluidStackHandler);
-            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, NITROGEN_COLLECTOR_TYPES.get(level).get(), (machineEntity, direction) -> ((NitrogenCollectorEntity) machineEntity).fluidStackHandler);
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, COBBLE_GENERATOR_TYPES.get(level).get(), (collectorEntity, direction) -> ((CobbleGeneratorEntity) collectorEntity).itemStackHandler);
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, WATER_SOURCE_TYPES.get(level).get(), (collectorEntity, direction) -> ((WaterSourceEntity) collectorEntity).fluidStackHandler);
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, NITROGEN_COLLECTOR_TYPES.get(level).get(), (collectorEntity, direction) -> ((NitrogenCollectorEntity) collectorEntity).fluidStackHandler);
         }
 
         for (String typeName : PROCESSOR_MAP.keySet()) {
@@ -44,6 +44,11 @@ public class CapabilityRegistration {
         for (int tier = 0; tier < 4; tier++) {
             event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, SOLAR_PANEL_ENTITY_TYPE.get(tier).get(), (entity, context) -> entity.energyHandler);
         }
+
+        // Universal Bin
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.itemStackHandler);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.fluidStackHandler);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.energyHandler);
 
         items(event);
     }

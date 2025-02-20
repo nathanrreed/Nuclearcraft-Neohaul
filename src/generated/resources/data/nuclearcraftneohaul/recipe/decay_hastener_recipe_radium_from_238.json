@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:decay_hastener_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "nuclearcraftneohaul:uranium_238"
+        },
+        {
+          "item": "nuclearcraftneohaul:uranium_238_ox"
+        },
+        {
+          "item": "nuclearcraftneohaul:uranium_238_ni"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:radium_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

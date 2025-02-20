@@ -72,6 +72,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
         dropSelf(SOLIDIFIED_CORIUM.get());
         dropSelf(GLOWING_MUSHROOM.get());
+        dropSelf(UNIVERSAL_BIN.get());
         dropWhenSilkTouch(SUPERCOLD_ICE.get());
     }
 
@@ -79,7 +80,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     protected @NotNull Iterable<Block> getKnownBlocks() {
         List<Block> all = new ArrayList<>();
         all.addAll(blockValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP, PROCESSOR_MAP, MATERIAL_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
-        all.addAll(blockValues(SOLIDIFIED_CORIUM, SUPERCOLD_ICE, GLOWING_MUSHROOM));
+        all.addAll(blockValues(SOLIDIFIED_CORIUM, SUPERCOLD_ICE, GLOWING_MUSHROOM, UNIVERSAL_BIN));
         return all;
     }
 }

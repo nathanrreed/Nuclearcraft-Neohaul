@@ -56,7 +56,7 @@ public class FluidRegistration {
         map.put("hard_carbon", new Fluids("hard_carbon", 0xFF202020, Fluids.MOLTEN_TYPE));
 
 //        if (registerCoFHAlt()) { //TODO add
-            map.put("coal", new Fluids("coal", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
+        map.put("coal", new Fluids("coal", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
 //        }
         map.put("beryllium", new Fluids("beryllium", 0xFFD4DBC2, Fluids.MOLTEN_TYPE));
         map.put("zirconium", new Fluids("zirconium", 0xFFE0E0B8, Fluids.MOLTEN_TYPE));
@@ -71,19 +71,20 @@ public class FluidRegistration {
         map.put("koh", new Fluids("koh", 0xFFB8C6B0, Fluids.MOLTEN_TYPE));
         map.put("sodium", new Fluids("sodium", 0xFFC1898C, Fluids.MOLTEN_TYPE));
         map.put("potassium", new Fluids("potassium", 0xFFB8C503, Fluids.MOLTEN_TYPE));
+        map.put("silicon", new Fluids("silicon", 0xFF676767, Fluids.MOLTEN_TYPE));
         map.put("bas", new Fluids("bas", 0xFF9B9B89, Fluids.MOLTEN_TYPE));
         map.put("alugentum", new Fluids("alugentum", 0xFFB5C9CB, Fluids.MOLTEN_TYPE));
         map.put("alumina", new Fluids("alumina", 0xFF919880, Fluids.MOLTEN_TYPE));
 
         map.put("iron", new Fluids("iron", 0xFF8D1515, Fluids.MOLTEN_TYPE));
 //        if (registerCoFHAlt()) {
-            map.put("redstone", new Fluids("redstone", 0xFFAB1C09, Fluids.MOLTEN_TYPE));
+        map.put("redstone", new Fluids("redstone", 0xFFAB1C09, Fluids.MOLTEN_TYPE));
 //        }
         map.put("quartz", new Fluids("quartz", 0xFFECE9E2, Fluids.MOLTEN_TYPE));
         map.put("obsidian", new Fluids("obsidian", 0xFF1C1828, Fluids.MOLTEN_TYPE));
         map.put("nether_brick", new Fluids("nether_brick", 0xFF271317, Fluids.MOLTEN_TYPE));
 //        if (registerCoFHAlt()) {
-            map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.MOLTEN_TYPE));
+        map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.MOLTEN_TYPE));
 //        }
         map.put("lapis", new Fluids("lapis", 0xFF27438A, Fluids.MOLTEN_TYPE));
         map.put("gold", new Fluids("gold", 0xFFE6DA3C, Fluids.MOLTEN_TYPE));
@@ -105,13 +106,22 @@ public class FluidRegistration {
         map.put("fluorite", new Fluids("fluorite", 0xFF8AB492, Fluids.MOLTEN_TYPE));
         map.put("villiaumite", new Fluids("villiaumite", 0xFFB06C56, Fluids.MOLTEN_TYPE));
         map.put("carobbiite", new Fluids("carobbiite", 0xFF95A251, Fluids.MOLTEN_TYPE));
-
+        map.put("dfdps", new Fluids("dfdps", 0xFFB4B3A7, Fluids.MOLTEN_TYPE));
+        map.put("polyphenylene_sulfide", new Fluids("polyphenylene_sulfide", 0xFF3F3D3E, Fluids.MOLTEN_TYPE));
+        map.put("polydimethylsilylene", new Fluids("polydimethylsilylene", 0xFF774F60, Fluids.MOLTEN_TYPE));
+        map.put("polymethylsilylene_methylene", new Fluids("polymethylsilylene_methylene", 0xFF5A5246, Fluids.MOLTEN_TYPE));
+        map.put("polyethersulfone", new Fluids("polyethersulfone", 0xFFC9B8A6, Fluids.MOLTEN_TYPE));
+        map.put("polytetrafluoroethene", new Fluids("polytetrafluoroethene", 0xFF7F9F4D, Fluids.MOLTEN_TYPE));
+        map.put("thorium", new Fluids("thorium", 0xFF242424, Fluids.MOLTEN_TYPE));
+        map.put("uranium", new Fluids("uranium", 0xFF375437, Fluids.MOLTEN_TYPE));
         return map;
     }
 
     private static Map<String, Fluids> createCustomFluid() {
         Map<String, Fluids> map = new java.util.HashMap<>();
         map.put("liquid_helium", new Fluids("liquid_helium", true, -1, 150, 4, 1, 0));
+        map.put("le_water", new Fluids("le_water", false, -1));
+        map.put("he_water", new Fluids("he_water", false, -1));
         map.put("heavy_water", new Fluids("heavy_water", false, -1));
         map.put("liquid_nitrogen", new Fluids("liquid_nitrogen", "liquid", false, false, 0xFF31C23A, 810, 70, 170, 0));
         //if (registerCoFHAlt()) { TODO
@@ -175,7 +185,6 @@ public class FluidRegistration {
         map.put("unsweetened_chocolate", new Fluids("unsweetened_chocolate", 0xFF2C0A08, Fluids.CHOCOLATE_TYPE));
         map.put("dark_chocolate", new Fluids("dark_chocolate", 0xFF2C0B06, Fluids.CHOCOLATE_TYPE));
         map.put("milk_chocolate", new Fluids("milk_chocolate", 0xFF884121, Fluids.CHOCOLATE_TYPE));
-        map.put("marshmallow", new Fluids("marshmallow", 0xFFE1E1E3, Fluids.CHOCOLATE_TYPE));
         return map;
     }
 
@@ -184,13 +193,14 @@ public class FluidRegistration {
         map.put("sugar", new Fluids("sugar", 0xFFFFD59A, Fluids.SUGAR_TYPE));
         map.put("gelatin", new Fluids("gelatin", 0xFFDDD09C, Fluids.CHOCOLATE_TYPE));
         map.put("hydrated_gelatin", new Fluids("hydrated_gelatin", FastColor.ARGB32.lerp(0.8f, 0xFF2F43F4, 0xFFDDD09C), Fluids.CHOCOLATE_TYPE));
+        map.put("marshmallow", new Fluids("marshmallow", 0xFFE1E1E3, Fluids.CHOCOLATE_TYPE));
         return map;
     }
 
     private static Map<String, Fluids> createSteam() {
         Map<String, Fluids> map = new java.util.HashMap<>();
 //        TODO if (registerCoFHAlt()) {
-            map.put("steam", new Fluids("steam", 0xFF929292, Fluids.STEAM_TYPE, 800));
+        map.put("steam", new Fluids("steam", 0xFF929292, Fluids.STEAM_TYPE, 800));
 //        }
         map.put("high_pressure_steam", new Fluids("high_pressure_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 1200));
         map.put("exhaust_steam", new Fluids("exhaust_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 500));
@@ -265,8 +275,6 @@ public class FluidRegistration {
 
     private static Map<String, Fluids> createFissionFuel() {
         Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("thorium", new Fluids("thorium", 0xFF242424, Fluids.MOLTEN_TYPE));
-        map.put("uranium", new Fluids("uranium", 0xFF375437, Fluids.MOLTEN_TYPE));
 
         // Isotopes
         map.put("uranium_233", new Fluids("uranium_233", 0xFF212E20, Fluids.MOLTEN_TYPE));

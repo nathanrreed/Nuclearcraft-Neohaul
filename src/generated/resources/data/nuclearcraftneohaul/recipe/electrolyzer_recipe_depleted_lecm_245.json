@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:depleted_lecm_245_fluoride"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:depleted_lecm_245"
+    },
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:fluorine"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

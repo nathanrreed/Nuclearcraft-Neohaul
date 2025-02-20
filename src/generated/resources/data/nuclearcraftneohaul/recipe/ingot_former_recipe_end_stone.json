@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:ingot_former_recipe",
+  "fluidInputs": [
+    {
+      "amount": 288,
+      "fluid": "nuclearcraftneohaul:end_stone"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "minecraft:end_stone"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 2.0
+}

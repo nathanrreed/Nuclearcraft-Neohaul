@@ -22,17 +22,18 @@ import com.nred.nuclearcraft.block.processor.electric_furnace.ElectricFurnaceEnt
 import com.nred.nuclearcraft.block.processor.electrolyzer.ElectrolyzerEntity;
 import com.nred.nuclearcraft.block.processor.fluid_enricher.EnricherEntity;
 import com.nred.nuclearcraft.block.processor.fluid_extractor.ExtractorEntity;
-import com.nred.nuclearcraft.block.processor.fuel_reprocessor.FuelReprocessorEntity;
 import com.nred.nuclearcraft.block.processor.fluid_infuser.InfuserEntity;
+import com.nred.nuclearcraft.block.processor.fluid_mixer.SaltMixerEntity;
+import com.nred.nuclearcraft.block.processor.fuel_reprocessor.FuelReprocessorEntity;
 import com.nred.nuclearcraft.block.processor.ingot_former.IngotFormerEntity;
 import com.nred.nuclearcraft.block.processor.manufactory.ManufactoryEntity;
 import com.nred.nuclearcraft.block.processor.melter.MelterEntity;
 import com.nred.nuclearcraft.block.processor.pressurizer.PressurizerEntity;
 import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusherEntity;
-import com.nred.nuclearcraft.block.processor.fluid_mixer.SaltMixerEntity;
 import com.nred.nuclearcraft.block.processor.separator.SeparatorEntity;
 import com.nred.nuclearcraft.block.processor.supercooler.SupercoolerEntity;
 import com.nred.nuclearcraft.block.solar.SolarPanelEntity;
+import com.nred.nuclearcraft.block.universal_bin.UniversalBinEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -48,6 +49,7 @@ public class BlockEntityRegistration {
     public static final Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> NITROGEN_COLLECTOR_TYPES = createNitrogenCollector();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> PROCESSOR_ENTITY_TYPE = createProcessors();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends SolarPanelEntity>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(UniversalBinEntity::new, UNIVERSAL_BIN.get()).build(null));
 
     private static Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> createCobblestoneCollector() {
         Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> map = new HashMap<>();

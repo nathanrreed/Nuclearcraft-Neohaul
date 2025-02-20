@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:decay_hastener_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "nuclearcraftneohaul:berkelium_248"
+        },
+        {
+          "item": "nuclearcraftneohaul:berkelium_248_ox"
+        },
+        {
+          "item": "nuclearcraftneohaul:berkelium_248_ni"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:thorium_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

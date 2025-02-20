@@ -41,6 +41,7 @@ public class ModLanguageProvider extends LanguageProvider {
         damage_types();
 
         add(SUPERCOLD_ICE.asItem(), capitalize(SUPERCOLD_ICE.getId().getPath()));
+        add(UNIVERSAL_BIN.asItem(), capitalize(UNIVERSAL_BIN.getId().getPath()));
         add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
         add(LITHIUM_ION_CELL.asItem(), capitalize(LITHIUM_ION_CELL.getId().getPath()));
         add("jei.probability", "Production chance: %s%%");
@@ -243,6 +244,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");
         add("tooltip.collector", "Produces %s mb/t of %s constantly.");
         add("tooltip.solar", "Produces %s/t constantly during the daytime.");
+        add("tooltip.universal_bin", "Destroys items, fluids and energy.");
         add("tooltip.processor.energy.stored", "§dEnergy Stored:§r %s / %s");
         add("tooltip.processor.energy.using", "§dProcess Power:§r %s/t");
         add("tooltip.processor.energy.speed", "§bSpeed Multiplier:§r x%s");

@@ -31,7 +31,12 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.WATER_S
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
 public class WaterSourceEntity extends CollectorEntity {
-    public CustomFluidStackHandler fluidStackHandler = new CustomFluidStackHandler(getMax(), 1, false, true);
+    public CustomFluidStackHandler fluidStackHandler = new CustomFluidStackHandler(getMax(), 1, false, true){
+        @Override
+        public boolean isFluidValid(int tank, FluidStack stack) {
+            return true;
+        }
+    };
 
     public WaterSourceEntity(BlockPos pos, BlockState blockState, MACHINE_LEVEL level) {
         super(WATER_SOURCE_TYPES.get(level).get(), pos, blockState, level);

@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
+import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
 import com.nred.nuclearcraft.datagen.recipes.*;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipeBuilder;
@@ -504,6 +505,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("supercooler"), 1).pattern("PDP").pattern("HMH").pattern("PSP")
                 .define('P', PART_MAP.get("advanced_plating")).define('D', ALLOY_MAP.get("magnesium_diboride")).define('H', ALLOY_MAP.get("hard_carbon")).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+
+        // Universal Bin
+        ShapedRecipeBuilder.shaped(MISC, UNIVERSAL_BIN, 1).pattern("PSP").pattern("S S").pattern("PSP")
+                .define('P', PART_MAP.get("basic_plating")).define('S', ALLOY_MAP.get("silicon_carbide"))
+                .unlockedBy(getHasName(PART_MAP.get("basic_plating")), has(PART_MAP.get("basic_plating"))).save(recipeOutput);
     }
 
 

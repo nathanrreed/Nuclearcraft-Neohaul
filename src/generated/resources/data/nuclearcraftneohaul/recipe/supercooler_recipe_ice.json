@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:supercooler_recipe",
+  "fluidInputs": [
+    {
+      "amount": 250,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:ice"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 0.5,
+  "timeModifier": 0.25
+}

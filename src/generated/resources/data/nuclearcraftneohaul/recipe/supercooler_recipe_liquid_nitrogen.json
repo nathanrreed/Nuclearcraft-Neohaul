@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:supercooler_recipe",
+  "fluidInputs": [
+    {
+      "amount": 8000,
+      "fluid": "nuclearcraftneohaul:nitrogen"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 25,
+      "fluid": "nuclearcraftneohaul:liquid_nitrogen"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

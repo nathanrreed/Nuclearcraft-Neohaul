@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:le_water"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 375,
+      "fluid": "nuclearcraftneohaul:hydrogen"
+    },
+    {
+      "amount": 125,
+      "fluid": "nuclearcraftneohaul:deuterium"
+    },
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:oxygen"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

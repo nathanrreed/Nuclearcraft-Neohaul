@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "S S",
+    "PSP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:universal_bin"
+  }
+}

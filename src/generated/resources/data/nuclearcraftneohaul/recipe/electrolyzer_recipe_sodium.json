@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:naoh"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:sodium"
+    },
+    {
+      "amount": 250,
+      "fluid": "minecraft:water"
+    },
+    {
+      "amount": 125,
+      "fluid": "nuclearcraftneohaul:oxygen"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

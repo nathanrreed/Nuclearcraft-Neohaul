@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:decay_hastener_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:americium_241_ni"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:neptunium_237_ni"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

@@ -31,7 +31,12 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.GAS_MAP;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
 public class NitrogenCollectorEntity extends CollectorEntity {
-    public CustomFluidStackHandler fluidStackHandler = new CustomFluidStackHandler(getMax(), 1, false, true);
+    public CustomFluidStackHandler fluidStackHandler = new CustomFluidStackHandler(getMax(), 1, false, true) {
+        @Override
+        public boolean isFluidValid(int tank, FluidStack stack) {
+            return true;
+        }
+    };
 
     public NitrogenCollectorEntity(BlockPos pos, BlockState blockState, MACHINE_LEVEL level) {
         super(NITROGEN_COLLECTOR_TYPES.get(level).get(), pos, blockState, level);
