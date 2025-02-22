@@ -7,10 +7,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import java.util.List;
 
 public record ProcessorRecipeInput(List<ItemStack> stacks, List<FluidStack> fluids) implements RecipeInput {
-    public ProcessorRecipeInput(List<ItemStack> stacks) {
-        this(stacks, List.of());
-    }
-
     @Override
     public ItemStack getItem(int index) {
         return stacks.get(index);
@@ -23,5 +19,22 @@ public record ProcessorRecipeInput(List<ItemStack> stacks, List<FluidStack> flui
     @Override
     public int size() {
         return stacks.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        for (int i = 0; i < this.size(); i++) {
+            if (!this.getItem(i).isEmpty()) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < this.fluids.size(); i++) {
+            if (!this.getFluid(i).isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

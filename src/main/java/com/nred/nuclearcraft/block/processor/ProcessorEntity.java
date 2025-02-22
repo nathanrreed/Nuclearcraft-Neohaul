@@ -66,12 +66,30 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
         this.typeName = typeName;
         this.handlerInfo = handlerInfo;
 
-        fluidHandler = new CustomFluidStackHandler(PROCESSOR_CONFIG_MAP.get(this.typeName).fluid_capacity(), handlerInfo.numTanks(), false, true) {
+        fluidHandler = new CustomFluidStackHandler(PROCESSOR_CONFIG_MAP.get(this.typeName).fluid_capacity(), handlerInfo.numTanks(), true, true) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
                 if (level != null && !level.isClientSide()) {
                     level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+                }
+            }
+
+            @Override
+            public boolean isFluidValid(int tank, FluidStack stack) {
+                if (tank >= handlerInfo.numFluidInputs()) { // Outputs can only be done internally so I am just going to assume it's fine
+                    return false;
+                } else {
+                    return validFluidSlot(stack);
+                }
+            }
+
+            @Override
+            public boolean canOutput(int tank) {
+                if (tank >= handlerInfo.numFluidInputs()) {
+                    return true;
+                } else {
+                    return false;
                 }
             }
         };
@@ -113,7 +131,12 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
 
             @Override
             public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
-                return super.extractItem(slot, amount, simulate);
+                if (slot <= ENERGY) {
+                    return super.extractItem(slot, amount, simulate);
+                } else if (slot > ENERGY + handlerInfo.numItemInputs()) {
+                    return super.extractItem(slot, amount, simulate);
+                }
+                return ItemStack.EMPTY;
             }
 
             @Override
@@ -152,6 +175,10 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
         return level.getRecipeManager().getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(typeName).get()).stream().flatMap(holder -> holder.value().itemInputs.stream()).flatMap(a -> Arrays.stream(a.getItems())).parallel().anyMatch(itemStack -> itemStack.is(stack.getItem()));
     }
 
+    public boolean validFluidSlot(@NotNull FluidStack stack) {
+        return level.getRecipeManager().getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(typeName).get()).stream().flatMap(holder -> holder.value().fluidInputs.stream()).flatMap(a -> Arrays.stream(a.getFluids())).parallel().anyMatch(itemStack -> itemStack.is(stack.getFluid()));
+    }
+
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.loadAdditional(tag, registries);
@@ -180,7 +207,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     public void tick(Level level, BlockPos pos, BlockState state, BlockEntity entity) {
-        if (!(redstoneMode && state.getValue(POWERED)) && hasRecipe() && energyHandler.getEnergyStored() >= (int) calculateEnergy(typeName, recipe.value().getPowerModifier(), itemStackHandler)) {
+        if (!(redstoneMode && state.getValue(POWERED)) && hasRecipe() && energyHandler.getEnergyStored() >= (int) calculateEnergy(typeName, recipe.value().getPowerModifier(), itemStackHandler) && roomForOutputs()) {
             if (!state.getValue(PROCESSOR_ON)) {
                 level.setBlockAndUpdate(pos, state.setValue(PROCESSOR_ON, true));
             }
@@ -201,6 +228,10 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
                         }
                     }
                 }
+
+                for (int i = 0; i < recipe.value().fluidInputs.size(); i++) {
+                    fluidHandler.drain(i, recipe.value().fluidInputs.get(i).amount(), IFluidHandler.FluidAction.EXECUTE);
+                }
             }
 
             energyHandler.internalExtractEnergy((int) calculateEnergy(typeName, recipe.value().getPowerModifier(), itemStackHandler), false);
@@ -215,6 +246,26 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
         for (int i = 0; i < recipe.value().itemResults.size(); i++) {
             itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), false);
         }
+
+        for (int i = 0; i < recipe.value().fluidResults.size(); i++) {
+            fluidHandler.fill(handlerInfo.numFluidInputs() + i, recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.EXECUTE);
+        }
+    }
+
+    public boolean roomForOutputs() {
+        for (int i = 0; i < recipe.value().itemResults.size(); i++) {
+            if (itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), true) != ItemStack.EMPTY) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < recipe.value().fluidResults.size(); i++) {
+            if (recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(handlerInfo.numFluidInputs() + i, recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.SIMULATE)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public boolean hasRecipe() {
@@ -223,7 +274,12 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
             stacks.add(itemStackHandler.getStackInSlot(ENERGY + i));
         }
 
-        recipe = level.getRecipeManager().getRecipeFor(PROCESSOR_RECIPE_TYPES.get(typeName).get(), new ProcessorRecipeInput(stacks), level).orElse(null);
+        ArrayList<FluidStack> fluidStacks = new ArrayList<>(handlerInfo.numFluidInputs());
+        for (int i = 0; i < handlerInfo.numFluidInputs(); i++) {
+            fluidStacks.add(fluidHandler.getFluidInTank(i));
+        }
+
+        recipe = level.getRecipeManager().getRecipeFor(PROCESSOR_RECIPE_TYPES.get(typeName).get(), new ProcessorRecipeInput(stacks, fluidStacks), level).orElse(null);
         return recipe != null;
     }
 

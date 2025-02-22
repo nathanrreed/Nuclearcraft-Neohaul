@@ -19,6 +19,16 @@ public class UniversalBinEntity extends BlockEntity {
 
     public CustomFluidStackHandler fluidStackHandler = new CustomFluidStackHandler(Integer.MAX_VALUE, 1, true, false) {
         @Override
+        public boolean isFluidValid(int tank, FluidStack stack) {
+            return true;
+        }
+
+        @Override
+        public boolean canOutput(int tank) {
+            return false;
+        }
+
+        @Override
         public int fill(FluidStack resource, FluidAction action) {
             return resource.getAmount();
         }

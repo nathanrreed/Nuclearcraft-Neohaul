@@ -50,6 +50,11 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.fluidStackHandler);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.energyHandler);
 
+        // Machine Interface
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), (entity, direction) -> entity.getLevel().isClientSide() || entity.proxyPos == null ? null : entity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, entity.proxyPos, direction));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), (entity, direction) -> entity.getLevel().isClientSide() || entity.proxyPos == null ? null : entity.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, entity.proxyPos, direction));
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), (entity, direction) -> entity.getLevel().isClientSide() || entity.proxyPos == null ? null : entity.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, entity.proxyPos, direction));
+
         items(event);
     }
 

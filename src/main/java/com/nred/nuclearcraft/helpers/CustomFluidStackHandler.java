@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
-public class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<CompoundTag> {
+public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<CompoundTag> {
     private final int capacity;
     private final int tanks;
     private final boolean allowInput;
@@ -41,9 +41,9 @@ public class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<
     }
 
     @Override
-    public boolean isFluidValid(int tank, FluidStack stack) {
-        return false; //TODO
-    }
+    public abstract boolean isFluidValid(int tank, FluidStack stack);
+
+    public abstract boolean canOutput(int tank);
 
     public void deserializeNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
         setSize(nbt.contains("Size", Tag.TAG_INT) ? nbt.getInt("Size") : fluids.size());
@@ -98,10 +98,45 @@ public class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<
         return 0;
     }
 
+    public int fill(int tank, FluidStack resource, FluidAction action) {
+        if (!FluidStack.isSameFluidSameComponents(getFluidInTank(tank), resource) && !getFluidInTank(tank).isEmpty()) {
+            return 0;
+        }
+
+        int amount = resource.getAmount();
+        if (action.execute()) {
+            setFluid(tank, resource.copyWithAmount(resource.getAmount() + getFluidAmount(tank)));
+        }
+
+        if (getFluidAmount(tank) + amount > capacity) {
+            return capacity - getFluidAmount(tank);
+        }
+        return amount;
+    }
+
     @Override
     public FluidStack drain(FluidStack resource, FluidAction action) {
         if (allowOutput) {
             return internalExtractFluid(resource, action);
+        }
+        return FluidStack.EMPTY;
+    }
+
+
+    public FluidStack drain(int tank, int maxDrain, FluidAction action) {
+        FluidStack fluid = fluids.get(tank);
+        if (fluid.isEmpty()) return FluidStack.EMPTY;
+        int drained = maxDrain;
+        if (fluid.getAmount() < drained) {
+            drained = fluid.getAmount();
+        }
+        FluidStack stack = fluid.copyWithAmount(drained);
+        if (action.execute() && drained > 0) {
+            fluid.shrink(drained);
+            onContentsChanged();
+        }
+        if (drained > 0) {
+            return stack;
         }
         return FluidStack.EMPTY;
     }
@@ -138,7 +173,7 @@ public class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<
             int i = -1; // Will start at 0 always since i++ is right after, just makes continues easier
             for (FluidStack fluid : fluids) {
                 i++;
-                if (!isFluidValid(i, fluid)) continue;
+                if (!isFluidValid(i, resource)) continue;
                 if (fluid.isEmpty()) {
                     fluids.set(i, resource.copyWithAmount(Math.min(capacity, resource.getAmount())));
                     onContentsChanged();
@@ -165,8 +200,9 @@ public class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<
     }
 
     public FluidStack internalExtractFluid(int maxDrain, FluidAction action) {
-        for (FluidStack fluid : fluids) {
-            if (fluid.isEmpty()) continue;
+        for (int i = 0; i < fluids.size(); i++) {
+            FluidStack fluid = fluids.get(i);
+            if (fluid.isEmpty() || !canOutput(i)) continue;
             int drained = maxDrain;
             if (fluid.getAmount() < drained) {
                 drained = fluid.getAmount();

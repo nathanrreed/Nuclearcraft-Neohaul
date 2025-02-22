@@ -28,6 +28,7 @@ public class CreativeTabsRegistration {
                 output.acceptAll(blockStackValues(PROCESSOR_MAP, SOLAR_MAP, COLLECTOR_MAP));
                 output.acceptAll(itemStackValues(UPGRADE_MAP));
                 output.accept(UNIVERSAL_BIN);
+                output.accept(MACHINE_INTERFACE);
                 output.accept(LITHIUM_ION_CELL);
             }).build());
 

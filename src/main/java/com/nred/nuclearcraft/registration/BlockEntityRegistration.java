@@ -11,6 +11,7 @@ import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollecto
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntityCompact;
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntityDense;
+import com.nred.nuclearcraft.block.machine_interface.MachineInterfaceEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.block.processor.alloy_furnace.AlloyFurnaceEntity;
 import com.nred.nuclearcraft.block.processor.assembler.AssemblerEntity;
@@ -50,6 +51,7 @@ public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> PROCESSOR_ENTITY_TYPE = createProcessors();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends SolarPanelEntity>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(UniversalBinEntity::new, UNIVERSAL_BIN.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends MachineInterfaceEntity>> MACHINE_INTERFACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("machine_interface", () -> BlockEntityType.Builder.of(MachineInterfaceEntity::new, MACHINE_INTERFACE.get()).build(null));
 
     private static Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> createCobblestoneCollector() {
         Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> map = new HashMap<>();

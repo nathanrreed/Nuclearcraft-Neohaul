@@ -36,6 +36,11 @@ public class NitrogenCollectorEntity extends CollectorEntity {
         public boolean isFluidValid(int tank, FluidStack stack) {
             return true;
         }
+
+        @Override
+        public boolean canOutput(int tank) {
+            return true;
+        }
     };
 
     public NitrogenCollectorEntity(BlockPos pos, BlockState blockState, MACHINE_LEVEL level) {

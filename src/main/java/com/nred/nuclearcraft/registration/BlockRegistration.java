@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.block.SolidifiedCorium;
 import com.nred.nuclearcraft.block.SupercoldIceBlock;
+import com.nred.nuclearcraft.block.machine_interface.MachineInterface;
 import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGenerator;
@@ -67,6 +68,7 @@ public class BlockRegistration {
     public static final DeferredBlock<Block> SUPERCOLD_ICE = registerBlockItem("supercold_ice", SupercoldIceBlock::new);
     public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCorium::new);
     public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItem("universal_bin", UniversalBin::new);
+    public static final DeferredBlock<Block> MACHINE_INTERFACE = registerBlockItem("machine_interface", MachineInterface::new);
 
 
     // TODO make real mushroom
