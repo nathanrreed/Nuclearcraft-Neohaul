@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:redstone_nak"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 200,
+      "fluid": "nuclearcraftneohaul:redstone"
+    },
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:nak"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

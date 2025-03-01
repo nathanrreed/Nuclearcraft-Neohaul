@@ -1,0 +1,39 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:depleted_lep_241"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 80,
+      "fluid": "nuclearcraftneohaul:plutonium_242"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "amount": 1638416,
+      "fluid": "nuclearcraftneohaul:strontium_90"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:berkelium_247"
+    },
+    {
+      "amount": 1638416,
+      "fluid": "nuclearcraftneohaul:promethium_147"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:zirconium"
+    }
+  ],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:ingots/zirconium"
+        },
+        {
+          "tag": "c:raw_materials/zirconium"
+        },
+        {
+          "tag": "c:dusts/zirconium"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

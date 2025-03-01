@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:chemical_reactor_polyphenylene_sulfide_sodium_fluoride_solution_from_difluorobenzene_sodium_sulfide"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:chemical_reactor_polyphenylene_sulfide_sodium_fluoride_solution_from_difluorobenzene_sodium_sulfide"
+    ]
+  }
+}

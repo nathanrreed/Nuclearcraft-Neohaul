@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 64,
+      "fluid": "nuclearcraftneohaul:hea_242"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 96,
+      "fluid": "nuclearcraftneohaul:lea_242"
+    },
+    {
+      "amount": 48,
+      "fluid": "nuclearcraftneohaul:americium_242"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

@@ -1,0 +1,39 @@
+{
+  "type": "nuclearcraftneohaul:fuel_reprocessor_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:depleted_lea_242_ni"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 3,
+      "item": "nuclearcraftneohaul:americium_243_ni"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:curium_245_ni"
+    },
+    {
+      "count": 1638401,
+      "item": "nuclearcraftneohaul:molybdenum_dust"
+    },
+    {
+      "count": 3,
+      "item": "nuclearcraftneohaul:curium_246_ni"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:berkelium_248_ni"
+    },
+    {
+      "count": 1638401,
+      "item": "nuclearcraftneohaul:promethium_147_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

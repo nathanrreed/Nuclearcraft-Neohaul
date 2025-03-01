@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:ethylene"
+    },
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:oxygen"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:acetylene"
+    },
+    {
+      "amount": 500,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 4.0,
+  "timeModifier": 3.0
+}

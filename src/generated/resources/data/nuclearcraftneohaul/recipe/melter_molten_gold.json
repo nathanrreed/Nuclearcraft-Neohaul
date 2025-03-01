@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:gold"
+    }
+  ],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:ingots/gold"
+        },
+        {
+          "tag": "c:raw_materials/gold"
+        },
+        {
+          "tag": "c:dusts/gold"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

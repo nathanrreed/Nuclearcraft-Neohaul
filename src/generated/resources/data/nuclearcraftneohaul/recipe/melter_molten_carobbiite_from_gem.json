@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:carobbiite"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "c:gems/carobbiite"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

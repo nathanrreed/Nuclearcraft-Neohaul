@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:difluorobenzene"
+    },
+    {
+      "amount": 36,
+      "fluid": "nuclearcraftneohaul:sodium_sulfide"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 36,
+      "fluid": "nuclearcraftneohaul:polyphenylene_sulfide"
+    },
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 4.0
+}

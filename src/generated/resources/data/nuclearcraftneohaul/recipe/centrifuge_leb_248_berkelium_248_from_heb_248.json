@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 64,
+      "fluid": "nuclearcraftneohaul:heb_248"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 96,
+      "fluid": "nuclearcraftneohaul:leb_248"
+    },
+    {
+      "amount": 48,
+      "fluid": "nuclearcraftneohaul:berkelium_248"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

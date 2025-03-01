@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 1296,
+      "fluid": "nuclearcraftneohaul:lead_platinum"
+    }
+  ],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:storage_blocks/lead_platinum"
+        },
+        {
+          "tag": "c:storage_blocks/raw_lead_platinum"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 9.0
+}

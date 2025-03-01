@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 288,
+      "fluid": "nuclearcraftneohaul:nether_brick"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:nether_bricks"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.5,
+  "timeModifier": 2.0
+}

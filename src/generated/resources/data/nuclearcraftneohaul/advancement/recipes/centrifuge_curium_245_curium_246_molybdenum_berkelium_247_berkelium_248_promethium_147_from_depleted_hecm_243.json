@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:centrifuge_curium_245_curium_246_molybdenum_berkelium_247_berkelium_248_promethium_147_from_depleted_hecm_243"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:centrifuge_curium_245_curium_246_molybdenum_berkelium_247_berkelium_248_promethium_147_from_depleted_hecm_243"
+    ]
+  }
+}

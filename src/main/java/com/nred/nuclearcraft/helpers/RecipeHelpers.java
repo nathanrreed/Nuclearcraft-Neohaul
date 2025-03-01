@@ -1,14 +1,19 @@
 package com.nred.nuclearcraft.helpers;
 
 import com.ibm.icu.impl.Pair;
+import dev.emi.emi.api.stack.EmiIngredient;
+import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
@@ -71,5 +76,16 @@ public class RecipeHelpers {
         short amount = (short) packed;
 
         return Pair.of(probability, amount);
+    }
+
+    public static List<EmiIngredient> removeBarriers(List<EmiIngredient> itemInputs) {
+        ArrayList<EmiIngredient> list = new ArrayList<>();
+        for (EmiIngredient ingredient : itemInputs) {
+            List<EmiStack> stacks = ingredient.getEmiStacks().stream().filter(emiStack -> !emiStack.getItemStack().is(Items.BARRIER)).toList();
+            if (!stacks.isEmpty()){
+                list.add(EmiIngredient.of(stacks));
+            }
+        }
+        return list;
     }
 }

@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:diamond"
+    },
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:nak"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:diamond_nak"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

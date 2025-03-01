@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:ammonium_persulfate_solution"
+    },
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:ammonium_bisulfate_solution"
+    },
+    {
+      "amount": 1000,
+      "fluid": "nuclearcraftneohaul:hydrogen_peroxide"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 1.0
+}

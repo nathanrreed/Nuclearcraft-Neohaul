@@ -1,0 +1,39 @@
+{
+  "type": "nuclearcraftneohaul:fuel_reprocessor_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:depleted_lecf_251_ni"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:californium_252_ni"
+    },
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:californium_252_ni"
+    },
+    {
+      "count": 1966081,
+      "item": "nuclearcraftneohaul:ruthenium_106_dust"
+    },
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:californium_252_ni"
+    },
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:californium_252_ni"
+    },
+    {
+      "count": 1310721,
+      "item": "nuclearcraftneohaul:europium_155_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

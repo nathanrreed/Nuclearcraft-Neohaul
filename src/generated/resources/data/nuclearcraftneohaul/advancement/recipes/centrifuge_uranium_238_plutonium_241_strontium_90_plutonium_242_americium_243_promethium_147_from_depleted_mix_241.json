@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:centrifuge_uranium_238_plutonium_241_strontium_90_plutonium_242_americium_243_promethium_147_from_depleted_mix_241"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:centrifuge_uranium_238_plutonium_241_strontium_90_plutonium_242_americium_243_promethium_147_from_depleted_mix_241"
+    ]
+  }
+}

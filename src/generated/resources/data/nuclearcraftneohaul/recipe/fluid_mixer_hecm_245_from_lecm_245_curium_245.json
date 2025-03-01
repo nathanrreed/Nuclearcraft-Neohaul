@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 48,
+      "fluid": "nuclearcraftneohaul:lecm_245"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:curium_245"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 64,
+      "fluid": "nuclearcraftneohaul:hecm_245"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

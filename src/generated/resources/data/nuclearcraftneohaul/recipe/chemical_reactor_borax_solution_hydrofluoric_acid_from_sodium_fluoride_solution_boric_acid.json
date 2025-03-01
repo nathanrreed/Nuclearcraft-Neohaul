@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+    },
+    {
+      "amount": 2000,
+      "fluid": "nuclearcraftneohaul:boric_acid"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:borax_solution"
+    },
+    {
+      "amount": 1000,
+      "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 3.0
+}

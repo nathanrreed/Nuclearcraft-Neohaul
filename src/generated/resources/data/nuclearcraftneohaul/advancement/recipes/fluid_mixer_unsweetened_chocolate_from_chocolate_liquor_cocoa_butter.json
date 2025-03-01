@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:fluid_mixer_unsweetened_chocolate_from_chocolate_liquor_cocoa_butter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:fluid_mixer_unsweetened_chocolate_from_chocolate_liquor_cocoa_butter"
+    ]
+  }
+}

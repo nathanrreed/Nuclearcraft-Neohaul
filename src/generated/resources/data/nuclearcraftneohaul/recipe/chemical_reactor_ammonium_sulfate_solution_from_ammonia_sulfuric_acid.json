@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 1000,
+      "fluid": "nuclearcraftneohaul:ammonia"
+    },
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:sulfuric_acid"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:ammonium_sulfate_solution"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 2.0
+}

@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:chocolate_liquor"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:ground_cocoa_nibs"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

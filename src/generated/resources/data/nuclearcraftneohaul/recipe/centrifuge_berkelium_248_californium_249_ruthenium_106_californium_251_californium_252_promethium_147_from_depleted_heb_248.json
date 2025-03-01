@@ -1,0 +1,39 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:depleted_heb_248"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:berkelium_248"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:californium_249"
+    },
+    {
+      "amount": 5898256,
+      "fluid": "nuclearcraftneohaul:ruthenium_106"
+    },
+    {
+      "amount": 32,
+      "fluid": "nuclearcraftneohaul:californium_251"
+    },
+    {
+      "amount": 48,
+      "fluid": "nuclearcraftneohaul:californium_252"
+    },
+    {
+      "amount": 3932176,
+      "fluid": "nuclearcraftneohaul:promethium_147"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

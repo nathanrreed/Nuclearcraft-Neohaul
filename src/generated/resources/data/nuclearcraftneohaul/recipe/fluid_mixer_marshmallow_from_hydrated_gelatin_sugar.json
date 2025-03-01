@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:hydrated_gelatin"
+    },
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:sugar"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:marshmallow"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 0.5,
+  "timeModifier": 1.0
+}

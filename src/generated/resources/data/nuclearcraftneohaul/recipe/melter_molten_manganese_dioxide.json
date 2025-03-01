@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:manganese_dioxide"
+    }
+  ],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:ingots/manganese_dioxide"
+        },
+        {
+          "tag": "c:raw_materials/manganese_dioxide"
+        },
+        {
+          "tag": "c:dusts/manganese_dioxide"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

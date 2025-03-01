@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:benzene"
+    },
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:fluorine"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:difluorobenzene"
+    },
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

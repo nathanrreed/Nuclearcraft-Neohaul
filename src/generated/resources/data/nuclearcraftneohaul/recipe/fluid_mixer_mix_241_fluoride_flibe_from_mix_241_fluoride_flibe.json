@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:mix_241_fluoride"
+    },
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:flibe"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:mix_241_fluoride_flibe"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

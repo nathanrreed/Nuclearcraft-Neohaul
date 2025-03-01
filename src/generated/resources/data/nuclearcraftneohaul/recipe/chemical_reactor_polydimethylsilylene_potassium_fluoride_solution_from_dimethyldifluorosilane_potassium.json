@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:dimethyldifluorosilane"
+    },
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:potassium"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 36,
+      "fluid": "nuclearcraftneohaul:polydimethylsilylene"
+    },
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 4.0
+}

@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:dark_chocolate"
+    },
+    {
+      "amount": 250,
+      "fluid": "minecraft:milk"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 288,
+      "fluid": "nuclearcraftneohaul:milk_chocolate"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

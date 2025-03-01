@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:glowstone"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:glowstone_dust"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.25
+}

@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:fluoromethane"
+    },
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:koh"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:ethylene"
+    },
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 2.0
+}

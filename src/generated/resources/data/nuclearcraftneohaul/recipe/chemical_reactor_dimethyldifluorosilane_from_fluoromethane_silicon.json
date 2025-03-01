@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:fluoromethane"
+    },
+    {
+      "amount": 36,
+      "fluid": "nuclearcraftneohaul:silicon"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:dimethyldifluorosilane"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 1.0
+}

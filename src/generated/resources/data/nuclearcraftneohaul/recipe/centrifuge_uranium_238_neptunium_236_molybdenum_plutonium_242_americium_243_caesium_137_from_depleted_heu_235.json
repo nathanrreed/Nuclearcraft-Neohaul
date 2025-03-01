@@ -1,0 +1,39 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:depleted_heu_235"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 48,
+      "fluid": "nuclearcraftneohaul:uranium_238"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:neptunium_236"
+    },
+    {
+      "amount": 4915216,
+      "fluid": "nuclearcraftneohaul:molybdenum"
+    },
+    {
+      "amount": 32,
+      "fluid": "nuclearcraftneohaul:plutonium_242"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:americium_243"
+    },
+    {
+      "amount": 4980752,
+      "fluid": "nuclearcraftneohaul:caesium_137"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

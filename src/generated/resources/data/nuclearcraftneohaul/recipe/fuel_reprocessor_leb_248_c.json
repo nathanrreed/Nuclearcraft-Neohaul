@@ -1,0 +1,47 @@
+{
+  "type": "nuclearcraftneohaul:fuel_reprocessor_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:depleted_leb_248_tr"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 5,
+      "item": "nuclearcraftneohaul:berkelium_247_c"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:berkelium_248_c"
+    },
+    {
+      "count": 1966081,
+      "item": "nuclearcraftneohaul:ruthenium_106_dust"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:californium_249_c"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:californium_251_c"
+    },
+    {
+      "count": 1310721,
+      "item": "nuclearcraftneohaul:promethium_147_dust"
+    },
+    {
+      "count": 3,
+      "item": "nuclearcraftneohaul:graphite_dust"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:depleted_lecm_243_fluoride_flibe"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:depleted_lecm_243_fluoride"
+    },
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:flibe"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

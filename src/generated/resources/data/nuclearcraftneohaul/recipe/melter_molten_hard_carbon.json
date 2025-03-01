@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:hard_carbon"
+    }
+  ],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "tag": "c:ingots/hard_carbon"
+        },
+        {
+          "tag": "c:raw_materials/hard_carbon"
+        },
+        {
+          "tag": "c:dusts/hard_carbon"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

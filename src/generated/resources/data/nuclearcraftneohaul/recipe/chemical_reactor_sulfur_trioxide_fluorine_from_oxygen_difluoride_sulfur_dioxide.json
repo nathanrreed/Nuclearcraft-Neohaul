@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:oxygen_difluoride"
+    },
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:sulfur_dioxide"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:sulfur_trioxide"
+    },
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:fluorine"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 1.0
+}

@@ -1,0 +1,39 @@
+{
+  "type": "nuclearcraftneohaul:fuel_reprocessor_recipe",
+  "fluidInputs": [],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 9,
+      "item": "nuclearcraftneohaul:depleted_mix_239_ni"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 4,
+      "item": "nuclearcraftneohaul:uranium_238_ni"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:plutonium_241_ni"
+    },
+    {
+      "count": 1638401,
+      "item": "nuclearcraftneohaul:strontium_90_dust"
+    },
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:plutonium_242_ni"
+    },
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:americium_243_ni"
+    },
+    {
+      "count": 1638401,
+      "item": "nuclearcraftneohaul:promethium_147_dust"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

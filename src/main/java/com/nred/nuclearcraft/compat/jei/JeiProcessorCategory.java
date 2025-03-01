@@ -2,6 +2,8 @@ package com.nred.nuclearcraft.compat.jei;
 
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.processor.CentrifugeRecipe;
+import com.nred.nuclearcraft.recipe.processor.FuelReprocessorRecipe;
 import com.nred.nuclearcraft.recipe.processor.RockCrusherRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -97,12 +99,20 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
             IRecipeSlotBuilder temp = builder.addOutputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemResults.get(i).ingredient());
             if (recipe instanceof RockCrusherRecipe) {
                 temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.itemResults.get(Integer.parseInt(recipeSlotView.getSlotName().get())).count()).first).withStyle(ChatFormatting.GOLD)));
+            } else if (recipe instanceof FuelReprocessorRecipe && (i == 2 || i == 6)) {
+                temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.itemResults.get(Integer.parseInt(recipeSlotView.getSlotName().get())).count()).first).withStyle(ChatFormatting.GOLD)));
             }
         }
 
         for (int i = 0; i < recipe.fluidResults.size(); i++) {
             ScreenPosition position = recipeViewerInfo.outputs().get(i + recipe.itemResults.size());
-            builder.addOutputSlot(position.x() + (large ? 1 : 0), position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).toList()).setFluidRenderer(recipe.fluidResults.get(i).amount(), false, large ? 24 : 16, large ? 24 : 16);
+            if (recipe instanceof CentrifugeRecipe && (i == 2 || i == 5)) {
+                int amount = probabilityUnpacker(recipe.fluidResults.get(i).getFluids()[0].getAmount()).second;
+                builder.addOutputSlot(position.x() + (large ? 1 : 0), position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).map(stack -> stack.copyWithAmount(amount)).toList()).setFluidRenderer(amount, false, large ? 24 : 16, large ? 24 : 16)
+                        .setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.fluidResults.get(Integer.parseInt(recipeSlotView.getSlotName().get())).amount()).first).withStyle(ChatFormatting.GOLD)));
+            } else {
+                builder.addOutputSlot(position.x() + (large ? 1 : 0), position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).toList()).setFluidRenderer(recipe.fluidResults.get(i).amount(), false, large ? 24 : 16, large ? 24 : 16);
+            }
         }
     }
 

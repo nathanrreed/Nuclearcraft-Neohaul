@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:gelatin"
+    },
+    {
+      "amount": 250,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:hydrated_gelatin"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

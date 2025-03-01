@@ -209,7 +209,7 @@ public class ModLanguageProvider extends LanguageProvider {
                 name = capitalize(name.replace("hec", "HEC").replaceFirst("_", "-"));
             } else if (Pattern.compile("lec([mf])").matcher(fluid).find()) {
                 name = capitalize(name.replace("lec", "LEC").replaceFirst("_", "-"));
-            } else if (Pattern.compile("^.{3}(_\\d{3})?").matcher(name).find()) {
+            } else if (Pattern.compile("^.{3}((_\\d{3})|$)").matcher(name).find()) {
                 name = capitalize(name.substring(0, 3).toUpperCase() + (name.length() > 3 ? (Character.isDigit(name.charAt(4)) ? "-" : "_") + name.substring(4) : ""));
             } else {
                 name = capitalize(name);

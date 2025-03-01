@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 288,
+      "fluid": "nuclearcraftneohaul:gold"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "c:ores/gold"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.5,
+  "timeModifier": 1.25
+}

@@ -2,7 +2,6 @@ package com.nred.nuclearcraft.recipe.base_types;
 
 import com.google.common.base.CaseFormat;
 import com.nred.nuclearcraft.info.Fluids;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -18,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.slf4j.Logger;
@@ -181,16 +181,16 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
     }
 
     private ResourceLocation getDefaultRecipeId() {
-        return itemResults.isEmpty() ? getDefaultRecipeId(getFluidResult()) : RecipeBuilder.getDefaultRecipeId(getResult());
+        return itemResults.isEmpty() ? getDefaultRecipeId(fluidInputs, fluidResults) : RecipeBuilder.getDefaultRecipeId(getResult());
     }
 
-    private static ResourceLocation getDefaultRecipeId(Fluid fluid) {
-        return BuiltInRegistries.FLUID.getKey(fluid);
+    private static ResourceLocation getDefaultRecipeId(List<SizedFluidIngredient> inputs, List<SizedFluidIngredient> outputs) {
+        return ncLoc((outputs.stream().map(fluid -> BuiltInRegistries.FLUID.getKey(fluid.getFluids()[0].getFluid()).getPath()).reduce("", (string, fluid) -> string + "_" + fluid) + "_from_" + inputs.stream().map(fluid -> BuiltInRegistries.FLUID.getKey(fluid.getFluids()[0].getFluid()).getPath()).reduce("", (string, fluid) -> string + "_" + fluid)).replaceAll("__", "_").replaceFirst("^_", ""));
     }
 
     @Override
     public void save(RecipeOutput output, ResourceLocation key) {
-        key = ncLoc(key.withPrefix(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()) + "_").getPath());
+        key = ncLoc(key.withPrefix(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()).replace("recipe", "")).getPath());
         Advancement.Builder advancement = output.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(key))
                 .rewards(AdvancementRewards.Builder.recipe(key))

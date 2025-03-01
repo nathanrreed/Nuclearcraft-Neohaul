@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:ice"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 0.5,
+  "timeModifier": 0.25
+}

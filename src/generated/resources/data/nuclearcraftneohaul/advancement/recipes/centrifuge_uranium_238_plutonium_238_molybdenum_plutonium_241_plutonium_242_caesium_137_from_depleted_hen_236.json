@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:centrifuge_uranium_238_plutonium_238_molybdenum_plutonium_241_plutonium_242_caesium_137_from_depleted_hen_236"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:centrifuge_uranium_238_plutonium_238_molybdenum_plutonium_241_plutonium_242_caesium_137_from_depleted_hen_236"
+    ]
+  }
+}

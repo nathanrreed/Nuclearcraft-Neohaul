@@ -16,6 +16,8 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
 
+import static net.neoforged.neoforge.common.NeoForgeMod.enableMilkFluid;
+
 @Mod(NuclearcraftNeohaul.MODID)
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class NuclearcraftNeohaul {
@@ -23,6 +25,7 @@ public class NuclearcraftNeohaul {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public NuclearcraftNeohaul(IEventBus modEventBus, ModContainer modContainer) {
+        enableMilkFluid();
         Registration.register(modEventBus);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:centrifuge_californium_250_californium_252_ruthenium_106_californium_252_californium_252_promethium_147_from_depleted_hecf_249"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:centrifuge_californium_250_californium_252_ruthenium_106_californium_252_californium_252_promethium_147_from_depleted_hecf_249"
+    ]
+  }
+}

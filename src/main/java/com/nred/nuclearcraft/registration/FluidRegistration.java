@@ -34,13 +34,17 @@ public class FluidRegistration {
         map.put("fluorine", new Fluids("fluorine", 0xFFD3C75D, Fluids.GAS_TYPE));
         map.put("carbon_dioxide", new Fluids("carbon_dioxide", 0xFF5C635A, Fluids.GAS_TYPE));
         map.put("carbon_monoxide", new Fluids("carbon_monoxide", 0xFF4C5649, Fluids.GAS_TYPE));
-        map.put("ethene", new Fluids("ethene", 0xFFFFE4A3, Fluids.GAS_TYPE));
+        map.put("ethylene", new Fluids("ethylene", 0xFFFFE4A3, Fluids.GAS_TYPE));
+        map.put("acetylene", new Fluids("acetylene", 0xFFFFE442, Fluids.GAS_TYPE));
         map.put("fluoromethane", new Fluids("fluoromethane", 0xFF424C05, Fluids.GAS_TYPE));
         map.put("ammonia", new Fluids("ammonia", 0xFF7AC3A0, Fluids.GAS_TYPE));
         map.put("oxygen_difluoride", new Fluids("oxygen_difluoride", 0xFFEA1B01, Fluids.GAS_TYPE));
         map.put("diborane", new Fluids("diborane", 0xFFCC6E8C, Fluids.GAS_TYPE));
         map.put("sulfur_dioxide", new Fluids("sulfur_dioxide", 0xFFC3BC7A, Fluids.GAS_TYPE));
         map.put("sulfur_trioxide", new Fluids("sulfur_trioxide", 0xFFD3AE5D, Fluids.GAS_TYPE));
+        map.put("tetrafluoroethene", new Fluids("tetrafluoroethene", 0xFF7EA542, Fluids.GAS_TYPE));
+        map.put("hydrogen_sulfide", new Fluids("hydrogen_sulfide", 0xFF785830, Fluids.GAS_TYPE));
+        map.put("depleted_hydrogen_sulfide", new Fluids("depleted_hydrogen_sulfide", 0xFF59514E, Fluids.GAS_TYPE));
         return map;
     }
 
@@ -71,6 +75,8 @@ public class FluidRegistration {
         map.put("koh", new Fluids("koh", 0xFFB8C6B0, Fluids.MOLTEN_TYPE));
         map.put("sodium", new Fluids("sodium", 0xFFC1898C, Fluids.MOLTEN_TYPE));
         map.put("potassium", new Fluids("potassium", 0xFFB8C503, Fluids.MOLTEN_TYPE));
+        map.put("sodium_sulfide", new Fluids("sodium_sulfide", 0xFF9A8B0B, Fluids.MOLTEN_TYPE));
+        map.put("potassium_sulfide", new Fluids("potassium_sulfide", 0xFF917C34, Fluids.MOLTEN_TYPE));
         map.put("silicon", new Fluids("silicon", 0xFF676767, Fluids.MOLTEN_TYPE));
         map.put("bas", new Fluids("bas", 0xFF9B9B89, Fluids.MOLTEN_TYPE));
         map.put("alugentum", new Fluids("alugentum", 0xFFB5C9CB, Fluids.MOLTEN_TYPE));
@@ -123,6 +129,7 @@ public class FluidRegistration {
         map.put("le_water", new Fluids("le_water", false, -1));
         map.put("he_water", new Fluids("he_water", false, -1));
         map.put("heavy_water", new Fluids("heavy_water", false, -1));
+        map.put("hydrogen_peroxide", new Fluids("hydrogen_peroxide", false, -1));
         map.put("liquid_nitrogen", new Fluids("liquid_nitrogen", "liquid", false, false, 0xFF31C23A, 810, 70, 170, 0));
         //if (registerCoFHAlt()) { TODO
         map.put("ender", new Fluids("ender", "liquid_still", true, false, 0xFF14584D, 4000, 300, 2500, 3));
@@ -145,8 +152,12 @@ public class FluidRegistration {
         Map<String, Fluids> map = new java.util.HashMap<>();
         map.put("ethanol", new Fluids("ethanol", 0xFF655140, Fluids.FLAMMABLE_TYPE));
         map.put("methanol", new Fluids("methanol", 0xFF71524C, Fluids.FLAMMABLE_TYPE));
+        map.put("benzene", new Fluids("benzene", 0xFF999999, Fluids.FLAMMABLE_TYPE));
+        map.put("phenol", new Fluids("phenol", 0xFFF2F2F2, Fluids.FLAMMABLE_TYPE));
+        map.put("fluorobenzene", new Fluids("fluorobenzene", 0xFFBAB58B, Fluids.FLAMMABLE_TYPE));
+        map.put("difluorobenzene", new Fluids("difluorobenzene", 0xFF8CB57B, Fluids.FLAMMABLE_TYPE));
+        map.put("dimethyldifluorosilane", new Fluids("dimethyldifluorosilane", 0xFFAEAF80, Fluids.FLAMMABLE_TYPE));
         map.put("redstone_ethanol", new Fluids("redstone_ethanol", false, -1));
-
         return map;
     }
 

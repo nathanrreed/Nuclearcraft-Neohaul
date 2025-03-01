@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 5994,
+      "fluid": "nuclearcraftneohaul:villiaumite"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "c:storage_blocks/villiaumite"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 9.0
+}

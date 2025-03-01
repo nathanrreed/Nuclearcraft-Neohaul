@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 288,
+      "fluid": "nuclearcraftneohaul:magnesium"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "c:ores/magnesium"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 1.5,
+  "timeModifier": 1.25
+}

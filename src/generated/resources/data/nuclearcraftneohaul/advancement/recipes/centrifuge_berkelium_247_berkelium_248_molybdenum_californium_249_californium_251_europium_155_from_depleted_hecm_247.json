@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:centrifuge_berkelium_247_berkelium_248_molybdenum_californium_249_californium_251_europium_155_from_depleted_hecm_247"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:centrifuge_berkelium_247_berkelium_248_molybdenum_californium_249_californium_251_europium_155_from_depleted_hecm_247"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:beryllium"
+    },
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:fluorine"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:bef2"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

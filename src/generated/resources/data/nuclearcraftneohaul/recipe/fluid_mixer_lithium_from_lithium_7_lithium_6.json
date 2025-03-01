@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:lithium_7"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:lithium_6"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 160,
+      "fluid": "nuclearcraftneohaul:lithium"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.1111111111111112
+}

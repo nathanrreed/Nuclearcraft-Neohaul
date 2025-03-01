@@ -122,7 +122,6 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
         return FluidStack.EMPTY;
     }
 
-
     public FluidStack drain(int tank, int maxDrain, FluidAction action) {
         FluidStack fluid = fluids.get(tank);
         if (fluid.isEmpty()) return FluidStack.EMPTY;
@@ -177,7 +176,7 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
                 if (fluid.isEmpty()) {
                     fluids.set(i, resource.copyWithAmount(Math.min(capacity, resource.getAmount())));
                     onContentsChanged();
-                    return fluid.getAmount();
+                    return fluids.get(i).getAmount();
                 }
                 if (!FluidStack.isSameFluidSameComponents(fluid, resource)) {
                     return 0;

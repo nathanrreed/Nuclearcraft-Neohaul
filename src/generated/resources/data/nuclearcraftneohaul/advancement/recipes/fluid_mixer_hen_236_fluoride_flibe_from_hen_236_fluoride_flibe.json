@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:fluid_mixer_hen_236_fluoride_flibe_from_hen_236_fluoride_flibe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:fluid_mixer_hen_236_fluoride_flibe_from_hen_236_fluoride_flibe"
+    ]
+  }
+}

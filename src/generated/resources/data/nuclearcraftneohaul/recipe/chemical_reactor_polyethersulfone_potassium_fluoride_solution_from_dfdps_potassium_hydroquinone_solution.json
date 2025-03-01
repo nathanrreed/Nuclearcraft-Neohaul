@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:dfdps"
+    },
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:potassium_hydroquinone_solution"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:polyethersulfone"
+    },
+    {
+      "amount": 666,
+      "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 2.0
+}

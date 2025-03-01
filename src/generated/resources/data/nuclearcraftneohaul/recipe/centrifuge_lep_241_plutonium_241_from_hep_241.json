@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 64,
+      "fluid": "nuclearcraftneohaul:hep_241"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 96,
+      "fluid": "nuclearcraftneohaul:lep_241"
+    },
+    {
+      "amount": 48,
+      "fluid": "nuclearcraftneohaul:plutonium_241"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

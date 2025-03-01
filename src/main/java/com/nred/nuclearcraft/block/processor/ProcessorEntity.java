@@ -86,11 +86,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
 
             @Override
             public boolean canOutput(int tank) {
-                if (tank >= handlerInfo.numFluidInputs()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return tank >= handlerInfo.numFluidInputs();
             }
         };
 

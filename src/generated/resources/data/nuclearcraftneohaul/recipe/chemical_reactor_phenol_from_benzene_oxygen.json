@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:benzene"
+    },
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:oxygen"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:phenol"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 2.0
+}

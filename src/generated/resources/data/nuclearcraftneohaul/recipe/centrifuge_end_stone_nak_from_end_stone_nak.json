@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:end_stone_nak"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 360,
+      "fluid": "nuclearcraftneohaul:end_stone"
+    },
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:nak"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 0.5
+}

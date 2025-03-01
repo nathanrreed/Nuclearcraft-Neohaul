@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:chemical_reactor_polyethersulfone_potassium_fluoride_solution_from_dfdps_potassium_hydroquinone_solution"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:chemical_reactor_polyethersulfone_potassium_fluoride_solution_from_dfdps_potassium_hydroquinone_solution"
+    ]
+  }
+}

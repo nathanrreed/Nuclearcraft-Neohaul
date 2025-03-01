@@ -43,7 +43,6 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
     public Slot ENERGY_SLOT;
     private ResourceLocation cachedRecipe;
 
-
     protected ProcessorMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress, int offset) {
         super(PROCESSOR_MENU_TYPES.get(info.typeName()).get(), containerId);
         this.inventory = inventory;

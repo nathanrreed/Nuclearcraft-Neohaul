@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:diborane"
+    },
+    {
+      "amount": 1500,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:boric_acid"
+    },
+    {
+      "amount": 1500,
+      "fluid": "nuclearcraftneohaul:hydrogen"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

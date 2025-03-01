@@ -43,8 +43,8 @@ public class SimpleHelper {
         }
 
         double time = max(ticks / 20.0, 0.0);
-        double hours = time / 360.0;
-        time %= 360.0;
+        double hours = time / 3600.0;
+        time %= 3600.0;
         double mins = time / 60.0;
         time %= 60.0;
 

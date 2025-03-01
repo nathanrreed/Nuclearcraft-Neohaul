@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidInputs": [],
+  "fluidResults": [
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:manganese"
+    }
+  ],
+  "itemInputs": [
+    {
+      "count": 1,
+      "tag": "c:nuggets/manganese"
+    }
+  ],
+  "itemResults": [],
+  "powerModifier": 0.25,
+  "timeModifier": 0.1111111111111111
+}

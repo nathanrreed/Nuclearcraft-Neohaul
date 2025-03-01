@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 1000,
+      "fluid": "nuclearcraftneohaul:slurry_ice"
+    },
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:cryotheum"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 1000,
+      "fluid": "nuclearcraftneohaul:emergency_coolant"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

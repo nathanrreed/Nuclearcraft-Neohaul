@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:lecm_245"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 128,
+      "fluid": "nuclearcraftneohaul:curium_246"
+    },
+    {
+      "amount": 16,
+      "fluid": "nuclearcraftneohaul:curium_245"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

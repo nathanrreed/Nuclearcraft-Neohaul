@@ -1,0 +1,23 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 72,
+      "fluid": "nuclearcraftneohaul:boron"
+    },
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:arsenic"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:bas"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 2.0
+}

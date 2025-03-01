@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidInputs": [
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+    },
+    {
+      "amount": 500,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [
+    {
+      "amount": 333,
+      "fluid": "nuclearcraftneohaul:potassium_hydroquinone_solution"
+    },
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+    }
+  ],
+  "itemInputs": [],
+  "itemResults": [],
+  "powerModifier": 2.0,
+  "timeModifier": 1.0
+}

@@ -80,8 +80,8 @@ public class Config {
 
         BUILDER.comment("Chemical Reactor").push("chemical_reactor");
         BUILDER.defineInRange("fluid_capacity", 16000, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("base_power", 10, 1, Integer.MAX_VALUE);
-        BUILDER.defineInRange("base_time", 800, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("base_power", 5, 1, Integer.MAX_VALUE);
+        BUILDER.defineInRange("base_time", 400, 1, Integer.MAX_VALUE);
         BUILDER.pop();
 
         BUILDER.comment("Crystallizer").push("crystallizer");
