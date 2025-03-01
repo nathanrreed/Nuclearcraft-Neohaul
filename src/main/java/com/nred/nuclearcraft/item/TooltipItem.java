@@ -19,7 +19,7 @@ import static com.nred.nuclearcraft.info.Radiation.RAD_MAP;
 
 public class TooltipItem extends Item {
     private Component tooltip;
-    private List<MutableComponent> shiftTooltips;
+    public List<MutableComponent> shiftTooltips;
     public static final Component shiftForDetails = Component.translatable("tooltip.shift_for_info").withStyle(ChatFormatting.GRAY);
     private final boolean byPassShift;
 

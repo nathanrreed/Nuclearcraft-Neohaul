@@ -9,10 +9,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 
@@ -21,6 +18,18 @@ public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC = build();
     private static final Logger log = LoggerFactory.getLogger(Config.class);
+
+    private static boolean positive(Object element) {
+        return element instanceof Integer integer && integer > 0;
+    }
+
+    private static boolean range(Object element, int min, int max) {
+        return element instanceof Integer integer && integer > min && integer < max;
+    }
+
+    private static boolean range(Object element, double min, double max) {
+        return element instanceof Double num && num > min && num < max;
+    }
 
     private static ModConfigSpec build() {
         BUILDER.comment("Collector Settings").push("collector");
@@ -42,8 +51,8 @@ public class Config {
         BUILDER.pop();
 
         BUILDER.comment("Solar Power").push("solar");
-        BUILDER.defineList("production", List.of(5, 20, 80, 320), null, element -> (element instanceof Integer integer && integer > 0));
-        BUILDER.defineList("capacity", List.of(20, 80, 320, 1280), null, element -> (element instanceof Integer integer && integer > 0));
+        BUILDER.defineList("production", List.of(5, 20, 80, 320), null, Config::positive);
+        BUILDER.defineList("capacity", List.of(20, 80, 320, 1280), null, Config::positive);
         BUILDER.pop();
 
         BUILDER.defineInRange("lithium_ion_cell_capacity", 8000000, 1, Integer.MAX_VALUE);
@@ -174,10 +183,76 @@ public class Config {
 
         BUILDER.pop();
 
+        BUILDER.comment("Fission Fuel Info").push("fission_fuel_info");
+        BUILDER.defineList("thorium_fuel_time", List.of(14400, 14400, 18000, 11520, 18000), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("thorium_heat_generation", List.of(40, 40, 32, 50, 32), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("thorium_efficiency", List.of(1.25, 1.25, 1.25, 1.25, 1.25), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("thorium_criticality", List.of(199, 234, 293, 199, 234), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("thorium_decay_factor", List.of(0.04, 0.04, 0.04, 0.04, 0.04), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("thorium_self_priming", List.of(false, false, false, false, false), null, e -> e instanceof Boolean);
+
+        BUILDER.defineList("uranium_fuel_time", List.of(2666, 2666, 3348, 2134, 3348, 2666, 2666, 3348, 2134, 3348, 4800, 4800, 6000, 3840, 6000, 4800, 4800, 6000, 3840, 6000), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("uranium_heat_generation", List.of(216, 216, 172, 270, 172, 216 * 3, 216 * 3, 172 * 3, 270 * 3, 172 * 3, 120, 120, 96, 150, 96, 120 * 3, 120 * 3, 96 * 3, 150 * 3, 96 * 3), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("uranium_efficiency", List.of(1.1, 1.1, 1.1, 1.1, 1.1, 1.15, 1.15, 1.15, 1.15, 1.15, 1.0, 1.0, 1.0, 1.0, 1.0, 1.05, 1.05, 1.05, 1.05, 1.05), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("uranium_criticality", List.of(66, 78, 98, 66, 78, 66 / 2, 78 / 2, 98 / 2, 66 / 2, 78 / 2, 87, 102, 128, 87, 102, 87 / 2, 102 / 2, 128 / 2, 87 / 2, 102 / 2), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("uranium_decay_factor", Collections.nCopies(20, 0.065), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("uranium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), null, e -> e instanceof Boolean);
+
+        BUILDER.defineList("neptunium_fuel_time", List.of(1972, 1972, 2462, 1574, 2462, 1972, 1972, 2462, 1574, 2462), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("neptunium_heat_generation", List.of(292, 292, 234, 366, 234, 292 * 3, 292 * 3, 234 * 3, 366 * 3, 234 * 3), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("neptunium_efficiency", List.of(1.1, 1.1, 1.1, 1.1, 1.1, 1.15, 1.15, 1.15, 1.15, 1.15), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("neptunium_criticality", List.of(60, 70, 88, 60, 70, 60 / 2, 70 / 2, 88 / 2, 60 / 2, 70 / 2), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("neptunium_decay_factor", Collections.nCopies(10, 0.07), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("neptunium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), null, e -> e instanceof Boolean);
+
+        BUILDER.defineList("plutonium_fuel_time", List.of(4572, 4572, 5760, 3646, 5760, 4572, 4572, 5760, 3646, 5760, 3164, 3164, 3946, 2526, 3946, 3164, 3164, 3946, 2526, 3946), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("plutonium_heat_generation", List.of(126, 126, 100, 158, 100, 126 * 3, 126 * 3, 100 * 3, 158 * 3, 100 * 3, 182, 182, 146, 228, 146, 182 * 3, 182 * 3, 146 * 3, 228 * 3, 146 * 3), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("plutonium_efficiency", List.of(1.2, 1.2, 1.2, 1.2, 1.2, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.3, 1.3, 1.3, 1.3, 1.3), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("plutonium_criticality", List.of(84, 99, 124, 84, 99, 84 / 2, 99 / 2, 124 / 2, 84 / 2, 99 / 2, 71, 84, 105, 71, 84, 71 / 2, 84 / 2, 105 / 2, 71 / 2, 84 / 2), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("plutonium_decay_factor", Collections.nCopies(20, 0.075), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("plutonium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), null, e -> e instanceof Boolean);
+
+        BUILDER.defineList("mixed_fuel_time", List.of(4354, 4354, 5486, 3472, 5486, 3014, 3014, 3758, 2406, 3758), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("mixed_heat_generation", List.of(132, 132, 106, 166, 106, 192, 192, 154, 240, 154), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("mixed_efficiency", List.of(1.05, 1.05, 1.05, 1.05, 1.05, 1.15, 1.15, 1.15, 1.15, 1.15), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("mixed_criticality", List.of(80, 94, 118, 80, 94, 68, 80, 100, 68, 80), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("mixed_decay_factor", Collections.nCopies(10, 0.075), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("mixed_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), null, e -> e instanceof Boolean);
+
+        BUILDER.defineList("americium_fuel_time", List.of(1476, 1476, 1846, 1180, 1846, 1476, 1476, 1846, 1180, 1846), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("americium_heat_generation", List.of(390, 390, 312, 488, 312, 390 * 3, 390 * 3, 312 * 3, 488 * 3, 312 * 3), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("americium_efficiency", List.of(1.35, 1.35, 1.35, 1.35, 1.35, 1.4, 1.4, 1.4, 1.4, 1.4), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("americium_criticality", List.of(55, 65, 81, 55, 65, 55 / 2, 65 / 2, 81 / 2, 55 / 2, 65 / 2), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("americium_decay_factor", Collections.nCopies(10, 0.08), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("americium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), null, e -> e instanceof Boolean);
+
+        BUILDER.defineList("curium_fuel_time", List.of(1500, 1500, 1870, 1200, 1870, 1500, 1500, 1870, 1200, 1870, 2420, 2420, 3032, 1932, 3032, 2420, 2420, 3032, 1932, 3032, 2150, 2150, 2692, 1714, 2692, 2150, 2150, 2692, 1714, 2692), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("curium_heat_generation", List.of(384, 384, 308, 480, 308, 384 * 3, 384 * 3, 308 * 3, 480 * 3, 308 * 3, 238, 238, 190, 298, 190, 238 * 3, 238 * 3, 190 * 3, 298 * 3, 190 * 3, 268, 268, 214, 336, 214, 268 * 3, 268 * 3, 214 * 3, 336 * 3, 214 * 3), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("curium_efficiency", List.of(1.45, 1.45, 1.45, 1.45, 1.45, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.55, 1.55, 1.55, 1.55, 1.55, 1.55, 1.55, 1.55, 1.55, 1.55, 1.6, 1.6, 1.6, 1.6, 1.6), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("curium_criticality", List.of(56, 66, 83, 56, 66, 56 / 2, 66 / 2, 83 / 2, 56 / 2, 66 / 2, 64, 75, 94, 64, 75, 64 / 2, 75 / 2, 94 / 2, 64 / 2, 75 / 2, 61, 72, 90, 61, 72, 61 / 2, 72 / 2, 90 / 2, 61 / 2, 72 / 2), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("curium_decay_factor", Collections.nCopies(30, 0.085), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("curium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), null, e -> e instanceof Boolean);
+
+        BUILDER.defineList("berkelium_fuel_time", List.of(2166, 2166, 2716, 1734, 2716, 2166, 2166, 2716, 1734, 2716), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("berkelium_heat_generation", List.of(266, 266, 212, 332, 212, 266 * 3, 266 * 3, 212 * 3, 332 * 3, 212 * 3), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("berkelium_efficiency", List.of(1.65, 1.65, 1.65, 1.65, 1.65, 1.7, 1.7, 1.7, 1.7, 1.7), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("berkelium_criticality", List.of(62, 73, 91, 62, 73, 62 / 2, 73 / 2, 91 / 2, 62 / 2, 73 / 2), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("berkelium_decay_factor", Collections.nCopies(10, 0.09), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("berkelium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), null, e -> e instanceof Boolean);
+
+        BUILDER.defineList("californium_fuel_time", List.of(1066, 1066, 1334, 852, 1334, 1066, 1066, 1334, 852, 1334, 2000, 2000, 2504, 1600, 2504, 2000, 2000, 2504, 1600, 2504), null, e -> range(e, 1, Integer.MAX_VALUE));
+        BUILDER.defineList("californium_heat_generation", List.of(540, 540, 432, 676, 432, 540 * 3, 540 * 3, 432 * 3, 676 * 3, 432 * 3, 288, 288, 230, 360, 230, 288 * 3, 288 * 3, 230 * 3, 360 * 3, 230 * 3), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("californium_efficiency", List.of(1.75, 1.75, 1.75, 1.75, 1.75, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8, 1.85, 1.85, 1.85, 1.85, 1.85), null, e -> range(e, 0.0, 32767.0));
+        BUILDER.defineList("californium_criticality", List.of(51, 60, 75, 51, 60, 51 / 2, 60 / 2, 75 / 2, 51 / 2, 60 / 2, 60, 71, 89, 60, 71, 60 / 2, 71 / 2, 89 / 2, 60 / 2, 71 / 2), null, e -> range(e, 0, 32767));
+        BUILDER.defineList("californium_decay_factor", Collections.nCopies(20, 0.1), null, e -> range(e, 0.0, 1.0));
+        BUILDER.defineList("californium_self_priming", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), null, e -> e instanceof Boolean);
+        BUILDER.pop();
+
         return BUILDER.build();
     }
 
     public static Map<String, ProcessorConfig> PROCESSOR_CONFIG_MAP = new HashMap<>();
+    public static Map<String, FuelConfig> FUEL_CONFIG_MAP = new HashMap<>();
     public static List<Integer> SOLAR_CONFIG_PRODUCTION;
     public static List<Integer> SOLAR_CONFIG_CAPACITY;
     public static UpgradeConfig UPGRADES_CONFIG;
@@ -190,6 +265,9 @@ public class Config {
 
         for (String processor : PROCESSOR_MAP.keySet()) {
             PROCESSOR_CONFIG_MAP.put(processor, new ProcessorConfig(config.getIntOrElse("processor." + processor + ".base_time", 0), config.getIntOrElse("processor." + processor + ".base_power", 0), config.getIntOrElse("processor." + processor + ".fluid_capacity", 0)));
+        }
+        for (String type : List.of("thorium", "uranium", "neptunium", "plutonium", "mixed", "americium", "curium", "berkelium", "californium")) {
+            FUEL_CONFIG_MAP.put(type, new FuelConfig(config.get("fission_fuel_info." + type + "_fuel_time"), config.get("fission_fuel_info." + type + "_heat_generation"), config.get("fission_fuel_info." + type + "_efficiency"), config.get("fission_fuel_info." + type + "_criticality"), config.get("fission_fuel_info." + type + "_decay_factor"), config.get("fission_fuel_info." + type + "_fuel_time")));
         }
 
         SOLAR_CONFIG_PRODUCTION = config.get("solar.production");

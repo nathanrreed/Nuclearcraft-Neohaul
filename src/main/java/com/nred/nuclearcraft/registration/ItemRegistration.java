@@ -1,9 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.item.FoodItem;
-import com.nred.nuclearcraft.item.LithiumIonCell;
-import com.nred.nuclearcraft.item.PortableEnderChest;
-import com.nred.nuclearcraft.item.TooltipItem;
+import com.nred.nuclearcraft.item.*;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -51,19 +48,18 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_PLUTONIUM_MAP = createItems(DEPLETED_FUEL_PLUTONIUMS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_THORIUM_MAP = createItems(DEPLETED_FUEL_THORIUMS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_URANIUM_MAP = createItems(DEPLETED_FUEL_URANIUMS, "depleted", "");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_AMERICIUM_MAP = createItems(FUEL_AMERICIUMS,"");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_BERKELIUM_MAP = createItems(FUEL_BERKELIUMS,"");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_CALIFORNIUM_MAP = createItems(FUEL_CALIFORNIUMS,"");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_CURIUM_MAP = createItems(FUEL_CURIUMS,"");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_MIXED_MAP = createItems(FUEL_MIXEDS,"");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_NEPTUNIUM_MAP = createItems(FUEL_NEPTUNIUMS,"");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_PLUTONIUM_MAP = createItems(FUEL_PLUTONIUMS,"");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_THORIUM_MAP = createItems(FUEL_THORIUMS, "");
-    public static final HashMap<String, DeferredItem<Item>> FUEL_URANIUM_MAP = createItems(FUEL_URANIUMS, "");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_AMERICIUM_MAP = createFuels(FUEL_AMERICIUMS, "americium");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_BERKELIUM_MAP = createFuels(FUEL_BERKELIUMS, "berkelium");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_CALIFORNIUM_MAP = createFuels(FUEL_CALIFORNIUMS, "californium");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_CURIUM_MAP = createFuels(FUEL_CURIUMS, "curium");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_MIXED_MAP = createFuels(FUEL_MIXEDS, "mixed");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_NEPTUNIUM_MAP = createFuels(FUEL_NEPTUNIUMS, "neptunium");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_PLUTONIUM_MAP = createFuels(FUEL_PLUTONIUMS, "plutonium");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_THORIUM_MAP = createFuels(FUEL_THORIUMS, "thorium");
+    public static final HashMap<String, DeferredItem<Item>> FUEL_URANIUM_MAP = createFuels(FUEL_URANIUMS, "uranium");
     public static final HashMap<String, DeferredItem<Item>> LITHIUM_MAP = createItems(LITHIUMS, "lithium", "");
     public static final HashMap<String, DeferredItem<Item>> NEPTUNIUM_MAP = createItems(NEPTUNIUMS, "neptunium", "");
     public static final HashMap<String, DeferredItem<Item>> PLUTONIUM_MAP = createItems(PLUTONIUMS, "plutonium", "");
-//    public static final HashMap<String, DeferredItem<Item>> THORIUM_MAP = createItems(THORIUMS, "thorium", "");
     public static final HashMap<String, DeferredItem<Item>> URANIUM_MAP = createItems(URANIUMS, "uranium", "");
 
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String append) {
@@ -82,6 +78,14 @@ public class ItemRegistration {
         HashMap<String, DeferredItem<Item>> map = new HashMap<>();
         for (String name : names) {
             map.put(name, ITEMS.register((!prepend.isEmpty() ? prepend + "_" : "") + name + (!append.isEmpty() ? "_" + append : ""), () -> new TooltipItem(new Item.Properties(), byPassShift)));
+        }
+        return map;
+    }
+
+    private static HashMap<String, DeferredItem<Item>> createFuels(List<String> names, String type) {
+        HashMap<String, DeferredItem<Item>> map = new HashMap<>();
+        for (String name : names) {
+            map.put(name, ITEMS.register(name, () -> new FuelItem(new Item.Properties(), name, type)));
         }
         return map;
     }

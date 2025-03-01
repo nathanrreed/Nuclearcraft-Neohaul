@@ -241,6 +241,12 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void tooltips() {
+        add("tooltip.fission_0", "Fission Reactor Fuel");
+        add("tooltip.fission_1", "Base Depletion Time: %s");
+        add("tooltip.fission_2", "Base Heat Gen: %s H/t");
+        add("tooltip.fission_3", "Efficiency Multiplier: %s%%");
+        add("tooltip.fission_4", "Criticality Factor: %s N/t");
+
         add("tooltip.radiation", "Radiation: %s %sRad/t");
         add("tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");
         add("tooltip.collector", "Produces %s mb/t of %s constantly.");
