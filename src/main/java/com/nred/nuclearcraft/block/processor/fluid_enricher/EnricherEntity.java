@@ -18,6 +18,6 @@ public class EnricherEntity extends ProcessorEntity {
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new EnricherMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, "fluid_enricher"), this.progressSlot);
+        return new EnricherMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, itemStackHandler, fluidHandler, "fluid_enricher"), this.progressSlot);
     }
 }

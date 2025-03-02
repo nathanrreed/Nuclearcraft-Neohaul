@@ -18,6 +18,6 @@ public class ElectrolyzerEntity extends ProcessorEntity {
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ElectrolyzerMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, "electrolyzer"), this.progressSlot);
+        return new ElectrolyzerMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, itemStackHandler, fluidHandler, "electrolyzer"), this.progressSlot);
     }
 }

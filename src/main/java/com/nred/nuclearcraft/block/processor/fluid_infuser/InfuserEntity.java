@@ -18,6 +18,6 @@ public class InfuserEntity extends ProcessorEntity {
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new InfuserMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, "fluid_infuser"), this.progressSlot);
+        return new InfuserMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, itemStackHandler, fluidHandler, "fluid_infuser"), this.progressSlot);
     }
 }

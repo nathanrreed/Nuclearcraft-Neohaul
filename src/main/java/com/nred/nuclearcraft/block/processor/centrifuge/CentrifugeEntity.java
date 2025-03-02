@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block.processor.centrifuge;
 
 import com.ibm.icu.impl.Pair;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
 import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.menu.CentrifugeMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
@@ -19,7 +20,7 @@ import static com.nred.nuclearcraft.helpers.RecipeHelpers.probabilityUnpacker;
 
 public class CentrifugeEntity extends ProcessorEntity {
     public CentrifugeEntity(BlockPos pos, BlockState blockState) {
-        super(pos, blockState, "centrifuge", new HandlerInfo(0, 7, 2, 6));
+        super(pos, blockState, "centrifuge", new HandlerInfo(0, 7, 0, 1));
     }
 
     @Override
@@ -30,6 +31,7 @@ public class CentrifugeEntity extends ProcessorEntity {
         }
 
         for (int i = 0; i < recipe.value().fluidResults.size(); i++) {
+            if (fluidHandler.getOutputSetting(i + i) != CustomFluidStackHandler.FluidOutputSetting.VOID) continue;
             FluidStack temp = recipe.value().fluidResults.get(i).getFluids()[0].copy();
             if (i == 2 || i == 5) {
                 Pair<Short, Short> probability = probabilityUnpacker(temp.getAmount());
@@ -44,7 +46,26 @@ public class CentrifugeEntity extends ProcessorEntity {
     }
 
     @Override
+    public boolean roomForOutputs() {
+        for (int i = 0; i < recipe.value().fluidResults.size(); i++) {
+            if (fluidHandler.getOutputSetting(i + 1) == CustomFluidStackHandler.FluidOutputSetting.VOID) continue;
+            FluidStack temp = recipe.value().fluidResults.get(i).getFluids()[0].copy();
+            if (i == 2 || i == 5) {
+                Pair<Short, Short> probability = probabilityUnpacker(temp.getAmount());
+
+                if (fluidHandler.getOutputSetting(i + 1) == CustomFluidStackHandler.FluidOutputSetting.DEFAULT && recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(i + 1, recipe.value().fluidResults.get(i).getFluids()[0].copyWithAmount(probability.second), IFluidHandler.FluidAction.SIMULATE)) {
+                    return false;
+                }
+            } else if (fluidHandler.getOutputSetting(i + 1) == CustomFluidStackHandler.FluidOutputSetting.DEFAULT && recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(i + 1, recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.SIMULATE)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new CentrifugeMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, "centrifuge"), this.progressSlot);
+        return new CentrifugeMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, itemStackHandler, fluidHandler, "centrifuge"), this.progressSlot);
     }
 }

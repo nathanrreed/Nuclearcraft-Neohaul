@@ -18,6 +18,6 @@ public class AlloyFurnaceEntity extends ProcessorEntity {
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new AlloyFurnaceMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, "alloy_furnace"), this.progressSlot);
+        return new AlloyFurnaceMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, itemStackHandler, fluidHandler, "alloy_furnace"), this.progressSlot);
     }
 }

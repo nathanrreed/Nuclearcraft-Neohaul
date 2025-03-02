@@ -18,6 +18,6 @@ public class FuelReprocessorEntity extends ProcessorEntity {
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new FuelReprocessorMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, "fuel_reprocessor"), this.progressSlot);
+        return new FuelReprocessorMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, itemStackHandler, fluidHandler, "fuel_reprocessor"), this.progressSlot);
     }
 }

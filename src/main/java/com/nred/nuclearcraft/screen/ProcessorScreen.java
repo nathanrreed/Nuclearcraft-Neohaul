@@ -106,22 +106,31 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
             currentScreen = Screens.CHOSEN_SIDE_CONFIG;
             this.configType = configButton.type;
 
-            setConfigCycleButtons();
+            setConfigCycleButtons(configButton.index);
         }
     }
 
-    public void setConfigCycleButtons() {
+    public void setConfigCycleButtons(int index) {
         background = ncLoc("side_config/" + configType);
         configCycleButtons = new ArrayList<>(6);
-        drawSide(1, 0, top, "top");
-        drawSide(0, 1, side, "left");
-        drawSide(1, 1, front, "front");
-        drawSide(2, 1, side, "right");
-        drawSide(1, 2, bottom, "bottom");
-        drawSide(2, 2, back, "back");
+        drawSide(1, 0, index, top, "top");
+        drawSide(0, 1, index, side, "left");
+        drawSide(1, 1, index, front, "front");
+        drawSide(2, 1, index, side, "right");
+        drawSide(1, 2, index, bottom, "bottom");
+        drawSide(2, 2, index, back, "back");
 
         if (configType.contains("output")) {
-            configCycleButtons.add(new CycleButton(configLeft + 7, configTop + 25, "slot_setting", configType.contains("fluid") ? "tooltip.side_config.slot_setting.tank" : "tooltip.side_config.slot_setting.slot", null));
+            CycleButton temp;
+            if (configType.equals("fluid_output")) {
+                temp = new CycleButton(configLeft + 7, configTop + 25, "fluid_slot_setting", "tooltip.side_config.slot_setting.tank", index, null);
+                temp.setIndex(menu.info.fluidOutputSettings().get(index));
+            } else {
+                temp = new CycleButton(configLeft + 7, configTop + 25, "item_slot_setting", "tooltip.side_config.slot_setting.slot", index, null);
+                temp.setIndex(menu.info.itemOutputSettings().get(index));
+            }
+            temp.setTooltip();
+            configCycleButtons.add(temp);
         }
 
         for (CycleButton btn : configCycleButtons) {
@@ -129,12 +138,12 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         }
     }
 
-    private void drawSide(int col, int row, ResourceLocation texture, String dir) {
+    private void drawSide(int col, int row, int index, ResourceLocation texture, String dir) {
         boolean output = configType.contains("output");
         boolean fluid = configType.contains("fluid");
 
         int startX = configLeft + (output ? 29 : 7);
-        configCycleButtons.add(new CycleButton(startX + (col * 18), configTop + 7 + (row * 18), output ? (fluid ? "fluid_output" : "item_output") : (fluid ? "fluid_input" : "item_input"), "tooltip.side_config." + dir, texture));
+        configCycleButtons.add(new CycleButton(startX + (col * 18), configTop + 7 + (row * 18), output ? (fluid ? "fluid_output" : "item_output") : (fluid ? "fluid_input" : "item_input"), "tooltip.side_config." + dir, index, texture));
     }
 
     private enum Screens {
@@ -163,20 +172,22 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         sideConfigButton = new SimpleImageButton(leftPos + 27, topPos + 63 + offset, 18, 18, sideConfigSprites, button -> switchConfigView(true), Component.translatable("tooltip.side_config"));
 
         configButtons = new ArrayList<>(4);
-        configButtons.add(new ChangeSideConfigButton(menu.ENERGY_SLOT.x + leftPos - 1, menu.ENERGY_SLOT.y + topPos - 1, "energy_upgrade", this::onPress));
-        configButtons.add(new ChangeSideConfigButton(menu.SPEED_SLOT.x + leftPos - 1, menu.SPEED_SLOT.y + topPos - 1, "speed_upgrade", this::onPress));
+        configButtons.add(new ChangeSideConfigButton(menu.ENERGY_SLOT.x + leftPos - 1, menu.ENERGY_SLOT.y + topPos - 1, "energy_upgrade", 0, this::onPress));
+        configButtons.add(new ChangeSideConfigButton(menu.SPEED_SLOT.x + leftPos - 1, menu.SPEED_SLOT.y + topPos - 1, "speed_upgrade", 1, this::onPress));
 
+        int i = 0;
         for (Slot slot : menu.FLUID_INPUTS) {
-            configButtons.add(new ChangeSideConfigButton(slot.x + leftPos - 1, slot.y + topPos - 1, "fluid_input", this::onPress));
+            configButtons.add(new ChangeSideConfigButton(slot.x + leftPos - 1, slot.y + topPos - 1, "fluid_input", i++, this::onPress));
         }
         for (Slot slot : menu.FLUID_OUTPUTS) {
-            configButtons.add(new ChangeSideConfigButton(slot.x + leftPos - 1, slot.y + topPos - 1, "fluid_output", this::onPress, menu.FLUID_OUTPUTS.size() > 2 ? 18 : 26));
+            configButtons.add(new ChangeSideConfigButton(slot.x + leftPos - 1, slot.y + topPos - 1, "fluid_output", i++, this::onPress, menu.FLUID_OUTPUTS.size() > 2 ? 18 : 26));
         }
+        i = 2;
         for (Slot slot : menu.ITEM_INPUTS) {
-            configButtons.add(new ChangeSideConfigButton(slot.x + leftPos - 1, slot.y + topPos - 1, "item_input", this::onPress));
+            configButtons.add(new ChangeSideConfigButton(slot.x + leftPos - 1, slot.y + topPos - 1, "item_input", i++, this::onPress));
         }
         for (Slot slot : menu.ITEM_OUTPUTS) {
-            configButtons.add(new ChangeSideConfigButton(slot.x + leftPos - (menu.ITEM_OUTPUTS.size() > 2 ? 1 : 5), slot.y + topPos - (menu.ITEM_OUTPUTS.size() > 2 ? 1 : 5), "item_output", this::onPress, menu.ITEM_OUTPUTS.size() > 2 ? 18 : 26));
+            configButtons.add(new ChangeSideConfigButton(slot.x + leftPos - (menu.ITEM_OUTPUTS.size() > 2 ? 1 : 5), slot.y + topPos - (menu.ITEM_OUTPUTS.size() > 2 ? 1 : 5), "item_output", i++, this::onPress, menu.ITEM_OUTPUTS.size() > 2 ? 18 : 26));
         }
 
         this.configLeft = (this.width - 68) / 2;
@@ -200,7 +211,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (currentScreen != Screens.NORMAL && (keyCode == InputConstants.KEY_ESCAPE || Objects.requireNonNull(minecraft).options.keyInventory.isActiveAndMatches(InputConstants.getKey(keyCode, scanCode)))) {
+        if (currentScreen != Screens.NORMAL && (keyCode == InputConstants.KEY_ESCAPE || keyCode == InputConstants.KEY_BACKSPACE || Objects.requireNonNull(minecraft).options.keyInventory.isActiveAndMatches(InputConstants.getKey(keyCode, scanCode)))) {
             if (currentScreen != Screens.CHOSEN_SIDE_CONFIG) {
                 switchConfigView(false);
             } else { // Go back one screen
@@ -228,7 +239,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        if (currentScreen != Screens.CHOSEN_SIDE_CONFIG) {
+        if (currentScreen == Screens.NORMAL) {
             super.render(guiGraphics, mouseX, mouseY, partialTick);
             for (FluidSlot fluidSlot : Stream.of(menu.FLUID_INPUTS, menu.FLUID_OUTPUTS).flatMap(Collection::stream).toList()) { // Draw tooltip
                 if (!fluidSlot.getFluid().isEmpty() && isHovering(fluidSlot.x, fluidSlot.y, fluidSlot.size, fluidSlot.size, mouseX, mouseY)) {
@@ -238,21 +249,31 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
             }
 
             renderTooltip(guiGraphics, mouseX, mouseY);
+        } else if (currentScreen == Screens.SIDE_CONFIG) {
+            partialRender(guiGraphics, mouseX, mouseY, partialTick, this.renderables);
         } else {
-            this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-            NeoForge.EVENT_BUS.post(new Background(this, guiGraphics, mouseX, mouseY));
-            guiGraphics.blitSprite(background, configLeft, configTop, configType.contains("output") ? 90 : 68, 68);
-            for (Renderable renderable : this.configCycleButtons) {
-                renderable.render(guiGraphics, mouseX, mouseY, partialTick);
-            }
-            RenderSystem.disableDepthTest();
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate((float) this.leftPos, (float) this.topPos, 0.0F);
-            this.hoveredSlot = null;
-            NeoForge.EVENT_BUS.post(new Foreground(this, guiGraphics, mouseX, mouseY));
-            guiGraphics.pose().popPose();
-            RenderSystem.enableDepthTest();
+            partialRender(guiGraphics, mouseX, mouseY, partialTick, this.configCycleButtons);
         }
+    }
+
+    private void partialRender(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, List<? extends Renderable> renderables) {
+        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+        NeoForge.EVENT_BUS.post(new Background(this, guiGraphics, mouseX, mouseY));
+
+        if (currentScreen == Screens.CHOSEN_SIDE_CONFIG) {
+            guiGraphics.blitSprite(background, configLeft, configTop, configType.contains("output") ? 90 : 68, 68);
+        }
+        for (Renderable renderable : renderables) {
+            renderable.render(guiGraphics, mouseX, mouseY, partialTick);
+        }
+        RenderSystem.disableDepthTest();
+        guiGraphics.pose().pushPose();
+        guiGraphics.pose().translate((float) this.leftPos, (float) this.topPos, 0.0F);
+        this.hoveredSlot = null;
+        NeoForge.EVENT_BUS.post(new Foreground(this, guiGraphics, mouseX, mouseY));
+        guiGraphics.pose().popPose();
+        RenderSystem.enableDepthTest();
+        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override

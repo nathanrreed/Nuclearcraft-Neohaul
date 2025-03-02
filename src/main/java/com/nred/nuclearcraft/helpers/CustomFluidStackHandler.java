@@ -9,18 +9,29 @@ import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<CompoundTag> {
     private final int capacity;
     private final int tanks;
     private final boolean allowInput;
     private final boolean allowOutput;
     protected NonNullList<FluidStack> fluids;
+    public ArrayList<FluidOutputSetting> outputSettings;
+
+    public enum FluidOutputSetting {
+        DEFAULT, VOID_EXCESS, VOID;
+    }
 
     public CustomFluidStackHandler(int capacity, int tanks, boolean allowInput, boolean allowOutput) {
         this.capacity = capacity;
         this.tanks = tanks;
         this.allowInput = allowInput;
         this.allowOutput = allowOutput;
+        this.outputSettings = new ArrayList<>(Collections.nCopies(tanks, FluidOutputSetting.DEFAULT));
+
         setSize(tanks);
     }
 
@@ -56,11 +67,18 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
                 FluidStack.parse(lookupProvider, fluidTags).ifPresent(fluid -> fluids.set(slot, fluid));
             }
         }
+        this.outputSettings = new ArrayList<>(Arrays.stream(nbt.getIntArray("output_settings")).mapToObj(i -> FluidOutputSetting.values()[i]).toList());
+
         onLoad();
     }
 
     public void setSize(int size) {
         fluids = NonNullList.withSize(size, FluidStack.EMPTY);
+        if (size > this.outputSettings.size()) {
+            this.outputSettings.addAll(Collections.nCopies(size - this.outputSettings.size(), FluidOutputSetting.DEFAULT));
+        } else if (size < this.outputSettings.size()) {
+            this.outputSettings = new ArrayList<>(this.outputSettings.subList(0, size));
+        }
         onContentsChanged();
     }
 
@@ -86,6 +104,8 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
         CompoundTag nbt = new CompoundTag();
         nbt.put("Items", nbtTagList);
         nbt.putInt("Size", fluids.size());
+        nbt.putIntArray("output_settings", outputSettings.stream().map(Enum::ordinal).toList());
+
         return nbt;
     }
 
@@ -109,6 +129,7 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
         }
 
         if (getFluidAmount(tank) + amount > capacity) {
+            setFluid(tank, getFluidInTank(tank).copyWithAmount(capacity));
             return capacity - getFluidAmount(tank);
         }
         return amount;
@@ -158,7 +179,7 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
             int i = -1; // Will start at 0 always since i++ is right after, just makes continues easier
             for (FluidStack fluid : fluids) {
                 i++;
-                if (!isFluidValid(i, fluid)) continue;
+                if (!isFluidValid(i, resource)) continue;
                 if (fluid.isEmpty()) {
                     amount += Math.min(capacity, resource.getAmount());
                 }
@@ -231,6 +252,31 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
     }
 
     protected void onLoad() {
+    }
+
+    public void outputSetting(int index, boolean left) {
+        this.outputSettings.set(index, next(!left, this.outputSettings.get(index)));
+        onContentsChanged();
+    }
+
+    public FluidOutputSetting next(boolean reverse, FluidOutputSetting prev) {
+        if (reverse) {
+            return switch (prev) {
+                case DEFAULT -> FluidOutputSetting.VOID;
+                case VOID_EXCESS -> FluidOutputSetting.DEFAULT;
+                case VOID -> FluidOutputSetting.VOID_EXCESS;
+            };
+        } else {
+            return switch (prev) {
+                case DEFAULT -> FluidOutputSetting.VOID_EXCESS;
+                case VOID_EXCESS -> FluidOutputSetting.VOID;
+                case VOID -> FluidOutputSetting.DEFAULT;
+            };
+        }
+    }
+
+    public FluidOutputSetting getOutputSetting(int slot) {
+        return outputSettings.get(slot);
     }
 
     protected void onContentsChanged() {

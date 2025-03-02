@@ -94,7 +94,7 @@ public abstract class Processor extends BaseEntityBlock {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide) {
             if (level.getBlockEntity(pos) instanceof ProcessorEntity entity) {
-                player.openMenu(state.getMenuProvider(level, pos), buf -> new ProcessorInfo(pos, entity.redstoneMode, typeName).write(buf));
+                player.openMenu(state.getMenuProvider(level, pos), buf -> new ProcessorInfo(pos, entity.redstoneMode, entity.itemStackHandler, entity.fluidHandler, typeName).write(buf));
             } else {
                 throw new IllegalStateException("Missing Container Provider");
             }

@@ -127,9 +127,10 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
 
             @Override
             public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
-                if (slot <= ENERGY) {
-                    return super.extractItem(slot, amount, simulate);
-                } else if (slot > ENERGY + handlerInfo.numItemInputs()) {
+//                if (slot <= ENERGY) {
+//                    return super.extractItem(slot, amount, simulate);
+//                } else
+                if (slot > ENERGY + handlerInfo.numItemInputs()) {
                     return super.extractItem(slot, amount, simulate);
                 }
                 return ItemStack.EMPTY;
@@ -172,7 +173,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     public boolean validFluidSlot(@NotNull FluidStack stack) {
-        return level.getRecipeManager().getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(typeName).get()).stream().flatMap(holder -> holder.value().fluidInputs.stream()).flatMap(a -> Arrays.stream(a.getFluids())).parallel().anyMatch(itemStack -> itemStack.is(stack.getFluid()));
+        return level.getRecipeManager().getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(typeName).get()).stream().flatMap(holder -> holder.value().fluidInputs.stream()).flatMap(a -> Arrays.stream(a.getFluids())).parallel().anyMatch(fluidStack -> fluidStack.is(stack.getFluid()));
     }
 
     @Override
@@ -240,23 +241,25 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
 
     public void recipeOutputs() {
         for (int i = 0; i < recipe.value().itemResults.size(); i++) {
-            itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), false);
+            if (itemStackHandler.getOutputSetting(i + ENERGY + handlerInfo.numItemInputs() + 1) != CustomItemStackHandler.ItemOutputSetting.VOID)
+                itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), false);
         }
 
         for (int i = 0; i < recipe.value().fluidResults.size(); i++) {
-            fluidHandler.fill(handlerInfo.numFluidInputs() + i, recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.EXECUTE);
+            if (fluidHandler.getOutputSetting(i + handlerInfo.numFluidInputs()) != CustomFluidStackHandler.FluidOutputSetting.VOID)
+                fluidHandler.fill(i + handlerInfo.numFluidInputs(), recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.EXECUTE);
         }
     }
 
     public boolean roomForOutputs() {
         for (int i = 0; i < recipe.value().itemResults.size(); i++) {
-            if (itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), true) != ItemStack.EMPTY) {
+            if (itemStackHandler.getOutputSetting(i + handlerInfo.numItemInputs() + 1) == CustomItemStackHandler.ItemOutputSetting.DEFAULT && itemStackHandler.internalInsertItem(i + ENERGY + handlerInfo.numItemInputs() + 1, recipe.value().itemResults.get(i).getItems()[0].copy(), true) != ItemStack.EMPTY) {
                 return false;
             }
         }
 
         for (int i = 0; i < recipe.value().fluidResults.size(); i++) {
-            if (recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(handlerInfo.numFluidInputs() + i, recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.SIMULATE)) {
+            if (fluidHandler.getOutputSetting(i + handlerInfo.numFluidInputs()) == CustomFluidStackHandler.FluidOutputSetting.DEFAULT && recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(handlerInfo.numFluidInputs() + i, recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.SIMULATE)) {
                 return false;
             }
         }
@@ -296,9 +299,11 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
         return Component.translatable("menu.title." + typeName);
     }
 
-    public void handleButtonPress(ButtonEnum id) {
+    public void handleButtonPress(ButtonEnum id, int index, boolean left) {
         switch (id) {
             case REDSTONE_MODE -> redstoneMode ^= true;
+            case ITEM_OUTPUT_SLOT_SETTINGS -> itemStackHandler.outputSetting(index, left);
+            case FLUID_OUTPUT_SLOT_SETTINGS -> fluidHandler.outputSetting(index, left);
         }
     }
 

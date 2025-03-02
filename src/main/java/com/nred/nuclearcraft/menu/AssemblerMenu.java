@@ -4,7 +4,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
-import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class AssemblerMenu extends ProcessorMenu {
     public static final int INPUT_1 = 2;
@@ -16,11 +15,11 @@ public class AssemblerMenu extends ProcessorMenu {
     public AssemblerMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress, 12);
 
-        ITEM_INPUTS.add(this.addSlot(new SlotItemHandler(itemHandler, INPUT_1, 46, 31)));
-        ITEM_INPUTS.add(this.addSlot(new SlotItemHandler(itemHandler, INPUT_2, 66, 31)));
-        ITEM_INPUTS.add(this.addSlot(new SlotItemHandler(itemHandler, INPUT_3, 46, 51)));
-        ITEM_INPUTS.add(this.addSlot(new SlotItemHandler(itemHandler, INPUT_4, 66, 51)));
-        ITEM_OUTPUTS.add(this.addSlot(new SlotItemHandler(itemHandler, OUTPUT, 126, 41)));
+        ITEM_INPUTS.add(this.addSlot(new CustomSlotItemHandler(itemHandler, INPUT_1, 46, 31)));
+        ITEM_INPUTS.add(this.addSlot(new CustomSlotItemHandler(itemHandler, INPUT_2, 66, 31)));
+        ITEM_INPUTS.add(this.addSlot(new CustomSlotItemHandler(itemHandler, INPUT_3, 46, 51)));
+        ITEM_INPUTS.add(this.addSlot(new CustomSlotItemHandler(itemHandler, INPUT_4, 66, 51)));
+        ITEM_OUTPUTS.add(this.addSlot(new CustomSlotItemHandler(itemHandler, OUTPUT, 126, 41)));
     }
 
     // Client Constructor

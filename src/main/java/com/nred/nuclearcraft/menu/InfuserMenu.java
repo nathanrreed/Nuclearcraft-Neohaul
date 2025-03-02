@@ -4,7 +4,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
-import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class InfuserMenu extends ProcessorMenu {
     public static final int INPUT = 2;
@@ -14,9 +13,9 @@ public class InfuserMenu extends ProcessorMenu {
     public InfuserMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
         super(containerId, inventory, access, info, progress);
 
-        ITEM_INPUTS.add(this.addSlot(new SlotItemHandler(itemHandler, INPUT, 46, 35)));
+        ITEM_INPUTS.add(this.addSlot(new CustomSlotItemHandler(itemHandler, INPUT, 46, 35)));
         FLUID_INPUTS.add((FluidSlot) this.addSlot(new FluidSlot(fluidHandler, FLUID_INPUT, 66, 35)));
-        ITEM_OUTPUTS.add(this.addSlot(new SlotItemHandler(itemHandler, OUTPUT, 126, 35)));
+        ITEM_OUTPUTS.add(this.addSlot(new CustomSlotItemHandler(itemHandler, OUTPUT, 126, 35)));
     }
 
     // Client Constructor

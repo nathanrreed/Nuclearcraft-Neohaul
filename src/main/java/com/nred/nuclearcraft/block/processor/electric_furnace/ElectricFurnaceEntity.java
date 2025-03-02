@@ -31,7 +31,7 @@ public class ElectricFurnaceEntity extends ProcessorEntity {
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ElectricFurnaceMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, "electric_furnace"), this.progressSlot);
+        return new ElectricFurnaceMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, itemStackHandler, fluidHandler, "electric_furnace"), this.progressSlot);
     }
 
     @Override

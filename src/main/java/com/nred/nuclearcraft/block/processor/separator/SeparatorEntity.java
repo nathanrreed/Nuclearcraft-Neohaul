@@ -18,6 +18,6 @@ public class SeparatorEntity extends ProcessorEntity {
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new SeparatorMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode, "separator"), this.progressSlot);
+        return new SeparatorMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), new ProcessorInfo(worldPosition, redstoneMode,itemStackHandler, fluidHandler, "separator"), this.progressSlot);
     }
 }

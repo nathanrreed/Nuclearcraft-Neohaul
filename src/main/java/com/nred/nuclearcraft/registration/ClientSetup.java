@@ -62,7 +62,7 @@ public class ClientSetup {
         event.register(((MenuType<MelterMenu>) PROCESSOR_MENU_TYPES.get("melter").get()), MelterScreen::new);
         event.register(((MenuType<PressurizerMenu>) PROCESSOR_MENU_TYPES.get("pressurizer").get()), PressurizerScreen::new);
         event.register(((MenuType<RockCrusherMenu>) PROCESSOR_MENU_TYPES.get("rock_crusher").get()), RockCrusherScreen::new);
-        event.register(((MenuType<SaltMixerMenu>) PROCESSOR_MENU_TYPES.get("fluid_mixer").get()), SaltMixerScreen::new);
+        event.register(((MenuType<SaltMixerMenu>) PROCESSOR_MENU_TYPES.get("fluid_mixer").get()), FluidMixerScreen::new);
         event.register(((MenuType<SeparatorMenu>) PROCESSOR_MENU_TYPES.get("separator").get()), SeparatorScreen::new);
         event.register(((MenuType<SupercoolerMenu>) PROCESSOR_MENU_TYPES.get("supercooler").get()), SupercoolerScreen::new);
     }

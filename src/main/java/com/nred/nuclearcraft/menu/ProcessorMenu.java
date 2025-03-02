@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.menu;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
+import com.nred.nuclearcraft.helpers.CustomItemStackHandler;
 import com.nred.nuclearcraft.helpers.MenuHelper;
 import com.nred.nuclearcraft.payload.RecipeSetPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -31,7 +32,7 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
     public IEnergyStorage energyStorage;
     public final Inventory inventory;
     public ContainerLevelAccess access;
-    public final ProcessorInfo info;
+    public ProcessorInfo info;
     public DataSlot progress;
     public static final int SPEED = 0;
     public static final int ENERGY = 1;
@@ -63,8 +64,8 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
         }
 
         // Upgrade slots
-        SPEED_SLOT = this.addSlot(new SlotItemHandler(itemHandler, SPEED, 132, 64 + offset));
-        ENERGY_SLOT = this.addSlot(new SlotItemHandler(itemHandler, ENERGY, 152, 64 + offset));
+        SPEED_SLOT = this.addSlot(new CustomSlotItemHandler(itemHandler, SPEED, 132, 64 + offset));
+        ENERGY_SLOT = this.addSlot(new CustomSlotItemHandler(itemHandler, ENERGY, 152, 64 + offset));
     }
 
     @Override
@@ -96,5 +97,37 @@ public abstract class ProcessorMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(this.access, player, PROCESSOR_MAP.get(info.typeName()).get());
+    }
+
+    public class CustomSlotItemHandler extends SlotItemHandler {
+        public CustomSlotItemHandler(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        public CustomItemStackHandler getCustomItemHandler() {
+            return (CustomItemStackHandler) itemHandler;
+        }
+
+        @Override
+        public boolean mayPickup(Player playerIn) {
+            return !this.getCustomItemHandler().internalExtractItem(index, 1, true).isEmpty();
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            if (stack.isEmpty())
+                return false;
+
+            if (index > ENERGY + ITEM_INPUTS.size()) { // Outputs can only be done internally so I am just going to assume it's fine
+                return false;
+            } else {
+                return super.mayPlace(stack);
+            }
+        }
+
+        @Override
+        public ItemStack remove(int amount) {
+            return this.getCustomItemHandler().internalExtractItem(index, amount, false);
+        }
     }
 }
