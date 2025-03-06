@@ -2,12 +2,11 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.block.SolidifiedCorium;
 import com.nred.nuclearcraft.block.SupercoldIceBlock;
-import com.nred.nuclearcraft.block.machine_interface.MachineInterface;
-import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGenerator;
 import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollector;
 import com.nred.nuclearcraft.block.collector.water_source.WaterSource;
+import com.nred.nuclearcraft.block.machine_interface.MachineInterface;
 import com.nred.nuclearcraft.block.processor.alloy_furnace.AlloyFurnace;
 import com.nred.nuclearcraft.block.processor.assembler.Assembler;
 import com.nred.nuclearcraft.block.processor.centrifuge.Centrifuge;
@@ -29,6 +28,7 @@ import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusher;
 import com.nred.nuclearcraft.block.processor.separator.Separator;
 import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
 import com.nred.nuclearcraft.block.solar.SolarPanel;
+import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.BlockGetter;
@@ -65,6 +65,7 @@ public class BlockRegistration {
     private static final BlockBehaviour.Properties BASE_PROPERTIES = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 1200.0F).isValidSpawn(Blocks::never).isRedstoneConductor((a, b, c) -> false);
     public static final HashMap<String, DeferredBlock<Block>> PROCESSOR_MAP = createProcessors();
 
+    public static final DeferredBlock<Block> TRITIUM_LAMP = registerBlockItem("tritium_lamp", () -> new Block(BlockBehaviour.Properties.of().lightLevel(blockState -> 15)));
     public static final DeferredBlock<Block> SUPERCOLD_ICE = registerBlockItem("supercold_ice", SupercoldIceBlock::new);
     public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCorium::new);
     public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItem("universal_bin", UniversalBin::new);

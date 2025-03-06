@@ -23,9 +23,6 @@ public class DecayHastenerProvider {
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("protactinium_233"), 1).addItemResult(URANIUM_MAP.get("233"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("strontium_90"), 1).addItemResult(DUST_MAP.get("zirconium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("ruthenium_106"), 1).addItemResult(DUST_MAP.get("palladium"), 1).save(recipeOutput);
-//        new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("caesium_137"), 1).addItemResult(DUST_MAP.get("barium"), 1).save(recipeOutput);
-//        new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("promethium_147"), 1).addItemResult(DUST_MAP.get("neodymium"), 1).save(recipeOutput);
-//        new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("europium_155"), 1).addItemResult(DUST_MAP.get("gadolinium"), 1).save(recipeOutput);
 
         addIsotopes(recipeOutput, URANIUM_MAP, "233", FISSION_DUST_MAP, "bismuth", 1, 1);
         addIsotopes(recipeOutput, URANIUM_MAP, "235", DUST_MAP, "lead", 1, 1);

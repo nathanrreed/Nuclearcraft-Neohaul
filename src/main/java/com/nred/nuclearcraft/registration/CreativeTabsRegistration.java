@@ -30,6 +30,7 @@ public class CreativeTabsRegistration {
                 output.accept(UNIVERSAL_BIN);
                 output.accept(MACHINE_INTERFACE);
                 output.accept(LITHIUM_ION_CELL);
+                output.accept(MULTI_TOOL);
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RADIATION_TAB = CREATIVE_MODE_TABS.register("radiation_tab", () -> CreativeModeTab.builder()
@@ -42,13 +43,14 @@ public class CreativeTabsRegistration {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MISC_TAB = CREATIVE_MODE_TABS.register("misc_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creative_tab.title.miscellaneous"))
-            .withTabsBefore(MACHINES_TAB.getId())
+            .withTabsBefore(RADIATION_TAB.getId())
             .icon(() -> FOOD_MAP.get("smore").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
+                output.accept(TRITIUM_LAMP);
+                output.accept(SOLIDIFIED_CORIUM);
+                output.accept(PORTABLE_ENDER_CHEST);
                 output.acceptAll(itemStackValues(MUSIC_DISC_MAP, FOOD_MAP));
                 output.accept(FOURSMORE);
-                output.accept(PORTABLE_ENDER_CHEST);
-                output.accept(SOLIDIFIED_CORIUM);
             }).build());
 
     public static void init() {

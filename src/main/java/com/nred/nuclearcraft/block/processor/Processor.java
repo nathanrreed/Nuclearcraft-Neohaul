@@ -1,12 +1,16 @@
 package com.nred.nuclearcraft.block.processor;
 
+import com.nred.nuclearcraft.helpers.SideConfigEnums;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import com.nred.nuclearcraft.menu.ProcessorMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -37,6 +42,7 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.PROCESSOR_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.ItemRegistration.MULTI_TOOL;
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
 public abstract class Processor extends BaseEntityBlock {
@@ -80,6 +86,41 @@ public abstract class Processor extends BaseEntityBlock {
                 } else if (entity.itemStackHandler.internalInsertItem(ProcessorMenu.ENERGY, stack.copyWithCount(1), false).getCount() == 0) {
                     rtnStack = stack.copyWithCount(stack.getCount() - 1);
                 }
+            } else if (stack.is(MULTI_TOOL)) {
+                if (Screen.hasShiftDown()) {
+                    CompoundTag tag = new CompoundTag();
+                    CompoundTag item = new CompoundTag();
+                    CompoundTag fluid = new CompoundTag();
+                    item = SideConfigEnums.OutputSetting.serializeNBT(null, item, entity.itemStackHandler.outputSettings);
+                    item = SideConfigEnums.SideConfigSetting.serializeNBT(null, item, entity.itemStackHandler.sideConfig);
+                    fluid = SideConfigEnums.OutputSetting.serializeNBT(null, fluid, entity.fluidHandler.outputSettings);
+                    fluid = SideConfigEnums.SideConfigSetting.serializeNBT(null, fluid, entity.fluidHandler.sideConfig);
+                    tag.putString("type", "block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey());
+                    tag.put("item", item);
+                    tag.put("fluid", fluid);
+                    stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+
+                    if (level.isClientSide)
+                        player.sendSystemMessage(Component.translatable("message.multitool.save", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                } else {
+                    CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                    if (tag.isEmpty()) return ItemInteractionResult.CONSUME;
+
+                    if (!tag.getString("type").equals("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())) {
+                        if (level.isClientSide)
+                            player.sendSystemMessage(Component.translatable("message.multitool.error", Component.translatable(tag.getString("type")), Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                    } else {
+                        entity.itemStackHandler.outputSettings = SideConfigEnums.OutputSetting.deserializeNBT(null, (CompoundTag) tag.get("item"));
+                        entity.itemStackHandler.sideConfig = SideConfigEnums.SideConfigSetting.deserializeNBT(null, (CompoundTag) tag.get("item"));
+                        entity.fluidHandler.outputSettings = SideConfigEnums.OutputSetting.deserializeNBT(null, (CompoundTag) tag.get("fluid"));
+                        entity.fluidHandler.sideConfig = SideConfigEnums.SideConfigSetting.deserializeNBT(null, (CompoundTag) tag.get("fluid"));
+
+                        if (level.isClientSide)
+                            player.sendSystemMessage(Component.translatable("message.multitool.load", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                    }
+                }
+
+                return ItemInteractionResult.CONSUME;
             }
 
             if (rtnStack.getCount() < stack.getCount()) { // At least 1 was transferred

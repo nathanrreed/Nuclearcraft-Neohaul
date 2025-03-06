@@ -1,0 +1,32 @@
+{
+  "type": "nuclearcraftneohaul:infuser_recipe",
+  "fluidInputs": [
+    {
+      "amount": 2000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:dirt"
+        },
+        {
+          "item": "minecraft:grass_block"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "minecraft:clay"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

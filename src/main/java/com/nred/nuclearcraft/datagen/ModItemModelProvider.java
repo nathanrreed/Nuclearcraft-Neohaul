@@ -78,6 +78,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         basicItem(PORTABLE_ENDER_CHEST.get());
         basicItem(LITHIUM_ION_CELL.get());
+        basicItem(MULTI_TOOL.get());
 
         buckets();
     }

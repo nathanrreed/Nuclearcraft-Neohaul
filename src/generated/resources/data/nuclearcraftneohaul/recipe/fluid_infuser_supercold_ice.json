@@ -1,0 +1,32 @@
+{
+  "type": "nuclearcraftneohaul:infuser_recipe",
+  "fluidInputs": [
+    {
+      "amount": 50,
+      "fluid": "nuclearcraftneohaul:liquid_helium"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "type": "neoforge:compound",
+      "children": [
+        {
+          "item": "minecraft:ice"
+        },
+        {
+          "item": "minecraft:packed_ice"
+        }
+      ],
+      "count": 1
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:supercold_ice"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 0.25
+}

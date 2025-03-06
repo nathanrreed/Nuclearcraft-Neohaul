@@ -1,0 +1,24 @@
+{
+  "type": "nuclearcraftneohaul:infuser_recipe",
+  "fluidInputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:lava"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:water_source"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "nuclearcraftneohaul:cobblestone_generator"
+    }
+  ],
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

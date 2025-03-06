@@ -1,0 +1,24 @@
+{
+  "type": "nuclearcraftneohaul:infuser_recipe",
+  "fluidInputs": [
+    {
+      "amount": 1000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 1,
+      "item": "minecraft:light_gray_concrete_powder"
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "item": "minecraft:light_gray_concrete"
+    }
+  ],
+  "powerModifier": 0.5,
+  "timeModifier": 0.5
+}

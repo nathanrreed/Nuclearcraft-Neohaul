@@ -35,12 +35,14 @@ public class ModLanguageProvider extends LanguageProvider {
         blocks();
         buckets();
         tooltips();
+        messages();
         menus();
         creativeTabs();
         musicDiscs();
         damage_types();
 
         add(SUPERCOLD_ICE.asItem(), capitalize(SUPERCOLD_ICE.getId().getPath()));
+        add(TRITIUM_LAMP.asItem(), capitalize(TRITIUM_LAMP.getId().getPath()));
         add(UNIVERSAL_BIN.asItem(), capitalize(UNIVERSAL_BIN.getId().getPath()));
         add(MACHINE_INTERFACE.asItem(), capitalize(MACHINE_INTERFACE.getId().getPath()));
         add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
@@ -118,6 +120,7 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleItems(FOOD_MAP, Map.of("dominos", "Domino's Special", "smore", "S'more S'mingot", "moresmore", "MoreS'more DoubleS'mingot"));
         add(PORTABLE_ENDER_CHEST.get(), "Portable Ender Chest");
         add(FOURSMORE.get(), "FourS'more QuadS'mingot");
+        add(MULTI_TOOL.get(), "Multitool");
     }
 
     private void blocks() {
@@ -238,6 +241,12 @@ public class ModLanguageProvider extends LanguageProvider {
             add(type.get(fluid).type.get().getDescriptionId(), name);
             add(type.get(fluid).block.get(), name);
         }
+    }
+
+    private void messages() {
+        add("message.multitool.save", "Saved %s configuration to Multitool");
+        add("message.multitool.load", "Loaded %s configuration from Multitool");
+        add("message.multitool.error", "%s configuration cannot be loaded to %s");
     }
 
     private void tooltips() {

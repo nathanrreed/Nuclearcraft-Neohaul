@@ -42,6 +42,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(SOLIDIFIED_CORIUM);
         blockWithItem(UNIVERSAL_BIN);
         blockWithItem(MACHINE_INTERFACE);
+        blockWithItem(TRITIUM_LAMP);
         crossBlock(GLOWING_MUSHROOM);
 
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
