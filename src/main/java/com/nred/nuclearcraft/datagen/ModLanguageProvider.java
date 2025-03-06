@@ -292,12 +292,12 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.side_config.item_input", "Input Slot Configuration");
         add("tooltip.side_config.item_output", "Output Slot Configuration");
 
-        add("tooltip.side_config.top", "TOP: %s");
-        add("tooltip.side_config.left", "LEFT: %s");
-        add("tooltip.side_config.front", "FRONT: %s");
-        add("tooltip.side_config.right", "RIGHT: %s");
-        add("tooltip.side_config.bottom", "BOTTOM: %s");
-        add("tooltip.side_config.back", "BACK: %s");
+        add("tooltip.side_config.up", "TOP: %s");
+        add("tooltip.side_config.west", "LEFT: %s");
+        add("tooltip.side_config.north", "FRONT: %s");
+        add("tooltip.side_config.east", "RIGHT: %s");
+        add("tooltip.side_config.down", "BOTTOM: %s");
+        add("tooltip.side_config.south", "BACK: %s");
 
         add("tooltip.side_config.disabled", "DISABLED");
         add("tooltip.side_config.input", "INPUT");

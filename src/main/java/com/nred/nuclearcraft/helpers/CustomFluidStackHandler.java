@@ -1,5 +1,8 @@
 package com.nred.nuclearcraft.helpers;
 
+import com.nred.nuclearcraft.helpers.SideConfigEnums.OutputSetting;
+import com.nred.nuclearcraft.helpers.SideConfigEnums.SideConfigSetting;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -9,30 +12,44 @@ import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<CompoundTag> {
+public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<CompoundTag>, IProcessorHandlerConfigs {
     private final int capacity;
     private final int tanks;
     private final boolean allowInput;
     private final boolean allowOutput;
     protected NonNullList<FluidStack> fluids;
-    public ArrayList<FluidOutputSetting> outputSettings;
-
-    public enum FluidOutputSetting {
-        DEFAULT, VOID_EXCESS, VOID;
-    }
+    public ArrayList<OutputSetting> outputSettings;
+    public Map<Direction, List<SideConfigSetting>> sideConfig;
 
     public CustomFluidStackHandler(int capacity, int tanks, boolean allowInput, boolean allowOutput) {
         this.capacity = capacity;
         this.tanks = tanks;
         this.allowInput = allowInput;
         this.allowOutput = allowOutput;
-        this.outputSettings = new ArrayList<>(Collections.nCopies(tanks, FluidOutputSetting.DEFAULT));
 
         setSize(tanks);
+    }
+
+    public void createOutputSettings() {
+        if (outputSettings == null) {
+            this.outputSettings = new ArrayList<>(Collections.nCopies(tanks, OutputSetting.DEFAULT));
+        } else {
+            throw new IllegalStateException("Output setting already exists");
+        }
+    }
+
+    @Override
+    public void createSideConfig(int inputs, int outputs) {
+        if (sideConfig == null) {
+            this.sideConfig = Arrays.stream(Direction.values()).collect(Collectors.toMap(Function.identity(), dir -> new ArrayList<>(Stream.of(Collections.nCopies(inputs, SideConfigEnums.SideConfigSetting.INPUT), Collections.nCopies(outputs, SideConfigEnums.SideConfigSetting.OUTPUT)).flatMap(Collection::stream).toList())));
+        } else {
+            throw new IllegalStateException("Output setting already exists");
+        }
     }
 
     @Override
@@ -56,7 +73,7 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
 
     public abstract boolean canOutput(int tank);
 
-    public void deserializeNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         setSize(nbt.contains("Size", Tag.TAG_INT) ? nbt.getInt("Size") : fluids.size());
         ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); i++) {
@@ -64,21 +81,17 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
             int slot = fluidTags.getInt("Slot");
 
             if (slot >= 0 && slot < fluids.size()) {
-                FluidStack.parse(lookupProvider, fluidTags).ifPresent(fluid -> fluids.set(slot, fluid));
+                FluidStack.parse(provider, fluidTags).ifPresent(fluid -> fluids.set(slot, fluid));
             }
         }
-        this.outputSettings = new ArrayList<>(Arrays.stream(nbt.getIntArray("output_settings")).mapToObj(i -> FluidOutputSetting.values()[i]).toList());
+        this.outputSettings = OutputSetting.deserializeNBT(provider, nbt);
+        this.sideConfig = SideConfigSetting.deserializeNBT(provider, nbt);
 
         onLoad();
     }
 
     public void setSize(int size) {
         fluids = NonNullList.withSize(size, FluidStack.EMPTY);
-        if (size > this.outputSettings.size()) {
-            this.outputSettings.addAll(Collections.nCopies(size - this.outputSettings.size(), FluidOutputSetting.DEFAULT));
-        } else if (size < this.outputSettings.size()) {
-            this.outputSettings = new ArrayList<>(this.outputSettings.subList(0, size));
-        }
         onContentsChanged();
     }
 
@@ -92,19 +105,20 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
         onContentsChanged();
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider lookupProvider) {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.getTanks(); i++) {
             if (!fluids.get(i).isEmpty()) {
                 CompoundTag fluidTag = new CompoundTag();
                 fluidTag.putInt("Slot", i);
-                nbtTagList.add(fluids.get(i).save(lookupProvider, fluidTag));
+                nbtTagList.add(fluids.get(i).save(provider, fluidTag));
             }
         }
         CompoundTag nbt = new CompoundTag();
         nbt.put("Items", nbtTagList);
         nbt.putInt("Size", fluids.size());
-        nbt.putIntArray("output_settings", outputSettings.stream().map(Enum::ordinal).toList());
+        nbt = OutputSetting.serializeNBT(provider, nbt, outputSettings);
+        nbt = SideConfigSetting.serializeNBT(provider, nbt, sideConfig);
 
         return nbt;
     }
@@ -171,6 +185,10 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
 
     // Normal insert and extract for use within the mod
     public int internalInsertFluid(FluidStack resource, FluidAction action) {
+        return internalInsertFluid(resource, action, false, Direction.NORTH);
+    }
+
+    public int internalInsertFluid(FluidStack resource, FluidAction action, boolean check, Direction dir) {
         if (resource.isEmpty()) {
             return 0;
         }
@@ -179,7 +197,7 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
             int i = -1; // Will start at 0 always since i++ is right after, just makes continues easier
             for (FluidStack fluid : fluids) {
                 i++;
-                if (!isFluidValid(i, resource)) continue;
+                if ((check && !sideConfig.get(dir).get(i).equals(SideConfigSetting.INPUT)) || !isFluidValid(i, resource)) continue;
                 if (fluid.isEmpty()) {
                     amount += Math.min(capacity, resource.getAmount());
                 }
@@ -193,7 +211,7 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
             int i = -1; // Will start at 0 always since i++ is right after, just makes continues easier
             for (FluidStack fluid : fluids) {
                 i++;
-                if (!isFluidValid(i, resource)) continue;
+                if ((check && !sideConfig.get(dir).get(i).equals(SideConfigSetting.INPUT)) || !isFluidValid(i, resource)) continue;
                 if (fluid.isEmpty()) {
                     fluids.set(i, resource.copyWithAmount(Math.min(capacity, resource.getAmount())));
                     onContentsChanged();
@@ -220,9 +238,13 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
     }
 
     public FluidStack internalExtractFluid(int maxDrain, FluidAction action) {
+        return internalExtractFluid(maxDrain, action, false, Direction.NORTH);
+    }
+
+    public FluidStack internalExtractFluid(int maxDrain, FluidAction action, boolean check, Direction dir) {
         for (int i = 0; i < fluids.size(); i++) {
             FluidStack fluid = fluids.get(i);
-            if (fluid.isEmpty() || !canOutput(i)) continue;
+            if ((check && !sideConfig.get(dir).get(i).equals(SideConfigSetting.OUTPUT)) || fluid.isEmpty() || !canOutput(i)) continue;
             int drained = maxDrain;
             if (fluid.getAmount() < drained) {
                 drained = fluid.getAmount();
@@ -245,8 +267,12 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
     }
 
     public FluidStack internalExtractFluid(FluidStack resource, FluidAction action) {
+        return internalExtractFluid(resource, action, false, Direction.NORTH);
+    }
+
+    public FluidStack internalExtractFluid(FluidStack resource, FluidAction action, boolean check, Direction dir) {
         if (fluids.stream().anyMatch(fluidStack -> fluidStack.is(resource.getFluid()))) {
-            return internalExtractFluid(resource.getAmount(), action);
+            return internalExtractFluid(resource.getAmount(), action, check, dir);
         }
         return FluidStack.EMPTY;
     }
@@ -255,28 +281,24 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
     }
 
     public void outputSetting(int index, boolean left) {
-        this.outputSettings.set(index, next(!left, this.outputSettings.get(index)));
+        this.outputSettings.set(index, this.outputSettings.get(index).next(!left));
         onContentsChanged();
     }
 
-    public FluidOutputSetting next(boolean reverse, FluidOutputSetting prev) {
-        if (reverse) {
-            return switch (prev) {
-                case DEFAULT -> FluidOutputSetting.VOID;
-                case VOID_EXCESS -> FluidOutputSetting.DEFAULT;
-                case VOID -> FluidOutputSetting.VOID_EXCESS;
-            };
-        } else {
-            return switch (prev) {
-                case DEFAULT -> FluidOutputSetting.VOID_EXCESS;
-                case VOID_EXCESS -> FluidOutputSetting.VOID;
-                case VOID -> FluidOutputSetting.DEFAULT;
-            };
-        }
+    public void sideConfig(int index, Direction dir, int inputs, boolean left) {
+        this.sideConfig.get(dir).set(index, index >= inputs ? this.sideConfig.get(dir).get(index).nextOutput(left) : this.sideConfig.get(dir).get(index).nextInput(left));
+
+        onContentsChanged();
     }
 
-    public FluidOutputSetting getOutputSetting(int slot) {
+    public OutputSetting getOutputSetting(int slot) {
+        if (outputSettings == null) return null;
         return outputSettings.get(slot);
+    }
+
+    public SideConfigSetting getSideConfig(int slot, Direction direction) {
+        if (sideConfig == null) return null;
+        return sideConfig.get(direction).get(slot);
     }
 
     protected void onContentsChanged() {

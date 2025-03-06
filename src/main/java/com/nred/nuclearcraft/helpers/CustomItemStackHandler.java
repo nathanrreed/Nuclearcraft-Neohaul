@@ -1,29 +1,30 @@
 package com.nred.nuclearcraft.helpers;
 
+import com.nred.nuclearcraft.helpers.SideConfigEnums.OutputSetting;
+import com.nred.nuclearcraft.helpers.SideConfigEnums.SideConfigSetting;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class CustomItemStackHandler extends ItemStackHandler {
+public class CustomItemStackHandler extends ItemStackHandler implements IProcessorHandlerConfigs {
     private final boolean allowInput;
     private final boolean allowOutput;
-    public ArrayList<ItemOutputSetting> outputSettings;
-
-    public enum ItemOutputSetting {
-        DEFAULT, VOID_EXCESS, VOID;
-    }
+    public ArrayList<OutputSetting> outputSettings;
+    public Map<Direction, List<SideConfigSetting>> sideConfig;
 
     public CustomItemStackHandler(int size, boolean allowInput, boolean allowOutput) {
         super(size);
         this.allowInput = allowInput;
         this.allowOutput = allowOutput;
-        this.outputSettings = new ArrayList<>(Collections.nCopies(size, ItemOutputSetting.DEFAULT));
+//        this.outputSettings = new ArrayList<>(Collections.nCopies(size, OutputSetting.DEFAULT));
     }
 
     // Stop other mods using capability from doing unexpected things
@@ -55,38 +56,52 @@ public class CustomItemStackHandler extends ItemStackHandler {
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag tag = super.serializeNBT(provider);
-        tag.putIntArray("output_settings", outputSettings.stream().map(Enum::ordinal).toList());
+        tag = OutputSetting.serializeNBT(provider, tag, outputSettings);
+        tag = SideConfigSetting.serializeNBT(provider, tag, sideConfig);
+
         return tag;
     }
 
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         super.deserializeNBT(provider, nbt);
-        this.outputSettings = new ArrayList<>(Arrays.stream(nbt.getIntArray("output_settings")).mapToObj(i -> ItemOutputSetting.values()[i]).toList());
+        this.outputSettings = OutputSetting.deserializeNBT(provider, nbt);
+        this.sideConfig = SideConfigSetting.deserializeNBT(provider, nbt);
     }
 
     public void outputSetting(int index, boolean left) {
-        this.outputSettings.set(index, next(!left, this.outputSettings.get(index)));
+        this.outputSettings.set(index, this.outputSettings.get(index).next(!left));
         onContentsChanged(index);
     }
 
-    public ItemOutputSetting getOutputSetting(int slot) {
+    public void sideConfig(int index, Direction dir, int inputs, boolean left) {
+        this.sideConfig.get(dir).set(index, index >= inputs + 2 ? this.sideConfig.get(dir).get(index).nextOutput(left) : this.sideConfig.get(dir).get(index).nextInput(left));
+        onContentsChanged(index);
+    }
+
+    @Override
+    public void createOutputSettings() {
+        if (outputSettings == null) {
+            this.outputSettings = new ArrayList<>(Collections.nCopies(stacks.size(), OutputSetting.DEFAULT));
+        } else {
+            throw new IllegalStateException("Output setting already exists");
+        }
+    }
+
+    @Override
+    public void createSideConfig(int inputs, int outputs) {
+        if (sideConfig == null) {
+            this.sideConfig = Arrays.stream(Direction.values()).collect(Collectors.toMap(Function.identity(), dir -> new ArrayList<>(Stream.of(Collections.nCopies(inputs + 2, SideConfigEnums.SideConfigSetting.INPUT), Collections.nCopies(outputs, SideConfigEnums.SideConfigSetting.OUTPUT)).flatMap(Collection::stream).toList())));
+        } else {
+            throw new IllegalStateException("Output setting already exists");
+        }
+    }
+
+    public OutputSetting getOutputSetting(int slot) {
         return outputSettings.get(slot);
     }
 
-    public ItemOutputSetting next(boolean reverse, ItemOutputSetting prev) {
-        if (reverse) {
-            return switch (prev) {
-                case ItemOutputSetting.DEFAULT -> ItemOutputSetting.VOID;
-                case ItemOutputSetting.VOID_EXCESS -> ItemOutputSetting.DEFAULT;
-                case ItemOutputSetting.VOID -> ItemOutputSetting.VOID_EXCESS;
-            };
-        } else {
-            return switch (prev) {
-                case ItemOutputSetting.DEFAULT -> ItemOutputSetting.VOID_EXCESS;
-                case ItemOutputSetting.VOID_EXCESS -> ItemOutputSetting.VOID;
-                case ItemOutputSetting.VOID -> ItemOutputSetting.DEFAULT;
-            };
-        }
+    public SideConfigSetting getSideConfig(int slot, Direction direction) {
+        return sideConfig.get(direction).get(slot);
     }
 }

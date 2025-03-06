@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -18,7 +19,6 @@ import java.util.Map;
 
 import static com.nred.nuclearcraft.config.Config.SOLAR_CONFIG_CAPACITY;
 import static com.nred.nuclearcraft.config.Config.SOLAR_CONFIG_PRODUCTION;
-import static com.nred.nuclearcraft.helpers.SimpleHelper.shuffledDirections;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.SOLAR_PANEL_ENTITY_TYPE;
 
 public class SolarPanelEntity extends BlockEntity {
@@ -47,7 +47,7 @@ public class SolarPanelEntity extends BlockEntity {
         }
 
         if (!level.isClientSide && energyHandler.getEnergyStored() > 0) {
-            for (Direction dir : shuffledDirections()) {
+            for (Direction dir : Direction.allShuffled(RandomSource.create())) {
                 if (this.capCache.get(dir) == null) {
                     this.capCache.put(dir, BlockCapabilityCache.create(Capabilities.EnergyStorage.BLOCK, ((ServerLevel) level), pos.relative(dir), dir.getOpposite(), () -> !this.isRemoved(), this::onCapInvalidate));
                 }

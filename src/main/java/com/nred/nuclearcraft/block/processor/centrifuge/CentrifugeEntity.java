@@ -4,6 +4,7 @@ import com.ibm.icu.impl.Pair;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
 import com.nred.nuclearcraft.helpers.HandlerInfo;
+import com.nred.nuclearcraft.helpers.SideConfigEnums.OutputSetting;
 import com.nred.nuclearcraft.menu.CentrifugeMenu;
 import com.nred.nuclearcraft.menu.ProcessorInfo;
 import net.minecraft.core.BlockPos;
@@ -31,7 +32,7 @@ public class CentrifugeEntity extends ProcessorEntity {
         }
 
         for (int i = 0; i < recipe.value().fluidResults.size(); i++) {
-            if (fluidHandler.getOutputSetting(i + i) != CustomFluidStackHandler.FluidOutputSetting.VOID) continue;
+            if (fluidHandler.getOutputSetting(i + i) != OutputSetting.VOID) continue;
             FluidStack temp = recipe.value().fluidResults.get(i).getFluids()[0].copy();
             if (i == 2 || i == 5) {
                 Pair<Short, Short> probability = probabilityUnpacker(temp.getAmount());
@@ -48,15 +49,15 @@ public class CentrifugeEntity extends ProcessorEntity {
     @Override
     public boolean roomForOutputs() {
         for (int i = 0; i < recipe.value().fluidResults.size(); i++) {
-            if (fluidHandler.getOutputSetting(i + 1) == CustomFluidStackHandler.FluidOutputSetting.VOID) continue;
+            if (fluidHandler.getOutputSetting(i + 1) == OutputSetting.VOID) continue;
             FluidStack temp = recipe.value().fluidResults.get(i).getFluids()[0].copy();
             if (i == 2 || i == 5) {
                 Pair<Short, Short> probability = probabilityUnpacker(temp.getAmount());
 
-                if (fluidHandler.getOutputSetting(i + 1) == CustomFluidStackHandler.FluidOutputSetting.DEFAULT && recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(i + 1, recipe.value().fluidResults.get(i).getFluids()[0].copyWithAmount(probability.second), IFluidHandler.FluidAction.SIMULATE)) {
+                if (fluidHandler.getOutputSetting(i + 1) == OutputSetting.DEFAULT && recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(i + 1, recipe.value().fluidResults.get(i).getFluids()[0].copyWithAmount(probability.second), IFluidHandler.FluidAction.SIMULATE)) {
                     return false;
                 }
-            } else if (fluidHandler.getOutputSetting(i + 1) == CustomFluidStackHandler.FluidOutputSetting.DEFAULT && recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(i + 1, recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.SIMULATE)) {
+            } else if (fluidHandler.getOutputSetting(i + 1) == OutputSetting.DEFAULT && recipe.value().fluidResults.get(i).getFluids()[0].getAmount() != fluidHandler.fill(i + 1, recipe.value().fluidResults.get(i).getFluids()[0].copy(), IFluidHandler.FluidAction.SIMULATE)) {
                 return false;
             }
         }

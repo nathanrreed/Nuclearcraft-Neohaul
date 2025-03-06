@@ -14,12 +14,15 @@ import java.util.Objects;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public record ButtonPressPayload(ButtonEnum id, int index, BlockPos pos, boolean left) implements CustomPacketPayload {
+public record ButtonPressPayload(ButtonEnum id, int index, BlockPos pos, int extra, boolean left) implements CustomPacketPayload {
     public static final Type<ButtonPressPayload> TYPE = new Type<>(ncLoc("button_press_client_to_server"));
-    public static final StreamCodec<FriendlyByteBuf, ButtonPressPayload> STREAM_CODEC = StreamCodec.composite(NeoForgeStreamCodecs.enumCodec(ButtonEnum.class), ButtonPressPayload::id, ByteBufCodecs.INT, ButtonPressPayload::index, BlockPos.STREAM_CODEC, ButtonPressPayload::pos, ByteBufCodecs.BOOL, ButtonPressPayload::left, ButtonPressPayload::new);
+    public static final StreamCodec<FriendlyByteBuf, ButtonPressPayload> STREAM_CODEC = StreamCodec.composite(NeoForgeStreamCodecs.enumCodec(ButtonEnum.class), ButtonPressPayload::id, ByteBufCodecs.INT, ButtonPressPayload::index, BlockPos.STREAM_CODEC, ButtonPressPayload::pos, ByteBufCodecs.INT, buttonPressPayload -> buttonPressPayload.extra, ByteBufCodecs.BOOL, ButtonPressPayload::left, ButtonPressPayload::new);
 
     public ButtonPressPayload(ButtonEnum id, BlockPos pos) {
-        this(id, 0, pos, true);
+        this(id, 0, pos, 0, true);
+    }
+    public ButtonPressPayload(ButtonEnum id, int index, BlockPos pos,  boolean left) {
+        this(id, index, pos, 0, true);
     }
 
     @Override
@@ -28,6 +31,6 @@ public record ButtonPressPayload(ButtonEnum id, int index, BlockPos pos, boolean
     }
 
     public static void handleOnServer(final ButtonPressPayload payload, final IPayloadContext context) {
-        ((ProcessorEntity) Objects.requireNonNull(context.player().level().getBlockEntity(payload.pos))).handleButtonPress(payload.id, payload.index, payload.left);
+        ((ProcessorEntity) Objects.requireNonNull(context.player().level().getBlockEntity(payload.pos))).handleButtonPress(payload.id, payload.index, payload.extra, payload.left);
     }
 }

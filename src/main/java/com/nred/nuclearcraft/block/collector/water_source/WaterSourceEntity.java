@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,7 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.nred.nuclearcraft.block.collector.MACHINE_LEVEL.BASE;
-import static com.nred.nuclearcraft.helpers.SimpleHelper.shuffledDirections;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.WATER_SOURCE_TYPES;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
@@ -88,7 +88,7 @@ public class WaterSourceEntity extends CollectorEntity {
         }
 
         if (level != null && !level.isClientSide && fluidStackHandler.getFluidAmount(0) > 0) {
-            for (Direction dir : shuffledDirections()) {
+            for (Direction dir : Direction.allShuffled(RandomSource.create())) {
                 if (this.capCache.get(dir) == null) {
                     this.capCache.put(dir, BlockCapabilityCache.create(Capabilities.FluidHandler.BLOCK, ((ServerLevel) level), pos.relative(dir), dir.getOpposite(), () -> !this.isRemoved(), () -> onCapInvalidate()));
                 } else if (capCache.get(dir).getCapability() != null) {

@@ -18,6 +18,7 @@ import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -62,7 +63,8 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
     private static final ResourceLocation side = ncLoc("block/processor/side");
     private static final ResourceLocation top = ncLoc("block/processor/top");
     private static final ResourceLocation bottom = ncLoc("block/processor/bottom");
-    private final ResourceLocation front;
+    private final ResourceLocation front_on;
+    private final ResourceLocation front_off;
 
     private Screens currentScreen = Screens.NORMAL;
     private String configType;
@@ -84,7 +86,8 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         this.inventoryLabelX = -1000000;
         this.inventoryLabelY = -1000000;
 
-        this.front = ncLoc("block/processor/" + processorType + "_front_off");
+        this.front_on = ncLoc("block/processor/" + processorType + "_front_on");
+        this.front_off = ncLoc("block/processor/" + processorType + "_front_off");
     }
 
     public ProcessorScreen(T menu, Inventory playerInventory, Component title, String type, int progressX, int progressY) {
@@ -112,13 +115,16 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
 
     public void setConfigCycleButtons(int index) {
         background = ncLoc("side_config/" + configType);
+        for (CycleButton remove : configCycleButtons) {
+            this.removeWidget(remove);
+        }
         configCycleButtons = new ArrayList<>(6);
-        drawSide(1, 0, index, top, "top");
-        drawSide(0, 1, index, side, "left");
-        drawSide(1, 1, index, front, "front");
-        drawSide(2, 1, index, side, "right");
-        drawSide(1, 2, index, bottom, "bottom");
-        drawSide(2, 2, index, back, "back");
+        drawSide(1, 0, index, top, "up");
+        drawSide(0, 1, index, side, "west");
+        drawSide(1, 1, index, null, "north");
+        drawSide(2, 1, index, side, "east");
+        drawSide(1, 2, index, bottom, "down");
+        drawSide(2, 2, index, back, "south");
 
         if (configType.contains("output")) {
             CycleButton temp;
@@ -129,7 +135,6 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
                 temp = new CycleButton(configLeft + 7, configTop + 25, "item_slot_setting", "tooltip.side_config.slot_setting.slot", index, null);
                 temp.setIndex(menu.info.itemOutputSettings().get(index));
             }
-            temp.setTooltip();
             configCycleButtons.add(temp);
         }
 
@@ -143,7 +148,13 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         boolean fluid = configType.contains("fluid");
 
         int startX = configLeft + (output ? 29 : 7);
-        configCycleButtons.add(new CycleButton(startX + (col * 18), configTop + 7 + (row * 18), output ? (fluid ? "fluid_output" : "item_output") : (fluid ? "fluid_input" : "item_input"), "tooltip.side_config." + dir, index, texture));
+        CycleButton temp = new CycleButton(startX + (col * 18), configTop + 7 + (row * 18), output ? (fluid ? "fluid_output" : "item_output") : (fluid ? "fluid_input" : "item_input"), "tooltip.side_config." + dir, index, texture);
+        if (fluid) {
+            temp.setIndex(menu.info.fluidSideConfig().get(Direction.byName(dir)).get(index).ordinal());
+        } else {
+            temp.setIndex(menu.info.itemSideConfig().get(Direction.byName(dir)).get(index).ordinal());
+        }
+        configCycleButtons.add(temp);
     }
 
     private enum Screens {
@@ -250,22 +261,32 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
 
             renderTooltip(guiGraphics, mouseX, mouseY);
         } else if (currentScreen == Screens.SIDE_CONFIG) {
-            partialRender(guiGraphics, mouseX, mouseY, partialTick, this.renderables);
+            changeSideConfigButtonVisibility(true);
+            partialRender(guiGraphics, mouseX, mouseY, partialTick);
         } else {
-            partialRender(guiGraphics, mouseX, mouseY, partialTick, this.configCycleButtons);
+            changeSideConfigButtonVisibility(false);
+            partialRender(guiGraphics, mouseX, mouseY, partialTick);
+            guiGraphics.blit(configLeft + (configType.contains("output") ? 48 : 26), configTop + 26, 10, 16, 16, Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(menu.progress.get() > 0 ? front_on : front_off), 1f, 1f, 1f, 0.8f);
         }
     }
 
-    private void partialRender(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick, List<? extends Renderable> renderables) {
+    private void changeSideConfigButtonVisibility(boolean visibility) {
+        for (ChangeSideConfigButton button : this.renderables.stream().filter(a -> a instanceof ChangeSideConfigButton).map(b -> (ChangeSideConfigButton) b).toList()) {
+            button.visible = visibility;
+        }
+    }
+
+    private void partialRender(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         NeoForge.EVENT_BUS.post(new Background(this, guiGraphics, mouseX, mouseY));
 
         if (currentScreen == Screens.CHOSEN_SIDE_CONFIG) {
             guiGraphics.blitSprite(background, configLeft, configTop, configType.contains("output") ? 90 : 68, 68);
         }
-        for (Renderable renderable : renderables) {
+        for (Renderable renderable : this.renderables) {
             renderable.render(guiGraphics, mouseX, mouseY, partialTick);
         }
+
         RenderSystem.disableDepthTest();
         guiGraphics.pose().pushPose();
         guiGraphics.pose().translate((float) this.leftPos, (float) this.topPos, 0.0F);
