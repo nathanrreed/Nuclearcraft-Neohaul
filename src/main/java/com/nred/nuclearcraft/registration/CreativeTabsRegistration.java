@@ -30,12 +30,20 @@ public class CreativeTabsRegistration {
                 output.accept(UNIVERSAL_BIN);
                 output.accept(MACHINE_INTERFACE);
                 output.accept(LITHIUM_ION_CELL);
-                output.accept(MULTI_TOOL);
+                output.accept(MULTITOOL);
+            }).build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MULTIBLOCKS_TAB = CREATIVE_MODE_TABS.register("multiblocks_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("creative_tab.title.multiblocks"))
+            .withTabsBefore(MACHINES_TAB.getId())
+            .icon(() -> PROCESSOR_MAP.get("manufactory").asItem().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.acceptAll(blockStackValues(TURBINE_MAP, BATTERY_MAP));
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RADIATION_TAB = CREATIVE_MODE_TABS.register("radiation_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("creative_tab.title.radiation"))
-            .withTabsBefore(MACHINES_TAB.getId())
+            .withTabsBefore(MULTIBLOCKS_TAB.getId())
             .icon(() -> GLOWING_MUSHROOM.asItem().getDefaultInstance()) // TODO change to geiger counter
             .displayItems((parameters, output) -> {
                 output.accept(GLOWING_MUSHROOM);

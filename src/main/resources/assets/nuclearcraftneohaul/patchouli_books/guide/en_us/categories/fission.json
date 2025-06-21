@@ -1,0 +1,7 @@
+{
+	"name": "Nuclear Fission",
+	"description": "$(l)Splitting the atom, for fun and profit.",
+	"icon": "nuclearcraftneohaul:solid_fission_controller",
+	"parent": "nuclearcraftneohaul:multiblocks",
+	"sortnum": 0
+}

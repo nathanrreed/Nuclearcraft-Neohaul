@@ -1,0 +1,18 @@
+{
+    "name": "Hazmat Suit",
+    "icon": "nuclearcraftneohaul:helm_hazmat",
+    "category": "nuclearcraftneohaul:items",
+    "sortnum": 0,
+    "pages": [
+        {
+            "anchor": "hazmat",
+            "type": "todo",
+            "header": "Hazmat Suit",
+            "item1": "nuclearcraftneohaul:helm_hazmat",
+            "item2": "nuclearcraftneohaul:chest_hazmat",
+            "item3": "nuclearcraftneohaul:legs_hazmat",
+            "item4": "nuclearcraftneohaul:boots_hazmat",
+            "text": "The $(item)Hazmat Suit$() is used to lower radiation exposure. Each part of the set has a rad resistance which determines how much protection it provides from radiation."
+        }
+    ]
+}

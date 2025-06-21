@@ -1,0 +1,18 @@
+{
+  "type": "nuclearcraftneohaul:turbine_recipe",
+  "expansion_level": 4.0,
+  "fluidInput": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:high_pressure_steam"
+  },
+  "fluidResult": {
+    "amount": 4,
+    "fluid": "nuclearcraftneohaul:exhaust_steam"
+  },
+  "particle": {
+    "type": "minecraft:cloud"
+  },
+  "particle_speed_mult": 0.04310344827586207,
+  "power_per_mb": 16.0,
+  "spin_up_multiplier": 0.0
+}

@@ -44,6 +44,12 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         }
     }
 
+    private void multiblocks() {
+        for (Block block : blockValues(TURBINE_MAP, BATTERY_MAP)) {
+            dropSelf(block);
+        }
+    }
+
     private void processors() {
         for (Block block : blockValues(PROCESSOR_MAP)) {
             add(block, createMachineDrop(block));
@@ -68,6 +74,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     public void generate() {
         ores();
         blocks();
+        multiblocks();
         processors();
 
         dropSelf(SOLIDIFIED_CORIUM.get());
@@ -83,6 +90,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         List<Block> all = new ArrayList<>();
         all.addAll(blockValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP, PROCESSOR_MAP, MATERIAL_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
         all.addAll(blockValues(SOLIDIFIED_CORIUM, SUPERCOLD_ICE, GLOWING_MUSHROOM, UNIVERSAL_BIN, MACHINE_INTERFACE, TRITIUM_LAMP));
+        all.addAll(blockValues(TURBINE_MAP, BATTERY_MAP));
         return all;
     }
 }

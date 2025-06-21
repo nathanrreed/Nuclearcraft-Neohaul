@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
+import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.EMI_COLLECTOR_CATEGORY;
 import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.EMI_PROCESSOR_CATEGORIES;
 import static com.nred.nuclearcraft.info.Names.*;
 
@@ -56,6 +57,8 @@ public class EmiLangProvider extends LanguageProvider {
         add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("fluid_mixer").getId().toLanguageKey(), "Fluid Mixer");
         add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("separator").getId().toLanguageKey(), "Separator");
         add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("supercooler").getId().toLanguageKey(), "Supercooler");
+
+        add("emi.category." + EMI_COLLECTOR_CATEGORY.getId().toLanguageKey(), "Collector");
     }
 
     private void simpleName(List<String> list, TagKey<?> key, String append) {

@@ -1,0 +1,28 @@
+{
+    "name": "Batteries",
+    "icon": "nuclearcraftneohaul:basic_lithium_ion_battery",
+    "category": "nuclearcraftneohaul:multiblocks",
+    "sortnum": 1,
+    "pages": [
+        {
+            "anchor": "voltaic_pile",
+            "type": "blocks/4",
+            "header": "Voltaic Piles",
+            "block1": "nuclearcraftneohaul:basic_voltaic_pile",
+            "block2": "nuclearcraftneohaul:advanced_voltaic_pile",
+            "block3": "nuclearcraftneohaul:du_voltaic_pile",
+            "block4": "nuclearcraftneohaul:elite_voltaic_pile",
+            "text": "The $(item)Voltaic Pile$() stores energy. When placed adjacent to each other, they will form multiblocks that store energy as a single pool."
+        },
+        {
+            "anchor": "lithium_ion_battery",
+            "type": "blocks/4",
+            "header": "Lithium Ion Batteries",
+            "block1": "nuclearcraftneohaul:basic_lithium_ion_battery",
+            "block2": "nuclearcraftneohaul:advanced_lithium_ion_battery",
+            "block3": "nuclearcraftneohaul:du_lithium_ion_battery",
+            "block4": "nuclearcraftneohaul:elite_lithium_ion_battery",
+            "text": "The $(item)Lithium Ion Battery$(), like the voltaic pile, stores energy. The lithium ion battery has a higher energy density than the voltaic pile. When placed adjacent to each other, they will form multiblocks that store energy as a single pool."
+        }
+    ]
+}

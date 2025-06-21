@@ -14,15 +14,15 @@ Completed:
 - Music Discs
 - Foods
 - Solar panels
+- Processors
 
 In progress:
-- Processors
 - Integrations with JEI and EMI
-
-Future Additions:
-- Multiblocks (Reactors, Turbines, etc)
 - Multitool
 - Machine Interface
+- Multiblocks (Reactors, Turbines, etc)
+
+Future Additions:
 - Tools and Armour
 - Wasteland
 - Radiation

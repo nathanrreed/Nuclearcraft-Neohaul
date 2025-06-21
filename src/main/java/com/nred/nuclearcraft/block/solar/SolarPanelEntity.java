@@ -3,6 +3,8 @@ package com.nred.nuclearcraft.block.solar;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -58,6 +60,18 @@ public class SolarPanelEntity extends BlockEntity {
                 }
             }
         }
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.put("energy", energyHandler.serializeNBT(registries));
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        energyHandler.deserializeNBT(registries, tag.get("energy"));
     }
 
     private void onCapInvalidate() {

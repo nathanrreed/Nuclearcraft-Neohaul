@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.compat.emi;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
@@ -13,9 +14,13 @@ import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import it.unimi.dsi.fastutil.Pair;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.*;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.Comparator;
 import java.util.List;
@@ -25,15 +30,19 @@ import java.util.stream.Collectors;
 
 import static com.nred.nuclearcraft.helpers.Concat.fluidEntries;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
-import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
 @EmiEntrypoint
 public class ModEmiPlugin implements EmiPlugin {
     private static final Map<String, EmiStack> PROCESSOR_WORKSTATIONS = PROCESSOR_MAP.keySet().stream().collect(Collectors.toMap(Function.identity(), type -> EmiStack.of(PROCESSOR_MAP.get(type))));
     public static final Map<String, EmiRecipeCategory> EMI_PROCESSOR_CATEGORIES = PROCESSOR_MAP.keySet().stream().collect(Collectors.toMap(Function.identity(), type -> new EmiRecipeCategory(ncLoc(type), PROCESSOR_WORKSTATIONS.get(type))));
+
+    private static final Map<String, EmiStack> COLLECTOR_WORKSTATIONS = COLLECTOR_MAP.keySet().stream().collect(Collectors.toMap(Function.identity(), type -> EmiStack.of(COLLECTOR_MAP.get(type))));
+    public static final EmiRecipeCategory EMI_COLLECTOR_CATEGORY = new EmiRecipeCategory(ncLoc("collector"), COLLECTOR_WORKSTATIONS.get("cobblestone_generator"));
 
     @Override
     public void register(EmiRegistry registry) {
@@ -78,5 +87,37 @@ public class ModEmiPlugin implements EmiPlugin {
                 }
             }
         }
+
+        registry.addCategory(EMI_COLLECTOR_CATEGORY);
+        registry.addRecipeHandler(null, new StandardRecipeHandler<InventoryMenu>() {
+            @Override
+            public List<Slot> getInputSources(InventoryMenu handler) {
+                return handler.slots;
+            }
+
+            @Override
+            public List<Slot> getCraftingSlots(InventoryMenu handler) {
+                return List.of();
+            }
+
+            @Override
+            public boolean supportsRecipe(EmiRecipe recipe) {
+                return (recipe.getCategory() == EMI_COLLECTOR_CATEGORY);
+            }
+        });
+
+        for (String type : COLLECTOR_WORKSTATIONS.keySet()) {
+            registry.addWorkstation(EMI_COLLECTOR_CATEGORY, COLLECTOR_WORKSTATIONS.get(type));
+        }
+
+        List.of(
+                Pair.of(NITROGEN_COLLECTOR_RECIPE_TYPE, "nitrogen_collector"), Pair.of(NITROGEN_COLLECTOR_COMPACT_RECIPE_TYPE, "nitrogen_collector_compact"), Pair.of(NITROGEN_COLLECTOR_DENSE_RECIPE_TYPE, "nitrogen_collector_dense"),
+                Pair.of(WATER_SOURCE_RECIPE_TYPE, "water_source"), Pair.of(WATER_SOURCE_COMPACT_RECIPE_TYPE, "water_source_compact"), Pair.of(WATER_SOURCE_DENSE_RECIPE_TYPE, "water_source_dense"),
+                Pair.of(COBBLE_GENERATOR_RECIPE_TYPE, "cobblestone_generator"), Pair.of(COBBLE_GENERATOR_COMPACT_RECIPE_TYPE, "cobblestone_generator_compact"), Pair.of(COBBLE_GENERATOR_DENSE_RECIPE_TYPE, "cobblestone_generator_dense")
+        ).forEach(i -> {
+            for (RecipeHolder<? extends CollectorRecipe> recipe : manager.getAllRecipesFor(i.first().get())) {
+                registry.addRecipe(new EmiCollectorRecipe(recipe.id(), COLLECTOR_MAP.get(i.second()), recipe.value().itemResult().isEmpty() ? List.of() : List.of(NeoForgeEmiIngredient.of(SizedIngredient.of(recipe.value().itemResult().getItem(), recipe.value().itemResult().getCount()))), recipe.value().fluidResult().isEmpty() ? List.of() : List.of(NeoForgeEmiIngredient.of(SizedFluidIngredient.of(recipe.value().fluidResult()))), recipe.value().rate()));
+            }
+        });
     }
 }

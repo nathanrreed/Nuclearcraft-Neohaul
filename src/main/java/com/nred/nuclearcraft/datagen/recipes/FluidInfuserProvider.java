@@ -12,7 +12,8 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.tags;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
-import static com.nred.nuclearcraft.registration.FluidRegistration.*;
+import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID;
+import static com.nred.nuclearcraft.registration.FluidRegistration.GAS_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 public class FluidInfuserProvider {
@@ -36,9 +37,7 @@ public class FluidInfuserProvider {
 
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(Fluids.WATER, 2000).addItemResult(COLLECTOR_MAP.get("water_source"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(COLLECTOR_MAP.get("water_source"), 1).addFluidInput(Fluids.LAVA, 1000).addItemResult(COLLECTOR_MAP.get("cobblestone_generator"), 1).save(recipeOutput);
-
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Tags.Items.GLASS_BLOCKS, 1).addFluidInput(GAS_MAP.get("tritium"), 1000).addItemResult(TRITIUM_LAMP, 1).save(recipeOutput);
-
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(tags(List.of(Tags.Items.SANDS, Tags.Items.SANDSTONE_BLOCKS), 1)).addFluidInput(CUSTOM_FLUID.get("ender"), 250).addItemResult(Items.END_STONE, 1).save(recipeOutput);
 
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.WHITE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.WHITE_CONCRETE, 1).save(recipeOutput);

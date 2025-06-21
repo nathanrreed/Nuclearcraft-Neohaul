@@ -40,6 +40,7 @@ public class ModLanguageProvider extends LanguageProvider {
         creativeTabs();
         musicDiscs();
         damage_types();
+        guide_book();
 
         add(SUPERCOLD_ICE.asItem(), capitalize(SUPERCOLD_ICE.getId().getPath()));
         add(TRITIUM_LAMP.asItem(), capitalize(TRITIUM_LAMP.getId().getPath()));
@@ -55,6 +56,12 @@ public class ModLanguageProvider extends LanguageProvider {
             add(ORE_MAP.get(ore).get(), StringUtils.capitalize(ore) + " Ore");
             add(ORE_MAP.get(ore + "_deepslate").get(), StringUtils.capitalize(ore) + " Deepslate Ore");
         }
+    }
+
+    private void guide_book() {
+        add("guide_book.name", "NuclearCraft Guide");
+        add("guide_book.edition", "Neohaul Edition");
+        add("guide_book.desc", "NuclearCraft (NC) is a tech mod focused on nuclear power generation. Most of the mod's features and mechanics are inspired by real equivalents, though there are many simplifications, abstractions, and deviations from reality for the sake of interesting gameplay.");
     }
 
     private void items() {
@@ -120,7 +127,7 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleItems(FOOD_MAP, Map.of("dominos", "Domino's Special", "smore", "S'more S'mingot", "moresmore", "MoreS'more DoubleS'mingot"));
         add(PORTABLE_ENDER_CHEST.get(), "Portable Ender Chest");
         add(FOURSMORE.get(), "FourS'more QuadS'mingot");
-        add(MULTI_TOOL.get(), "Multitool");
+        add(MULTITOOL.get(), "Multitool");
     }
 
     private void blocks() {
@@ -145,6 +152,8 @@ public class ModLanguageProvider extends LanguageProvider {
 
         simpleBlocks(PROCESSOR_MAP);
         simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel", "solar_panel_advanced", "Advanced Solar Panel", "solar_panel_du", "DU Solar Panel", "solar_panel_elite", "Elite Solar Panel"));
+        simpleBlocks(TURBINE_MAP, Map.of("sic_turbine_rotor_blade", "SiC-SiC CMC Turbine Rotor Blade"));
+        simpleBlocks(BATTERY_MAP, Map.of("du_voltaic_pile", "DU Voltaic Pile","du_lithium_ion_battery","DU Lithium Ion Battery"));
     }
 
     private void buckets() {
@@ -331,6 +340,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.energy_stored", "Energy Stored: %s / %s");
         add("tooltip.process_time", "§aBase Process Time:§r %s");
         add("tooltip.process_power", "§dBase Process Power:§r %s/t");
+
+        add("tooltip.production_rate", "§aProduction Rate:§r %s/t");
+
+
+        add("tooltip.battery.info", "Right click a side to read the energy level and right click with a multitool to toggle the side's energy connection. Sneaking while placing will maintain the energy connection configuration.");
     }
 
     private void damage_types() {

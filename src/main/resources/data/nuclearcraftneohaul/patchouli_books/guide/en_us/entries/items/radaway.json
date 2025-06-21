@@ -1,0 +1,16 @@
+{
+    "name": "Radaway",
+    "icon": "nuclearcraftneohaul:radaway",
+    "category": "nuclearcraftneohaul:items",
+    "sortnum": 0,
+    "pages": [
+        {
+            "anchor": "radaway",
+            "type": "todo",
+            "header": "Radaway",
+            "item1": "nuclearcraftneohaul:radaway",
+            "item2": "nuclearcraftneohaul:radaway_slow",
+            "text": "$(item)RadAway$(), and it's slower counterpart $(item)Slow-Acting RadAway$(), removes rads from the user at a set rate. Standard RadAway acts faster than slow-acting RadAway, but does not last as long."
+        }
+    ]
+}

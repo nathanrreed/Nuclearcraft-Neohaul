@@ -1,0 +1,7 @@
+{
+  "parent": "nuclearcraftneohaul:block/top_sides",
+  "textures": {
+    "sides": "nuclearcraftneohaul:block/turbine/inlet_side",
+    "top": "nuclearcraftneohaul:block/turbine/inlet_top"
+  }
+}

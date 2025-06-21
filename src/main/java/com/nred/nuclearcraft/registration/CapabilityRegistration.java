@@ -55,6 +55,11 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), (entity, direction) -> entity.getLevel().isClientSide() || entity.proxyPos == null ? null : entity.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, entity.proxyPos, direction));
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), (entity, direction) -> entity.getLevel().isClientSide() || entity.proxyPos == null ? null : entity.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, entity.proxyPos, direction));
 
+        // Batteries / Voltaic Piles
+        for (int tier : new int[]{0, 1, 2, 3, 10, 11, 12, 13}) {
+            event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BATTERY_ENTITY_TYPE.get(tier).get(), (entity, context) -> !entity.ignoreSide(context) ? entity.getEnergyStorage() : null);
+        }
+
         items(event);
     }
 

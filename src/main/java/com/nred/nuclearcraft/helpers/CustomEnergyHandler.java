@@ -53,6 +53,23 @@ public class CustomEnergyHandler extends EnergyStorage {
         this.tempEnergy = oldEnergy; // Save capacity encase of miss-click
     }
 
+    public void setMaxTransfer(int maxTransfer) {
+        this.maxExtract = maxTransfer;
+        this.maxReceive = maxTransfer;
+    }
+
+    public void mergeEnergyStorage(CustomEnergyHandler other) {
+        setCapacity(getMaxEnergyStored() + other.getMaxEnergyStored());
+        energy = getEnergyStored() + other.getEnergyStored();
+        other.energy = 0;
+    }
+
+    public void cullEnergyStored() {
+        if (getEnergyStored() > getMaxEnergyStored()) {
+            setCapacity(getMaxEnergyStored());
+        }
+    }
+
     // Normal insert and extract for use within the mod
     public int internalInsertEnergy(int toReceive, boolean simulate) {
         int rtn = super.receiveEnergy(toReceive, simulate);

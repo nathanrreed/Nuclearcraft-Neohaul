@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery"
+    }
+  }
+}

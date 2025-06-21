@@ -1,11 +1,15 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.block.batteries.BatteryEntity;
+import com.nred.nuclearcraft.block.batteries.BatteryRenderer;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.*;
 import com.nred.nuclearcraft.screen.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -13,9 +17,11 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
 
@@ -33,6 +39,14 @@ public class ClientSetup {
         for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             ItemBlockRenderTypes.setRenderLayer(fluid.still.get(), RenderType.TRANSLUCENT);
             ItemBlockRenderTypes.setRenderLayer(fluid.flowing.get(), RenderType.TRANSLUCENT);
+        }
+    }
+
+    @SubscribeEvent
+    public static void blockEntityRenderer(final FMLCommonSetupEvent event) {
+        for (DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>> type : BATTERY_ENTITY_TYPE.values()) {
+            BlockEntityType<? extends BatteryEntity> a = type.get();
+            BlockEntityRenderers.register(type.get(), BatteryRenderer::new);
         }
     }
 

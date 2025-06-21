@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.recipe.base_types;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
@@ -9,6 +10,8 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
+
+import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 
 public abstract class ProcessorRecipe implements Recipe<ProcessorRecipeInput> {
     public final List<SizedIngredient> itemInputs;
@@ -97,5 +100,10 @@ public abstract class ProcessorRecipe implements Recipe<ProcessorRecipeInput> {
 
     public double getPowerModifier() {
         return powerModifier;
+    }
+
+    @Override
+    public ItemStack getToastSymbol() {
+        return PROCESSOR_MAP.get(ResourceLocation.parse(getType().toString()).getPath()).toStack();
     }
 }

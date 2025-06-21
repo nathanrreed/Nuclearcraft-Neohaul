@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 
+import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.COLLECTOR_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
@@ -77,6 +78,17 @@ public record CollectorRecipe(ItemStack itemResult, FluidStack fluidResult, MACH
                 case COMPACT -> NITROGEN_COLLECTOR_COMPACT_RECIPE_TYPE.get();
                 case DENSE -> NITROGEN_COLLECTOR_DENSE_RECIPE_TYPE.get();
             };
+        }
+    }
+
+    @Override
+    public ItemStack getToastSymbol() {
+        if (this.fluidResult.isEmpty()) {
+            return COLLECTOR_MAP.get("cobblestone_generator" + (this.level.toString().isEmpty() ? "" : "_" + this.level.toString().toLowerCase())).toStack();
+        } else if (fluidResult.is(Fluids.WATER)) {
+            return COLLECTOR_MAP.get("water_source" + (this.level.toString().isEmpty() ? "" : "_" + this.level.toString().toLowerCase())).toStack();
+        } else {
+            return COLLECTOR_MAP.get("nitrogen_collector" + (this.level.toString().isEmpty() ? "" : "_" + this.level.toString().toLowerCase())).toStack();
         }
     }
 }

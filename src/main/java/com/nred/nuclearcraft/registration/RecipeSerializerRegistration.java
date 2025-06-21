@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.registration;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeSerializer;
 import com.nred.nuclearcraft.recipe.collector.CollectorSerializer;
 import com.nred.nuclearcraft.recipe.processor.*;
+import com.nred.nuclearcraft.recipe.turbine.TurbineRecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -30,6 +31,8 @@ public class RecipeSerializerRegistration {
     public static final DeferredHolder<RecipeSerializer<?>, ProcessorRecipeSerializer> FLUID_MIXER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("salt_mixer_recipe", () -> new ProcessorRecipeSerializer(FluidMixerRecipe.class));
     public static final DeferredHolder<RecipeSerializer<?>, ProcessorRecipeSerializer> SEPARATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("separator_recipe", () -> new ProcessorRecipeSerializer(SeparatorRecipe.class));
     public static final DeferredHolder<RecipeSerializer<?>, ProcessorRecipeSerializer> SUPERCOOLER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("supercooler_recipe", () -> new ProcessorRecipeSerializer(SupercoolerRecipe.class));
+
+    public static final DeferredHolder<RecipeSerializer<?>, TurbineRecipeSerializer> TURBINE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("turbine_recipe", TurbineRecipeSerializer::new);
 
 
     public static void init() {

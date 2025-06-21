@@ -1,0 +1,12 @@
+{
+	"name": "Tokamak Reactor (WIP)",
+	"icon": "nuclearcraftneohaul:tokamak_fusion_controller",
+	"category": "nuclearcraftneohaul:fusion",
+	"sortnum": 0,
+	"pages": [
+		{
+			"type": "text",
+			"text": "Tokamak reactors have not been implemented yet."
+		}
+	]
+}

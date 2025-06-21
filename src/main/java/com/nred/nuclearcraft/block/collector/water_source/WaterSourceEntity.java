@@ -78,7 +78,6 @@ public class WaterSourceEntity extends CollectorEntity {
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         fluidStackHandler.deserializeNBT(registries, tag.getCompound("fluids"));
-
     }
 
     @Override

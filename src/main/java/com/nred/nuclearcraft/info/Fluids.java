@@ -16,6 +16,7 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 import net.neoforged.neoforge.common.SoundActions;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -148,5 +149,9 @@ public class Fluids {
         }
 
         return closest;
+    }
+
+    public static SizedFluidIngredient sizedIngredient(Fluids input, int amount) {
+        return SizedFluidIngredient.of(input.still.get(), amount);
     }
 }

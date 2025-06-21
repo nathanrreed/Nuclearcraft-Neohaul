@@ -1,0 +1,7 @@
+{
+  "parent": "nuclearcraftneohaul:block/top_sides",
+  "textures": {
+    "sides": "nuclearcraftneohaul:block/turbine/rotor_shaft_side",
+    "top": "nuclearcraftneohaul:block/turbine/rotor_shaft_end"
+  }
+}

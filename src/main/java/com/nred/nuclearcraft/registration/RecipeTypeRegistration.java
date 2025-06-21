@@ -37,6 +37,8 @@ public class RecipeTypeRegistration {
 
     public static final Map<String, DeferredHolder<RecipeType<?>, RecipeType<ProcessorRecipe>>> PROCESSOR_RECIPE_TYPES = PROCESSOR_MAP.keySet().stream().collect(Collectors.toMap(Function.identity(), RecipeTypeRegistration::register));
 
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> TURBINE_RECIPE_TYPE = register("turbine");
+
     public static void init() {
     }
 }

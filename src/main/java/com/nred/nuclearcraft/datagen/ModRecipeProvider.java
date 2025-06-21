@@ -109,6 +109,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new RockCrusherProvider(recipeOutput);
         new SeparatorProvider(recipeOutput);
         new SupercoolerProvider(recipeOutput);
+        new TurbineProvider(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))

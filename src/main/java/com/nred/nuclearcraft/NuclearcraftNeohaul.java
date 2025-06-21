@@ -2,16 +2,20 @@ package com.nred.nuclearcraft;
 
 import com.mojang.logging.LogUtils;
 import com.nred.nuclearcraft.config.Config;
+import com.nred.nuclearcraft.config.Config2;
 import com.nred.nuclearcraft.payload.ButtonPressPayload;
 import com.nred.nuclearcraft.payload.FluidClearPayload;
 import com.nred.nuclearcraft.payload.RecipeSetPayload;
 import com.nred.nuclearcraft.registration.Registration;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
@@ -28,6 +32,8 @@ public class NuclearcraftNeohaul {
         enableMilkFluid();
         Registration.register(modEventBus);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.STARTUP, Config2.SPEC); //TODO MERGE
+//        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
     @SubscribeEvent
@@ -42,3 +48,4 @@ public class NuclearcraftNeohaul {
         registrar.playToClient(RecipeSetPayload.TYPE, RecipeSetPayload.STREAM_CODEC, RecipeSetPayload::handleOnClient);
     }
 }
+

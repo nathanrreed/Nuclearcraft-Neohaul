@@ -1,0 +1,7 @@
+{
+	"name": "Nuclear Fusion (WIP)",
+	"description": "$(l)Fusing the atom, for fun and ultimate glory.",
+	"icon": "nuclearcraftneohaul:copper_solenoid",
+	"parent": "nuclearcraftneohaul:multiblocks",
+	"sortnum": 1
+}

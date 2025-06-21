@@ -42,7 +42,7 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.PROCESSOR_ENTITY_TYPE;
-import static com.nred.nuclearcraft.registration.ItemRegistration.MULTI_TOOL;
+import static com.nred.nuclearcraft.registration.ItemRegistration.MULTITOOL;
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
 public abstract class Processor extends BaseEntityBlock {
@@ -86,7 +86,7 @@ public abstract class Processor extends BaseEntityBlock {
                 } else if (entity.itemStackHandler.internalInsertItem(ProcessorMenu.ENERGY, stack.copyWithCount(1), false).getCount() == 0) {
                     rtnStack = stack.copyWithCount(stack.getCount() - 1);
                 }
-            } else if (stack.is(MULTI_TOOL)) {
+            } else if (stack.is(MULTITOOL)) {
                 if (Screen.hasShiftDown()) {
                     CompoundTag tag = new CompoundTag();
                     CompoundTag item = new CompoundTag();

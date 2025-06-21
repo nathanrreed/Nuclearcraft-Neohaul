@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.block.batteries.BatteryEntity;
 import com.nred.nuclearcraft.block.collector.CollectorEntity;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGeneratorEntity;
@@ -50,6 +51,7 @@ public class BlockEntityRegistration {
     public static final Map<Enum<MACHINE_LEVEL>, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends CollectorEntity>>> NITROGEN_COLLECTOR_TYPES = createNitrogenCollector();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> PROCESSOR_ENTITY_TYPE = createProcessors();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends SolarPanelEntity>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
+    public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> BATTERY_ENTITY_TYPE = createBatteries();
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(UniversalBinEntity::new, UNIVERSAL_BIN.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends MachineInterfaceEntity>> MACHINE_INTERFACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("machine_interface", () -> BlockEntityType.Builder.of(MachineInterfaceEntity::new, MACHINE_INTERFACE.get()).build(null));
 
@@ -108,6 +110,19 @@ public class BlockEntityRegistration {
         map.put(1, BLOCK_ENTITY_TYPES.register("solar_panel_advanced", () -> BlockEntityType.Builder.of((pos, state) -> new SolarPanelEntity(pos, state, 1), SOLAR_MAP.get("solar_panel_advanced").get()).build(null)));
         map.put(2, BLOCK_ENTITY_TYPES.register("solar_panel_du", () -> BlockEntityType.Builder.of((pos, state) -> new SolarPanelEntity(pos, state, 2), SOLAR_MAP.get("solar_panel_du").get()).build(null)));
         map.put(3, BLOCK_ENTITY_TYPES.register("solar_panel_elite", () -> BlockEntityType.Builder.of((pos, state) -> new SolarPanelEntity(pos, state, 3), SOLAR_MAP.get("solar_panel_elite").get()).build(null)));
+        return map;
+    }
+
+    private static Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> createBatteries() {
+        Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> map = new HashMap<>();
+        map.put(0, BLOCK_ENTITY_TYPES.register("basic_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 0), BATTERY_MAP.get("basic_voltaic_pile").get()).build(null)));
+        map.put(1, BLOCK_ENTITY_TYPES.register("advanced_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 1), BATTERY_MAP.get("advanced_voltaic_pile").get()).build(null)));
+        map.put(2, BLOCK_ENTITY_TYPES.register("du_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 2), BATTERY_MAP.get("du_voltaic_pile").get()).build(null)));
+        map.put(3, BLOCK_ENTITY_TYPES.register("elite_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 3), BATTERY_MAP.get("elite_voltaic_pile").get()).build(null)));
+        map.put(10, BLOCK_ENTITY_TYPES.register("basic_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 10), BATTERY_MAP.get("basic_lithium_ion_battery").get()).build(null)));
+        map.put(11, BLOCK_ENTITY_TYPES.register("advanced_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 11), BATTERY_MAP.get("advanced_lithium_ion_battery").get()).build(null)));
+        map.put(12, BLOCK_ENTITY_TYPES.register("du_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 12), BATTERY_MAP.get("du_lithium_ion_battery").get()).build(null)));
+        map.put(13, BLOCK_ENTITY_TYPES.register("elite_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 13), BATTERY_MAP.get("elite_lithium_ion_battery").get()).build(null)));
         return map;
     }
 

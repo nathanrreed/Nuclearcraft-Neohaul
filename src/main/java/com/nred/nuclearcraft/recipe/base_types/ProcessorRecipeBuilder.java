@@ -114,12 +114,12 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
     }
 
     public ProcessorRecipeBuilder addFluidInput(Fluids input, int amount) {
-        fluidInputs.add(SizedFluidIngredient.of(input.still.get(), amount));
+        fluidInputs.add(Fluids.sizedIngredient(input, amount));
         return this;
     }
 
     public ProcessorRecipeBuilder addFluidResult(Fluids output, int amount) {
-        fluidResults.add(SizedFluidIngredient.of(output.still.get(), amount));
+        fluidResults.add(Fluids.sizedIngredient(output, amount));
         return this;
     }
 
@@ -184,8 +184,12 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return itemResults.isEmpty() ? getDefaultRecipeId(fluidInputs, fluidResults) : RecipeBuilder.getDefaultRecipeId(getResult());
     }
 
-    private static ResourceLocation getDefaultRecipeId(List<SizedFluidIngredient> inputs, List<SizedFluidIngredient> outputs) {
+    public static ResourceLocation getDefaultRecipeId(List<SizedFluidIngredient> inputs, List<SizedFluidIngredient> outputs) {
         return ncLoc((outputs.stream().map(fluid -> BuiltInRegistries.FLUID.getKey(fluid.getFluids()[0].getFluid()).getPath()).reduce("", (string, fluid) -> string + "_" + fluid) + "_from_" + inputs.stream().map(fluid -> BuiltInRegistries.FLUID.getKey(fluid.getFluids()[0].getFluid()).getPath()).reduce("", (string, fluid) -> string + "_" + fluid)).replaceAll("__", "_").replaceFirst("^_", ""));
+    }
+
+    public static ResourceLocation getDefaultRecipeId(SizedFluidIngredient input, SizedFluidIngredient output) {
+        return ncLoc((BuiltInRegistries.FLUID.getKey(output.getFluids()[0].getFluid()).getPath()) + "_from_" + BuiltInRegistries.FLUID.getKey(input.getFluids()[0].getFluid()).getPath().replaceAll("__", "_").replaceFirst("^_", ""));
     }
 
     @Override

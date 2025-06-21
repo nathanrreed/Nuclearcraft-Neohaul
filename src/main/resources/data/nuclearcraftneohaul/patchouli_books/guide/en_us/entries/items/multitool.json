@@ -1,0 +1,15 @@
+{
+    "name": "Multitool",
+    "icon": "nuclearcraftneohaul:multitool",
+    "category": "nuclearcraftneohaul:items",
+    "sortnum": 0,
+    "pages": [
+        {
+            "anchor": "multitool",
+            "type": "items/1",
+            "header": "Multitool",
+            "item": "nuclearcraftneohaul:multitool",
+            "text": "The $(item)Multitool$() is used to interact and configure multiblocks in various ways. It is highly recommended to carry one with you."
+        }
+    ]
+}

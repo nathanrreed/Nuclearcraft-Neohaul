@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "nuclearcraftneohaul:block/extreme_alloy_turbine_rotor_blade",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "nuclearcraftneohaul:block/extreme_alloy_turbine_rotor_blade",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nuclearcraftneohaul:block/extreme_alloy_turbine_rotor_blade",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "nuclearcraftneohaul:block/extreme_alloy_turbine_rotor_blade",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "nuclearcraftneohaul:block/extreme_alloy_turbine_rotor_blade"
+    },
+    "facing=west": {
+      "model": "nuclearcraftneohaul:block/extreme_alloy_turbine_rotor_blade",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

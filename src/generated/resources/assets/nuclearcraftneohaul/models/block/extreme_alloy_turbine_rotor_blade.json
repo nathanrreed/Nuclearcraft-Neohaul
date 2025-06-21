@@ -1,0 +1,6 @@
+{
+  "parent": "nuclearcraftneohaul:block/turbine_rotor_blade",
+  "textures": {
+    "texture": "nuclearcraftneohaul:block/turbine/rotor_blade/extreme"
+  }
+}

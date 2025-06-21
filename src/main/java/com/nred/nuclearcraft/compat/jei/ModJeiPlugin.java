@@ -1,9 +1,11 @@
 package com.nred.nuclearcraft.compat.jei;
 
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.processor.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -14,17 +16,21 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
-import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin {
     public static Map<String, IRecipeCategory<? extends ProcessorRecipe>> PROCESSOR_CATEGORIES = Map.of();
+    public static IRecipeCategory<CollectorRecipe> COLLECTOR_CATEGORY;
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -33,7 +39,11 @@ public class ModJeiPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
+        IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
         PROCESSOR_CATEGORIES = makeCategories(registration);
+        COLLECTOR_CATEGORY = new JeiCollectorCategory(helper);
+        registration.addRecipeCategories(COLLECTOR_CATEGORY);
+
         for (IRecipeCategory<?> category : PROCESSOR_CATEGORIES.values()) {
             registration.addRecipeCategories(category);
         }
@@ -44,6 +54,7 @@ public class ModJeiPlugin implements IModPlugin {
         for (String type : PROCESSOR_CATEGORIES.keySet()) {
             registration.addRecipeCatalysts(PROCESSOR_CATEGORIES.get(type).getRecipeType(), PROCESSOR_MAP.get(type));
         }
+        registration.addRecipeCatalysts(COLLECTOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, COLLECTOR_MAP.values().stream().map(DeferredBlock::toStack).toList());
     }
 
     @Override
@@ -53,6 +64,14 @@ public class ModJeiPlugin implements IModPlugin {
         for (String type : PROCESSOR_CATEGORIES.keySet()) {
             registration.addRecipes((RecipeType<ProcessorRecipe>) PROCESSOR_CATEGORIES.get(type).getRecipeType(), recipeManager.getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(type).get()).stream().map(RecipeHolder::value).toList());
         }
+
+        List.of(
+                NITROGEN_COLLECTOR_RECIPE_TYPE, NITROGEN_COLLECTOR_COMPACT_RECIPE_TYPE, NITROGEN_COLLECTOR_DENSE_RECIPE_TYPE,
+                WATER_SOURCE_RECIPE_TYPE, WATER_SOURCE_COMPACT_RECIPE_TYPE, WATER_SOURCE_DENSE_RECIPE_TYPE,
+                COBBLE_GENERATOR_RECIPE_TYPE, COBBLE_GENERATOR_COMPACT_RECIPE_TYPE, COBBLE_GENERATOR_DENSE_RECIPE_TYPE
+        ).forEach(i -> {
+            registration.addRecipes(COLLECTOR_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(i.get()).stream().map(RecipeHolder::value).toList());
+        });
     }
 
     private static Map<String, IRecipeCategory<? extends ProcessorRecipe>> makeCategories(IRecipeCategoryRegistration registration) {

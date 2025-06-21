@@ -1,0 +1,12 @@
+{
+	"name": "Condenser (WIP)",
+	"icon": "nuclearcraftneohaul:condenser_controller",
+	"category": "nuclearcraftneohaul:heat_exchanger",
+	"sortnum": 1,
+	"pages": [
+		{
+			"type": "text",
+			"text": "Heat condensers have not been fully implemented yet."
+		}
+	]
+}

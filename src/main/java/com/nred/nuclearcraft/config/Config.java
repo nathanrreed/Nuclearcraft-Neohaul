@@ -8,6 +8,7 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.nred.nuclearcraft.util.NCMath;
 
 import java.util.*;
 
@@ -57,6 +58,11 @@ public class Config {
 
         BUILDER.defineInRange("lithium_ion_cell_capacity", 8000000, 1, Integer.MAX_VALUE);
         BUILDER.defineInRange("lithium_ion_cell_transfer_rate", 80000, 1, Integer.MAX_VALUE);
+
+        BUILDER.comment("Batteries and Voltaic Piles").push("battery");
+        BUILDER.defineList("battery_capacity", List.of(32000000, 128000000, 512000000, 2048000000), null, Config::positive);
+        BUILDER.defineList("voltaic_pile_capacity", List.of(1600000, 6400000, 25600000, 102400000), null, Config::positive);
+        BUILDER.pop();
 
         BUILDER.comment("Processor Settings").push("processor");
 
@@ -248,6 +254,33 @@ public class Config {
         BUILDER.defineList("californium_self_priming", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), null, e -> e instanceof Boolean);
         BUILDER.pop();
 
+        BUILDER.comment("Turbine").push("turbine");
+        BUILDER.defineInRange("turbine_min_size", 1, 1, 255);
+        BUILDER.defineInRange("turbine_max_size", 24, 1, 255);
+        BUILDER.defineList("turbine_blade_efficiency", List.of(1D, 1.1D, 1.2D), null, e -> range(e, 0.01D, 15D));
+        BUILDER.defineList("turbine_blade_expansion", List.of(1.4D, 1.6D, 1.8D), null, e -> range(e, 1D, 15D));
+        BUILDER.defineInRange("turbine_stator_expansion", 0.75D, 0.01D, 1D);
+        BUILDER.defineList("turbine_coil_conductivity", List.of(0.88D, 0.9D, 1D, 1.04D, 1.06D, 1.12D), null, e -> range(e, 0.01D, 15D));
+        BUILDER.defineList("turbine_coil_rule", List.of("one bearing || one connector", "one magnesium coil", "two magnesium coils", "one aluminum coil", "one beryllium coil", "one gold coil && one copper coil"), null, e -> true);
+        BUILDER.defineList("turbine_connector_rule", List.of("one of any coil"), null, e -> true);
+        BUILDER.defineList("turbine_power_per_mb", List.of(16D, 4D, 4D), null, e -> range(e, 0D, 255D));
+        BUILDER.defineList("turbine_expansion_level", List.of(4D, 2D, 2D), null, e -> range(e, 1D, 255D));
+        BUILDER.defineInRange("turbine_spin_up_multiplier_global", 1D, 0D, 255D);
+        BUILDER.defineList("turbine_spin_up_multiplier", List.of(1D, 1D, 1D), null, e -> range(e, 0D, 255D));
+        BUILDER.defineInRange("turbine_spin_down_multiplier", 1D, 0.01D, 255D);
+        BUILDER.defineInRange("turbine_mb_per_blade", 100, 1, 32767);
+        BUILDER.defineList("turbine_throughput_leniency_params", List.of(0.5D, 0.75D), null, e -> range(e, 0D, 1D));
+        BUILDER.defineInRange("turbine_tension_throughput_factor", 2D, 1D, 255D);
+        BUILDER.defineInRange("turbine_tension_leniency", 0.05D, 0D, 1D);
+        BUILDER.defineInRange("turbine_power_bonus_multiplier", 1D, 0D, 255D);
+        BUILDER.defineInRange("turbine_sound_volume", 1D, 0D, 15D);
+        BUILDER.defineInRange("turbine_particles", 0.025D, 0D, 1D);
+        BUILDER.defineInRange("turbine_render_blade_width", NCMath.SQRT2, 0.01D, 4D);
+        BUILDER.defineInRange("turbine_render_rotor_expansion", 4D, 1D, 15D);
+        BUILDER.defineInRange("turbine_render_rotor_speed", 1D, 0D, 15D);
+
+        BUILDER.pop();
+
         return BUILDER.build();
     }
 
@@ -255,9 +288,35 @@ public class Config {
     public static Map<String, FuelConfig> FUEL_CONFIG_MAP = new HashMap<>();
     public static List<Integer> SOLAR_CONFIG_PRODUCTION;
     public static List<Integer> SOLAR_CONFIG_CAPACITY;
+    public static List<Integer> BATTERY_CONFIG_CAPACITY;
+    public static List<Integer> VOLTAIC_PILE_CAPACITY;
     public static UpgradeConfig UPGRADES_CONFIG;
     public static int LITHIUM_ION_CELL_CAPACITY;
     public static int LITHIUM_ION_CELL_TRANSFER;
+
+    public static int turbine_min_size;
+    public static int turbine_max_size;
+    public static List<Double> turbine_blade_efficiency;
+    public static List<Double> turbine_blade_expansion;
+    public static double turbine_stator_expansion;
+    public static List<Double> turbine_coil_conductivity;
+    public static List<String> turbine_coil_rule;
+    public static List<String> turbine_connector_rule;
+    public static List<Double> turbine_power_per_mb;
+    public static List<Double> turbine_expansion_level;
+    public static double turbine_spin_up_multiplier_global;
+    public static List<Double> turbine_spin_up_multiplier;
+    public static double turbine_spin_down_multiplier;
+    public static int turbine_mb_per_blade;
+    public static List<Double> turbine_throughput_leniency_params;
+    public static double turbine_tension_throughput_factor;
+    public static double turbine_tension_leniency;
+    public static double turbine_power_bonus_multiplier;
+    public static double turbine_sound_volume;
+    public static double turbine_particles;
+    public static double turbine_render_blade_width;
+    public static double turbine_render_rotor_expansion;
+    public static double turbine_render_rotor_speed;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
@@ -272,6 +331,8 @@ public class Config {
 
         SOLAR_CONFIG_PRODUCTION = config.get("solar.production");
         SOLAR_CONFIG_CAPACITY = config.get("solar.capacity");
+        BATTERY_CONFIG_CAPACITY = config.get("battery.battery_capacity");
+        VOLTAIC_PILE_CAPACITY = config.get("battery.voltaic_pile_capacity");
 
         UPGRADES_CONFIG = new UpgradeConfig(config.getInt("processor.speed_upgrade_max_stack_size"), config.getInt("processor.energy_upgrade_max_stack_size"),
                 config.get("processor.speed_upgrade_power_law_processing_power"), config.get("processor.speed_upgrade_power_law_processing_time"),
@@ -280,5 +341,28 @@ public class Config {
 
         LITHIUM_ION_CELL_CAPACITY = config.getInt("lithium_ion_cell_capacity");
         LITHIUM_ION_CELL_TRANSFER = config.getInt("lithium_ion_cell_transfer_rate");
+
+        turbine_min_size = config.getInt("turbine.turbine_min_size");
+        turbine_max_size = config.getInt("turbine.turbine_max_size");
+        turbine_blade_efficiency = config.get("turbine.turbine_blade_efficiency");
+        turbine_blade_expansion = config.get("turbine.turbine_blade_expansion");
+        turbine_stator_expansion = config.get("turbine.turbine_stator_expansion");
+        turbine_coil_conductivity = config.get("turbine.turbine_coil_conductivity");
+        turbine_coil_rule = config.get("turbine.turbine_coil_rule");
+        turbine_connector_rule = config.get("turbine.turbine_connector_rule");
+        turbine_power_per_mb = config.get("turbine.turbine_power_per_mb");
+        turbine_expansion_level = config.get("turbine.turbine_expansion_level");
+        turbine_spin_up_multiplier_global = config.get("turbine.turbine_spin_up_multiplier_global");
+        turbine_spin_up_multiplier = config.get("turbine.turbine_spin_up_multiplier");
+        turbine_spin_down_multiplier = config.get("turbine.turbine_spin_down_multiplier");
+        turbine_mb_per_blade = config.get("turbine.turbine_mb_per_blade");
+        turbine_throughput_leniency_params = config.get("turbine.turbine_throughput_leniency_params");
+        turbine_tension_throughput_factor = config.get("turbine.turbine_tension_throughput_factor");
+        turbine_tension_leniency = config.get("turbine.turbine_tension_leniency");
+        turbine_power_bonus_multiplier = config.get("turbine.turbine_power_bonus_multiplier");
+        turbine_sound_volume = config.get("turbine.turbine_sound_volume");
+        turbine_particles = config.get("turbine.turbine_particles");
+        turbine_render_blade_width = config.get("turbine.turbine_render_blade_width");
+        turbine_render_rotor_expansion = config.get("turbine.turbine_render_rotor_expansion");
     }
 }

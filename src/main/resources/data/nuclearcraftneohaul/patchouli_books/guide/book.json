@@ -1,0 +1,8 @@
+{
+    "name": "guide_book.name",
+    "landing_text": "guide_book.desc",
+    "subtitle": "guide_book.edition",
+    "creative_tab": "nuclearcraftneohaul:misc_tab",
+    "show_progress": false,
+    "use_resource_pack": true
+}

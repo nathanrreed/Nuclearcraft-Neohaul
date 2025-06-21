@@ -15,7 +15,7 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
-    maven { // JEI
+    maven { // JEI / Patchouli
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
     }
@@ -31,6 +31,9 @@ repositories {
         content {
             includeGroup "curse.maven"
         }
+    }
+    maven {// Mekanism
+        url "https://modmaven.dev/"
     }
 }
 
@@ -88,6 +91,18 @@ dependencies {
     compileOnly("curse.maven:jade-api-324717:${jade_id}")
     localRuntime("curse.maven:jade-324717:${jade_id}")
     localRuntime("curse.maven:jade-addons-583345:${jade_addons_id}")
+
+    compileOnly("vazkii.patchouli:Patchouli:${patchouli_version}-NEOFORGE:api")
+    runtimeOnly("vazkii.patchouli:Patchouli:${patchouli_version}-NEOFORGE")
+
+    compileOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
+
+    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")// Mekanism
+    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")// Mekanism: Additions
+    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")// Mekanism: Generators
+    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")// Mekanism: Tools
+
+    implementation "curse.maven:zerocore-247921:${zerocore_version}"
 }
 
 tasks.withType(ProcessResources).configureEach {

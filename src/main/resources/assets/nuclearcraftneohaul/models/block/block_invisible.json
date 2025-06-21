@@ -1,7 +1,7 @@
 {
 	"parent": "minecraft:block/block",
 	"textures": {
-		"invis": "nuclearcraftneohaul:blocks/block_invisible"
+		"invis": "nuclearcraftneohaul:block/block_invisible"
 	},
 	"elements": [{
 		"from": [ 0, 0, 0 ],
