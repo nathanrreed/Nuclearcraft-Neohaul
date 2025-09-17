@@ -2,8 +2,8 @@ package com.nred.nuclearcraft.block.processor.melter;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.helpers.HandlerInfo;
-import com.nred.nuclearcraft.menu.MelterMenu;
-import com.nred.nuclearcraft.menu.ProcessorInfo;
+import com.nred.nuclearcraft.menu.processor.MelterMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.block.batteries;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import com.nred.nuclearcraft.info.energy.EnergyConnection;
 import com.nred.nuclearcraft.multiblock.battery.BatteryMultiblock;
+import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
@@ -12,14 +13,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
-import com.nred.nuclearcraft.util.NCMath;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -46,28 +45,22 @@ public class BatteryEntity extends AbstractCuboidMultiblockPart<BatteryMultibloc
         this.tier = tier;
 
         capacity = this.tier < 10 ? BATTERY_CONFIG_CAPACITY.get(this.tier) : VOLTAIC_PILE_CAPACITY.get(this.tier - 10);
-        backupStorage = new CustomEnergyHandler(capacity, true, true) {
-            @Override
-            protected void onContentsChanged() {
-                setChanged();
-                if (level != null && !level.isClientSide()) {
-                    level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-                }
-            }
-        };
+        backupStorage = new CustomEnergyHandler(capacity, false, false);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
-        tag.put("energy", backupStorage.serializeNBT(registries));
+//        tag.put("energy", backupStorage.serializeNBT(registries)); TODO REMOVE
         tag.putByteArray("ignoreSide", NCMath.booleansToBytes(ignoreSide));
     }
 
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        backupStorage.deserializeNBT(registries, tag.get("energy"));
+
+//        if (tag.contains("energy"))
+//            backupStorage.deserializeNBT(registries, tag.get("energy"));
 
         boolean[] arr = NCMath.bytesToBooleans(tag.getByteArray("ignoreSide"));
         if (arr.length == 6) {

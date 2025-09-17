@@ -4,8 +4,8 @@ import com.ibm.icu.impl.Pair;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.helpers.SideConfigEnums.OutputSetting;
-import com.nred.nuclearcraft.menu.ProcessorInfo;
-import com.nred.nuclearcraft.menu.RockCrusherMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorInfo;
+import com.nred.nuclearcraft.menu.processor.RockCrusherMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.probabilityUnpacker;
-import static com.nred.nuclearcraft.menu.ProcessorMenu.ENERGY;
+import static com.nred.nuclearcraft.menu.processor.ProcessorMenu.ENERGY;
 
 public class RockCrusherEntity extends ProcessorEntity {
     public RockCrusherEntity(BlockPos pos, BlockState blockState) {

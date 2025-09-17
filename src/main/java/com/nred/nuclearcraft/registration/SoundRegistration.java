@@ -27,6 +27,9 @@ public class SoundRegistration {
     public static final Supplier<SoundEvent> RAD_POISONING = SOUND_EVENTS.register("rad_poisoning", SoundEvent::createVariableRangeEvent);
 
 
+    public static final Supplier<SoundEvent> turbine_run = SOUND_EVENTS.register("block.nc.turbine_run", SoundEvent::createVariableRangeEvent); //TODO FIX
+
+
     public static ResourceKey<JukeboxSong> createSong(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(MODID, name));
     }

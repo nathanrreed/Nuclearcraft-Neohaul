@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.menu.*;
+import com.nred.nuclearcraft.menu.processor.*;
+import com.nred.nuclearcraft.menu.turbine.TurbineControllerMenu;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -11,6 +13,8 @@ import static com.nred.nuclearcraft.registration.Registers.MENUS;
 
 public class MenuRegistration {
     public static final HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> PROCESSOR_MENU_TYPES = createProcessors();
+
+    public static final DeferredHolder<MenuType<?>, MenuType<TurbineControllerMenu>> TURBINE_CONTROLLER_MENU_TYPE = MENUS.register("turbine_controller", () -> IMenuTypeExtension.create(TurbineControllerMenu::new));
 
     private static HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> createProcessors() {
         HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> map = new HashMap<>();

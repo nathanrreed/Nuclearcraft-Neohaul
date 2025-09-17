@@ -35,7 +35,10 @@ import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusherEntity;
 import com.nred.nuclearcraft.block.processor.separator.SeparatorEntity;
 import com.nred.nuclearcraft.block.processor.supercooler.SupercoolerEntity;
 import com.nred.nuclearcraft.block.solar.SolarPanelEntity;
+import com.nred.nuclearcraft.block.turbine.*;
 import com.nred.nuclearcraft.block.universal_bin.UniversalBinEntity;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
+import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -52,6 +55,18 @@ public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> PROCESSOR_ENTITY_TYPE = createProcessors();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends SolarPanelEntity>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> BATTERY_ENTITY_TYPE = createBatteries();
+    //    public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends Turbine>>> TURBINE_ENTITY_TYPE = createTurbines();
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineControllerEntity>> TURBINE_CONTROLLER = BLOCK_ENTITY_TYPES.register("turbine_controller", () -> BlockEntityType.Builder.of(TurbineControllerEntity::new, TURBINE_MAP.get("turbine_controller").get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineCasingEntity>> TURBINE_CASING = BLOCK_ENTITY_TYPES.register("turbine_casing", () -> BlockEntityType.Builder.of(TurbineCasingEntity::new, TURBINE_MAP.get("turbine_casing").get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineRotorShaftEntity>> TURBINE_ROTOR_SHAFT = BLOCK_ENTITY_TYPES.register("turbine_rotor_shaft", () -> BlockEntityType.Builder.of(TurbineRotorShaftEntity::new, TURBINE_MAP.get("turbine_rotor_shaft").get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineRotorBearingEntity>> TURBINE_ROTOR_BEARING = BLOCK_ENTITY_TYPES.register("turbine_rotor_bearing", () -> BlockEntityType.Builder.of(TurbineRotorBearingEntity::new, TURBINE_MAP.get("turbine_rotor_bearing").get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineRotorBladeEntity>> TURBINE_ROTOR_BLADE = BLOCK_ENTITY_TYPES.register("turbine_rotor_blade", () -> BlockEntityType.Builder.of((pos, state) -> new TurbineRotorBladeEntity(pos, state, ((TurbineRotorBladeUtil.TurbineRotorBladeType)((MultiblockPartBlock<?, ?>)state.getBlock()).getMultiblockVariant().get())), TURBINE_MAP.get("steel_turbine_rotor_blade").get(), TURBINE_MAP.get("extreme_alloy_turbine_rotor_blade").get(), TURBINE_MAP.get("sic_turbine_rotor_blade").get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineRotorStatorEntity>> TURBINE_ROTOR_STATOR = BLOCK_ENTITY_TYPES.register("turbine_rotor_stator", () -> BlockEntityType.Builder.of((pos, state) -> new TurbineRotorStatorEntity(pos, state, ((TurbineRotorBladeUtil.TurbineRotorStatorType)((MultiblockPartBlock<?, ?>)state.getBlock()).getMultiblockVariant().get())), TURBINE_MAP.get("standard_turbine_rotor_stator").get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineOutletEntity>> TURBINE_OUTLET = BLOCK_ENTITY_TYPES.register("turbine_outlet", () -> BlockEntityType.Builder.of(TurbineOutletEntity::new, TURBINE_MAP.get("turbine_outlet").get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineInletEntity>> TURBINE_INLET = BLOCK_ENTITY_TYPES.register("turbine_inlet", () -> BlockEntityType.Builder.of(TurbineInletEntity::new, TURBINE_MAP.get("turbine_inlet").get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TurbineGlassEntity>> TURBINE_GLASS = BLOCK_ENTITY_TYPES.register("turbine_glass", () -> BlockEntityType.Builder.of(TurbineGlassEntity::new, TURBINE_MAP.get("turbine_glass").get()).build(null));
+
+    //registerBlockEntity("turbinecontroller", TurbineControllerEntity::new, () -> Blocks.TURBINE_CONTROLLER_BASIC::get, () -> Blocks.TURBINE_CONTROLLER_REINFORCED::get);
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(UniversalBinEntity::new, UNIVERSAL_BIN.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends MachineInterfaceEntity>> MACHINE_INTERFACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("machine_interface", () -> BlockEntityType.Builder.of(MachineInterfaceEntity::new, MACHINE_INTERFACE.get()).build(null));
 
@@ -125,6 +140,19 @@ public class BlockEntityRegistration {
         map.put(13, BLOCK_ENTITY_TYPES.register("elite_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 13), BATTERY_MAP.get("elite_lithium_ion_battery").get()).build(null)));
         return map;
     }
+
+//    private static Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> createTurbines() {
+//        Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> map = new HashMap<>();
+//        map.put(0, BLOCK_ENTITY_TYPES.register("basic_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 0), BATTERY_MAP.get("basic_voltaic_pile").get()).build(null)));
+//        map.put(1, BLOCK_ENTITY_TYPES.register("advanced_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 1), BATTERY_MAP.get("advanced_voltaic_pile").get()).build(null)));
+//        map.put(2, BLOCK_ENTITY_TYPES.register("du_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 2), BATTERY_MAP.get("du_voltaic_pile").get()).build(null)));
+//        map.put(3, BLOCK_ENTITY_TYPES.register("elite_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 3), BATTERY_MAP.get("elite_voltaic_pile").get()).build(null)));
+//        map.put(10, BLOCK_ENTITY_TYPES.register("basic_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 10), BATTERY_MAP.get("basic_lithium_ion_battery").get()).build(null)));
+//        map.put(11, BLOCK_ENTITY_TYPES.register("advanced_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 11), BATTERY_MAP.get("advanced_lithium_ion_battery").get()).build(null)));
+//        map.put(12, BLOCK_ENTITY_TYPES.register("du_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 12), BATTERY_MAP.get("du_lithium_ion_battery").get()).build(null)));
+//        map.put(13, BLOCK_ENTITY_TYPES.register("elite_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 13), BATTERY_MAP.get("elite_lithium_ion_battery").get()).build(null)));
+//        return map;
+//    }
 
     public static void init() {
     }

@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
+import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -37,7 +38,7 @@ public class RecipeTypeRegistration {
 
     public static final Map<String, DeferredHolder<RecipeType<?>, RecipeType<ProcessorRecipe>>> PROCESSOR_RECIPE_TYPES = PROCESSOR_MAP.keySet().stream().collect(Collectors.toMap(Function.identity(), RecipeTypeRegistration::register));
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> TURBINE_RECIPE_TYPE = register("turbine");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<TurbineRecipe>> TURBINE_RECIPE_TYPE = register("turbine");
 
     public static void init() {
     }

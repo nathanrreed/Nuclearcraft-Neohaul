@@ -13,7 +13,7 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
-@EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = MODID)
 public class SeverSetup {
     @SubscribeEvent
     public static void onLootTableLoad(LootTableLoadEvent event) {

@@ -6,16 +6,14 @@ import com.nred.nuclearcraft.config.Config2;
 import com.nred.nuclearcraft.payload.ButtonPressPayload;
 import com.nred.nuclearcraft.payload.FluidClearPayload;
 import com.nred.nuclearcraft.payload.RecipeSetPayload;
+import com.nred.nuclearcraft.payload.TurbineRenderPayload;
 import com.nred.nuclearcraft.registration.Registration;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
@@ -23,7 +21,7 @@ import org.slf4j.Logger;
 import static net.neoforged.neoforge.common.NeoForgeMod.enableMilkFluid;
 
 @Mod(NuclearcraftNeohaul.MODID)
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class NuclearcraftNeohaul {
     public static final String MODID = "nuclearcraftneohaul";
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -46,6 +44,7 @@ public class NuclearcraftNeohaul {
 
         // Server to Client
         registrar.playToClient(RecipeSetPayload.TYPE, RecipeSetPayload.STREAM_CODEC, RecipeSetPayload::handleOnClient);
+        registrar.playToClient(TurbineRenderPayload.TYPE, TurbineRenderPayload.STREAM_CODEC, TurbineRenderPayload::handleOnClient);
     }
 }
 

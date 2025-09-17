@@ -10,7 +10,7 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import java.util.Map;
 import java.util.Objects;
 
-@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID)
 public final class CollectorConfig {
     public static Map<MACHINE_LEVEL, Integer> cobblestoneCapacity;
     public static Map<MACHINE_LEVEL, Integer> waterCapacity;

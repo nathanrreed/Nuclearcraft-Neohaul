@@ -153,7 +153,7 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleBlocks(PROCESSOR_MAP);
         simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel", "solar_panel_advanced", "Advanced Solar Panel", "solar_panel_du", "DU Solar Panel", "solar_panel_elite", "Elite Solar Panel"));
         simpleBlocks(TURBINE_MAP, Map.of("sic_turbine_rotor_blade", "SiC-SiC CMC Turbine Rotor Blade"));
-        simpleBlocks(BATTERY_MAP, Map.of("du_voltaic_pile", "DU Voltaic Pile","du_lithium_ion_battery","DU Lithium Ion Battery"));
+        simpleBlocks(BATTERY_MAP, Map.of("du_voltaic_pile", "DU Voltaic Pile", "du_lithium_ion_battery", "DU Lithium Ion Battery"));
     }
 
     private void buckets() {
@@ -256,6 +256,9 @@ public class ModLanguageProvider extends LanguageProvider {
         add("message.multitool.save", "Saved %s configuration to Multitool");
         add("message.multitool.load", "Loaded %s configuration from Multitool");
         add("message.multitool.error", "%s configuration cannot be loaded to %s");
+
+        add("message.multitool.energy_toggle", "Toggled side to ");
+        add("message.multitool.energy_toggle_opposite", "Toggled opposite side to ");
     }
 
     private void tooltips() {
@@ -300,6 +303,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add("tooltip.tank", "%s [%s mB / %s mB]");
         add("tooltip.tank.clear", "Shift Click to clear tank");
+        add("tooltip.shift_clear_multiblock", "Shift click to clear out ALL components' items and fluids");
 
         add("tooltip.redstone_control", "Redstone Control");
         add("tooltip.side_config", "Side Configuration");
@@ -321,6 +325,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("tooltip.side_config.input", "INPUT");
         add("tooltip.side_config.output", "OUTPUT");
         add("tooltip.side_config.auto_output", "AUTO-OUTPUT");
+        add("tooltip.side_config.auto_input", "AUTO-INPUT");
+        add("tooltip.side_config.both", "BOTH");
 
         add("tooltip.side_config.slot_setting.slot", "Slot Setting: %s");
         add("tooltip.side_config.slot_setting.tank", "Tank Setting: %s");
@@ -383,6 +389,20 @@ public class ModLanguageProvider extends LanguageProvider {
         add("menu.title.fluid_mixer", "Fluid Mixer");
         add("menu.title.separator", "Separator");
         add("menu.title.supercooler", "Supercooler");
+
+        // Turbine
+        add("menu.turbine_controller.title", "%s*%s*%s Turbine");
+        add("menu.turbine_controller.power", "Power Output: %s");
+        add("menu.turbine_controller.dynamo_efficiency", "Dynamo Efficiency: %s");
+        add("menu.turbine_controller.dynamo_coil_count", "Coil Counts: %s");
+        add("menu.turbine_controller.expansion_level", "Expansion: %s");
+        add("menu.turbine_controller.rotor_efficiency", "Rotor Efficiency: %s");
+        add("menu.turbine_controller.fluid_rate", "Input: %s");
+        add("menu.turbine_controller.power_bonus", "Rate Power Bonus: %s");
+
+        add("multiblock_validation.invalid_block", "%4$s is not a valid block at [%1$d, %2$d, %3$d]"); // TODO ADD
+        add("multiblock_validation.no_controller", "There must be a controller for the multiblock to form");
+        add("multiblock_validation.too_many_controllers", "There must only be one controller for the multiblock to form");
     }
 
     private void creativeTabs() {

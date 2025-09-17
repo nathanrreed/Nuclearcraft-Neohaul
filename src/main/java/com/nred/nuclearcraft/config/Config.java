@@ -14,7 +14,7 @@ import java.util.*;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 
-@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID)
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC = build();

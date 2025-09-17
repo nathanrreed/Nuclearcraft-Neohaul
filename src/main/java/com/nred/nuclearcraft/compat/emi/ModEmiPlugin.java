@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.info.Fluids;
-import com.nred.nuclearcraft.menu.ProcessorMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
 import dev.emi.emi.api.EmiEntrypoint;

@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.block.processor;
 
 import com.nred.nuclearcraft.helpers.SideConfigEnums;
-import com.nred.nuclearcraft.menu.ProcessorInfo;
-import com.nred.nuclearcraft.menu.ProcessorMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorInfo;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.payload;
 
-import com.nred.nuclearcraft.screen.ProcessorScreen;
+import com.nred.nuclearcraft.screen.processor.ProcessorScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

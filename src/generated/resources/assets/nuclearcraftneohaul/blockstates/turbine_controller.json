@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "nuclearcraftneohaul:block/turbine_controller",
+      "y": 90
+    },
+    "facing=north": {
       "model": "nuclearcraftneohaul:block/turbine_controller"
+    },
+    "facing=south": {
+      "model": "nuclearcraftneohaul:block/turbine_controller",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "nuclearcraftneohaul:block/turbine_controller",
+      "y": 270
     }
   }
 }

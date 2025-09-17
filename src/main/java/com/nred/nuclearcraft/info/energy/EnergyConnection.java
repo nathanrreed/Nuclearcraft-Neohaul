@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.info.energy;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum EnergyConnection implements StringRepresentable {
 
@@ -42,12 +43,12 @@ public enum EnergyConnection implements StringRepresentable {
     }
 
     @Override
-    public String getSerializedName() {
+    public @NotNull String getSerializedName() {
         return switch (this) {
-            case IN -> "in";
-            case OUT -> "out";
+            case IN -> "input";
+            case OUT -> "output";
             case BOTH -> "both";
-            case NON -> "non";
+            case NON -> "disabled";
         };
     }
 

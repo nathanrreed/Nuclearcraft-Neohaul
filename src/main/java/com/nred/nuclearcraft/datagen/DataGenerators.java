@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static java.util.Collections.emptySet;
 
-@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID)
 public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {

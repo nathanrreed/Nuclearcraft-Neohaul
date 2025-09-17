@@ -14,5 +14,6 @@
 			"west": { "texture": "#invis", "cullface": "west" },
 			"east": { "texture": "#invis", "cullface": "east" }
 		}
-	}]
+	}],
+    "render_type": "minecraft:cutout"
 }

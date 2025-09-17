@@ -2,8 +2,8 @@ package com.nred.nuclearcraft.block.processor.electric_furnace;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.helpers.HandlerInfo;
-import com.nred.nuclearcraft.menu.ElectricFurnaceMenu;
-import com.nred.nuclearcraft.menu.ProcessorInfo;
+import com.nred.nuclearcraft.menu.processor.ElectricFurnaceMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorInfo;
 import com.nred.nuclearcraft.recipe.processor.ElectricFurnaceRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.nred.nuclearcraft.menu.ProcessorMenu.ENERGY;
+import static com.nred.nuclearcraft.menu.processor.ProcessorMenu.ENERGY;
 
 public class ElectricFurnaceEntity extends ProcessorEntity {
     public ElectricFurnaceEntity(BlockPos pos, BlockState blockState) {

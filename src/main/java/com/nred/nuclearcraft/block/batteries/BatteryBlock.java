@@ -20,13 +20,13 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.energy.EnergyStorage;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -39,7 +39,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY
 import static com.nred.nuclearcraft.registration.ItemRegistration.MULTITOOL;
 
 public class BatteryBlock extends BaseEntityBlock {
-    private int tier;
+    private final int tier;
 
     public BatteryBlock(int tier) {
         super(Properties.of());
@@ -51,7 +51,7 @@ public class BatteryBlock extends BaseEntityBlock {
     );
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
@@ -82,26 +82,21 @@ public class BatteryBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.getBlockEntity(pos) instanceof BatteryEntity entity && stack.is(MULTITOOL)) {
             boolean opposite = Screen.hasShiftDown();
             Direction side = opposite ? hitResult.getDirection().getOpposite() : hitResult.getDirection();
 
             entity.sideOptions.put(side, entity.sideOptions.get(side).next(EnergyConnection.Type.DEFAULT));
 
-//            toggleEnergyConnection(side, EnergyConnection.Type.DEFAULT);
-//            EnergyConnection energyConnection = getEnergyConnection(side);
-            player.sendSystemMessage(Component.translatable(opposite ? "nc.block.energy_toggle_opposite" : "nc.block.energy_toggle"));//TODO + " " + energyConnection.getTextColor() + Lang.localize("nc.block.setting." + energyConnection.getName())));
-
+            if (level.isClientSide) {
+                EnergyConnection energyConnection = entity.sideOptions.get(side);
+                player.sendSystemMessage(Component.translatable(opposite ? "message.multitool.energy_toggle_opposite" : "message.multitool.energy_toggle").append(Component.translatable("tooltip.side_config." + energyConnection.getSerializedName()).withStyle(energyConnection.getTextColor())));
+            }
             return ItemInteractionResult.CONSUME;
         }
 
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-    }
-
-    @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.gui;
 
 import com.nred.nuclearcraft.payload.ButtonPressPayload;
-import com.nred.nuclearcraft.screen.ProcessorScreen;
+import com.nred.nuclearcraft.screen.processor.ProcessorScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

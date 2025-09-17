@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.helpers;
 
+import net.minecraft.util.Mth;
 import net.neoforged.neoforge.energy.EnergyStorage;
 
 public class CustomEnergyHandler extends EnergyStorage {
@@ -53,6 +54,10 @@ public class CustomEnergyHandler extends EnergyStorage {
         this.tempEnergy = oldEnergy; // Save capacity encase of miss-click
     }
 
+    public void setCapacitySimple(int capacity) {
+        this.capacity = capacity;
+    }
+
     public void setMaxTransfer(int maxTransfer) {
         this.maxExtract = maxTransfer;
         this.maxReceive = maxTransfer;
@@ -62,6 +67,13 @@ public class CustomEnergyHandler extends EnergyStorage {
         setCapacity(getMaxEnergyStored() + other.getMaxEnergyStored());
         energy = getEnergyStored() + other.getEnergyStored();
         other.energy = 0;
+        onContentsChanged();
+        other.onContentsChanged();
+    }
+
+    public void changeEnergyStored(int energy) {
+        this.energy = Mth.clamp(this.energy + energy, 0, capacity);
+        onContentsChanged();
     }
 
     public void cullEnergyStored() {

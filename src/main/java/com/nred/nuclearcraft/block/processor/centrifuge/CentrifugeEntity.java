@@ -2,11 +2,10 @@ package com.nred.nuclearcraft.block.processor.centrifuge;
 
 import com.ibm.icu.impl.Pair;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
-import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
 import com.nred.nuclearcraft.helpers.HandlerInfo;
 import com.nred.nuclearcraft.helpers.SideConfigEnums.OutputSetting;
-import com.nred.nuclearcraft.menu.CentrifugeMenu;
-import com.nred.nuclearcraft.menu.ProcessorInfo;
+import com.nred.nuclearcraft.menu.processor.CentrifugeMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Inventory;

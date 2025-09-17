@@ -2,8 +2,8 @@ package com.nred.nuclearcraft.block.processor.fluid_extractor;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.helpers.HandlerInfo;
-import com.nred.nuclearcraft.menu.ExtractorMenu;
-import com.nred.nuclearcraft.menu.ProcessorInfo;
+import com.nred.nuclearcraft.menu.processor.ExtractorMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

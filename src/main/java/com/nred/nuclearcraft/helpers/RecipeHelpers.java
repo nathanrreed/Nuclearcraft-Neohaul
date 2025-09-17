@@ -13,14 +13,13 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 import static com.nred.nuclearcraft.config.Config.UPGRADES_CONFIG;
 import static com.nred.nuclearcraft.datagen.ModRecipeProvider.tag;
-import static com.nred.nuclearcraft.menu.ProcessorMenu.ENERGY;
-import static com.nred.nuclearcraft.menu.ProcessorMenu.SPEED;
+import static com.nred.nuclearcraft.menu.processor.ProcessorMenu.ENERGY;
+import static com.nred.nuclearcraft.menu.processor.ProcessorMenu.SPEED;
 
 public class RecipeHelpers {
     public static double calculateTicks(String typeName, double recipeTimeModifier, IItemHandler itemStackHandler) {

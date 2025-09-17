@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.multiblock.battery;
 
 import com.nred.nuclearcraft.block.batteries.BatteryEntity;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
-import com.nred.nuclearcraft.multiblock.turbine.CuboidalMultiblock;
+import com.nred.nuclearcraft.multiblock.MachineMultiblock;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
@@ -10,10 +10,11 @@ import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public class BatteryMultiblock extends CuboidalMultiblock<BatteryMultiblock> {
+public class BatteryMultiblock extends MachineMultiblock<BatteryMultiblock> {
     protected final @Nonnull CustomEnergyHandler storage = new CustomEnergyHandler(1, true, true);
     protected int comparatorStrength = 0;
 
@@ -59,7 +60,7 @@ public class BatteryMultiblock extends CuboidalMultiblock<BatteryMultiblock> {
     }
 
     @Override
-    public CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
+    public @NotNull CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
         data.put("energy", storage.serializeNBT(registries));
         data.putInt("comparatorStrength", comparatorStrength);
         return data;
@@ -148,7 +149,7 @@ public class BatteryMultiblock extends CuboidalMultiblock<BatteryMultiblock> {
 
     protected void onMultiblockFormed() {
         if (!getWorld().isClientSide) {
-            long capacity = 0L;
+            int capacity = 0;
             for (IMultiblockPart<BatteryMultiblock> part : getConnectedParts()) {
                 if (part instanceof BatteryEntity batteryEntity) {
                     capacity += batteryEntity.capacity;
@@ -156,9 +157,18 @@ public class BatteryMultiblock extends CuboidalMultiblock<BatteryMultiblock> {
                 }
             }
 
-            storage.setCapacity((int) capacity);
-            storage.setMaxTransfer((int) capacity);
+            storage.setCapacity(capacity);
+            storage.setMaxTransfer(capacity);
             refreshEnergy = true;
+
+            //TODO not working properly when mekanism energy cube is placed before this
+
+// TODO REMOVE
+//            for (IMultiblockPart<BatteryMultiblock> part : getConnectedParts()) {
+//                if (part instanceof BatteryEntity batteryEntity) {
+//                    getWorld().setBlock(batteryEntity.getBlockPos(), batteryEntity.getBlockState(), Block.UPDATE_ALL_IMMEDIATE);
+//                }
+//            }
         }
     }
 

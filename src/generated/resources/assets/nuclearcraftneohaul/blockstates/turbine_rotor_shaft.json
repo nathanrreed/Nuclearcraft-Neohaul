@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "dir=invisible": {
+      "model": "nuclearcraftneohaul:block/block_invisible"
+    },
+    "dir=x": {
+      "model": "nuclearcraftneohaul:block/turbine_rotor_shaft",
+      "x": 90,
+      "y": 90
+    },
+    "dir=y": {
       "model": "nuclearcraftneohaul:block/turbine_rotor_shaft"
+    },
+    "dir=z": {
+      "model": "nuclearcraftneohaul:block/turbine_rotor_shaft",
+      "x": 90
     }
   }
 }

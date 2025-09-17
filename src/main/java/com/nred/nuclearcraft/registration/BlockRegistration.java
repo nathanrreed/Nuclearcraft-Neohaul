@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.block.batteries.BatteryBlock;
 import com.nred.nuclearcraft.block.SolidifiedCorium;
 import com.nred.nuclearcraft.block.SupercoldIceBlock;
+import com.nred.nuclearcraft.block.batteries.BatteryBlock;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGenerator;
 import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollector;
@@ -29,10 +29,7 @@ import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusher;
 import com.nred.nuclearcraft.block.processor.separator.Separator;
 import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
 import com.nred.nuclearcraft.block.solar.SolarPanel;
-import com.nred.nuclearcraft.block.turbine.BlockTurbineCasing;
-import com.nred.nuclearcraft.block.turbine.BlockTurbineGlass;
-import com.nred.nuclearcraft.block.turbine.BlockTurbineRotorBlade;
-import com.nred.nuclearcraft.block.turbine.BlockTurbineRotorStator;
+import com.nred.nuclearcraft.block.turbine.TurbinePartType;
 import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -55,6 +52,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.info.Names.*;
+import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbineRotorBladeType.*;
+import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbineRotorStatorType.STANDARD;
 import static com.nred.nuclearcraft.registration.Registers.BLOCKS;
 import static com.nred.nuclearcraft.registration.Registers.ITEMS;
 
@@ -172,13 +171,15 @@ public class BlockRegistration {
 
     private static HashMap<String, DeferredBlock<Block>> createTurbineParts() {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>(); //TODO MAKE CUSTOM BLOCKS
-        map.put("turbine_casing", registerBlockItem("turbine_casing", BlockTurbineCasing::new));
-        map.put("turbine_glass", registerBlockItem("turbine_glass", BlockTurbineGlass::new));
-        map.put("turbine_rotor_bearing", registerBlockItem("turbine_rotor_bearing", () -> new Block(BlockBehaviour.Properties.of())));
-        map.put("turbine_rotor_shaft", registerBlockItem("turbine_rotor_shaft", () -> new Block(BlockBehaviour.Properties.of())));
-        map.put("turbine_inlet", registerBlockItem("turbine_inlet", () -> new Block(BlockBehaviour.Properties.of())));
-        map.put("turbine_outlet", registerBlockItem("turbine_outlet", () -> new Block(BlockBehaviour.Properties.of())));
-        map.put("turbine_controller", registerBlockItem("turbine_controller", () -> new Block(BlockBehaviour.Properties.of())));
+        map.put("turbine_casing", registerBlockItem("turbine_casing", TurbinePartType.Casing::createBlock));
+        map.put("turbine_glass", registerBlockItem("turbine_glass", TurbinePartType.Glass::createBlock));
+        map.put("turbine_rotor_bearing", registerBlockItem("turbine_rotor_bearing", TurbinePartType.RotorBearing::createBlock));
+        map.put("turbine_rotor_shaft", registerBlockItem("turbine_rotor_shaft", TurbinePartType.RotorShaft::createBlock));
+        map.put("turbine_inlet", registerBlockItem("turbine_inlet", TurbinePartType.Inlet::createBlock));
+        map.put("turbine_outlet", registerBlockItem("turbine_outlet", TurbinePartType.Outlet::createBlock));
+        map.put("turbine_controller", registerBlockItem("turbine_controller", TurbinePartType.Controller::createBlock));
+        //        public static final Supplier<GenericDeviceBlock<MultiblockTurbine, ITurbinePartType>> TURBINE_CONTROLLER_BASIC =
+        //                registerTurbineBlock("basic_turbinecontroller", TurbineVariant.Basic, TurbinePartType.Controller);
         map.put("turbine_coil_connector", registerBlockItem("turbine_coil_connector", () -> new Block(BlockBehaviour.Properties.of())));
 
         map.put("magnesium_turbine_dynamo_coil", registerBlockItem("magnesium_turbine_dynamo_coil", () -> new Block(BlockBehaviour.Properties.of())));
@@ -188,16 +189,16 @@ public class BlockRegistration {
         map.put("copper_turbine_dynamo_coil", registerBlockItem("copper_turbine_dynamo_coil", () -> new Block(BlockBehaviour.Properties.of())));
         map.put("silver_turbine_dynamo_coil", registerBlockItem("silver_turbine_dynamo_coil", () -> new Block(BlockBehaviour.Properties.of())));
 
-        map.put("steel_turbine_rotor_blade", registerBlockItem("steel_turbine_rotor_blade", () -> new BlockTurbineRotorBlade(BlockBehaviour.Properties.of())));
-        map.put("extreme_alloy_turbine_rotor_blade", registerBlockItem("extreme_alloy_turbine_rotor_blade", () -> new BlockTurbineRotorBlade(BlockBehaviour.Properties.of())));
-        map.put("sic_turbine_rotor_blade", registerBlockItem("sic_turbine_rotor_blade", () -> new BlockTurbineRotorBlade(BlockBehaviour.Properties.of())));
-        map.put("standard_turbine_rotor_stator", registerBlockItem("standard_turbine_rotor_stator", () -> new BlockTurbineRotorStator(BlockBehaviour.Properties.of())));
+        map.put("steel_turbine_rotor_blade", registerBlockItem("steel_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(STEEL)));
+        map.put("extreme_alloy_turbine_rotor_blade", registerBlockItem("extreme_alloy_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(EXTREME)));
+        map.put("sic_turbine_rotor_blade", registerBlockItem("sic_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(SIC_SIC_CMC)));
+        map.put("standard_turbine_rotor_stator", registerBlockItem("standard_turbine_rotor_stator", () -> TurbinePartType.RotorStator.createBlock(STANDARD)));
         return map;
     }
 
     private static HashMap<String, DeferredBlock<Block>> createBatteries() {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
-        map.put("basic_voltaic_pile", registerBlockItem("basic_voltaic_pile", () -> new BatteryBlock( 0)));
+        map.put("basic_voltaic_pile", registerBlockItem("basic_voltaic_pile", () -> new BatteryBlock(0)));
         map.put("advanced_voltaic_pile", registerBlockItem("advanced_voltaic_pile", () -> new BatteryBlock(1)));
         map.put("du_voltaic_pile", registerBlockItem("du_voltaic_pile", () -> new BatteryBlock(2)));
         map.put("elite_voltaic_pile", registerBlockItem("elite_voltaic_pile", () -> new BatteryBlock(3)));

@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static com.nred.nuclearcraft.util.CollectionHelper.arrayCopies;
 
-@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID)
 public class Config2 {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 

@@ -21,7 +21,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CELL;
 
-@EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = MODID)
 public class CapabilityRegistration {
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {

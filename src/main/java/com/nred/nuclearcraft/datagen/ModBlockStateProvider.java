@@ -2,11 +2,15 @@ package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.ModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -14,9 +18,11 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
+import static com.nred.nuclearcraft.datagen.ModBlockStateProvider.Directionality.*;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.*;
@@ -53,11 +59,11 @@ class ModBlockStateProvider extends BlockStateProvider {
         }
 
         for (String typeName : SOLAR_MAP.keySet()) {
-            blockSidesAndTop(typeName, SOLAR_MAP.get(typeName), "solar");
+            blockSidesAndTop(typeName, SOLAR_MAP.get(typeName), "solar", None);
         }
 
         for (String typeName : BATTERY_MAP.keySet()) {
-            blockSidesAndTop(BATTERY_MAP.get(typeName), typeName, "top_in", "side_in");
+            blockSidesAndTop(BATTERY_MAP.get(typeName), typeName, "top_input", "side_input", None);
         }
 
         for (String typeName : PROCESSOR_MAP.keySet()) {
@@ -80,15 +86,22 @@ class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
+    enum Directionality {
+        None,
+        Horizontal,
+        Directional,
+        RotorPart
+    }
+
     private void turbine() {
         blockMachine("controller", TURBINE_MAP.get("turbine_controller"), "turbine");
         blockWithItem("wall", TURBINE_MAP.get("turbine_casing"), "turbine/casing");
         blockWithItem("glass", TURBINE_MAP.get("turbine_glass"), "turbine");
         blockWithItem("coil_connector", TURBINE_MAP.get("turbine_coil_connector"), "turbine");
         blockWithItem("rotor_bearing", TURBINE_MAP.get("turbine_rotor_bearing"), "turbine");
-        blockSidesAndTop("rotor_shaft", TURBINE_MAP.get("turbine_rotor_shaft"), "turbine", "_end");
-        blockSidesAndTop("inlet", TURBINE_MAP.get("turbine_inlet"), "turbine"); // TODO ADD FACING
-        blockSidesAndTop("outlet", TURBINE_MAP.get("turbine_outlet"), "turbine");
+        blockSidesAndTop("rotor_shaft", TURBINE_MAP.get("turbine_rotor_shaft"), "turbine", "_end", RotorPart);
+        blockSidesAndTop("inlet", TURBINE_MAP.get("turbine_inlet"), "turbine", Horizontal);
+        blockSidesAndTop("outlet", TURBINE_MAP.get("turbine_outlet"), "turbine", Horizontal);
 
         blockWithItem("magnesium", TURBINE_MAP.get("magnesium_turbine_dynamo_coil"), "turbine/dynamo_coil");
         blockWithItem("beryllium", TURBINE_MAP.get("beryllium_turbine_dynamo_coil"), "turbine/dynamo_coil");
@@ -133,34 +146,44 @@ class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, model);
     }
 
-    private void blockSidesAndTop(DeferredBlock<Block> deferredBlock, String folder, String top) {
-        blockSidesAndTop(deferredBlock, folder, top, "_side");
+    private void blockSidesAndTop(DeferredBlock<Block> deferredBlock, String folder, String top, Directionality directional) {
+        blockSidesAndTop(deferredBlock, folder, top, "_side", directional);
     }
 
-    private void blockSidesAndTop(DeferredBlock<Block> deferredBlock, String folder, String top, String side) {
+    private void blockSidesAndTop(DeferredBlock<Block> deferredBlock, String folder, String top, String side, Directionality directional) {
         Block block = deferredBlock.get();
         String base = ModelProvider.BLOCK_FOLDER + "/" + folder + "/";
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/top_sides")).texture("top", modLoc(base + top)).texture("sides", modLoc(base + side));
 
-        simpleBlock(block, model);
+        switch (directional) {
+            case None -> simpleBlock(block, model);
+            case Horizontal -> horizontalBlock(block, model);
+            case Directional -> directionalBlock(block, model);
+            case RotorPart -> rotorPartModel(block, $ -> model);
+        }
         simpleBlockItem(block, model);
     }
 
-    private void blockSidesAndTop(String name, DeferredBlock<Block> deferredBlock, String folder, String top) {
+    private void blockSidesAndTop(String name, DeferredBlock<Block> deferredBlock, String folder, String top, Directionality directional) {
         Block block = deferredBlock.get();
         String base = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/top_sides")).texture("top", modLoc(base + top)).texture("sides", modLoc(base + "_side"));
 
-        simpleBlock(block, model);
+        switch (directional) {
+            case None -> simpleBlock(block, model);
+            case Horizontal -> horizontalBlock(block, model);
+            case Directional -> directionalBlock(block, model);
+            case RotorPart -> rotorPartModel(block, $ -> model);
+        }
         simpleBlockItem(block, model);
     }
 
-    private void blockSidesAndTop(String name, DeferredBlock<Block> deferredBlock, String folder) {
-        blockSidesAndTop(name, deferredBlock, folder, "_top");
+    private void blockSidesAndTop(String name, DeferredBlock<Block> deferredBlock, String folder, Directionality directional) {
+        blockSidesAndTop(name, deferredBlock, folder, "_top", directional);
     }
 
-    private void blockSidesAndTop(DeferredBlock<Block> deferredBlock, String folder) {
-        blockSidesAndTop(deferredBlock, folder, "_top");
+    private void blockSidesAndTop(DeferredBlock<Block> deferredBlock, String folder, Directionality directional) {
+        blockSidesAndTop(deferredBlock, folder, "_top", directional);
     }
 
     private void blockMachine(String name, DeferredBlock<Block> deferredBlock, String folder) {
@@ -168,7 +191,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         String base = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_bottom")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front_off"));
 
-        simpleBlock(block, model);
+        horizontalBlock(block, model);
         simpleBlockItem(block, model);
     }
 
@@ -185,7 +208,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         String texture = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
 
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(name.contains("stator") ? "block/turbine_rotor_stator" : "block/turbine_rotor_blade")).texture("texture", texture);
-        directionalBlock(block, model);
+        rotorPartModel(block, $ -> model);
         simpleBlockItem(block, model);
     }
 
@@ -195,5 +218,19 @@ class ModBlockStateProvider extends BlockStateProvider {
         horizontalBlock(deferredBlock.get(), state -> state.getValue(PROCESSOR_ON) ? modelOn : modelOff);
 
         simpleBlockItem(deferredBlock.get(), modelOff);
+    }
+
+    private void rotorPartModel(Block block, Function<BlockState, ModelFile> modelFunc) {
+        getVariantBuilder(block)
+                .forAllStates(state -> {
+                    TurbinePartDir dir = state.getValue(TurbineRotorBladeUtil.DIR);
+
+                    return switch (dir) {
+                        case INVISIBLE -> ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block_invisible"))).build();
+                        case X -> ConfiguredModel.builder().modelFile(modelFunc.apply(state)).rotationX(90).rotationY(90).build();
+                        case Y -> ConfiguredModel.builder().modelFile(modelFunc.apply(state)).build();
+                        case Z -> ConfiguredModel.builder().modelFile(modelFunc.apply(state)).rotationX(90).build();
+                    };
+                });
     }
 }
