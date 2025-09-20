@@ -18,8 +18,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.model.data.ModelData;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -62,7 +64,7 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
             return;
         }
 
-        float brightness = controller.nextRenderBrightness();
+        float brightness = controller.nextRenderBrightness() / 15;
 
         bindBlocksTexture();
 
@@ -78,7 +80,7 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
         // Enter rotated frame
         poseStack.pushPose();
 
-        poseStack.translate(-pos.getX() + (turbine.flowDir.getAxis() == Axis.X ? 1D : 0), -pos.getY(), -pos.getZ());
+        poseStack.translate(-pos.getX() + (turbine.flowDir.getAxis() == Axis.X ? 1D : 0), -pos.getY(), -pos.getZ()); // Start location
 
         poseStack.translate(pos.getX() - rX, pos.getY() - rY, pos.getZ() - rZ);
         poseStack.scale((float) (dir.getAxis() == Axis.X ? 1D : scale), (float) (dir.getAxis() == Axis.Y ? 1D : scale), (float) (dir.getAxis() == Axis.Z ? 1D : scale));
@@ -95,7 +97,6 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
         for (int depth : turbine.bladeDepths) {
             renderRotor(turbine, poseStack, bufferSource, brightness, shaftState, dir, flowLength, bladeLength, shaftWidth, turbine_render_blade_width, depth);
         }
-
 
         // Leave rotated frame
         poseStack.popPose();
@@ -115,7 +116,7 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
         poseStack.popPose();
 
         // Tanks
-//
+// TODO add
 //        poseStack.pushPose();
 
 //        GlStateManager.color(1F, 1F, 1F, 1F);
@@ -175,14 +176,14 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
         }
 
         Vector3f renderPos = turbine.renderPosArray[4 * flowLength * shaftWidth + depth];
-        poseStack.translate(renderPos.x + 0.5D, renderPos.y + 0.5D, renderPos.z + 0.5D);
+        poseStack.translate(renderPos.x + 0.5D + (turbine.flowDir.getAxis() == Axis.Z ? 1D : 0), renderPos.y + 0.5D, renderPos.z + 0.5D);
         poseStack.scale(flowDir.getAxis() == Axis.X ? (float) 1D : shaftWidth, flowDir.getAxis() == Axis.Y ? (float) 1D : shaftWidth, flowDir.getAxis() == Axis.Z ? (float) 1D : shaftWidth);
 
         poseStack.translate(-0.5D, -0.5D, -0.5D);
+
         poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(-90F), 0F, 1F, 0F));
 
-//        renderer.renderBlockBrightness(shaftState, brightness); //TODO FIX
-        context.getBlockRenderDispatcher().renderSingleBlock(shaftState, poseStack, bufferSource, 255, OverlayTexture.NO_OVERLAY, net.neoforged.neoforge.client.model.data.ModelData.EMPTY, RenderType.SOLID);
+        context.getBlockRenderDispatcher().renderSingleBlock(shaftState, poseStack, bufferSource, (int) (255 * brightness), OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
 
         poseStack.popPose();
     }
@@ -207,17 +208,21 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
             bladeDir = rotorState.getValue(TurbineRotorBladeUtil.DIR);
             planeDir = (i < flowLength || i >= 3 * flowLength) ? PlaneDir.V : PlaneDir.U;
 
-            poseStack.translate(renderPos.x + 0.5D, renderPos.y + 0.5D, renderPos.z + 0.5D);
+            poseStack.translate(renderPos.x + 0.5D - (turbine.flowDir.getAxis() == Axis.X ? 1D : 0), renderPos.y + 0.5D, renderPos.z + 0.5D);
             poseStack.scale((float) (flowDir.getAxis() == Axis.X ? 1D : (turbine.getBladeDir(planeDir) == TurbinePartDir.X ? bladeLength : bladeWidth)), (float) (flowDir.getAxis() == Axis.Y ? 1D : (turbine.getBladeDir(planeDir) == TurbinePartDir.Y ? bladeLength : bladeWidth)), (float) (flowDir.getAxis() == Axis.Z ? 1D : (turbine.getBladeDir(planeDir) == TurbinePartDir.Z ? bladeLength : bladeWidth)));
             poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(turbine.bladeAngleArray[i] * (flowDir.getAxisDirection() == Direction.AxisDirection.POSITIVE ^ flowDir.getAxis() == Axis.X ? 1F : -1F)), bladeDir == TurbinePartDir.X ? 1F : 0F, bladeDir == TurbinePartDir.Y ? 1F : 0F, bladeDir == TurbinePartDir.Z ? 1F : 0F));
 
             poseStack.translate(-0.5D, -0.5D, -0.5D);
-            poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(-90F), 0F, 1F, 0F));
+//            poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(-90F), 0F, 1F, 0F)); TODO doesn't seem to be needed
 
-//            renderer.renderBlockBrightness(rotorState, brightness);
-            context.getBlockRenderDispatcher().renderSingleBlock(rotorState, poseStack, bufferSource, 255, OverlayTexture.NO_OVERLAY, net.neoforged.neoforge.client.model.data.ModelData.EMPTY, RenderType.SOLID);
+            context.getBlockRenderDispatcher().renderSingleBlock(rotorState, poseStack, bufferSource, (int) (255 * brightness), OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
 
             poseStack.popPose();
         }
+    }
+
+    @Override
+    public AABB getRenderBoundingBox(TurbineControllerEntity blockEntity) {
+        return blockEntity.getMultiblockController().get().getBoundingBox().getAABB();
     }
 }

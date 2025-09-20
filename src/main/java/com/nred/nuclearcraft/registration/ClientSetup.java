@@ -26,8 +26,8 @@ import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_CONTROLLER;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
-import static com.nred.nuclearcraft.registration.MenuRegistration.TURBINE_CONTROLLER_MENU_TYPE;
 import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
+import static com.nred.nuclearcraft.registration.MenuRegistration.TURBINE_CONTROLLER_MENU_TYPE;
 
 @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
 public class ClientSetup {
@@ -61,6 +61,7 @@ public class ClientSetup {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @SubscribeEvent
     private static void registerScreens(RegisterMenuScreensEvent event) {
         event.register((MenuType<AlloyFurnaceMenu>) PROCESSOR_MENU_TYPES.get("alloy_furnace").get(), AlloyFurnaceScreen::new);

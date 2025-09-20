@@ -895,7 +895,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
             for (int depth = 0; depth < flowLength; ++depth) {
                 for (int w = 0; w < shaftWidth; ++w) {
-                    this.renderPosArray[w + depth * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength).sub(position);//.add(-0.3f, 1f, 1.85f); // Code was absolute now needs to be relative
+                    this.renderPosArray[w + depth * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength);//.add(-0.3f, 1f, 1.85f); // Code was absolute now needs to be relative
                     this.renderPosArray[w + (depth + flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength);//.sub(position).sub(0.3f, 0, 1f);
                     this.renderPosArray[w + (depth + 2 * flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth + bladeLength, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength);//.sub(position).add(-0.3f, 0, 1f);
                     this.renderPosArray[w + (depth + 3 * flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength, 0);//.sub(position).sub(0.3f, 1f, 1.85f);

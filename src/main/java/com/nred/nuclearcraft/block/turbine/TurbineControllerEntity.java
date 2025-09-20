@@ -14,7 +14,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -25,7 +24,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE
 public class TurbineControllerEntity extends AbstractTurbineEntity implements MenuProvider, INetworkTileEntitySyncProvider, ITurbineController<TurbineControllerEntity> {
     protected boolean isRenderer = false;
 
-    protected final float[] brightnessArray = new float[] {1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F};
+    protected final float[] brightnessArray = new float[]{1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F};
     protected int brightnessIndex = 0;
 
     public long prevRenderTime = 0L;
@@ -85,7 +84,7 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements Me
         if (turbine == null) {
             return 1F;
         }
-        brightnessArray[brightnessIndex] = level.getBrightness(LightLayer.BLOCK, (turbine.getExtremeInteriorCoord(NCMath.getBit(brightnessIndex, 0) == 1, NCMath.getBit(brightnessIndex, 1) == 1, NCMath.getBit(brightnessIndex, 2) == 1)));
+        brightnessArray[brightnessIndex] = level.getRawBrightness((turbine.getExtremeInteriorCoord(NCMath.getBit(brightnessIndex, 0) == 1, NCMath.getBit(brightnessIndex, 1) == 1, NCMath.getBit(brightnessIndex, 2) == 1)), level.getSkyDarken());
         brightnessIndex = (brightnessIndex + 1) % 8;
 
         return (brightnessArray[0] + brightnessArray[1] + brightnessArray[2] + brightnessArray[3] + brightnessArray[4] + brightnessArray[5] + brightnessArray[6] + brightnessArray[7]) / 8F;
