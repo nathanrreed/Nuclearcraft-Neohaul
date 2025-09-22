@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.config.ProcessorConfig;
 import com.nred.nuclearcraft.item.EnergyItem;
+import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -14,6 +15,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.energy.EnergyStorage;
+
+import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
@@ -59,6 +62,17 @@ public class CapabilityRegistration {
         for (int tier : new int[]{0, 1, 2, 3, 10, 11, 12, 13}) {
             event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BATTERY_ENTITY_TYPE.get(tier).get(), (entity, context) -> !entity.ignoreSide(context) ? entity.getEnergyStorage() : null);
         }
+
+        // Turbine
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_INLET.get(), (entity, direction) -> {
+            Optional<Turbine> controller = entity.getMultiblockController();
+            return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().fluidTankHandler;
+        });
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_OUTLET.get(), (entity, direction) -> {
+            Optional<Turbine> controller = entity.getMultiblockController();
+            return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().fluidTankHandler;
+        });
+
 
         items(event);
     }

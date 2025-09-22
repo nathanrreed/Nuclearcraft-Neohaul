@@ -24,20 +24,6 @@ public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements Tu
     public TurbineRotorBladeUtil.IRotorBladeType bladeType = null;
     protected TurbineRotorBladeUtil.TurbinePartDir dir = TurbineRotorBladeUtil.TurbinePartDir.Y;
 
-//    /** TODO REMOVE
-//     * Don't use this constructor!
-//     */
-//    public TileTurbineRotorBlade() {
-//        super(PartPosition.Interior);
-//    }
-
-    /**
-     * Don't use this constructor!
-     */
-//    public TurbineRotorBladeEntity(final BlockPos position, final BlockState blockState) {
-//        super(TURBINE_ROTOR_BLADE.get(), position, blockState);
-//    }
-
     public TurbineRotorBladeEntity(final BlockPos position, final BlockState blockState, TurbineRotorBladeUtil.IRotorBladeType bladeType) {
         super(TURBINE_ROTOR_BLADE.get(), position, blockState);
         this.bladeType = bladeType;
@@ -55,37 +41,37 @@ public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements Tu
 
     @Override
     public void onMachineActivated() {
-
     }
 
     @Override
     public void onMachineDeactivated() {
+    }
 
+    @Override
+    public void onAssimilated(Turbine multiblock) {
+//        doStandardNullControllerResponse(multiblock); TODO
+        super.onAssimilated(multiblock);
     }
 
     public static class Variant extends TurbineRotorBladeEntity {
-
         protected Variant(final BlockPos position, final BlockState blockState, TurbineRotorBladeUtil.TurbineRotorBladeType bladeType) {
             super(position, blockState, bladeType);
         }
     }
 
     public static class Steel extends Variant {
-
         public Steel(final BlockPos position, final BlockState blockState) {
             super(position, blockState, TurbineRotorBladeUtil.TurbineRotorBladeType.STEEL);
         }
     }
 
     public static class Extreme extends Variant {
-
         public Extreme(final BlockPos position, final BlockState blockState) {
             super(position, blockState, TurbineRotorBladeUtil.TurbineRotorBladeType.EXTREME);
         }
     }
 
     public static class SicSicCMC extends Variant {
-
         public SicSicCMC(final BlockPos position, final BlockState blockState) {
             super(position, blockState, TurbineRotorBladeUtil.TurbineRotorBladeType.SIC_SIC_CMC);
         }
@@ -96,6 +82,7 @@ public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements Tu
 //        doStandardNullControllerResponse(multiblock);
 //        super.onMachineAssembled(multiblock);
 //    }
+
 
     @Override
     public BlockPos bladePos() {

@@ -75,7 +75,7 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
 
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         setSize(nbt.contains("Size", Tag.TAG_INT) ? nbt.getInt("Size") : fluids.size());
-        ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
+        ListTag tagList = nbt.getList("Fluids", Tag.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); i++) {
             CompoundTag fluidTags = tagList.getCompound(i);
             int slot = fluidTags.getInt("Slot");
@@ -115,7 +115,7 @@ public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSeri
             }
         }
         CompoundTag nbt = new CompoundTag();
-        nbt.put("Items", nbtTagList);
+        nbt.put("Fluids", nbtTagList);
         nbt.putInt("Size", fluids.size());
         nbt = OutputSetting.serializeNBT(provider, nbt, outputSettings);
         nbt = SideConfigSetting.serializeNBT(provider, nbt, sideConfig);

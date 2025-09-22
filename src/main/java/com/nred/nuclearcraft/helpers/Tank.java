@@ -6,14 +6,22 @@ import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
+import java.util.HashSet;
 import java.util.Set;
 
-public class Tank extends FluidTank {
-    protected Set<String> allowedFluids;
 
-    public Tank(int capacity, Set<String> allowedFluids) {
+public class Tank extends FluidTank {
+    public enum IOState {
+        INPUT, OUTPUT
+    }
+
+    protected Set<String> allowedFluids;
+    public IOState ioState;
+
+    public Tank(int capacity, Set<String> allowedFluids, IOState ioState) {
         super(capacity);
         setAllowedFluids(allowedFluids);
+        this.ioState = ioState;
     }
 
     // FluidTank
@@ -51,16 +59,16 @@ public class Tank extends FluidTank {
         fluid = fluid.copyWithAmount(Math.min(amount, getCapacity()));
     }
 
-//    public void setFluidStored(FluidStack stack) {
-//        if (stack == null || stack.getAmount() <= 0) {
-//            fluid = null;
-//            return;
-//        }
-//        if (stack.getAmount() > getCapacity()) {
-//            stack.amount = getCapacity();
-//        }
-//        fluid = stack;
-//    }
+    public void setFluidStored(FluidStack stack) {
+        if (stack == null || stack.getAmount() <= 0) {
+            fluid = FluidStack.EMPTY;
+            return;
+        }
+        if (stack.getAmount() > getCapacity()) {
+            stack.setAmount(getCapacity());
+        }
+        fluid = stack;
+    }
 
     /**
      * Ignores fluid capacity!
@@ -87,7 +95,7 @@ public class Tank extends FluidTank {
             setFluidAmount(getCapacity());
         }
         if (getFluidAmount() <= 0) {
-            fluid = null;
+            fluid = FluidStack.EMPTY;
         }
     }
 
@@ -137,6 +145,8 @@ public class Tank extends FluidTank {
         CompoundTag tag = new CompoundTag();
         tag.putInt("capacity", getCapacity());
         writeToNBT(lookupProvider, tag);
+        tag.putShort("ioState", (short) ioState.ordinal());
+
         nbt.put(name, tag);
         return nbt;
     }
@@ -145,9 +155,15 @@ public class Tank extends FluidTank {
         if (nbt.contains(name, 10)) {
             CompoundTag tag = nbt.getCompound(name);
             setCapacity(tag.getInt("capacity"));
+            setCapacity(tag.getInt("capacity"));
+            ioState = IOState.values()[tag.getShort("ioState")];
             readFromNBT(lookupProvider, tag);
         }
         return this;
+    }
+
+    public static Tank of(HolderLookup.Provider lookupProvider, CompoundTag nbt, String name) {
+        return new Tank(0, new HashSet<>(), IOState.INPUT).readFromNBT(lookupProvider, nbt, name);
     }
 
     // Packets TODO REMOVE

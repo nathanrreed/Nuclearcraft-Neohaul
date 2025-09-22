@@ -4,16 +4,11 @@ import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import it.zerono.mods.zerocore.base.multiblock.part.INeverCauseRenderingSkip;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.DIR;
@@ -36,14 +31,6 @@ public class TurbineRotorShaftBlock extends MultiblockPartBlock<Turbine, ITurbin
         return defaultBlockState().setValue(DIR, TurbinePartDir.fromFacingAxis(direction.getAxis()));
     }
 
-    //    @Override TODO
-//    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-//        if (hand != EnumHand.MAIN_HAND || player.isSneaking()) {
-//            return false;
-//        }
-//        return rightClickOnPart(world, pos, player, hand, facing);
-//    }
-//
 //    @Override
 //    public int getMetaFromState(BlockState state) {
 //        return state.getValue(TurbineRotorBladeUtil.DIR).ordinal();
@@ -52,12 +39,6 @@ public class TurbineRotorShaftBlock extends MultiblockPartBlock<Turbine, ITurbin
 //    @Override
 //    public IBlockState getStateFromMeta(int meta) {
 //        return getDefaultState().withProperty(TurbineRotorBladeUtil.DIR, TurbinePartDir.values()[meta]);
-//    }
-//
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public BlockRenderLayer getRenderLayer() {
-//        return BlockRenderLayer.CUTOUT;
 //    }
 //
 //    @Override

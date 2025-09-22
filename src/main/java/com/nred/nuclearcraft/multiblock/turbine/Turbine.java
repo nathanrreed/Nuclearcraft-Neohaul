@@ -2,10 +2,10 @@ package com.nred.nuclearcraft.multiblock.turbine;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
-import com.nred.nuclearcraft.block.DirectionalGenericDeviceBlock;
 import com.nred.nuclearcraft.block.turbine.*;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
+import com.nred.nuclearcraft.helpers.CustomFluidTankHandler;
 import com.nred.nuclearcraft.helpers.Tank;
 import com.nred.nuclearcraft.multiblock.MachineMultiblock;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.*;
@@ -45,7 +45,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
@@ -65,7 +65,17 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     public static final int BASE_MAX_ENERGY = 16000, BASE_MAX_INPUT = 1000, BASE_MAX_OUTPUT = 4000;
 
     public final CustomEnergyHandler energyStorage = new CustomEnergyHandler(BASE_MAX_ENERGY, false, true);
-    public final List<Tank> tanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, new TreeSet<>()), new Tank(BASE_MAX_OUTPUT, null)); // NCRecipes.turbine.validFluids.get(0) TODO
+    public final CustomFluidTankHandler fluidTankHandler = new CustomFluidTankHandler(Lists.newArrayList(new Tank(BASE_MAX_INPUT, new TreeSet<>(), Tank.IOState.INPUT), new Tank(BASE_MAX_OUTPUT, null, Tank.IOState.OUTPUT))) {
+        @Override
+        public boolean isFluidValid(int tank, FluidStack stack) {
+            return getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().anyMatch(r->r.value().fluidInput().ingredient().test(stack));
+        }
+
+        @Override
+        public boolean canOutput(int tank) {
+            return false;
+        }
+    };
 
 //    public RecipeInfo<BasicRecipe> recipeInfo;
 
@@ -124,8 +134,9 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
     @Override
     public CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-//        writeEnergy(energyStorage, data, "energyStorage"); TODO
-//        writeTanks(tanks, data, "tanks");
+        data.put("energyStorage", energyStorage.serializeNBT(registries));
+        data.put("fluidTanks", fluidTankHandler.serializeNBT(registries));
+
         data.putBoolean("isTurbineOn", isTurbineOn);
         data.putBoolean("computerActivated", computerActivated);
         data.putBoolean("isProcessing", isProcessing);
@@ -175,8 +186,11 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
     @Override
     public void syncDataFrom(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-//        readEnergy(energyStorage, data, "energyStorage"); TODO
-//        readTanks(tanks, data, "tanks");
+        fluidTankHandler.deserializeNBT(registries, data.getCompound("fluidTanks"));
+
+        if (data.contains("energyStorage"))
+            energyStorage.deserializeNBT(registries, data.get("energyStorage"));
+
         isTurbineOn = data.getBoolean("isTurbineOn");
         computerActivated = data.getBoolean("computerActivated");
         isProcessing = data.getBoolean("isProcessing");
@@ -685,7 +699,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
         double prevRawPower = this.rawPower;
         int prevInputRate = this.recipeInputRate;
 
-        Tank inputTank = this.tanks.getFirst();
+        Tank inputTank = this.fluidTankHandler.getFirst();
         int maxRecipeRateMultiplier = getMaxRecipeRateMultiplier();
         double throughputMult = 1D + (turbine_tension_throughput_factor - 1D) * (double) inputTank.getFluidAmount() / (double) inputTank.getCapacity();
         this.recipeInputRate = Math.min(inputTank.getFluidAmount(), NCMath.toInt(throughputMult * maxRecipeRateMultiplier));
@@ -825,8 +839,8 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
             int mult = this.getExteriorVolume();
             this.energyStorage.setCapacity(Turbine.BASE_MAX_ENERGY * mult);
             this.energyStorage.setMaxTransfer(Turbine.BASE_MAX_ENERGY * mult);
-            this.tanks.get(0).setCapacity(Turbine.BASE_MAX_INPUT * mult);
-            this.tanks.get(1).setCapacity(Turbine.BASE_MAX_OUTPUT * mult);
+            fluidTankHandler.get(0).setCapacity(Turbine.BASE_MAX_INPUT * mult);
+            fluidTankHandler.get(1).setCapacity(Turbine.BASE_MAX_OUTPUT * mult);
         }
 
         if (this.flowDir == null) {
@@ -891,7 +905,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
         if (!getWorld().isClientSide) {
             this.renderPosArray = new Vector3f[(1 + 4 * shaftWidth) * flowLength];
             BlockPos pos = controller.getPos().relative(flowDir, -1);
-            Vector3f position = new Vector3f(pos.getX(),pos.getY(),pos.getZ());
+            Vector3f position = new Vector3f(pos.getX(), pos.getY(), pos.getZ());
 
             for (int depth = 0; depth < flowLength; ++depth) {
                 for (int w = 0; w < shaftWidth; ++w) {
@@ -975,7 +989,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 //            }
 //        }
 
-        int bearingCount = 0; //getPartsCount(TileTurbineRotorBearing.class);
+        int bearingCount = getPartCount(TurbineRotorBearingEntity.class);
         newConductivity = this.dynamoCoilCount == 0 ? 0D : newConductivity / Math.max(bearingCount / 2D, this.dynamoCoilCount);
         newConductivityOpposite = this.dynamoCoilCountOpposite == 0 ? 0D : newConductivityOpposite / Math.max(bearingCount / 2D, this.dynamoCoilCountOpposite);
 
@@ -1087,7 +1101,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
     protected void refreshRecipe() {
 //        this.recipeInfo = NCRecipes.turbine.getRecipeInfoFromInputs(Collections.emptyList(), this.tanks.subList(0, 1)); TODO
-        this.recipe = this.getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().filter(it -> it.value().fluidResult().test(this.tanks.getFirst().getFluid())).findFirst();
+        this.recipe = this.getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().filter(it -> it.value().fluidResult().test(fluidTankHandler.getFirst().getFluid())).findFirst();
     }
 
     protected boolean canProcessInputs() {
@@ -1113,27 +1127,27 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     protected boolean canProduceProducts() {
-//        FluidIngredient fluidProduct = this.recipeInfo.recipe.getFluidProducts().get(0); TODO
-//        if (fluidProduct.getMaxStackSize(0) <= 0 || fluidProduct.getStack() == null) {
-//            return false;
-//        }
-
-        Tank outputTank = this.tanks.get(1);
-
-        if (!outputTank.isEmpty()) {
-//            if (!outputTank.getFluid().isFluidEqual(fluidProduct.getStack())) {
-//                return false;
-//            } else if (outputTank.getFluidAmount() + fluidProduct.getMaxStackSize(0) * this.recipeInputRate > outputTank.getCapacity()) {
-//                return false;
-//            }
+        if(this.recipe.isEmpty()){
+            return false;
+        }
+        SizedFluidIngredient fluidProduct = this.recipe.get().value().fluidResult();
+        if (fluidProduct.amount() <= 0 || fluidProduct.getFluids().length == 0) {
+            return false;
         }
 
+        Tank outputTank = fluidTankHandler.get(1);
+
+        if (!outputTank.isEmpty()) {
+            if (!FluidIngredient.empty().test(outputTank.getFluid())) {
+                return false;
+            } else return outputTank.getFluidAmount() + fluidProduct.amount() * this.recipeInputRate <= outputTank.getCapacity();
+        }
 
         return true;
     }
 
     protected void produceProducts() {
-        Tank inputTank = this.tanks.get(0), outputTank = this.tanks.get(1);
+        Tank inputTank = fluidTankHandler.get(0), outputTank = fluidTankHandler.get(1);
 
         int fluidIngredientSize = getFluidIngredientStackSize() * this.recipeInputRate;
         if (fluidIngredientSize > 0) {
@@ -1239,7 +1253,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
     @Override
     public CustomPacketPayload getMultiblockUpdatePacket() {
-        return new TurbineRenderPayload(controller.getPos(), tanks.stream().map(FluidTank::getFluid).toList(), particleEffect, particleSpeedMult, angVel, isProcessing, recipeInputRate, recipeInputRateFP);
+        return new TurbineRenderPayload(controller.getPos(), fluidTankHandler.getFluids(), particleEffect, particleSpeedMult, angVel, isProcessing, recipeInputRate, recipeInputRateFP);
     }
 
     public enum PlaneDir {
@@ -1267,7 +1281,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     public double getEffectiveInertia(boolean increasing) {
-        int bearingCount = 0; //getPartsCount(TileTurbineRotorBearing.class); TODO
+        int bearingCount = getPartCount(TurbineRotorBearingEntity.class);
         double mult = (Math.min(1D, (1D + 2D * this.dynamoCoilCount) / bearingCount) + Math.min(1D, (1D + 2D * this.dynamoCoilCountOpposite) / bearingCount)) / 2D;
         return this.inertia * Math.sqrt(increasing ? mult : 1D / mult);
     }
@@ -1316,10 +1330,10 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
         this.rotorEfficiency = 0D;
 
         for (int depth = 0; depth < this.getFlowLength(); ++depth) {
-            if (this.rawBladeEfficiencies.get(depth) < 0D) {
+            if (this.rawBladeEfficiencies.getDouble(depth) < 0D) {
                 continue;
             }
-            this.rotorEfficiency += this.rawBladeEfficiencies.get(depth) * getExpansionIdealityMultiplier(getIdealExpansionLevel(depth), this.expansionLevels.get(depth));
+            this.rotorEfficiency += this.rawBladeEfficiencies.getDouble(depth) * getExpansionIdealityMultiplier(getIdealExpansionLevel(depth), this.expansionLevels.getDouble(depth));
         }
         this.rotorEfficiency /= this.noBladeSets;
     }
@@ -1370,9 +1384,9 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     public void setTanks(List<FluidStack> fluids) {
-        assert fluids.size() == tanks.size();
+        assert fluids.size() == fluidTankHandler.getTanks();
         for (int i = 0; i < fluids.size(); i++) {
-            tanks.get(i).setFluid(fluids.get(i));
+            fluidTankHandler.get(i).setFluid(fluids.get(i));
         }
     }
 

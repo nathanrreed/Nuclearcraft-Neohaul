@@ -16,4 +16,6 @@ public class TurbineInletEntity extends AbstractTurbineEntity {
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
         return position.isFace() || super.isGoodForPosition(position, validatorCallback);
     }
+
+
 }
