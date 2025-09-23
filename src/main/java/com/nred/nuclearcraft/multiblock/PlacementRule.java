@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.multiblock;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.multiblock.turbine.TurbinePlacement;
 import com.nred.nuclearcraft.util.*;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
@@ -53,21 +54,21 @@ public abstract class PlacementRule<MULTIBLOCK extends AbstractMultiblockControl
 
     public static void preInit() {
 //		FissionPlacement.preInit(); TODO
-//		TurbinePlacement.preInit();
+        TurbinePlacement.preInit();
     }
 
     public static void init() {
 //		FissionPlacement.init();
-//		TurbinePlacement.init();
+        TurbinePlacement.init();
     }
 
     public static void postInit() {
 //		FissionPlacement.postInit();
-//		TurbinePlacement.postInit();
+        TurbinePlacement.postInit();
     }
 
     public static void refreshRecipeCaches() {
-//		FissionPlacement.recipe_handler.refreshCache();
+//		FissionPlacement.recipe_handler.refreshCache(); TODO
 //		TurbinePlacement.recipe_handler.refreshCache();
     }
 

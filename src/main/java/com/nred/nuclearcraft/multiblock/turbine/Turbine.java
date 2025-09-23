@@ -20,8 +20,12 @@ import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import it.unimi.dsi.fastutil.objects.ObjectSet;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.registry.MultiblockRegistry;
@@ -68,7 +72,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     public final CustomFluidTankHandler fluidTankHandler = new CustomFluidTankHandler(Lists.newArrayList(new Tank(BASE_MAX_INPUT, new TreeSet<>(), Tank.IOState.INPUT), new Tank(BASE_MAX_OUTPUT, null, Tank.IOState.OUTPUT))) {
         @Override
         public boolean isFluidValid(int tank, FluidStack stack) {
-            return getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().anyMatch(r->r.value().fluidInput().ingredient().test(stack));
+            return getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().anyMatch(r -> r.value().fluidInput().ingredient().test(stack));
         }
 
         @Override
@@ -120,8 +124,8 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     public final IntList bladeDepths = new IntArrayList(), statorDepths = new IntArrayList();
 
     public boolean searchFlag = false;
-//    public final ObjectSet<TileTurbineDynamoPart> dynamoPartCache = new ObjectOpenHashSet<>(), dynamoPartCacheOpposite = new ObjectOpenHashSet<>();
-//    public final Long2ObjectMap<TileTurbineDynamoPart> componentFailCache = new Long2ObjectOpenHashMap<>(), assumedValidCache = new Long2ObjectOpenHashMap<>();
+    public final ObjectSet<TurbineDynamoEntityPart> dynamoPartCache = new ObjectOpenHashSet<>(), dynamoPartCacheOpposite = new ObjectOpenHashSet<>();
+    public final Long2ObjectMap<TurbineDynamoEntityPart> componentFailCache = new Long2ObjectOpenHashMap<>(), assumedValidCache = new Long2ObjectOpenHashMap<>();
 
     public float prevAngVel = 0F;
 
@@ -881,17 +885,17 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
                 }
             }
 
-//            for (TileTurbineDynamoPart dynamoPart : getParts(TileTurbineDynamoPart.class)) {
-//                for (Direction side : Direction.values()) {
-//                    dynamoPart.setEnergyConnection(side == this.flowDir || side == this.flowDir.getOpposite() ? EnergyConnection.OUT : EnergyConnection.NON, side);
-//                }
-//            }
-//
-//            for (TileTurbineOutlet outlet : getParts(TileTurbineOutlet.class)) {
-//                for (Direction side : Direction.values()) {
-//                    outlet.setTankSorption(side, 0, side == this.flowDir ? TankSorption.OUT : TankSorption.NON);
-//                }
-//            }
+            for (TurbineDynamoEntityPart dynamoPart : getParts(TurbineDynamoEntityPart.class)) {
+                for (Direction side : Direction.values()) {
+//                    dynamoPart.setEnergyConnection(side == this.flowDir || side == this.flowDir.getOpposite() ? EnergyConnection.OUT : EnergyConnection.NON, side); TODO
+                }
+            }
+
+            for (TurbineOutletEntity outlet : getParts(TurbineOutletEntity.class)) {
+                for (Direction side : Direction.values()) {
+//                    outlet.setTankSorption(side, 0, side == this.flowDir ? TankSorption.OUT : TankSorption.NON); TODO
+                }
+            }
         }
 
         Direction oppositeDir = this.flowDir.getOpposite();
@@ -904,17 +908,15 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
         if (!getWorld().isClientSide) {
             this.renderPosArray = new Vector3f[(1 + 4 * shaftWidth) * flowLength];
-            BlockPos pos = controller.getPos().relative(flowDir, -1);
-            Vector3f position = new Vector3f(pos.getX(), pos.getY(), pos.getZ());
 
             for (int depth = 0; depth < flowLength; ++depth) {
                 for (int w = 0; w < shaftWidth; ++w) {
-                    this.renderPosArray[w + depth * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength);//.add(-0.3f, 1f, 1.85f); // Code was absolute now needs to be relative
-                    this.renderPosArray[w + (depth + flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength);//.sub(position).sub(0.3f, 0, 1f);
-                    this.renderPosArray[w + (depth + 2 * flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth + bladeLength, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength);//.sub(position).add(-0.3f, 0, 1f);
-                    this.renderPosArray[w + (depth + 3 * flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength, 0);//.sub(position).sub(0.3f, 1f, 1.85f);
+                    this.renderPosArray[w + depth * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength);
+                    this.renderPosArray[w + (depth + flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength);
+                    this.renderPosArray[w + (depth + 2 * flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth + bladeLength, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength);
+                    this.renderPosArray[w + (depth + 3 * flowLength) * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength, 0);
                 }
-                this.renderPosArray[depth + 4 * flowLength * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, 0, 0, 0);//.sub(position);
+                this.renderPosArray[depth + 4 * flowLength * shaftWidth] = this.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, 0, 0, 0);
             }
 
             this.sendMultiblockUpdatePacketToAll();
@@ -930,64 +932,65 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     protected void refreshDynamos() {
         searchFlag = false;
 
-//        if (getPartMap(TileTurbineDynamoPart.class).isEmpty()) { TODO
-//            this.conductivity = 0D;
-//            return;
-//        }
-//
-//        for (TileTurbineDynamoPart dynamoPart : getParts(TileTurbineDynamoPart.class)) {
-//            dynamoPart.isSearched = dynamoPart.isInValidPosition = false;
-//        }
-//
-//        dynamoPartCache.clear();
-//        dynamoPartCacheOpposite.clear();
-//
-//        for (TileTurbineDynamoPart dynamoPart : getParts(TileTurbineDynamoPart.class)) {
-//            if (dynamoPart.isSearchRoot()) {
-//                iterateDynamoSearch(dynamoPart, dynamoPart.getPartPosition().getFacing() == this.flowDir ? dynamoPartCache : dynamoPartCacheOpposite);
-//            }
-//        }
-//
-//        for (TileTurbineDynamoPart dynamoPart : assumedValidCache.values()) {
-//            if (!dynamoPart.isInValidPosition) {
-//                componentFailCache.put(dynamoPart.getPos().toLong(), dynamoPart);
-//                searchFlag = true;
-//            }
-//        }
+        if (getPartMap(TurbineDynamoEntityPart.class).isEmpty()) {
+            this.conductivity = 0D;
+            return;
+        }
+
+        for (TurbineDynamoEntityPart dynamoPart : getParts(TurbineDynamoEntityPart.class)) {
+            dynamoPart.isSearched = dynamoPart.isInValidPosition = false;
+        }
+
+        dynamoPartCache.clear();
+        dynamoPartCacheOpposite.clear();
+
+        for (TurbineDynamoEntityPart dynamoPart : getParts(TurbineDynamoEntityPart.class)) {
+            if (dynamoPart.isSearchRoot()) {
+                iterateDynamoSearch(dynamoPart, dynamoPart.getPartPosition().getDirection().orElse(null) == this.flowDir ? dynamoPartCache : dynamoPartCacheOpposite);
+            }
+        }
+
+        for (TurbineDynamoEntityPart dynamoPart : assumedValidCache.values()) {
+            if (!dynamoPart.isInValidPosition) {
+                componentFailCache.put(dynamoPart.getBlockPos().asLong(), dynamoPart);
+                searchFlag = true;
+            }
+        }
     }
 
-//    protected void iterateDynamoSearch(TileTurbineDynamoPart rootDynamoPart, ObjectSet<TileTurbineDynamoPart> currentDynamoPartCache) { TODO
-//        final ObjectSet<TileTurbineDynamoPart> searchCache = new ObjectOpenHashSet<>();
-//        rootDynamoPart.dynamoSearch(currentDynamoPartCache, searchCache, componentFailCache, assumedValidCache);
-//
-//        do {
-//            final Iterator<TileTurbineDynamoPart> searchIterator = searchCache.iterator();
-//            final ObjectSet<TileTurbineDynamoPart> searchSubCache = new ObjectOpenHashSet<>();
-//            while (searchIterator.hasNext()) {
-//                TileTurbineDynamoPart component = searchIterator.next();
-//                searchIterator.remove();
-//                component.dynamoSearch(currentDynamoPartCache, searchSubCache, componentFailCache, assumedValidCache);
-//            }
-//            searchCache.addAll(searchSubCache);
-//        }
-//        while (!searchCache.isEmpty());
-//    }
+    protected void iterateDynamoSearch(TurbineDynamoEntityPart rootDynamoPart, ObjectSet<TurbineDynamoEntityPart> currentDynamoPartCache) {
+        final ObjectSet<TurbineDynamoEntityPart> searchCache = new ObjectOpenHashSet<>();
+        rootDynamoPart.dynamoSearch(currentDynamoPartCache, searchCache, componentFailCache, assumedValidCache);
+
+        do {
+            final Iterator<TurbineDynamoEntityPart> searchIterator = searchCache.iterator();
+            final ObjectSet<TurbineDynamoEntityPart> searchSubCache = new ObjectOpenHashSet<>();
+            while (searchIterator.hasNext()) {
+                TurbineDynamoEntityPart component = searchIterator.next();
+                searchIterator.remove();
+                component.dynamoSearch(currentDynamoPartCache, searchSubCache, componentFailCache, assumedValidCache);
+            }
+            searchCache.addAll(searchSubCache);
+        }
+        while (!searchCache.isEmpty());
+    }
 
     protected void refreshDynamoStats() {
         this.dynamoCoilCount = this.dynamoCoilCountOpposite = 0;
         double newConductivity = 0D, newConductivityOpposite = 0D;
-//        for (TileTurbineDynamoPart dynamoPart : dynamoPartCache) { TODO
-//            if (dynamoPart.conductivity != null) {
-//                ++this.dynamoCoilCount;
-//                newConductivity += dynamoPart.conductivity;
-//            }
-//        }
-//        for (TileTurbineDynamoPart dynamoPart : dynamoPartCacheOpposite) {
-//            if (dynamoPart.conductivity != null) {
-//                ++this.dynamoCoilCountOpposite;
-//                newConductivityOpposite += dynamoPart.conductivity;
-//            }
-//        }
+        for (TurbineDynamoEntityPart dynamoPart : dynamoPartCache) {
+            if (dynamoPart.conductivity != null) {
+                ++this.dynamoCoilCount;
+                newConductivity += dynamoPart.conductivity;
+            }
+        }
+
+        for (TurbineDynamoEntityPart dynamoPart : dynamoPartCacheOpposite) {
+            if (dynamoPart.conductivity != null) {
+                ++this.dynamoCoilCountOpposite;
+                newConductivityOpposite += dynamoPart.conductivity;
+            }
+        }
 
         int bearingCount = getPartCount(TurbineRotorBearingEntity.class);
         newConductivity = this.dynamoCoilCount == 0 ? 0D : newConductivity / Math.max(bearingCount / 2D, this.dynamoCoilCount);
@@ -1022,9 +1025,9 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
         this.rawBladeEfficiencies.clear();
         this.inputPlane[0] = this.inputPlane[1] = this.inputPlane[2] = this.inputPlane[3] = null;
 
-//        for (TileTurbineDynamoPart dynamoPart : getParts(TileTurbineDynamoPart.class)) {
-//            dynamoPart.isSearched = dynamoPart.isInValidPosition = false;
-//        }
+        for (TurbineDynamoEntityPart dynamoPart : getParts(TurbineDynamoEntityPart.class)) {
+            dynamoPart.isSearched = dynamoPart.isInValidPosition = false;
+        }
 
         if (getWorld().isClientSide) {
             clearSounds();
@@ -1127,7 +1130,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     protected boolean canProduceProducts() {
-        if(this.recipe.isEmpty()){
+        if (this.recipe.isEmpty()) {
             return false;
         }
         SizedFluidIngredient fluidProduct = this.recipe.get().value().fluidResult();

@@ -2,7 +2,11 @@ package com.nred.nuclearcraft.block.turbine;
 
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
-import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.*;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IRotorBladeType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IRotorStatorType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.ITurbineRotorBlade;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -14,15 +18,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Iterator;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ROTOR_BLADE;
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ROTOR_STATOR;
 
 public class TurbineRotorStatorEntity extends AbstractTurbineEntity implements ITurbineRotorBlade<TurbineRotorStatorEntity> {
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
         return position == PartPosition.Interior;
     }
-
-    public static final Object2ObjectMap<String, IRotorStatorType> DYN_STATOR_TYPE_MAP = new Object2ObjectOpenHashMap<>();
 
     public IRotorStatorType statorType = null;
     protected TurbinePartDir dir = TurbinePartDir.Y;
@@ -36,7 +37,6 @@ public class TurbineRotorStatorEntity extends AbstractTurbineEntity implements I
 //    public TurbineRotorStatorEntity() {
 //        super(CuboidalPartPositionType.INTERIOR);
 //    }
-
     public TurbineRotorStatorEntity(final BlockPos position, final BlockState blockState, IRotorStatorType statorType) {
         super(TURBINE_ROTOR_BLADE.get(), position, blockState);
         this.statorType = statorType;

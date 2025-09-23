@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.config;
 
 import com.google.common.primitives.Booleans;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -265,10 +266,10 @@ public class Config2 {
     public static double[] turbine_coil_conductivity;
     public static String[] turbine_coil_rule;
     public static String[] turbine_connector_rule;
-//    public static double[] turbine_power_per_mb;
+    //    public static double[] turbine_power_per_mb;
 //    public static double[] turbine_expansion_level;
     public static double turbine_spin_up_multiplier_global;
-//    public static double[] turbine_spin_up_multiplier;
+    //    public static double[] turbine_spin_up_multiplier;
     public static double turbine_spin_down_multiplier;
     public static int turbine_mb_per_blade;
     public static double[] turbine_throughput_leniency_params;
@@ -830,6 +831,8 @@ public class Config2 {
 
         radiation_enabled_public = radiation_enabled;
         radiation_horse_armor_public = radiation_horse_armor;
+
+        PlacementRule.init(); // TODO is this a good place to call this from?
     }
 
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ORE_DIMS = add(CATEGORY_WORLD_GEN, "ore_dims", List.of(0, 2, -6, -100, 4598, -9999, -11325), Integer.MIN_VALUE, Integer.MAX_VALUE);
@@ -1063,10 +1066,10 @@ public class Config2 {
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_COIL_CONDUCTIVITY = add(CATEGORY_TURBINE, "turbine_coil_conductivity", List.of(0.88D, 0.9D, 1D, 1.04D, 1.06D, 1.12D), 0.01D, 15D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> TURBINE_COIL_RULE = addString(CATEGORY_TURBINE, "turbine_coil_rule", List.of("one bearing || one connector", "one magnesium coil", "two magnesium coils", "one aluminum coil", "one beryllium coil", "one gold coil && one copper coil"), ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> TURBINE_CONNECTOR_RULE = addString(CATEGORY_TURBINE, "turbine_connector_rule", List.of("one of any coil"), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_POWER_PER_MB = add(CATEGORY_TURBINE, "turbine_power_per_mb", List.of(16D, 4D, 4D), 0D, 255D, ARRAY);
+    //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_POWER_PER_MB = add(CATEGORY_TURBINE, "turbine_power_per_mb", List.of(16D, 4D, 4D), 0D, 255D, ARRAY);
 //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_EXPANSION_LEVEL = add(CATEGORY_TURBINE, "turbine_expansion_level", List.of(4D, 2D, 2D), 1D, 255D, ARRAY);
     private static final ModConfigSpec.DoubleValue TURBINE_SPIN_UP_MULTIPLIER_GLOBAL = add(CATEGORY_TURBINE, "turbine_spin_up_multiplier_global", 1D, 0D, 255D);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_SPIN_UP_MULTIPLIER = add(CATEGORY_TURBINE, "turbine_spin_up_multiplier", List.of(1D, 1D, 1D), 0D, 255D, ARRAY);
+    //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_SPIN_UP_MULTIPLIER = add(CATEGORY_TURBINE, "turbine_spin_up_multiplier", List.of(1D, 1D, 1D), 0D, 255D, ARRAY);
     private static final ModConfigSpec.DoubleValue TURBINE_SPIN_DOWN_MULTIPLIER = add(CATEGORY_TURBINE, "turbine_spin_down_multiplier", 1D, 0.01D, 255D);
     private static final ModConfigSpec.IntValue TURBINE_MB_PER_BLADE = add(CATEGORY_TURBINE, "turbine_mb_per_blade", 100, 1, 32767);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_THROUGHPUT_LENIENCY_PARAMS = add(CATEGORY_TURBINE, "turbine_throughput_leniency_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
@@ -1113,7 +1116,7 @@ public class Config2 {
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOME_LIMITS = addString(CATEGORY_RADIATION, "radiation_biome_limits", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RADIATION_FROM_BIOMES_DIMS_BLACKLIST = add(CATEGORY_RADIATION, "radiation_from_biomes_dims_blacklist", List.of(144), Integer.MIN_VALUE, Integer.MAX_VALUE, LIST);
 
-//    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES = addString(CATEGORY_RADIATION, "radiation_ores", List.of("depletedFuelIC2U_" + (RadSources.URANIUM_238 * 4D + RadSources.PLUTONIUM_239 / 9D), "depletedFuelIC2MOX_" + RadSources.PLUTONIUM_239 * 28D / 9D), LIST);
+    //    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES = addString(CATEGORY_RADIATION, "radiation_ores", List.of("depletedFuelIC2U_" + (RadSources.URANIUM_238 * 4D + RadSources.PLUTONIUM_239 / 9D), "depletedFuelIC2MOX_" + RadSources.PLUTONIUM_239 * 28D / 9D), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ITEMS = addString(CATEGORY_RADIATION, "radiation_items", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BLOCKS = addString(CATEGORY_RADIATION, "radiation_blocks", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FLUIDS = addString(CATEGORY_RADIATION, "radiation_fluids", List.of(), LIST);

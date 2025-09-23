@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.multiblock.PlacementRule;
 import net.neoforged.bus.api.IEventBus;
 
 import static com.nred.nuclearcraft.registration.Registers.*;
@@ -10,12 +11,19 @@ public class Registration {
         BlockRegistration.init();
         ItemRegistration.init();
         FluidRegistration.init();
+
+        PlacementRule.preInit();
+
         BlockEntityRegistration.init();
         RecipeSerializerRegistration.init();
         RecipeTypeRegistration.init();
         MenuRegistration.init();
         CreativeTabsRegistration.init();
         SoundRegistration.init();
+
+
+
+        PlacementRule.postInit();
     }
 
     public static void register(IEventBus modEventBus) {

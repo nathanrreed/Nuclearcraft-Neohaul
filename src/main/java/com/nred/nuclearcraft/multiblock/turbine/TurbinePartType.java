@@ -1,8 +1,10 @@
-package com.nred.nuclearcraft.block.turbine;
+package com.nred.nuclearcraft.multiblock.turbine;
 
-import com.nred.nuclearcraft.block.DirectionalGenericDeviceBlock;
 import com.nred.nuclearcraft.block.HorizontalGenericDeviceBlock;
-import com.nred.nuclearcraft.multiblock.turbine.Turbine;
+import com.nred.nuclearcraft.block.turbine.ITurbinePartType;
+import com.nred.nuclearcraft.block.turbine.TurbineRotorBladeBlock;
+import com.nred.nuclearcraft.block.turbine.TurbineRotorShaftBlock;
+import com.nred.nuclearcraft.block.turbine.TurbineRotorStatorBlock;
 import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
 import it.zerono.mods.zerocore.base.multiblock.part.GlassBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
@@ -26,9 +28,11 @@ public enum TurbinePartType implements ITurbinePartType {
     Inlet(() -> TURBINE_INLET::get, HorizontalGenericDeviceBlock::new, ""),
     RotorBlade(() -> TURBINE_ROTOR_BLADE::get, TurbineRotorBladeBlock::new, ""),
     RotorStator(() -> TURBINE_ROTOR_STATOR::get, TurbineRotorStatorBlock::new, ""),
+    Dynamo(() -> TURBINE_DYNAMO::get, MultiblockPartBlock::new, ""),
+    DynamoConnector(() -> TURBINE_DYNAMO::get, MultiblockPartBlock::new, ""),
     ;
 
-    private MultiblockPartTypeProperties<Turbine, ITurbinePartType> _properties;
+    private final MultiblockPartTypeProperties<Turbine, ITurbinePartType> _properties;
 
     TurbinePartType(final Supplier<@NotNull Supplier<@NotNull BlockEntityType<?>>> tileTypeSupplier,
                     final Function<MultiblockPartBlock.@NotNull MultiblockPartProperties<ITurbinePartType>, @NotNull MultiblockPartBlock<Turbine, ITurbinePartType>> blockFactory,

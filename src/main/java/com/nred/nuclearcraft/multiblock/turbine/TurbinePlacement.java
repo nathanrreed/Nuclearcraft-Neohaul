@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
+import com.nred.nuclearcraft.block.turbine.AbstractTurbineEntity;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.PlacementRule.AdjacencyType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.CountType;
@@ -25,7 +26,7 @@ public abstract class TurbinePlacement {
     /**
      * List of all defined rule parsers. Earlier entries are prioritised!
      */
-    public static final List<PlacementRule.RuleParser<Turbine, TurbinePart>> RULE_PARSER_LIST = new LinkedList<>();
+    public static final List<PlacementRule.RuleParser<Turbine, AbstractTurbineEntity>> RULE_PARSER_LIST = new LinkedList<>();
 
     /**
      * Map of all placement rule IDs to unparsed rule strings, used for ordered iterations.
@@ -35,12 +36,12 @@ public abstract class TurbinePlacement {
     /**
      * Map of all defined placement rules.
      */
-    public static final Object2ObjectMap<String, PlacementRule<Turbine, TurbinePart>> RULE_MAP = new PlacementMap<>();
+    public static final Object2ObjectMap<String, PlacementRule<Turbine, AbstractTurbineEntity>> RULE_MAP = new PlacementMap<>();
 
     /**
      * List of all defined tooltip builders. Earlier entries are prioritised!
      */
-    public static final List<PlacementRule.TooltipBuilder<Turbine, TurbinePart>> TOOLTIP_BUILDER_LIST = new LinkedList<>();
+    public static final List<PlacementRule.TooltipBuilder<Turbine, AbstractTurbineEntity>> TOOLTIP_BUILDER_LIST = new LinkedList<>();
 
 //	public static PlacementRule.RecipeHandler recipe_handler; TODO
 
@@ -79,8 +80,8 @@ public abstract class TurbinePlacement {
     }
 
     public static void postInit() {
-        for (Object2ObjectMap.Entry<String, PlacementRule<Turbine, TurbinePart>> entry : RULE_MAP.object2ObjectEntrySet()) {
-            for (PlacementRule.TooltipBuilder<Turbine, TurbinePart> builder : TOOLTIP_BUILDER_LIST) {
+        for (Object2ObjectMap.Entry<String, PlacementRule<Turbine, AbstractTurbineEntity>> entry : RULE_MAP.object2ObjectEntrySet()) {
+            for (PlacementRule.TooltipBuilder<Turbine, AbstractTurbineEntity> builder : TOOLTIP_BUILDER_LIST) {
                 String tooltip = builder.buildTooltip(entry.getValue());
                 if (tooltip != null) {
                     TOOLTIP_MAP.put(entry.getKey(), tooltip);
@@ -91,17 +92,17 @@ public abstract class TurbinePlacement {
 
     // Default Rule Parser
 
-    public static PlacementRule<Turbine, TurbinePart> parse(String string) {
+    public static PlacementRule<Turbine, AbstractTurbineEntity> parse(String string) {
         return PlacementRule.parse(string, RULE_PARSER_LIST);
     }
 
     /**
      * Rule parser for all rule types available in base NC.
      */
-    public static class DefaultRuleParser extends PlacementRule.DefaultRuleParser<Turbine, TurbinePart> {
+    public static class DefaultRuleParser extends PlacementRule.DefaultRuleParser<Turbine, AbstractTurbineEntity> {
 
         @Override
-        protected @Nullable PlacementRule<Turbine, TurbinePart> partialParse(String s) {
+        protected @Nullable PlacementRule<Turbine, AbstractTurbineEntity> partialParse(String s) {
             s = s.toLowerCase(Locale.ROOT);
 
             s = s.replaceAll("at exactly one vertex", "vertex");
@@ -176,7 +177,7 @@ public abstract class TurbinePlacement {
 
     // Adjacent
 
-    public static abstract class Adjacent extends PlacementRule.Adjacent<Turbine, TurbinePart> {
+    public static abstract class Adjacent extends PlacementRule.Adjacent<Turbine, AbstractTurbineEntity> {
 
         public Adjacent(String dependency, int amount, CountType countType, AdjacencyType adjType) {
             super(dependency, amount, countType, adjType);
@@ -201,7 +202,7 @@ public abstract class TurbinePlacement {
         }
 
         @Override
-        public boolean satisfied(TurbinePart part, Direction dir, boolean simulate) {
+        public boolean satisfied(AbstractTurbineEntity part, Direction dir, boolean simulate) {
             return isCasing(part.getMultiblockController(), part.getBlockPos().relative(dir));
         }
     }
@@ -221,7 +222,7 @@ public abstract class TurbinePlacement {
         }
 
         @Override
-        public boolean satisfied(TurbinePart part, Direction dir, boolean simulate) {
+        public boolean satisfied(AbstractTurbineEntity part, Direction dir, boolean simulate) {
             return isRotorBearing(part.getMultiblockController(), part.getBlockPos().relative(dir));
         }
     }
@@ -233,7 +234,7 @@ public abstract class TurbinePlacement {
         }
 
         @Override
-        public boolean satisfied(TurbinePart part, Direction dir, boolean simulate) {
+        public boolean satisfied(AbstractTurbineEntity part, Direction dir, boolean simulate) {
             return isCoilConnector(part.getMultiblockController(), part.getBlockPos().relative(dir));
         }
     }
@@ -256,7 +257,7 @@ public abstract class TurbinePlacement {
         }
 
         @Override
-        public boolean satisfied(TurbinePart part, Direction dir, boolean simulate) {
+        public boolean satisfied(AbstractTurbineEntity part, Direction dir, boolean simulate) {
             return isDynamoCoil(part.getMultiblockController(), part.getBlockPos().relative(dir), coilType);
         }
     }
@@ -265,7 +266,7 @@ public abstract class TurbinePlacement {
 
 //	public static boolean isCasing(Turbine turbine, BlockPos pos) {  TODO
 //		BlockEntity tile = turbine.WORLD.getTileEntity(pos);
-//		return tile instanceof TileTurbinePart part && part.getPartPositionType().isGoodForWall();
+//		return tile instanceof TileAbstractTurbineEntity part && part.getPartPositionType().isGoodForWall();
 //	}
 //
 //	public static boolean isRotorBearing(Turbine turbine, BlockPos pos) {
@@ -300,7 +301,7 @@ public abstract class TurbinePlacement {
 
     // Default Tooltip Builder
 
-    public static class DefaultTooltipBuilder extends PlacementRule.DefaultTooltipBuilder<Turbine, TurbinePart> {
+    public static class DefaultTooltipBuilder extends PlacementRule.DefaultTooltipBuilder<Turbine, AbstractTurbineEntity> {
     }
 
 //	// Recipe Handler TODO REMOVE

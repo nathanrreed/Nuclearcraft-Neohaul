@@ -41,3 +41,10 @@ description='''${mod_description}'''
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="zerocore"
+    type="required"
+    versionRange="${zerocore_version_range}"
+    ordering="NONE"
+    side="BOTH"
