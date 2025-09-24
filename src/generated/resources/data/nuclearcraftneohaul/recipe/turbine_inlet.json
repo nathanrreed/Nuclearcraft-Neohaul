@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "HTH",
+    "MSM",
+    "HTH"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:turbine_inlet"
+  }
+}

@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
+import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
@@ -30,8 +31,7 @@ import java.util.stream.Collectors;
 
 import static com.nred.nuclearcraft.helpers.Concat.fluidEntries;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
-import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
+import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
@@ -43,6 +43,9 @@ public class ModEmiPlugin implements EmiPlugin {
 
     private static final Map<String, EmiStack> COLLECTOR_WORKSTATIONS = COLLECTOR_MAP.keySet().stream().collect(Collectors.toMap(Function.identity(), type -> EmiStack.of(COLLECTOR_MAP.get(type))));
     public static final EmiRecipeCategory EMI_COLLECTOR_CATEGORY = new EmiRecipeCategory(ncLoc("collector"), COLLECTOR_WORKSTATIONS.get("cobblestone_generator"));
+
+    private static final EmiStack TURBINE_WORKSTATION = EmiStack.of(TURBINE_MAP.get("turbine_controller"));
+    public static final EmiRecipeCategory EMI_TURBINE_CATEGORY = new EmiRecipeCategory(ncLoc("turbine"), TURBINE_WORKSTATION);
 
     @Override
     public void register(EmiRegistry registry) {
@@ -119,5 +122,29 @@ public class ModEmiPlugin implements EmiPlugin {
                 registry.addRecipe(new EmiCollectorRecipe(recipe.id(), COLLECTOR_MAP.get(i.second()), recipe.value().itemResult().isEmpty() ? List.of() : List.of(NeoForgeEmiIngredient.of(SizedIngredient.of(recipe.value().itemResult().getItem(), recipe.value().itemResult().getCount()))), recipe.value().fluidResult().isEmpty() ? List.of() : List.of(NeoForgeEmiIngredient.of(SizedFluidIngredient.of(recipe.value().fluidResult()))), recipe.value().rate()));
             }
         });
+
+
+        registry.addCategory(EMI_TURBINE_CATEGORY);
+        registry.addWorkstation(EMI_TURBINE_CATEGORY, TURBINE_WORKSTATION);
+        registry.addRecipeHandler(null, new StandardRecipeHandler<InventoryMenu>() {
+            @Override
+            public List<Slot> getInputSources(InventoryMenu handler) {
+                return handler.slots;
+            }
+
+            @Override
+            public List<Slot> getCraftingSlots(InventoryMenu handler) {
+                return List.of();
+            }
+
+            @Override
+            public boolean supportsRecipe(EmiRecipe recipe) {
+                return (recipe.getCategory() == EMI_TURBINE_CATEGORY);
+            }
+        });
+
+        for (RecipeHolder<TurbineRecipe> recipe : manager.getAllRecipesFor(TURBINE_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiTurbineRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().fluidInput()),NeoForgeEmiIngredient.of(recipe.value().fluidResult()), recipe.value().power_per_mb(), recipe.value().expansion_level(), recipe.value().get_spin_up_multiplier()));
+        }
     }
 }

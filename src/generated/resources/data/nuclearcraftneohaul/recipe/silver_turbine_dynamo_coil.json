@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    },
+    "S": {
+      "tag": "c:ingots/silver"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "HTH",
+    "SSS"
+  ],
+  "result": {
+    "count": 2,
+    "id": "nuclearcraftneohaul:silver_turbine_dynamo_coil"
+  }
+}

@@ -15,7 +15,7 @@
       "item": "nuclearcraftneohaul:basic_plating"
     },
     "S": {
-      "item": "nuclearcraftneohaul:steel_alloy"
+      "tag": "c:ingots/steel"
     }
   },
   "pattern": [

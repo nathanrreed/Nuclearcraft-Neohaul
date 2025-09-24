@@ -19,7 +19,7 @@ import java.util.Objects;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public record TurbineRenderPayload(BlockPos pos, List<FluidStack> tanks, ParticleOptions particleEffect, double particleSpeedMult, float angVel, boolean isProcessing, int recipeInputRate, double recipeInputRateFP) implements CustomPacketPayload {
-    public static final Type<TurbineRenderPayload> TYPE = new Type<>(ncLoc("turbine_server_to_client"));
+    public static final Type<TurbineRenderPayload> TYPE = new Type<>(ncLoc("turbine_render_server_to_client"));
     public static final StreamCodec<RegistryFriendlyByteBuf, TurbineRenderPayload> STREAM_CODEC = StreamCodecsHelper.composite(
             BlockPos.STREAM_CODEC, TurbineRenderPayload::pos,
             StreamCodecsHelper.FLUID_STACK_LIST_STREAM_CODEC, TurbineRenderPayload::tanks,

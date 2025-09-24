@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.util;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,6 @@ public class Lang {
     }
 
     public static boolean canLocalize(String unloc) {
-        return !Component.translatable(unloc).getString().isBlank();
+        return ComponentUtils.isTranslationResolvable(Component.translatable(unloc));
     }
 }

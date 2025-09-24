@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block.turbine;
 
+import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IBlockRotorBlade;
@@ -19,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.DIR;
 
-public class TurbineRotorStatorBlock extends MultiblockPartBlock<Turbine, ITurbinePartType> implements INeverCauseRenderingSkip, IBlockRotorBlade {
+public class TurbineRotorStatorBlock extends GenericTooltipDeviceBlock<Turbine, ITurbinePartType> implements INeverCauseRenderingSkip, IBlockRotorBlade {
     protected static final VoxelShape X_AXIS_AABB = Block.box(0, 2, 7, 16, 14, 9);
     protected static final VoxelShape Y_AXIS_AABB = Block.box(7, 0, 2, 9, 16, 14);
     protected static final VoxelShape Z_AXIS_AABB = Block.box(7, 2, 0, 9, 14, 16);

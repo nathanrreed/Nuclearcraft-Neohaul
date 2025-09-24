@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:ingots/aluminum"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "HTH",
+    "AAA"
+  ],
+  "result": {
+    "count": 2,
+    "id": "nuclearcraftneohaul:aluminum_turbine_dynamo_coil"
+  }
+}

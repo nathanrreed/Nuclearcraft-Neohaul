@@ -64,13 +64,21 @@ public class CapabilityRegistration {
         }
 
         // Turbine
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_INLET.get(), (entity, direction) -> {
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_INLET.get(), (entity, direction) -> { //TODO add backup to keep pipe connections
             Optional<Turbine> controller = entity.getMultiblockController();
             return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().fluidTankHandler;
         });
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_OUTLET.get(), (entity, direction) -> {
             Optional<Turbine> controller = entity.getMultiblockController();
             return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().fluidTankHandler;
+        });
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_DYNAMO.get(), (entity, direction) -> {
+            Optional<Turbine> controller = entity.getMultiblockController();
+            return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().energyStorage;
+        });
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_COIL_CONNECTOR.get(), (entity, direction) -> {
+            Optional<Turbine> controller = entity.getMultiblockController();
+            return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().energyStorage;
         });
 
 

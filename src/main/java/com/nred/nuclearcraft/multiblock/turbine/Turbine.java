@@ -10,6 +10,7 @@ import com.nred.nuclearcraft.helpers.Tank;
 import com.nred.nuclearcraft.multiblock.MachineMultiblock;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.*;
 import com.nred.nuclearcraft.payload.TurbineRenderPayload;
+import com.nred.nuclearcraft.payload.TurbineUpdatePayload;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.registration.SoundRegistration;
 import com.nred.nuclearcraft.util.BlockStateHelper;
@@ -42,6 +43,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -49,21 +51,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.TreeSet;
+import java.util.*;
 
 import static com.nred.nuclearcraft.config.Config2.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.TURBINE_MAP;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.TURBINE_RECIPE_TYPE;
 
-public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultiblock {
+public class Turbine extends MachineMultiblock<Turbine> {
     public ITurbineController<?> controller;
 
     public static final int BASE_MAX_ENERGY = 16000, BASE_MAX_INPUT = 1000, BASE_MAX_OUTPUT = 4000;
@@ -77,7 +75,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
         @Override
         public boolean canOutput(int tank) {
-            return false;
+            return tanks.get(tank).ioState == Tank.IOState.OUTPUT;
         }
     };
 
@@ -114,7 +112,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     public Iterable<BlockPos>[] inputPlane = new Iterable[4];
 
     public boolean nbtUpdateRenderDataFlag = false;
-    public boolean shouldSpecialRenderRotor = true; // TODO make false and only make true if there is turbine glass
+    public boolean shouldSpecialRenderRotor = false;
 
     public BlockPos[] bladePosArray = null;
     public Vector3f[] renderPosArray = null;
@@ -123,17 +121,22 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     public BlockState[] rotorStateArray = null;
     public final IntList bladeDepths = new IntArrayList(), statorDepths = new IntArrayList();
 
+    protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
+
     public boolean searchFlag = false;
     public final ObjectSet<TurbineDynamoEntityPart> dynamoPartCache = new ObjectOpenHashSet<>(), dynamoPartCacheOpposite = new ObjectOpenHashSet<>();
     public final Long2ObjectMap<TurbineDynamoEntityPart> componentFailCache = new Long2ObjectOpenHashMap<>(), assumedValidCache = new Long2ObjectOpenHashMap<>();
 
     public float prevAngVel = 0F;
 
+    protected final PartSuperMap<Turbine, IMultiblockPart<Turbine>> partSuperMap = new PartSuperMap<>();
+
     public Turbine(Level world) {
         super(world);
-//        for (Class<? extends ITurbinePart> clazz : PART_CLASSES) { TODO REMOVE
-//            partSuperMap.equip(clazz);
-//        }
+
+        for (Class<? extends IMultiblockPart<Turbine>> clazz : List.of(TurbineControllerEntity.class, TurbineCasingEntity.class, TurbineRotorShaftEntity.class, TurbineRotorBearingEntity.class, TurbineDynamoCoilEntity.class, TurbineCoilConnectorEntity.class, TurbineRotorBladeEntity.class, TurbineRotorStatorEntity.class, TurbineOutletEntity.class, TurbineInletEntity.class, TurbineGlassEntity.class)) {
+            partSuperMap.equip(clazz);
+        }
     }
 
     @Override
@@ -243,17 +246,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     @Override
-    protected void onPartAdded(IMultiblockPart<Turbine> iMultiblockPart) {
-
-    }
-
-    @Override
-    protected void onPartRemoved(IMultiblockPart<Turbine> iMultiblockPart) {
-    }
-
-    @Override
     protected void onMachineAssembled() {
-        System.out.println("ASSEMBLED");
         onTurbineFormed();
     }
 
@@ -283,6 +276,19 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     @Override
+    public PartSuperMap<Turbine, IMultiblockPart<Turbine>> getPartSuperMap() {
+        return partSuperMap;
+    }
+
+    @Override
+    public void clearAllMaterial() {
+        for (int i = 0; i < fluidTankHandler.getTanks(); i++) {
+            fluidTankHandler.get(i).setFluidStored(null);
+        }
+        super.clearAllMaterial();
+    }
+
+    @Override
     protected void onAssimilate(IMultiblockController assimilated) {
         if (assimilated instanceof Turbine turbine)
             this.energyStorage.mergeEnergyStorage(turbine.energyStorage);
@@ -296,7 +302,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     public boolean setLogic(Turbine multiblock) {
-        if (getPartMap(ITurbineController.class).isEmpty()) {
+        if (getPartMap(TurbineControllerEntity.class).isEmpty()) {
             multiblock.setLastError("multiblock_validation.no_controller");
             return false;
         }
@@ -305,7 +311,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
             return false;
         }
 
-        for (ITurbineController<?> contr : getParts(ITurbineController.class)) {
+        for (ITurbineController<?> contr : getParts(TurbineControllerEntity.class)) {
             controller = contr;
             break;
         }
@@ -317,7 +323,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
     @Override
     protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
-//        shouldSpecialRenderRotor = false; TODO READD
+        shouldSpecialRenderRotor = false;
 
         if (!setLogic(this) || !super.isMachineWhole(validatorCallback))
             return false;
@@ -501,6 +507,9 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
             validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.missing_blades");
             return false;
         }
+
+        if (!getParts(TurbineGlassEntity.class).isEmpty())
+            shouldSpecialRenderRotor = true;
 
         for (TurbineControllerEntity controller : getParts(TurbineControllerEntity.class)) {
             controller.setIsRenderer(false);
@@ -756,8 +765,8 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
         this.energyStorage.changeEnergyStored((int) this.power);
 
         if (this.controller != null) {
-//            this.sendMultiblockUpdatePacketToListeners();
-//            this.sendRenderPacketToAll();
+            this.sendMultiblockUpdatePacketToListeners();
+            this.sendRenderPacketToAll();
         }
 
         return flag;
@@ -833,7 +842,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     protected void onTurbineFormed() {
-        for (ITurbineController<?> contr : getParts(ITurbineController.class)) {
+        for (ITurbineController<?> contr : getParts(TurbineControllerEntity.class)) {
             this.controller = contr;
             break;
         }
@@ -852,12 +861,12 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
         }
 
         if (!getWorld().isClientSide) {
-//            componentFailCache.clear();
-//            do {
-//                assumedValidCache.clear();
-//                refreshDynamos();
-//            }
-//            while (searchFlag);
+            componentFailCache.clear();
+            do {
+                assumedValidCache.clear();
+                refreshDynamos();
+            }
+            while (searchFlag);
 
             refreshDynamoStats();
 
@@ -1035,7 +1044,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     protected void makeRotorVisible() {
-//        this.shouldSpecialRenderRotor = false;TODO
+        this.shouldSpecialRenderRotor = false;
 
         if (this.flowDir != null) {
             TurbinePartDir shaftDir = this.getShaftDir();
@@ -1099,12 +1108,11 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
 
     protected boolean isRedstonePowered() {
 //        return Stream.concat(Stream.of(this.controller), getParts(TileTurbineRedstonePort.class).stream()).anyMatch(x -> x != null && x.getIsRedstonePowered()); TODO
-        return false;
+        return getLevel().hasNeighborSignal(this.controller.getPos());
     }
 
     protected void refreshRecipe() {
-//        this.recipeInfo = NCRecipes.turbine.getRecipeInfoFromInputs(Collections.emptyList(), this.tanks.subList(0, 1)); TODO
-        this.recipe = this.getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().filter(it -> it.value().fluidResult().test(fluidTankHandler.getFirst().getFluid())).findFirst();
+        this.recipe = this.getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().filter(it -> it.value().fluidInput().test(fluidTankHandler.getFirst().getFluid())).findFirst();
     }
 
     protected boolean canProcessInputs() {
@@ -1123,7 +1131,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
         var recipe = this.recipe.get().value();
         this.basePowerPerMB = recipe.power_per_mb();
         this.idealTotalExpansionLevel = recipe.expansion_level();
-        this.spinUpMultiplier = recipe.spin_up_multiplier();
+        this.spinUpMultiplier = recipe.get_spin_up_multiplier();
         this.particleEffect = recipe.particle();
         this.particleSpeedMult = recipe.particle_speed_mult();
         return true;
@@ -1141,7 +1149,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
         Tank outputTank = fluidTankHandler.get(1);
 
         if (!outputTank.isEmpty()) {
-            if (!FluidIngredient.empty().test(outputTank.getFluid())) {
+            if (!fluidProduct.ingredient().test(outputTank.getFluid())) {
                 return false;
             } else return outputTank.getFluidAmount() + fluidProduct.amount() * this.recipeInputRate <= outputTank.getCapacity();
         }
@@ -1166,7 +1174,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
             return;
         }
         if (outputTank.isEmpty()) {
-            outputTank.setFluid(fluid);
+            outputTank.setFluid(fluid.copy());
             outputTank.setFluidAmount(outputTank.getFluidAmount() * this.recipeInputRate);
         } else if (FluidStack.isSameFluidSameComponents(outputTank.getFluid(), fluid)) {
             outputTank.changeFluidAmount(fluid.getAmount() * this.recipeInputRate);
@@ -1174,8 +1182,7 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     protected int getFluidIngredientStackSize() {
-//        return this.recipe.isEmpty() ? 0 : this.recipe.get().value().fluidInput().getMaxStackSize(this.recipeInfo.getFluidIngredientNumbers().get(0)); TODO
-        return this.recipe.isEmpty() ? 0 : this.recipe.get().value().fluidInput().getFluids()[0].getAmount();
+        return this.recipe.map(turbineRecipeRecipeHolder -> turbineRecipeRecipeHolder.value().fluidInput().getFluids()[0].getAmount()).orElse(0);
     }
 
     protected int getBladeArea() {
@@ -1255,7 +1262,17 @@ public class Turbine extends MachineMultiblock<Turbine> implements IPacketMultib
     }
 
     @Override
+    public Set<Player> getMultiblockUpdatePacketListeners() {
+        return updatePacketListeners;
+    }
+
+    @Override
     public CustomPacketPayload getMultiblockUpdatePacket() {
+        return new TurbineUpdatePayload(controller.getPos(), isTurbineOn, energyStorage, power, rawPower, conductivity, rotorEfficiency, powerBonus, totalExpansionLevel, idealTotalExpansionLevel, shaftWidth, bladeLength, noBladeSets, dynamoCoilCount, dynamoCoilCountOpposite, bearingTension);
+    }
+
+    @Override
+    public CustomPacketPayload getMultiblockRenderPacket() {
         return new TurbineRenderPayload(controller.getPos(), fluidTankHandler.getFluids(), particleEffect, particleSpeedMult, angVel, isProcessing, recipeInputRate, recipeInputRateFP);
     }
 

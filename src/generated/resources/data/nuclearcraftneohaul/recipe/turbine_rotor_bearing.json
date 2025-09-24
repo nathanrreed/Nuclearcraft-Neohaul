@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_nugget"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    }
+  },
+  "pattern": [
+    "HGH",
+    "GSG",
+    "HGH"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:turbine_rotor_bearing"
+  }
+}

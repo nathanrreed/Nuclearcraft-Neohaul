@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.block.turbine;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
-import it.unimi.dsi.fastutil.objects.*;
+import it.unimi.dsi.fastutil.objects.ObjectSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -13,9 +13,6 @@ public class TurbineDynamoEntityPart extends AbstractTurbineEntity {
     public TurbineDynamoEntityPart(BlockEntityType<?> type, BlockPos position, BlockState blockState) {
         super(type, position, blockState);
     }
-
-    public static final Object2DoubleMap<String> DYN_CONDUCTIVITY_MAP = new Object2DoubleOpenHashMap<>();
-    public static final Object2ObjectMap<String, String> DYN_RULE_ID_MAP = new Object2ObjectOpenHashMap<>();
 
     public boolean isSearched = false, isInValidPosition = false;
     public PlacementRule<Turbine, AbstractTurbineEntity> placementRule;
@@ -29,7 +26,7 @@ public class TurbineDynamoEntityPart extends AbstractTurbineEntity {
 //    }
 
     public void dynamoSearch(final ObjectSet<TurbineDynamoEntityPart> validCache, final ObjectSet<TurbineDynamoEntityPart> searchCache, final Long2ObjectMap<TurbineDynamoEntityPart> partFailCache, final Long2ObjectMap<TurbineDynamoEntityPart> assumedValidCache) {
-        if (!isDynamoPartValid(partFailCache, assumedValidCache) || getMultiblockController().isEmpty()) {
+        if (!isDynamoPartValid(partFailCache, assumedValidCache)) {
             return;
         }
 

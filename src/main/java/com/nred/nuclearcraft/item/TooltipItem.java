@@ -1,7 +1,6 @@
 package com.nred.nuclearcraft.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -20,7 +19,7 @@ import static com.nred.nuclearcraft.info.Radiation.RAD_MAP;
 public class TooltipItem extends Item {
     private Component tooltip;
     public List<MutableComponent> shiftTooltips;
-    public static final Component shiftForDetails = Component.translatable("tooltip.shift_for_info").withStyle(ChatFormatting.GRAY);
+    public static final Component shiftForDetails = Component.translatable("tooltip.shift_for_info").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
     private final boolean byPassShift;
 
     public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean radiation, boolean byPassShift) {
@@ -66,7 +65,7 @@ public class TooltipItem extends Item {
         }
 
         if (shiftTooltips != null) {
-            if (Screen.hasShiftDown()) {
+            if (tooltipFlag.hasShiftDown()) {
                 tooltipComponents.addAll(shiftTooltips);
             } else {
                 tooltipComponents.add(shiftForDetails);

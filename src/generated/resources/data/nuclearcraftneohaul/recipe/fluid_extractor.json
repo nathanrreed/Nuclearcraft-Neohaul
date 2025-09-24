@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "nuclearcraftneohaul:magnesium_ingot"
+      "tag": "c:ingots/magnesium"
     },
     "B": {
       "item": "minecraft:bucket"

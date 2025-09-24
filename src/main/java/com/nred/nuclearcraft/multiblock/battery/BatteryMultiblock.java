@@ -9,10 +9,13 @@ import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.Set;
 
 public class BatteryMultiblock extends MachineMultiblock<BatteryMultiblock> {
     protected final @Nonnull CustomEnergyHandler storage = new CustomEnergyHandler(1, true, true);
@@ -41,6 +44,11 @@ public class BatteryMultiblock extends MachineMultiblock<BatteryMultiblock> {
     @Override
     protected int getMinimumNumberOfPartsForAssembledMachine() {
         return 1;
+    }
+
+    @Override
+    public PartSuperMap getPartSuperMap() {
+        return null; //TODO REMOVE
     }
 
     @Override
@@ -179,5 +187,20 @@ public class BatteryMultiblock extends MachineMultiblock<BatteryMultiblock> {
 
     public int getComparatorStrength() {
         return NCMath.getComparatorSignal(storage.getEnergyStored(), storage.getMaxEnergyStored(), 0D);
+    }
+
+    @Override
+    public Set<Player> getMultiblockUpdatePacketListeners() {
+        return Set.of();
+    }
+
+    @Override
+    public CustomPacketPayload getMultiblockUpdatePacket() {
+        return null;
+    }
+
+    @Override
+    public CustomPacketPayload getMultiblockRenderPacket() {
+        return null;
     }
 }

@@ -3,10 +3,7 @@ package com.nred.nuclearcraft;
 import com.mojang.logging.LogUtils;
 import com.nred.nuclearcraft.config.Config;
 import com.nred.nuclearcraft.config.Config2;
-import com.nred.nuclearcraft.payload.ButtonPressPayload;
-import com.nred.nuclearcraft.payload.FluidClearPayload;
-import com.nred.nuclearcraft.payload.RecipeSetPayload;
-import com.nred.nuclearcraft.payload.TurbineRenderPayload;
+import com.nred.nuclearcraft.payload.*;
 import com.nred.nuclearcraft.registration.Registration;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -40,11 +37,12 @@ public class NuclearcraftNeohaul {
 
         // Client to Server
         registrar.playToServer(ButtonPressPayload.TYPE, ButtonPressPayload.STREAM_CODEC, ButtonPressPayload::handleOnServer);
-        registrar.playToServer(FluidClearPayload.TYPE, FluidClearPayload.STREAM_CODEC, FluidClearPayload::handleOnServer);
+        registrar.playToServer(ClearPayload.TYPE, ClearPayload.STREAM_CODEC, ClearPayload::handleOnServer);
 
         // Server to Client
         registrar.playToClient(RecipeSetPayload.TYPE, RecipeSetPayload.STREAM_CODEC, RecipeSetPayload::handleOnClient);
         registrar.playToClient(TurbineRenderPayload.TYPE, TurbineRenderPayload.STREAM_CODEC, TurbineRenderPayload::handleOnClient);
+        registrar.playToClient(TurbineUpdatePayload.TYPE, TurbineUpdatePayload.STREAM_CODEC, TurbineUpdatePayload::handleOnClient);
     }
 }
 

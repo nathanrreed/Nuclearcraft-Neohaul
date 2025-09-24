@@ -12,7 +12,6 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import static com.nred.nuclearcraft.config.Config2.turbine_spin_up_multiplier_global;
 import static com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe.testSizedFluidIngredient;
-import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SUPERCOOLER_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.TURBINE_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.TURBINE_RECIPE_TYPE;
 
@@ -48,7 +47,7 @@ public record TurbineRecipe(SizedFluidIngredient fluidInput, SizedFluidIngredien
         return TURBINE_RECIPE_TYPE.get();
     }
 
-    public double spin_up_multiplier() {
+    public double get_spin_up_multiplier() {
         return turbine_spin_up_multiplier_global * spin_up_multiplier;
     }
 }

@@ -171,7 +171,7 @@ public class BlockRegistration {
     }
 
     private static HashMap<String, DeferredBlock<Block>> createTurbineParts() {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>(); //TODO MAKE CUSTOM BLOCKS
+        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
         map.put("turbine_casing", registerBlockItem("turbine_casing", TurbinePartType.Casing::createBlock));
         map.put("turbine_glass", registerBlockItem("turbine_glass", TurbinePartType.Glass::createBlock));
         map.put("turbine_rotor_bearing", registerBlockItem("turbine_rotor_bearing", TurbinePartType.RotorBearing::createBlock));

@@ -1,7 +1,10 @@
 {
-  "parent": "nuclearcraftneohaul:block/top_sides",
+  "parent": "nuclearcraftneohaul:block/machine",
   "textures": {
-    "sides": "nuclearcraftneohaul:block/turbine/outlet_side",
+    "back": "nuclearcraftneohaul:block/turbine/outlet_back",
+    "bottom": "nuclearcraftneohaul:block/turbine/outlet_top",
+    "front": "nuclearcraftneohaul:block/turbine/outlet_front",
+    "side": "nuclearcraftneohaul:block/turbine/outlet_side",
     "top": "nuclearcraftneohaul:block/turbine/outlet_top"
   }
 }

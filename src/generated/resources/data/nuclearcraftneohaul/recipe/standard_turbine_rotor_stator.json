@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    }
+  },
+  "pattern": [
+    "HH",
+    "HH",
+    "HH"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:standard_turbine_rotor_stator"
+  }
+}

@@ -20,10 +20,6 @@ public class Registration {
         MenuRegistration.init();
         CreativeTabsRegistration.init();
         SoundRegistration.init();
-
-
-
-        PlacementRule.postInit();
     }
 
     public static void register(IEventBus modEventBus) {

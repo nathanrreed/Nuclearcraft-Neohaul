@@ -14,6 +14,7 @@ public class TurbineDynamoCoilEntity extends TurbineDynamoEntityPart {
         super(TURBINE_DYNAMO.get(), position, blockState);
         this.dynamoCoilType = dynamoCoilType;
         this.placementRule = TurbinePlacement.RULE_MAP.get(dynamoCoilType.getName() + "_coil");
+        this.conductivity = dynamoCoilType.getConductivity();
     }
 
     public static class Variant extends TurbineDynamoCoilEntity {

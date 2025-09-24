@@ -1,6 +1,12 @@
 package com.nred.nuclearcraft.multiblock;
 
+import com.nred.nuclearcraft.multiblock.turbine.IPacketMultiblock;
 import com.nred.nuclearcraft.util.NCMath;
+import com.nred.nuclearcraft.util.SuperMap;
+import com.nred.nuclearcraft.util.SuperMap.SuperMapEntry;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockController;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,13 +15,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import org.joml.Vector3f;
 
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-public abstract class MachineMultiblock<MULTIBLOCK extends MachineMultiblock<MULTIBLOCK>> extends AbstractCuboidMultiblockController<MULTIBLOCK> implements IMultiblock {
+public abstract class MachineMultiblock<MULTIBLOCK extends MachineMultiblock<MULTIBLOCK>> extends AbstractCuboidMultiblockController<MULTIBLOCK> implements IMultiblock, IPacketMultiblock {
     protected MachineMultiblock(Level world) {
         super(world);
     }
@@ -77,20 +82,58 @@ public abstract class MachineMultiblock<MULTIBLOCK extends MachineMultiblock<MUL
         };
     }
 
-    public <TYPE> Map<Long, TYPE> getPartMap(Class<TYPE> clazz) {
-        return (Map<Long, TYPE>) getConnectedParts(clazz::isInstance).collect(Collectors.toMap(el -> el.getWorldPosition().asLong(), el -> el));
+    public static class PartSuperMap<MULTIBLOCK extends MachineMultiblock<MULTIBLOCK>, T extends IMultiblockPart<MULTIBLOCK>> extends SuperMap<Long, T, Long2ObjectMap<? extends T>> {
+        @Override
+        public <TYPE extends T> Long2ObjectMap<? extends T> backup(Class<TYPE> clazz) {
+            return new Long2ObjectOpenHashMap<>();
+        }
     }
 
-    public <TYPE> List<TYPE> getParts(Class<TYPE> clazz) {
-        return (List<TYPE>) getConnectedParts(clazz::isInstance).toList();
+    public <TYPE extends IMultiblockPart<MULTIBLOCK>> Long2ObjectMap<TYPE> getPartMap(Class<TYPE> clazz) {
+        return getPartSuperMap().get(clazz);
     }
 
-    public <TYPE> Iterator<TYPE> getPartIterator(Class<TYPE> clazz) {
+    public abstract PartSuperMap<MULTIBLOCK, IMultiblockPart<MULTIBLOCK>> getPartSuperMap();
+
+    public <TYPE extends IMultiblockPart<MULTIBLOCK>> Collection<TYPE> getParts(Class<TYPE> clazz) {
+        return getPartMap(clazz).values();
+    }
+
+    public <TYPE extends IMultiblockPart<MULTIBLOCK>> Iterator<TYPE> getPartIterator(Class<TYPE> clazz) {
         return getParts(clazz).iterator();
     }
 
     public int getPartCount(Class<?> clazz) {
         return getPartsCount(clazz::isInstance);
+    }
+
+    @Override
+    protected void onPartAdded(IMultiblockPart<MULTIBLOCK> newPart) {
+        for (Map.Entry<Class<? extends IMultiblockPart<MULTIBLOCK>>, Long2ObjectMap<? extends IMultiblockPart<MULTIBLOCK>>> superMapEntryRaw : getPartSuperMap().entrySet()) {
+            addBlockForSuperMapEntry(new SuperMapEntry(superMapEntryRaw), newPart);
+        }
+    }
+
+    public <TYPE extends IMultiblockPart<MULTIBLOCK>> void addBlockForSuperMapEntry(SuperMapEntry<Long, TYPE> superMapEntry, IMultiblockPart<MULTIBLOCK> newPart) {
+        if (superMapEntry.getKey().isInstance(newPart)) {
+            superMapEntry.getValue().put(newPart.getWorldPosition().asLong(), superMapEntry.getKey().cast(newPart));
+        }
+    }
+
+    @Override
+    protected void onPartRemoved(IMultiblockPart<MULTIBLOCK> oldPart) {
+        for (Map.Entry<Class<? extends IMultiblockPart<MULTIBLOCK>>, Long2ObjectMap<? extends IMultiblockPart<MULTIBLOCK>>> superMapEntryRaw : getPartSuperMap().entrySet()) {
+            removeBlockForSuperMapEntry(new SuperMapEntry(superMapEntryRaw), oldPart);
+        }
+    }
+
+    public <TYPE extends IMultiblockPart<MULTIBLOCK>> void removeBlockForSuperMapEntry(SuperMapEntry<Long, TYPE> superMapEntry, IMultiblockPart<MULTIBLOCK> oldPart) {
+        if (superMapEntry.getKey().isInstance(oldPart)) {
+            superMapEntry.getValue().remove(oldPart.getWorldPosition().asLong());
+        }
+    }
+
+    public void clearAllMaterial() {
     }
 
     @Override

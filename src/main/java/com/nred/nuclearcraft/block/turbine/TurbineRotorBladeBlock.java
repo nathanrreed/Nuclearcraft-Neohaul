@@ -1,10 +1,10 @@
 package com.nred.nuclearcraft.block.turbine;
 
+import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IBlockRotorBlade;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import it.zerono.mods.zerocore.base.multiblock.part.INeverCauseRenderingSkip;
-import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.DIR;
 
 
-public class TurbineRotorBladeBlock extends MultiblockPartBlock<Turbine, ITurbinePartType> implements INeverCauseRenderingSkip, IBlockRotorBlade {
+public class TurbineRotorBladeBlock extends GenericTooltipDeviceBlock<Turbine, ITurbinePartType> implements INeverCauseRenderingSkip, IBlockRotorBlade {
     protected static final VoxelShape X_AXIS_AABB = Block.box(0, 7, 2, 16, 9, 14);
     protected static final VoxelShape Y_AXIS_AABB = Block.box(2, 0, 7, 14, 16, 9);
     protected static final VoxelShape Z_AXIS_AABB = Block.box(2, 7, 0, 14, 9, 16);

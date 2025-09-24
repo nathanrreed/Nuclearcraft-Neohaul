@@ -1,7 +1,10 @@
 package com.nred.nuclearcraft.helpers;
 
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.Mth;
 import net.neoforged.neoforge.energy.EnergyStorage;
+import org.jetbrains.annotations.NotNull;
 
 public class CustomEnergyHandler extends EnergyStorage {
     private final boolean allowInput;
@@ -12,6 +15,14 @@ public class CustomEnergyHandler extends EnergyStorage {
         super(capacity);
         this.allowInput = allowInput;
         this.allowOutput = allowOutput;
+    }
+
+    public CustomEnergyHandler(int capacity, int stored, int transfer, boolean allowInput, boolean allowOutput) {
+        super(capacity);
+        this.allowInput = allowInput;
+        this.allowOutput = allowOutput;
+        this.energy = stored;
+        this.setMaxTransfer(transfer);
     }
 
     // Stop other mods using capability from doing unexpected things
@@ -52,6 +63,20 @@ public class CustomEnergyHandler extends EnergyStorage {
 
         this.capacity = capacity;
         this.tempEnergy = oldEnergy; // Save capacity encase of miss-click
+    }
+
+    public void setEnergyStored(int stored) {
+        this.energy = stored;
+    }
+
+    public int getMaxExtract() {
+        return this.maxExtract;
+    }
+
+    public void copy(CustomEnergyHandler other) {
+        this.setCapacity(other.getMaxEnergyStored());
+        this.setMaxTransfer(other.getMaxExtract());
+        this.setEnergyStored(other.getEnergyStored());
     }
 
     public void setCapacitySimple(int capacity) {
@@ -102,4 +127,20 @@ public class CustomEnergyHandler extends EnergyStorage {
 
     protected void onContentsChanged() {
     }
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, CustomEnergyHandler> ENERGY_HANDLER_STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        public @NotNull CustomEnergyHandler decode(RegistryFriendlyByteBuf buffer) { //int capacity, int stored, int transfer, boolean allowInput, boolean allowOutput
+            return new CustomEnergyHandler(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), buffer.readBoolean());
+        }
+
+        @Override
+        public void encode(RegistryFriendlyByteBuf buffer, CustomEnergyHandler value) {
+            buffer.writeInt(value.capacity);
+            buffer.writeInt(value.energy);
+            buffer.writeInt(value.maxExtract);
+            buffer.writeBoolean(value.allowInput);
+            buffer.writeBoolean(value.allowOutput);
+        }
+    };
 }

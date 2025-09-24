@@ -11,15 +11,15 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.nred.nuclearcraft.config.Config.turbine_coil_conductivity;
+import static com.nred.nuclearcraft.config.Config2.turbine_coil_conductivity;
 
 public enum TurbineDynamoCoilType implements StringRepresentable, ITileEnum<TurbineDynamoCoilEntity.Variant>, IMultiblockVariant {
-    MAGNESIUM("magnesium", () -> turbine_coil_conductivity.get(0), TurbineDynamoCoilEntity.Magnesium.class),
-    BERYLLIUM("beryllium", () -> turbine_coil_conductivity.get(1), TurbineDynamoCoilEntity.Beryllium.class),
-    ALUMINUM("aluminum", () -> turbine_coil_conductivity.get(2), TurbineDynamoCoilEntity.Aluminum.class),
-    GOLD("gold", () -> turbine_coil_conductivity.get(3), TurbineDynamoCoilEntity.Gold.class),
-    COPPER("copper", () -> turbine_coil_conductivity.get(4), TurbineDynamoCoilEntity.Copper.class),
-    SILVER("silver", () -> turbine_coil_conductivity.get(5), TurbineDynamoCoilEntity.Silver.class);
+    MAGNESIUM("magnesium", () -> turbine_coil_conductivity[0], TurbineDynamoCoilEntity.Magnesium.class),
+    BERYLLIUM("beryllium", () -> turbine_coil_conductivity[1], TurbineDynamoCoilEntity.Beryllium.class),
+    ALUMINUM("aluminum", () -> turbine_coil_conductivity[2], TurbineDynamoCoilEntity.Aluminum.class),
+    GOLD("gold", () -> turbine_coil_conductivity[3], TurbineDynamoCoilEntity.Gold.class),
+    COPPER("copper", () -> turbine_coil_conductivity[4], TurbineDynamoCoilEntity.Copper.class),
+    SILVER("silver", () -> turbine_coil_conductivity[5], TurbineDynamoCoilEntity.Silver.class);
 
     private final String name;
     private final Supplier<Double> conductivity;

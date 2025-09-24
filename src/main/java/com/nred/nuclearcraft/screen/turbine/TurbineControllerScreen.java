@@ -3,21 +3,27 @@ package com.nred.nuclearcraft.screen.turbine;
 import com.nred.nuclearcraft.block.turbine.TurbineRotorBearingEntity;
 import com.nred.nuclearcraft.menu.turbine.TurbineControllerMenu;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
+import com.nred.nuclearcraft.payload.ClearPayload;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.NCUtil;
 import com.nred.nuclearcraft.util.StringHelper;
 import com.nred.nuclearcraft.util.UnitHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.navigation.ScreenAxis;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
@@ -27,13 +33,19 @@ public class TurbineControllerScreen extends AbstractContainerScreen<TurbineCont
     int imageHeight = 76;
     private ScreenRectangle base = ScreenRectangle.empty();
 
-    private Turbine multiblock = menu.turbine;
+    private final Turbine multiblock = menu.controller.getMultiblockController().orElseThrow(IllegalStateException::new);
+    ImageButton imagebutton;
 
     public TurbineControllerScreen(TurbineControllerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
 
         this.titleLabelY = Integer.MIN_VALUE;
         this.inventoryLabelY = Integer.MIN_VALUE;
+
+        imagebutton = this.addRenderableWidget(new ImageButton(base.right() - 23, base.top() + 5, 18, 18, new WidgetSprites(ncLoc("button/void_excess_off"), ncLoc("button/void_excess_on")), button -> {
+            PacketDistributor.sendToServer(new ClearPayload(0, menu.controller.getBlockPos()));
+        }));
+        imagebutton.visible = false;
     }
 
     @Override
@@ -45,6 +57,19 @@ public class TurbineControllerScreen extends AbstractContainerScreen<TurbineCont
 
     public void resize(int width, int imageWidth, int height, int imageHeight) {
         base = new ScreenRectangle((width - imageWidth) / 2, (height - imageHeight) / 2, imageWidth, imageHeight);
+        imagebutton.setPosition(base.right() - 23, base.top() + 5);
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        imagebutton.visible = Screen.hasShiftDown();
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers) {
+        imagebutton.visible = Screen.hasShiftDown();
+        return super.keyReleased(keyCode, scanCode, modifiers);
     }
 
     @Override
@@ -78,6 +103,8 @@ public class TurbineControllerScreen extends AbstractContainerScreen<TurbineCont
         Component inputRate;
         if (NCUtil.isModifierKeyDown()) {
             inputRate = Component.translatable("menu.turbine_controller.power_bonus", NCMath.pcDecimalPlaces(multiblock.powerBonus, 1));
+            if (imagebutton.isHovered())
+                guiGraphics.renderTooltip(FONT, Component.translatable("tooltip.shift_clear_multiblock").withStyle(ChatFormatting.ITALIC), mouseX, mouseY);
         } else {
             double maxRecipeRateMultiplierFP = multiblock.getMaxRecipeRateMultiplier();
             double rateRatio = (double) multiblock.recipeInputRate / maxRecipeRateMultiplierFP;

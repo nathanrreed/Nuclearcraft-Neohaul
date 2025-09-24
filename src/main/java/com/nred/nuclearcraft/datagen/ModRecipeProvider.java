@@ -1,7 +1,6 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
-import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
 import com.nred.nuclearcraft.datagen.recipes.*;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipeBuilder;
@@ -90,6 +89,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         foods(recipeOutput);
         solar_panels(recipeOutput);
         fuels(recipeOutput);
+        turbine(recipeOutput);
 
         new AlloyFurnaceRecipeProvider(recipeOutput);
         new CentrifugeProvider(recipeOutput);
@@ -454,7 +454,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         // Extractor
         ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("fluid_extractor"), 1).pattern("PAP").pattern("BMB").pattern("PSP")
-                .define('P', PART_MAP.get("advanced_plating")).define('A', INGOT_MAP.get("magnesium")).define('B', Items.BUCKET).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .define('P', PART_MAP.get("advanced_plating")).define('A', tag(Tags.Items.INGOTS, "magnesium")).define('B', Items.BUCKET).define('S', PART_MAP.get("servomechanism")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
 
         // Fuel Reprocessor
@@ -484,7 +484,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         // Mixer
         ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("fluid_mixer"), 1).pattern("PSP").pattern("BMB").pattern("PEP")
-                .define('P', PART_MAP.get("basic_plating")).define('S', ALLOY_MAP.get("steel")).define('E', PART_MAP.get("electric_motor")).define('B', Items.BUCKET).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .define('P', PART_MAP.get("basic_plating")).define('S', tag(Tags.Items.INGOTS, "steel")).define('E', PART_MAP.get("electric_motor")).define('B', Items.BUCKET).define('M', PART_BLOCK_MAP.get("machine_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
 
         // Pressurizer
@@ -511,6 +511,69 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, UNIVERSAL_BIN, 1).pattern("PSP").pattern("S S").pattern("PSP")
                 .define('P', PART_MAP.get("basic_plating")).define('S', ALLOY_MAP.get("silicon_carbide"))
                 .unlockedBy(getHasName(PART_MAP.get("basic_plating")), has(PART_MAP.get("basic_plating"))).save(recipeOutput);
+    }
+
+    private void turbine(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_controller"), 1).pattern("HTH").pattern("TST").pattern("HTH")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_casing"), 8).pattern(" H ").pattern("HSH").pattern(" H ")
+                .define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, TURBINE_MAP.get("turbine_casing"), 1).requires(TURBINE_MAP.get("turbine_glass"))
+                .unlockedBy(getHasName(TURBINE_MAP.get("turbine_glass")), has(TURBINE_MAP.get("turbine_glass"))).save(recipeOutput, MODID + ":turbine_casing_from_turbine_glass");
+        ShapelessRecipeBuilder.shapeless(MISC, TURBINE_MAP.get("turbine_glass"), 1).requires(TURBINE_MAP.get("turbine_casing"))
+                .unlockedBy(getHasName(TURBINE_MAP.get("turbine_casing")), has(TURBINE_MAP.get("turbine_casing"))).requires(Tags.Items.GLASS_BLOCKS).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_rotor_bearing"), 4).pattern("HGH").pattern("GSG").pattern("HGH")
+                .define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('G', Items.GOLD_NUGGET)
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_rotor_shaft"), 4).pattern("HHH").pattern("TTT").pattern("HHH")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_inlet"), 4).pattern("HTH").pattern("MSM").pattern("HTH")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('M', PART_MAP.get("servomechanism"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_outlet"), 4).pattern("HHH").pattern("MSM").pattern("HHH")
+                .define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('M', PART_MAP.get("servomechanism"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_coil_connector"), 4).pattern("HHH").pattern("HTH").pattern("HHH")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
+
+        // Dynamos
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("magnesium_turbine_dynamo_coil"), 2).pattern("MMM").pattern("HTH").pattern("MMM")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('M', tag(Tags.Items.INGOTS, "magnesium"))
+                .unlockedBy(getHasName(INGOT_MAP.get("magnesium")), has(INGOT_MAP.get("magnesium"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("beryllium_turbine_dynamo_coil"), 2).pattern("BBB").pattern("HTH").pattern("BBB")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('B', tag(Tags.Items.INGOTS, "beryllium"))
+                .unlockedBy(getHasName(INGOT_MAP.get("beryllium")), has(INGOT_MAP.get("beryllium"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("aluminum_turbine_dynamo_coil"), 2).pattern("AAA").pattern("HTH").pattern("AAA")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('A', tag(Tags.Items.INGOTS, "aluminum"))
+                .unlockedBy(getHasName(INGOT_MAP.get("aluminum")), has(INGOT_MAP.get("aluminum"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("gold_turbine_dynamo_coil"), 2).pattern("GGG").pattern("HTH").pattern("GGG")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('G', tag(Tags.Items.INGOTS, "gold"))
+                .unlockedBy(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("copper_turbine_dynamo_coil"), 2).pattern("CCC").pattern("HTH").pattern("CCC")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('C', tag(Tags.Items.INGOTS, "copper"))
+                .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("silver_turbine_dynamo_coil"), 2).pattern("SSS").pattern("HTH").pattern("SSS")
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('S', tag(Tags.Items.INGOTS, "silver"))
+                .unlockedBy(getHasName(INGOT_MAP.get("silver")), has(INGOT_MAP.get("silver"))).save(recipeOutput);
+
+        // Rotor Blades
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("steel_turbine_rotor_blade"), 4).pattern("SHS").pattern("SHS").pattern("SHS")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('H', ALLOY_MAP.get("hsla_steel"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("extreme_alloy_turbine_rotor_blade"), 4).pattern("EHE").pattern("EHE").pattern("EHE")
+                .define('E', ALLOY_MAP.get("extreme")).define('H', ALLOY_MAP.get("hsla_steel"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("sic_turbine_rotor_blade"), 4).pattern("SHS").pattern("SHS").pattern("SHS")
+                .define('S', ALLOY_MAP.get("sic_sic_cmc")).define('H', ALLOY_MAP.get("hsla_steel"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("standard_turbine_rotor_stator"), 4).pattern("HH").pattern("HH").pattern("HH")
+                .define('H', ALLOY_MAP.get("hsla_steel"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
     }
 
 

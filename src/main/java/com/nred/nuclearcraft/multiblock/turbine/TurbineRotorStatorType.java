@@ -7,19 +7,20 @@ import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.config.Config2.turbine_stator_expansion;
 
 public enum TurbineRotorStatorType implements TurbineRotorBladeUtil.IRotorStatorType, ITileEnum<TurbineRotorStatorEntity.Variant>, IMultiblockVariant {
-    STANDARD("standard", turbine_stator_expansion, TurbineRotorStatorEntity.Standard.class);
+    STANDARD("standard", () -> turbine_stator_expansion, TurbineRotorStatorEntity.Standard.class);
 
     private final String name;
-    private final double expansion;
+    private final Supplier<Double> expansion;
     private final Class<? extends TurbineRotorStatorEntity.Variant> tileClass;
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
 
-    TurbineRotorStatorType(String name, double expansion, Class<? extends TurbineRotorStatorEntity.Variant> tileClass) {
+    TurbineRotorStatorType(String name, Supplier<Double> expansion, Class<? extends TurbineRotorStatorEntity.Variant> tileClass) {
         this.name = name;
         this.expansion = expansion;
         this.tileClass = tileClass;
@@ -35,7 +36,7 @@ public enum TurbineRotorStatorType implements TurbineRotorBladeUtil.IRotorStator
 
     @Override
     public double getExpansionCoefficient() {
-        return expansion;
+        return expansion.get();
     }
 
     @Override

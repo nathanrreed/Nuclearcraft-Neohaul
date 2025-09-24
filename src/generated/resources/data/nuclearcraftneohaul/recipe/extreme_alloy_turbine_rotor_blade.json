@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    }
+  },
+  "pattern": [
+    "EHE",
+    "EHE",
+    "EHE"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:extreme_alloy_turbine_rotor_blade"
+  }
+}

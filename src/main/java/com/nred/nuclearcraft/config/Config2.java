@@ -2,7 +2,6 @@ package com.nred.nuclearcraft.config;
 
 import com.google.common.primitives.Booleans;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
-import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -831,8 +830,6 @@ public class Config2 {
 
         radiation_enabled_public = radiation_enabled;
         radiation_horse_armor_public = radiation_horse_armor;
-
-        PlacementRule.init(); // TODO is this a good place to call this from?
     }
 
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ORE_DIMS = add(CATEGORY_WORLD_GEN, "ore_dims", List.of(0, 2, -6, -100, 4598, -9999, -11325), Integer.MIN_VALUE, Integer.MAX_VALUE);

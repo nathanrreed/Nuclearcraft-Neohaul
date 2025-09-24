@@ -8,7 +8,7 @@ import com.nred.nuclearcraft.gui.RedstoneModeToggleButton;
 import com.nred.nuclearcraft.gui.SimpleImageButton;
 import com.nred.nuclearcraft.menu.FluidSlot;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
-import com.nred.nuclearcraft.payload.FluidClearPayload;
+import com.nred.nuclearcraft.payload.ClearPayload;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -241,7 +241,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         for (FluidSlot fluidSlot : Stream.of(menu.FLUID_INPUTS, menu.FLUID_OUTPUTS).flatMap(Collection::stream).toList()) { // Draw tooltip
             if (fluidSlot.isActive() && button == 0 && hasShiftDown() && !fluidSlot.getFluid().isEmpty() && isHovering(fluidSlot.x, fluidSlot.y, fluidSlot.size, fluidSlot.size, mouseX, mouseY)) {
                 fluidSlot.empty();
-                PacketDistributor.sendToServer(new FluidClearPayload(fluidSlot.getIndex(), menu.info.pos()));
+                PacketDistributor.sendToServer(new ClearPayload(fluidSlot.getIndex(), menu.info.pos()));
                 return true; // Remove fluid
             }
         }

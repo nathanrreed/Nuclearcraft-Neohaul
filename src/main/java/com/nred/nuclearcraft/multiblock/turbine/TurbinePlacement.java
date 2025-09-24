@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
-import com.nred.nuclearcraft.block.turbine.AbstractTurbineEntity;
+import com.nred.nuclearcraft.block.turbine.*;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.PlacementRule.AdjacencyType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.CountType;
@@ -9,9 +9,11 @@ import com.nred.nuclearcraft.util.StringHelper;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -264,39 +266,24 @@ public abstract class TurbinePlacement {
 
     // Helper Methods
 
-//	public static boolean isCasing(Turbine turbine, BlockPos pos) {  TODO
-//		BlockEntity tile = turbine.WORLD.getTileEntity(pos);
-//		return tile instanceof TileAbstractTurbineEntity part && part.getPartPositionType().isGoodForWall();
-//	}
-//
-//	public static boolean isRotorBearing(Turbine turbine, BlockPos pos) {
-//		return turbine.getPartMap(TileTurbineRotorBearing.class).get(pos.asLong()) != null;
-//	}
-//
-//	public static boolean isCoilConnector(Turbine turbine, BlockPos pos) {
-//		TileTurbineDynamoPart part = turbine.getPartMap(TileTurbineDynamoPart.class).get(pos.asLong());
-//		return part instanceof TileTurbineCoilConnector && part.isInValidPosition;
-//	}
-//
-//	public static boolean isDynamoCoil(Turbine turbine, BlockPos pos, String coilName) {
-//		TileTurbineDynamoPart part = turbine.getPartMap(TileTurbineDynamoPart.class).get(pos.asLong());
-//		return part instanceof TileTurbineDynamoCoil && part.isInValidPosition && (coilName.equals("any") || part.partName.equals(coilName));
-//	}
-
     public static boolean isCasing(Optional<Turbine> turbine, BlockPos pos) {
-        return false;
+        BlockEntity tile = turbine.get().getLevel().getBlockEntity(pos);
+        return tile instanceof AbstractTurbineEntity part && part.isGoodForPosition(PartPosition.NorthFace, turbine.get());
+//        return tile instanceof AbstractTurbineEntity part && part.getPartPositionType().isGoodForWall(); TODO check if this is ok
     }
 
     public static boolean isRotorBearing(Optional<Turbine> turbine, BlockPos pos) {
-        return false;
+        return turbine.get().getPartMap(TurbineRotorBearingEntity.class).get(pos.asLong()) != null;
     }
 
     public static boolean isCoilConnector(Optional<Turbine> turbine, BlockPos pos) {
-        return false;
+        TurbineDynamoEntityPart tile = turbine.get().getPartMap(TurbineDynamoEntityPart.class).get(pos.asLong());
+        return tile instanceof TurbineCoilConnectorEntity part && part.isInValidPosition;
     }
 
     public static boolean isDynamoCoil(Optional<Turbine> turbine, BlockPos pos, String coilName) {
-        return false;
+        TurbineDynamoEntityPart tile = turbine.get().getPartMap(TurbineDynamoEntityPart.class).get(pos.asLong());
+        return tile instanceof TurbineDynamoCoilEntity part && part.isInValidPosition && (coilName.equals("any") || part.dynamoCoilType.getName().equals(coilName));
     }
 
     // Default Tooltip Builder

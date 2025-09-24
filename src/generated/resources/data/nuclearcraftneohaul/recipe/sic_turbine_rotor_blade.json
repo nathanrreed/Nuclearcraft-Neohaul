@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:sic_sic_cmc_alloy"
+    }
+  },
+  "pattern": [
+    "SHS",
+    "SHS",
+    "SHS"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:sic_turbine_rotor_blade"
+  }
+}

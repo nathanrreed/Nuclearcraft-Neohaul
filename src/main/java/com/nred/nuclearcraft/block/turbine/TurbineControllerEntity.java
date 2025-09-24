@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.turbine;
 
 import com.nred.nuclearcraft.menu.turbine.TurbineControllerMenu;
+import com.nred.nuclearcraft.multiblock.IMultiblockGuiPart;
 import com.nred.nuclearcraft.multiblock.turbine.ITurbineController;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.util.NCMath;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_CONTROLLER;
 
-public class TurbineControllerEntity extends AbstractTurbineEntity implements MenuProvider, INetworkTileEntitySyncProvider, ITurbineController<TurbineControllerEntity> {
+public class TurbineControllerEntity extends AbstractTurbineEntity implements MenuProvider, INetworkTileEntitySyncProvider, ITurbineController<TurbineControllerEntity>, IMultiblockGuiPart<Turbine> {
     protected boolean isRenderer = false;
 
     protected final float[] brightnessArray = new float[]{1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F};
@@ -35,17 +36,14 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements Me
 
     @Override
     public void enlistForUpdates(ServerPlayer serverPlayer, boolean b) {
-
     }
 
     @Override
     public void delistFromUpdates(ServerPlayer serverPlayer) {
-
     }
 
     @Override
     public void sendUpdates() {
-
     }
 
     @Override

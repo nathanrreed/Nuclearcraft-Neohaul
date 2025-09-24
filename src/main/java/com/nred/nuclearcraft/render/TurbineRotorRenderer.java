@@ -3,11 +3,13 @@ package com.nred.nuclearcraft.render;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.helpers.Tank;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine.PlaneDir;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import com.nred.nuclearcraft.util.NCMath;
+import it.zerono.mods.zerocore.lib.client.render.FluidTankRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -85,9 +87,9 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
         poseStack.translate(pos.getX() - rX, pos.getY() - rY, pos.getZ() - rZ);
         poseStack.scale((float) (dir.getAxis() == Axis.X ? 1D : scale), (float) (dir.getAxis() == Axis.Y ? 1D : scale), (float) (dir.getAxis() == Axis.Z ? 1D : scale));
         {
-            long systemTime = getSystemTime() / 10000000;
+            long systemTime = getSystemTime() / 1000;
             if (!Minecraft.getInstance().isPaused()) {
-                turbine.rotorAngle = (turbine.rotorAngle + (systemTime - controller.prevRenderTime) * 1.0001f /* TODO turbine.angVel*/) % 360F;
+                turbine.rotorAngle = (turbine.rotorAngle + (systemTime - controller.prevRenderTime) * turbine.angVel) % 360F;
             }
             controller.prevRenderTime = systemTime;
             poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(turbine.rotorAngle), dir.getAxis() == Axis.X ? 1F : 0F, dir.getAxis() == Axis.Y ? 1F : 0F, dir.getAxis() == Axis.Z ? 1F : 0F));
@@ -116,34 +118,16 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
         poseStack.popPose();
 
         // Tanks
-// TODO add
-//        poseStack.pushPose();
+        poseStack.pushPose(); // TODO make less opaque?
 
-//        GlStateManager.color(1F, 1F, 1F, 1F);
-//        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 0F, 240F);
-//
-//        poseStack.enableCull();
-//        poseStack.enableBlend();
-//        poseStack.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-//
-//        BlockPos posOffset = turbine.getExtremeInteriorCoord(false, false, false).subtract(controller.getPos());
-//        poseStack.translate(posX + posOffset.getX(), posY + posOffset.getY(), posZ + posOffset.getZ());
-//
-//        int xSize = turbine.getInteriorLengthX(), ySize = turbine.getInteriorLengthY(), zSize = turbine.getInteriorLengthZ();
-//
-//        poseStack.pushMatrix();
-//        poseStack.translate(-PIXEL, -PIXEL, -PIXEL);
-//
-//        Tank outputTank = turbine.tanks.get(1);
-//        int outputCapacity = outputTank.getCapacity();
-//        IWorldRender.renderFluid(outputTank.getFluid(), outputCapacity, xSize + 2D * PIXEL, ySize + 2D * PIXEL, zSize + 2D * PIXEL, EnumFacing.UP, x -> true, x -> 4D * x - 3D * outputCapacity);
-//
-//        poseStack.popMatrix();
-//
-//        poseStack.disableBlend();
-//        poseStack.disableCull();
-//
-//        poseStack.popMatrix();
+        BlockPos posOffset = turbine.getExtremeInteriorCoord(false, false, false).subtract(controller.getPos());
+        poseStack.translate(posOffset.getX(), posOffset.getY(), posOffset.getZ());
+        int xSize = turbine.getInteriorLengthX() - 1, ySize = turbine.getInteriorLengthY() - 1, zSize = turbine.getInteriorLengthZ() - 1;
+        Tank outputTank = turbine.fluidTankHandler.get(1);
+        FluidTankRenderer.Single renderer = new FluidTankRenderer.Single(outputTank.getCapacity(), 0, 0, 0, xSize, ySize, zSize);
+        renderer.render(poseStack, bufferSource, packedLight, outputTank.getFluid());
+
+        poseStack.popPose();
     }
 
     public void renderRotor(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, float brightness, BlockState shaftState, Direction flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int depth) {

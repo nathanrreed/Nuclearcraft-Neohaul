@@ -1,9 +1,9 @@
 package com.nred.nuclearcraft.block.turbine;
 
+import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import it.zerono.mods.zerocore.base.multiblock.part.INeverCauseRenderingSkip;
-import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -13,8 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.DIR;
 
-
-public class TurbineRotorShaftBlock extends MultiblockPartBlock<Turbine, ITurbinePartType> implements INeverCauseRenderingSkip {
+public class TurbineRotorShaftBlock extends GenericTooltipDeviceBlock<Turbine, ITurbinePartType> implements INeverCauseRenderingSkip {
     public TurbineRotorShaftBlock(@NotNull MultiblockPartProperties<ITurbinePartType> iTurbinePartTypeMultiblockPartProperties) {
         super(iTurbinePartTypeMultiblockPartProperties.setBlockProperties(Properties.of().noOcclusion()));
         registerDefaultState(this.defaultBlockState().setValue(DIR, TurbinePartDir.Y));

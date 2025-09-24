@@ -1,11 +1,8 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
+import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.HorizontalGenericDeviceBlock;
-import com.nred.nuclearcraft.block.turbine.ITurbinePartType;
-import com.nred.nuclearcraft.block.turbine.TurbineRotorBladeBlock;
-import com.nred.nuclearcraft.block.turbine.TurbineRotorShaftBlock;
-import com.nred.nuclearcraft.block.turbine.TurbineRotorStatorBlock;
-import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
+import com.nred.nuclearcraft.block.turbine.*;
 import it.zerono.mods.zerocore.base.multiblock.part.GlassBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartTypeProperties;
@@ -19,17 +16,19 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 
 public enum TurbinePartType implements ITurbinePartType {
-    Casing(() -> TURBINE_CASING::get, MultiblockPartBlock::new, ""), //TODO ADD TRANSLATION
+    Casing(() -> TURBINE_CASING::get, MultiblockPartBlock::new, ""),
     Glass(() -> TURBINE_GLASS::get, GlassBlock::new, "", GlassBlock::addGlassProperties),
-    Controller(() -> TURBINE_CONTROLLER::get, HorizontalGenericDeviceBlock::new, ""),
-    RotorBearing(() -> TURBINE_ROTOR_BEARING::get, GenericDeviceBlock::new, ""),
-    RotorShaft(() -> TURBINE_ROTOR_SHAFT::get, TurbineRotorShaftBlock::new, ""),
+    Controller(() -> TURBINE_CONTROLLER::get, TurbineControllerBlock::new, "tooltip.turbine_controller"),
+    RotorBearing(() -> TURBINE_ROTOR_BEARING::get, GenericTooltipDeviceBlock::new, "tooltip.turbine_rotor_bearing"),
+    RotorShaft(() -> TURBINE_ROTOR_SHAFT::get, TurbineRotorShaftBlock::new, "tooltip.turbine_rotor_shaft"),
     Outlet(() -> TURBINE_OUTLET::get, HorizontalGenericDeviceBlock::new, ""),
     Inlet(() -> TURBINE_INLET::get, HorizontalGenericDeviceBlock::new, ""),
-    RotorBlade(() -> TURBINE_ROTOR_BLADE::get, TurbineRotorBladeBlock::new, ""),
-    RotorStator(() -> TURBINE_ROTOR_STATOR::get, TurbineRotorStatorBlock::new, ""),
-    Dynamo(() -> TURBINE_DYNAMO::get, MultiblockPartBlock::new, ""),
-    DynamoConnector(() -> TURBINE_DYNAMO::get, MultiblockPartBlock::new, ""),
+    RotorBlade(() -> TURBINE_ROTOR_BLADE::get, TurbineRotorBladeBlock::new, "tooltip.turbine_rotor_blade"),
+    RotorStator(() -> TURBINE_ROTOR_STATOR::get, TurbineRotorStatorBlock::new, "tooltip.turbine_rotor_stator"),
+    Dynamo(() -> TURBINE_DYNAMO::get, GenericTooltipDeviceBlock::new, "custom"),
+    DynamoConnector(() -> TURBINE_DYNAMO::get, GenericTooltipDeviceBlock::new, "custom"),
+    // ComputerPort(() -> COMPUTER_PORT::get, GenericTooltipDeviceBlock::new, "tooltip.turbine_computer_port"), TODO
+    // RedstonePort(() -> REDSTONE_PORT::get, GenericTooltipDeviceBlock::new, ""), TODO
     ;
 
     private final MultiblockPartTypeProperties<Turbine, ITurbinePartType> _properties;

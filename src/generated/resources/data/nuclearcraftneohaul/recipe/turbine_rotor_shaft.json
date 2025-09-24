@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "HHH",
+    "TTT",
+    "HHH"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:turbine_rotor_shaft"
+  }
+}
