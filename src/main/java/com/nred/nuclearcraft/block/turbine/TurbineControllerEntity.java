@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block.turbine;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.menu.turbine.TurbineControllerMenu;
 import com.nred.nuclearcraft.multiblock.IMultiblockGuiPart;
 import com.nred.nuclearcraft.multiblock.turbine.ITurbineController;
@@ -48,7 +49,7 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements Me
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("menu.title.turbine"); //TODO
+        return Component.translatable(NuclearcraftNeohaul.MODID + ".menu.title.turbine");
     }
 
     @Override

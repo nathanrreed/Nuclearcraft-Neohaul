@@ -180,6 +180,8 @@ public class BlockRegistration {
         map.put("turbine_outlet", registerBlockItem("turbine_outlet", TurbinePartType.Outlet::createBlock));
         map.put("turbine_controller", registerBlockItem("turbine_controller", TurbinePartType.Controller::createBlock));
         map.put("turbine_coil_connector", registerBlockItem("turbine_coil_connector", TurbinePartType.DynamoConnector::createBlock));
+        map.put("turbine_computer_port", registerBlockItem("turbine_computer_port", TurbinePartType.ComputerPort::createBlock));
+        map.put("turbine_redstone_port", registerBlockItem("turbine_redstone_port", TurbinePartType.RedstonePort::createBlock));
 
         map.put("magnesium_turbine_dynamo_coil", registerBlockItem("magnesium_turbine_dynamo_coil", () -> TurbinePartType.Dynamo.createBlock(MAGNESIUM)));
         map.put("beryllium_turbine_dynamo_coil", registerBlockItem("beryllium_turbine_dynamo_coil", () -> TurbinePartType.Dynamo.createBlock(BERYLLIUM)));

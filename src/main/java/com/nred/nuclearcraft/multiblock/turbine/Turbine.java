@@ -40,13 +40,16 @@ import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -56,6 +59,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.config.Config2.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.TURBINE_MAP;
@@ -129,14 +133,16 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
     public float prevAngVel = 0F;
 
-    protected final PartSuperMap<Turbine, IMultiblockPart<Turbine>> partSuperMap = new PartSuperMap<>();
-
     public Turbine(Level world) {
         super(world);
+    }
 
-        for (Class<? extends IMultiblockPart<Turbine>> clazz : List.of(TurbineControllerEntity.class, TurbineCasingEntity.class, TurbineRotorShaftEntity.class, TurbineRotorBearingEntity.class, TurbineDynamoCoilEntity.class, TurbineCoilConnectorEntity.class, TurbineRotorBladeEntity.class, TurbineRotorStatorEntity.class, TurbineOutletEntity.class, TurbineInletEntity.class, TurbineGlassEntity.class)) {
-            partSuperMap.equip(clazz);
-        }
+    @Override
+    protected void onPartAdded(IMultiblockPart<Turbine> iMultiblockPart) {
+    }
+
+    @Override
+    protected void onPartRemoved(IMultiblockPart<Turbine> iMultiblockPart) {
     }
 
     @Override
@@ -155,7 +161,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
         data.putDouble("conductivity", conductivity);
         data.putDouble("rotorEfficiency", rotorEfficiency);
         data.putDouble("powerBonus", powerBonus);
-//        data.putString("particleEffect", particleEffect);
+        data.putString("particleEffect", BuiltInRegistries.PARTICLE_TYPE.getKey(particleEffect.getType()).toString());
         data.putDouble("particleSpeedMult", particleSpeedMult);
         data.putFloat("angVel", angVel);
         data.putFloat("rotorAngle", rotorAngle);
@@ -209,7 +215,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
         conductivity = data.getDouble("conductivity");
         rotorEfficiency = data.getDouble("rotorEfficiency");
         powerBonus = data.getDouble("powerBonus");
-//        particleEffect = data.getString("particleEffect"); TODO
+        particleEffect = (ParticleOptions) BuiltInRegistries.PARTICLE_TYPE.get(ResourceLocation.parse(data.getString("particleEffect")));
         particleSpeedMult = data.getDouble("particleSpeedMult");
         angVel = data.getFloat("angVel");
         rotorAngle = data.getFloat("rotorAngle");
@@ -273,11 +279,6 @@ public class Turbine extends MachineMultiblock<Turbine> {
     @Override
     public int getMaximumInteriorLength() {
         return turbine_max_size;
-    }
-
-    @Override
-    public PartSuperMap<Turbine, IMultiblockPart<Turbine>> getPartSuperMap() {
-        return partSuperMap;
     }
 
     @Override
@@ -769,6 +770,13 @@ public class Turbine extends MachineMultiblock<Turbine> {
             this.sendRenderPacketToAll();
         }
 
+        for (TurbineDynamoEntityPart coil : getParts(TurbineDynamoEntityPart.class)) {
+            coil.update();
+        }
+        for (TurbineOutletEntity outlet : getParts(TurbineOutletEntity.class)) {
+            outlet.update();
+        }
+
         return flag;
     }
 
@@ -893,18 +901,6 @@ public class Turbine extends MachineMultiblock<Turbine> {
                     getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
                 }
             }
-
-            for (TurbineDynamoEntityPart dynamoPart : getParts(TurbineDynamoEntityPart.class)) {
-                for (Direction side : Direction.values()) {
-//                    dynamoPart.setEnergyConnection(side == this.flowDir || side == this.flowDir.getOpposite() ? EnergyConnection.OUT : EnergyConnection.NON, side); TODO
-                }
-            }
-
-            for (TurbineOutletEntity outlet : getParts(TurbineOutletEntity.class)) {
-                for (Direction side : Direction.values()) {
-//                    outlet.setTankSorption(side, 0, side == this.flowDir ? TankSorption.OUT : TankSorption.NON); TODO
-                }
-            }
         }
 
         Direction oppositeDir = this.flowDir.getOpposite();
@@ -936,7 +932,6 @@ public class Turbine extends MachineMultiblock<Turbine> {
     public int getFlowLength() {
         return getInteriorLength(flowDir);
     }
-
 
     protected void refreshDynamos() {
         searchFlag = false;
@@ -1097,9 +1092,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             stator.onBearingFailure(statorIterator);
         }
 
-//        MultiblockRegistry.INSTANCE.addDirtyMultiblock(getWorld(), this);
         MultiblockRegistry.INSTANCE.get().addDirtyController(this);
-
 
         if (this.controller != null) {
             this.sendMultiblockUpdatePacketToAll();
@@ -1107,8 +1100,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
     }
 
     protected boolean isRedstonePowered() {
-//        return Stream.concat(Stream.of(this.controller), getParts(TileTurbineRedstonePort.class).stream()).anyMatch(x -> x != null && x.getIsRedstonePowered()); TODO
-        return getLevel().hasNeighborSignal(this.controller.getPos());
+        return Stream.concat(Stream.of(this.controller), getParts(TurbineRedstonePortEntity.class).stream()).anyMatch(x -> x instanceof BlockEntity be && getLevel().hasNeighborSignal(be.getBlockPos()));
     }
 
     protected void refreshRecipe() {

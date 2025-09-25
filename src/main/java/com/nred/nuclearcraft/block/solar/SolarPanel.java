@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.block.solar;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -34,7 +35,7 @@ public class SolarPanel extends BaseEntityBlock {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("tooltip.solar", getFEString(SOLAR_CONFIG_PRODUCTION.get(tier), true)).withStyle(ChatFormatting.AQUA));
+        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.solar", getFEString(SOLAR_CONFIG_PRODUCTION.get(tier), true)).withStyle(ChatFormatting.AQUA));
     }
 
     MapCodec<SolarPanel> CODEC = RecordCodecBuilder.mapCodec(instance ->

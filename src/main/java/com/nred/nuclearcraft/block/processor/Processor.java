@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block.processor;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.helpers.SideConfigEnums;
 import com.nred.nuclearcraft.menu.processor.ProcessorInfo;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
@@ -67,7 +68,7 @@ public abstract class Processor extends BaseEntityBlock {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("tooltip." + typeName).withStyle(ChatFormatting.AQUA));
+        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip." + typeName).withStyle(ChatFormatting.AQUA));
     }
 
     @Override
@@ -101,14 +102,14 @@ public abstract class Processor extends BaseEntityBlock {
                     stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
 
                     if (level.isClientSide)
-                        player.sendSystemMessage(Component.translatable("message.multitool.save", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                        player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.save", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
                 } else {
                     CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
                     if (tag.isEmpty()) return ItemInteractionResult.CONSUME;
 
                     if (!tag.getString("type").equals("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())) {
                         if (level.isClientSide)
-                            player.sendSystemMessage(Component.translatable("message.multitool.error", Component.translatable(tag.getString("type")), Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                            player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.error", Component.translatable(tag.getString("type")), Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
                     } else {
                         entity.itemStackHandler.outputSettings = SideConfigEnums.OutputSetting.deserializeNBT(null, (CompoundTag) tag.get("item"));
                         entity.itemStackHandler.sideConfig = SideConfigEnums.SideConfigSetting.deserializeNBT(null, (CompoundTag) tag.get("item"));
@@ -116,7 +117,7 @@ public abstract class Processor extends BaseEntityBlock {
                         entity.fluidHandler.sideConfig = SideConfigEnums.SideConfigSetting.deserializeNBT(null, (CompoundTag) tag.get("fluid"));
 
                         if (level.isClientSide)
-                            player.sendSystemMessage(Component.translatable("message.multitool.load", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                            player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.load", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
                     }
                 }
 

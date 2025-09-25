@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block.processor;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.enumm.ButtonEnum;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
@@ -416,7 +417,7 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
 
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("menu.title." + typeName);
+        return Component.translatable(NuclearcraftNeohaul.MODID + ".menu.title." + typeName);
     }
 
     public void handleButtonPress(ButtonEnum id, int index, int extra, boolean left) {

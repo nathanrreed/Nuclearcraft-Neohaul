@@ -34,10 +34,6 @@ import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.bindBloc
 
 @OnlyIn(Dist.CLIENT)
 public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControllerEntity> {
-    //	@Override
-//	public boolean isGlobalRenderer(TurbineControllerEntity controller) {
-//		return controller.isRenderer() && controller.isMultiblockAssembled();
-//	}
     private final BlockEntityRendererProvider.Context context;
 
     public TurbineRotorRenderer(BlockEntityRendererProvider.Context context) {
@@ -197,7 +193,6 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
             poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(turbine.bladeAngleArray[i] * (flowDir.getAxisDirection() == Direction.AxisDirection.POSITIVE ^ flowDir.getAxis() == Axis.X ? 1F : -1F)), bladeDir == TurbinePartDir.X ? 1F : 0F, bladeDir == TurbinePartDir.Y ? 1F : 0F, bladeDir == TurbinePartDir.Z ? 1F : 0F));
 
             poseStack.translate(-0.5D, -0.5D, -0.5D);
-//            poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(-90F), 0F, 1F, 0F)); TODO doesn't seem to be needed
 
             context.getBlockRenderDispatcher().renderSingleBlock(rotorState, poseStack, bufferSource, (int) (255 * brightness), OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
 
@@ -207,6 +202,6 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
 
     @Override
     public AABB getRenderBoundingBox(TurbineControllerEntity blockEntity) {
-        return blockEntity.getMultiblockController().isPresent() ? blockEntity.getMultiblockController().get().getBoundingBox().getAABB() : BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
+        return blockEntity.getMultiblockController().isPresent() ? blockEntity.getMultiblockController().get().getBoundingBox().getAABB() : BlockEntityRenderer.super.getRenderBoundingBox(blockEntity); //TODO check if can be fixed
     }
 }

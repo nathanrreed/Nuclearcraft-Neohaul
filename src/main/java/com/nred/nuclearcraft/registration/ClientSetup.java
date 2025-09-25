@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.block.batteries.BatteryEntity;
 import com.nred.nuclearcraft.block.batteries.BatteryRenderer;
+import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.processor.*;
 import com.nred.nuclearcraft.render.TurbineRotorRenderer;
@@ -15,10 +16,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -31,6 +34,12 @@ import static com.nred.nuclearcraft.registration.MenuRegistration.TURBINE_CONTRO
 
 @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
 public class ClientSetup {
+
+    @SubscribeEvent
+    public static void init(FMLClientSetupEvent event) {
+        NeoForge.EVENT_BUS.register(new SoundHandler());
+    }
+
     @SubscribeEvent
     public static void fluidLoad(RegisterClientExtensionsEvent event) {
         for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {

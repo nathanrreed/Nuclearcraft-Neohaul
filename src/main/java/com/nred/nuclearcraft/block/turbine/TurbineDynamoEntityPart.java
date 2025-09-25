@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block.turbine;
 
+import com.nred.nuclearcraft.block.IPushEnergy;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
@@ -8,8 +9,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
-public class TurbineDynamoEntityPart extends AbstractTurbineEntity {
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TurbineDynamoEntityPart extends AbstractTurbineEntity implements IPushEnergy {
     public TurbineDynamoEntityPart(BlockEntityType<?> type, BlockPos position, BlockState blockState) {
         super(type, position, blockState);
     }
@@ -78,4 +86,25 @@ public class TurbineDynamoEntityPart extends AbstractTurbineEntity {
 //    public CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
 //        return super.syncDataTo(data, registries, syncReason);
 //    }
+
+    Map<Direction, BlockCapabilityCache<IEnergyStorage, Direction>> capCache = new HashMap<>();
+
+    @Override
+    public Map<Direction, BlockCapabilityCache<IEnergyStorage, Direction>> getCapCache() {
+        return capCache;
+    }
+
+    public void onCapInvalidate() {
+
+    }
+
+    public void update() {
+        pushEnergy(level, getMultiblockController().get().energyStorage, worldPosition, this);
+    }
+
+    @Override
+    public Collection<Direction> getDirections() {
+        Direction flow = getMultiblockController().get().flowDir;
+        return List.of(flow, flow.getOpposite());
+    }
 }

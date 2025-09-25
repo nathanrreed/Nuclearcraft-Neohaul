@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.block.batteries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.info.energy.EnergyConnection;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -73,9 +74,9 @@ public class BatteryBlock extends BaseEntityBlock {
         if (tag.contains("energy"))
             energyHandler.deserializeNBT(context.registries(), tag.get("energy"));
 
-        tooltipComponents.add(Component.translatable("tooltip.processor.energy.stored", getFEString(energyHandler.getEnergyStored()), getFEString(energyHandler.getMaxEnergyStored())).withStyle(ChatFormatting.LIGHT_PURPLE));
+        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.processor.energy.stored", getFEString(energyHandler.getEnergyStored()), getFEString(energyHandler.getMaxEnergyStored())).withStyle(ChatFormatting.LIGHT_PURPLE));
         if (Screen.hasShiftDown()) {
-            tooltipComponents.add(Component.translatable("tooltip.battery.info").withStyle(ChatFormatting.AQUA));
+            tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.battery.info").withStyle(ChatFormatting.AQUA));
         } else {
             tooltipComponents.add(shiftForDetails);
         }
@@ -91,7 +92,7 @@ public class BatteryBlock extends BaseEntityBlock {
 
             if (level.isClientSide) {
                 EnergyConnection energyConnection = entity.sideOptions.get(side);
-                player.sendSystemMessage(Component.translatable(opposite ? "message.multitool.energy_toggle_opposite" : "message.multitool.energy_toggle").append(Component.translatable("tooltip.side_config." + energyConnection.getSerializedName()).withStyle(energyConnection.getTextColor())));
+                player.sendSystemMessage(Component.translatable(opposite ? NuclearcraftNeohaul.MODID + ".message.multitool.energy_toggle_opposite" : NuclearcraftNeohaul.MODID + ".message.multitool.energy_toggle").append(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.side_config." + energyConnection.getSerializedName()).withStyle(energyConnection.getTextColor())));
             }
             return ItemInteractionResult.CONSUME;
         }

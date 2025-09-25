@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.multiblock.turbine.*;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
@@ -28,21 +29,21 @@ public class GenericTooltipDeviceBlock<Controller extends IMultiblockController<
 
         if (!partType.getTranslationKey().isEmpty()) {
             if (tooltipFlag.hasShiftDown()) {
-                if (partType == TurbinePartType.Dynamo ) {
+                if (partType == TurbinePartType.Dynamo) {
                     tooltipComponents.add(Component.literal(TurbinePlacement.TOOLTIP_MAP.get(variant.getName() + "_coil")).withStyle(ChatFormatting.AQUA));
-                }else if (partType == TurbinePartType.DynamoConnector) {
+                } else if (partType == TurbinePartType.DynamoConnector) {
                     tooltipComponents.add(Component.literal(TurbinePlacement.TOOLTIP_MAP.get("connector")).withStyle(ChatFormatting.AQUA));
                 } else {
-                    tooltipComponents.add(Component.translatable(getPartType().getTranslationKey()).withStyle(ChatFormatting.AQUA));
+                    tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + "." + getPartType().getTranslationKey()).withStyle(ChatFormatting.AQUA));
                 }
             } else {
                 switch (partType) {
-                    case Dynamo -> tooltipComponents.add(Component.translatable("tooltip.turbine_dynamo_coil.conductivity", NCMath.pcDecimalPlaces(((TurbineDynamoCoilType) variant).getConductivity(), 1)).withStyle(ChatFormatting.LIGHT_PURPLE));
+                    case Dynamo -> tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.turbine_dynamo_coil.conductivity", NCMath.pcDecimalPlaces(((TurbineDynamoCoilType) variant).getConductivity(), 1)).withStyle(ChatFormatting.LIGHT_PURPLE));
                     case RotorBlade -> {
-                        tooltipComponents.add(Component.translatable("tooltip.turbine_rotor_blade_efficiency", NCMath.pcDecimalPlaces(((TurbineRotorBladeType) variant).getEfficiency(), 1)).withStyle(ChatFormatting.LIGHT_PURPLE));
-                        tooltipComponents.add(Component.translatable("tooltip.turbine_rotor_blade_expansion", NCMath.pcDecimalPlaces(((TurbineRotorBladeType) variant).getExpansionCoefficient(), 1)).withStyle(ChatFormatting.GRAY));
+                        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.turbine_rotor_blade_efficiency", NCMath.pcDecimalPlaces(((TurbineRotorBladeType) variant).getEfficiency(), 1)).withStyle(ChatFormatting.LIGHT_PURPLE));
+                        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.turbine_rotor_blade_expansion", NCMath.pcDecimalPlaces(((TurbineRotorBladeType) variant).getExpansionCoefficient(), 1)).withStyle(ChatFormatting.GRAY));
                     }
-                    case RotorStator -> tooltipComponents.add(Component.translatable("tooltip.turbine_rotor_stator_expansion", NCMath.pcDecimalPlaces(((TurbineRotorStatorType) variant).getExpansionCoefficient(), 1)).withStyle(ChatFormatting.GRAY));
+                    case RotorStator -> tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.turbine_rotor_stator_expansion", NCMath.pcDecimalPlaces(((TurbineRotorStatorType) variant).getExpansionCoefficient(), 1)).withStyle(ChatFormatting.GRAY));
                     case null, default -> {
                     }
                 }

@@ -3,7 +3,6 @@ package com.nred.nuclearcraft.block.turbine;
 import com.nred.nuclearcraft.block.HorizontalGenericDeviceBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
-import it.zerono.mods.zerocore.lib.multiblock.registry.MultiblockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -33,7 +32,7 @@ public class TurbineControllerBlock<Controller extends IMultiblockController<Con
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighborPosition, boolean isMoving) {
         level.setBlock(pos, state.setValue(TURBINE_ON, level.hasNeighborSignal(pos)), Block.UPDATE_ALL);
         if (level.getBlockEntity(pos) instanceof TurbineControllerEntity controller) {
-            MultiblockRegistry.INSTANCE.get().addDirtyController(controller.getMultiblockController().get());
+            controller.getMultiblockController().get().setIsTurbineOn();
         }
     }
 

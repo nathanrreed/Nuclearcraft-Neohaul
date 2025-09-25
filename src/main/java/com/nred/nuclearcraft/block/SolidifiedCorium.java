@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -52,7 +53,7 @@ public class SolidifiedCorium extends MagmaBlock {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
-            tooltipComponents.add(Component.translatable("tooltip.solidified_corium").withStyle(ChatFormatting.AQUA));
+            tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.solidified_corium").withStyle(ChatFormatting.AQUA));
         } else {
             tooltipComponents.add(shiftForDetails);
         }

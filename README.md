@@ -8,7 +8,19 @@ For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https:
 
 Until ready for public consumption jar files can be found in [Github Actions](https://github.com/nathanrreed/Nuclearcraft-Neohaul/actions/workflows/gradle.yml)
 
-Completed:
+### Dependencies:
+#### Required:
+- [ZenCore 2](https://github.com/ZeroNoRyouki/ZeroCore2)
+#### Recommended:
+- [ConnectedTexturesMod](https://github.com/Chisel-Team/ConnectedTexturesMod)
+#### Optional:
+- [EMI](https://github.com/emilyploszaj/emi)
+- [JEI](https://github.com/mezz/JustEnoughItems)
+- [CC: Tweaked](https://github.com/cc-tweaked/CC-Tweaked)
+
+### Current Status:
+
+#### Completed:
 - Ore generation
 - Collectors (Cobblestone, water and nitrogen)
 - Music Discs
@@ -16,16 +28,19 @@ Completed:
 - Solar panels
 - Processors
 
-In progress:
-- Integrations with JEI and EMI
+#### Continual:
+- Integrations with JEI, EMI, CC: T
+
+#### In progress:
 - Multitool
 - Machine Interface
-- Multiblocks (Reactors, Turbines, etc)
+- Turbines
 
-Future Additions:
+#### Future Additions:
 - Tools and Armour
 - Wasteland
 - Radiation
 - Sounds and Particles
 - Integrations with other mods (cct etc)
+- Multiblock (Reactors, etc)
 - And much more

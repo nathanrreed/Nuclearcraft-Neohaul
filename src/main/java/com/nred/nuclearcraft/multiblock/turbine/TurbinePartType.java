@@ -27,8 +27,8 @@ public enum TurbinePartType implements ITurbinePartType {
     RotorStator(() -> TURBINE_ROTOR_STATOR::get, TurbineRotorStatorBlock::new, "tooltip.turbine_rotor_stator"),
     Dynamo(() -> TURBINE_DYNAMO::get, GenericTooltipDeviceBlock::new, "custom"),
     DynamoConnector(() -> TURBINE_DYNAMO::get, GenericTooltipDeviceBlock::new, "custom"),
-    // ComputerPort(() -> COMPUTER_PORT::get, GenericTooltipDeviceBlock::new, "tooltip.turbine_computer_port"), TODO
-    // RedstonePort(() -> REDSTONE_PORT::get, GenericTooltipDeviceBlock::new, ""), TODO
+     ComputerPort(() -> TURBINE_COMPUTER_PORT::get, GenericTooltipDeviceBlock::new, "tooltip.turbine_computer_port"),
+     RedstonePort(() -> TURBINE_REDSTONE_PORT::get, TurbineRedstonePortBlock::new, ""),
     ;
 
     private final MultiblockPartTypeProperties<Turbine, ITurbinePartType> _properties;

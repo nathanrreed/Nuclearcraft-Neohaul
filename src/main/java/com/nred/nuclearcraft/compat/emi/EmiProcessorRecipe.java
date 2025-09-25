@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.ibm.icu.impl.Pair;
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -115,6 +116,6 @@ public class EmiProcessorRecipe extends BasicEmiRecipe {
             }
         }
 
-        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 3, (int) (time * 10.0), true, false, false).tooltipText(List.of(Component.translatable("tooltip.process_time", getTimeString(time)), Component.translatable("tooltip.process_power", getFEString(power, true))));
+        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 3, (int) (time * 10.0), true, false, false).tooltipText(List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", getTimeString(time)), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", getFEString(power, true))));
     }
 }

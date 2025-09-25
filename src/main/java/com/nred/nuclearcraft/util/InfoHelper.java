@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.util;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
@@ -13,8 +14,8 @@ public class InfoHelper {
 
     public static final int MAXIMUM_TEXT_WIDTH = 225;
 
-    public static final Component SHIFT_STRING = Component.translatable("gui.nc.inventory.shift_for_info");
-    public static final Component CTRL_STRING = Component.translatable("gui.nc.inventory.ctrl_for_info");
+    public static final Component SHIFT_STRING = Component.translatable(NuclearcraftNeohaul.MODID + ".gui.nc.inventory.shift_for_info");
+    public static final Component CTRL_STRING = Component.translatable(NuclearcraftNeohaul.MODID + ".gui.nc.inventory.ctrl_for_info");
 
     public static final String[] EMPTY_ARRAY = {}, NULL_ARRAY = {null};
     public static final String[][] EMPTY_ARRAYS = {}, NULL_ARRAYS = {null};

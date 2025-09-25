@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -12,7 +13,7 @@ import static com.nred.nuclearcraft.registration.Registers.CREATIVE_MODE_TABS;
 
 public class CreativeTabsRegistration {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATERIALS_TAB = CREATIVE_MODE_TABS.register("materials_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("creative_tab.title.materials"))
+            .title(Component.translatable(NuclearcraftNeohaul.MODID + ".creative_tab.title.materials"))
             .icon(() -> ALLOY_MAP.get("extreme").get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.acceptAll(blockStackValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
@@ -21,7 +22,7 @@ public class CreativeTabsRegistration {
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MACHINES_TAB = CREATIVE_MODE_TABS.register("machines_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("creative_tab.title.machines"))
+            .title(Component.translatable(NuclearcraftNeohaul.MODID + ".creative_tab.title.machines"))
             .withTabsBefore(MATERIALS_TAB.getId())
             .icon(() -> PROCESSOR_MAP.get("manufactory").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
@@ -34,7 +35,7 @@ public class CreativeTabsRegistration {
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MULTIBLOCKS_TAB = CREATIVE_MODE_TABS.register("multiblocks_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("creative_tab.title.multiblocks"))
+            .title(Component.translatable(NuclearcraftNeohaul.MODID + ".creative_tab.title.multiblocks"))
             .withTabsBefore(MACHINES_TAB.getId())
             .icon(() -> PROCESSOR_MAP.get("manufactory").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
@@ -42,7 +43,7 @@ public class CreativeTabsRegistration {
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RADIATION_TAB = CREATIVE_MODE_TABS.register("radiation_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("creative_tab.title.radiation"))
+            .title(Component.translatable(NuclearcraftNeohaul.MODID + ".creative_tab.title.radiation"))
             .withTabsBefore(MULTIBLOCKS_TAB.getId())
             .icon(() -> GLOWING_MUSHROOM.asItem().getDefaultInstance()) // TODO change to geiger counter
             .displayItems((parameters, output) -> {
@@ -50,7 +51,7 @@ public class CreativeTabsRegistration {
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MISC_TAB = CREATIVE_MODE_TABS.register("misc_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("creative_tab.title.miscellaneous"))
+            .title(Component.translatable(NuclearcraftNeohaul.MODID + ".creative_tab.title.miscellaneous"))
             .withTabsBefore(RADIATION_TAB.getId())
             .icon(() -> FOOD_MAP.get("smore").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {

@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.gui;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -25,12 +26,12 @@ public class ChangeSideConfigButton extends Button {
     );
 
     public ChangeSideConfigButton(int x, int y, String type, int index, Button.OnPress onPress, int size) {
-        super(x, y, size, size, Component.translatable("tooltip.side_config"), onPress, DEFAULT_NARRATION);
+        super(x, y, size, size, Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.side_config"), onPress, DEFAULT_NARRATION);
         texture = ncLoc("button/" + type);
         this.type = type;
         this.index = index;
         this.visible = false;
-        setTooltip(Tooltip.create(Component.translatable("tooltip.side_config." + type).withStyle(color.get(type))));
+        setTooltip(Tooltip.create(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.side_config." + type).withStyle(color.get(type))));
     }
 
     public ChangeSideConfigButton(int x, int y, String type, int index, Button.OnPress onPress) {

@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.item;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -55,6 +56,6 @@ public class EnergyItem extends Item {
             stack.update(DataComponents.CUSTOM_DATA, CustomData.EMPTY, data -> data.update(compoundTag -> compoundTag.putInt("energy", 0)));
         }
 
-        tooltipComponents.add(Component.translatable("tooltip.energy_stored", getFEString(tag.getInt("energy")), getFEString(capacity.get())).withStyle(ChatFormatting.LIGHT_PURPLE));
+        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.energy_stored", getFEString(tag.getInt("energy")), getFEString(capacity.get())).withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 }

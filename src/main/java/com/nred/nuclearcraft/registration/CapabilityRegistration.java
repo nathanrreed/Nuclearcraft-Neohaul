@@ -5,12 +5,14 @@ import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGenerat
 import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollectorEntity;
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.config.ProcessorConfig;
 import com.nred.nuclearcraft.item.EnergyItem;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -83,6 +85,10 @@ public class CapabilityRegistration {
 
 
         items(event);
+
+        if (ModList.get().isLoaded("computercraft")) {
+            RegisterPeripherals.registerPeripherals(event);
+        }
     }
 
     private static void items(RegisterCapabilitiesEvent event) {

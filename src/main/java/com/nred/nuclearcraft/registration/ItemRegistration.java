@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.item.*;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
@@ -96,12 +97,12 @@ public class ItemRegistration {
         map.put("cocoa_butter", ITEMS.register("cocoa_butter", () -> new FoodItem(2, 0.2F, List.of(newEffect(MobEffects.ABSORPTION, 1, 300)))));
         map.put("cocoa_solids", ITEMS.register("cocoa_solids", () -> new Item(new Item.Properties())));
         map.put("dark_chocolate", ITEMS.register("dark_chocolate", () -> new FoodItem(3, 0.4F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)))));
-        map.put("dominos", ITEMS.register("dominos", () -> new FoodItem(16, 1.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 2, 600), newEffect(MobEffects.DIG_SPEED, 2, 600)), "tooltip.dominos")));
+        map.put("dominos", ITEMS.register("dominos", () -> new FoodItem(16, 1.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 2, 600), newEffect(MobEffects.DIG_SPEED, 2, 600)), NuclearcraftNeohaul.MODID + ".tooltip.dominos")));
         map.put("flour", ITEMS.register("flour", () -> new Item(new Item.Properties())));
         map.put("gelatin", ITEMS.register("gelatin", () -> new Item(new Item.Properties())));
         map.put("graham_cracker", ITEMS.register("graham_cracker", () -> new FoodItem(1, 0.2f)));
         map.put("ground_cocoa_nibs", ITEMS.register("ground_cocoa_nibs", () -> new FoodItem(1, 0.2F)));
-        map.put("marshmallow", ITEMS.register("marshmallow", () -> new FoodItem(1, 0.4F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)), "tooltip.marshmallow")));
+        map.put("marshmallow", ITEMS.register("marshmallow", () -> new FoodItem(1, 0.4F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)), NuclearcraftNeohaul.MODID + ".tooltip.marshmallow")));
         map.put("milk_chocolate", ITEMS.register("milk_chocolate", () -> new FoodItem(4, 0.6F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300), newEffect(MobEffects.ABSORPTION, 1, 300)))));
         map.put("moresmore", ITEMS.register("moresmore", () -> new FoodItem(20, 3.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 600), newEffect(MobEffects.DIG_SPEED, 2, 600), newEffect(MobEffects.ABSORPTION, 2, 600)))));
         map.put("roasted_cocoa_beans", ITEMS.register("roasted_cocoa_beans", () -> new Item(new Item.Properties())));
@@ -112,10 +113,10 @@ public class ItemRegistration {
 
     public static HashMap<String, DeferredItem<Item>> createMusicDiscs() {
         HashMap<String, DeferredItem<Item>> map = new HashMap<>();
-        map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(WANDERER_KEY), List.of("music_disc.wanderer.credit"))));
-        map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(END_OF_THE_WORLD_KEY), List.of("music_disc.end_of_the_world.credit"))));
-        map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(MONEY_FOR_NOTHING_KEY), List.of("music_disc.money_for_nothing.credit"))));
-        map.put("music_disc_hyperspace", ITEMS.register("music_disc_hyperspace", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(HYPERSPACE_KEY), List.of("music_disc.hyperspace.credit"))));
+        map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(WANDERER_KEY), List.of(NuclearcraftNeohaul.MODID + ".music_disc.wanderer.credit"))));
+        map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(END_OF_THE_WORLD_KEY), List.of(NuclearcraftNeohaul.MODID + ".music_disc.end_of_the_world.credit"))));
+        map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(MONEY_FOR_NOTHING_KEY), List.of(NuclearcraftNeohaul.MODID + ".music_disc.money_for_nothing.credit"))));
+        map.put("music_disc_hyperspace", ITEMS.register("music_disc_hyperspace", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(HYPERSPACE_KEY), List.of(NuclearcraftNeohaul.MODID + ".music_disc.hyperspace.credit"))));
         return map;
     }
 

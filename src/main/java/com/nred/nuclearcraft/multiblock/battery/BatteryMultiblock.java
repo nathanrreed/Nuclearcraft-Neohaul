@@ -47,18 +47,11 @@ public class BatteryMultiblock extends MachineMultiblock<BatteryMultiblock> {
     }
 
     @Override
-    public PartSuperMap getPartSuperMap() {
-        return null; //TODO REMOVE
-    }
-
-    @Override
     protected void onPartAdded(IMultiblockPart<BatteryMultiblock> iMultiblockPart) {
-
     }
 
     @Override
     protected void onPartRemoved(IMultiblockPart<BatteryMultiblock> iMultiblockPart) {
-
     }
 
     @Override

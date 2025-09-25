@@ -35,6 +35,12 @@ repositories {
     maven {// Mekanism
         url "https://modmaven.dev/"
     }
+    maven {// CC: T
+        url "https://maven.squiddev.cc"
+        content {
+            includeGroup("cc.tweaked")
+        }
+    }
 }
 
 base {
@@ -103,6 +109,9 @@ dependencies {
     runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")// Mekanism: Tools
 
     implementation "curse.maven:zerocore-247921:${zerocore_version}"
+
+    compileOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge-api:${cctVersion}")
+    runtimeOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cctVersion}")
 }
 
 tasks.withType(ProcessResources).configureEach {

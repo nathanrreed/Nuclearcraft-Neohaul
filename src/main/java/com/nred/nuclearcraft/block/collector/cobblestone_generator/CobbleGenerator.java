@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.block.collector.cobblestone_generator;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block.collector.Collector;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
@@ -73,6 +74,6 @@ public class CobbleGenerator extends Collector<CobbleGenerator> {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (context.level() == null) return;
-        tooltipComponents.add(Component.translatable("tooltip.cobblestone_generator", ((CollectorRecipe) context.level().getRecipeManager().byKey(ResourceLocation.parse(stack.getItem() + "_rate")).get().value()).rate()).withStyle(ChatFormatting.AQUA));
+        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.cobblestone_generator", ((CollectorRecipe) context.level().getRecipeManager().byKey(ResourceLocation.parse(stack.getItem() + "_rate")).get().value()).rate()).withStyle(ChatFormatting.AQUA));
     }
 }

@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.screen.turbine;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block.turbine.TurbineRotorBearingEntity;
 import com.nred.nuclearcraft.menu.turbine.TurbineControllerMenu;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
@@ -84,32 +85,32 @@ public class TurbineControllerScreen extends AbstractContainerScreen<TurbineCont
 
         int fontColor = multiblock.isTurbineOn ? -1 : 15641088;
         int middle_x = base.getCenterInAxis(ScreenAxis.HORIZONTAL);
-        Component title = Component.translatable("menu.turbine_controller.title", multiblock.getInteriorLengthX(), multiblock.getInteriorLengthY(), multiblock.getInteriorLengthZ());
+        Component title = Component.translatable(NuclearcraftNeohaul.MODID + ".menu.turbine_controller.title", multiblock.getInteriorLengthX(), multiblock.getInteriorLengthY(), multiblock.getInteriorLengthZ());
         guiGraphics.drawString(font, title, middle_x - this.font.width(title) / 2, base.top() + 6, fontColor);
 
         String underline = StringHelper.charLine('-', Mth.ceil((double) this.font.width(title) / this.font.width("-")));
         guiGraphics.drawString(FONT, underline, middle_x - this.font.width(underline) / 2, base.top() + 12, fontColor);
 
-        Component power = Component.translatable("menu.turbine_controller.power", UnitHelper.prefix(Math.round(multiblock.power), 5, "RF/t"));
+        Component power = Component.translatable(NuclearcraftNeohaul.MODID + ".menu.turbine_controller.power", UnitHelper.prefix(Math.round(multiblock.power), 5, "RF/t"));
         guiGraphics.drawString(FONT, power, middle_x - this.font.width(power) / 2, base.top() + 22, fontColor);
 
         int bearingCount = multiblock.getPartCount(TurbineRotorBearingEntity.class);
-        Component coils = NCUtil.isModifierKeyDown() ? Component.translatable("menu.turbine_controller.dynamo_coil_count", (bearingCount == 0 ? "0/0, 0/0" : multiblock.dynamoCoilCount + "/" + bearingCount / 2 + ", " + multiblock.dynamoCoilCountOpposite + "/" + bearingCount / 2)) : Component.translatable("menu.turbine_controller.dynamo_efficiency", NCMath.pcDecimalPlaces(multiblock.conductivity, 1));
+        Component coils = NCUtil.isModifierKeyDown() ? Component.translatable(NuclearcraftNeohaul.MODID + ".menu.turbine_controller.dynamo_coil_count", (bearingCount == 0 ? "0/0, 0/0" : multiblock.dynamoCoilCount + "/" + bearingCount / 2 + ", " + multiblock.dynamoCoilCountOpposite + "/" + bearingCount / 2)) : Component.translatable(NuclearcraftNeohaul.MODID + ".menu.turbine_controller.dynamo_efficiency", NCMath.pcDecimalPlaces(multiblock.conductivity, 1));
         guiGraphics.drawString(FONT, coils, middle_x - this.font.width(coils) / 2, base.top() + 34, fontColor);
 
-        Component rotor = NCUtil.isModifierKeyDown() ? Component.translatable("menu.turbine_controller.expansion_level", (multiblock.idealTotalExpansionLevel <= 0D ? "0%" : NCMath.pcDecimalPlaces(multiblock.totalExpansionLevel, 1) + " [" + NCMath.decimalPlaces(multiblock.idealTotalExpansionLevel, 1) + " x " + NCMath.pcDecimalPlaces(multiblock.totalExpansionLevel / multiblock.idealTotalExpansionLevel, 1) + "]")) : Component.translatable("menu.turbine_controller.rotor_efficiency", NCMath.pcDecimalPlaces(multiblock.rotorEfficiency, 1));
+        Component rotor = NCUtil.isModifierKeyDown() ? Component.translatable(NuclearcraftNeohaul.MODID + ".menu.turbine_controller.expansion_level", (multiblock.idealTotalExpansionLevel <= 0D ? "0%" : NCMath.pcDecimalPlaces(multiblock.totalExpansionLevel, 1) + " [" + NCMath.decimalPlaces(multiblock.idealTotalExpansionLevel, 1) + " x " + NCMath.pcDecimalPlaces(multiblock.totalExpansionLevel / multiblock.idealTotalExpansionLevel, 1) + "]")) : Component.translatable(NuclearcraftNeohaul.MODID + ".menu.turbine_controller.rotor_efficiency", NCMath.pcDecimalPlaces(multiblock.rotorEfficiency, 1));
         guiGraphics.drawString(FONT, rotor, middle_x - this.font.width(rotor) / 2, base.top() + 46, fontColor);
 
         Component inputRate;
         if (NCUtil.isModifierKeyDown()) {
-            inputRate = Component.translatable("menu.turbine_controller.power_bonus", NCMath.pcDecimalPlaces(multiblock.powerBonus, 1));
+            inputRate = Component.translatable(NuclearcraftNeohaul.MODID + ".menu.turbine_controller.power_bonus", NCMath.pcDecimalPlaces(multiblock.powerBonus, 1));
             if (imagebutton.isHovered())
-                guiGraphics.renderTooltip(FONT, Component.translatable("tooltip.shift_clear_multiblock").withStyle(ChatFormatting.ITALIC), mouseX, mouseY);
+                guiGraphics.renderTooltip(FONT, Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.shift_clear_multiblock").withStyle(ChatFormatting.ITALIC), mouseX, mouseY);
         } else {
             double maxRecipeRateMultiplierFP = multiblock.getMaxRecipeRateMultiplier();
             double rateRatio = (double) multiblock.recipeInputRate / maxRecipeRateMultiplierFP;
             double rateRatioFP = multiblock.recipeInputRateFP / maxRecipeRateMultiplierFP;
-            inputRate = Component.translatable("menu.turbine_controller.fluid_rate", UnitHelper.prefix(Math.round(multiblock.recipeInputRateFP), 5, "B/t", -1), " [" + NCMath.pcDecimalPlaces(rateRatioFP, 1) + (rateRatio > 1D ? "] [!]" : "]"));
+            inputRate = Component.translatable(NuclearcraftNeohaul.MODID + ".menu.turbine_controller.fluid_rate", UnitHelper.prefix(Math.round(multiblock.recipeInputRateFP), 5, "B/t", -1), " [" + NCMath.pcDecimalPlaces(rateRatioFP, 1) + (rateRatio > 1D ? "] [!]" : "]"));
         }
         guiGraphics.drawString(FONT, inputRate, middle_x - this.font.width(inputRate) / 2, base.top() + 58, multiblock.bearingTension <= 0D ? fontColor : multiblock.isTurbineOn ? 0xFFFFFF - NCMath.toInt((255D * Mth.clamp(2D * multiblock.bearingTension, 0D, 1D))) - 256 * NCMath.toInt((255D * Mth.clamp(2D * multiblock.bearingTension - 1D, 0D, 1D))) : FastColor.ARGB32.lerp((float) multiblock.bearingTension, 15641088, 0xFF0000));
     }

@@ -118,7 +118,7 @@ public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements Tu
         if (turbine != null && turbine.rand.nextDouble() < 0.18D) {
             bladeIterator.remove();
             level.removeBlockEntity(worldPosition);
-            level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(), 1);
+            level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(), 3);
             level.explode(null, worldPosition.getX() + turbine.rand.nextDouble() - 0.5D, worldPosition.getY() + turbine.rand.nextDouble() - 0.5D, worldPosition.getZ() + turbine.rand.nextDouble() - 0.5D, 4F, Level.ExplosionInteraction.NONE);
         }
     }

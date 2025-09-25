@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.compat.emi;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -63,6 +64,6 @@ public class EmiCollectorRecipe extends BasicEmiRecipe {
             }
         }
 
-        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 4, 600, true, false, false).tooltipText(List.of(Component.translatable("tooltip.production_rate", rate + (isItem ? " C" : " mB"))));
+        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 4, 600, true, false, false).tooltipText(List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.production_rate", rate + (isItem ? " C" : " mB"))));
     }
 }

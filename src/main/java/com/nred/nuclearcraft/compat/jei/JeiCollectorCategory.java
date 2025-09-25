@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.compat.jei;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
 import mezz.jei.api.constants.VanillaTypes;
@@ -95,7 +96,7 @@ public class JeiCollectorCategory implements IRecipeCategory<CollectorRecipe> {
         }
 
         if (new ScreenRectangle(recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2).containsPoint((int) mouseX, (int) mouseY)) {
-            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable("tooltip.production_rate", recipe.rate() + (isItem ? " C" : " mB"))), Optional.empty(), (int) mouseX, (int) mouseY);
+            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.production_rate", recipe.rate() + (isItem ? " C" : " mB"))), Optional.empty(), (int) mouseX, (int) mouseY);
         }
     }
 }

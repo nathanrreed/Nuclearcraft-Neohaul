@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -540,6 +541,12 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_coil_connector"), 4).pattern("HHH").pattern("HTH").pattern("HHH")
                 .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel"))
                 .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_redstone_port"), 1).pattern("HRH").pattern("TST").pattern("HRH")
+                .define('T', Items.REDSTONE_TORCH).define('R', Items.REDSTONE).define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_computer_port"), 4).pattern("HRH").pattern("CSC").pattern("HWH")
+                .define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
 
         // Dynamos
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("magnesium_turbine_dynamo_coil"), 2).pattern("MMM").pattern("HTH").pattern("MMM")

@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block.universal_bin;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -34,7 +35,7 @@ public class UniversalBin extends BaseEntityBlock {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("tooltip.universal_bin").withStyle(ChatFormatting.AQUA));
+        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.universal_bin").withStyle(ChatFormatting.AQUA));
     }
 
     @Override

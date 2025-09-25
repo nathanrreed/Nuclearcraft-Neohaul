@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.handler;
 
+import com.nred.nuclearcraft.registration.SoundRegistration;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
@@ -24,7 +25,6 @@ import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
  */
 @OnlyIn(Dist.CLIENT)
 public class SoundHandler {
-
     protected static final Object2ObjectMap<Vec3, SoundInstance> BLOCK_SOUND_MAP = new Object2ObjectOpenHashMap<>();
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -38,9 +38,9 @@ public class SoundHandler {
         // Ignore any unrelated sound event
         SoundInstance originalSound = event.getSound();
         ResourceLocation soundName = originalSound.getLocation();
-//        if (!NCSounds.TRACKABLE_SOUNDS.contains(soundName.toString())) { TODO add
-//            return;
-//        }
+        if (!SoundRegistration.TRACKABLE_SOUNDS.contains(soundName.toString())) {
+            return;
+        }
 
         // Make sure sound accessor is not null
         if (resultSound.getSound() == null) {

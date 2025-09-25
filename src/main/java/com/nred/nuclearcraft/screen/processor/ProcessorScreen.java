@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.screen.processor;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.gui.ChangeSideConfigButton;
 import com.nred.nuclearcraft.gui.CycleButton;
 import com.nred.nuclearcraft.gui.RedstoneModeToggleButton;
@@ -129,10 +130,10 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         if (configType.contains("output")) {
             CycleButton temp;
             if (configType.equals("fluid_output")) {
-                temp = new CycleButton(configLeft + 7, configTop + 25, "fluid_slot_setting", "tooltip.side_config.slot_setting.tank", index, null);
+                temp = new CycleButton(configLeft + 7, configTop + 25, "fluid_slot_setting", NuclearcraftNeohaul.MODID + ".tooltip.side_config.slot_setting.tank", index, null);
                 temp.setIndex(menu.info.fluidOutputSettings().get(index));
             } else {
-                temp = new CycleButton(configLeft + 7, configTop + 25, "item_slot_setting", "tooltip.side_config.slot_setting.slot", index, null);
+                temp = new CycleButton(configLeft + 7, configTop + 25, "item_slot_setting", NuclearcraftNeohaul.MODID + ".tooltip.side_config.slot_setting.slot", index, null);
                 temp.setIndex(menu.info.itemOutputSettings().get(index));
             }
             configCycleButtons.add(temp);
@@ -148,7 +149,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         boolean fluid = configType.contains("fluid");
 
         int startX = configLeft + (output ? 29 : 7);
-        CycleButton temp = new CycleButton(startX + (col * 18), configTop + 7 + (row * 18), output ? (fluid ? "fluid_output" : "item_output") : (fluid ? "fluid_input" : "item_input"), "tooltip.side_config." + dir, index, texture);
+        CycleButton temp = new CycleButton(startX + (col * 18), configTop + 7 + (row * 18), output ? (fluid ? "fluid_output" : "item_output") : (fluid ? "fluid_input" : "item_input"), NuclearcraftNeohaul.MODID + ".tooltip.side_config." + dir, index, texture);
         if (fluid) {
             temp.setIndex(menu.info.fluidSideConfig().get(Direction.byName(dir)).get(index).ordinal());
         } else {
@@ -180,7 +181,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
 
         ENERGY_BAR = new ScreenRectangle(7 + leftPos, 5 + topPos + offset, 18, 76);
         redstoneModeButton = new RedstoneModeToggleButton(leftPos + 47, topPos + 63 + offset, menu.info.pos(), menu.info.redstoneMode());
-        sideConfigButton = new SimpleImageButton(leftPos + 27, topPos + 63 + offset, 18, 18, sideConfigSprites, button -> switchConfigView(true), Component.translatable("tooltip.side_config"));
+        sideConfigButton = new SimpleImageButton(leftPos + 27, topPos + 63 + offset, 18, 18, sideConfigSprites, button -> switchConfigView(true), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.side_config"));
 
         configButtons = new ArrayList<>(4);
         configButtons.add(new ChangeSideConfigButton(menu.ENERGY_SLOT.x + leftPos - 1, menu.ENERGY_SLOT.y + topPos - 1, "energy_upgrade", 0, this::onPress));
@@ -255,7 +256,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
             for (FluidSlot fluidSlot : Stream.of(menu.FLUID_INPUTS, menu.FLUID_OUTPUTS).flatMap(Collection::stream).toList()) { // Draw tooltip
                 if (!fluidSlot.getFluid().isEmpty() && isHovering(fluidSlot.x, fluidSlot.y, fluidSlot.size, fluidSlot.size, mouseX, mouseY)) {
                     FluidStack fluidStack = fluidSlot.getFluid();
-                    guiGraphics.renderComponentTooltip(font, List.of(Component.translatable("tooltip.tank", fluidStack.getHoverName().copy().withStyle(ChatFormatting.GREEN), fluidStack.getAmount(), fluidSlot.getFluidCapacity()), Component.translatable("tooltip.tank.clear").withStyle(ChatFormatting.ITALIC)), mouseX, mouseY);
+                    guiGraphics.renderComponentTooltip(font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.tank", fluidStack.getHoverName().copy().withStyle(ChatFormatting.GREEN), fluidStack.getAmount(), fluidSlot.getFluidCapacity()), Component.translatable("tooltip.tank.clear").withStyle(ChatFormatting.ITALIC)), mouseX, mouseY);
                 }
             }
 
@@ -328,13 +329,13 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
                     }
 
                     guiGraphics.renderComponentTooltip(font, List.of(
-                            Component.translatable("tooltip.processor.energy.stored", getFEString(menu.energyStorage.getEnergyStored()), getFEString(menu.energyStorage.getMaxEnergyStored())),
-                            Component.translatable("tooltip.processor.energy.using", getFEString(calculateEnergy(processorType, recipeMult, menu.itemHandler))),
-                            Component.translatable("tooltip.processor.energy.speed", getSpeedCount(menu.itemHandler)),
-                            Component.translatable("tooltip.processor.energy.energy", new DecimalFormat("#.##").format(getPowerMultiplier(menu.itemHandler)))
+                            Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.processor.energy.stored", getFEString(menu.energyStorage.getEnergyStored()), getFEString(menu.energyStorage.getMaxEnergyStored())),
+                            Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.processor.energy.using", getFEString(calculateEnergy(processorType, recipeMult, menu.itemHandler))),
+                            Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.processor.energy.speed", getSpeedCount(menu.itemHandler)),
+                            Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.processor.energy.energy", new DecimalFormat("#.##").format(getPowerMultiplier(menu.itemHandler)))
                     ), mouseX, mouseY);
                 } else {
-                    guiGraphics.renderTooltip(font, Component.translatable("tooltip.processor.energy.not_required").withStyle(ChatFormatting.RED), mouseX, mouseY);
+                    guiGraphics.renderTooltip(font, Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.processor.energy.not_required").withStyle(ChatFormatting.RED), mouseX, mouseY);
                 }
             }
         }

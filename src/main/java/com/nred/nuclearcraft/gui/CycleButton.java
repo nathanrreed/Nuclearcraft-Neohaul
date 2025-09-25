@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.gui;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.payload.ButtonPressPayload;
 import com.nred.nuclearcraft.screen.processor.ProcessorScreen;
 import net.minecraft.ChatFormatting;
@@ -36,16 +37,16 @@ public class CycleButton extends AbstractButton {
         this.prefix = prefix;
         options = switch (type) {
             case "fluid_input" ->
-                    List.of(new Element("tooltip.side_config.output", ncLoc("button/red"), ChatFormatting.RED), new Element("tooltip.side_config.auto_output", ncLoc("button/magenta"), ChatFormatting.LIGHT_PURPLE), new Element("tooltip.side_config.disabled", ncLoc("button/gray"), ChatFormatting.GRAY), new Element("tooltip.side_config.input", ncLoc("button/cyan"), ChatFormatting.AQUA));
+                    List.of(new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.output", ncLoc("button/red"), ChatFormatting.RED), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.auto_output", ncLoc("button/magenta"), ChatFormatting.LIGHT_PURPLE), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.disabled", ncLoc("button/gray"), ChatFormatting.GRAY), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.input", ncLoc("button/cyan"), ChatFormatting.AQUA));
             case "fluid_output" ->
-                    List.of(new Element("tooltip.side_config.output", ncLoc("button/red"), ChatFormatting.RED), new Element("tooltip.side_config.auto_output", ncLoc("button/magenta"), ChatFormatting.LIGHT_PURPLE), new Element("tooltip.side_config.disabled", ncLoc("button/gray"), ChatFormatting.GRAY));
+                    List.of(new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.output", ncLoc("button/red"), ChatFormatting.RED), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.auto_output", ncLoc("button/magenta"), ChatFormatting.LIGHT_PURPLE), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.disabled", ncLoc("button/gray"), ChatFormatting.GRAY));
             case "item_input" ->
-                    List.of(new Element("tooltip.side_config.output", ncLoc("button/orange"), ChatFormatting.GOLD), new Element("tooltip.side_config.auto_output", ncLoc("button/yellow"), ChatFormatting.YELLOW), new Element("tooltip.side_config.disabled", ncLoc("button/gray"), ChatFormatting.GRAY), new Element("tooltip.side_config.input", ncLoc("button/light_blue"), ChatFormatting.BLUE));
+                    List.of(new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.output", ncLoc("button/orange"), ChatFormatting.GOLD), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.auto_output", ncLoc("button/yellow"), ChatFormatting.YELLOW), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.disabled", ncLoc("button/gray"), ChatFormatting.GRAY), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.input", ncLoc("button/light_blue"), ChatFormatting.BLUE));
             case "item_output" ->
-                    List.of(new Element("tooltip.side_config.output", ncLoc("button/orange"), ChatFormatting.GOLD), new Element("tooltip.side_config.auto_output", ncLoc("button/yellow"), ChatFormatting.YELLOW), new Element("tooltip.side_config.disabled", ncLoc("button/gray"), ChatFormatting.GRAY));
+                    List.of(new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.output", ncLoc("button/orange"), ChatFormatting.GOLD), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.auto_output", ncLoc("button/yellow"), ChatFormatting.YELLOW), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.disabled", ncLoc("button/gray"), ChatFormatting.GRAY));
             case String s -> {
                 if (s.equals("fluid_slot_setting") || s.equals("item_slot_setting"))
-                    yield List.of(new Element("tooltip.side_config.slot_setting.default", ncLoc("button/default_off"), ChatFormatting.WHITE), new Element("tooltip.side_config.slot_setting.void_excess", ncLoc("button/void_excess_off"), ChatFormatting.LIGHT_PURPLE), new Element("tooltip.side_config.slot_setting.void_all", ncLoc("button/void_all_off"), ChatFormatting.DARK_PURPLE));
+                    yield List.of(new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.slot_setting.default", ncLoc("button/default_off"), ChatFormatting.WHITE), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.slot_setting.void_excess", ncLoc("button/void_excess_off"), ChatFormatting.LIGHT_PURPLE), new Element(NuclearcraftNeohaul.MODID + ".tooltip.side_config.slot_setting.void_all", ncLoc("button/void_all_off"), ChatFormatting.DARK_PURPLE));
                 throw new IllegalStateException("Unexpected value: " + type);
             }
         };

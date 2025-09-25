@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block.machine_interface;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -64,7 +65,7 @@ public class MachineInterface extends BaseEntityBlock {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
-            tooltipComponents.add(Component.translatable("tooltip.machine_interface").withStyle(ChatFormatting.AQUA));
+            tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.machine_interface").withStyle(ChatFormatting.AQUA));
         } else {
             tooltipComponents.add(shiftForDetails);
         }

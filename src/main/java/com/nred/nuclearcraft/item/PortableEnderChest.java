@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.item;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -35,6 +36,6 @@ public class PortableEnderChest extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable("tooltip.portable.ender_chest").withStyle(ChatFormatting.AQUA));
+        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.portable.ender_chest").withStyle(ChatFormatting.AQUA));
     }
 }

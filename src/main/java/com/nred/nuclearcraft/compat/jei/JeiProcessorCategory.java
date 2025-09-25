@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.compat.jei;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.processor.CentrifugeRecipe;
@@ -106,12 +107,13 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
 
         for (int i = 0; i < recipe.fluidResults.size(); i++) {
             ScreenPosition position = recipeViewerInfo.outputs().get(i + recipe.itemResults.size());
+            int x = position.x() + (large ? 1 : 0);
             if (recipe instanceof CentrifugeRecipe && (i == 2 || i == 5)) {
                 int amount = probabilityUnpacker(recipe.fluidResults.get(i).getFluids()[0].getAmount()).second;
-                builder.addOutputSlot(position.x() + (large ? 1 : 0), position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).map(stack -> stack.copyWithAmount(amount)).toList()).setFluidRenderer(amount, false, large ? 24 : 16, large ? 24 : 16)
+                builder.addOutputSlot(x, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).map(stack -> stack.copyWithAmount(amount)).toList()).setFluidRenderer(amount, false, large ? 24 : 16, large ? 24 : 16)
                         .setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.fluidResults.get(Integer.parseInt(recipeSlotView.getSlotName().get())).amount()).first).withStyle(ChatFormatting.GOLD)));
             } else {
-                builder.addOutputSlot(position.x() + (large ? 1 : 0), position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).toList()).setFluidRenderer(recipe.fluidResults.get(i).amount(), false, large ? 24 : 16, large ? 24 : 16);
+                builder.addOutputSlot(x, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).toList()).setFluidRenderer(recipe.fluidResults.get(i).amount(), false, large ? 24 : 16, large ? 24 : 16);
             }
         }
     }
@@ -135,7 +137,7 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
         }
 
         if (new ScreenRectangle(recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2).containsPoint((int) mouseX, (int) mouseY)) {
-            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable("tooltip.process_time", getTimeString(PROCESSOR_CONFIG_MAP.get(type).base_time() * recipe.getTimeModifier())), Component.translatable("tooltip.process_power", getFEString(PROCESSOR_CONFIG_MAP.get(type).base_power() * recipe.getPowerModifier(), true))), Optional.empty(), (int) mouseX, (int) mouseY);
+            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", getTimeString(PROCESSOR_CONFIG_MAP.get(type).base_time() * recipe.getTimeModifier())), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", getFEString(PROCESSOR_CONFIG_MAP.get(type).base_power() * recipe.getPowerModifier(), true))), Optional.empty(), (int) mouseX, (int) mouseY);
         }
     }
 }

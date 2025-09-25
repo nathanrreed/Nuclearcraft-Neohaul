@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.item;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -19,7 +20,7 @@ import static com.nred.nuclearcraft.info.Radiation.RAD_MAP;
 public class TooltipItem extends Item {
     private Component tooltip;
     public List<MutableComponent> shiftTooltips;
-    public static final Component shiftForDetails = Component.translatable("tooltip.shift_for_info").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
+    public static final Component shiftForDetails = Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.shift_for_info").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
     private final boolean byPassShift;
 
     public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean radiation, boolean byPassShift) {
@@ -61,7 +62,7 @@ public class TooltipItem extends Item {
             double radiation = RAD_MAP.get(ResourceLocation.parse(stack.getItem().toString()).getPath());
 
             Triple<Integer, String, Integer> info = radiationColour(radiation);
-            tooltipComponents.add(Component.translatable("tooltip.radiation", info.getLeft(), info.getMiddle()).withColor(info.getRight()));
+            tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.radiation", info.getLeft(), info.getMiddle()).withColor(info.getRight()));
         }
 
         if (shiftTooltips != null) {

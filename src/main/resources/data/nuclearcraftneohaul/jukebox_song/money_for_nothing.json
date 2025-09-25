@@ -1,7 +1,7 @@
 {
     "comparator_output": 15,
     "description": {
-        "translate": "music_disc.money_for_nothing"
+        "translate": "nuclearcraftneohaul:music_disc.money_for_nothing"
     },
     "length_in_seconds": 314.0,
     "sound_event": "nuclearcraftneohaul:music_disc.money_for_nothing"

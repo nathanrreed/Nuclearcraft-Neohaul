@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.item;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -52,11 +53,11 @@ public class FuelItem extends TooltipItem {
             tooltipComponents.add(shiftForDetails);
         } else {
             if (shiftTooltips == null) {
-                shiftTooltips = List.of(Component.translatable("tooltip.fission_0").withStyle(ChatFormatting.UNDERLINE, ChatFormatting.GRAY),
-                        Component.translatable("tooltip.fission_1", getTimeString(Double.valueOf(FUEL_CONFIG_MAP.get(type).fuel_time().get(id + id / 4)))).withStyle(ChatFormatting.GREEN),
-                        Component.translatable("tooltip.fission_2", FUEL_CONFIG_MAP.get(type).heat_generation().get(id + id / 4)).withStyle(ChatFormatting.YELLOW),
-                        Component.translatable("tooltip.fission_3", (int) (FUEL_CONFIG_MAP.get(type).efficiency().get(id + id / 4) * 100)).withStyle(ChatFormatting.LIGHT_PURPLE),
-                        Component.translatable("tooltip.fission_4", FUEL_CONFIG_MAP.get(type).criticality().get(id + id / 4)).withStyle(ChatFormatting.RED));
+                shiftTooltips = List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.fission_0").withStyle(ChatFormatting.UNDERLINE, ChatFormatting.GRAY),
+                        Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.fission_1", getTimeString(Double.valueOf(FUEL_CONFIG_MAP.get(type).fuel_time().get(id + id / 4)))).withStyle(ChatFormatting.GREEN),
+                        Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.fission_2", FUEL_CONFIG_MAP.get(type).heat_generation().get(id + id / 4)).withStyle(ChatFormatting.YELLOW),
+                        Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.fission_3", (int) (FUEL_CONFIG_MAP.get(type).efficiency().get(id + id / 4) * 100)).withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.fission_4", FUEL_CONFIG_MAP.get(type).criticality().get(id + id / 4)).withStyle(ChatFormatting.RED));
             }
 
             tooltipComponents.addAll(shiftTooltips);

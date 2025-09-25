@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "T": {
+      "item": "minecraft:redstone_torch"
+    }
+  },
+  "pattern": [
+    "HRH",
+    "TST",
+    "HRH"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:turbine_redstone_port"
+  }
+}

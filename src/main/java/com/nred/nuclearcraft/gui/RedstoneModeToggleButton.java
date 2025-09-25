@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.gui;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.payload.ButtonPressPayload;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -21,9 +22,9 @@ public class RedstoneModeToggleButton extends Button {
     private boolean justClicked = false;
 
     public RedstoneModeToggleButton(int x, int y, BlockPos pos, boolean initial_state) {
-        super(x, y, 18, 18, Component.translatable("tooltip.redstone_control"), null, DEFAULT_NARRATION);
+        super(x, y, 18, 18, Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.redstone_control"), null, DEFAULT_NARRATION);
 
-        setTooltip(Tooltip.create(Component.translatable("tooltip.redstone_control"), optionStatus(Component.translatable("tooltip.redstone_control"), state)));
+        setTooltip(Tooltip.create(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.redstone_control"), optionStatus(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.redstone_control"), state)));
         this.state = initial_state;
         this.pos = pos;
     }

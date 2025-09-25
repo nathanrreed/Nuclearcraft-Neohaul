@@ -5,7 +5,6 @@ import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_CASING;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_GLASS;
 
 public class TurbineGlassEntity extends AbstractTurbineEntity {
@@ -15,6 +14,6 @@ public class TurbineGlassEntity extends AbstractTurbineEntity {
 
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
-        return position.isFrame() || super.isGoodForPosition(position, validatorCallback);
+        return position.isFace() || super.isGoodForPosition(position, validatorCallback);
     }
 }

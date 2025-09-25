@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.client.model.generators.ModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
@@ -24,6 +23,7 @@ import java.util.function.Function;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
 import static com.nred.nuclearcraft.block.turbine.TurbineControllerBlock.TURBINE_ON;
+import static com.nred.nuclearcraft.block.turbine.TurbineRedstonePortBlock.REDSTONE_ON;
 import static com.nred.nuclearcraft.datagen.ModBlockStateProvider.Directionality.None;
 import static com.nred.nuclearcraft.datagen.ModBlockStateProvider.Directionality.RotorPart;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
@@ -31,6 +31,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
+import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -98,12 +99,14 @@ class ModBlockStateProvider extends BlockStateProvider {
     private void turbine() {
         horizontalMachine("controller", TURBINE_MAP.get("turbine_controller"), "turbine", TURBINE_ON);
         blockWithItem("wall", TURBINE_MAP.get("turbine_casing"), "turbine/casing");
-        blockWithItem("glass", TURBINE_MAP.get("turbine_glass"), "turbine");
+        blockWithItemCutout("glass", TURBINE_MAP.get("turbine_glass"), "turbine");
         blockWithItem("coil_connector", TURBINE_MAP.get("turbine_coil_connector"), "turbine");
         blockWithItem("rotor_bearing", TURBINE_MAP.get("turbine_rotor_bearing"), "turbine");
         blockSidesAndTop("rotor_shaft", TURBINE_MAP.get("turbine_rotor_shaft"), "turbine", "_end", RotorPart);
         horizontalTop("inlet", TURBINE_MAP.get("turbine_inlet"), "turbine");
         horizontalTop("outlet", TURBINE_MAP.get("turbine_outlet"), "turbine");
+        blockWithStateItem("redstone_port", TURBINE_MAP.get("turbine_redstone_port"), "turbine", REDSTONE_ON);
+        blockWithItem("computer_port", TURBINE_MAP.get("turbine_computer_port"), "turbine");
 
         blockWithItem("magnesium", TURBINE_MAP.get("magnesium_turbine_dynamo_coil"), "turbine/dynamo_coil");
         blockWithItem("beryllium", TURBINE_MAP.get("beryllium_turbine_dynamo_coil"), "turbine/dynamo_coil");
@@ -135,13 +138,23 @@ class ModBlockStateProvider extends BlockStateProvider {
         itemModels().getBuilder("item/" + BuiltInRegistries.BLOCK.getKey(block).getPath()).parent(model);
     }
 
+    private void blockWithStateItem(String name, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/" + name;
+        ModelFile modelOn = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_on",  modLoc(base + "_on"));
+        ModelFile modelOff = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_off",  modLoc(base + "_off"));
+
+        horizontalBlock(block, state -> state.getValue(property) ? modelOn : modelOff);
+        simpleBlockItem(block, modelOff);
+    }
+
     private void blockWithItemOverlay(DeferredBlock<Block> deferredBlock, Block underlay, String folder) {
         blockWithItemOverlay(deferredBlock, deferredBlock, underlay, folder);
     }
 
     private void blockWithItemOverlay(DeferredBlock<Block> deferredBlock, DeferredBlock<Block> shadow, Block underlay, String folder) {
         Block block = deferredBlock.get();
-        String oreTexture = blockTexture(shadow.get()).getPath().replace(ModelProvider.BLOCK_FOLDER + "/", ModelProvider.BLOCK_FOLDER + "/" + folder + "/").replace("_ore", "");
+        String oreTexture = blockTexture(shadow.get()).getPath().replace(BLOCK_FOLDER + "/", BLOCK_FOLDER + "/" + folder + "/").replace("_ore", "");
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/cube_all_overlayed")).texture("all", blockTexture(underlay)).texture("overlay", modLoc(oreTexture));
 
         simpleBlock(block, model);
@@ -154,7 +167,7 @@ class ModBlockStateProvider extends BlockStateProvider {
 
     private void blockSidesAndTop(DeferredBlock<Block> deferredBlock, String folder, String top, String side, Directionality directional) {
         Block block = deferredBlock.get();
-        String base = ModelProvider.BLOCK_FOLDER + "/" + folder + "/";
+        String base = BLOCK_FOLDER + "/" + folder + "/";
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/top_sides")).texture("top", modLoc(base + top)).texture("sides", modLoc(base + side));
 
         switch (directional) {
@@ -167,7 +180,7 @@ class ModBlockStateProvider extends BlockStateProvider {
 
     private void blockSidesAndTop(String name, DeferredBlock<Block> deferredBlock, String folder, String top, Directionality directional) {
         Block block = deferredBlock.get();
-        String base = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
+        String base = BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/top_sides")).texture("top", modLoc(base + top)).texture("sides", modLoc(base + "_side"));
 
         switch (directional) {
@@ -188,7 +201,7 @@ class ModBlockStateProvider extends BlockStateProvider {
 
     private void horizontalMachine(String name, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
         Block block = deferredBlock.get();
-        String base = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
+        String base = BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile modelOn = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_on", modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_bottom")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front_on"));
         ModelFile modelOff = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_off", modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_bottom")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front_off"));
 
@@ -198,7 +211,7 @@ class ModBlockStateProvider extends BlockStateProvider {
 
     private void horizontalTop(String name, DeferredBlock<Block> deferredBlock, String folder) {
         Block block = deferredBlock.get();
-        String base = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
+        String base = BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_top")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front"));
 
         horizontalBlock(block, model);
@@ -207,15 +220,22 @@ class ModBlockStateProvider extends BlockStateProvider {
 
     private void blockWithItem(String name, DeferredBlock<Block> deferredBlock, String folder) {
         Block block = deferredBlock.get();
-        String texture = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
+        String texture = BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile model = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture));
+        simpleBlock(block, model);
+        simpleBlockItem(block, model);
+    }
+    private void blockWithItemCutout(String name, DeferredBlock<Block> deferredBlock, String folder) {
+        Block block = deferredBlock.get();
+        String texture = BLOCK_FOLDER + "/" + folder + "/" + name;
+        ModelFile model = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture)).renderType("cutout");
         simpleBlock(block, model);
         simpleBlockItem(block, model);
     }
 
     private void turbineBladeWithItem(String name, DeferredBlock<Block> deferredBlock, String folder) {
         Block block = deferredBlock.get();
-        String texture = ModelProvider.BLOCK_FOLDER + "/" + folder + "/" + name;
+        String texture = BLOCK_FOLDER + "/" + folder + "/" + name;
 
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(name.contains("stator") ? "block/turbine_rotor_stator" : "block/turbine_rotor_blade")).texture("texture", texture);
         rotorPartModel(block, $ -> model);

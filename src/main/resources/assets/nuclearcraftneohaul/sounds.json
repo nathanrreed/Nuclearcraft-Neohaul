@@ -1,22 +1,42 @@
 {
 	"music_disc.wanderer": {
-		"subtitle": "music_disc.wanderer",
+		"subtitle": "nuclearcraftneohaul:music_disc.wanderer",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/wanderer", "stream": true } ]
 	},
 	"music_disc.end_of_the_world": {
-		"subtitle": "music_disc.end_of_the_world",
+		"subtitle": "nuclearcraftneohaul:music_disc.end_of_the_world",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/end_of_the_world", "stream": true } ]
 	},
 	"music_disc.money_for_nothing": {
-		"subtitle": "music_disc.money_for_nothing",
+		"subtitle": "nuclearcraftneohaul:music_disc.money_for_nothing",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/money_for_nothing", "stream": true } ]
 	},
 	"music_disc.hyperspace": {
-		"subtitle": "music_disc.hyperspace",
+		"subtitle": "nuclearcraftneohaul:music_disc.hyperspace",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/hyperspace", "stream": true } ]
 	},
 	"player.rad_poisoning": {
-		"subtitle": "player.rad_poisoning",
+		"subtitle": "nuclearcraftneohaul:sound.player.rad_poisoning",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/rad_poisoning", "stream": false } ]
+	},
+	"block.distiller_run": {
+		"subtitle": "nuclearcraftneohaul:sound.block.distiller_run",
+		"sounds": [ { "name": "nuclearcraftneohaul:block/distiller_run", "stream": false } ]
+	},
+	"block.electrolyzer_run": {
+		"subtitle": "nuclearcraftneohaul:sound.block.electrolyzer_run",
+		"sounds": [ { "name": "nuclearcraftneohaul:block/electrolyzer_run", "stream": false } ]
+	},
+	"block.fusion_run": {
+		"subtitle": "nuclearcraftneohaul:sound.block.fusion_run",
+		"sounds": [ { "name": "nuclearcraftneohaul:block/fusion_run", "stream": false } ]
+	},
+	"block.infiltrator_run": {
+		"subtitle": "nuclearcraftneohaul:sound.block.infiltrator_run",
+		"sounds": [ { "name": "nuclearcraftneohaul:block/infiltrator_run", "stream": false } ]
+	},
+	"block.turbine_run": {
+		"subtitle": "nuclearcraftneohaul:sound.block.turbine_run",
+		"sounds": [ { "name": "nuclearcraftneohaul:block/turbine_run", "stream": false } ]
 	}
 }
