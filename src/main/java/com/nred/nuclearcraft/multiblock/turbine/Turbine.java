@@ -74,7 +74,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
     public final CustomFluidTankHandler fluidTankHandler = new CustomFluidTankHandler(Lists.newArrayList(new Tank(BASE_MAX_INPUT, new TreeSet<>(), Tank.IOState.INPUT), new Tank(BASE_MAX_OUTPUT, null, Tank.IOState.OUTPUT))) {
         @Override
         public boolean isFluidValid(int tank, FluidStack stack) {
-            return getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().anyMatch(r -> r.value().fluidInput().ingredient().test(stack));
+            return getLevel().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().anyMatch(r -> r.value().fluidInput().ingredient().test(stack));
         }
 
         @Override
@@ -297,7 +297,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
     @Override
     protected void onAssimilated(IMultiblockController iMultiblockController) {
-        if (getWorld().isClientSide) {
+        if (getLevel().isClientSide) {
             clearSounds();
         }
     }
@@ -582,35 +582,35 @@ public class Turbine extends MachineMultiblock<Turbine> {
             // Free space
 
             for (BlockPos pos : getInteriorPlane(flowDir, depth, 0, 0, shaftWidth + bladeLength, shaftWidth + bladeLength)) {
-                if (!BlockStateHelper.isReplaceable(getWorld().getBlockState(pos))) {
+                if (!BlockStateHelper.isReplaceable(getLevel().getBlockState(pos))) {
                     setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.space_between_blades", pos);
                     return false;
                 }
-                getWorld().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
             }
 
             for (BlockPos pos : getInteriorPlane(flowDir, depth, shaftWidth + bladeLength, 0, 0, shaftWidth + bladeLength)) {
-                if (!BlockStateHelper.isReplaceable(getWorld().getBlockState(pos))) {
+                if (!BlockStateHelper.isReplaceable(getLevel().getBlockState(pos))) {
                     setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.space_between_blades", pos);
                     return false;
                 }
-                getWorld().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
             }
 
             for (BlockPos pos : getInteriorPlane(flowDir, depth, 0, shaftWidth + bladeLength, shaftWidth + bladeLength, 0)) {
-                if (!BlockStateHelper.isReplaceable(getWorld().getBlockState(pos))) {
+                if (!BlockStateHelper.isReplaceable(getLevel().getBlockState(pos))) {
                     setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.space_between_blades", pos);
                     return false;
                 }
-                getWorld().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
             }
 
             for (BlockPos pos : getInteriorPlane(flowDir, depth, shaftWidth + bladeLength, shaftWidth + bladeLength, 0, 0)) {
-                if (!BlockStateHelper.isReplaceable(getWorld().getBlockState(pos))) {
+                if (!BlockStateHelper.isReplaceable(getLevel().getBlockState(pos))) {
                     setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.space_between_blades", pos);
                     return false;
                 }
-                getWorld().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
             }
 
             // Blades/stators
@@ -843,7 +843,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
         this.isTurbineOn = (isRedstonePowered() || this.computerActivated) && this.isAssembled();
         if (this.isTurbineOn != oldIsTurbineOn) {
             if (this.controller != null) {
-//                this.setActivity(this.isTurbineOn); TODO
+                this.controller.setActiveState(this.isTurbineOn);
                 this.sendMultiblockUpdatePacketToAll();
             }
         }
@@ -856,7 +856,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
         }
         setIsTurbineOn();
 
-        if (!getWorld().isClientSide) {
+        if (!getLevel().isClientSide) {
             int mult = this.getExteriorVolume();
             this.energyStorage.setCapacity(Turbine.BASE_MAX_ENERGY * mult);
             this.energyStorage.setMaxTransfer(Turbine.BASE_MAX_ENERGY * mult);
@@ -868,7 +868,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             return;
         }
 
-        if (!getWorld().isClientSide) {
+        if (!getLevel().isClientSide) {
             componentFailCache.clear();
             do {
                 assumedValidCache.clear();
@@ -880,25 +880,25 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
             for (TurbineRotorShaftEntity shaft : getParts(TurbineRotorShaftEntity.class)) {
                 BlockPos pos = shaft.getBlockPos();
-                BlockState state = getWorld().getBlockState(pos);
+                BlockState state = getLevel().getBlockState(pos);
                 if (state.getBlock() instanceof TurbineRotorShaftBlock) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
+                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
                 }
             }
 
             for (TurbineRotorBladeEntity blade : getParts(TurbineRotorBladeEntity.class)) {
                 BlockPos pos = blade.bladePos();
-                BlockState state = getWorld().getBlockState(pos);
+                BlockState state = getLevel().getBlockState(pos);
                 if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
+                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
                 }
             }
 
             for (TurbineRotorStatorEntity stator : getParts(TurbineRotorStatorEntity.class)) {
                 BlockPos pos = stator.bladePos();
-                BlockState state = getWorld().getBlockState(pos);
+                BlockState state = getLevel().getBlockState(pos);
                 if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
+                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
                 }
             }
         }
@@ -911,7 +911,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
         this.inputPlane[2] = this.getInteriorPlane(oppositeDir, 0, bladeLength, shaftWidth + bladeLength, 0, 0);
         this.inputPlane[3] = this.getInteriorPlane(oppositeDir, 0, 0, bladeLength, shaftWidth + bladeLength, 0);
 
-        if (!getWorld().isClientSide) {
+        if (!getLevel().isClientSide) {
             this.renderPosArray = new Vector3f[(1 + 4 * shaftWidth) * flowLength];
 
             for (int depth = 0; depth < flowLength; ++depth) {
@@ -1010,7 +1010,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
         this.isProcessing = false;
         if (this.controller != null) {
-//            this.controller.setActivity(false); TODO
+            this.controller.setActiveState(false);
         }
         this.power = this.rawPower = this.conductivity = this.rotorEfficiency = 0D;
         this.angVel = this.rotorAngle = 0F;
@@ -1033,7 +1033,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             dynamoPart.isSearched = dynamoPart.isInValidPosition = false;
         }
 
-        if (getWorld().isClientSide) {
+        if (getLevel().isClientSide) {
             clearSounds();
         }
     }
@@ -1045,25 +1045,25 @@ public class Turbine extends MachineMultiblock<Turbine> {
             TurbinePartDir shaftDir = this.getShaftDir();
             for (TurbineRotorShaftEntity shaft : getParts(TurbineRotorShaftEntity.class)) {
                 BlockPos pos = shaft.getWorldPosition();
-                BlockState state = getWorld().getBlockState(pos);
+                BlockState state = getLevel().getBlockState(pos);
                 if (state.getBlock() instanceof TurbineRotorShaftBlock) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, shaftDir), 3);
+                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, shaftDir), 3);
                 }
             }
 
             for (TurbineRotorBladeEntity blade : getParts(TurbineRotorBladeEntity.class)) {
                 BlockPos pos = blade.bladePos();
-                BlockState state = getWorld().getBlockState(pos);
+                BlockState state = getLevel().getBlockState(pos);
                 if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, blade.getDir()), 3);
+                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, blade.getDir()), 3);
                 }
             }
 
             for (TurbineRotorStatorEntity stator : getParts(TurbineRotorStatorEntity.class)) {
                 BlockPos pos = stator.bladePos();
-                BlockState state = getWorld().getBlockState(pos);
+                BlockState state = getLevel().getBlockState(pos);
                 if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, stator.getDir()), 3);
+                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, stator.getDir()), 3);
                 }
             }
         }
@@ -1104,7 +1104,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
     }
 
     protected void refreshRecipe() {
-        this.recipe = this.getWorld().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().filter(it -> it.value().fluidInput().test(fluidTankHandler.getFirst().getFluid())).findFirst();
+        this.recipe = this.getLevel().getRecipeManager().getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().filter(it -> it.value().fluidInput().test(fluidTankHandler.getFirst().getFluid())).findFirst();
     }
 
     protected boolean canProcessInputs() {
@@ -1503,7 +1503,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
                             if (rand.nextDouble() < turbine_particles * this.recipeInputRateFP / maxRecipeRateMultiplier) {
                                 double[] spawnPos = particleSpawnPos(pos);
                                 if (spawnPos != null) {
-                                    getWorld().addParticle(this.particleEffect, false, spawnPos[0], spawnPos[1], spawnPos[2], speedX, speedY, speedZ);
+                                    getLevel().addParticle(this.particleEffect, false, spawnPos[0], spawnPos[1], spawnPos[2], speedX, speedY, speedZ);
                                 }
                             }
                         }
@@ -1546,7 +1546,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             for (int i = 0; i < this.bladePosArray.length; ++i) {
                 BlockPos pos = this.bladePosArray[i];
                 ITurbineRotorBlade<?> thisBlade = this.getBlade(pos);
-                this.rotorStateArray[i] = thisBlade == null ? getWorld().getBlockState(pos).getBlock().defaultBlockState() : thisBlade.getRenderState();
+                this.rotorStateArray[i] = thisBlade == null ? getLevel().getBlockState(pos).getBlock().defaultBlockState() : thisBlade.getRenderState();
             }
 
             this.bladeDepths.clear();

@@ -11,9 +11,9 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 public class ElectrolyzerProvider {
     public ElectrolyzerProvider(RecipeOutput recipeOutput) {
         new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(Fluids.WATER, 500).addFluidResult(GAS_MAP.get("hydrogen"), 500).addFluidResult(GAS_MAP.get("oxygen"), 250).save(recipeOutput);
-        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID.get("le_water"), 500).addFluidResult(GAS_MAP.get("hydrogen"), 375).addFluidResult(GAS_MAP.get("deuterium"), 125).addFluidResult(GAS_MAP.get("oxygen"), 250).save(recipeOutput, "le_water");
-        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID.get("he_water"), 500).addFluidResult(GAS_MAP.get("hydrogen"), 250).addFluidResult(GAS_MAP.get("deuterium"), 250).addFluidResult(GAS_MAP.get("oxygen"), 250).save(recipeOutput, "he_water");
-        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID.get("heavy_water"), 500).addFluidResult(GAS_MAP.get("deuterium"), 500).addFluidResult(GAS_MAP.get("oxygen"), 250).save(recipeOutput, "heavy_water");
+        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID_MAP.get("le_water"), 500).addFluidResult(GAS_MAP.get("hydrogen"), 375).addFluidResult(GAS_MAP.get("deuterium"), 125).addFluidResult(GAS_MAP.get("oxygen"), 250).save(recipeOutput, "le_water");
+        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID_MAP.get("he_water"), 500).addFluidResult(GAS_MAP.get("hydrogen"), 250).addFluidResult(GAS_MAP.get("deuterium"), 250).addFluidResult(GAS_MAP.get("oxygen"), 250).save(recipeOutput, "he_water");
+        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID_MAP.get("heavy_water"), 500).addFluidResult(GAS_MAP.get("deuterium"), 500).addFluidResult(GAS_MAP.get("oxygen"), 250).save(recipeOutput, "heavy_water");
         new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(ACID_MAP.get("hydrofluoric_acid"), 250).addFluidResult(GAS_MAP.get("hydrogen"), 250).addFluidResult(GAS_MAP.get("fluorine"), 250).save(recipeOutput, "hydrofluoric_acid");
 
         new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("naoh"), 333).addFluidResult(MOLTEN_MAP.get("sodium"), 72).addFluidResult(Fluids.WATER, 250).addFluidResult(GAS_MAP.get("oxygen"), 125).save(recipeOutput);

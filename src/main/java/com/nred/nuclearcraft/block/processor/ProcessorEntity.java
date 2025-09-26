@@ -40,10 +40,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.nred.nuclearcraft.block.processor.Processor.*;
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
@@ -57,7 +54,7 @@ import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSO
 
 public abstract class ProcessorEntity extends BlockEntity implements MenuProvider, IMenuProviderExtension {
     public boolean redstoneMode = false;
-    private final String typeName;
+    public final String typeName;
     @NotNull
     private final HandlerInfo handlerInfo;
 
@@ -172,6 +169,37 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
 
     public boolean validFluidSlot(@NotNull FluidStack stack) {
         return level.getRecipeManager().getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(typeName).get()).stream().flatMap(holder -> holder.value().fluidInputs.stream()).flatMap(a -> Arrays.stream(a.getFluids())).parallel().anyMatch(fluidStack -> fluidStack.is(stack.getFluid()));
+    }
+
+    public List<ItemStack> getItemInputs() {
+        ArrayList<ItemStack> itemStacks = new ArrayList<>(handlerInfo.numItemInputs());
+        for (int i = 0; i < handlerInfo.numItemInputs(); i++) {
+            itemStacks.add(itemStackHandler.getStackInSlot(i + ENERGY + 1));
+        }
+        return itemStacks;
+    }
+
+    public List<ItemStack> getItemOutputs() {
+        ArrayList<ItemStack> itemStacks = new ArrayList<>();
+        for (int i = handlerInfo.numItemInputs(); i < handlerInfo.numStacks(); i++) {
+            itemStacks.add(itemStackHandler.getStackInSlot(i + ENERGY + 1));
+        }
+        return itemStacks;
+    }
+    public List<FluidStack> getFluidInputs() {
+        ArrayList<FluidStack> fluidStacks = new ArrayList<>(handlerInfo.numItemInputs());
+        for (int i = 0; i < handlerInfo.numFluidInputs(); i++) {
+            fluidStacks.add(fluidHandler.getFluidInTank(i));
+        }
+        return fluidStacks;
+    }
+
+    public List<FluidStack> getFluidOutputs() {
+        ArrayList<FluidStack> fluidStacks = new ArrayList<>();
+        for (int i = handlerInfo.numFluidInputs(); i < handlerInfo.numTanks(); i++) {
+            fluidStacks.add(fluidHandler.getFluidInTank(i));
+        }
+        return fluidStacks;
     }
 
     @Override

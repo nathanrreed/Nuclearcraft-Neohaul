@@ -19,7 +19,7 @@ public class FluidRegistration {
     public static final Map<String, Fluids> FLAMMABLE_MAP = createFlammable();
     public static final Map<String, Fluids> HOT_COOLANT_MAP = new HashMap<>();
     public static final Map<String, Fluids> COOLANT_MAP = createCoolant();
-    public static final Map<String, Fluids> CUSTOM_FLUID = createCustomFluid();
+    public static final Map<String, Fluids> CUSTOM_FLUID_MAP = createCustomFluid();
     public static final Map<String, Fluids> FISSION_FUEL_MAP = createFissionFuel();
 
     private static Map<String, Fluids> createGasses() {

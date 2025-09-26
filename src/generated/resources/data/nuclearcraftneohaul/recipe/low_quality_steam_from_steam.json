@@ -3,7 +3,7 @@
   "expansion_level": 2.0,
   "fluidInput": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:steam"
+    "tag": "c:steam"
   },
   "fluidResult": {
     "amount": 2,

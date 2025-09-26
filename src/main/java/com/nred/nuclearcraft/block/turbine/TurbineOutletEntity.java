@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.block.turbine;
 
 import com.nred.nuclearcraft.block.IPushFluid;
+import com.nred.nuclearcraft.multiblock.turbine.Turbine;
+import it.zerono.mods.zerocore.lib.fluid.handler.FluidHandlerForwarder;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
@@ -8,17 +10,18 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_OUTLET;
 
 public class TurbineOutletEntity extends AbstractTurbineEntity implements IPushFluid {
+    private final FluidHandlerForwarder _capabilityForwarder;
+
     public TurbineOutletEntity(final BlockPos position, final BlockState blockState) {
         super(TURBINE_OUTLET.get(), position, blockState);
+        _capabilityForwarder = new FluidHandlerForwarder(EmptyFluidHandler.INSTANCE);
     }
 
     @Override
@@ -45,5 +48,14 @@ public class TurbineOutletEntity extends AbstractTurbineEntity implements IPushF
     public Collection<Direction> getDirections() {
         Direction flow = getMultiblockController().get().flowDir;
         return List.of(flow, flow.getOpposite());
+    }
+
+    public IFluidHandler getFluidHandler() {
+        Optional<Turbine> controller = this.getMultiblockController();
+        if (controller.isPresent()) {
+            _capabilityForwarder.setHandler(this.getMultiblockController().get().fluidTankHandler);
+        }
+
+        return _capabilityForwarder;
     }
 }

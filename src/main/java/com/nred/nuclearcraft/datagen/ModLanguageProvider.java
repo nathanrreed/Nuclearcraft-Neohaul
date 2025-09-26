@@ -469,7 +469,7 @@ public class ModLanguageProvider extends LanguageProvider {
         buckets(FLAMMABLE_MAP, Map.of());
         nakBuckets(HOT_COOLANT_MAP);
         nakBuckets(COOLANT_MAP);
-        buckets(CUSTOM_FLUID, Map.of("radaway", "RadAway Fluid", "radaway_slow", "Slow-Acting RadAway Fluid"));
+        buckets(CUSTOM_FLUID_MAP, Map.of("radaway", "RadAway Fluid", "radaway_slow", "Slow-Acting RadAway Fluid"));
         fissionBuckets(FISSION_FUEL_MAP);
     }
 
@@ -713,11 +713,11 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(NuclearcraftNeohaul.MODID + ".sound.player.rad_poisoning", "Rad Poisoning");
 
-        add(NuclearcraftNeohaul.MODID + ".sound.block.credit", "Electrolyzer Running");
-        add(NuclearcraftNeohaul.MODID + ".sound.block.credit", "Distiller Running");
-        add(NuclearcraftNeohaul.MODID + ".sound.block.credit", "Infiltrator Running");
-        add(NuclearcraftNeohaul.MODID + ".sound.block.credit", "Turbine Running");
-        add(NuclearcraftNeohaul.MODID + ".sound.block.credit", "Fusion Reactor Running");
+        add(NuclearcraftNeohaul.MODID + ".sound.block.electrolyzer_run", "Electrolyzer Running");
+        add(NuclearcraftNeohaul.MODID + ".sound.block.distiller_run", "Distiller Running");
+        add(NuclearcraftNeohaul.MODID + ".sound.block.infiltrator_run", "Infiltrator Running");
+        add(NuclearcraftNeohaul.MODID + ".sound.block.turbine_run", "Turbine Running");
+        add(NuclearcraftNeohaul.MODID + ".sound.block.fusion_run", "Fusion Reactor Running");
 
     }
 

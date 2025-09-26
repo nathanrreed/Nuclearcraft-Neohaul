@@ -130,10 +130,10 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         if (configType.contains("output")) {
             CycleButton temp;
             if (configType.equals("fluid_output")) {
-                temp = new CycleButton(configLeft + 7, configTop + 25, "fluid_slot_setting", NuclearcraftNeohaul.MODID + ".tooltip.side_config.slot_setting.tank", index, null);
+                temp = new CycleButton(configLeft + 7, configTop + 25, "fluid_slot_setting", "tooltip.side_config.slot_setting.tank", index, null);
                 temp.setIndex(menu.info.fluidOutputSettings().get(index));
             } else {
-                temp = new CycleButton(configLeft + 7, configTop + 25, "item_slot_setting", NuclearcraftNeohaul.MODID + ".tooltip.side_config.slot_setting.slot", index, null);
+                temp = new CycleButton(configLeft + 7, configTop + 25, "item_slot_setting", "tooltip.side_config.slot_setting.slot", index, null);
                 temp.setIndex(menu.info.itemOutputSettings().get(index));
             }
             configCycleButtons.add(temp);
@@ -149,7 +149,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
         boolean fluid = configType.contains("fluid");
 
         int startX = configLeft + (output ? 29 : 7);
-        CycleButton temp = new CycleButton(startX + (col * 18), configTop + 7 + (row * 18), output ? (fluid ? "fluid_output" : "item_output") : (fluid ? "fluid_input" : "item_input"), NuclearcraftNeohaul.MODID + ".tooltip.side_config." + dir, index, texture);
+        CycleButton temp = new CycleButton(startX + (col * 18), configTop + 7 + (row * 18), output ? (fluid ? "fluid_output" : "item_output") : (fluid ? "fluid_input" : "item_input"), "tooltip.side_config." + dir, index, texture);
         if (fluid) {
             temp.setIndex(menu.info.fluidSideConfig().get(Direction.byName(dir)).get(index).ordinal());
         } else {
@@ -256,7 +256,7 @@ public abstract class ProcessorScreen<T extends ProcessorMenu> extends AbstractC
             for (FluidSlot fluidSlot : Stream.of(menu.FLUID_INPUTS, menu.FLUID_OUTPUTS).flatMap(Collection::stream).toList()) { // Draw tooltip
                 if (!fluidSlot.getFluid().isEmpty() && isHovering(fluidSlot.x, fluidSlot.y, fluidSlot.size, fluidSlot.size, mouseX, mouseY)) {
                     FluidStack fluidStack = fluidSlot.getFluid();
-                    guiGraphics.renderComponentTooltip(font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.tank", fluidStack.getHoverName().copy().withStyle(ChatFormatting.GREEN), fluidStack.getAmount(), fluidSlot.getFluidCapacity()), Component.translatable("tooltip.tank.clear").withStyle(ChatFormatting.ITALIC)), mouseX, mouseY);
+                    guiGraphics.renderComponentTooltip(font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.tank", fluidStack.getHoverName().copy().withStyle(ChatFormatting.GREEN), fluidStack.getAmount(), fluidSlot.getFluidCapacity()), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.tank.clear").withStyle(ChatFormatting.ITALIC)), mouseX, mouseY);
                 }
             }
 

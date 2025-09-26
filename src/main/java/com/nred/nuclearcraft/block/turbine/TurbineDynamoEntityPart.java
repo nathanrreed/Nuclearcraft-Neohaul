@@ -26,7 +26,6 @@ public class TurbineDynamoEntityPart extends AbstractTurbineEntity implements IP
     public PlacementRule<Turbine, AbstractTurbineEntity> placementRule;
     public Double conductivity;
     public String ruleID;
-
 //    @Override
 //    public void onMachineAssembled(Turbine multiblock) {
 //        doStandardNullControllerResponse(multiblock);

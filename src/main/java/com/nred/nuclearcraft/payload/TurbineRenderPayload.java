@@ -14,7 +14,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.List;
-import java.util.Objects;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
@@ -37,8 +36,9 @@ public record TurbineRenderPayload(BlockPos pos, List<FluidStack> tanks, Particl
     }
 
     public static void handleOnClient(final TurbineRenderPayload payload, final IPayloadContext context) {
-        Turbine turbine = ((TurbineControllerEntity) Objects.requireNonNull(context.player().level().getBlockEntity(payload.pos))).getMultiblockController().orElse(null);
-
+        TurbineControllerEntity controllerEntity = (TurbineControllerEntity) context.player().level().getBlockEntity(payload.pos);
+        if (controllerEntity == null) return;
+        Turbine turbine = controllerEntity.getMultiblockController().orElse(null);
         if (turbine != null) {
             turbine.setTanks(payload.tanks);
             turbine.particleEffect = payload.particleEffect;

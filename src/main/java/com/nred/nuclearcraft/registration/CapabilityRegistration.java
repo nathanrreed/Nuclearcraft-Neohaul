@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.config.ProcessorConfig;
+import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import com.nred.nuclearcraft.item.EnergyItem;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import net.minecraft.core.component.DataComponents;
@@ -28,6 +29,8 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CE
 
 @EventBusSubscriber(modid = MODID)
 public class CapabilityRegistration {
+    public static CustomEnergyHandler ENERGY_EMPTY = new CustomEnergyHandler(0, false, false);
+
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
@@ -66,23 +69,16 @@ public class CapabilityRegistration {
         }
 
         // Turbine
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_INLET.get(), (entity, direction) -> { //TODO add backup to keep pipe connections
-            Optional<Turbine> controller = entity.getMultiblockController();
-            return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().fluidTankHandler;
-        });
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_OUTLET.get(), (entity, direction) -> {
-            Optional<Turbine> controller = entity.getMultiblockController();
-            return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().fluidTankHandler;
-        });
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_INLET.get(), (entity, direction) -> entity.getFluidHandler());
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_OUTLET.get(), (entity, direction) -> entity.getFluidHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_DYNAMO.get(), (entity, direction) -> {
             Optional<Turbine> controller = entity.getMultiblockController();
-            return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().energyStorage;
+            return controller.isEmpty() || controller.get().controller == null ? ENERGY_EMPTY : entity.getMultiblockController().get().energyStorage;
         });
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_COIL_CONNECTOR.get(), (entity, direction) -> {
             Optional<Turbine> controller = entity.getMultiblockController();
-            return controller.isEmpty() || controller.get().controller == null ? null : entity.getMultiblockController().get().energyStorage;
+            return controller.isEmpty() || controller.get().controller == null ? ENERGY_EMPTY : entity.getMultiblockController().get().energyStorage;
         });
-
 
         items(event);
 

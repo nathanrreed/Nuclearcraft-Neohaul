@@ -16,11 +16,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
+import static com.nred.nuclearcraft.block.turbine.TurbineControllerBlock.TURBINE_ON;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_CONTROLLER;
 
 public class TurbineControllerEntity extends AbstractTurbineEntity implements MenuProvider, INetworkTileEntitySyncProvider, ITurbineController<TurbineControllerEntity>, IMultiblockGuiPart<Turbine> {
@@ -75,6 +77,13 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements Me
     @Override
     public BlockPos getPos() {
         return worldPosition;
+    }
+
+    @Override
+    public void setActiveState(boolean value) {
+        BlockState state = getLevel().getBlockState(getPos());
+        if (!state.isAir())
+            getLevel().setBlock(getPos(), state.setValue(TURBINE_ON, value), Block.UPDATE_ALL);
     }
 
     @OnlyIn(Dist.CLIENT)

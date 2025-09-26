@@ -87,7 +87,7 @@ public class MelterProvider {
         new ProcessorRecipeBuilder(MelterRecipe.class, 2, 1).addItemInput(Items.REDSTONE_BLOCK, 1).addFluidResult(MOLTEN_MAP.get("redstone"), 900).save(recipeOutput, "molten_redstone_from_block");
         new ProcessorRecipeBuilder(MelterRecipe.class, 0.25, 1).addItemInput(Items.GLOWSTONE_DUST, 1).addFluidResult(MOLTEN_MAP.get("glowstone"), 250).save(recipeOutput, "molten_glowstone_from_dust");
         new ProcessorRecipeBuilder(MelterRecipe.class, 2, 1).addItemInput(Items.GLOWSTONE, 1).addFluidResult(MOLTEN_MAP.get("glowstone"), 1000).save(recipeOutput, "molten_glowstone_from_block");
-        new ProcessorRecipeBuilder(MelterRecipe.class, 0.25, 1).addItemInput(Items.ENDER_PEARL, 1).addFluidResult(CUSTOM_FLUID.get("ender"), 250).save(recipeOutput, "molten_ender_from_pearl");
+        new ProcessorRecipeBuilder(MelterRecipe.class, 0.25, 1).addItemInput(Items.ENDER_PEARL, 1).addFluidResult(CUSTOM_FLUID_MAP.get("ender"), 250).save(recipeOutput, "molten_ender_from_pearl");
 
         new ProcessorRecipeBuilder(MelterRecipe.class, 0.5, 1).addItemInput(Ingredient.of(Items.COAL, GEM_DUST_MAP.get("coal")), 1).addFluidResult(MOLTEN_MAP.get("coal"), 100).save(recipeOutput, "molten_coal_from_coal");
         new ProcessorRecipeBuilder(MelterRecipe.class, 0.5, 1).addItemInput(INGOT_MAP.get("graphite"), 1).addFluidResult(MOLTEN_MAP.get("coal"), 100).save(recipeOutput, "molten_coal_from_graphite");

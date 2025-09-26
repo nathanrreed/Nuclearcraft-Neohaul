@@ -202,6 +202,6 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
 
     @Override
     public AABB getRenderBoundingBox(TurbineControllerEntity blockEntity) {
-        return blockEntity.getMultiblockController().isPresent() ? blockEntity.getMultiblockController().get().getBoundingBox().getAABB() : BlockEntityRenderer.super.getRenderBoundingBox(blockEntity); //TODO check if can be fixed
+        return blockEntity.getMultiblockController().isPresent() ? blockEntity.getMultiblockController().get().getBoundingBox().getAABB().expandTowards(0, 64, 0) : BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
     }
 }

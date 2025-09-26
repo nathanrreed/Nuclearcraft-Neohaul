@@ -20,6 +20,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.TagFluidIngredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -185,11 +186,21 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
     }
 
     public static ResourceLocation getDefaultRecipeId(List<SizedFluidIngredient> inputs, List<SizedFluidIngredient> outputs) {
-        return ncLoc((outputs.stream().map(fluid -> BuiltInRegistries.FLUID.getKey(fluid.getFluids()[0].getFluid()).getPath()).reduce("", (string, fluid) -> string + "_" + fluid) + "_from_" + inputs.stream().map(fluid -> BuiltInRegistries.FLUID.getKey(fluid.getFluids()[0].getFluid()).getPath()).reduce("", (string, fluid) -> string + "_" + fluid)).replaceAll("__", "_").replaceFirst("^_", ""));
+        return ncLoc((outputs.stream().map(ProcessorRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid) + "_from_" + inputs.stream().map(ProcessorRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid)).replaceAll("__", "_").replaceFirst("^_", ""));
     }
 
     public static ResourceLocation getDefaultRecipeId(SizedFluidIngredient input, SizedFluidIngredient output) {
-        return ncLoc((BuiltInRegistries.FLUID.getKey(output.getFluids()[0].getFluid()).getPath()) + "_from_" + BuiltInRegistries.FLUID.getKey(input.getFluids()[0].getFluid()).getPath().replaceAll("__", "_").replaceFirst("^_", ""));
+        return ncLoc((getKey(output) + "_from_" + getKey(input)).replaceAll("__", "_").replaceFirst("^_", ""));
+    }
+
+    public static String getKey(SizedFluidIngredient ingredient) {
+        try {
+            return BuiltInRegistries.FLUID.getKey(ingredient.getFluids()[0].getFluid()).getPath();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            if (ingredient.ingredient() instanceof TagFluidIngredient tagged)
+                return tagged.tag().location().getPath();
+            throw new RuntimeException("no ingredients");
+        }
     }
 
     @Override

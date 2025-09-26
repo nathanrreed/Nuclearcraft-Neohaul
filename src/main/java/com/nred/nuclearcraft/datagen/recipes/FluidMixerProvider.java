@@ -5,7 +5,6 @@ import com.nred.nuclearcraft.recipe.processor.FluidMixerRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.NeoForgeMod;
-import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;
 
@@ -22,11 +21,11 @@ public class FluidMixerProvider {
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("steel"), 72).addFluidInput(MOLTEN_MAP.get("boron"), 72).addFluidResult(MOLTEN_MAP.get("ferroboron"), 144).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("ferroboron"), 72).addFluidInput(MOLTEN_MAP.get("lithium"), 72).addFluidResult(MOLTEN_MAP.get("tough"), 144).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("lead_platinum"), 144).addFluidInput(CUSTOM_FLUID.get("ender"), 250).addFluidResult(MOLTEN_MAP.get("enderium"), 144).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 0.5).addFluidInput(CUSTOM_FLUID.get("radaway"), 250).addFluidInput(MOLTEN_MAP.get("redstone"), 200).addFluidResult(CUSTOM_FLUID.get("radaway_slow"), 250).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("lead_platinum"), 144).addFluidInput(CUSTOM_FLUID_MAP.get("ender"), 250).addFluidResult(MOLTEN_MAP.get("enderium"), 144).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 0.5).addFluidInput(CUSTOM_FLUID_MAP.get("radaway"), 250).addFluidInput(MOLTEN_MAP.get("redstone"), 200).addFluidResult(CUSTOM_FLUID_MAP.get("radaway_slow"), 250).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 0.5).addFluidInput(FLAMMABLE_MAP.get("ethanol"), 250).addFluidInput(MOLTEN_MAP.get("redstone"), 200).addFluidResult(FLAMMABLE_MAP.get("redstone_ethanol"), 250).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID.get("ice"), 1000).addFluidInput(FLAMMABLE_MAP.get("ethanol"), 250).addFluidResult(CUSTOM_FLUID.get("slurry_ice"), 1000).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID.get("slurry_ice"), 1000).addFluidInput(CUSTOM_FLUID.get("cryotheum"), 250).addFluidResult(CUSTOM_FLUID.get("emergency_coolant"), 1000).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID_MAP.get("ice"), 1000).addFluidInput(FLAMMABLE_MAP.get("ethanol"), 250).addFluidResult(CUSTOM_FLUID_MAP.get("slurry_ice"), 1000).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(CUSTOM_FLUID_MAP.get("slurry_ice"), 1000).addFluidInput(CUSTOM_FLUID_MAP.get("cryotheum"), 250).addFluidResult(CUSTOM_FLUID_MAP.get("emergency_coolant"), 1000).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(CHOCOLATE_MAP.get("chocolate_liquor"), 72).addFluidInput(CHOCOLATE_MAP.get("cocoa_butter"), 72).addFluidResult(CHOCOLATE_MAP.get("unsweetened_chocolate"), 144).save(recipeOutput);
 
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 0.5).addFluidInput(CHOCOLATE_MAP.get("unsweetened_chocolate"), 144).addFluidInput(SUGAR_MAP.get("sugar"), 72).addFluidResult(CHOCOLATE_MAP.get("dark_chocolate"), 144).save(recipeOutput);
@@ -52,9 +51,9 @@ public class FluidMixerProvider {
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("villiaumite"), 1332).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("villiaumite_nak"), 144).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("carobbiite"), 1332).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("carobbiite_nak"), 144).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(HOT_GAS_MAP.get("arsenic"), 1332).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("arsenic_nak"), 144).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(CUSTOM_FLUID.get("liquid_nitrogen"), 250).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("liquid_nitrogen_nak"), 144).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(CUSTOM_FLUID.get("liquid_helium"), 250).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("liquid_helium_nak"), 144).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(CUSTOM_FLUID.get("cryotheum"), 250).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("cryotheum_nak"), 144).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_nitrogen"), 250).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("liquid_nitrogen_nak"), 144).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 250).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("liquid_helium_nak"), 144).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(CUSTOM_FLUID_MAP.get("cryotheum"), 250).addFluidInput(COOLANT_MAP.get("nak"), 144).addFluidResult(COOLANT_MAP.get("cryotheum_nak"), 144).save(recipeOutput);
 
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("uranium_238"), 128).addFluidInput(FISSION_FUEL_MAP.get("uranium_233"), 16).addFluidResult(FISSION_FUEL_MAP.get("leu_233"), 144).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 0.5, 1).addFluidInput(FISSION_FUEL_MAP.get("leu_233"), 48).addFluidInput(FISSION_FUEL_MAP.get("uranium_233"), 16).addFluidResult(FISSION_FUEL_MAP.get("heu_233"), 64).save(recipeOutput);

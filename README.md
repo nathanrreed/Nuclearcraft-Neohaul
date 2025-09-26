@@ -30,6 +30,7 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 
 #### Continual:
 - Integrations with JEI, EMI, CC: T
+- Sounds and Particles
 
 #### In progress:
 - Multitool
@@ -40,7 +41,6 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Tools and Armour
 - Wasteland
 - Radiation
-- Sounds and Particles
-- Integrations with other mods (cct etc)
+- Integrations with other mods (CubeJS / CraftTweaker)
 - Multiblock (Reactors, etc)
 - And much more

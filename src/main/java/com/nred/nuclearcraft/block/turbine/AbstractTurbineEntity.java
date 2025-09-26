@@ -58,21 +58,16 @@ public class AbstractTurbineEntity extends AbstractCuboidMultiblockPart<Turbine>
 //    }
 
     //endregion
-    //region AbstractMultiblockEntity
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
-
         // Most Reactor parts are not allowed on the Frame an inside the Reactor so reject those positions and allow all the other ones
 
         final BlockPos coordinates = this.getWorldPosition();
 
         if (position.isFrame()) {
-
             validatorCallback.setLastError(coordinates, "multiblock.validation.reactor.invalid_frame_block");
             return false;
-
         } else if (PartPosition.Interior == position) {
-
             validatorCallback.setLastError(coordinates, "multiblock.validation.reactor.invalid_part_for_interior");
             return false;
         }
@@ -80,19 +75,8 @@ public class AbstractTurbineEntity extends AbstractCuboidMultiblockPart<Turbine>
         return true;
     }
 
-    //endregion
-    //region AbstractCuboidMultiblockPart
-
-    /**
-     * Factory method. Creates a new multiblock controller and returns it.
-     * Does not attach this tile entity to it.
-     * Override this in your game code!
-     *
-     * @return A new Multiblock Controller
-     */
     @Override
     public Turbine createController() {
-
         final Level myWorld = this.getLevel();
 
         if (null == myWorld) {
@@ -102,12 +86,6 @@ public class AbstractTurbineEntity extends AbstractCuboidMultiblockPart<Turbine>
         return new Turbine(this.getLevel());
     }
 
-    /**
-     * Retrieve the type of multiblock controller which governs this part.
-     * Used to ensure that incompatible multiblocks are not merged.
-     *
-     * @return The class/type of the multiblock controller which governs this type of part.
-     */
     @Override
     public Class<Turbine> getControllerType() {
         return Turbine.class;
@@ -120,29 +98,4 @@ public class AbstractTurbineEntity extends AbstractCuboidMultiblockPart<Turbine>
     @Override
     public void onMachineDeactivated() {
     }
-
-    //endregion
-//    //region client render support
-//
-//    protected ModelData getUpdatedModelData(final IMultiblockTurbineVariant variant, final ITurbinePartType partType) {
-//        return getVariantModelDataCache(variant).computeIfAbsent(partType.getByteHashCode(), this.getUpdatedModelVariantIndex(),
-//                this.getOutwardFacings());
-//    }
-//
-//    private static CuboidPartVariantsModelDataCache getVariantModelDataCache(final IMultiblockTurbineVariant variant) {
-//
-//        if (null == s_modelDataCaches) {
-//            s_modelDataCaches = new CuboidPartVariantsModelDataCache[ReactorVariant.values().length];
-//        }
-//
-//        if (null == s_modelDataCaches[variant.getId()]) {
-//            s_modelDataCaches[variant.getId()] = new CuboidPartVariantsModelDataCache();
-//        }
-//
-//        return s_modelDataCaches[variant.getId()];
-//    }
-//
-//    private static CuboidPartVariantsModelDataCache[] s_modelDataCaches;
-//
-//    //endregion
 }

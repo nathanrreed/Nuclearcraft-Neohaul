@@ -31,9 +31,9 @@ public class FluidEnricherProvider {
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(COMPOUND_MAP.get("sodium_hydroquinone"), 1).addFluidInput(Fluids.WATER, 1000).addFluidResult(SALT_SOLUTION_MAP.get("sodium_hydroquinone_solution"), 666).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(COMPOUND_MAP.get("potassium_hydroquinone"), 1).addFluidInput(Fluids.WATER, 1000).addFluidResult(SALT_SOLUTION_MAP.get("potassium_hydroquinone_solution"), 666).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("ethanol"), 250).addFluidResult(CUSTOM_FLUID.get("radaway"), 250).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("redstone_ethanol"), 250).addFluidResult(CUSTOM_FLUID.get("radaway_slow"), 250).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("ethanol"), 250).addFluidResult(CUSTOM_FLUID_MAP.get("radaway"), 250).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("redstone_ethanol"), 250).addFluidResult(CUSTOM_FLUID_MAP.get("radaway_slow"), 250).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(Items.SNOWBALL, 4).addFluidInput(CUSTOM_FLUID.get("liquid_helium"), 25).addFluidResult(CRYOTHEUM_KEY, 25).save(recipeOutput, ncLoc("cryotheum_from_liquid_helium"));
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(Items.SNOWBALL, 4).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 25).addFluidResult(CRYOTHEUM_KEY, 25).save(recipeOutput, ncLoc("cryotheum_from_liquid_helium"));
     }
 }

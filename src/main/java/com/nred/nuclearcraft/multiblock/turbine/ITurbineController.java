@@ -11,4 +11,6 @@ public interface ITurbineController<CONTROLLER extends BlockEntity & ITurbineCon
     void setIsRenderer(boolean isRenderer);
 
     BlockPos getPos();
+
+    void setActiveState(boolean value);
 }

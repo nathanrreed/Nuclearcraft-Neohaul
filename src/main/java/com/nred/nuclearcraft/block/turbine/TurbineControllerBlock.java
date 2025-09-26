@@ -30,7 +30,6 @@ public class TurbineControllerBlock<Controller extends IMultiblockController<Con
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighborPosition, boolean isMoving) {
-        level.setBlock(pos, state.setValue(TURBINE_ON, level.hasNeighborSignal(pos)), Block.UPDATE_ALL);
         if (level.getBlockEntity(pos) instanceof TurbineControllerEntity controller) {
             controller.getMultiblockController().get().setIsTurbineOn();
         }
