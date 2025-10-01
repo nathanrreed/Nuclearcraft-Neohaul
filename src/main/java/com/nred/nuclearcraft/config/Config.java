@@ -254,7 +254,7 @@ public class Config {
         BUILDER.defineList("californium_self_priming", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), null, e -> e instanceof Boolean);
         BUILDER.pop();
 
-        BUILDER.comment("Turbine").push("turbine");
+        BUILDER.comment("Turbine").push("multiblock");
         BUILDER.defineInRange("turbine_min_size", 1, 1, 255);
         BUILDER.defineInRange("turbine_max_size", 24, 1, 255);
         BUILDER.defineList("turbine_blade_efficiency", List.of(1D, 1.1D, 1.2D), null, e -> range(e, 0.01D, 15D));
@@ -342,27 +342,27 @@ public class Config {
         LITHIUM_ION_CELL_CAPACITY = config.getInt("lithium_ion_cell_capacity");
         LITHIUM_ION_CELL_TRANSFER = config.getInt("lithium_ion_cell_transfer_rate");
 
-        turbine_min_size = config.getInt("turbine.turbine_min_size");
-        turbine_max_size = config.getInt("turbine.turbine_max_size");
-        turbine_blade_efficiency = config.get("turbine.turbine_blade_efficiency");
-        turbine_blade_expansion = config.get("turbine.turbine_blade_expansion");
-        turbine_stator_expansion = config.get("turbine.turbine_stator_expansion");
-        turbine_coil_conductivity = config.get("turbine.turbine_coil_conductivity");
-        turbine_coil_rule = config.get("turbine.turbine_coil_rule");
-        turbine_connector_rule = config.get("turbine.turbine_connector_rule");
-        turbine_power_per_mb = config.get("turbine.turbine_power_per_mb");
-        turbine_expansion_level = config.get("turbine.turbine_expansion_level");
-        turbine_spin_up_multiplier_global = config.get("turbine.turbine_spin_up_multiplier_global");
-        turbine_spin_up_multiplier = config.get("turbine.turbine_spin_up_multiplier");
-        turbine_spin_down_multiplier = config.get("turbine.turbine_spin_down_multiplier");
-        turbine_mb_per_blade = config.get("turbine.turbine_mb_per_blade");
-        turbine_throughput_leniency_params = config.get("turbine.turbine_throughput_leniency_params");
-        turbine_tension_throughput_factor = config.get("turbine.turbine_tension_throughput_factor");
-        turbine_tension_leniency = config.get("turbine.turbine_tension_leniency");
-        turbine_power_bonus_multiplier = config.get("turbine.turbine_power_bonus_multiplier");
-        turbine_sound_volume = config.get("turbine.turbine_sound_volume");
-        turbine_particles = config.get("turbine.turbine_particles");
-        turbine_render_blade_width = config.get("turbine.turbine_render_blade_width");
-        turbine_render_rotor_expansion = config.get("turbine.turbine_render_rotor_expansion");
+        turbine_min_size = config.getInt("multiblock.turbine_min_size");
+        turbine_max_size = config.getInt("multiblock.turbine_max_size");
+        turbine_blade_efficiency = config.get("multiblock.turbine_blade_efficiency");
+        turbine_blade_expansion = config.get("multiblock.turbine_blade_expansion");
+        turbine_stator_expansion = config.get("multiblock.turbine_stator_expansion");
+        turbine_coil_conductivity = config.get("multiblock.turbine_coil_conductivity");
+        turbine_coil_rule = config.get("multiblock.turbine_coil_rule");
+        turbine_connector_rule = config.get("multiblock.turbine_connector_rule");
+        turbine_power_per_mb = config.get("multiblock.turbine_power_per_mb");
+        turbine_expansion_level = config.get("multiblock.turbine_expansion_level");
+        turbine_spin_up_multiplier_global = config.get("multiblock.turbine_spin_up_multiplier_global");
+        turbine_spin_up_multiplier = config.get("multiblock.turbine_spin_up_multiplier");
+        turbine_spin_down_multiplier = config.get("multiblock.turbine_spin_down_multiplier");
+        turbine_mb_per_blade = config.get("multiblock.turbine_mb_per_blade");
+        turbine_throughput_leniency_params = config.get("multiblock.turbine_throughput_leniency_params");
+        turbine_tension_throughput_factor = config.get("multiblock.turbine_tension_throughput_factor");
+        turbine_tension_leniency = config.get("multiblock.turbine_tension_leniency");
+        turbine_power_bonus_multiplier = config.get("multiblock.turbine_power_bonus_multiplier");
+        turbine_sound_volume = config.get("multiblock.turbine_sound_volume");
+        turbine_particles = config.get("multiblock.turbine_particles");
+        turbine_render_blade_width = config.get("multiblock.turbine_render_blade_width");
+        turbine_render_rotor_expansion = config.get("multiblock.turbine_render_rotor_expansion");
     }
 }

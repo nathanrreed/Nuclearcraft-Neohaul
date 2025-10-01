@@ -5,11 +5,11 @@ import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_COMPUTER_PORT;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineComputerPortEntity extends AbstractTurbineEntity {
     public TurbineComputerPortEntity(final BlockPos position, final BlockState blockState) {
-        super(TURBINE_COMPUTER_PORT.get(), position, blockState);
+        super(TURBINE_ENTITY_TYPE.get("computer_port").get(), position, blockState);
     }
 
     @Override

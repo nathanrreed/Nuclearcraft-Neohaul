@@ -41,6 +41,6 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Tools and Armour
 - Wasteland
 - Radiation
-- Integrations with other mods (CubeJS / CraftTweaker)
+- Integrations with other mods (CubeJS / CraftTweaker, Mekanism)
 - Multiblock (Reactors, etc)
 - And much more

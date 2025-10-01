@@ -304,11 +304,11 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
     public boolean setLogic(Turbine multiblock) {
         if (getPartMap(TurbineControllerEntity.class).isEmpty()) {
-            multiblock.setLastError("multiblock_validation.no_controller");
+            multiblock.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.no_controller");
             return false;
         }
         if (getPartCount(ITurbineController.class) > 1) {
-            multiblock.setLastError("multiblock_validation.too_many_controllers");
+            multiblock.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.too_many_controllers");
             return false;
         }
 
@@ -379,12 +379,12 @@ public class Turbine extends MachineMultiblock<Turbine> {
         }
 
         if (axis == null) {
-            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.need_bearings");
+            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.need_bearings");
             return false;
         }
 
         if (axis == Axis.X && getInteriorLengthY() != getInteriorLengthZ() || axis == Axis.Y && getInteriorLengthZ() != getInteriorLengthX() || axis == Axis.Z && getInteriorLengthX() != getInteriorLengthY() || tooManyAxes || notInAWall) {
-            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.bearings_side_square");
+            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.bearings_side_square");
             return false;
         }
 
@@ -410,7 +410,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
         }
 
         if (!validAmountOfBearings) {
-            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.bearings_center_and_square");
+            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.bearings_center_and_square");
             return false;
         }
 
@@ -422,7 +422,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             if (getPartMap(TurbineRotorBearingEntity.class).containsKey(pos.asLong())) {
                 continue;
             }
-            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.bearings_center_and_square", pos);
+            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.bearings_center_and_square", pos);
             return false;
         }
 
@@ -430,7 +430,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             if (getPartMap(TurbineRotorBearingEntity.class).containsKey(pos.asLong())) {
                 continue;
             }
-            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.bearings_center_and_square", pos);
+            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.bearings_center_and_square", pos);
             return false;
         }
 
@@ -441,7 +441,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
         flowDir = null;
 
         if (getPartMap(TurbineInletEntity.class).isEmpty() || getPartMap(TurbineOutletEntity.class).isEmpty()) {
-            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.valve_wrong_wall");
+            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.valve_wrong_wall");
             return false;
         }
 
@@ -452,7 +452,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
                 Direction thisFlowDir = Direction.get(AxisDirection.POSITIVE, axis);
                 // Make sure that all inlets are in the same wall
                 if (flowDir != null && flowDir != thisFlowDir) {
-                    validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.valve_wrong_wall", pos);
+                    validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.valve_wrong_wall", pos);
                     return false;
                 } else {
                     flowDir = thisFlowDir;
@@ -461,19 +461,19 @@ public class Turbine extends MachineMultiblock<Turbine> {
                 Direction thisFlowDir = Direction.get(AxisDirection.NEGATIVE, axis);
                 // Make sure that all inlets are in the same wall
                 if (flowDir != null && flowDir != thisFlowDir) {
-                    validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.valve_wrong_wall", pos);
+                    validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.valve_wrong_wall", pos);
                     return false;
                 } else {
                     flowDir = thisFlowDir;
                 }
             } else {
-                validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.valve_wrong_wall", pos);
+                validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.valve_wrong_wall", pos);
                 return false;
             }
         }
 
         if (flowDir == null) {
-            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.valve_wrong_wall");
+            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.valve_wrong_wall");
             return false;
         }
 
@@ -481,7 +481,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             BlockPos pos = outlet.getWorldPosition();
 
             if (!isInWall(flowDir, pos)) {
-                validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.valve_wrong_wall", pos);
+                validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.valve_wrong_wall", pos);
                 return false;
             }
         }
@@ -494,7 +494,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             for (BlockPos pos : getInteriorPlane(Direction.get(AxisDirection.POSITIVE, axis), depth, bladeLength, bladeLength, bladeLength, bladeLength)) {
                 TurbineRotorShaftEntity shaft = getPartMap(TurbineRotorShaftEntity.class).get(pos.asLong());
                 if (shaft == null) {
-                    validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.shaft_center", pos);
+                    validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.shaft_center", pos);
                     return false;
                 }
             }
@@ -505,7 +505,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
         }
 
         if (!NCMath.allEqual(getFlowLength(), expansionLevels.size(), rawBladeEfficiencies.size())) {
-            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.missing_blades");
+            validatorCallback.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.missing_blades");
             return false;
         }
 
@@ -583,7 +583,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
             for (BlockPos pos : getInteriorPlane(flowDir, depth, 0, 0, shaftWidth + bladeLength, shaftWidth + bladeLength)) {
                 if (!BlockStateHelper.isReplaceable(getLevel().getBlockState(pos))) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.space_between_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.space_between_blades", pos);
                     return false;
                 }
                 getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
@@ -591,7 +591,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
             for (BlockPos pos : getInteriorPlane(flowDir, depth, shaftWidth + bladeLength, 0, 0, shaftWidth + bladeLength)) {
                 if (!BlockStateHelper.isReplaceable(getLevel().getBlockState(pos))) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.space_between_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.space_between_blades", pos);
                     return false;
                 }
                 getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
@@ -599,7 +599,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
             for (BlockPos pos : getInteriorPlane(flowDir, depth, 0, shaftWidth + bladeLength, shaftWidth + bladeLength, 0)) {
                 if (!BlockStateHelper.isReplaceable(getLevel().getBlockState(pos))) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.space_between_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.space_between_blades", pos);
                     return false;
                 }
                 getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
@@ -607,7 +607,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
 
             for (BlockPos pos : getInteriorPlane(flowDir, depth, shaftWidth + bladeLength, shaftWidth + bladeLength, 0, 0)) {
                 if (!BlockStateHelper.isReplaceable(getLevel().getBlockState(pos))) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.space_between_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.space_between_blades", pos);
                     return false;
                 }
                 getLevel().setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
@@ -621,12 +621,12 @@ public class Turbine extends MachineMultiblock<Turbine> {
                 ITurbineRotorBlade<?> thisBlade = getBlade(pos);
                 IRotorBladeType thisBladeType = thisBlade == null ? null : thisBlade.getBladeType();
                 if (thisBladeType == null) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.missing_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.missing_blades", pos);
                     return false;
                 } else if (currentBladeType == null) {
                     currentBladeType = thisBladeType;
                 } else if (!currentBladeType.eq(thisBladeType)) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.different_type_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.different_type_blades", pos);
                     return false;
                 }
                 thisBlade.setDir(getBladeDir(PlaneDir.V));
@@ -639,10 +639,10 @@ public class Turbine extends MachineMultiblock<Turbine> {
                 ITurbineRotorBlade<?> thisBlade = getBlade(pos);
                 IRotorBladeType thisBladeType = thisBlade == null ? null : thisBlade.getBladeType();
                 if (thisBladeType == null) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.missing_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.missing_blades", pos);
                     return false;
                 } else if (!currentBladeType.eq(thisBladeType)) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.different_type_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.different_type_blades", pos);
                     return false;
                 }
                 thisBlade.setDir(getBladeDir(PlaneDir.U));
@@ -655,10 +655,10 @@ public class Turbine extends MachineMultiblock<Turbine> {
                 ITurbineRotorBlade<?> thisBlade = getBlade(pos);
                 IRotorBladeType thisBladeType = thisBlade == null ? null : thisBlade.getBladeType();
                 if (thisBladeType == null) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.missing_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.missing_blades", pos);
                     return false;
                 } else if (!currentBladeType.eq(thisBladeType)) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.different_type_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.different_type_blades", pos);
                     return false;
                 }
                 thisBlade.setDir(getBladeDir(PlaneDir.U));
@@ -671,10 +671,10 @@ public class Turbine extends MachineMultiblock<Turbine> {
                 ITurbineRotorBlade<?> thisBlade = getBlade(pos);
                 IRotorBladeType thisBladeType = thisBlade == null ? null : thisBlade.getBladeType();
                 if (thisBladeType == null) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.missing_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.missing_blades", pos);
                     return false;
                 } else if (!currentBladeType.eq(thisBladeType)) {
-                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.different_type_blades", pos);
+                    setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.different_type_blades", pos);
                     return false;
                 }
                 thisBlade.setDir(getBladeDir(PlaneDir.V));
@@ -684,7 +684,7 @@ public class Turbine extends MachineMultiblock<Turbine> {
             }
 
             if (currentBladeType == null) {
-                setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.turbine.missing_blades");
+                setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.multiblock.missing_blades");
                 return false;
             }
 
@@ -877,29 +877,29 @@ public class Turbine extends MachineMultiblock<Turbine> {
             while (searchFlag);
 
             refreshDynamoStats();
+        }
 
-            for (TurbineRotorShaftEntity shaft : getParts(TurbineRotorShaftEntity.class)) {
-                BlockPos pos = shaft.getBlockPos();
-                BlockState state = getLevel().getBlockState(pos);
-                if (state.getBlock() instanceof TurbineRotorShaftBlock) {
-                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
-                }
+        for (TurbineRotorShaftEntity shaft : getParts(TurbineRotorShaftEntity.class)) {
+            BlockPos pos = shaft.getBlockPos();
+            BlockState state = getLevel().getBlockState(pos);
+            if (state.getBlock() instanceof TurbineRotorShaftBlock) {
+                getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
             }
+        }
 
-            for (TurbineRotorBladeEntity blade : getParts(TurbineRotorBladeEntity.class)) {
-                BlockPos pos = blade.bladePos();
-                BlockState state = getLevel().getBlockState(pos);
-                if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
-                }
+        for (TurbineRotorBladeEntity blade : getParts(TurbineRotorBladeEntity.class)) {
+            BlockPos pos = blade.bladePos();
+            BlockState state = getLevel().getBlockState(pos);
+            if (state.getBlock() instanceof IBlockRotorBlade) {
+                getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
             }
+        }
 
-            for (TurbineRotorStatorEntity stator : getParts(TurbineRotorStatorEntity.class)) {
-                BlockPos pos = stator.bladePos();
-                BlockState state = getLevel().getBlockState(pos);
-                if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
-                }
+        for (TurbineRotorStatorEntity stator : getParts(TurbineRotorStatorEntity.class)) {
+            BlockPos pos = stator.bladePos();
+            BlockState state = getLevel().getBlockState(pos);
+            if (state.getBlock() instanceof IBlockRotorBlade) {
+                getLevel().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
             }
         }
 

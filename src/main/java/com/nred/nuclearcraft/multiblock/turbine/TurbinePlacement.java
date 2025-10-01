@@ -191,7 +191,7 @@ public abstract class TurbinePlacement {
                 throw new IllegalArgumentException("Adjacency placement rule with ID \"" + ruleID + "\" can not require more than four adjacencies!");
             }
             if (adjType == AdjacencyType.VERTEX) {
-                throw new IllegalArgumentException("Vertex adjacency placement rule with ID \"" + ruleID + "\" is disallowed as turbine dynamos have no depth!");
+                throw new IllegalArgumentException("Vertex adjacency placement rule with ID \"" + ruleID + "\" is disallowed as multiblock dynamos have no depth!");
             }
             super.checkIsRuleAllowed(ruleID);
         }
@@ -267,21 +267,23 @@ public abstract class TurbinePlacement {
     // Helper Methods
 
     public static boolean isCasing(Optional<Turbine> turbine, BlockPos pos) {
+        if (turbine.isEmpty()) return false;
         BlockEntity tile = turbine.get().getLevel().getBlockEntity(pos);
-        return tile instanceof AbstractTurbineEntity part && part.isGoodForPosition(PartPosition.NorthFace, turbine.get());
-//        return tile instanceof AbstractTurbineEntity part && part.getPartPositionType().isGoodForWall(); TODO check if this is ok
+        return tile instanceof AbstractTurbineEntity part && !(part.getPartPosition() == PartPosition.Interior);
     }
 
     public static boolean isRotorBearing(Optional<Turbine> turbine, BlockPos pos) {
-        return turbine.get().getPartMap(TurbineRotorBearingEntity.class).get(pos.asLong()) != null;
+        return turbine.filter(value -> value.getPartMap(TurbineRotorBearingEntity.class).get(pos.asLong()) != null).isPresent();
     }
 
     public static boolean isCoilConnector(Optional<Turbine> turbine, BlockPos pos) {
+        if (turbine.isEmpty()) return false;
         TurbineDynamoEntityPart tile = turbine.get().getPartMap(TurbineDynamoEntityPart.class).get(pos.asLong());
         return tile instanceof TurbineCoilConnectorEntity part && part.isInValidPosition;
     }
 
     public static boolean isDynamoCoil(Optional<Turbine> turbine, BlockPos pos, String coilName) {
+        if (turbine.isEmpty()) return false;
         TurbineDynamoEntityPart tile = turbine.get().getPartMap(TurbineDynamoEntityPart.class).get(pos.asLong());
         return tile instanceof TurbineDynamoCoilEntity part && part.isInValidPosition && (coilName.equals("any") || part.dynamoCoilType.getName().equals(coilName));
     }
@@ -296,7 +298,7 @@ public abstract class TurbinePlacement {
 //	public static class RecipeHandler extends PlacementRule.RecipeHandler {
 //
 //		public RecipeHandler() {
-//			super("turbine");
+//			super("multiblock");
 //		}
 //	}
 }

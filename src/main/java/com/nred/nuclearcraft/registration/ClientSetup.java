@@ -2,12 +2,15 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.block.batteries.BatteryEntity;
 import com.nred.nuclearcraft.block.batteries.BatteryRenderer;
+import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.processor.*;
 import com.nred.nuclearcraft.render.TurbineRotorRenderer;
+import com.nred.nuclearcraft.screen.multiblock.SaltFissionControllerScreen;
+import com.nred.nuclearcraft.screen.multiblock.SolidFissionControllerScreen;
 import com.nred.nuclearcraft.screen.processor.*;
-import com.nred.nuclearcraft.screen.turbine.TurbineControllerScreen;
+import com.nred.nuclearcraft.screen.multiblock.TurbineControllerScreen;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -27,10 +30,9 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY_ENTITY_TYPE;
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_CONTROLLER;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
-import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
-import static com.nred.nuclearcraft.registration.MenuRegistration.TURBINE_CONTROLLER_MENU_TYPE;
+import static com.nred.nuclearcraft.registration.MenuRegistration.*;
 
 @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
 public class ClientSetup {
@@ -42,14 +44,14 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void fluidLoad(RegisterClientExtensionsEvent event) {
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             event.registerFluidType(fluid.client, fluid.type);
         }
     }
 
     @SubscribeEvent
     public static void fluidColoring(final FMLCommonSetupEvent event) {
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             ItemBlockRenderTypes.setRenderLayer(fluid.still.get(), RenderType.TRANSLUCENT);
             ItemBlockRenderTypes.setRenderLayer(fluid.flowing.get(), RenderType.TRANSLUCENT);
         }
@@ -60,12 +62,12 @@ public class ClientSetup {
         for (DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>> type : BATTERY_ENTITY_TYPE.values()) {
             BlockEntityRenderers.register(type.get(), BatteryRenderer::new);
         }
-        BlockEntityRenderers.register(TURBINE_CONTROLLER.get(), TurbineRotorRenderer::new);
+        BlockEntityRenderers.register((BlockEntityType<TurbineControllerEntity>) TURBINE_ENTITY_TYPE.get("controller").get(), TurbineRotorRenderer::new);
     }
 
     @SubscribeEvent
     public static void bucketColoring(RegisterColorHandlersEvent.Item event) {
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             event.register(((stack, tintIndex) -> tintIndex == 0 ? -1 : fluid.client.getTintColor()), fluid.bucket.asItem());
         }
     }
@@ -95,5 +97,7 @@ public class ClientSetup {
         event.register((MenuType<SupercoolerMenu>) PROCESSOR_MENU_TYPES.get("supercooler").get(), SupercoolerScreen::new);
 
         event.register(TURBINE_CONTROLLER_MENU_TYPE.get(), TurbineControllerScreen::new);
+        event.register(SOLID_FISSION_CONTROLLER_MENU_TYPE.get(), SolidFissionControllerScreen::new);
+        event.register(SALT_FISSION_CONTROLLER_MENU_TYPE.get(), SaltFissionControllerScreen::new);
     }
 }

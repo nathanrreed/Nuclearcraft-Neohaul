@@ -7,8 +7,6 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IRotorStat
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.ITurbineRotorBlade;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
-import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
@@ -17,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Iterator;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ROTOR_BLADE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineRotorStatorEntity extends AbstractTurbineEntity implements ITurbineRotorBlade<TurbineRotorStatorEntity> {
     @Override
@@ -28,17 +26,8 @@ public class TurbineRotorStatorEntity extends AbstractTurbineEntity implements I
     public IRotorStatorType statorType = null;
     protected TurbinePartDir dir = TurbinePartDir.Y;
 
-    /**
-     * Don't use this constructor!
-     */
-//    public TurbineRotorStatorEntity(final BlockPos position, final BlockState blockState) {
-//        super(TURBINE_ROTOR_STATOR.get(), position, blockState);
-//    }
-//    public TurbineRotorStatorEntity() {
-//        super(CuboidalPartPositionType.INTERIOR);
-//    }
     public TurbineRotorStatorEntity(final BlockPos position, final BlockState blockState, IRotorStatorType statorType) {
-        super(TURBINE_ROTOR_BLADE.get(), position, blockState);
+        super(TURBINE_ENTITY_TYPE.get("rotor_stator").get(), position, blockState);
         this.statorType = statorType;
     }
 

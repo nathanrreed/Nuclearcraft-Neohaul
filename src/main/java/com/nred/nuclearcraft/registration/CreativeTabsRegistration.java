@@ -37,9 +37,9 @@ public class CreativeTabsRegistration {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MULTIBLOCKS_TAB = CREATIVE_MODE_TABS.register("multiblocks_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable(NuclearcraftNeohaul.MODID + ".creative_tab.title.multiblocks"))
             .withTabsBefore(MACHINES_TAB.getId())
-            .icon(() -> PROCESSOR_MAP.get("manufactory").asItem().getDefaultInstance())
+            .icon(() -> FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.acceptAll(blockStackValues(TURBINE_MAP, BATTERY_MAP));
+                output.acceptAll(blockStackValues(TURBINE_MAP, FISSION_REACTOR_MAP, BATTERY_MAP));
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RADIATION_TAB = CREATIVE_MODE_TABS.register("radiation_tab", () -> CreativeModeTab.builder()

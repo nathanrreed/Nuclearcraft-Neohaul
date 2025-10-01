@@ -12,7 +12,7 @@ public class FluidRegistration {
     public static final Map<String, Fluids> HOT_GAS_MAP = createHotGas();
     public static final Map<String, Fluids> SUGAR_MAP = createSugar();
     public static final Map<String, Fluids> CHOCOLATE_MAP = createChocolate();
-    public static final Map<String, Fluids> FISSION_MAP = createFission();
+    public static final Map<String, Fluids> FISSION_FLUID_MAP = createFission();
     public static final Map<String, Fluids> STEAM_MAP = createSteam();
     public static final Map<String, Fluids> SALT_SOLUTION_MAP = createSaltSolution();
     public static final Map<String, Fluids> ACID_MAP = createAcid();

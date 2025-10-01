@@ -33,7 +33,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.TURBINE_MAP;
 
 public class JeiTurbineCategory implements IRecipeCategory<TurbineRecipe> {
-    private static final ResourceLocation UID = ncLoc("turbine");
+    private static final ResourceLocation UID = ncLoc("multiblock");
     private static final RecipeType<TurbineRecipe> TYPE = new RecipeType<>(UID, TurbineRecipe.class);
 
     private final IGuiHelper helper;
@@ -42,7 +42,7 @@ public class JeiTurbineCategory implements IRecipeCategory<TurbineRecipe> {
 
     public JeiTurbineCategory(IGuiHelper helper) {
         this.helper = helper;
-        this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("turbine");
+        this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("multiblock");
     }
 
     @Override
@@ -62,7 +62,7 @@ public class JeiTurbineCategory implements IRecipeCategory<TurbineRecipe> {
 
     @Override
     public Component getTitle() {
-        return Component.translatable("emi.category." + MODID + ".turbine");
+        return Component.translatable("emi.category." + MODID + ".multiblock");
     }
 
     @Override

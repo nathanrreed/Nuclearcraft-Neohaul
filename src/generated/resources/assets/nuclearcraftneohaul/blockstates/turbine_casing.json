@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "nuclearcraftneohaul_frame=false": {
+      "model": "nuclearcraftneohaul:block/turbine_casing"
+    },
+    "nuclearcraftneohaul_frame=true": {
       "model": "nuclearcraftneohaul:block/turbine_casing"
     }
   }

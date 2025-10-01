@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.turbine;
 
-import com.nred.nuclearcraft.block.HorizontalGenericDeviceBlock;
+import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import net.minecraft.core.BlockPos;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
-public class TurbineRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends HorizontalGenericDeviceBlock<Controller, PartType> {
+public class TurbineRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> {
     public static final BooleanProperty REDSTONE_ON = BooleanProperty.create(MODID + "_redstone_on");
 
     public TurbineRedstonePortBlock(MultiblockPartProperties<PartType> properties) {

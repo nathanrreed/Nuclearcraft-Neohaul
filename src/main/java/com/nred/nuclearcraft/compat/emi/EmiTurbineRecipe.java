@@ -35,7 +35,7 @@ public class EmiTurbineRecipe extends BasicEmiRecipe {
         this.inputs.add(fluidInput);
         this.outputs.addAll(fluidResult.getEmiStacks());
 
-        this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("turbine");
+        this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("multiblock");
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGenerat
 import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollectorEntity;
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.block.turbine.TurbineInletEntity;
+import com.nred.nuclearcraft.block.turbine.TurbineOutletEntity;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.config.ProcessorConfig;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
@@ -69,13 +71,13 @@ public class CapabilityRegistration {
         }
 
         // Turbine
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_INLET.get(), (entity, direction) -> entity.getFluidHandler());
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_OUTLET.get(), (entity, direction) -> entity.getFluidHandler());
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_DYNAMO.get(), (entity, direction) -> {
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((TurbineInletEntity) entity).getFluidHandler());
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((TurbineOutletEntity) entity).getFluidHandler());
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("dynamo").get(), (entity, direction) -> {
             Optional<Turbine> controller = entity.getMultiblockController();
             return controller.isEmpty() || controller.get().controller == null ? ENERGY_EMPTY : entity.getMultiblockController().get().energyStorage;
         });
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_COIL_CONNECTOR.get(), (entity, direction) -> {
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("coil_connector").get(), (entity, direction) -> {
             Optional<Turbine> controller = entity.getMultiblockController();
             return controller.isEmpty() || controller.get().controller == null ? ENERGY_EMPTY : entity.getMultiblockController().get().energyStorage;
         });

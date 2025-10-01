@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.turbine;
 
-import com.nred.nuclearcraft.block.HorizontalGenericDeviceBlock;
+import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import net.minecraft.core.BlockPos;
@@ -10,17 +10,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
-import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 
-public class TurbineControllerBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends HorizontalGenericDeviceBlock<Controller, PartType> {
-    public static final BooleanProperty TURBINE_ON = BooleanProperty.create(MODID + "_turbine_on");
-
+public class TurbineControllerBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> {
     public TurbineControllerBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(TURBINE_ON, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
     }
 
     @Override
@@ -37,6 +34,6 @@ public class TurbineControllerBlock<Controller extends IMultiblockController<Con
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(TURBINE_ON, FACING);
+        builder.add(ACTIVE, FACING);
     }
 }

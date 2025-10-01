@@ -10,11 +10,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Iterator;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ROTOR_BEARING;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineRotorBearingEntity extends AbstractTurbineEntity {
     public TurbineRotorBearingEntity(final BlockPos position, final BlockState blockState) {
-        super(TURBINE_ROTOR_BEARING.get(), position, blockState);
+        super(TURBINE_ENTITY_TYPE.get("rotor_bearing").get(), position, blockState);
     }
 
     @Override

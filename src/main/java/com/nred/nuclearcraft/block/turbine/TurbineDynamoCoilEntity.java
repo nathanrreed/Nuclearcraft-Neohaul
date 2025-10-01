@@ -5,13 +5,13 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbinePlacement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_DYNAMO;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineDynamoCoilEntity extends TurbineDynamoEntityPart {
     public TurbineDynamoCoilType dynamoCoilType;
 
     public TurbineDynamoCoilEntity(final BlockPos position, final BlockState blockState, TurbineDynamoCoilType dynamoCoilType) {
-        super(TURBINE_DYNAMO.get(), position, blockState);
+        super(TURBINE_ENTITY_TYPE.get("dynamo").get(), position, blockState);
         this.dynamoCoilType = dynamoCoilType;
         this.placementRule = TurbinePlacement.RULE_MAP.get(dynamoCoilType.getName() + "_coil");
         this.conductivity = dynamoCoilType.getConductivity();

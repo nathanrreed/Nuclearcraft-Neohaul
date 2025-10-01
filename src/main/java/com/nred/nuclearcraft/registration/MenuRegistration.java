@@ -1,8 +1,9 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.menu.multiblock.SaltFissionControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.SolidFissionControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.TurbineControllerMenu;
 import com.nred.nuclearcraft.menu.processor.*;
-import com.nred.nuclearcraft.menu.turbine.TurbineControllerMenu;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -15,6 +16,8 @@ public class MenuRegistration {
     public static final HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> PROCESSOR_MENU_TYPES = createProcessors();
 
     public static final DeferredHolder<MenuType<?>, MenuType<TurbineControllerMenu>> TURBINE_CONTROLLER_MENU_TYPE = MENUS.register("turbine_controller", () -> IMenuTypeExtension.create(TurbineControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<SolidFissionControllerMenu>> SOLID_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("solid_fission_controller", () -> IMenuTypeExtension.create(SolidFissionControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<SaltFissionControllerMenu>> SALT_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("salt_fission_controller", () -> IMenuTypeExtension.create(SaltFissionControllerMenu::new));
 
     private static HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> createProcessors() {
         HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> map = new HashMap<>();

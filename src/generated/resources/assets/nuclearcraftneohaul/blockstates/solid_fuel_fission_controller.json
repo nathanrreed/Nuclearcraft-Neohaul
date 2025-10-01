@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/solid_fuel_fission_controller_off",
+      "y": 90
+    },
+    "facing=east,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/solid_fuel_fission_controller_on",
+      "y": 90
+    },
+    "facing=north,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/solid_fuel_fission_controller_off"
+    },
+    "facing=north,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/solid_fuel_fission_controller_on"
+    },
+    "facing=south,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/solid_fuel_fission_controller_off",
+      "y": 180
+    },
+    "facing=south,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/solid_fuel_fission_controller_on",
+      "y": 180
+    },
+    "facing=west,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/solid_fuel_fission_controller_off",
+      "y": 270
+    },
+    "facing=west,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/solid_fuel_fission_controller_on",
+      "y": 270
+    }
+  }
+}

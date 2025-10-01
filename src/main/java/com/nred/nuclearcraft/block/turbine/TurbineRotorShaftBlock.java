@@ -29,34 +29,4 @@ public class TurbineRotorShaftBlock extends GenericTooltipDeviceBlock<Turbine, I
         Direction direction = context.getClickedFace();
         return defaultBlockState().setValue(DIR, TurbinePartDir.fromFacingAxis(direction.getAxis()));
     }
-
-//    @Override
-//    public int getMetaFromState(BlockState state) {
-//        return state.getValue(TurbineRotorBladeUtil.DIR).ordinal();
-//    }
-//
-//    @Override
-//    public IBlockState getStateFromMeta(int meta) {
-//        return getDefaultState().withProperty(TurbineRotorBladeUtil.DIR, TurbinePartDir.values()[meta]);
-//    }
-//
-//    @Override
-//    public boolean isOpaqueCube(IBlockState state) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean isFullCube(IBlockState state) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean isTopSolid(IBlockState state) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean causesSuffocation(IBlockState state) {
-//        return true;
-//    }
 }

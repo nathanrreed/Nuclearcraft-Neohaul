@@ -5,11 +5,11 @@ import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ROTOR_SHAFT;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineRotorShaftEntity extends AbstractTurbineEntity {
     public TurbineRotorShaftEntity(final BlockPos position, final BlockState blockState) {
-        super(TURBINE_ROTOR_SHAFT.get(), position, blockState);
+        super(TURBINE_ENTITY_TYPE.get("rotor_shaft").get(), position, blockState);
     }
 
     @Override

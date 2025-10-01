@@ -23,7 +23,7 @@ public interface IMultiblockGuiPart<MULTIBLOCK extends MachineMultiblock<MULTIBL
         return getMultiblockController().isEmpty() ? null : getMultiblockController().get().getMultiblockUpdatePacketListeners();
     }
 
-    default void addTileUpdatePacketListener(Player player) {
+    default void addBEUpdatePacketListener(Player player) {
         if (getMultiblockController().isPresent()) {
             getTileUpdatePacketListeners().add(player);
             sendTileUpdatePacketToPlayer(player);

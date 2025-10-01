@@ -166,7 +166,7 @@ public record TurbinePeripheral(TurbineComputerPortEntity turbineComputerPort) i
 
     @Override
     public String getType() {
-        return ncLoc("turbine").toString();
+        return ncLoc("multiblock").toString();
     }
 
     @Override

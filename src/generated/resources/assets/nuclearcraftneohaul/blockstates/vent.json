@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,nuclearcraftneohaul_input_state=false": {
+      "model": "nuclearcraftneohaul:block/vent_input",
+      "y": 90
+    },
+    "facing=east,nuclearcraftneohaul_input_state=true": {
+      "model": "nuclearcraftneohaul:block/vent_output",
+      "y": 90
+    },
+    "facing=north,nuclearcraftneohaul_input_state=false": {
+      "model": "nuclearcraftneohaul:block/vent_input"
+    },
+    "facing=north,nuclearcraftneohaul_input_state=true": {
+      "model": "nuclearcraftneohaul:block/vent_output"
+    },
+    "facing=south,nuclearcraftneohaul_input_state=false": {
+      "model": "nuclearcraftneohaul:block/vent_input",
+      "y": 180
+    },
+    "facing=south,nuclearcraftneohaul_input_state=true": {
+      "model": "nuclearcraftneohaul:block/vent_output",
+      "y": 180
+    },
+    "facing=west,nuclearcraftneohaul_input_state=false": {
+      "model": "nuclearcraftneohaul:block/vent_input",
+      "y": 270
+    },
+    "facing=west,nuclearcraftneohaul_input_state=true": {
+      "model": "nuclearcraftneohaul:block/vent_output",
+      "y": 270
+    }
+  }
+}

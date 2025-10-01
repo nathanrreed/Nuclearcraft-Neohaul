@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Iterator;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ROTOR_BLADE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements TurbineRotorBladeUtil.ITurbineRotorBlade<TurbineRotorBladeEntity> {
 
@@ -26,7 +26,7 @@ public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements Tu
     protected TurbineRotorBladeUtil.TurbinePartDir dir = TurbineRotorBladeUtil.TurbinePartDir.Y;
 
     public TurbineRotorBladeEntity(final BlockPos position, final BlockState blockState, TurbineRotorBladeUtil.IRotorBladeType bladeType) {
-        super(TURBINE_ROTOR_BLADE.get(), position, blockState);
+        super(TURBINE_ENTITY_TYPE.get("rotor_blade").get(), position, blockState);
         this.bladeType = bladeType;
     }
 

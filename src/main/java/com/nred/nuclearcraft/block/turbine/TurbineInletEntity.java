@@ -11,13 +11,13 @@ import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 
 import java.util.Optional;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_INLET;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineInletEntity extends AbstractTurbineEntity {
     private final FluidHandlerForwarder _capabilityForwarder;
 
     public TurbineInletEntity(final BlockPos position, final BlockState blockState) {
-        super(TURBINE_INLET.get(), position, blockState);
+        super(TURBINE_ENTITY_TYPE.get("inlet").get(), position, blockState);
         _capabilityForwarder = new FluidHandlerForwarder(EmptyFluidHandler.INSTANCE);
     }
 

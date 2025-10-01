@@ -135,8 +135,8 @@ public class MelterProvider {
         }
 
         for (String dust : FISSION_DUST_MAP.keySet()) {
-            if (!FISSION_MAP.containsKey(dust)) continue;
-            new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get(dust), 1).addFluidResult(FISSION_MAP.get(dust), 144).save(recipeOutput);
+            if (!FISSION_FLUID_MAP.containsKey(dust)) continue;
+            new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get(dust), 1).addFluidResult(FISSION_FLUID_MAP.get(dust), 144).save(recipeOutput);
         }
     }
 }

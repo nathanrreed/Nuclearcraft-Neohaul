@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/fission/vent_back",
+    "bottom": "nuclearcraftneohaul:block/fission/vent_side",
+    "front": "nuclearcraftneohaul:block/fission/vent_front_input",
+    "side": "nuclearcraftneohaul:block/fission/vent_side",
+    "top": "nuclearcraftneohaul:block/fission/vent_side"
+  }
+}

@@ -29,7 +29,7 @@ public class Config2 {
     public static final String CATEGORY_FISSION = "fission";
     public static final String CATEGORY_FUSION = "fusion";
     public static final String CATEGORY_HEAT_EXCHANGER = "heat_exchanger";
-    public static final String CATEGORY_TURBINE = "turbine";
+    public static final String CATEGORY_TURBINE = "multiblock";
     public static final String CATEGORY_QUANTUM = "quantum";
     public static final String CATEGORY_TOOL = "tool";
     public static final String CATEGORY_ARMOR = "armor";

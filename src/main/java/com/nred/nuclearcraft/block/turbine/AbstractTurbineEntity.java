@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block.turbine;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartTypeProvider;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockPart;
@@ -9,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class AbstractTurbineEntity extends AbstractCuboidMultiblockPart<Turbine> implements IMultiblockPartTypeProvider<Turbine, ITurbinePartType> {
 
@@ -65,10 +67,10 @@ public class AbstractTurbineEntity extends AbstractCuboidMultiblockPart<Turbine>
         final BlockPos coordinates = this.getWorldPosition();
 
         if (position.isFrame()) {
-            validatorCallback.setLastError(coordinates, "multiblock.validation.reactor.invalid_frame_block");
+            validatorCallback.setLastError(coordinates, NuclearcraftNeohaul.MODID + ".multiblock.validation.reactor.invalid_frame_block");
             return false;
         } else if (PartPosition.Interior == position) {
-            validatorCallback.setLastError(coordinates, "multiblock.validation.reactor.invalid_part_for_interior");
+            validatorCallback.setLastError(coordinates, NuclearcraftNeohaul.MODID + ".multiblock.validation.reactor.invalid_part_for_interior");
             return false;
         }
 
@@ -76,7 +78,7 @@ public class AbstractTurbineEntity extends AbstractCuboidMultiblockPart<Turbine>
     }
 
     @Override
-    public Turbine createController() {
+    public @NotNull Turbine createController() {
         final Level myWorld = this.getLevel();
 
         if (null == myWorld) {
@@ -87,7 +89,7 @@ public class AbstractTurbineEntity extends AbstractCuboidMultiblockPart<Turbine>
     }
 
     @Override
-    public Class<Turbine> getControllerType() {
+    public @NotNull Class<Turbine> getControllerType() {
         return Turbine.class;
     }
 

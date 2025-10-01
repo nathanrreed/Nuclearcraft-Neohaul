@@ -1,9 +1,8 @@
 package com.nred.nuclearcraft.block.turbine;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
-import com.nred.nuclearcraft.menu.turbine.TurbineControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.TurbineControllerMenu;
 import com.nred.nuclearcraft.multiblock.IMultiblockGuiPart;
-import com.nred.nuclearcraft.multiblock.turbine.ITurbineController;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.network.INetworkTileEntitySyncProvider;
@@ -22,8 +21,8 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-import static com.nred.nuclearcraft.block.turbine.TurbineControllerBlock.TURBINE_ON;
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_CONTROLLER;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 
 public class TurbineControllerEntity extends AbstractTurbineEntity implements MenuProvider, INetworkTileEntitySyncProvider, ITurbineController<TurbineControllerEntity>, IMultiblockGuiPart<Turbine> {
     protected boolean isRenderer = false;
@@ -34,7 +33,7 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements Me
     public long prevRenderTime = 0L;
 
     public TurbineControllerEntity(BlockPos pos, BlockState blockState) {
-        super(TURBINE_CONTROLLER.get(), pos, blockState);
+        super(TURBINE_ENTITY_TYPE.get("controller").get(), pos, blockState);
     }
 
     @Override
@@ -51,7 +50,7 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements Me
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable(NuclearcraftNeohaul.MODID + ".menu.title.turbine");
+        return Component.translatable(NuclearcraftNeohaul.MODID + ".menu.title.multiblock");
     }
 
     @Override
@@ -83,7 +82,7 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements Me
     public void setActiveState(boolean value) {
         BlockState state = getLevel().getBlockState(getPos());
         if (!state.isAir())
-            getLevel().setBlock(getPos(), state.setValue(TURBINE_ON, value), Block.UPDATE_ALL);
+            getLevel().setBlock(getPos(), state.setValue(ACTIVE, value), Block.UPDATE_ALL);
     }
 
     @OnlyIn(Dist.CLIENT)

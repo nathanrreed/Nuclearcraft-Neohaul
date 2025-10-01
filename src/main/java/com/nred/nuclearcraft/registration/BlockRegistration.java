@@ -30,6 +30,9 @@ import com.nred.nuclearcraft.block.processor.separator.Separator;
 import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
 import com.nred.nuclearcraft.block.solar.SolarPanel;
 import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
+import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
+import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
+import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -40,6 +43,7 @@ import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -51,6 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType.*;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType.*;
@@ -59,6 +64,10 @@ import static com.nred.nuclearcraft.registration.Registers.BLOCKS;
 import static com.nred.nuclearcraft.registration.Registers.ITEMS;
 
 public class BlockRegistration {
+    public static final BooleanProperty FRAME = BooleanProperty.create(MODID + "_frame");
+    public static final BooleanProperty ACTIVE = BooleanProperty.create(MODID + "_active");
+
+
     public static final HashMap<String, DeferredBlock<Block>> ORE_MAP = createOres();
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> MATERIAL_BLOCK_MAP = createBlocks(MATERIAL_BLOCKS, "block", Blocks.IRON_BLOCK);
@@ -67,6 +76,7 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> COLLECTOR_MAP = createCollectors();
     public static final HashMap<String, DeferredBlock<Block>> SOLAR_MAP = createSolarPanels();
     public static final HashMap<String, DeferredBlock<Block>> TURBINE_MAP = createTurbineParts();
+    public static final HashMap<String, DeferredBlock<Block>> FISSION_REACTOR_MAP = createFissionParts();
     public static final HashMap<String, DeferredBlock<Block>> BATTERY_MAP = createBatteries();
 
     private static final BlockBehaviour.Properties BASE_PROPERTIES = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 1200.0F).isValidSpawn(Blocks::never).isRedstoneConductor((a, b, c) -> false);
@@ -194,6 +204,24 @@ public class BlockRegistration {
         map.put("extreme_alloy_turbine_rotor_blade", registerBlockItem("extreme_alloy_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(EXTREME)));
         map.put("sic_turbine_rotor_blade", registerBlockItem("sic_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(SIC_SIC_CMC)));
         map.put("standard_turbine_rotor_stator", registerBlockItem("standard_turbine_rotor_stator", () -> TurbinePartType.RotorStator.createBlock(STANDARD)));
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createFissionParts() {
+        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        map.put("solid_fuel_fission_controller", registerBlockItem("solid_fuel_fission_controller", FissionPartType.SolidFuelController::createBlock));
+        map.put("molten_salt_fission_controller", registerBlockItem("molten_salt_fission_controller", FissionPartType.MoltenSaltController::createBlock));
+        map.put("fission_casing", registerBlockItem("fission_casing", FissionPartType.Casing::createBlock));
+        map.put("fission_glass", registerBlockItem("fission_glass", FissionPartType.Glass::createBlock));
+
+        map.put("fission_vent", registerBlockItem("vent", FissionPartType.Vent::createBlock));
+        map.put("water_sink", registerBlockItem("water_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.WATER)));
+        map.put("standard_heater", registerBlockItem("standard_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.STANDARD)));
+
+        for (String name : FISSION_HEAT_PARTS) {
+            map.put(name + "_sink", registerBlockItem(name + "_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.valueOf(name.toUpperCase()))));
+            map.put(name + "_heater", registerBlockItem(name + "_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.valueOf(name.toUpperCase()))));
+        }
         return map;
     }
 

@@ -24,6 +24,7 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -33,12 +34,7 @@ import static it.zerono.mods.zerocore.lib.CodeHelper.getSystemTime;
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.bindBlocksTexture;
 
 @OnlyIn(Dist.CLIENT)
-public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControllerEntity> {
-    private final BlockEntityRendererProvider.Context context;
-
-    public TurbineRotorRenderer(BlockEntityRendererProvider.Context context) {
-        this.context = context;
-    }
+public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<TurbineControllerEntity> {
 
     @Override
     public void render(TurbineControllerEntity controller, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
@@ -201,7 +197,11 @@ public class TurbineRotorRenderer implements BlockEntityRenderer<TurbineControll
     }
 
     @Override
-    public AABB getRenderBoundingBox(TurbineControllerEntity blockEntity) {
-        return blockEntity.getMultiblockController().isPresent() ? blockEntity.getMultiblockController().get().getBoundingBox().getAABB().expandTowards(0, 64, 0) : BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
+    public @NotNull AABB getRenderBoundingBox(TurbineControllerEntity blockEntity) {
+        if (blockEntity.getMultiblockController().isPresent()){
+            Turbine turbine = blockEntity.getMultiblockController().get();
+            return turbine.getBoundingBox().getAABB().inflate(turbine.getInteriorLengthX(), turbine.getInteriorLengthY(), turbine.getInteriorLengthZ());
+        }
+        return  BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
     }
 }

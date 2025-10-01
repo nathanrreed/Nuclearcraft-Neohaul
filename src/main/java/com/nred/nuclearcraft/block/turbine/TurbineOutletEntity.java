@@ -14,13 +14,13 @@ import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 
 import java.util.*;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_OUTLET;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineOutletEntity extends AbstractTurbineEntity implements IPushFluid {
     private final FluidHandlerForwarder _capabilityForwarder;
 
     public TurbineOutletEntity(final BlockPos position, final BlockState blockState) {
-        super(TURBINE_OUTLET.get(), position, blockState);
+        super(TURBINE_ENTITY_TYPE.get("outlet").get(), position, blockState);
         _capabilityForwarder = new FluidHandlerForwarder(EmptyFluidHandler.INSTANCE);
     }
 

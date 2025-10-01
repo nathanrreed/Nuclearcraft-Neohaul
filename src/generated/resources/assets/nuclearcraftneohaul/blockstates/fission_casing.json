@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "nuclearcraftneohaul_frame=false": {
+      "model": "nuclearcraftneohaul:block/fission_casing"
+    },
+    "nuclearcraftneohaul_frame=true": {
+      "model": "nuclearcraftneohaul:block/fission_casing"
+    }
+  }
+}

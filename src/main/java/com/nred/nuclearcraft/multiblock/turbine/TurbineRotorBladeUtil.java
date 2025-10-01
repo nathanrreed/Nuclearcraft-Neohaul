@@ -47,7 +47,6 @@ public class TurbineRotorBladeUtil {
     }
 
     public enum TurbinePartDir implements StringRepresentable {
-
         INVISIBLE("invisible"),
         X("x"),
         Y("y"),

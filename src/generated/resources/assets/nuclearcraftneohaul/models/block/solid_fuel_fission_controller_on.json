@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/fission/solid/controller_back",
+    "bottom": "nuclearcraftneohaul:block/fission/solid/controller_bottom",
+    "front": "nuclearcraftneohaul:block/fission/solid/controller_front_on",
+    "side": "nuclearcraftneohaul:block/fission/solid/controller_side",
+    "top": "nuclearcraftneohaul:block/fission/solid/controller_top"
+  }
+}

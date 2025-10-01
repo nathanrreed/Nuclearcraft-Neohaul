@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.multiblock;
 
-import com.nred.nuclearcraft.multiblock.turbine.IPacketMultiblock;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockController;
 import net.minecraft.core.BlockPos;

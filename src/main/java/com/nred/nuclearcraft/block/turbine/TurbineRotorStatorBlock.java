@@ -26,7 +26,7 @@ public class TurbineRotorStatorBlock extends GenericTooltipDeviceBlock<Turbine, 
     protected static final VoxelShape Z_AXIS_AABB = Block.box(7, 2, 0, 9, 14, 16);
 
     public TurbineRotorStatorBlock(@NotNull MultiblockPartBlock.@NotNull MultiblockPartProperties<ITurbinePartType> iTurbinePartTypeMultiblockPartProperties) {
-        super(iTurbinePartTypeMultiblockPartProperties.setBlockProperties(Properties.of().noOcclusion().isSuffocating((s,g,p)->false)));
+        super(iTurbinePartTypeMultiblockPartProperties.setBlockProperties(Properties.of().noOcclusion().isSuffocating((s, g, p) -> false)));
         registerDefaultState(this.defaultBlockState().setValue(DIR, TurbineRotorBladeUtil.TurbinePartDir.Y));
     }
 
