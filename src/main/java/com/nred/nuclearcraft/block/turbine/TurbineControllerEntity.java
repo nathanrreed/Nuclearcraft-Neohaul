@@ -75,14 +75,14 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements Me
 
     @Override
     public BlockPos getPos() {
-        return worldPosition;
+        return getBlockPos();
     }
 
     @Override
     public void setActiveState(boolean value) {
-        BlockState state = getLevel().getBlockState(getPos());
+        BlockState state = getLevel().getBlockState(getBlockPos());
         if (!state.isAir())
-            getLevel().setBlock(getPos(), state.setValue(ACTIVE, value), Block.UPDATE_ALL);
+            getLevel().setBlock(getBlockPos(), state.setValue(ACTIVE, value), Block.UPDATE_ALL);
     }
 
     @OnlyIn(Dist.CLIENT)

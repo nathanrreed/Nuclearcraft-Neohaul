@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
 
 public class TurbineRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> {
     public static final BooleanProperty REDSTONE_ON = BooleanProperty.create(MODID + "_redstone_on");
@@ -25,7 +26,7 @@ public class TurbineRedstonePortBlock<Controller extends IMultiblockController<C
 
     @Override
     public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
-        return direction == state.getValue(FACING).getOpposite();
+        return direction == state.getValue(FACING_HORIZONTAL).getOpposite();
     }
 
     @Override
@@ -38,6 +39,6 @@ public class TurbineRedstonePortBlock<Controller extends IMultiblockController<C
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(REDSTONE_ON, FACING);
+        builder.add(REDSTONE_ON, FACING_HORIZONTAL);
     }
 }

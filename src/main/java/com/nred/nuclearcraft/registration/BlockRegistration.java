@@ -30,7 +30,9 @@ import com.nred.nuclearcraft.block.processor.separator.Separator;
 import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
 import com.nred.nuclearcraft.block.solar.SolarPanel;
 import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
+import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
+import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
@@ -43,7 +45,9 @@ import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -66,6 +70,8 @@ import static com.nred.nuclearcraft.registration.Registers.ITEMS;
 public class BlockRegistration {
     public static final BooleanProperty FRAME = BooleanProperty.create(MODID + "_frame");
     public static final BooleanProperty ACTIVE = BooleanProperty.create(MODID + "_active");
+    public static final DirectionProperty FACING_HORIZONTAL = BlockStateProperties.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING_ALL = BlockStateProperties.FACING;
 
 
     public static final HashMap<String, DeferredBlock<Block>> ORE_MAP = createOres();
@@ -214,7 +220,11 @@ public class BlockRegistration {
         map.put("fission_casing", registerBlockItem("fission_casing", FissionPartType.Casing::createBlock));
         map.put("fission_glass", registerBlockItem("fission_glass", FissionPartType.Glass::createBlock));
 
-        map.put("fission_vent", registerBlockItem("vent", FissionPartType.Vent::createBlock));
+        map.put("fission_vent", registerBlockItem("fission_vent", FissionPartType.Vent::createBlock));
+        map.put("boron_silver_shield", registerBlockItem("boron_silver_shield", () -> FissionPartType.Shield.createBlock(FissionNeutronShieldType.BORON_SILVER)));
+        map.put("radium_beryllium_source", registerBlockItem("radium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.RADIUM_BERYLLIUM)));
+        map.put("polonium_beryllium_source", registerBlockItem("polonium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.POLONIUM_BERYLLIUM)));
+        map.put("californium_source", registerBlockItem("californium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.CALIFORNIUM)));
         map.put("water_sink", registerBlockItem("water_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.WATER)));
         map.put("standard_heater", registerBlockItem("standard_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.STANDARD)));
 

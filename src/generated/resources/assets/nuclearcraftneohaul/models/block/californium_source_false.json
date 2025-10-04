@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/fission/source/source_back_off",
+    "bottom": "nuclearcraftneohaul:block/fission/source/source_side",
+    "front": "nuclearcraftneohaul:block/fission/source/californium",
+    "side": "nuclearcraftneohaul:block/fission/source/source_side",
+    "top": "nuclearcraftneohaul:block/fission/source/source_side"
+  }
+}

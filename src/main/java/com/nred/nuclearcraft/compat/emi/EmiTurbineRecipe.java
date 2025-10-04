@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.compat.emi;
 
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import com.nred.nuclearcraft.util.NCMath;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
@@ -17,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.common.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
 import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.EMI_TURBINE_CATEGORY;
 
@@ -65,10 +65,10 @@ public class EmiTurbineRecipe extends BasicEmiRecipe {
         widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 4, 600, true, false, false).tooltipText((x, y) -> {
             ArrayList<Component> list = new ArrayList<>(2);
             list.addAll(List.of(
-                    Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_energy_density", Component.literal(NCMath.decimalPlaces(power_per_mb, 2) + " RF/mB").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_expansion", Component.literal(NCMath.pcDecimalPlaces(expansion_level, 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY)));
+                    Component.translatable(MODID + ".recipe_viewer.turbine_energy_density", Component.literal(NCMath.decimalPlaces(power_per_mb, 2) + " RF/mB").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Component.translatable(MODID + ".recipe_viewer.turbine_expansion", Component.literal(NCMath.pcDecimalPlaces(expansion_level, 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY)));
             if (spin_up_multiplier != 1.0)
-                list.add(Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_spin_up_multiplier", Component.literal(NCMath.pcDecimalPlaces(spin_up_multiplier, 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
+                list.add(Component.translatable(MODID + ".recipe_viewer.turbine_spin_up_multiplier", Component.literal(NCMath.pcDecimalPlaces(spin_up_multiplier, 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
             return list;
         });
     }

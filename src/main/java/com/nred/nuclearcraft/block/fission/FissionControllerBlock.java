@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
 
 public class FissionControllerBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> {
     public FissionControllerBlock(MultiblockPartProperties<PartType> properties) {
@@ -17,6 +18,6 @@ public class FissionControllerBlock<Controller extends IMultiblockController<Con
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVE, FACING);
+        builder.add(ACTIVE, FACING_HORIZONTAL);
     }
 }

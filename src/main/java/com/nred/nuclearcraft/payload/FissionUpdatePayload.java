@@ -31,18 +31,21 @@ public record FissionUpdatePayload(BlockPos pos, boolean isReactorOn, HeatBuffer
 
     public static void handleOnClient(FissionReactor reactor, final FissionUpdatePayload payload, final IPayloadContext context) {
         if (reactor != null) {
-//            reactor.isReactorOn = payload.isTurbineOn; TODO
-//            reactor.heatBuffer = payload.heatBuffer;
-//            reactor.clusterCount = payload.clusterCount;
-//            reactor.cooling = payload.cooling;
-//            reactor.rawHeating = payload.rawHeating;
-//            reactor.totalHeatMult = payload.totalHeatMult;
-//            reactor.meanHeatMult = payload.meanHeatMult;
-//            reactor.fuelComponentCount = payload.fuelComponentCount;
-//            reactor.usefulPartCount = payload.usefulPartCount;
-//            reactor.totalEfficiency = payload.totalEfficiency;
-//            reactor.meanEfficiency = payload.meanEfficiency;
-//            reactor.sparsityEfficiencyMult = payload.sparsityEfficiencyMult;
+            reactor.isReactorOn = payload.isReactorOn;
+            reactor.clusterCount = payload.clusterCount;
+            reactor.cooling = payload.cooling;
+            reactor.rawHeating = payload.rawHeating;
+            reactor.totalHeatMult = payload.totalHeatMult;
+            reactor.meanHeatMult = payload.meanHeatMult;
+            reactor.fuelComponentCount = payload.fuelComponentCount;
+            reactor.usefulPartCount = payload.usefulPartCount;
+            reactor.totalEfficiency = payload.totalEfficiency;
+            reactor.meanEfficiency = payload.meanEfficiency;
+            reactor.sparsityEfficiencyMult = payload.sparsityEfficiencyMult;
+
+            // TODO was logic
+            reactor.logic.heatBuffer.setHeatStored(payload.heatBuffer.getHeatStored());
+            reactor.logic.heatBuffer.setHeatCapacity(payload.heatBuffer.getHeatCapacity());
         }
     }
 }

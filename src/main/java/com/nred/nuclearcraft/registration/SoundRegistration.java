@@ -38,11 +38,17 @@ public class SoundRegistration {
     public static final Supplier<SoundEvent> infiltrator_run = SOUND_EVENTS.register("block.infiltrator_run", SoundEvent::createVariableRangeEvent);
     public static final Supplier<SoundEvent> turbine_run = SOUND_EVENTS.register("block.turbine_run", SoundEvent::createVariableRangeEvent);
 
+    public static final Supplier<SoundEvent> geiger_tick = SOUND_EVENTS.register("player.geiger_tick", SoundEvent::createVariableRangeEvent);
+    public static final Supplier<SoundEvent> radaway = SOUND_EVENTS.register("player.radaway", SoundEvent::createVariableRangeEvent);
+    public static final Supplier<SoundEvent> rad_x = SOUND_EVENTS.register("player.rad_x", SoundEvent::createVariableRangeEvent);
+    public static final Supplier<SoundEvent> chems_wear_off = SOUND_EVENTS.register("player.chems_wear_off", SoundEvent::createVariableRangeEvent);
+    public static final Supplier<SoundEvent> rad_poisoning = SOUND_EVENTS.register("player.rad_poisoning", SoundEvent::createVariableRangeEvent);
+
     public static ResourceKey<JukeboxSong> createSong(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(MODID, name));
     }
 
     public static void init() {
-        TRACKABLE_SOUNDS.addAll(Stream.of(distiller_run, electrolyzer_run, fusion_run, infiltrator_run, turbine_run).map( e -> ((DeferredHolder<?, ?>)e).getId().toString()).toList());
+        TRACKABLE_SOUNDS.addAll(Stream.of(distiller_run, electrolyzer_run, fusion_run, infiltrator_run, turbine_run).map(e -> ((DeferredHolder<?, ?>) e).getId().toString()).toList());
     }
 }

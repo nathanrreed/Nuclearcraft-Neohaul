@@ -5,8 +5,7 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.Set;
 
-public interface IMultiblockGuiPart<MULTIBLOCK extends MachineMultiblock<MULTIBLOCK>> extends IMultiblockPart<MULTIBLOCK> {
-
+public interface IMultiblockGuiPart<MULTIBLOCK extends Multiblock<MULTIBLOCK>> extends IMultiblockPart<MULTIBLOCK> {
     default void sendTileUpdatePacketToPlayer(Player player) {
         if (!getCurrentWorld().isClientSide && getMultiblockController().isPresent()) {
             getMultiblockController().get().sendMultiblockUpdatePacketToPlayer(player);

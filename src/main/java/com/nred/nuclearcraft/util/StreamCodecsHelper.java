@@ -71,28 +71,28 @@ public class StreamCodecsHelper {
             final Function8<T1, T2, T3, T4, T5, T6, T7, T8, C> p_331335_) {
         return new StreamCodec<>() {
             @Override
-            public C decode(B p_330310_) {
-                T1 t1 = codec1.decode(p_330310_);
-                T2 t2 = codec2.decode(p_330310_);
-                T3 t3 = codec3.decode(p_330310_);
-                T4 t4 = codec4.decode(p_330310_);
-                T5 t5 = codec5.decode(p_330310_);
-                T6 t6 = codec6.decode(p_330310_);
-                T7 t7 = codec7.decode(p_330310_);
-                T8 t8 = codec8.decode(p_330310_);
+            public C decode(B buffer) {
+                T1 t1 = codec1.decode(buffer);
+                T2 t2 = codec2.decode(buffer);
+                T3 t3 = codec3.decode(buffer);
+                T4 t4 = codec4.decode(buffer);
+                T5 t5 = codec5.decode(buffer);
+                T6 t6 = codec6.decode(buffer);
+                T7 t7 = codec7.decode(buffer);
+                T8 t8 = codec8.decode(buffer);
                 return p_331335_.apply(t1, t2, t3, t4, t5, t6, t7, t8);
             }
 
             @Override
-            public void encode(B p_332052_, C p_331912_) {
-                codec1.encode(p_332052_, getter1.apply(p_331912_));
-                codec2.encode(p_332052_, getter2.apply(p_331912_));
-                codec3.encode(p_332052_, getter3.apply(p_331912_));
-                codec4.encode(p_332052_, getter4.apply(p_331912_));
-                codec5.encode(p_332052_, getter5.apply(p_331912_));
-                codec6.encode(p_332052_, getter6.apply(p_331912_));
-                codec7.encode(p_332052_, getter7.apply(p_331912_));
-                codec8.encode(p_332052_, getter8.apply(p_331912_));
+            public void encode(B buffer, C value) {
+                codec1.encode(buffer, getter1.apply(value));
+                codec2.encode(buffer, getter2.apply(value));
+                codec3.encode(buffer, getter3.apply(value));
+                codec4.encode(buffer, getter4.apply(value));
+                codec5.encode(buffer, getter5.apply(value));
+                codec6.encode(buffer, getter6.apply(value));
+                codec7.encode(buffer, getter7.apply(value));
+                codec8.encode(buffer, getter8.apply(value));
             }
         };
     }
@@ -133,44 +133,44 @@ public class StreamCodecsHelper {
             final Function16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, C> p_331335_) {
         return new StreamCodec<>() {
             @Override
-            public C decode(B p_330310_) {
-                T1 t1 = codec1.decode(p_330310_);
-                T2 t2 = codec2.decode(p_330310_);
-                T3 t3 = codec3.decode(p_330310_);
-                T4 t4 = codec4.decode(p_330310_);
-                T5 t5 = codec5.decode(p_330310_);
-                T6 t6 = codec6.decode(p_330310_);
-                T7 t7 = codec7.decode(p_330310_);
-                T8 t8 = codec8.decode(p_330310_);
-                T9 t9 = codec9.decode(p_330310_);
-                T10 t10 = codec10.decode(p_330310_);
-                T11 t11 = codec11.decode(p_330310_);
-                T12 t12 = codec12.decode(p_330310_);
-                T13 t13 = codec13.decode(p_330310_);
-                T14 t14 = codec14.decode(p_330310_);
-                T15 t15 = codec15.decode(p_330310_);
-                T16 t16 = codec16.decode(p_330310_);
+            public C decode(B buffer) {
+                T1 t1 = codec1.decode(buffer);
+                T2 t2 = codec2.decode(buffer);
+                T3 t3 = codec3.decode(buffer);
+                T4 t4 = codec4.decode(buffer);
+                T5 t5 = codec5.decode(buffer);
+                T6 t6 = codec6.decode(buffer);
+                T7 t7 = codec7.decode(buffer);
+                T8 t8 = codec8.decode(buffer);
+                T9 t9 = codec9.decode(buffer);
+                T10 t10 = codec10.decode(buffer);
+                T11 t11 = codec11.decode(buffer);
+                T12 t12 = codec12.decode(buffer);
+                T13 t13 = codec13.decode(buffer);
+                T14 t14 = codec14.decode(buffer);
+                T15 t15 = codec15.decode(buffer);
+                T16 t16 = codec16.decode(buffer);
                 return p_331335_.apply(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16);
             }
 
             @Override
-            public void encode(B p_332052_, C p_331912_) {
-                codec1.encode(p_332052_, getter1.apply(p_331912_));
-                codec2.encode(p_332052_, getter2.apply(p_331912_));
-                codec3.encode(p_332052_, getter3.apply(p_331912_));
-                codec4.encode(p_332052_, getter4.apply(p_331912_));
-                codec5.encode(p_332052_, getter5.apply(p_331912_));
-                codec6.encode(p_332052_, getter6.apply(p_331912_));
-                codec7.encode(p_332052_, getter7.apply(p_331912_));
-                codec8.encode(p_332052_, getter8.apply(p_331912_));
-                codec9.encode(p_332052_, getter9.apply(p_331912_));
-                codec10.encode(p_332052_, getter10.apply(p_331912_));
-                codec11.encode(p_332052_, getter11.apply(p_331912_));
-                codec12.encode(p_332052_, getter12.apply(p_331912_));
-                codec13.encode(p_332052_, getter13.apply(p_331912_));
-                codec14.encode(p_332052_, getter14.apply(p_331912_));
-                codec15.encode(p_332052_, getter15.apply(p_331912_));
-                codec16.encode(p_332052_, getter16.apply(p_331912_));
+            public void encode(B buffer, C value) {
+                codec1.encode(buffer, getter1.apply(value));
+                codec2.encode(buffer, getter2.apply(value));
+                codec3.encode(buffer, getter3.apply(value));
+                codec4.encode(buffer, getter4.apply(value));
+                codec5.encode(buffer, getter5.apply(value));
+                codec6.encode(buffer, getter6.apply(value));
+                codec7.encode(buffer, getter7.apply(value));
+                codec8.encode(buffer, getter8.apply(value));
+                codec9.encode(buffer, getter9.apply(value));
+                codec10.encode(buffer, getter10.apply(value));
+                codec11.encode(buffer, getter11.apply(value));
+                codec12.encode(buffer, getter12.apply(value));
+                codec13.encode(buffer, getter13.apply(value));
+                codec14.encode(buffer, getter14.apply(value));
+                codec15.encode(buffer, getter15.apply(value));
+                codec16.encode(buffer, getter16.apply(value));
             }
         };
     }
@@ -205,37 +205,38 @@ public class StreamCodecsHelper {
             final Function13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, C> p_331335_) {
         return new StreamCodec<>() {
             @Override
-            public C decode(B p_330310_) {
-                T1 t1 = codec1.decode(p_330310_);
-                T2 t2 = codec2.decode(p_330310_);
-                T3 t3 = codec3.decode(p_330310_);
-                T4 t4 = codec4.decode(p_330310_);
-                T5 t5 = codec5.decode(p_330310_);
-                T6 t6 = codec6.decode(p_330310_);
-                T7 t7 = codec7.decode(p_330310_);
-                T8 t8 = codec8.decode(p_330310_);
-                T9 t9 = codec9.decode(p_330310_);
-                T10 t10 = codec10.decode(p_330310_);
-                T11 t11 = codec11.decode(p_330310_);
-                T12 t12 = codec12.decode(p_330310_);
-                T13 t13 = codec13.decode(p_330310_);
+            public C decode(B buffer) {
+                T1 t1 = codec1.decode(buffer);
+                T2 t2 = codec2.decode(buffer);
+                T3 t3 = codec3.decode(buffer);
+                T4 t4 = codec4.decode(buffer);
+                T5 t5 = codec5.decode(buffer);
+                T6 t6 = codec6.decode(buffer);
+                T7 t7 = codec7.decode(buffer);
+                T8 t8 = codec8.decode(buffer);
+                T9 t9 = codec9.decode(buffer);
+                T10 t10 = codec10.decode(buffer);
+                T11 t11 = codec11.decode(buffer);
+                T12 t12 = codec12.decode(buffer);
+                T13 t13 = codec13.decode(buffer);
                 return p_331335_.apply(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13);
             }
 
             @Override
-            public void encode(B p_332052_, C p_331912_) {
-                codec1.encode(p_332052_, getter1.apply(p_331912_));
-                codec2.encode(p_332052_, getter2.apply(p_331912_));
-                codec3.encode(p_332052_, getter3.apply(p_331912_));
-                codec4.encode(p_332052_, getter4.apply(p_331912_));
-                codec5.encode(p_332052_, getter5.apply(p_331912_));
-                codec6.encode(p_332052_, getter6.apply(p_331912_));
-                codec7.encode(p_332052_, getter7.apply(p_331912_));
-                codec8.encode(p_332052_, getter8.apply(p_331912_));
-                codec9.encode(p_332052_, getter9.apply(p_331912_));
-                codec10.encode(p_332052_, getter10.apply(p_331912_));
-                codec11.encode(p_332052_, getter11.apply(p_331912_));
-                codec12.encode(p_332052_, getter12.apply(p_331912_));
+            public void encode(B buffer, C value) {
+                codec1.encode(buffer, getter1.apply(value));
+                codec2.encode(buffer, getter2.apply(value));
+                codec3.encode(buffer, getter3.apply(value));
+                codec4.encode(buffer, getter4.apply(value));
+                codec5.encode(buffer, getter5.apply(value));
+                codec6.encode(buffer, getter6.apply(value));
+                codec7.encode(buffer, getter7.apply(value));
+                codec8.encode(buffer, getter8.apply(value));
+                codec9.encode(buffer, getter9.apply(value));
+                codec10.encode(buffer, getter10.apply(value));
+                codec11.encode(buffer, getter11.apply(value));
+                codec12.encode(buffer, getter12.apply(value));
+                codec13.encode(buffer, getter13.apply(value));
             }
         };
     }

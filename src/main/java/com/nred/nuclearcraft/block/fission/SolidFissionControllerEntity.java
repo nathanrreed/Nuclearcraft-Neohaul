@@ -6,19 +6,20 @@ import com.nred.nuclearcraft.multiblock.IMultiblockGuiPart;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 
 public class SolidFissionControllerEntity extends AbstractFissionEntity implements MenuProvider, IFissionController<SolidFissionControllerEntity>, IMultiblockGuiPart<FissionReactor> {
     public SolidFissionControllerEntity(BlockPos pos, BlockState blockState) {
@@ -45,9 +46,19 @@ public class SolidFissionControllerEntity extends AbstractFissionEntity implemen
 
     }
 
+    public void setActiveState(boolean value) { // TODO
+        BlockState state = getLevel().getBlockState(getBlockPos());
+        if (!state.isAir())
+            getLevel().setBlock(getBlockPos(), state.setValue(ACTIVE, value), Block.UPDATE_ALL);
+    }
+
     @Override
-    public CustomPacketPayload getMultiblockUpdatePacket() {
-//        return new SaltFissionPayload(pos, isReactorOn, heatBuffer, clusterCount, cooling, rawHeating, totalHeatMult, meanHeatMult, fuelComponentCount, usefulPartCount, totalEfficiency, meanEfficiency, sparsityEfficiencyMult, meanHeatingSpeedMultiplier, totalHeatingSpeedMultiplier);
-        return null; // TODO
+    public BlockPos getPos() {
+        return getBlockPos();
+    }
+
+    @Override
+    public String getLogicID() {
+        return "solid_fuel";
     }
 }

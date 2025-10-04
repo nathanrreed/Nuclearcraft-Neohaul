@@ -27,6 +27,7 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Foods
 - Solar panels
 - Processors
+- Turbines
 
 #### Continual:
 - Integrations with JEI, EMI, CC: T
@@ -35,7 +36,7 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 #### In progress:
 - Multitool
 - Machine Interface
-- Turbines
+- Fission Reactors
 
 #### Future Additions:
 - Tools and Armour

@@ -1,10 +1,7 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
-import com.nred.nuclearcraft.block.fission.FissionCasingBlock;
-import com.nred.nuclearcraft.block.fission.FissionControllerBlock;
-import com.nred.nuclearcraft.block.fission.FissionVentBlock;
-import com.nred.nuclearcraft.block.fission.IFissionPartType;
+import com.nred.nuclearcraft.block.fission.*;
 import it.zerono.mods.zerocore.base.multiblock.part.GlassBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartTypeProperties;
@@ -24,6 +21,8 @@ public enum FissionPartType implements IFissionPartType {
     Glass(() -> FISSION_ENTITY_TYPE.get("glass")::get, GlassBlock::new, "", GlassBlock::addGlassProperties),
 
     Vent(() -> FISSION_ENTITY_TYPE.get("vent")::get, FissionVentBlock::new, ""),
+    Shield(() -> FISSION_ENTITY_TYPE.get("shield")::get, FissionShieldBlock::new, ""),
+    Source(() -> FISSION_ENTITY_TYPE.get("source")::get, FissionSourceBlock::new, ""),
     HeatSink(() -> FISSION_ENTITY_TYPE.get("heat_sink")::get, GenericTooltipDeviceBlock::new, "custom"),
     Heater(() -> FISSION_ENTITY_TYPE.get("coolant_heater")::get, GenericTooltipDeviceBlock::new, "custom");
 

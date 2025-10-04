@@ -129,6 +129,11 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItemCutout("glass", FISSION_REACTOR_MAP.get("fission_glass"), "fission");
         blockWithSidedStateItem("vent", "_output", "_input", FISSION_REACTOR_MAP.get("fission_vent"), "fission", INPUT_STATE);
 
+        booleanBlockOverlay("boron_silver", "on", "off", FISSION_REACTOR_MAP.get("boron_silver_shield"), "fission/shield", ACTIVE);
+        horizontalBooleanBlock("radium_beryllium", "source", "_on", "_off", FISSION_REACTOR_MAP.get("radium_beryllium_source"), "fission/source", ACTIVE);
+        horizontalBooleanBlock("polonium_beryllium", "source", "_on", "_off", FISSION_REACTOR_MAP.get("polonium_beryllium_source"), "fission/source", ACTIVE);
+        horizontalBooleanBlock("californium", "source", "_on", "_off", FISSION_REACTOR_MAP.get("californium_source"), "fission/source", ACTIVE);
+
         blockWithItem("water", FISSION_REACTOR_MAP.get("water_sink"), "fission/solid/sink");
         blockWithItem("standard", FISSION_REACTOR_MAP.get("standard_heater"), "fission/salt/heater");
 
@@ -238,8 +243,28 @@ class ModBlockStateProvider extends BlockStateProvider {
     private void booleanBlock(String nameTrue, String nameFalse, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
         Block block = deferredBlock.get();
         String texture = BLOCK_FOLDER + "/" + folder + "/";
-        ModelFile modelTrue = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture + nameTrue));
-        ModelFile modelFalse = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture + nameFalse));
+        ModelFile modelTrue = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc(texture + nameTrue));
+        ModelFile modelFalse = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc(texture + nameFalse));
+
+        propertyBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
+        simpleBlockItem(block, modelFalse);
+    }
+
+    private void horizontalBooleanBlock(String front, String name, String nameTrue, String nameFalse, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/";
+        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc("block/machine")).texture("top", modLoc(base + name + "_side")).texture("bottom", modLoc(base + name + "_side")).texture("side", modLoc(base + name + "_side")).texture("back", modLoc(base + name + "_back" + nameTrue)).texture("front", modLoc(base + front));
+        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc("block/machine")).texture("top", modLoc(base + name + "_side")).texture("bottom", modLoc(base + name + "_side")).texture("side", modLoc(base + name + "_side")).texture("back", modLoc(base + name + "_back" + nameFalse)).texture("front", modLoc(base + front));
+
+        horizontalBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
+        simpleBlockItem(block, modelFalse);
+    }
+
+    private void booleanBlockOverlay(String name, String nameTrue, String nameFalse, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
+        Block block = deferredBlock.get();
+        String texture = BLOCK_FOLDER + "/" + folder + "/";
+        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc("block/cube_all_overlayed")).texture("all", modLoc(texture + name)).texture("overlay", modLoc(texture + nameTrue));
+        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc("block/cube_all_overlayed")).texture("all", modLoc(texture + name)).texture("overlay", modLoc(texture + nameFalse));
 
         propertyBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
         simpleBlockItem(block, modelFalse);

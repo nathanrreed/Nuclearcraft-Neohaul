@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.multiblock.battery;
 
 import com.nred.nuclearcraft.block.batteries.BatteryEntity;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
-import com.nred.nuclearcraft.multiblock.MachineMultiblock;
+import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.Set;
 
-public class BatteryMultiblock extends MachineMultiblock<BatteryMultiblock> {
+public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
     protected final @Nonnull CustomEnergyHandler storage = new CustomEnergyHandler(1, true, true);
     protected int comparatorStrength = 0;
 

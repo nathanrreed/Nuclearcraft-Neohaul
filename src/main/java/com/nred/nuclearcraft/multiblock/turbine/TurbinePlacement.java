@@ -268,7 +268,7 @@ public abstract class TurbinePlacement {
 
     public static boolean isCasing(Optional<Turbine> turbine, BlockPos pos) {
         if (turbine.isEmpty()) return false;
-        BlockEntity tile = turbine.get().getLevel().getBlockEntity(pos);
+        BlockEntity tile = turbine.get().getWorld().getBlockEntity(pos);
         return tile instanceof AbstractTurbineEntity part && !(part.getPartPosition() == PartPosition.Interior);
     }
 

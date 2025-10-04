@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.payload;
 
+import com.nred.nuclearcraft.block.fission.AbstractFissionEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
 import net.minecraft.core.BlockPos;
@@ -13,6 +14,10 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public record ClearPayload(int tank, BlockPos pos) implements CustomPacketPayload {
+    public ClearPayload(BlockPos pos) {
+        this(0, pos);
+    }
+
     public static final Type<ClearPayload> TYPE = new Type<>(ncLoc("clear_client_to_server"));
     public static final StreamCodec<FriendlyByteBuf, ClearPayload> STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.INT, ClearPayload::tank, BlockPos.STREAM_CODEC, ClearPayload::pos, ClearPayload::new);
 
@@ -28,6 +33,8 @@ public record ClearPayload(int tank, BlockPos pos) implements CustomPacketPayloa
             processor.handleFluidClear(payload.tank);
         } else if (be instanceof TurbineControllerEntity turbine) {
             turbine.getMultiblockController().get().clearAllMaterial();
+        } else if (be instanceof AbstractFissionEntity reactor) {
+            reactor.getMultiblockController().get().clearAllMaterial();
         }
     }
 }

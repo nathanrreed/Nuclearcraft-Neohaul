@@ -15,9 +15,25 @@
 		"subtitle": "nuclearcraftneohaul:music_disc.hyperspace",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/hyperspace", "stream": true } ]
 	},
+	"player.chems_wear_off": {
+		"subtitle": "nuclearcraftneohaul:sound.player.chems_wear_off",
+		"sounds": [ { "name": "nuclearcraftneohaul:player/chems_wear_off", "stream": false } ]
+	},
+	"player.geiger_tick": {
+		"subtitle": "nuclearcraftneohaul:sound.player.geiger_tick",
+		"sounds": [ { "name": "nuclearcraftneohaul:player/geiger_tick", "stream": false } ]
+	},
 	"player.rad_poisoning": {
 		"subtitle": "nuclearcraftneohaul:sound.player.rad_poisoning",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/rad_poisoning", "stream": false } ]
+	},
+	"player.rad_x": {
+		"subtitle": "nuclearcraftneohaul:sound.player.rad_x",
+		"sounds": [ { "name": "nuclearcraftneohaul:player/rad_x", "stream": false } ]
+	},
+	"player.radaway": {
+		"subtitle": "nuclearcraftneohaul:sound.player.radaway",
+		"sounds": [ { "name": "nuclearcraftneohaul:player/radaway", "stream": false } ]
 	},
 	"block.distiller_run": {
 		"subtitle": "nuclearcraftneohaul:sound.block.distiller_run",

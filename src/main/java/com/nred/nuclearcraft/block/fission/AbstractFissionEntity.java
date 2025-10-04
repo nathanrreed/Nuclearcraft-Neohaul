@@ -11,8 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class AbstractFissionEntity extends AbstractCuboidMultiblockPart<FissionReactor> implements IMultiblockPartTypeProvider<FissionReactor, IFissionPartType> {
-
+public class AbstractFissionEntity extends AbstractCuboidMultiblockPart<FissionReactor> implements IMultiblockPartTypeProvider<FissionReactor, IFissionPartType>, IFissionPart {
     public AbstractFissionEntity(final BlockEntityType<?> type, final BlockPos position, final BlockState blockState) {
         super(type, position, blockState);
     }

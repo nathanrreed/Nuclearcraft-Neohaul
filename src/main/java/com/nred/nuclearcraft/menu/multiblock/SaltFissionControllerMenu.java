@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.menu.multiblock;
 import com.nred.nuclearcraft.block.fission.SaltFissionControllerEntity;
 import com.nred.nuclearcraft.menu.AbstractControllerMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import com.nred.nuclearcraft.multiblock.fisson.molten_salt.SaltFissionLogic;
 import it.zerono.mods.zerocore.lib.block.AbstractModBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,6 +14,8 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACT
 import static com.nred.nuclearcraft.registration.MenuRegistration.SALT_FISSION_CONTROLLER_MENU_TYPE;
 
 public class SaltFissionControllerMenu extends AbstractControllerMenu<SaltFissionControllerEntity, FissionReactor> {
+    public final SaltFissionLogic logic = (SaltFissionLogic) this.controller.getLogic();
+
     public SaltFissionControllerMenu(int containerId, Inventory inventory, ContainerLevelAccess access, final SaltFissionControllerEntity controller) {
         super(SALT_FISSION_CONTROLLER_MENU_TYPE.get(), controller, containerId, inventory, access);
     }
@@ -24,6 +27,6 @@ public class SaltFissionControllerMenu extends AbstractControllerMenu<SaltFissio
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, FISSION_REACTOR_MAP.get("salt_fuel_fission_controller").get());
+        return stillValid(this.access, player, FISSION_REACTOR_MAP.get("molten_salt_fission_controller").get());
     }
 }

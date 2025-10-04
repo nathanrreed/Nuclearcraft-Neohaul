@@ -20,6 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
 import static com.nred.nuclearcraft.registration.ItemRegistration.MULTITOOL;
 
 public class FissionVentBlock extends GenericHorizontalTooltipDeviceBlock<FissionReactor, IFissionPartType> {
@@ -32,7 +33,7 @@ public class FissionVentBlock extends GenericHorizontalTooltipDeviceBlock<Fissio
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(INPUT_STATE, FACING);
+        builder.add(INPUT_STATE, FACING_HORIZONTAL);
     }
 
     @Override

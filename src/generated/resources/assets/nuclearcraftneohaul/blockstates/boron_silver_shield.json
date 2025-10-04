@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/boron_silver_shield_false"
+    },
+    "nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/boron_silver_shield_true"
+    }
+  }
+}

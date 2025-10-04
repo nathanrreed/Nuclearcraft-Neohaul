@@ -400,7 +400,7 @@ public abstract class FissionPlacement {
 
     public static boolean isCasing(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
         if (reactor.isEmpty()) return false;
-        BlockEntity tile = reactor.get().getLevel().getBlockEntity(pos);
+        BlockEntity tile = reactor.get().getWorld().getBlockEntity(pos);
         return tile instanceof AbstractFissionEntity part && !(part.getPartPosition() == PartPosition.Interior);
     }
 

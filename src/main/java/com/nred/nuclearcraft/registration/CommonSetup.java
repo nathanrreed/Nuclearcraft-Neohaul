@@ -35,7 +35,7 @@ public class CommonSetup {
         registrar.playToClient(RecipeSetPayload.TYPE, RecipeSetPayload.STREAM_CODEC, RecipeSetPayload::handleOnClient);
         registrar.playToClient(TurbineRenderPayload.TYPE, TurbineRenderPayload.STREAM_CODEC, TurbineRenderPayload::handleOnClient);
         registrar.playToClient(TurbineUpdatePayload.TYPE, TurbineUpdatePayload.STREAM_CODEC, TurbineUpdatePayload::handleOnClient);
-        registrar.playToClient(SolidFissionPayload.TYPE, SolidFissionPayload.STREAM_CODEC, SolidFissionPayload::handleOnClient);
         registrar.playToClient(SaltFissionPayload.TYPE, SaltFissionPayload.STREAM_CODEC, SaltFissionPayload::handleOnClient);
+        registrar.playToClient(SolidFissionPayload.TYPE, SolidFissionPayload.STREAM_CODEC, SolidFissionPayload::handleOnClient);
     }
 }

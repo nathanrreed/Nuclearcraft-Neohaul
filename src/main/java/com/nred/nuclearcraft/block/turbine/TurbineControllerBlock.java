@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
 
 public class TurbineControllerBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> {
     public TurbineControllerBlock(MultiblockPartProperties<PartType> properties) {
@@ -22,7 +23,7 @@ public class TurbineControllerBlock<Controller extends IMultiblockController<Con
 
     @Override
     public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
-        return direction == state.getValue(FACING).getOpposite();
+        return direction == state.getValue(FACING_HORIZONTAL).getOpposite();
     }
 
     @Override
@@ -34,6 +35,6 @@ public class TurbineControllerBlock<Controller extends IMultiblockController<Con
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVE, FACING);
+        builder.add(ACTIVE, FACING_HORIZONTAL);
     }
 }

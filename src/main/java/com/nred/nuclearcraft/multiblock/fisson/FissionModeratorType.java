@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block.fission.FissionHeatSinkEntity;
+import com.nred.nuclearcraft.block.fission.SolidFissionHeatSinkEntity;
 import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
@@ -13,47 +13,47 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.config.Config2.fission_sink_cooling_rate;
 
-public enum FissionModeratorType implements StringRepresentable, ITileEnum<FissionHeatSinkEntity.Variant>, IMultiblockVariant {
-    WATER("", () -> fission_sink_cooling_rate[0], FissionHeatSinkEntity.Water.class),
-    IRON("iron", () -> fission_sink_cooling_rate[1], FissionHeatSinkEntity.Iron.class),
-    REDSTONE("redstone", () -> fission_sink_cooling_rate[2], FissionHeatSinkEntity.Redstone.class),
-    QUARTZ("quartz", () -> fission_sink_cooling_rate[3], FissionHeatSinkEntity.Quartz.class),
-    OBSIDIAN("obsidian", () -> fission_sink_cooling_rate[4], FissionHeatSinkEntity.Obsidian.class),
-    NETHER_BRICK("nether_brick", () -> fission_sink_cooling_rate[5], FissionHeatSinkEntity.NetherBrick.class),
-    GLOWSTONE("glowstone", () -> fission_sink_cooling_rate[6], FissionHeatSinkEntity.Glowstone.class),
-    LAPIS("lapis", () -> fission_sink_cooling_rate[7], FissionHeatSinkEntity.Lapis.class),
-    GOLD("gold", () -> fission_sink_cooling_rate[8], FissionHeatSinkEntity.Gold.class),
-    PRISMARINE("prismarine", () -> fission_sink_cooling_rate[9], FissionHeatSinkEntity.Prismarine.class),
-    SLIME("slime", () -> fission_sink_cooling_rate[10], FissionHeatSinkEntity.Slime.class),
-    END_STONE("end_stone", () -> fission_sink_cooling_rate[11], FissionHeatSinkEntity.EndStone.class),
-    PURPUR("purpur", () -> fission_sink_cooling_rate[12], FissionHeatSinkEntity.Purpur.class),
-    DIAMOND("diamond", () -> fission_sink_cooling_rate[13], FissionHeatSinkEntity.Diamond.class),
-    EMERALD("emerald", () -> fission_sink_cooling_rate[14], FissionHeatSinkEntity.Emerald.class),
-    COPPER("copper", () -> fission_sink_cooling_rate[15], FissionHeatSinkEntity.Copper.class),
-    TIN("tin", () -> fission_sink_cooling_rate[16], FissionHeatSinkEntity.Tin.class),
-    LEAD("lead", () -> fission_sink_cooling_rate[17], FissionHeatSinkEntity.Lead.class),
-    BORON("boron", () -> fission_sink_cooling_rate[18], FissionHeatSinkEntity.Boron.class),
-    LITHIUM("lithium", () -> fission_sink_cooling_rate[19], FissionHeatSinkEntity.Lithium.class),
-    MAGNESIUM("magnesium", () -> fission_sink_cooling_rate[20], FissionHeatSinkEntity.Magnesium.class),
-    MANGANESE("manganese", () -> fission_sink_cooling_rate[21], FissionHeatSinkEntity.Manganese.class),
-    ALUMINUM("aluminum", () -> fission_sink_cooling_rate[22], FissionHeatSinkEntity.Aluminum.class),
-    SILVER("silver", () -> fission_sink_cooling_rate[23], FissionHeatSinkEntity.Silver.class),
-    FLUORITE("fluorite", () -> fission_sink_cooling_rate[24], FissionHeatSinkEntity.Fluorite.class),
-    VILLIAUMITE("villiaumite", () -> fission_sink_cooling_rate[25], FissionHeatSinkEntity.Villiaumite.class),
-    CAROBBIITE("carobbiite", () -> fission_sink_cooling_rate[26], FissionHeatSinkEntity.Carobbiite.class),
-    ARSENIC("arsenic", () -> fission_sink_cooling_rate[27], FissionHeatSinkEntity.Arsenic.class),
-    LIQUID_NITROGEN("liquid_nitrogen", () -> fission_sink_cooling_rate[28], FissionHeatSinkEntity.LiquidNitrogen.class),
-    LIQUID_HELIUM("liquid_helium", () -> fission_sink_cooling_rate[29], FissionHeatSinkEntity.LiquidHelium.class),
-    ENDERIUM("enderium", () -> fission_sink_cooling_rate[30], FissionHeatSinkEntity.Enderium.class),
-    CRYOTHEUM("cryotheum", () -> fission_sink_cooling_rate[31], FissionHeatSinkEntity.Cryotheum.class);
+public enum FissionModeratorType implements StringRepresentable, ITileEnum<SolidFissionHeatSinkEntity.Variant>, IMultiblockVariant {
+    WATER("", () -> fission_sink_cooling_rate[0], SolidFissionHeatSinkEntity.Water.class),
+    IRON("iron", () -> fission_sink_cooling_rate[1], SolidFissionHeatSinkEntity.Iron.class),
+    REDSTONE("redstone", () -> fission_sink_cooling_rate[2], SolidFissionHeatSinkEntity.Redstone.class),
+    QUARTZ("quartz", () -> fission_sink_cooling_rate[3], SolidFissionHeatSinkEntity.Quartz.class),
+    OBSIDIAN("obsidian", () -> fission_sink_cooling_rate[4], SolidFissionHeatSinkEntity.Obsidian.class),
+    NETHER_BRICK("nether_brick", () -> fission_sink_cooling_rate[5], SolidFissionHeatSinkEntity.NetherBrick.class),
+    GLOWSTONE("glowstone", () -> fission_sink_cooling_rate[6], SolidFissionHeatSinkEntity.Glowstone.class),
+    LAPIS("lapis", () -> fission_sink_cooling_rate[7], SolidFissionHeatSinkEntity.Lapis.class),
+    GOLD("gold", () -> fission_sink_cooling_rate[8], SolidFissionHeatSinkEntity.Gold.class),
+    PRISMARINE("prismarine", () -> fission_sink_cooling_rate[9], SolidFissionHeatSinkEntity.Prismarine.class),
+    SLIME("slime", () -> fission_sink_cooling_rate[10], SolidFissionHeatSinkEntity.Slime.class),
+    END_STONE("end_stone", () -> fission_sink_cooling_rate[11], SolidFissionHeatSinkEntity.EndStone.class),
+    PURPUR("purpur", () -> fission_sink_cooling_rate[12], SolidFissionHeatSinkEntity.Purpur.class),
+    DIAMOND("diamond", () -> fission_sink_cooling_rate[13], SolidFissionHeatSinkEntity.Diamond.class),
+    EMERALD("emerald", () -> fission_sink_cooling_rate[14], SolidFissionHeatSinkEntity.Emerald.class),
+    COPPER("copper", () -> fission_sink_cooling_rate[15], SolidFissionHeatSinkEntity.Copper.class),
+    TIN("tin", () -> fission_sink_cooling_rate[16], SolidFissionHeatSinkEntity.Tin.class),
+    LEAD("lead", () -> fission_sink_cooling_rate[17], SolidFissionHeatSinkEntity.Lead.class),
+    BORON("boron", () -> fission_sink_cooling_rate[18], SolidFissionHeatSinkEntity.Boron.class),
+    LITHIUM("lithium", () -> fission_sink_cooling_rate[19], SolidFissionHeatSinkEntity.Lithium.class),
+    MAGNESIUM("magnesium", () -> fission_sink_cooling_rate[20], SolidFissionHeatSinkEntity.Magnesium.class),
+    MANGANESE("manganese", () -> fission_sink_cooling_rate[21], SolidFissionHeatSinkEntity.Manganese.class),
+    ALUMINUM("aluminum", () -> fission_sink_cooling_rate[22], SolidFissionHeatSinkEntity.Aluminum.class),
+    SILVER("silver", () -> fission_sink_cooling_rate[23], SolidFissionHeatSinkEntity.Silver.class),
+    FLUORITE("fluorite", () -> fission_sink_cooling_rate[24], SolidFissionHeatSinkEntity.Fluorite.class),
+    VILLIAUMITE("villiaumite", () -> fission_sink_cooling_rate[25], SolidFissionHeatSinkEntity.Villiaumite.class),
+    CAROBBIITE("carobbiite", () -> fission_sink_cooling_rate[26], SolidFissionHeatSinkEntity.Carobbiite.class),
+    ARSENIC("arsenic", () -> fission_sink_cooling_rate[27], SolidFissionHeatSinkEntity.Arsenic.class),
+    LIQUID_NITROGEN("liquid_nitrogen", () -> fission_sink_cooling_rate[28], SolidFissionHeatSinkEntity.LiquidNitrogen.class),
+    LIQUID_HELIUM("liquid_helium", () -> fission_sink_cooling_rate[29], SolidFissionHeatSinkEntity.LiquidHelium.class),
+    ENDERIUM("enderium", () -> fission_sink_cooling_rate[30], SolidFissionHeatSinkEntity.Enderium.class),
+    CRYOTHEUM("cryotheum", () -> fission_sink_cooling_rate[31], SolidFissionHeatSinkEntity.Cryotheum.class);
 
     private final String name;
     private final Supplier<Integer> coolingRate;
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
-    private final Class<? extends FissionHeatSinkEntity.Variant> tileClass;
+    private final Class<? extends SolidFissionHeatSinkEntity.Variant> tileClass;
 
-    FissionModeratorType(String name, Supplier<Integer> coolingRate, Class<? extends FissionHeatSinkEntity.Variant> tileClass) {
+    FissionModeratorType(String name, Supplier<Integer> coolingRate, Class<? extends SolidFissionHeatSinkEntity.Variant> tileClass) {
         this.name = name;
         this.coolingRate = coolingRate;
         this.tileClass = tileClass;
@@ -77,7 +77,7 @@ public enum FissionModeratorType implements StringRepresentable, ITileEnum<Fissi
     }
 
     @Override
-    public Class<? extends FissionHeatSinkEntity.Variant> getTileClass() {
+    public Class<? extends SolidFissionHeatSinkEntity.Variant> getTileClass() {
         return this.tileClass;
     }
 

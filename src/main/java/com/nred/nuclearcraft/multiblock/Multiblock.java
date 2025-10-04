@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.multiblock;
 
 import com.nred.nuclearcraft.util.NCMath;
+import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockController;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,14 +16,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public abstract class MachineMultiblock<MULTIBLOCK extends MachineMultiblock<MULTIBLOCK>> extends AbstractCuboidMultiblockController<MULTIBLOCK> implements IMultiblock, IPacketMultiblock {
-    protected MachineMultiblock(Level world) {
+public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> extends AbstractCuboidMultiblockController<MULTIBLOCK> implements IMultiblockController<MULTIBLOCK>, IPacketMultiblock<MULTIBLOCK> {
+    protected Multiblock(Level world) {
         super(world);
-    }
-
-    @Override
-    public Level getLevel() {
-        return getWorld();
     }
 
     public RandomSource rand = getWorld().random;
@@ -133,6 +129,46 @@ public abstract class MachineMultiblock<MULTIBLOCK extends MachineMultiblock<MUL
 
     public int getMaxInteriorZ() {
         return getMaximumCoord().get().getZ() - 1;
+    }
+
+    public int getMinX() {
+        return getMinimumCoord().get().getX();
+    }
+
+    public int getMinY() {
+        return getMinimumCoord().get().getY();
+    }
+
+    public int getMinZ() {
+        return getMinimumCoord().get().getZ();
+    }
+
+    public int getMaxX() {
+        return getMaximumCoord().get().getX();
+    }
+
+    public int getMaxY() {
+        return getMaximumCoord().get().getY();
+    }
+
+    public int getMaxZ() {
+        return getMaximumCoord().get().getZ();
+    }
+
+    public int getMiddleX() {
+        return NCMath.toInt(((long) getMinX() + (long) getMaxX()) / 2);
+    }
+
+    public int getMiddleY() {
+        return NCMath.toInt(((long) getMinY() + (long) getMaxY()) / 2);
+    }
+
+    public int getMiddleZ() {
+        return NCMath.toInt(((long) getMinZ() + (long) getMaxZ()) / 2);
+    }
+
+    public BlockPos getMiddleCoord() {
+        return new BlockPos(getMiddleX(), getMiddleY(), getMiddleZ());
     }
 
     public BlockPos getExtremeInteriorCoord(boolean maxX, boolean maxY, boolean maxZ) {
