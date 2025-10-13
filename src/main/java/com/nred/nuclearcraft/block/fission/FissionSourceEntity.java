@@ -203,6 +203,7 @@ public class FissionSourceEntity extends AbstractFissionEntity implements ITileL
 //    }
 
     // IMultitoolLogic
+
     @Override
     public boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level level, Direction facing, BlockPos hitPos) {
 //        if (IFissionManagerListener.super.onUseMultitool(multitool, player, level, facing, hitPos)) { TODO
