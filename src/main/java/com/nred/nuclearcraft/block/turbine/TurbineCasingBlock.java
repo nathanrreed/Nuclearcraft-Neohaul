@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.FRAME;
 
-public class TurbineCasingBlock extends GenericTooltipDeviceBlock<Turbine, ITurbinePartType> implements INeverCauseRenderingSkip {
+public class TurbineCasingBlock extends GenericTooltipDeviceBlock<Turbine, ITurbinePartType> {
     public TurbineCasingBlock(@NotNull MultiblockPartProperties<ITurbinePartType> iTurbinePartTypeMultiblockPartProperties) {
         super(iTurbinePartTypeMultiblockPartProperties);
         registerDefaultState(this.defaultBlockState().setValue(FRAME, false));

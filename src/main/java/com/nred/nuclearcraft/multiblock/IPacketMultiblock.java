@@ -1,19 +1,19 @@
 package com.nred.nuclearcraft.multiblock;
 
+import com.nred.nuclearcraft.payload.multiblock.MultiblockUpdatePacket;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Set;
 
-public interface IPacketMultiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> extends IMultiblockController<MULTIBLOCK> {
+public interface IPacketMultiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>, PACKET extends MultiblockUpdatePacket> extends IMultiblockController<MULTIBLOCK> {
     Set<Player> getMultiblockUpdatePacketListeners();
 
-    CustomPacketPayload getMultiblockUpdatePacket();
+    PACKET getMultiblockUpdatePacket();
 
-    CustomPacketPayload getMultiblockRenderPacket();
+    void onMultiblockUpdatePacket(PACKET message);
 
     default void sendMultiblockUpdatePacketToAll() {
         if (getWorld().isClientSide) {
@@ -38,13 +38,5 @@ public interface IPacketMultiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> ex
         }
 
         PacketDistributor.sendToPlayer((ServerPlayer) player, getMultiblockUpdatePacket());
-    }
-
-    default void sendRenderPacketToAll() {
-        if (getWorld().isClientSide) {
-            return;
-        }
-
-        PacketDistributor.sendToAllPlayers(getMultiblockRenderPacket());
     }
 }

@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=down,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_false",
+      "x": 270
+    },
+    "facing=down,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_true",
+      "x": 270
+    },
+    "facing=east,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_false",
+      "y": 90
+    },
+    "facing=east,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_true",
+      "y": 90
+    },
+    "facing=north,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_false"
+    },
+    "facing=north,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_true"
+    },
+    "facing=south,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_false",
+      "y": 180
+    },
+    "facing=south,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_true",
+      "y": 180
+    },
+    "facing=up,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_false",
+      "x": 90
+    },
+    "facing=up,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_true",
+      "x": 90
+    },
+    "facing=west,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_false",
+      "y": 270
+    },
+    "facing=west,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/liquid_nitrogen_heater_port_true",
+      "y": 270
+    }
+  }
+}

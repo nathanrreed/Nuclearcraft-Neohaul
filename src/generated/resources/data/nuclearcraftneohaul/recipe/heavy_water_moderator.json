@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:moderator_recipe",
+  "efficiency": 1.0,
+  "fluxFactor": 36,
+  "moderator": {
+    "item": "nuclearcraftneohaul:heavy_water_moderator"
+  }
+}

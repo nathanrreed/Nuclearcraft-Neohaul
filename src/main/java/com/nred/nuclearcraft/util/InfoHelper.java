@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.util;
 
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
@@ -8,28 +7,33 @@ import net.minecraft.util.StringRepresentable;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config2.ctrl_info;
 
 public class InfoHelper {
 
     public static final int MAXIMUM_TEXT_WIDTH = 225;
 
-    public static final Component SHIFT_STRING = Component.translatable(NuclearcraftNeohaul.MODID + ".gui.nc.inventory.shift_for_info");
-    public static final Component CTRL_STRING = Component.translatable(NuclearcraftNeohaul.MODID + ".gui.nc.inventory.ctrl_for_info");
+    public static final Component SHIFT_STRING = Component.translatable(MODID + ".tooltip.shift_for_info").withStyle(ChatFormatting.GRAY);
+    public static final Component CTRL_STRING = Component.translatable(MODID + ".tooltip.ctrl_for_info").withStyle(ChatFormatting.GRAY);
 
-    public static final String[] EMPTY_ARRAY = {}, NULL_ARRAY = {null};
-    public static final String[][] EMPTY_ARRAYS = {}, NULL_ARRAYS = {null};
+    public static final Component[] EMPTY_ARRAY = {}, NULL_ARRAY = {null};
+    public static final Component[][] EMPTY_ARRAYS = {}, NULL_ARRAYS = {null};
 
-    public static void infoLine(List<Component> list, ChatFormatting fixedColor, String line) {
-        list.add(Component.literal(line).withStyle(fixedColor));
+    public static void infoLine(List<Component> list, ChatFormatting fixedColor, Component line) {
+        if (fixedColor.equals(ChatFormatting.UNDERLINE)) {
+            list.add(line.copy().withStyle(fixedColor, ChatFormatting.GRAY));
+        } else {
+            list.add(line.copy().withStyle(fixedColor));
+        }
     }
 
     public static void shiftInfo(List<Component> list) {
         list.add((ctrl_info ? CTRL_STRING : SHIFT_STRING).copy().withStyle(ChatFormatting.ITALIC));
     }
 
-    public static void fixedInfoList(List<Component> list, boolean infoBelow, ChatFormatting fixedColor, String... fixedLines) {
-        for (String fixedLine : fixedLines) {
+    public static void fixedInfoList(List<Component> list, boolean infoBelow, ChatFormatting fixedColor, Component... fixedLines) {
+        for (Component fixedLine : fixedLines) {
             infoLine(list, fixedColor, fixedLine);
         }
         if (infoBelow) {
@@ -37,7 +41,7 @@ public class InfoHelper {
         }
     }
 
-    public static void fixedInfoList(List<Component> list, boolean infoBelow, ChatFormatting[] fixedColors, String... fixedLines) {
+    public static void fixedInfoList(List<Component> list, boolean infoBelow, ChatFormatting[] fixedColors, Component... fixedLines) {
         for (int i = 0; i < fixedLines.length; ++i) {
             infoLine(list, fixedColors[i], fixedLines[i]);
         }
@@ -46,19 +50,19 @@ public class InfoHelper {
         }
     }
 
-    public static void infoList(List<Component> list, ChatFormatting infoColor, String... lines) {
-        for (String line : lines) {
+    public static void infoList(List<Component> list, ChatFormatting infoColor, Component... lines) {
+        for (Component line : lines) {
             infoLine(list, infoColor, line);
         }
     }
 
-    public static void infoList(List<Component> list, ChatFormatting[] infoColors, String... lines) {
+    public static void infoList(List<Component> list, ChatFormatting[] infoColors, Component... lines) {
         for (int i = 0; i < lines.length; ++i) {
             infoLine(list, infoColors[i], lines[i]);
         }
     }
 
-    public static void infoFull(List<Component> list, ChatFormatting fixedColor, String[] fixedLines, ChatFormatting infoColor, String... lines) {
+    public static void infoFull(List<Component> list, ChatFormatting fixedColor, Component[] fixedLines, ChatFormatting infoColor, Component... lines) {
         if (showFixedInfo(fixedLines, lines)) {
             fixedInfoList(list, !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY), fixedColor, fixedLines);
         } else if (showInfo(fixedLines, lines)) {
@@ -68,7 +72,7 @@ public class InfoHelper {
         }
     }
 
-    public static void infoFull(List<Component> list, ChatFormatting fixedColor, String[] fixedLines, ChatFormatting[] infoColors, String... lines) {
+    public static void infoFull(List<Component> list, ChatFormatting fixedColor, Component[] fixedLines, ChatFormatting[] infoColors, Component... lines) {
         if (showFixedInfo(fixedLines, lines)) {
             fixedInfoList(list, !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY), fixedColor, fixedLines);
         } else if (showInfo(fixedLines, lines)) {
@@ -78,7 +82,7 @@ public class InfoHelper {
         }
     }
 
-    public static void infoFull(List<Component> list, ChatFormatting[] fixedColors, String[] fixedLines, ChatFormatting infoColor, String... lines) {
+    public static void infoFull(List<Component> list, ChatFormatting[] fixedColors, Component[] fixedLines, ChatFormatting infoColor, Component... lines) {
         if (showFixedInfo(fixedLines, lines)) {
             fixedInfoList(list, !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY), fixedColors, fixedLines);
         } else if (showInfo(fixedLines, lines)) {
@@ -88,7 +92,7 @@ public class InfoHelper {
         }
     }
 
-    public static void infoFull(List<Component> list, ChatFormatting[] fixedColors, String[] fixedLines, ChatFormatting[] infoColors, String... lines) {
+    public static void infoFull(List<Component> list, ChatFormatting[] fixedColors, Component[] fixedLines, ChatFormatting[] infoColors, Component... lines) {
         if (showFixedInfo(fixedLines, lines)) {
             fixedInfoList(list, !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY), fixedColors, fixedLines);
         } else if (showInfo(fixedLines, lines)) {
@@ -98,31 +102,27 @@ public class InfoHelper {
         }
     }
 
-    public static boolean showFixedInfo(String[] fixedLines, String... lines) {
+    public static boolean showFixedInfo(Component[] fixedLines, Component... lines) {
         return !Arrays.equals(fixedLines, EMPTY_ARRAY) && !Arrays.equals(fixedLines, NULL_ARRAY) && (!NCUtil.isInfoKeyDown() || Arrays.equals(lines, EMPTY_ARRAY));
     }
 
-    public static boolean showInfo(String[] fixedLines, String... lines) {
+    public static boolean showInfo(Component[] fixedLines, Component... lines) {
         return (NCUtil.isInfoKeyDown() || lines.length == 1) && !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY);
     }
 
-    public static boolean showShiftInfo(String[] fixedLines, String... lines) {
+    public static boolean showShiftInfo(Component[] fixedLines, Component... lines) {
         return !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY);
     }
 
-    public static void infoFull(List<Component> list, ChatFormatting infoColor, String... lines) {
+    public static void infoFull(List<Component> list, ChatFormatting infoColor, Component... lines) {
         infoFull(list, ChatFormatting.AQUA, EMPTY_ARRAY, infoColor, lines);
     }
 
-    public static void infoFull(List<Component> list, ChatFormatting[] infoColors, String... lines) {
+    public static void infoFull(List<Component> list, ChatFormatting[] infoColors, Component... lines) {
         infoFull(list, new ChatFormatting[]{}, EMPTY_ARRAY, infoColors, lines);
     }
 
-    public static String[] formattedInfo(String tooltip, Object... args) {
-        return FontRenderHelper.wrapString(Lang.localize(tooltip, args), MAXIMUM_TEXT_WIDTH);
-    }
-
-    public static String[] buildFixedInfo(String unlocName, String... tooltip) {
+    public static Component[] buildFixedInfo(String unlocName, Component... tooltip) {
         if (tooltip.length == 0) {
             return standardFixedInfo(unlocName, unlocName);
         } else {
@@ -130,7 +130,7 @@ public class InfoHelper {
         }
     }
 
-    public static String[] buildInfo(String unlocName, String... tooltip) {
+    public static Component[] buildInfo(String unlocName, Component... tooltip) {
         if (tooltip.length == 0) {
             return standardInfo(unlocName, unlocName);
         } else {
@@ -147,24 +147,24 @@ public class InfoHelper {
         return names;
     }
 
-    public static <T extends Enum<T> & StringRepresentable> String[][] buildFixedInfo(String unlocNameBase, Class<T> enumm, String[]... tooltips) {
+    public static <T extends Enum<T> & StringRepresentable> Component[][] buildFixedInfo(String unlocNameBase, Class<T> enumm, Component[]... tooltips) {
         return buildGeneralInfo(unlocNameBase, getEnumNames(enumm), ".fixd", ".fix", tooltips);
     }
 
-    public static String[][] buildFixedInfo(String unlocNameBase, String[] types, String[]... tooltips) {
+    public static Component[][] buildFixedInfo(String unlocNameBase, String[] types, Component[]... tooltips) {
         return buildGeneralInfo(unlocNameBase, types, ".fixd", ".fix", tooltips);
     }
 
-    public static <T extends Enum<T> & StringRepresentable> String[][] buildInfo(String unlocNameBase, Class<T> enumm, String[]... tooltips) {
+    public static <T extends Enum<T> & StringRepresentable> Component[][] buildInfo(String unlocNameBase, Class<T> enumm, Component[]... tooltips) {
         return buildGeneralInfo(unlocNameBase, getEnumNames(enumm), ".desc", ".des", tooltips);
     }
 
-    public static String[][] buildInfo(String unlocNameBase, String[] names, String[]... tooltips) {
+    public static Component[][] buildInfo(String unlocNameBase, String[] names, Component[]... tooltips) {
         return buildGeneralInfo(unlocNameBase, names, ".desc", ".des", tooltips);
     }
 
-    public static String[][] buildGeneralInfo(String unlocNameBase, String[] types, String desc, String des, String[]... tooltips) {
-        String[][] strings = new String[types.length][];
+    public static Component[][] buildGeneralInfo(String unlocNameBase, String[] types, String desc, String des, Component[]... tooltips) {
+        Component[][] strings = new Component[types.length][];
 
         if (Arrays.deepEquals(tooltips, NULL_ARRAYS)) {
             for (int i = 0; i < types.length; ++i) {
@@ -185,32 +185,32 @@ public class InfoHelper {
         return strings;
     }
 
-    public static String[] standardFixedInfo(String unlocName, String generalName) {
+    public static Component[] standardFixedInfo(String unlocName, String generalName) {
         return standardGeneralInfo(unlocName, generalName, ".fixd", ".fix");
     }
 
-    public static String[] standardInfo(String unlocName, String generalName) {
+    public static Component[] standardInfo(String unlocName, String generalName) {
         return standardGeneralInfo(unlocName, generalName, ".desc", ".des");
     }
 
-    public static String[] standardGeneralInfo(String unlocName, String generalName, String desc, String des) {
+    public static Component[] standardGeneralInfo(String unlocName, String generalName, String desc, String des) {
         for (String name : new String[]{unlocName, generalName}) {
             if (Lang.canLocalize(name + desc)) {
-                return formattedInfo(name + desc);
+                return new Component[]{Component.translatable(name + desc)};
             }
         }
         return getNumberedInfo(unlocName + des);
     }
 
-    public static String[] getNumberedInfo(String base) {
+    public static Component[] getNumberedInfo(String base) {
         String firstLine = base + 0;
         if (!Lang.canLocalize(firstLine)) {
             return EMPTY_ARRAY;
         }
-        String[] info = new String[]{Lang.localize(firstLine)};
+        Component[] info = new Component[]{Component.translatable(firstLine)};
         int line = 1;
         while (Lang.canLocalize(base + line)) {
-            info = CollectionHelper.concatenate(info, Lang.localize(base + line));
+            info = CollectionHelper.concatenate(info, Component.translatable(base + line));
             ++line;
         }
         return info;

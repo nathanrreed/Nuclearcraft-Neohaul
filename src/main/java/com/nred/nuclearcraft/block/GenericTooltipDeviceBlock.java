@@ -12,10 +12,15 @@ import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
@@ -75,6 +80,15 @@ public class GenericTooltipDeviceBlock<Controller extends IMultiblockController<
             }
             default -> {
             }
+        }
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level world, BlockPos blockPosition, Block block, BlockPos neighborPosition, boolean isMoving) {
+        super.neighborChanged(state, world, blockPosition, block, neighborPosition, isMoving);
+        BlockEntity tile = world.getBlockEntity(blockPosition);
+        if (tile instanceof ITile t) {
+            t.onBlockNeighborChanged(state, tile.getLevel(), blockPosition, neighborPosition);
         }
     }
 }

@@ -58,6 +58,7 @@ public class CreativeTabsRegistration {
                 output.accept(TRITIUM_LAMP);
                 output.accept(SOLIDIFIED_CORIUM);
                 output.accept(PORTABLE_ENDER_CHEST);
+                output.accept(HEAVY_WATER_MODERATOR);
                 output.acceptAll(itemStackValues(MUSIC_DISC_MAP, FOOD_MAP));
                 output.accept(FOURSMORE);
             }).build());

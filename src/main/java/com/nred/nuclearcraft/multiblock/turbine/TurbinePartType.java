@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
+import com.nred.nuclearcraft.block.GenericDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.turbine.*;
@@ -23,8 +24,8 @@ public enum TurbinePartType implements ITurbinePartType {
     RotorShaft(() -> TURBINE_ENTITY_TYPE.get("rotor_shaft")::get, TurbineRotorShaftBlock::new, "tooltip.turbine_rotor_shaft"),
     RotorBlade(() -> TURBINE_ENTITY_TYPE.get("rotor_blade")::get, TurbineRotorBladeBlock::new, "tooltip.turbine_rotor_blade"),
     RotorStator(() -> TURBINE_ENTITY_TYPE.get("rotor_stator")::get, TurbineRotorStatorBlock::new, "tooltip.turbine_rotor_stator"),
-    Outlet(() -> TURBINE_ENTITY_TYPE.get("outlet")::get, GenericHorizontalTooltipDeviceBlock::new, ""),
-    Inlet(() -> TURBINE_ENTITY_TYPE.get("inlet")::get, GenericHorizontalTooltipDeviceBlock::new, ""),
+    Outlet(() -> TURBINE_ENTITY_TYPE.get("outlet")::get, GenericDirectionalTooltipDeviceBlock::new, ""),
+    Inlet(() -> TURBINE_ENTITY_TYPE.get("inlet")::get, GenericDirectionalTooltipDeviceBlock::new, ""),
     Dynamo(() -> TURBINE_ENTITY_TYPE.get("dynamo")::get, GenericTooltipDeviceBlock::new, "custom"),
     DynamoConnector(() -> TURBINE_ENTITY_TYPE.get("coil_connector")::get, GenericTooltipDeviceBlock::new, "custom"),
     ComputerPort(() -> TURBINE_ENTITY_TYPE.get("computer_port")::get, GenericTooltipDeviceBlock::new, "tooltip.turbine_computer_port"),

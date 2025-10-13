@@ -3,11 +3,17 @@ package com.nred.nuclearcraft.multiblock.fisson.solid;
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block.fission.*;
-import com.nred.nuclearcraft.helpers.Tank;
+import com.nred.nuclearcraft.block.fission.port.FissionCellPortEntity;
+import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
-import com.nred.nuclearcraft.payload.SolidFissionPayload;
+import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
+import com.nred.nuclearcraft.payload.multiblock.SolidFissionUpdatePacket;
+import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.fission.FissionHeatingRecipe;
+import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
 import it.zerono.mods.zerocore.lib.data.nbt.ISyncableEntity.SyncReason;
@@ -15,10 +21,13 @@ import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,10 +35,9 @@ import static com.nred.nuclearcraft.config.Config2.fission_overheat;
 import static com.nred.nuclearcraft.config.Config2.fission_sparsity_penalty_params;
 
 public class SolidFuelFissionLogic extends FissionReactorLogic {
-    public List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, null, Tank.IOState.INPUT), new Tank(FissionReactor.BASE_TANK_CAPACITY, null, Tank.IOState.OUTPUT));
-//  TODO   public List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_heating.validFluids.get(0), Tank.IOState.INPUT), new Tank(FissionReactor.BASE_TANK_CAPACITY, null, Tank.IOState.OUTPUT));
+    public List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_heating.validFluids.get(0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
 
-//    public RecipeInfo<BasicRecipe> heatingRecipeInfo;
+    public RecipeInfo<FissionHeatingRecipe> heatingRecipeInfo;
 
     public int heatingOutputRate = 0;
     public double effectiveHeating = 0D, reservedEffectiveHeat = 0D, heatingRecipeRate = 0D, heatingOutputRateFP = 0D;
@@ -43,6 +51,11 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
             heatingRecipeRate = oldSolidFuelLogic.heatingRecipeRate;
             heatingOutputRateFP = oldSolidFuelLogic.heatingOutputRateFP;
         }
+    }
+
+    @Override
+    public String getID() {
+        return "solid_fuel";
     }
 
     @Override
@@ -74,7 +87,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
     @Override
     public void refreshConnections() {
         super.refreshConnections();
-//        refreshFilteredPorts(FissionCellPortEntity.class, SolidFissionCellEntity.class); TODO
+        refreshFilteredPorts(FissionCellPortEntity.class, SolidFissionCellEntity.class);
     }
 
     @Override
@@ -154,10 +167,10 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 
         if (multiblock.isSimulation) {
             refreshRecipe();
-//            if (heatingRecipeInfo != null) { TODO
-//                BasicRecipe recipe = heatingRecipeInfo.recipe;
-//                heatingOutputRateFP = recipe.getFluidProducts().get(0).getMaxStackSize(0) * effectiveHeating / recipe.getFissionHeatingHeatPerInputMB();
-//            }
+            if (heatingRecipeInfo != null) {
+                FissionHeatingRecipe recipe = heatingRecipeInfo.recipe;
+                heatingOutputRateFP = recipe.getFluidProducts().get(0).amount() * effectiveHeating / recipe.getFissionHeatingHeatPerInputMB();
+            }
         }
     }
 
@@ -168,7 +181,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
     }
 
     public void refreshRecipe() {
-//        heatingRecipeInfo = NCRecipes.fission_heating.getRecipeInfoFromInputs(Collections.emptyList(), tanks.subList(0, 1)); TODO
+        heatingRecipeInfo = NCRecipes.fission_heating.getRecipeInfoFromInputs(getWorld(), Collections.emptyList(), tanks.subList(0, 1));
     }
 
     public boolean canProcessInputs() {
@@ -179,74 +192,73 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
     }
 
     public boolean setRecipeStats() {
-//        if (heatingRecipeInfo == null) { TODO
-//            heatingOutputRate = 0;
-//            heatingRecipeRate = heatingOutputRateFP = 0D;
-//            return false;
-//        }
+        if (heatingRecipeInfo == null) {
+            heatingOutputRate = 0;
+            heatingRecipeRate = heatingOutputRateFP = 0D;
+            return false;
+        }
         return true;
     }
 
     public boolean canProduceProducts() {
-//        BasicRecipe recipe = heatingRecipeInfo.recipe; TODO
-//        FluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
-//        int productSize = fluidProduct.getMaxStackSize(0);
-//        if (productSize <= 0 || fluidProduct.getStack() == null) {
-//            return false;
-//        }
-//
-//        int heatPerMB = recipe.getFissionHeatingHeatPerInputMB();
-//        int inputSize = recipe.getFluidIngredients().get(0).getMaxStackSize(heatingRecipeInfo.getFluidIngredientNumbers().get(0));
-//
-//        Tank inputTank = tanks.get(0), outputTank = tanks.get(1);
-//
-//        double usedInput = Math.min(inputTank.getFluidAmount(), getEffectiveHeat() / heatPerMB);
-//        heatingRecipeRate = heatingOutputRateFP = NCMath.toInt(Math.min((double) (outputTank.getCapacity() - outputTank.getFluidAmount()) / productSize, usedInput / inputSize));
-//        reservedEffectiveHeat += (heatingRecipeRate - NCMath.toInt(heatingRecipeRate)) * inputSize * heatPerMB;
-//
-//        int extraRecipeRate = NCMath.toInt(Math.min(Integer.MAX_VALUE - heatingRecipeRate, reservedEffectiveHeat / (heatPerMB * inputSize)));
-//        heatingRecipeRate += extraRecipeRate;
-//        reservedEffectiveHeat -= extraRecipeRate * inputSize * heatPerMB;
-//
-//        return outputTank.isEmpty() || outputTank.getFluid().isFluidEqual(fluidProduct.getStack());
-        return false;
+        FissionHeatingRecipe recipe = heatingRecipeInfo.recipe;
+        SizedFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
+        int productSize = fluidProduct.amount();
+        if (productSize <= 0 || fluidProduct.ingredient().hasNoFluids()) {
+            return false;
+        }
+
+        int heatPerMB = recipe.getFissionHeatingHeatPerInputMB();
+        int inputSize = recipe.getFluidIngredients().get(0).amount();
+
+        Tank inputTank = tanks.get(0), outputTank = tanks.get(1);
+
+        double usedInput = Math.min(inputTank.getFluidAmount(), getEffectiveHeat() / heatPerMB);
+        heatingRecipeRate = heatingOutputRateFP = NCMath.toInt(Math.min((double) (outputTank.getCapacity() - outputTank.getFluidAmount()) / productSize, usedInput / inputSize));
+        reservedEffectiveHeat += (heatingRecipeRate - NCMath.toInt(heatingRecipeRate)) * inputSize * heatPerMB;
+
+        int extraRecipeRate = NCMath.toInt(Math.min(Integer.MAX_VALUE - heatingRecipeRate, reservedEffectiveHeat / (heatPerMB * inputSize)));
+        heatingRecipeRate += extraRecipeRate;
+        reservedEffectiveHeat -= extraRecipeRate * inputSize * heatPerMB;
+
+        return outputTank.isEmpty() || fluidProduct.test(outputTank.getFluid());
     }
 
     public void produceProducts() {
-//        BasicRecipe recipe = heatingRecipeInfo.recipe; TODO
-//        int inputSize = recipe.getFluidIngredients().get(0).getMaxStackSize(heatingRecipeInfo.getFluidIngredientNumbers().get(0));
-//        int heatingRecipeRateInt = NCMath.toInt(heatingRecipeRate);
-//
-//        Tank inputTank = tanks.get(0), outputTank = tanks.get(1);
-//
-//        if (heatingRecipeRateInt * inputSize > 0) {
-//            inputTank.changeFluidAmount(-heatingRecipeRateInt * inputSize);
-//        }
-//        if (inputTank.getFluidAmount() <= 0) {
-//            inputTank.setFluidStored(null);
-//        }
-//
-//        FluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
-//        if (fluidProduct.getMaxStackSize(0) > 0) {
-//            int stackSize = 0;
-//            if (outputTank.isEmpty()) {
-//                outputTank.setFluidStored(fluidProduct.getNextStack(0));
-//                stackSize = outputTank.getFluidAmount();
-//                heatingOutputRate = heatingRecipeRateInt * stackSize;
-//                outputTank.setFluidAmount(heatingOutputRate);
-//            } else if (outputTank.getFluid().isFluidEqual(fluidProduct.getStack())) {
-//                stackSize = fluidProduct.getNextStackSize(0);
-//                heatingOutputRate = heatingRecipeRateInt * stackSize;
-//                outputTank.changeFluidAmount(heatingOutputRate);
-//            }
-//            heatingOutputRateFP *= stackSize;
-//            if (heatingOutputRateFP > stackSize) {
-//                heatingOutputRateFP = Math.round(heatingOutputRateFP);
-//            }
-//        }
-//
-//        long heatRemoval = (long) (multiblock.rawHeating / effectiveHeating * heatingRecipeRate * inputSize * recipe.getFissionHeatingHeatPerInputMB());
-//        heatBuffer.changeHeatStored(-heatRemoval);
+        FissionHeatingRecipe recipe = heatingRecipeInfo.recipe;
+        int inputSize = recipe.getFluidIngredients().get(0).amount();
+        int heatingRecipeRateInt = NCMath.toInt(heatingRecipeRate);
+
+        Tank inputTank = tanks.get(0), outputTank = tanks.get(1);
+
+        if (heatingRecipeRateInt * inputSize > 0) {
+            inputTank.changeFluidAmount(-heatingRecipeRateInt * inputSize);
+        }
+        if (inputTank.getFluidAmount() <= 0) {
+            inputTank.setFluidStored(FluidStack.EMPTY);
+        }
+
+        SizedFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
+        if (fluidProduct.amount() > 0) {
+            int stackSize = 0;
+            if (outputTank.isEmpty()) {
+                outputTank.setFluidStored(Arrays.stream(fluidProduct.getFluids()).findFirst().orElse(FluidStack.EMPTY));
+                stackSize = outputTank.getFluidAmount();
+                heatingOutputRate = heatingRecipeRateInt * stackSize;
+                outputTank.setFluidAmount(heatingOutputRate);
+            } else if (fluidProduct.test(outputTank.getFluid())) {
+                stackSize = fluidProduct.amount();
+                heatingOutputRate = heatingRecipeRateInt * stackSize;
+                outputTank.changeFluidAmount(heatingOutputRate);
+            }
+            heatingOutputRateFP *= stackSize;
+            if (heatingOutputRateFP > stackSize) {
+                heatingOutputRateFP = Math.round(heatingOutputRateFP);
+            }
+        }
+
+        long heatRemoval = (long) (multiblock.rawHeating / effectiveHeating * heatingRecipeRate * inputSize * recipe.getFissionHeatingHeatPerInputMB());
+        heatBuffer.changeHeatStored(-heatRemoval);
     }
 
     public double getEffectiveHeat() {
@@ -301,17 +313,12 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
         super.onUpdateClient();
     }
 
-    @Override
-    public CustomPacketPayload getMultiblockUpdatePacket() {
-        return new SolidFissionPayload(multiblock.controller.getPos(), multiblock.isReactorOn, multiblock.heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.totalHeatMult, multiblock.meanHeatMult, multiblock.fuelComponentCount, multiblock.usefulPartCount, multiblock.totalEfficiency, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, effectiveHeating, heatingOutputRateFP, reservedEffectiveHeat);
-    }
-
     // NBT
 
     @Override
     public void writeToLogicTag(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
         super.writeToLogicTag(data, registries, syncReason);
-//        writeTanks(tanks, logicTag, "tanks"); TODO
+        writeTanks(tanks, data, registries, "tanks");
         data.putInt("heatingOutputRate", heatingOutputRate);
         data.putDouble("effectiveHeating", effectiveHeating);
         data.putDouble("reservedEffectiveHeat", reservedEffectiveHeat);
@@ -321,42 +328,36 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
     @Override
     public void readFromLogicTag(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
         super.readFromLogicTag(data, registries, syncReason);
-//        readTanks(tanks, logicTag, "tanks"); TODO
+        readTanks(tanks, data, registries, "tanks");
         heatingOutputRate = data.getInt("heatingOutputRate");
         effectiveHeating = data.getDouble("effectiveHeating");
         reservedEffectiveHeat = data.getDouble("reservedEffectiveHeat");
         heatingOutputRateFP = data.getDouble("heatingOutputRateFP");
     }
 
+    // Packets
     @Override
-    public String getID() {
-        return "solid_fuel";
+    public SolidFissionUpdatePacket getMultiblockUpdatePacket() {
+        return new SolidFissionUpdatePacket(multiblock.controller.getTilePos(), multiblock.isReactorOn, heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.totalHeatMult, multiblock.meanHeatMult, multiblock.fuelComponentCount, multiblock.usefulPartCount, multiblock.totalEfficiency, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, effectiveHeating, heatingOutputRateFP, reservedEffectiveHeat);
     }
 
-    // Packets
+    @Override
+    public void onMultiblockUpdatePacket(FissionUpdatePacket message) {
+        super.onMultiblockUpdatePacket(message);
+        if (message instanceof SolidFissionUpdatePacket packet) {
+            effectiveHeating = packet.effectiveHeating;
+            heatingOutputRateFP = packet.heatingOutputRateFP;
+            reservedEffectiveHeat = packet.reservedEffectiveHeat;
+        }
+    }
 
-//    @Override
-//    public SolidFissionUpdatePacket getMultiblockUpdatePacket() {
-//        return new SolidFissionUpdatePacket(multiblock.controller.getTilePos(), multiblock.isReactorOn, heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.totalHeatMult, multiblock.meanHeatMult, multiblock.fuelComponentCount, multiblock.usefulPartCount, multiblock.totalEfficiency, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, effectiveHeating, heatingOutputRateFP, reservedEffectiveHeat);
-//    }
-//
-//    @Override
-//    public void onMultiblockUpdatePacket(FissionUpdatePacket message) {
-//        super.onMultiblockUpdatePacket(message);
-//        if (message instanceof SolidFissionUpdatePacket packet) {
-//            effectiveHeating = packet.effectiveHeating;
-//            heatingOutputRateFP = packet.heatingOutputRateFP;
-//            reservedEffectiveHeat = packet.reservedEffectiveHeat;
-//        }
-//    }
-//
-//    // Clear Material
-//
-//    @Override
-//    public void clearAllMaterial() {
-//        super.clearAllMaterial();
-//        for (Tank tank : tanks) {
-//            tank.setFluidStored(null);
-//        }
-//    }
+    // Clear Material
+
+    @Override
+    public void clearAllMaterial() {
+        super.clearAllMaterial();
+        for (Tank tank : tanks) {
+            tank.setFluidStored(FluidStack.EMPTY);
+        }
+    }
 }

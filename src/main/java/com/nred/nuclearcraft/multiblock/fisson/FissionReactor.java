@@ -1,16 +1,15 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
-import com.nred.nuclearcraft.block.fission.FissionCasingEntity;
-import com.nred.nuclearcraft.block.fission.FissionGlassEntity;
 import com.nred.nuclearcraft.block.fission.IFissionComponent;
 import com.nred.nuclearcraft.block.fission.IFissionController;
-import com.nred.nuclearcraft.helpers.HeatBuffer;
+import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
+import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.SaltFissionLogic;
 import com.nred.nuclearcraft.multiblock.fisson.solid.SolidFuelFissionLogic;
-import com.nred.nuclearcraft.util.BlockStateHelper;
+import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
@@ -20,22 +19,20 @@ import it.unimi.dsi.fastutil.objects.ObjectSet;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
 import java.util.function.UnaryOperator;
 
-import static com.nred.nuclearcraft.config.Config2.fission_max_size;
-import static com.nred.nuclearcraft.config.Config2.fission_min_size;
-
-public class FissionReactor extends Multiblock<FissionReactor> implements ILogicMultiblock<FissionReactor, FissionReactorLogic> {
+public class FissionReactor extends Multiblock<FissionReactor> implements ILogicMultiblock<FissionReactor, FissionReactorLogic>, IPacketMultiblock<FissionReactor, FissionUpdatePacket> {
+    private static final Logger log = LoggerFactory.getLogger(FissionReactor.class);
     protected final Int2ObjectMap<FissionCluster> clusterMap = new Int2ObjectOpenHashMap<>();
     protected final ObjectSet<FissionCluster> clustersToRefresh = new ObjectOpenHashSet<>();
     public int clusterCount = 0;
@@ -66,23 +63,23 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
     }
 
     @Override
-    public int getMinimumInteriorLength() {
-        return fission_min_size;
+    public FissionReactorLogic getLogic() {
+        return logic;
     }
 
     @Override
-    public int getMaximumInteriorLength() {
-        return fission_max_size;
-    }
+    public void setLogic(String logicID) {
+        if (logicID.equals(logic.getID())) {
+            return;
+        }
 
-    @Override
-    public Set<Player> getMultiblockUpdatePacketListeners() {
-        return updatePacketListeners;
-    }
+        UnaryOperator<FissionReactorLogic> constructor = switch (logicID) {
+            case "solid_fuel" -> SolidFuelFissionLogic::new;
+            case "molten_salt" -> SaltFissionLogic::new;
+            default -> throw new IllegalStateException("Unexpected logicID: " + logicID);
+        };
 
-    @Override
-    public CustomPacketPayload getMultiblockUpdatePacket() {
-        return logic.getMultiblockUpdatePacket();
+        logic = getNewLogic(constructor);
     }
 
     public Int2ObjectMap<FissionCluster> getClusterMap() {
@@ -94,6 +91,52 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
         fuelComponentCount = 0;
         cooling = rawHeating = totalHeatMult = usefulPartCount = 0L;
         meanHeatMult = totalEfficiency = meanEfficiency = sparsityEfficiencyMult = 0D;
+    }
+
+    // Multiblock Size Limits
+
+    @Override
+    public int getMinimumInteriorLength() {
+        return logic.getMinimumInteriorLength();
+    }
+
+    @Override
+    public int getMaximumInteriorLength() {
+        return logic.getMaximumInteriorLength();
+    }
+
+    // Multiblock Methods
+
+    @Override
+    protected void onPartAdded(IMultiblockPart<FissionReactor> iMultiblockPart) {
+        super.onPartAdded(iMultiblockPart);
+        logic.onBlockAdded(iMultiblockPart);
+    }
+
+    @Override
+    protected void onPartRemoved(IMultiblockPart<FissionReactor> iMultiblockPart) {
+        super.onPartRemoved(iMultiblockPart);
+        logic.onBlockRemoved(iMultiblockPart);
+    }
+
+    @Override
+    protected void onMachineAssembled() {
+        logic.onMachineAssembled();
+    }
+
+    @Override
+    protected void onMachineRestored() {
+        logic.onMachineRestored();
+    }
+
+    @Override
+    protected void onMachinePaused() {
+        logic.onMachinePaused();
+    }
+
+    @Override
+    protected void onMachineDisassembled() {
+        logic.onMachineDisassembled();
     }
 
     @Override
@@ -122,41 +165,14 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
     }
 
     @Override
-    public CustomPacketPayload getMultiblockRenderPacket() {
-        return null;
+    protected void onAssimilate(IMultiblockController<FissionReactor> assimilated) {
+        logic.onAssimilate(assimilated);
     }
 
     @Override
-    protected void onPartAdded(IMultiblockPart<FissionReactor> iMultiblockPart) {
-    }
-
-    @Override
-    protected void onMachineAssembled() {
-    }
-
-    @Override
-    protected void onPartRemoved(IMultiblockPart<FissionReactor> iMultiblockPart) {
-
-    }
-
-    @Override
-    protected void onMachineRestored() {
-    }
-
-    @Override
-    protected void onMachinePaused() {
-    }
-
-    @Override
-    protected void onMachineDisassembled() {
-    }
-
-    @Override
-    protected void onAssimilate(IMultiblockController<FissionReactor> iMultiblockController) {
-    }
-
-    @Override
-    protected void onAssimilated(IMultiblockController<FissionReactor> iMultiblockController) {
+    protected void onAssimilated(IMultiblockController<FissionReactor> assimilator) {
+        super.onAssimilated(assimilator);
+        logic.onAssimilated(assimilator);
     }
 
     // Cluster Management
@@ -208,8 +224,11 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
         clusterMap.remove(targetCluster.getId());
     }
 
+    // Server
+
     @Override
     protected boolean updateServer() {
+        super.updateServer();
         boolean flag = refreshFlag;
 
         checkRefresh();
@@ -259,18 +278,23 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
         isReactorOn = isAssembled() && logic.isReactorActive(true);
         if (isReactorOn != wasReactorOn) {
             if (controller != null) {
-                controller.setActiveState(isReactorOn);
+                controller.setActivity(isReactorOn);
                 sendMultiblockUpdatePacketToAll();
             }
-//            for (TileFissionMonitor monitor : getParts(TileFissionMonitor.class)) {
+//            for (TileFissionMonitor monitor : getParts(TileFissionMonitor.class)) { TODO
 //                monitor.setActiveState(isReactorOn);
 //            }
         }
     }
 
+    // Client
+
     @Override
     protected void updateClient() {
+        logic.onUpdateClient();
     }
+
+    // NBT
 
     @Override
     public @NotNull CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
@@ -310,76 +334,50 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
         readLogicNBT(data, registries, syncReason);
     }
 
+    // Packets
+
     @Override
-    protected boolean isBlockGoodForFrame(@NotNull Level level, int x, int y, int z, @NotNull IMultiblockValidator iMultiblockValidator) {
-        return level.getBlockEntity(new BlockPos(x, y, z)) instanceof FissionCasingEntity;
+    public Set<Player> getMultiblockUpdatePacketListeners() {
+        return updatePacketListeners;
     }
 
     @Override
-    protected boolean isBlockGoodForTop(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
-        return switch (level.getBlockEntity(new BlockPos(x, y, z))) {
-            case FissionCasingEntity ignored -> true;
-            case FissionGlassEntity ignored -> true;
-            case null, default -> false;
-        };
+    public FissionUpdatePacket getMultiblockUpdatePacket() {
+        return logic.getMultiblockUpdatePacket();
     }
 
     @Override
-    protected boolean isBlockGoodForBottom(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
-        return switch (level.getBlockEntity(new BlockPos(x, y, z))) {
-            case FissionCasingEntity ignored -> true;
-            case FissionGlassEntity ignored -> true;
-            case null, default -> false;
-        };
-    }
+    public void onMultiblockUpdatePacket(FissionUpdatePacket message) {
+        isReactorOn = message.isReactorOn;
+        clusterCount = message.clusterCount;
+        cooling = message.cooling;
+        rawHeating = message.rawHeating;
+        totalHeatMult = message.totalHeatMult;
+        meanHeatMult = message.meanHeatMult;
+        fuelComponentCount = message.fuelComponentCount;
+        usefulPartCount = message.usefulPartCount;
+        totalEfficiency = message.totalEfficiency;
+        meanEfficiency = message.meanEfficiency;
+        sparsityEfficiencyMult = message.sparsityEfficiencyMult;
 
-    @Override
-    protected boolean isBlockGoodForSides(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
-        return switch (level.getBlockEntity(new BlockPos(x, y, z))) {
-            case FissionCasingEntity ignored -> true;
-            case FissionGlassEntity ignored -> true;
-            case null, default -> false;
-        };
+        logic.onMultiblockUpdatePacket(message);
     }
 
     @Override
     protected boolean isBlockGoodForInterior(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
-        BlockPos pos = new BlockPos(x, y, z);
-        if (BlockStateHelper.isReplaceable(level.getBlockState(pos))) {
-            return true;
-        }
-        return false;
+        return logic.isBlockGoodForInterior(level, x, y, z);
     }
+
+    // Clear Material
 
     @Override
     public void clearAllMaterial() {
-        // TODO
-//        logic.clearAllMaterial();
+        logic.clearAllMaterial();
         super.clearAllMaterial();
 
         if (!getWorld().isClientSide) {
             refreshFlag = true;
             checkRefresh();
         }
-    }
-
-    @Override
-    public FissionReactorLogic getLogic() {
-        return logic;
-    }
-
-    @Override
-    public void setLogic(String logicID) {
-        if (logicID.equals(logic.getID())) {
-            return;
-        }
-
-        UnaryOperator<FissionReactorLogic> constructor = switch (logicID) {
-            case "solid_fuel" -> SolidFuelFissionLogic::new;
-            case "molten_salt" -> SaltFissionLogic::new;
-            default -> throw new IllegalStateException("Unexpected logicID: " + logicID);
-        };
-
-        logic = getNewLogic(constructor);
     }
 }

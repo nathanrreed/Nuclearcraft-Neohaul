@@ -1,37 +1,51 @@
 package com.nred.nuclearcraft.block.turbine;
 
-import com.nred.nuclearcraft.block.IPushEnergy;
+import com.nred.nuclearcraft.block.internal.energy.EnergyConnection;
+import com.nred.nuclearcraft.block.internal.energy.EnergyStorage;
+import com.nred.nuclearcraft.block.internal.energy.EnergyTileWrapper;
+import com.nred.nuclearcraft.block.ITickable;
+import com.nred.nuclearcraft.block.energy.ITileEnergy;
+import com.nred.nuclearcraft.block.internal.fluid.TankVoid;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
+import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.Nonnull;
 
-public class TurbineDynamoEntityPart extends AbstractTurbineEntity implements IPushEnergy {
+public class TurbineDynamoEntityPart extends AbstractTurbineEntity implements ITickable, ITileEnergy {
+    //    public static final Object2DoubleMap<String> DYN_CONDUCTIVITY_MAP = new Object2DoubleOpenHashMap<>(); TODO REMOVE
+//    public static final Object2ObjectMap<String, String> DYN_RULE_ID_MAP = new Object2ObjectOpenHashMap<>();
+
+    protected final EnergyStorage backupStorage = new EnergyStorage(0L);
+
+    protected final EnergyConnection[] energyConnections = ITileEnergy.energyConnectionAll(EnergyConnection.OUT);
+
+    protected final EnergyTileWrapper[] energySides = ITileEnergy.getDefaultEnergySides(this);
+
+    public Double conductivity;
+    public String ruleID;
+
+    public boolean isSearched = false, isInValidPosition = false;
+
+    public PlacementRule<Turbine, AbstractTurbineEntity> placementRule;
+
     public TurbineDynamoEntityPart(BlockEntityType<?> type, BlockPos position, BlockState blockState) {
         super(type, position, blockState);
     }
 
-    public boolean isSearched = false, isInValidPosition = false;
-    public PlacementRule<Turbine, AbstractTurbineEntity> placementRule;
-    public Double conductivity;
-    public String ruleID;
-
-//    @Override
-//    public void onMachineAssembled(Turbine multiblock) {
-//        doStandardNullControllerResponse(multiblock);
-//        super.onMachineAssembled(multiblock);
-//    }
+    @Override
+    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
+        return position.isFace();
+    }
 
     public void dynamoSearch(final ObjectSet<TurbineDynamoEntityPart> validCache, final ObjectSet<TurbineDynamoEntityPart> searchCache, final Long2ObjectMap<TurbineDynamoEntityPart> partFailCache, final Long2ObjectMap<TurbineDynamoEntityPart> assumedValidCache) {
         if (!isDynamoPartValid(partFailCache, assumedValidCache)) {
@@ -77,34 +91,73 @@ public class TurbineDynamoEntityPart extends AbstractTurbineEntity implements IP
         return false;
     }
 
-//    @Override TODO
-//    public void syncDataFrom(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-//        super.syncDataFrom(data, registries, syncReason);
+    @Override
+    public void update() {
+        if (!level.isClientSide) {
+            pushEnergy();
+        }
+    }
+
+    @Override
+    public EnergyStorage getEnergyStorage() {
+        if (!isInValidPosition || !isMachineAssembled()) {
+            return backupStorage;
+        }
+        return getMultiblockController().get().energyStorage;
+    }
+
+    @Override
+    public EnergyConnection[] getEnergyConnections() {
+        return energyConnections;
+    }
+
+    @Override
+    public @Nonnull EnergyTileWrapper[] getEnergySides() {
+        return energySides;
+    }
+
+    // NBT
+
+    @Override
+    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.writeAll(nbt, registries);
+
+        writeEnergyConnections(nbt, registries);
+        nbt.putBoolean("isInValidPosition", isInValidPosition);
+        return nbt;
+    }
+
+    @Override
+    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.readAll(nbt, registries);
+
+        readEnergyConnections(nbt, registries);
+        isInValidPosition = nbt.getBoolean("isInValidPosition");
+    }
+
+//    // Capability TODO
+//
+//    @Override
+//    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing side) {
+//        if (capability == CapabilityEnergy.ENERGY || (ModCheck.gregtechLoaded() && enable_gtce_eu && capability == GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER)) {
+//            return hasEnergySideCapability(side);
+//        }
+//        return super.hasCapability(capability, side);
 //    }
 //
 //    @Override
-//    public CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-//        return super.syncDataTo(data, registries, syncReason);
+//    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing side) {
+//        if (capability == CapabilityEnergy.ENERGY) {
+//            if (hasEnergySideCapability(side)) {
+//                return CapabilityEnergy.ENERGY.cast(getEnergySide(nonNullSide(side)));
+//            }
+//            return null;
+//        } else if (ModCheck.gregtechLoaded() && capability == GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER) {
+//            if (enable_gtce_eu && hasEnergySideCapability(side)) {
+//                return GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER.cast(getEnergySideGT(nonNullSide(side)));
+//            }
+//            return null;
+//        }
+//        return super.getCapability(capability, side);
 //    }
-
-    Map<Direction, BlockCapabilityCache<IEnergyStorage, Direction>> capCache = new HashMap<>();
-
-    @Override
-    public Map<Direction, BlockCapabilityCache<IEnergyStorage, Direction>> getCapCache() {
-        return capCache;
-    }
-
-    public void onCapInvalidate() {
-
-    }
-
-    public void update() {
-        pushEnergy(level, getMultiblockController().get().energyStorage, worldPosition, this);
-    }
-
-    @Override
-    public Collection<Direction> getDirections() {
-        Direction flow = getMultiblockController().get().flowDir;
-        return List.of(flow, flow.getOpposite());
-    }
 }

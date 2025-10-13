@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.helpers;
 
+import com.nred.nuclearcraft.block.internal.fluid.Tank;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -15,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashSet;
 import java.util.List;
 
-public abstract class CustomFluidTankHandler implements IFluidHandler, INBTSerializable<CompoundTag> {
+public abstract class CustomFluidTankHandler implements IFluidHandler, INBTSerializable<CompoundTag> { // TODO REMOVE
     private final int numTanks;
     protected NonNullList<Tank> tanks;
 
@@ -86,7 +87,7 @@ public abstract class CustomFluidTankHandler implements IFluidHandler, INBTSeria
         ListTag nbtTagList = new ListTag();
         for (int i = 0; i < this.getTanks(); i++) {
             CompoundTag tankTag = new CompoundTag();
-            nbtTagList.add(tanks.get(i).writeToNBT(provider, tankTag, "Slot" + i));
+            nbtTagList.add(tanks.get(i).writeToNBT(tankTag, provider, "Slot" + i));
         }
         CompoundTag nbt = new CompoundTag();
         nbt.put("Tanks", nbtTagList);
@@ -104,7 +105,7 @@ public abstract class CustomFluidTankHandler implements IFluidHandler, INBTSeria
     }
 
     public void setSize(int size) {
-        tanks = NonNullList.withSize(size, new Tank(0, new HashSet<>(), Tank.IOState.OUTPUT));
+        tanks = NonNullList.withSize(size, new Tank(0, new HashSet<>()));
         onContentsChanged();
     }
 
@@ -174,7 +175,7 @@ public abstract class CustomFluidTankHandler implements IFluidHandler, INBTSeria
             int i = -1; // Will start at 0 always since i++ is right after, just makes continues easier
             for (Tank tank : tanks) {
                 i++;
-                if (check || tank.ioState != Tank.IOState.INPUT || !isFluidValid(i, resource)) continue;
+                if (check || !isFluidValid(i, resource)) continue;
                 if (tank.isEmpty()) {
                     amount += Math.min(tank.getCapacity(), resource.getAmount());
                 }
@@ -188,7 +189,7 @@ public abstract class CustomFluidTankHandler implements IFluidHandler, INBTSeria
             int i = -1; // Will start at 0 always since i++ is right after, just makes continues easier
             for (Tank tank : tanks) {
                 i++;
-                if (check || tank.ioState != Tank.IOState.INPUT || !isFluidValid(i, resource)) continue;
+                if (check  || !isFluidValid(i, resource)) continue;
                 if (tank.isEmpty()) {
                     tank.setFluid(resource.copyWithAmount(Math.min(tank.getCapacity(), resource.getAmount())));
                     onContentsChanged();
@@ -221,7 +222,7 @@ public abstract class CustomFluidTankHandler implements IFluidHandler, INBTSeria
     public FluidStack internalExtractFluid(int maxDrain, FluidAction action, boolean check, Direction dir) {
         for (int i = 0; i < tanks.size(); i++) {
             FluidStack fluid = tanks.get(i).getFluid();
-            if (check || tanks.get(i).ioState != Tank.IOState.OUTPUT || fluid.isEmpty() || !canOutput(i)) continue;
+            if (check  || fluid.isEmpty() || !canOutput(i)) continue;
             int drained = maxDrain;
             if (fluid.getAmount() < drained) {
                 drained = fluid.getAmount();

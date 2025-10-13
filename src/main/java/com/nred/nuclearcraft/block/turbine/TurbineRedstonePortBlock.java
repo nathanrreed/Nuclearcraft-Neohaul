@@ -1,27 +1,24 @@
 package com.nred.nuclearcraft.block.turbine;
 
 import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
+import com.nred.nuclearcraft.block.IActivatable;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
-import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
 
-public class TurbineRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> {
-    public static final BooleanProperty REDSTONE_ON = BooleanProperty.create(MODID + "_redstone_on");
-
+public class TurbineRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> implements IActivatable {
     public TurbineRedstonePortBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(REDSTONE_ON, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
     }
 
     @Override
@@ -30,15 +27,7 @@ public class TurbineRedstonePortBlock<Controller extends IMultiblockController<C
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighborPosition, boolean isMoving) {
-        level.setBlock(pos, state.setValue(REDSTONE_ON, level.hasNeighborSignal(pos)), Block.UPDATE_ALL);
-        if (level.getBlockEntity(pos) instanceof TurbineRedstonePortEntity controller) {
-            controller.getMultiblockController().get().setIsTurbineOn();
-        }
-    }
-
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(REDSTONE_ON, FACING_HORIZONTAL);
+        builder.add(ACTIVE, FACING_HORIZONTAL);
     }
 }

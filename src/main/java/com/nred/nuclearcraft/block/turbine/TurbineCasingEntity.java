@@ -24,16 +24,16 @@ public class TurbineCasingEntity extends AbstractTurbineEntity implements INeste
     }
 
     @Override
-    public void onPostMachineAssembled(Turbine controller) {
-        super.onPostMachineAssembled(controller);
-        if (level.isClientSide && getPartPosition().isFrame()) {
+    public void onPreMachineAssembled(Turbine controller) {
+        super.onPreMachineAssembled(controller);
+        if (!level.isClientSide && getPartPosition().isFrame()) {
             level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 2);
         }
     }
 
     @Override
     public void onPreMachineBroken() {
-        if (level.isClientSide && getPartPosition().isFrame()) {
+        if (!level.isClientSide && getPartPosition().isFrame()) {
             level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, false), 2);
         }
         super.onPreMachineBroken();

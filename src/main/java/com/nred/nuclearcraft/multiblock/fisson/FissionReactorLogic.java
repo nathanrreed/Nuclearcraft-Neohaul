@@ -3,9 +3,13 @@ package com.nred.nuclearcraft.multiblock.fisson;
 import com.nred.nuclearcraft.block.fission.*;
 import com.nred.nuclearcraft.block.fission.FissionSourceEntity.PrimingTargetInfo;
 import com.nred.nuclearcraft.block.fission.IFissionFuelComponent.ModeratorBlockInfo;
-import com.nred.nuclearcraft.helpers.HeatBuffer;
-import com.nred.nuclearcraft.helpers.Tank;
+import com.nred.nuclearcraft.block.fission.port.FissionCoolerPortEntity;
+import com.nred.nuclearcraft.block.fission.port.FissionIrradiatorPortEntity;
+import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
+import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
 import com.nred.nuclearcraft.multiblock.MultiblockLogic;
+import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import com.nred.nuclearcraft.registration.SoundRegistration;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -16,15 +20,14 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
 import it.zerono.mods.zerocore.lib.data.nbt.ISyncableEntity.SyncReason;
+import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.registry.MultiblockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.energy.EnergyStorage;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -34,7 +37,7 @@ import java.util.function.BiPredicate;
 
 import static com.nred.nuclearcraft.config.Config2.*;
 
-public class FissionReactorLogic extends MultiblockLogic<FissionReactor, FissionReactorLogic> {
+public class FissionReactorLogic extends MultiblockLogic<FissionReactor, FissionReactorLogic> implements IPacketMultiblockLogic<FissionReactor, FissionReactorLogic, FissionUpdatePacket> {
     public final HeatBuffer heatBuffer = new HeatBuffer(FissionReactor.BASE_MAX_HEAT);
 
     public FissionReactorLogic(FissionReactor multiblock) {
@@ -45,9 +48,9 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
 
     public final ObjectSet<FissionFuelBunch> fuelBunches = new ObjectOpenHashSet<>();
 
-//    public FissionReactorLogic(FissionReactorLogic oldLogic) {
-//        super(oldLogic);
-//    }
+    public FissionReactorLogic(FissionReactorLogic oldLogic) {
+        super(oldLogic.multiblock);
+    }
 
     protected Int2ObjectMap<FissionCluster> getClusterMap() {
         return multiblock.getClusterMap();
@@ -57,16 +60,16 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
     }
 
     // Multiblock Size Limits
-//
-//    @Override
-//    public int getMinimumInteriorLength() {
-//        return fission_min_size;
-//    }
-//
-//    @Override
-//    public int getMaximumInteriorLength() {
-//        return fission_max_size;
-//    }
+
+    @Override
+    public int getMinimumInteriorLength() {
+        return fission_min_size;
+    }
+
+    @Override
+    public int getMaximumInteriorLength() {
+        return fission_max_size;
+    }
 
     // Multiblock Methods
 
@@ -87,10 +90,10 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
         }
 
         heatBuffer.setHeatCapacity(FissionReactor.BASE_MAX_HEAT * getCapacityMultiplier());
-        multiblock.ambientTemp = 273.15D + 20D * getLevel().getBiome(multiblock.getMiddleCoord()).value().getModifiedClimateSettings().temperature();
+        multiblock.ambientTemp = 273.15D + 20D * getWorld().getBiome(multiblock.getMiddleCoord()).value().getModifiedClimateSettings().temperature();
         // TODO check multiblock.ambientTemp = 273.15D + 20D * getWorld().getBiome(multiblock.getMiddleCoord()).getTemperature(multiblock.getMiddleCoord());
 
-        if (!getLevel().isClientSide) {
+        if (!getWorld().isClientSide) {
             refreshConnections();
             multiblock.refreshFlag = true;
             multiblock.checkRefresh();
@@ -113,7 +116,7 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
     }
 
     public void onReactorBroken() {
-        if (!getLevel().isClientSide) {
+        if (!getWorld().isClientSide) {
             refreshConnections();
             multiblock.updateActivity();
         }
@@ -122,11 +125,6 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
     @Override
     public String getID() {
         return "";
-    }
-
-    @Override
-    public Level getLevel() {
-        return multiblock.getWorld();
     }
 
     @Override
@@ -141,19 +139,19 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
     }
 
     @Override
-    public void onAssimilate(FissionReactor assimilated) {
-//        heatBuffer.mergeHeatBuffers(assimilated.getLogic().heatBuffer); TODO
+    public void onAssimilate(IMultiblockController<FissionReactor> assimilated) {
+        heatBuffer.mergeHeatBuffers(((FissionReactor) assimilated).getLogic().heatBuffer);
     }
 
     @Override
-    public void onAssimilated(FissionReactor assimilator) {
+    public void onAssimilated(IMultiblockController<FissionReactor> assimilator) {
     }
 
     public void refreshConnections() {
 //        refreshManagers(TileFissionSourceManager.class); TODO
 //        refreshManagers(TileFissionShieldManager.class);
-//        refreshFilteredPorts(TileFissionIrradiatorPort.class, TileFissionIrradiator.class);
-//        refreshFilteredPorts(TileFissionCoolerPort.class, TileFissionCooler.class);
+        refreshFilteredPorts(FissionIrradiatorPortEntity.class, FissionIrradiatorEntity.class);
+        refreshFilteredPorts(FissionCoolerPortEntity.class, FissionCoolerEntity.class);
     }
 
 
@@ -268,8 +266,8 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
     public void distributeFlux(final ObjectSet<IFissionFuelComponent> primedCache, final Long2ObjectMap<IFissionFuelComponent> primedFailCache, boolean simulate) {
         for (FissionSourceEntity source : multiblock.getParts(FissionSourceEntity.class)) {
             if (!simulate) {
-//                source.refreshIsRedstonePowered(getLevel(), source.getWorldPosition()); TODO
-//                source.setActivity(source.isActive = source.isSourceActive());
+                source.refreshIsRedstonePowered(getWorld(), source.getWorldPosition());
+                source.setActivity(source.isActive = source.isSourceActive());
             }
 
             if (!simulate && !source.isActive) {
@@ -495,7 +493,7 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
         double soundRate = Math.min(1D, fuelComponent.getEfficiency(false) / (14D * fission_max_size));
         if (rand.nextDouble() < soundRate) {
             BlockPos pos = fuelComponent.getWorldPosition();
-            getLevel().playSound(null, pos, SoundRegistration.geiger_tick.get(), SoundSource.BLOCKS, (float) (1.6D * Math.log1p(Math.sqrt(multiblock.fuelComponentCount)) * fission_sound_volume), 1F + 0.12F * (rand.nextFloat() - 0.5F));
+            getWorld().playSound(null, pos, SoundRegistration.geiger_tick.get(), SoundSource.BLOCKS, (float) (1.6D * Math.log1p(Math.sqrt(multiblock.fuelComponentCount)) * fission_sound_volume), 1F + 0.12F * (rand.nextFloat() - 0.5F));
             return true;
         }
         return false;
@@ -608,19 +606,20 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
     }
 
     // Packets
-    public CustomPacketPayload getMultiblockUpdatePacket() {
+    @Override
+    public FissionUpdatePacket getMultiblockUpdatePacket() {
         return null;
     }
-//
-//    @Override
-//    public void onMultiblockUpdatePacket(FissionUpdatePacket message) {
-//        heatBuffer.setHeatStored(message.heatStored);
-//        heatBuffer.setHeatCapacity(message.heatCapacity);
-//    }
-//
-//    // Clear Material
-//
-//    @Override
-//    public void clearAllMaterial() {
-//    }
+
+    @Override
+    public void onMultiblockUpdatePacket(FissionUpdatePacket message) {
+        heatBuffer.setHeatStored(message.heatStored);
+        heatBuffer.setHeatCapacity(message.heatCapacity);
+    }
+
+    // Clear Material
+
+    @Override
+    public void clearAllMaterial() {
+    }
 }

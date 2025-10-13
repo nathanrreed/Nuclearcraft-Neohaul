@@ -33,10 +33,10 @@ repositories {
         }
     }
     maven {// Mekanism
-        url "https://modmaven.dev/"
+        url = "https://modmaven.dev/"
     }
     maven {// CC: T
-        url "https://maven.squiddev.cc"
+        url = "https://maven.squiddev.cc"
         content {
             includeGroup("cc.tweaked")
         }
@@ -102,6 +102,11 @@ dependencies {
     runtimeOnly("vazkii.patchouli:Patchouli:${patchouli_version}-NEOFORGE")
 
     compileOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
+    jarJar(implementation("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api") { // Is this how it should be done?
+        version {
+            prefer "${mekanism_version}"
+        }
+    })
 
     runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")// Mekanism
     runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")// Mekanism: Additions
@@ -122,6 +127,9 @@ tasks.withType(ProcessResources).configureEach {
             neo_version_range      : neo_version_range,
             loader_version_range   : loader_version_range,
             zerocore_version_range : zerocore_version_range,
+            jei_version            : jei_version,
+            emi_version            : emi_version,
+            mekanism_version       : mekanism_version,
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_license            : mod_license,

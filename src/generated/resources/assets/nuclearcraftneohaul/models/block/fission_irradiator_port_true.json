@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/fission/port/irradiator_out",
+    "bottom": "nuclearcraftneohaul:block/fission/port/top",
+    "front": "nuclearcraftneohaul:block/fission/port/irradiator_out",
+    "side": "nuclearcraftneohaul:block/fission/port/side",
+    "top": "nuclearcraftneohaul:block/fission/port/top"
+  }
+}

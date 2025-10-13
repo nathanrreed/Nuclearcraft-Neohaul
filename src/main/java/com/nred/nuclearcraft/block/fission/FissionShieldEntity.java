@@ -9,17 +9,25 @@ import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.PosHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
+import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class FissionShieldEntity extends AbstractFissionEntity implements IFissionHeatingComponent {
+public class FissionShieldEntity extends AbstractFissionEntity implements IFissionHeatingComponent { // TODO , IFissionManagerListener<TileFissionShieldManager, TileFissionShield>
     private final FissionNeutronShieldType fissionNeutronShieldType;
 
     public FissionShieldEntity(final BlockPos position, final BlockState blockState, FissionNeutronShieldType fissionNeutronShieldType) {
@@ -37,6 +45,9 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
 
     protected int flux = 0;
     protected ModeratorLine[] activeModeratorLines = new ModeratorLine[]{null, null, null};
+
+    protected BlockPos managerPos = DEFAULT_NON;
+//    protected TileFissionShieldManager manager = null;
 
     public static class Variant extends FissionShieldEntity {
         protected Variant(final BlockPos position, final BlockState blockState, FissionNeutronShieldType fissionNeutronShieldType) {
@@ -184,10 +195,109 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
             } else {
                 return NCMath.toInt(innerFlux);
             }
+        } else if (line.reflectorRecipe != null) {
+            return NCMath.toInt(Math.floor((innerFlux + outerFlux) * (1D + line.reflectorRecipe.getFissionReflectorReflectivity())));
         }
-//        else if (line.reflectorRecipe != null) { TODO
-//            return NCMath.toInt(Math.floor((innerFlux + outerFlux) * (1D + line.reflectorRecipe.getFissionReflectorReflectivity())));
-//        }
         return NCMath.toInt(innerFlux);
+    }
+
+//    // IFissionManagerListener TODO
+//
+//    @Override
+//    public BlockPos getManagerPos() {
+//        return managerPos;
+//    }
+//
+//    @Override
+//    public void setManagerPos(BlockPos pos) {
+//        managerPos = pos;
+//    }
+//
+//    @Override
+//    public TileFissionShieldManager getManager() {
+//        return manager;
+//    }
+//
+//    @Override
+//    public void setManager(TileFissionShieldManager manager) {
+//        this.manager = manager;
+//    }
+//
+//    @Override
+//    public boolean onManagerRefresh(TileFissionShieldManager manager) {
+//        this.manager = manager;
+//        if (manager != null) {
+//            managerPos = manager.getPos();
+//            boolean wasShielding = isShielding;
+//            isShielding = isShieldActive();
+//            if (wasShielding != isShielding) {
+//                setActivity(isShielding);
+//                return true;
+//            }
+//        } else {
+//            managerPos = DEFAULT_NON;
+//        }
+//        return false;
+//    }
+//
+//    @Override
+//    public String getManagerType() {
+//        return "fissionShieldManager";
+//    }
+//
+//    @Override
+//    public Class<TileFissionShieldManager> getManagerClass() {
+//        return TileFissionShieldManager.class;
+//    }
+
+    // IMultitoolLogic
+
+    @Override
+    public boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level level, Direction facing, BlockPos hitPos) {
+//        if (IFissionManagerListener.super.onUseMultitool(multitool, player, level, facing, hitPos)) {
+//            return true; TODO
+//        }
+        return IFissionHeatingComponent.super.onUseMultitool(multitool, player, level, facing, hitPos);
+    }
+
+    // NBT
+
+    @Override
+    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
+         super.writeAll(nbt, registries);
+        nbt.putBoolean("isShielding", isShielding);
+        nbt.putBoolean("inCompleteModeratorLine", inCompleteModeratorLine);
+        nbt.putBoolean("activeModerator", activeModerator);
+        nbt.putInt("flux", flux);
+        nbt.putLong("clusterHeat", heat);
+        nbt.putLong("managerPos", managerPos.asLong());
+        return nbt;
+    }
+
+    @Override
+    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.readAll(nbt, registries);
+        isShielding = nbt.getBoolean("isShielding");
+        inCompleteModeratorLine = nbt.getBoolean("inCompleteModeratorLine");
+        activeModerator = nbt.getBoolean("activeModerator");
+        flux = nbt.getInt("flux");
+        heat = nbt.getLong("clusterHeat");
+        managerPos = BlockPos.of(nbt.getLong("managerPos"));
+    }
+
+    // ComputerCraft
+
+    @Override
+    public String getCCKey() {
+        return "shield";
+    }
+
+    @Override
+    public Object getCCInfo() {
+        Object2ObjectMap<String, Object> entry = new Object2ObjectLinkedOpenHashMap<>();
+        entry.put("effective_heating", getEffectiveHeating(false));
+        entry.put("is_shielding", isShielding);
+        entry.put("flux", flux);
+        return entry;
     }
 }

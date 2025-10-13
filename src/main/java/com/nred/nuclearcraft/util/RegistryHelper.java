@@ -44,7 +44,6 @@ public class RegistryHelper {
         return itemStackFromRegistry(location, 1);
     }
 
-    //
 //	public static IBlockState blockStateFromRegistry(String location) {
 //		Block block = getBlock(removeMeta(location));
 //		return block == null ? null : block.getStateFromMeta(getMeta(location));
@@ -56,14 +55,14 @@ public class RegistryHelper {
 //		}
 //		return Integer.parseInt(location.substring(location.lastIndexOf(':') + 1));
 //	}
-//
+
     private static String removeMeta(String location) {
         if (StringUtils.countMatches(location, ':') < 2) {
             return location;
         }
         return StringHelper.starting(location, location.lastIndexOf(':'));
     }
-//
+
 //	public static Biome biomeFromRegistry(String location) {
 //		ResourceLocation resLoc = new ResourceLocation(location);
 //		if (!Loader.isModLoaded(resLoc.getNamespace())) {

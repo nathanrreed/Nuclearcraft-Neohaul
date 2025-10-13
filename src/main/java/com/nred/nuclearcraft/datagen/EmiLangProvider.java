@@ -60,6 +60,8 @@ public class EmiLangProvider extends LanguageProvider {
         add("emi.category." + EMI_COLLECTOR_CATEGORY.getId().toLanguageKey(), "Collector");
 
         add("emi.category." + EMI_TURBINE_CATEGORY.getId().toLanguageKey(), "Turbine");
+
+        add("emi.category." + EMI_MODERATOR_CATEGORY.getId().toLanguageKey(), "Fission Moderator");
     }
 
     private void simpleName(List<String> list, TagKey<?> key, String append) {

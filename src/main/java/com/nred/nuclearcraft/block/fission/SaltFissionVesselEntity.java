@@ -1,49 +1,80 @@
 package com.nred.nuclearcraft.block.fission;
 
+import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.block.fission.port.FissionVesselPortEntity;
+import com.nred.nuclearcraft.block.fission.port.IFissionPortTarget;
+import com.nred.nuclearcraft.block.fission.port.ITileFilteredFluid;
+import com.nred.nuclearcraft.block.fluid.ITileFluid;
+import com.nred.nuclearcraft.block.info.ProcessorContainerInfoImpl;
+import com.nred.nuclearcraft.block.internal.fluid.*;
+import com.nred.nuclearcraft.block.internal.fluid.Tank.TankInfo;
+import com.nred.nuclearcraft.block.internal.inventory.InventoryConnection;
+import com.nred.nuclearcraft.block.internal.inventory.ItemOutputSetting;
+import com.nred.nuclearcraft.block.inventory.ITileInventory;
+import com.nred.nuclearcraft.block.processor.IBasicProcessor;
+import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import com.nred.nuclearcraft.payload.multiblock.SaltFissionVesselUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
+import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
+import com.nred.nuclearcraft.util.CCHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import it.unimi.dsi.fastutil.objects.ObjectSet;
+import it.unimi.dsi.fastutil.objects.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.fluids.FluidStack;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
-import java.util.Set;
+import javax.annotation.Nonnull;
+import java.util.*;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config2.*;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
+import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class SaltFissionVesselEntity extends AbstractFissionEntity implements IFissionFuelBunchComponent { //IFissionPortTarget<FissionVesselPortEntity, SaltFissionVesselEntity> TODO
-//    protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<TileSaltFissionVessel, SaltFissionVesselUpdatePacket> info;
-//
-//    protected final @Nonnull String inventoryName;
-//
-//    protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
-//    protected final @Nonnull NonNullList<ItemStack> consumedStacks;
-//
-//    protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
-//
-//    protected final @Nonnull List<Tank> tanks;
-//    protected final @Nonnull List<Tank> consumedTanks;
-//
-//    protected final @Nonnull List<Tank> filterTanks;
-//
-//    protected @Nonnull FluidConnection[] fluidConnections;
-//
-//    protected @Nonnull FluidTileWrapper[] fluidSides = ITileFluid.getDefaultFluidSides(this);
-//    protected @Nonnull GasTileWrapper gasWrapper = new GasTileWrapper(this);
+public class SaltFissionVesselEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket>, ITileFilteredFluid, IFissionFuelBunchComponent, IFissionPortTarget<FissionVesselPortEntity, SaltFissionVesselEntity> {
+    protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> info;
+
+    protected final @Nonnull String inventoryName;
+
+    protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
+    protected final @Nonnull NonNullList<ItemStack> consumedStacks;
+
+    protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
+
+    protected final @Nonnull List<Tank> tanks;
+    protected final @Nonnull List<Tank> consumedTanks;
+
+    protected final @Nonnull List<Tank> filterTanks;
+
+    protected @Nonnull FluidConnection[] fluidConnections;
+
+    protected @Nonnull FluidTileWrapper[] fluidSides = ITileFluid.getDefaultFluidSides(this);
+    protected @Nonnull ChemicalTileWrapper[] chemicalSides = ITileFluid.getDefaultChemicalSides(this);
 
     public double baseProcessTime = 1D, baseProcessEfficiency = 0D, baseProcessDecayFactor = 0D, baseProcessRadiation = 0D;
     public int baseProcessHeat = 0, baseProcessCriticality = 1;
@@ -55,7 +86,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
 
     public double decayProcessHeat = 0D, decayHeatFraction = 0D, iodineFraction = 0D, poisonFraction = 0D;
 
-//    protected RecipeInfo<BasicRecipe> recipeInfo = null;
+    protected RecipeInfo<BasicRecipe> recipeInfo = null;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
@@ -82,35 +113,40 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
     protected final LongSet activeReflectorCache = new LongOpenHashSet();
 
     protected BlockPos masterPortPos = DEFAULT_NON;
-//    protected FissionVesselPortEntity masterPort = null;
+    protected FissionVesselPortEntity masterPort = null;
 
     protected FissionFuelBunch fuelBunch = null;
 
     public SaltFissionVesselEntity(final BlockPos position, final BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("vessel").get(), position, blockState);
 
-//        info = TileInfoHandler.getProcessorContainerInfo("salt_fission_vessel");
-//
-//        inventoryName = MODID + ".container." + info.name;
+        info = TileInfoHandler.getProcessorContainerInfo("salt_fission_vessel");
 
-//        inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
-//        consumedStacks = info.getConsumedStacks();
+        inventoryName = MODID + ".container." + info.name;
 
-//        Set<String> validFluids = NCRecipes.salt_fission.validFluids.get(0);
-//        tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
-//        consumedTanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
+        inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
+        consumedStacks = info.getConsumedStacks();
 
-//        filterTanks = Lists.newArrayList(new Tank(1000, validFluids, Tank.IOState.INPUT), new Tank(1000, new ObjectOpenHashSet<>(), Tank.IOState.OUTPUT));
+        Set<ResourceKey<Fluid>> validFluids = (Set<ResourceKey<Fluid>>) NCRecipes.salt_fission.validFluids.get(0);
+        tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
+        consumedTanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
 
-//        fluidConnections = ITileFluid.fluidConnectionAll(info.nonTankSorptions());
+        filterTanks = Lists.newArrayList(new Tank(1000, validFluids), new Tank(1000, new ObjectOpenHashSet<>()));
+
+        fluidConnections = ITileFluid.fluidConnectionAll(info.nonTankSorptions());
     }
 
-//    @Override
-//    public void onAssimilated(FissionReactor newController) {
-//        doStandardNullControllerResponse(multiblock);
-//        super.onAssimilated(newController);
-//    }
+    // MenuProvider
 
+    @Override
+    public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return null; // TODO
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return getTileBlockDisplayName();
+    }
     // IFissionFuelComponent
 
     @Override
@@ -165,7 +201,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
         }
         activeReflectorCache.clear();
 
-//        refreshAll();
+        refreshAll();
     }
 
     @Override
@@ -175,7 +211,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
 
     @Override
     public void clusterSearch(Integer id, final Object2IntMap<IFissionComponent> clusterSearchCache, final Long2ObjectMap<IFissionComponent> componentFailCache, final Long2ObjectMap<IFissionComponent> assumedValidCache, boolean simulate) {
-//        refreshDirty();
+        refreshDirty();
         refreshIsProcessing(false, simulate);
 
         IFissionFuelBunchComponent.super.clusterSearch(id, clusterSearchCache, componentFailCache, assumedValidCache, simulate);
@@ -221,12 +257,12 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
     public void refreshIsProcessing(boolean checkCluster, boolean simulate) {
         if (simulate) {
             isProcessing = false;
-//            isRunningSimulated = isProcessing(checkCluster, simulate); TODO
+            isRunningSimulated = isProcessing(checkCluster, simulate);
         } else {
-//            isProcessing = isProcessing(checkCluster, simulate);
+            isProcessing = isProcessing(checkCluster, simulate);
             isRunningSimulated = false;
         }
-//        hasConsumed = hasConsumed();
+        hasConsumed = hasConsumed();
     }
 
     @Override
@@ -425,27 +461,27 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
 
     @Override
     public void onClusterMeltdown(Iterator<IFissionComponent> componentIterator) {
-//        IRadiationSource chunkSource = RadiationHelper.getRadiationSource(world.getChunk(pos));
+//        IRadiationSource chunkSource = RadiationHelper.getRadiationSource(world.getChunk(pos)); TODO ADD
 //        if (chunkSource != null) {
 //            RadiationHelper.addToSourceRadiation(chunkSource, 8D * baseProcessRadiation * getSpeedMultiplier() * fission_meltdown_radiation_multiplier);
 //        }
 //
-//        componentIterator.remove();
-//        world.removeTileEntity(pos);
-//
-//        IBlockState corium = FluidRegistry.getFluid("corium").getBlock().getDefaultState();
-//        world.setBlockState(pos, corium);
-//
-//        FissionReactor multiblock = getMultiblock();
-//        if (multiblock != null) {
-//            for (EnumFacing dir : EnumFacing.VALUES) {
-//                BlockPos offPos = pos.offset(dir);
-//                if (multiblock.rand.nextDouble() < 0.75D) {
-//                    world.removeTileEntity(offPos);
-//                    world.setBlockState(offPos, corium);
-//                }
-//            }
-//        }
+        componentIterator.remove();
+        level.removeBlockEntity(worldPosition);
+
+        BlockState corium = CUSTOM_FLUID_MAP.get("corium").block.get().defaultBlockState();
+        level.setBlockAndUpdate(worldPosition, corium);
+
+        Optional<FissionReactor> multiblock = getMultiblockController();
+        if (multiblock.isPresent()) {
+            for (Direction dir : Direction.values()) {
+                BlockPos offPos = worldPosition.relative(dir);
+                if (multiblock.get().rand.nextDouble() < 0.75D) {
+                    level.removeBlockEntity(offPos);
+                    level.setBlockAndUpdate(offPos, corium);
+                }
+            }
+        }
     }
 
     @Override
@@ -458,37 +494,37 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
         this.heat = heat;
     }
 
-//    // IFissionPortTarget
-//
-//    @Override
-//    public BlockPos getMasterPortPos() {
-//        return masterPortPos;
-//    }
-//
-//    @Override
-//    public void setMasterPortPos(BlockPos pos) {
-//        masterPortPos = pos;
-//    }
-//
-//    @Override
-//    public void clearMasterPort() {
-//        masterPort = null;
-//        masterPortPos = DEFAULT_NON;
-//    }
-//
-//    @Override
-//    public void refreshMasterPort() {
-//        FissionReactor multiblock = getMultiblock();
-//        masterPort = multiblock == null ? null : multiblock.getPartMap(TileFissionVesselPort.class).get(masterPortPos.toLong());
-//        if (masterPort == null) {
-//            masterPortPos = DEFAULT_NON;
-//        }
-//    }
-//
-//    @Override
-//    public void onPortRefresh() {
-//        refreshAll();
-//    }
+    // IFissionPortTarget
+
+    @Override
+    public BlockPos getMasterPortPos() {
+        return masterPortPos;
+    }
+
+    @Override
+    public void setMasterPortPos(BlockPos pos) {
+        masterPortPos = pos;
+    }
+
+    @Override
+    public void clearMasterPort() {
+        masterPort = null;
+        masterPortPos = DEFAULT_NON;
+    }
+
+    @Override
+    public void refreshMasterPort() {
+        Optional<FissionReactor> multiblock = getMultiblockController();
+        masterPort = multiblock.map(fissionReactor -> fissionReactor.getPartMap(FissionVesselPortEntity.class).get(masterPortPos.asLong())).orElse(null);
+        if (masterPort == null) {
+            masterPortPos = DEFAULT_NON;
+        }
+    }
+
+    @Override
+    public void onPortRefresh() {
+        refreshAll();
+    }
 
     // Ticking
 
@@ -496,28 +532,28 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
     public void onLoad() {
         super.onLoad();
         if (!level.isClientSide) {
-//            refreshMasterPort(); TODO
-//            refreshAll();
+            refreshMasterPort();
+            refreshAll();
         }
     }
 
-//    @Override TODO
-//    public void update() {
-//        if (!world.isRemote) {
-//            FissionReactor reactor = getMultiblock();
-//            boolean shouldRefresh = reactor != null && reactor.isReactorOn && cluster == null && isProcessing(false, false);
-//
-//            if (onTick()) {
-//                markDirty();
-//            }
-//
-//            updateDecayFractions();
-//
-//            if (shouldRefresh) {
-//                getMultiblock().refreshFlag = true;
-//            }
-//        }
-//    }
+    @Override
+    public void update() {
+        if (!level.isClientSide) {
+            Optional<FissionReactor> reactor = getMultiblockController();
+            boolean shouldRefresh = reactor.isPresent() && reactor.get().isReactorOn && cluster == null && isProcessing(false, false);
+
+            if (onTick()) {
+                setChanged();
+            }
+
+            updateDecayFractions();
+
+            if (shouldRefresh) {
+                reactor.get().refreshFlag = true;
+            }
+        }
+    }
 
     public void updateDecayFractions() {
         if (!fission_decay_mechanics) {
@@ -611,165 +647,171 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
         return fission_decay_mechanics ? decayProcessHeat * decayHeatFraction : 0D;
     }
 
-//    @Override TODO
-//    public void refreshAll() {
-//        refreshDirty();
-//        refreshIsProcessing(true, false);
-//    }
-//
-//    @Override
-//    public void refreshActivity() {
-//        boolean wasReady = readyToProcess(false);
-//        canProcessInputs = canProcessInputs();
-//        FissionReactor multiblock = getMultiblock();
-//        if (multiblock != null && !wasReady && readyToProcess(false)) {
-//            multiblock.refreshFlag = true;
-//        }
-//    }
+    @Override
+    public void refreshAll() {
+        refreshDirty();
+        refreshIsProcessing(true, false);
+    }
+
+    @Override
+    public void refreshActivity() {
+        boolean wasReady = readyToProcess(false);
+        canProcessInputs = canProcessInputs();
+        Optional<FissionReactor> multiblock = getMultiblockController();
+        if (multiblock.isPresent() && !wasReady && readyToProcess(false)) {
+            multiblock.get().refreshFlag = true;
+        }
+    }
 
     public boolean isRunning(boolean simulate) {
         return simulate ? isRunningSimulated : isProcessing;
     }
 
-//    // IProcessor
-//
-//    @Override
-//    public ProcessorContainerInfoImpl.BasicProcessorContainerInfo<TileSaltFissionVessel, SaltFissionVesselUpdatePacket> getContainerInfo() {
-//        return info;
-//    }
-//
-//    @Override
-//    public BasicRecipeHandler getRecipeHandler() {
-//        return NCRecipes.salt_fission;
-//    }
-//
-//    @Override
-//    public RecipeInfo<BasicRecipe> getRecipeInfo() {
-//        return recipeInfo;
-//    }
-//
-//    @Override
-//    public void setRecipeInfo(RecipeInfo<BasicRecipe> recipeInfo) {
-//        this.recipeInfo = recipeInfo;
-//    }
-//
-//    @Override
-//    public void setRecipeStats(@javax.annotation.Nullable BasicRecipe recipe) {
-//        baseProcessTime = recipe == null ? 1D : recipe.getSaltFissionFuelTime();
-//        baseProcessHeat = recipe == null ? 0 : recipe.getFissionFuelHeat();
-//        baseProcessEfficiency = recipe == null ? 0D : recipe.getFissionFuelEfficiency();
-//        baseProcessCriticality = recipe == null ? 1 : recipe.getFissionFuelCriticality();
-//        selfPriming = recipe != null && recipe.getFissionFuelSelfPriming();
-//        baseProcessRadiation = recipe == null ? 0D : recipe.getFissionFuelRadiation();
-//
-//        if (recipe != null) {
-//            decayProcessHeat = baseProcessHeat;
-//            baseProcessDecayFactor = recipe.getFissionFuelDecayFactor();
-//        }
-//    }
-//
-//    @Override
-//    public @Nonnull NonNullList<ItemStack> getConsumedStacks() {
-//        return consumedStacks;
-//    }
-//
-//    @Override
-//    public @Nonnull List<Tank> getConsumedTanks() {
-//        return consumedTanks;
-//    }
-//
-//    @Override
-//    public double getBaseProcessTime() {
-//        return baseProcessTime;
-//    }
-//
-//    @Override
-//    public void setBaseProcessTime(double baseProcessTime) {
-//        this.baseProcessTime = baseProcessTime;
-//    }
-//
-//    @Override
-//    public double getBaseProcessPower() {
-//        return 0D;
-//    }
-//
-//    @Override
-//    public void setBaseProcessPower(double baseProcessPower) {
-//    }
-//
-//    @Override
-//    public double getCurrentTime() {
-//        return time;
-//    }
-//
-//    @Override
-//    public void setCurrentTime(double time) {
-//        this.time = time;
-//    }
-//
-//    @Override
-//    public double getResetTime() {
-//        return resetTime;
-//    }
-//
-//    @Override
-//    public void setResetTime(double resetTime) {
-//        this.resetTime = resetTime;
-//    }
-//
-//    @Override
-//    public boolean getIsProcessing() {
-//        return isProcessing;
-//    }
-//
-//    @Override
-//    public void setIsProcessing(boolean isProcessing) {
-//        this.isProcessing = isProcessing;
-//    }
-//
-//    @Override
-//    public boolean getCanProcessInputs() {
-//        return canProcessInputs;
-//    }
-//
-//    @Override
-//    public void setCanProcessInputs(boolean canProcessInputs) {
-//        this.canProcessInputs = canProcessInputs;
-//    }
-//
-//    @Override
-//    public boolean getHasConsumed() {
-//        return hasConsumed;
-//    }
-//
-//    @Override
-//    public void setHasConsumed(boolean hasConsumed) {
-//        this.hasConsumed = hasConsumed;
-//    }
-//
-//    @Override
-//    public double getSpeedMultiplier() {
-//        return 1D / undercoolingLifetimeFactor;
-//    }
-//
-//    @Override
-//    public double getPowerMultiplier() {
-//        return 0D;
-//    }
-//
-//    @Override
-//    public boolean isProcessing() {
-//        return !isSimulation() && isProcessing(true, false);
-//    }
-//
-//    public boolean isProcessing(boolean checkCluster, boolean simulate) {
-//        return readyToProcess(checkCluster) && hasEnoughFlux();
-//    }
-//
-//    @Override
-//    public boolean readyToProcess() {
-//        return readyToProcess(true);
-//    }
+    // IProcessor
+
+    @Override
+    public ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> getContainerInfo() {
+        return info;
+    }
+
+    @Override
+    public BasicRecipeHandler getRecipeHandler() { // TODO
+        return NCRecipes.salt_fission;
+    }
+
+    @Override
+    public RecipeInfo<BasicRecipe> getRecipeInfo() {
+        return recipeInfo;
+    }
+
+    @Override
+    public void setRecipeInfo(RecipeInfo<BasicRecipe> recipeInfo) {
+        this.recipeInfo = recipeInfo;
+    }
+
+    @Override
+    public void setRecipeStats(@javax.annotation.Nullable BasicRecipe basic) {
+        if (basic instanceof SaltFissionRecipe recipe) {
+            decayProcessHeat = baseProcessHeat;
+            baseProcessDecayFactor = recipe.getFissionFuelDecayFactor();
+            baseProcessTime = recipe.getSaltFissionFuelTime();
+            baseProcessHeat = recipe.getFissionFuelHeat();
+            baseProcessEfficiency = recipe.getFissionFuelEfficiency();
+            baseProcessCriticality = recipe.getFissionFuelCriticality();
+            selfPriming = recipe.getFissionFuelSelfPriming();
+            baseProcessRadiation = recipe.getFissionFuelRadiation();
+        } else {
+            baseProcessTime = 1D;
+            baseProcessHeat = 0;
+            baseProcessEfficiency = 0D;
+            baseProcessCriticality = 1;
+            selfPriming = false;
+            baseProcessRadiation = 0D;
+        }
+    }
+
+    @Override
+    public @Nonnull NonNullList<ItemStack> getConsumedStacks() {
+        return consumedStacks;
+    }
+
+    @Override
+    public @Nonnull List<Tank> getConsumedTanks() {
+        return consumedTanks;
+    }
+
+    @Override
+    public double getBaseProcessTime() {
+        return baseProcessTime;
+    }
+
+    @Override
+    public void setBaseProcessTime(double baseProcessTime) {
+        this.baseProcessTime = baseProcessTime;
+    }
+
+    @Override
+    public double getBaseProcessPower() {
+        return 0D;
+    }
+
+    @Override
+    public void setBaseProcessPower(double baseProcessPower) {
+    }
+
+    @Override
+    public double getCurrentTime() {
+        return time;
+    }
+
+    @Override
+    public void setCurrentTime(double time) {
+        this.time = time;
+    }
+
+    @Override
+    public double getResetTime() {
+        return resetTime;
+    }
+
+    @Override
+    public void setResetTime(double resetTime) {
+        this.resetTime = resetTime;
+    }
+
+    @Override
+    public boolean getIsProcessing() {
+        return isProcessing;
+    }
+
+    @Override
+    public void setIsProcessing(boolean isProcessing) {
+        this.isProcessing = isProcessing;
+    }
+
+    @Override
+    public boolean getCanProcessInputs() {
+        return canProcessInputs;
+    }
+
+    @Override
+    public void setCanProcessInputs(boolean canProcessInputs) {
+        this.canProcessInputs = canProcessInputs;
+    }
+
+    @Override
+    public boolean getHasConsumed() {
+        return hasConsumed;
+    }
+
+    @Override
+    public void setHasConsumed(boolean hasConsumed) {
+        this.hasConsumed = hasConsumed;
+    }
+
+    @Override
+    public double getSpeedMultiplier() {
+        return 1D / undercoolingLifetimeFactor;
+    }
+
+    @Override
+    public double getPowerMultiplier() {
+        return 0D;
+    }
+
+    @Override
+    public boolean isProcessing() {
+        return !isSimulation() && isProcessing(true, false);
+    }
+
+    public boolean isProcessing(boolean checkCluster, boolean simulate) {
+        return readyToProcess(checkCluster) && hasEnoughFlux();
+    }
+
+    @Override
+    public boolean readyToProcess() {
+        return readyToProcess(true);
+    }
 
     public boolean readyToProcess(boolean checkCluster) {
         return canProcessInputs && hasConsumed && isMachineAssembled() && (!checkCluster || cluster != null);
@@ -779,278 +821,278 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
         return fuelBunch != null && fuelBunch.flux >= fuelBunch.getCriticalityFactor(getCriticality());
     }
 
-//    @Override
-//    public void process() {
-//        getRadiationSource().setRadiationLevel(baseProcessRadiation * getSpeedMultiplier());
-//        IBasicProcessor.super.process();
+    @Override
+    public void process() {
+//        getRadiationSource().setRadiationLevel(baseProcessRadiation * getSpeedMultiplier()); TODO
+        IBasicProcessor.super.process();
+    }
+
+    @Override
+    public void finishProcess() {
+        double oldProcessTime = baseProcessTime, oldProcessEfficiency = baseProcessEfficiency, oldProcessDecayFactor = baseProcessDecayFactor;
+        int oldProcessHeat = baseProcessHeat;
+        long oldCriticality = getCriticality();
+        produceProducts();
+        refreshRecipe();
+        time = Math.max(0D, time - oldProcessTime);
+        refreshActivityOnProduction();
+        if (!canProcessInputs) {
+            time = 0;
+        }
+
+        Optional<FissionReactor> multiblock = getMultiblockController();
+        if (multiblock.isPresent()) {
+            if (canProcessInputs) {
+                if (oldProcessHeat != baseProcessHeat || oldProcessEfficiency != baseProcessEfficiency || oldProcessDecayFactor != baseProcessDecayFactor || oldCriticality != getCriticality()) {
+                    if (!hasEnoughFlux()) {
+                        multiblock.get().refreshFlag = true;
+                    } else {
+                        multiblock.get().addClusterToRefresh(cluster);
+                    }
+                }
+            } else {
+                sourceEfficiency = null;
+                multiblock.get().refreshFlag = true;
+            }
+        }
+    }
+
+    // ITileInventory
+
+//    @Override TODO REMOVE
+//    public Component getName() {
+//        return Component.translatable(inventoryName);
 //    }
-//
-//    @Override
-//    public void finishProcess() {
-//        double oldProcessTime = baseProcessTime, oldProcessEfficiency = baseProcessEfficiency, oldProcessDecayFactor = baseProcessDecayFactor;
-//        int oldProcessHeat = baseProcessHeat;
-//        long oldCriticality = getCriticality();
-//        produceProducts();
-//        refreshRecipe();
-//        time = Math.max(0D, time - oldProcessTime);
-//        refreshActivityOnProduction();
-//        if (!canProcessInputs) {
-//            time = 0;
-//        }
-//
-//        FissionReactor multiblock = getMultiblock();
-//        if (multiblock != null) {
-//            if (canProcessInputs) {
-//                if (oldProcessHeat != baseProcessHeat || oldProcessEfficiency != baseProcessEfficiency || oldProcessDecayFactor != baseProcessDecayFactor || oldCriticality != getCriticality()) {
-//                    if (!hasEnoughFlux()) {
-//                        multiblock.refreshFlag = true;
-//                    } else {
-//                        multiblock.addClusterToRefresh(cluster);
-//                    }
-//                }
-//            } else {
-//                sourceEfficiency = null;
-//                multiblock.refreshFlag = true;
-//            }
-//        }
-//    }
-//
-//    // ITileInventory
-//
-//    @Override
-//    public String getName() {
-//        return inventoryName;
-//    }
-//
-//    @Override
-//    public @Nonnull NonNullList<ItemStack> getInventoryStacks() {
-//        return inventoryStacks;
-//    }
-//
-//    @Override
-//    public void markDirty() {
-//        refreshDirty();
-//        super.markDirty();
-//    }
-//
-//    @Override
-//    public @Nonnull InventoryConnection[] getInventoryConnections() {
-//        return inventoryConnections;
-//    }
-//
-//    @Override
-//    public void setInventoryConnections(@Nonnull InventoryConnection[] connections) {
-//        inventoryConnections = connections;
-//    }
-//
-//    @Override
-//    public ItemOutputSetting getItemOutputSetting(int slot) {
-//        return ItemOutputSetting.DEFAULT;
-//    }
-//
-//    @Override
-//    public void setItemOutputSetting(int slot, ItemOutputSetting setting) {
-//    }
-//
-//    // ITileFluid
-//
-//    @Override
-//    public @Nonnull List<Tank> getTanks() {
-//        return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getTanks() : tanks;
-//    }
-//
-//    @Override
-//    public @Nonnull FluidConnection[] getFluidConnections() {
-//        return fluidConnections;
-//    }
-//
-//    @Override
-//    public void setFluidConnections(@Nonnull FluidConnection[] connections) {
-//        fluidConnections = connections;
-//    }
-//
-//    @Override
-//    public @Nonnull FluidTileWrapper[] getFluidSides() {
-//        return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getFluidSides() : fluidSides;
-//    }
-//
-//    @Override
-//    public @Nonnull GasTileWrapper getGasWrapper() {
-//        return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getGasWrapper() : gasWrapper;
-//    }
-//
-//    @Override
-//    public boolean getInputTanksSeparated() {
-//        return false;
-//    }
-//
-//    @Override
-//    public void setInputTanksSeparated(boolean separated) {
-//    }
-//
-//    @Override
-//    public boolean getVoidUnusableFluidInput(int tankNumber) {
-//        return false;
-//    }
-//
-//    @Override
-//    public void setVoidUnusableFluidInput(int tankNumber, boolean voidUnusableFluidInput) {
-//    }
-//
-//    @Override
-//    public TankOutputSetting getTankOutputSetting(int tankNumber) {
-//        return TankOutputSetting.DEFAULT;
-//    }
-//
-//    @Override
-//    public void setTankOutputSetting(int tankNumber, TankOutputSetting setting) {
-//    }
-//
-//    @Override
-//    public boolean hasConfigurableFluidConnections() {
-//        return false;
-//    }
-//
-//    @Override
-//    public void clearAllTanks() {
-//        for (Tank tank : tanks) {
-//            tank.setFluidStored(null);
-//        }
-//        for (Tank tank : consumedTanks) {
-//            tank.setFluidStored(null);
-//        }
-//        refreshAll();
-//    }
-//
-//    // ITileFilteredFluid
-//
-//    @Override
-//    public @Nonnull List<Tank> getTanksInternal() {
-//        return tanks;
-//    }
-//
-//    @Override
-//    public @Nonnull List<Tank> getFilterTanks() {
-//        return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getFilterTanks() : filterTanks;
-//    }
-//
-//    @Override
-//    public boolean canModifyFilter(int tank) {
-//        return !isMultiblockAssembled();
-//    }
-//
-//    @Override
-//    public void onFilterChanged(int slot) {
-//        markDirty();
-//    }
-//
-//    @Override
-//    public Object getFilterKey() {
-//        return getFilterTanks().get(0).getFluidName();
-//    }
-//
-//    // ITileGui
-//
-//    @Override
-//    public Set<Player> getTileUpdatePacketListeners() {
-//        return updatePacketListeners;
-//    }
-//
-//    @Override
-//    public SaltFissionVesselUpdatePacket getTileUpdatePacket() {
-//        return new SaltFissionVesselUpdatePacket(pos, isProcessing, time, baseProcessTime, getTanks(), masterPortPos, getFilterTanks(), cluster);
-//    }
-//
-//    @Override
-//    public void onTileUpdatePacket(SaltFissionVesselUpdatePacket message) {
-//        IBasicProcessor.super.onTileUpdatePacket(message);
-//        if (DEFAULT_NON.equals(masterPortPos = message.masterPortPos) ^ masterPort == null) {
-//            refreshMasterPort();
-//        }
-//        TankInfo.readInfoList(message.filterTankInfos, getFilterTanks());
-//        clusterHeatStored = message.clusterHeatStored;
-//        clusterHeatCapacity = message.clusterHeatCapacity;
-//    }
+
+    @Override
+    public @Nonnull NonNullList<ItemStack> getInventoryStacks() {
+        return inventoryStacks;
+    }
+
+    @Override
+    public void setChanged() {
+        refreshDirty();
+        super.setChanged();
+    }
+
+    @Override
+    public @Nonnull InventoryConnection[] getInventoryConnections() {
+        return inventoryConnections;
+    }
+
+    @Override
+    public void setInventoryConnections(@Nonnull InventoryConnection[] connections) {
+        inventoryConnections = connections;
+    }
+
+    @Override
+    public ItemOutputSetting getItemOutputSetting(int slot) {
+        return ItemOutputSetting.DEFAULT;
+    }
+
+    @Override
+    public void setItemOutputSetting(int slot, ItemOutputSetting setting) {
+    }
+
+    // ITileFluid
+
+    @Override
+    public @Nonnull List<Tank> getTanks() {
+        return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getTanks() : tanks;
+    }
+
+    @Override
+    public @Nonnull FluidConnection[] getFluidConnections() {
+        return fluidConnections;
+    }
+
+    @Override
+    public void setFluidConnections(@Nonnull FluidConnection[] connections) {
+        fluidConnections = connections;
+    }
+
+    @Override
+    public @Nonnull FluidTileWrapper[] getFluidSides() {
+        return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getFluidSides() : fluidSides;
+    }
+
+    @Override
+    public @Nonnull ChemicalTileWrapper[] getChemicalSides() {
+        return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getChemicalSides() : chemicalSides;
+    }
+
+    @Override
+    public boolean getInputTanksSeparated() {
+        return false;
+    }
+
+    @Override
+    public void setInputTanksSeparated(boolean separated) {
+    }
+
+    @Override
+    public boolean getVoidUnusableFluidInput(int tankNumber) {
+        return false;
+    }
+
+    @Override
+    public void setVoidUnusableFluidInput(int tankNumber, boolean voidUnusableFluidInput) {
+    }
+
+    @Override
+    public TankOutputSetting getTankOutputSetting(int tankNumber) {
+        return TankOutputSetting.DEFAULT;
+    }
+
+    @Override
+    public void setTankOutputSetting(int tankNumber, TankOutputSetting setting) {
+    }
+
+    @Override
+    public boolean hasConfigurableFluidConnections() {
+        return false;
+    }
+
+    @Override
+    public void clearAllTanks() {
+        for (Tank tank : tanks) {
+            tank.setFluidStored(FluidStack.EMPTY);
+        }
+        for (Tank tank : consumedTanks) {
+            tank.setFluidStored(FluidStack.EMPTY);
+        }
+        refreshAll();
+    }
+
+    // ITileFilteredFluid
+
+    @Override
+    public @Nonnull List<Tank> getTanksInternal() {
+        return tanks;
+    }
+
+    @Override
+    public @Nonnull List<Tank> getFilterTanks() {
+        return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getFilterTanks() : filterTanks;
+    }
+
+    @Override
+    public boolean canModifyFilter(int tank) {
+        return !isMachineAssembled();
+    }
+
+    @Override
+    public void onFilterChanged(int slot) {
+        setChanged();
+    }
+
+    @Override
+    public Object getFilterKey() {
+        return getFilterTanks().get(0).getFluidName();
+    }
+
+    // ITileGui
+
+    @Override
+    public Set<Player> getTileUpdatePacketListeners() {
+        return updatePacketListeners;
+    }
+
+    @Override
+    public SaltFissionVesselUpdatePacket getTileUpdatePacket() {
+        return new SaltFissionVesselUpdatePacket(worldPosition, isProcessing, time, baseProcessTime, getTanks(), masterPortPos, getFilterTanks(), cluster);
+    }
+
+    @Override
+    public void onTileUpdatePacket(SaltFissionVesselUpdatePacket message) {
+        IBasicProcessor.super.onTileUpdatePacket(message);
+        if (DEFAULT_NON.equals(masterPortPos = message.masterPortPos) ^ masterPort == null) {
+            refreshMasterPort();
+        }
+        TankInfo.readInfoList(message.filterTankInfos, getFilterTanks());
+        clusterHeatStored = message.clusterHeatStored;
+        clusterHeatCapacity = message.clusterHeatCapacity;
+    }
 
     // NBT
 
     @Override
-    public CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-        super.syncDataTo(data, registries, syncReason);
-//        writeTanks(data, registries);
-//
-//        writeProcessorNBT(nbt);
+    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.writeAll(nbt, registries);
+        writeTanks(nbt, registries);
 
-        data.putDouble("baseProcessTime", baseProcessTime);
-        data.putInt("baseProcessHeat", baseProcessHeat);
-        data.putDouble("baseProcessEfficiency", baseProcessEfficiency);
-        data.putInt("baseProcessCriticality", baseProcessCriticality);
-        data.putDouble("baseProcessDecayFactor", baseProcessDecayFactor);
-        data.putBoolean("selfPriming", selfPriming);
+        writeProcessorNBT(nbt, registries);
 
-        data.putDouble("decayProcessHeat", decayProcessHeat);
-        data.putDouble("decayHeatFraction", decayHeatFraction);
-        data.putDouble("iodineFraction", iodineFraction);
-        data.putDouble("poisonFraction", poisonFraction);
+        nbt.putDouble("baseProcessTime", baseProcessTime);
+        nbt.putInt("baseProcessHeat", baseProcessHeat);
+        nbt.putDouble("baseProcessEfficiency", baseProcessEfficiency);
+        nbt.putInt("baseProcessCriticality", baseProcessCriticality);
+        nbt.putDouble("baseProcessDecayFactor", baseProcessDecayFactor);
+        nbt.putBoolean("selfPriming", selfPriming);
 
-        data.putLong("cachedFlux", cachedFlux);
-        data.putLong("clusterHeat", heat);
+        nbt.putDouble("decayProcessHeat", decayProcessHeat);
+        nbt.putDouble("decayHeatFraction", decayHeatFraction);
+        nbt.putDouble("iodineFraction", iodineFraction);
+        nbt.putDouble("poisonFraction", poisonFraction);
 
-        data.putBoolean("isRunningSimulated", isRunningSimulated);
-        return data;
+        nbt.putLong("cachedFlux", cachedFlux);
+        nbt.putLong("clusterHeat", heat);
+
+        nbt.putBoolean("isRunningSimulated", isRunningSimulated);
+        return nbt;
     }
 
     @Override
-    public void syncDataFrom(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-        super.syncDataFrom(data, registries, syncReason);
+    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.readAll(nbt, registries);
+        readTanks(nbt, registries);
 
-//        readTanks(nbt);
-//        readProcessorNBT(nbt);
+        readProcessorNBT(nbt, registries);
 
-        baseProcessTime = data.getDouble("baseProcessTime");
-        baseProcessHeat = data.getInt("baseProcessHeat");
-        baseProcessEfficiency = data.getDouble("baseProcessEfficiency");
-        baseProcessCriticality = data.getInt("baseProcessCriticality");
-        baseProcessDecayFactor = data.getDouble("baseProcessDecayFactor");
-        selfPriming = data.getBoolean("selfPriming");
+        baseProcessTime = nbt.getDouble("baseProcessTime");
+        baseProcessHeat = nbt.getInt("baseProcessHeat");
+        baseProcessEfficiency = nbt.getDouble("baseProcessEfficiency");
+        baseProcessCriticality = nbt.getInt("baseProcessCriticality");
+        baseProcessDecayFactor = nbt.getDouble("baseProcessDecayFactor");
+        selfPriming = nbt.getBoolean("selfPriming");
 
-        decayProcessHeat = data.getDouble("decayProcessHeat");
-        decayHeatFraction = data.getDouble("decayHeatFraction");
-        iodineFraction = data.getDouble("iodineFraction");
-        poisonFraction = data.getDouble("poisonFraction");
+        decayProcessHeat = nbt.getDouble("decayProcessHeat");
+        decayHeatFraction = nbt.getDouble("decayHeatFraction");
+        iodineFraction = nbt.getDouble("iodineFraction");
+        poisonFraction = nbt.getDouble("poisonFraction");
 
-        cachedFlux = data.getLong("cachedFlux");
-        heat = data.getLong("clusterHeat");
+        cachedFlux = nbt.getLong("cachedFlux");
+        heat = nbt.getLong("clusterHeat");
 
-        isRunningSimulated = data.getBoolean("isRunningSimulated");
+        isRunningSimulated = nbt.getBoolean("isRunningSimulated");
     }
 
-//    @Override TODO
-//    public CompoundTag writeTanks(CompoundTag nbt, HolderLookup.Provider registries) {
-//        for (int i = 0; i < tanks.size(); ++i) {
-//            tanks.get(i).writeToNBT(nbt, "tanks" + i);
-//        }
-//        for (int i = 0; i < filterTanks.size(); ++i) {
-//            filterTanks.get(i).writeToNBT(nbt, "filterTanks" + i);
-//        }
-//        for (int i = 0; i < consumedTanks.size(); ++i) {
-//            consumedTanks.get(i).writeToNBT(nbt, "consumedTanks" + i);
-//        }
-//        return nbt;
-//    }
-//
-//    @Override
-//    public void readTanks(CompoundTag nbt, HolderLookup.Provider registries) {
-//        for (int i = 0; i < tanks.size(); ++i) {
-//            tanks.get(i).readFromNBT(nbt, "tanks" + i);
-//        }
-//        for (int i = 0; i < filterTanks.size(); ++i) {
-//            filterTanks.get(i).readFromNBT(nbt, "filterTanks" + i);
-//        }
-//        for (int i = 0; i < consumedTanks.size(); ++i) {
-//            consumedTanks.get(i).readFromNBT(nbt, "consumedTanks" + i);
-//        }
-//    }
+    @Override
+    public CompoundTag writeTanks(CompoundTag nbt, HolderLookup.Provider registries) {
+        for (int i = 0; i < tanks.size(); ++i) {
+            tanks.get(i).writeToNBT(nbt, registries, "tanks" + i);
+        }
+        for (int i = 0; i < filterTanks.size(); ++i) {
+            filterTanks.get(i).writeToNBT(nbt, registries, "filterTanks" + i);
+        }
+        for (int i = 0; i < consumedTanks.size(); ++i) {
+            consumedTanks.get(i).writeToNBT(nbt, registries, "consumedTanks" + i);
+        }
+        return nbt;
+    }
+
+    @Override
+    public void readTanks(CompoundTag nbt, HolderLookup.Provider registries) {
+        for (int i = 0; i < tanks.size(); ++i) {
+            tanks.get(i).readFromNBT(nbt, registries, "tanks" + i);
+        }
+        for (int i = 0; i < filterTanks.size(); ++i) {
+            filterTanks.get(i).readFromNBT(nbt, registries, "filterTanks" + i);
+        }
+        for (int i = 0; i < consumedTanks.size(); ++i) {
+            consumedTanks.get(i).readFromNBT(nbt, registries, "consumedTanks" + i);
+        }
+    }
 
 //    // Capability TODO
 //
@@ -1077,4 +1119,30 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IF
 //        }
 //        return super.getCapability(capability, side);
 //    }
+
+    // ComputerCraft
+
+    @Override
+    public String getCCKey() {
+        return "vessel";
+    }
+
+    @Override
+    public Object getCCInfo() {
+        Object2ObjectMap<String, Object> entry = new Object2ObjectLinkedOpenHashMap<>();
+        List<Tank> tanks = getTanks();
+        entry.put("fuel", CCHelper.tankInfo(tanks.get(0)));
+        entry.put("depleted_fuel", CCHelper.tankInfo(tanks.get(1)));
+        entry.put("effective_heating", getEffectiveHeating(false));
+        entry.put("heat_multiplier", getHeatMultiplier(false));
+        entry.put("is_processing", getIsProcessing());
+        entry.put("current_time", getCurrentTime());
+        entry.put("base_process_time", getBaseProcessTime());
+        entry.put("base_process_criticality", baseProcessCriticality);
+        entry.put("base_process_efficiency", baseProcessEfficiency);
+        entry.put("is_primed", isPrimed(false));
+        entry.put("efficiency", getEfficiency(false));
+        entry.put("flux", getFlux());
+        return entry;
+    }
 }

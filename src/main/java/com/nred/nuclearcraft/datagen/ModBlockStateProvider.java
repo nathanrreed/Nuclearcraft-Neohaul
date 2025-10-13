@@ -4,11 +4,14 @@ import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -21,9 +24,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.block.fission.FissionVentBlock.INPUT_STATE;
 import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
-import static com.nred.nuclearcraft.block.turbine.TurbineRedstonePortBlock.REDSTONE_ON;
 import static com.nred.nuclearcraft.datagen.ModBlockStateProvider.Directionality.None;
 import static com.nred.nuclearcraft.datagen.ModBlockStateProvider.Directionality.RotorPart;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
@@ -53,6 +54,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(UNIVERSAL_BIN);
         blockWithItem(MACHINE_INTERFACE);
         blockWithItem(TRITIUM_LAMP);
+        blockWithItem(HEAVY_WATER_MODERATOR, "fission");
         crossBlock(GLOWING_MUSHROOM);
 
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
@@ -98,15 +100,15 @@ class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void turbine() {
-        horizontalMachine("controller", TURBINE_MAP.get("turbine_controller"), "turbine", ACTIVE);
+        directionalMachine("controller", TURBINE_MAP.get("turbine_controller"), "turbine", ACTIVE);
         booleanBlock("frame", "wall", TURBINE_MAP.get("turbine_casing"), "turbine/casing", FRAME);
         blockWithItemCutout("glass", TURBINE_MAP.get("turbine_glass"), "turbine");
         blockWithItem("coil_connector", TURBINE_MAP.get("turbine_coil_connector"), "turbine");
         blockWithItem("rotor_bearing", TURBINE_MAP.get("turbine_rotor_bearing"), "turbine");
         blockSidesAndTop("rotor_shaft", TURBINE_MAP.get("turbine_rotor_shaft"), "turbine", "_end", RotorPart);
-        horizontalTop("inlet", TURBINE_MAP.get("turbine_inlet"), "turbine");
-        horizontalTop("outlet", TURBINE_MAP.get("turbine_outlet"), "turbine");
-        blockWithStateItem("redstone_port", TURBINE_MAP.get("turbine_redstone_port"), "turbine", REDSTONE_ON);
+        directionalTop("inlet", TURBINE_MAP.get("turbine_inlet"), "turbine");
+        directionalTop("outlet", TURBINE_MAP.get("turbine_outlet"), "turbine");
+        blockWithStateItem("redstone_port", TURBINE_MAP.get("turbine_redstone_port"), "turbine", ACTIVE);
         blockWithItem("computer_port", TURBINE_MAP.get("turbine_computer_port"), "turbine");
 
         blockWithItem("magnesium", TURBINE_MAP.get("magnesium_turbine_dynamo_coil"), "turbine/dynamo_coil");
@@ -123,25 +125,48 @@ class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void fission() {
-        horizontalMachine("controller", FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), "fission/solid", ACTIVE);
-        horizontalMachine("controller", FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), "fission/salt", ACTIVE);
+        directionalMachine("controller", FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), "fission/solid", ACTIVE);
+        directionalMachine("controller", FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), "fission/salt", ACTIVE);
         booleanBlock("frame", "wall", FISSION_REACTOR_MAP.get("fission_casing"), "fission/casing", FRAME);
         blockWithItemCutout("glass", FISSION_REACTOR_MAP.get("fission_glass"), "fission");
-        blockWithSidedStateItem("vent", "_output", "_input", FISSION_REACTOR_MAP.get("fission_vent"), "fission", INPUT_STATE);
+        vent("vent", "_output", "_input", FISSION_REACTOR_MAP.get("fission_vent"), "fission", ACTIVE);
+        blockWithItem("conductor", FISSION_REACTOR_MAP.get("fission_conductor"), "fission");
 
         booleanBlockOverlay("boron_silver", "on", "off", FISSION_REACTOR_MAP.get("boron_silver_shield"), "fission/shield", ACTIVE);
+
         horizontalBooleanBlock("radium_beryllium", "source", "_on", "_off", FISSION_REACTOR_MAP.get("radium_beryllium_source"), "fission/source", ACTIVE);
         horizontalBooleanBlock("polonium_beryllium", "source", "_on", "_off", FISSION_REACTOR_MAP.get("polonium_beryllium_source"), "fission/source", ACTIVE);
         horizontalBooleanBlock("californium", "source", "_on", "_off", FISSION_REACTOR_MAP.get("californium_source"), "fission/source", ACTIVE);
 
+        blockWithItem("beryllium_carbon", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"), "fission/reflector");
+        blockWithItem("lead_steel", FISSION_REACTOR_MAP.get("lead_steel_reflector"), "fission/reflector");
+
+        blockWithItem("cell", FISSION_REACTOR_MAP.get("fission_cell"), "fission/solid");
+        directionalBooleanBlock("cell_out", "cell_in", FISSION_REACTOR_MAP.get("fission_cell_port"), "fission/port", "fission/port", ACTIVE);
+
+        blockWithItem("cooler", FISSION_REACTOR_MAP.get("fission_cooler"), "fission");
+        directionalBooleanBlock("cooler_out", "cooler_in", FISSION_REACTOR_MAP.get("fission_cooler_port"), "fission/port", "fission/port", ACTIVE);
+
+        blockWithItem("irradiator", FISSION_REACTOR_MAP.get("fission_irradiator"), "fission");
+        directionalBooleanBlock("irradiator_out", "irradiator_in", FISSION_REACTOR_MAP.get("fission_irradiator_port"), "fission/port", "fission/port", ACTIVE);
+
+        blockWithItem("vessel", FISSION_REACTOR_MAP.get("fission_vessel"), "fission/salt");
+        directionalBooleanBlock("vessel_out", "vessel_in", FISSION_REACTOR_MAP.get("fission_vessel_port"), "fission/port", "fission/port", ACTIVE);
+
         blockWithItem("water", FISSION_REACTOR_MAP.get("water_sink"), "fission/solid/sink");
         blockWithItem("standard", FISSION_REACTOR_MAP.get("standard_heater"), "fission/salt/heater");
+        directionalBooleanBlockOverlay("standard", "out", "in", FISSION_REACTOR_MAP.get("standard_heater_port"), "fission/port", "fission/port/heater", ACTIVE);
 
         for (String name : FISSION_HEAT_PARTS) {
             blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_sink"), "fission/solid/sink");
             blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_heater"), "fission/salt/heater");
+            directionalBooleanBlockOverlay(name, "out", "in", FISSION_REACTOR_MAP.get(name + "_heater_port"), "fission/port", "fission/port/heater", ACTIVE);
         }
+
+        blockWithItem("computer_port", FISSION_REACTOR_MAP.get("fission_computer_port"), "fission");
     }
+
+    // TODO rename all these functions and merge similar
 
     private void simpleBlocks(List<String> list, HashMap<String, DeferredBlock<Block>> map, String folder) {
         for (String name : list) {
@@ -231,12 +256,31 @@ class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, modelOff);
     }
 
+    private void directionalMachine(String name, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/" + name;
+        ModelFile modelOn = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_on", modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_bottom")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front_on"));
+        ModelFile modelOff = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_off", modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_bottom")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front_off"));
+
+        directionalBlock(block, state -> state.getValue(property) ? modelOn : modelOff);
+        simpleBlockItem(block, modelOff);
+    }
+
     private void horizontalTop(String name, DeferredBlock<Block> deferredBlock, String folder) {
         Block block = deferredBlock.get();
         String base = BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_top")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front"));
 
         horizontalBlock(block, model);
+        simpleBlockItem(block, model);
+    }
+
+    private void directionalTop(String name, DeferredBlock<Block> deferredBlock, String folder) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/" + name;
+        ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_top")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front"));
+
+        directionalBlock(block, model);
         simpleBlockItem(block, model);
     }
 
@@ -260,6 +304,76 @@ class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, modelFalse);
     }
 
+    private void directionalBooleanBlock(String name_true, String name_false, DeferredBlock<Block> deferredBlock, String sideFolder, String folder, BooleanProperty property) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/";
+        String side = BLOCK_FOLDER + "/" + sideFolder + "/";
+        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc("block/machine")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name_true)).texture("front", modLoc(base + name_true));
+        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc("block/machine")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name_false)).texture("front", modLoc(base + name_false));
+        directionalBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
+        simpleBlockItem(block, modelFalse);
+    }
+
+    private void directionalBooleanBlockOverlay(String name, String name_true, String name_false, DeferredBlock<Block> deferredBlock, String sideFolder, String folder, BooleanProperty property) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/";
+        String side = BLOCK_FOLDER + "/" + sideFolder + "/";
+        ResourceLocation none = modLoc(BLOCK_FOLDER + "/block_invisible");
+        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc("block/machine_overlayed")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name)).texture("front", modLoc(base + name)).texture("back_overlay", modLoc(base + name_true)).texture("front_overlay", modLoc(base + name_true)).texture("top_overlay", none).texture("bottom_overlay", none).texture("side_overlay", none);
+        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc("block/machine_overlayed")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name)).texture("front", modLoc(base + name)).texture("back_overlay", modLoc(base + name_false)).texture("front_overlay", modLoc(base + name_false)).texture("top_overlay", none).texture("bottom_overlay", none).texture("side_overlay", none);
+
+        directionalBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
+        simpleBlockItem(block, modelFalse);
+    }
+
+    private void horizontalFontalBlock(String name, DeferredBlock<Block> deferredBlock, String sideFolder, String folder) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/";
+        String side = BLOCK_FOLDER + "/" + sideFolder + "/";
+        ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/machine")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name)).texture("front", modLoc(base + name));
+
+        horizontalBlock(block, model);
+        simpleBlockItem(block, model);
+    }
+
+    private void directionalFontalBlock(String name, DeferredBlock<Block> deferredBlock, String sideFolder, String folder) {
+        directionalFontalBlock(name, name, deferredBlock, sideFolder, folder);
+    }
+
+    private void directionalFontalBlock(String name_front, String name_back, DeferredBlock<Block> deferredBlock, String sideFolder, String folder) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/";
+        String side = BLOCK_FOLDER + "/" + sideFolder + "/";
+        ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/machine")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name_back)).texture("front", modLoc(base + name_front));
+
+        directionalBlock(block, model);
+        simpleBlockItem(block, model);
+    }
+
+    public void directionalBlock(Block block, ModelFile model) {
+        directionalBlock(block, model, 180);
+    }
+
+    public void directionalBlock(Block block, ModelFile model, int angleOffset) {
+        directionalBlock(block, $ -> model, angleOffset);
+    }
+
+    public void directionalBlock(Block block, Function<BlockState, ModelFile> modelFunc) {
+        directionalBlock(block, modelFunc, 180);
+    }
+
+    public void directionalBlock(Block block, Function<BlockState, ModelFile> modelFunc, int angleOffset) {
+        getVariantBuilder(block)
+                .forAllStates(state -> {
+                    Direction dir = state.getValue(BlockStateProperties.FACING);
+                    return ConfiguredModel.builder()
+                            .modelFile(modelFunc.apply(state))
+                            .rotationX(dir == Direction.DOWN ? 270 : dir.getAxis().isHorizontal() ? 0 : 90)
+                            .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                            .build();
+                });
+    }
+
     private void booleanBlockOverlay(String name, String nameTrue, String nameFalse, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
         Block block = deferredBlock.get();
         String texture = BLOCK_FOLDER + "/" + folder + "/";
@@ -270,13 +384,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, modelFalse);
     }
 
-    private void blockWithSidedStateItem(String nameBase, String nameTrue, String nameFalse, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
+    private void vent(String nameBase, String nameTrue, String nameFalse, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
         Block block = deferredBlock.get();
         String base = BLOCK_FOLDER + "/" + folder + "/" + nameBase;
         ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + nameTrue, modLoc("block/machine")).texture("top", modLoc(base + "_side")).texture("bottom", modLoc(base + "_side")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front" + nameTrue));
         ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + nameFalse, modLoc("block/machine")).texture("top", modLoc(base + "_side")).texture("bottom", modLoc(base + "_side")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front" + nameFalse));
 
-        horizontalBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
+        directionalBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
         simpleBlockItem(block, modelFalse);
     }
 
@@ -294,6 +408,10 @@ class ModBlockStateProvider extends BlockStateProvider {
         ModelFile model = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture));
         simpleBlock(block, model);
         simpleBlockItem(block, model);
+    }
+
+    private void blockWithItem(DeferredBlock<Block> deferredBlock, String folder) {
+        blockWithItem(BuiltInRegistries.BLOCK.getKey(deferredBlock.get()).getPath(), deferredBlock, folder);
     }
 
     private void blockWithItemCutout(String name, DeferredBlock<Block> deferredBlock, String folder) {

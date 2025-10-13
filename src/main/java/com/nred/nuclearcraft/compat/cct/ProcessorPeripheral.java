@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.compat.cct;
 
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.helpers.SideConfigEnums;
-import com.nred.nuclearcraft.util.OCHelper;
+import com.nred.nuclearcraft.util.CCHelper;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.core.Direction;
@@ -34,22 +34,22 @@ public record ProcessorPeripheral(ProcessorEntity processorEntity) implements IP
 
     @LuaFunction(mainThread = true)
     public Object[] getItemInputs() {
-        return new Object[]{OCHelper.stackInfoArray(processorEntity.getItemInputs())};
+        return new Object[]{CCHelper.stackInfoArray(processorEntity.getItemInputs())};
     }
 
     @LuaFunction(mainThread = true)
     public Object[] getFluidInputs() {
-        return new Object[]{OCHelper.fluidInfoArray(processorEntity.getFluidInputs())};
+        return new Object[]{CCHelper.fluidInfoArray(processorEntity.getFluidInputs())};
     }
 
     @LuaFunction(mainThread = true)
     public Object[] getItemOutputs() {
-        return new Object[]{OCHelper.stackInfoArray(processorEntity.getItemOutputs())};
+        return new Object[]{CCHelper.stackInfoArray(processorEntity.getItemOutputs())};
     }
 
     @LuaFunction(mainThread = true)
     public Object[] getFluidOutputs() {
-        return new Object[]{OCHelper.fluidInfoArray(processorEntity.getFluidOutputs())};
+        return new Object[]{CCHelper.fluidInfoArray(processorEntity.getFluidOutputs())};
     }
 
     @LuaFunction(mainThread = true)

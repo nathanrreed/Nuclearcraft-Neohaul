@@ -1,39 +1,61 @@
 package com.nred.nuclearcraft.block.fission;
 
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.SaltFissionControllerMenu;
-import com.nred.nuclearcraft.multiblock.IMultiblockGuiPart;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
+import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
+import java.util.Optional;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
-import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
+import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
 
-public class SaltFissionControllerEntity extends AbstractFissionEntity implements MenuProvider, IFissionController<SaltFissionControllerEntity>, IMultiblockGuiPart<FissionReactor> {
+public class SaltFissionControllerEntity extends AbstractFissionEntity implements IFissionController<SaltFissionControllerEntity>, MenuProvider {
+    protected final TileContainerInfo<SaltFissionControllerEntity> info = TileInfoHandler.getTileContainerInfo("salt_fission_controller");
+
     public SaltFissionControllerEntity(BlockPos pos, BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("molten_salt_fission_controller").get(), pos, blockState);
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.translatable(NuclearcraftNeohaul.MODID + ".menu.title.multiblock");
+    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
+        return position.isFace();
     }
 
     @Override
+    public String getLogicID() {
+        return "molten_salt";
+    }
+
+    @Override
+    public TileContainerInfo<SaltFissionControllerEntity> getContainerInfo() {
+        return info;
+    }
+
+    // MenuProvider
+
+    @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new SaltFissionControllerMenu(containerId, playerInventory, ContainerLevelAccess.create(level, worldPosition), this);
+        return new SaltFissionControllerMenu(containerId, playerInventory, this);
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return getTileBlockDisplayName();
     }
 
     @Override
@@ -42,23 +64,27 @@ public class SaltFissionControllerEntity extends AbstractFissionEntity implement
     }
 
     @Override
+    public void onPostMachineAssembled(FissionReactor controller) {
+        super.onPostMachineAssembled(controller);
+        if (!level.isClientSide) {
+            Optional<Direction> facing = getPartPosition().getDirection();
+            facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_ALL, direction), 2));
+        }
+    }
+
+    @Override
+    public void onBlockNeighborChanged(BlockState state, Level world, BlockPos pos, BlockPos fromPos) {
+        super.onBlockNeighborChanged(state, world, pos, fromPos);
+        Optional<FissionReactor> multiblock = getMultiblockController();
+        multiblock.ifPresent(FissionReactor::updateActivity);
+    }
+
+    @Override
     public void doMeltdown(Iterator<IFissionController<?>> controllerIterator) {
+        controllerIterator.remove();
+        level.removeBlockEntity(worldPosition);
 
-    }
-
-    public void setActiveState(boolean value) { // TODO
-        BlockState state = getLevel().getBlockState(getBlockPos());
-        if (!state.isAir())
-            getLevel().setBlock(getBlockPos(), state.setValue(ACTIVE, value), Block.UPDATE_ALL);
-    }
-
-    @Override
-    public BlockPos getPos() {
-        return getBlockPos();
-    }
-
-    @Override
-    public String getLogicID() {
-        return "molten_salt";
+        BlockState corium = CUSTOM_FLUID_MAP.get("corium").block.get().defaultBlockState();
+        level.setBlockAndUpdate(worldPosition, corium);
     }
 }

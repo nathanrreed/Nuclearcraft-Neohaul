@@ -42,7 +42,7 @@ public class JeiTurbineCategory implements IRecipeCategory<TurbineRecipe> {
 
     public JeiTurbineCategory(IGuiHelper helper) {
         this.helper = helper;
-        this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("multiblock");
+        this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("turbine");
     }
 
     @Override
@@ -62,7 +62,7 @@ public class JeiTurbineCategory implements IRecipeCategory<TurbineRecipe> {
 
     @Override
     public Component getTitle() {
-        return Component.translatable("emi.category." + MODID + ".multiblock");
+        return Component.translatable("emi.category." + MODID + ".turbine");
     }
 
     @Override
@@ -73,10 +73,10 @@ public class JeiTurbineCategory implements IRecipeCategory<TurbineRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, TurbineRecipe recipe, IFocusGroup focuses) {
         ScreenPosition position = recipeViewerInfo.inputs().getFirst();
-        builder.addOutputSlot(position.x(), position.y()).addFluidStack(recipe.fluidInput().getFluids()[0].getFluid(), recipe.fluidInput().amount()).setFluidRenderer(recipe.fluidInput().amount(), false, 18, 18);
+        builder.addOutputSlot(position.x(), position.y()).addFluidStack(recipe.getFluidIngredient().getFluids()[0].getFluid(), recipe.getFluidIngredient().amount()).setFluidRenderer(recipe.getFluidIngredient().amount(), false, 18, 18);
 
         position = recipeViewerInfo.outputs().getFirst();
-        builder.addOutputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.fluidResult().getFluids()[0].getFluid(), recipe.fluidResult().amount()).setFluidRenderer(recipe.fluidResult().amount(), false, 24, 24);
+        builder.addOutputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.getFluidIngredient().getFluids()[0].getFluid(), recipe.getFluidIngredient().amount()).setFluidRenderer(recipe.getFluidIngredient().amount(), false, 24, 24);
     }
 
     @Override
@@ -87,10 +87,10 @@ public class JeiTurbineCategory implements IRecipeCategory<TurbineRecipe> {
         if (new ScreenRectangle(recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2).containsPoint((int) mouseX, (int) mouseY)) {
             ArrayList<Component> list = new ArrayList<>(2);
             list.addAll(List.of(
-                    Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_energy_density", Component.literal(NCMath.decimalPlaces(recipe.power_per_mb(), 2) + " RF/mB").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_expansion", Component.literal(NCMath.pcDecimalPlaces(recipe.expansion_level(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY)));
-            if (recipe.get_spin_up_multiplier() != 1.0)
-                list.add(Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_spin_up_multiplier", Component.literal(NCMath.pcDecimalPlaces(recipe.get_spin_up_multiplier(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
+                    Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_energy_density", Component.literal(NCMath.decimalPlaces(recipe.getTurbinePowerPerMB(), 2) + " RF/mB").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_expansion", Component.literal(NCMath.pcDecimalPlaces(recipe.getTurbineExpansionLevel(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY)));
+            if (recipe.getTurbineSpinUpMultiplier() != 1.0)
+                list.add(Component.translatable(NuclearcraftNeohaul.MODID + ".recipe_viewer.turbine_spin_up_multiplier", Component.literal(NCMath.pcDecimalPlaces(recipe.getTurbineSpinUpMultiplier(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
 
             guiGraphics.renderTooltip(Minecraft.getInstance().font, list, Optional.empty(), (int) mouseX, (int) mouseY);
         }

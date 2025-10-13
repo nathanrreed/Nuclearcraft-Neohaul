@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.block;
 
-import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -12,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
 
-public class GenericHorizontalTooltipDeviceBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericDeviceBlock<Controller, PartType> {
+public class GenericHorizontalTooltipDeviceBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericTooltipDeviceBlock<Controller, PartType> {
     public GenericHorizontalTooltipDeviceBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
     }

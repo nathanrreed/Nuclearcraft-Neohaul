@@ -29,16 +29,16 @@ public class FissionCasingEntity extends AbstractFissionEntity implements INeste
     }
 
     @Override
-    public void onPostMachineAssembled(FissionReactor controller) {
-        super.onPostMachineAssembled(controller);
-        if (level.isClientSide && getPartPosition().isFrame()) {
+    public void onPreMachineAssembled(FissionReactor controller) {
+        super.onPreMachineAssembled(controller);
+        if (!level.isClientSide && getPartPosition().isFrame()) { // TODO
             level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 2);
         }
     }
 
     @Override
     public void onPreMachineBroken() {
-        if (level.isClientSide && getPartPosition().isFrame()) {
+        if (!level.isClientSide && getPartPosition().isFrame()) {
             level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, false), 2);
         }
         super.onPreMachineBroken();

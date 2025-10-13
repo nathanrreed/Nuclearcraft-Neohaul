@@ -31,10 +31,6 @@ public record ClearPayload(int tank, BlockPos pos) implements CustomPacketPayloa
 
         if (be instanceof ProcessorEntity processor) {
             processor.handleFluidClear(payload.tank);
-        } else if (be instanceof TurbineControllerEntity turbine) {
-            turbine.getMultiblockController().get().clearAllMaterial();
-        } else if (be instanceof AbstractFissionEntity reactor) {
-            reactor.getMultiblockController().get().clearAllMaterial();
         }
     }
 }

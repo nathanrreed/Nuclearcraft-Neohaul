@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block;
 
-import com.nred.nuclearcraft.helpers.Tank;
+import com.nred.nuclearcraft.block.internal.fluid.Tank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

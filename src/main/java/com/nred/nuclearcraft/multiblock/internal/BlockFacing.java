@@ -252,7 +252,7 @@ public class BlockFacing {
 
         for (int i = 0; i < len; ++i) {
             if (facings[i]) {
-                hash |= (byte) (1 << Direction.values()[i].ordinal());
+                hash |= (byte) (1 << Direction.from3DDataValue(i).ordinal());
             }
         }
 

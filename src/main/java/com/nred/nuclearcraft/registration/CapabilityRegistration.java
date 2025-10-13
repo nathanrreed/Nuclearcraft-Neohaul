@@ -4,24 +4,27 @@ import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGeneratorEntity;
 import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollectorEntity;
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
+import com.nred.nuclearcraft.block.fission.FissionVentEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.block.turbine.TurbineCoilConnectorEntity;
+import com.nred.nuclearcraft.block.turbine.TurbineDynamoCoilEntity;
 import com.nred.nuclearcraft.block.turbine.TurbineInletEntity;
 import com.nred.nuclearcraft.block.turbine.TurbineOutletEntity;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.config.ProcessorConfig;
-import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import com.nred.nuclearcraft.item.EnergyItem;
-import com.nred.nuclearcraft.multiblock.turbine.Turbine;
+import mekanism.api.chemical.IChemicalHandler;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.energy.EnergyStorage;
-
-import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
@@ -31,8 +34,6 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CE
 
 @EventBusSubscriber(modid = MODID)
 public class CapabilityRegistration {
-    public static CustomEnergyHandler ENERGY_EMPTY = new CustomEnergyHandler(0, false, false);
-
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
@@ -71,21 +72,35 @@ public class CapabilityRegistration {
         }
 
         // Turbine
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((TurbineInletEntity) entity).getFluidHandler());
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((TurbineOutletEntity) entity).getFluidHandler());
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("dynamo").get(), (entity, direction) -> {
-            Optional<Turbine> controller = entity.getMultiblockController();
-            return controller.isEmpty() || controller.get().controller == null ? ENERGY_EMPTY : entity.getMultiblockController().get().energyStorage;
-        });
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("coil_connector").get(), (entity, direction) -> {
-            Optional<Turbine> controller = entity.getMultiblockController();
-            return controller.isEmpty() || controller.get().controller == null ? ENERGY_EMPTY : entity.getMultiblockController().get().energyStorage;
-        });
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((TurbineInletEntity) entity).getFluidSideCapability((direction)));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((TurbineOutletEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("dynamo").get(), (entity, direction) -> ((TurbineDynamoCoilEntity) entity).getEnergySideCapability(direction));
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("coil_connector").get(), (entity, direction) -> ((TurbineCoilConnectorEntity) entity).getEnergySideCapability(direction));
+
+        //TODO
+//        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get().get(), (entity, direction) -> ((FissionIrradiatorEntity) entity).getItemSideCapability(direction));
+
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("vent").get(), (entity, direction) -> ((FissionVentEntity) entity).getFluidSideCapability(direction));
+
 
         items(event);
 
         if (ModList.get().isLoaded("computercraft")) {
             RegisterPeripherals.registerPeripherals(event);
+        }
+
+        if (ModList.get().isLoaded("mekanism")) {
+            // Mekanism Chemical Capabilities
+            BlockCapability.getAllProxyable().stream().filter(a -> a.name().equals(ResourceLocation.parse("mekanism:chemical_handler"))).findFirst().ifPresent(c -> {
+                BlockCapability<IChemicalHandler, Direction> CHEMICAL = (BlockCapability<IChemicalHandler, Direction>) c;
+
+                // Turbine
+                event.registerBlockEntity(CHEMICAL, TURBINE_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((TurbineInletEntity) entity).getChemicalCapability(direction));
+                event.registerBlockEntity(CHEMICAL, TURBINE_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((TurbineOutletEntity) entity).getChemicalCapability(direction));
+
+                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vent").get(), (entity, direction) -> ((FissionVentEntity) entity).getChemicalCapability(direction));
+
+            });
         }
     }
 

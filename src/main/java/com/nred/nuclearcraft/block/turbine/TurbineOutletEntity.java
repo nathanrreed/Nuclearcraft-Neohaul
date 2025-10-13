@@ -1,61 +1,194 @@
 package com.nred.nuclearcraft.block.turbine;
 
-import com.nred.nuclearcraft.block.IPushFluid;
+import com.nred.nuclearcraft.block.ITickable;
+import com.nred.nuclearcraft.block.fluid.ITileFluid;
+import com.nred.nuclearcraft.block.internal.fluid.*;
+import com.nred.nuclearcraft.block.passive.ITilePassive;
+import com.nred.nuclearcraft.block.internal.fluid.Tank;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
-import it.zerono.mods.zerocore.lib.fluid.handler.FluidHandlerForwarder;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
+import static net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
+import static net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 
-public class TurbineOutletEntity extends AbstractTurbineEntity implements IPushFluid {
-    private final FluidHandlerForwarder _capabilityForwarder;
+public class TurbineOutletEntity extends AbstractTurbineEntity implements ITickable, ITileFluid {
+    private final @Nonnull List<Tank> backupTanks = Collections.emptyList();
+
+    private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(TankSorption.OUT);
+
+    private final @Nonnull FluidTileWrapper[] fluidSides;
+    private final @Nonnull ChemicalTileWrapper[] chemicalSides;
 
     public TurbineOutletEntity(final BlockPos position, final BlockState blockState) {
         super(TURBINE_ENTITY_TYPE.get("outlet").get(), position, blockState);
-        _capabilityForwarder = new FluidHandlerForwarder(EmptyFluidHandler.INSTANCE);
+        fluidSides = ITileFluid.getDefaultFluidSides(this);
+        chemicalSides = ITileFluid.getDefaultChemicalSides(this);
     }
 
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
-        return position.isFace() || super.isGoodForPosition(position, validatorCallback);
+        return position.isFace();
     }
-
-    Map<Direction, BlockCapabilityCache<IFluidHandler, Direction>> capCache = new HashMap<>();
 
     @Override
-    public Map<Direction, BlockCapabilityCache<IFluidHandler, Direction>> getCapCache() {
-        return capCache;
+    public void onPostMachineAssembled(Turbine controller) {
+        super.onPostMachineAssembled(controller);
+        if (!level.isClientSide) {
+            Optional<Direction> facing = getPartPosition().getDirection();
+            facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_ALL, direction), 2));
+        }
     }
 
-    public void onCapInvalidate() {
-
-    }
-
+    @Override
     public void update() {
-        pushFluid(level, getMultiblockController().get().fluidTankHandler.get(1), worldPosition, this);
+        if (!level.isClientSide) {
+            List<Tank> tanks = getTanks();
+            if (!tanks.isEmpty() && !tanks.get(0).isEmpty()) {
+                Direction posFacing = getPartPosition().getDirection().orElse(null);
+                if (posFacing != null && getTankSorption(posFacing, 0).canDrain()) {
+                    pushFluidToSide(posFacing);
+                }
+            }
+        }
+    }
+
+    // Fluids
+
+    @Override
+    @Nonnull
+    public List<Tank> getTanks() {
+        if (!isMachineAssembled()) {
+            return backupTanks;
+        }
+        return getMultiblockController().get().tanks.subList(1, 2);
     }
 
     @Override
-    public Collection<Direction> getDirections() {
-        Direction flow = getMultiblockController().get().flowDir;
-        return List.of(flow, flow.getOpposite());
+    @Nonnull
+    public FluidConnection[] getFluidConnections() {
+        return fluidConnections;
     }
 
-    public IFluidHandler getFluidHandler() {
-        Optional<Turbine> controller = this.getMultiblockController();
-        if (controller.isPresent()) {
-            _capabilityForwarder.setHandler(this.getMultiblockController().get().fluidTankHandler);
+    @Override
+    public void setFluidConnections(@Nonnull FluidConnection[] connections) {
+        fluidConnections = connections;
+    }
+
+    @Override
+    @Nonnull
+    public FluidTileWrapper[] getFluidSides() {
+        return fluidSides;
+    }
+
+    @Override
+    public @Nonnull ChemicalTileWrapper[] getChemicalSides() {
+        return chemicalSides;
+    }
+
+    @Override
+    public void pushFluidToSide(@Nonnull Direction side) {
+        BlockEntity tile = getTileWorld().getBlockEntity(getTilePos().relative(side));
+        if (tile == null) {
+            return;
         }
 
-        return _capabilityForwarder;
+        if (tile instanceof ITilePassive tilePassive && !tilePassive.canPushFluidsTo()) {
+            return;
+        }
+
+        IFluidHandler adjStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, worldPosition, side.getOpposite());
+        if (adjStorage == null) {
+            return;
+        }
+
+        List<Tank> tanks = getTanks();
+        if (!tanks.isEmpty()) {
+            Tank tank = tanks.get(0);
+            onWrapperDrain(tank.drain(adjStorage.fill(tank.drain(tank.getCapacity(), SIMULATE), EXECUTE), EXECUTE), EXECUTE);
+        }
     }
+
+    @Override
+    public boolean getInputTanksSeparated() {
+        return false;
+    }
+
+    @Override
+    public void setInputTanksSeparated(boolean separated) {
+    }
+
+    @Override
+    public boolean getVoidUnusableFluidInput(int tankNumber) {
+        return false;
+    }
+
+    @Override
+    public void setVoidUnusableFluidInput(int tankNumber, boolean voidUnusableFluidInput) {
+    }
+
+    @Override
+    public TankOutputSetting getTankOutputSetting(int tankNumber) {
+        return TankOutputSetting.DEFAULT;
+    }
+
+    @Override
+    public void setTankOutputSetting(int tankNumber, TankOutputSetting setting) {
+    }
+
+    // NBT
+
+    @Override
+    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.writeAll(nbt, registries);
+        writeFluidConnections(nbt, registries);
+        return nbt;
+    }
+
+    @Override
+    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.readAll(nbt, registries);
+        readFluidConnections(nbt, registries);
+    }
+
+//    // Capability
+//
+//    @Override
+//    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing side) {
+//        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || (ModCheck.mekanismLoaded() && enable_mek_gas && capability == CapabilityHelper.GAS_HANDLER_CAPABILITY)) {
+//            return hasFluidSideCapability(side);
+//        }
+//        return super.hasCapability(capability, side);
+//    }
+//
+//    @Override
+//    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing side) {
+//        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+//            if (hasFluidSideCapability(side)) {
+//                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(getFluidSide(nonNullSide(side)));
+//            }
+//            return null;
+//        } else if (ModCheck.mekanismLoaded() && capability == CapabilityHelper.GAS_HANDLER_CAPABILITY) {
+//            if (enable_mek_gas && hasFluidSideCapability(side)) {
+//                return CapabilityHelper.GAS_HANDLER_CAPABILITY.cast(getGasWrapper());
+//            }
+//            return null;
+//        }
+//        return super.getCapability(capability, side);
+//    }
 }

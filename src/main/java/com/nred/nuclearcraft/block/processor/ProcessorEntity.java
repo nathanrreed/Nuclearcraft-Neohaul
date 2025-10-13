@@ -52,7 +52,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.PROCESS
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
 
-public abstract class ProcessorEntity extends BlockEntity implements MenuProvider, IMenuProviderExtension {
+public abstract class ProcessorEntity extends BlockEntity implements MenuProvider {
     public boolean redstoneMode = false;
     public final String typeName;
     @NotNull
@@ -453,8 +453,8 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
             case REDSTONE_MODE -> redstoneMode ^= true;
             case ITEM_OUTPUT_SLOT_SETTING -> itemStackHandler.outputSetting(index - 2, left);
             case FLUID_OUTPUT_SLOT_SETTING -> fluidHandler.outputSetting(index, left);
-            case ITEM_SIDE_CONFIG_SETTING -> itemStackHandler.sideConfig(index, Direction.values()[extra], handlerInfo.numItemInputs(), left);
-            case FLUID_SIDE_CONFIG_SETTING -> fluidHandler.sideConfig(index, Direction.values()[extra], handlerInfo.numFluidInputs(), left);
+            case ITEM_SIDE_CONFIG_SETTING -> itemStackHandler.sideConfig(index, Direction.from3DDataValue(extra), handlerInfo.numItemInputs(), left);
+            case FLUID_SIDE_CONFIG_SETTING -> fluidHandler.sideConfig(index, Direction.from3DDataValue(extra), handlerInfo.numFluidInputs(), left);
         }
     }
 
@@ -489,6 +489,5 @@ public abstract class ProcessorEntity extends BlockEntity implements MenuProvide
     }
 
     private void onCapInvalidate() {
-
     }
 }

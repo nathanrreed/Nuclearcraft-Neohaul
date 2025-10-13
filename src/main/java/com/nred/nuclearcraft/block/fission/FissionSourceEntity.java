@@ -1,19 +1,36 @@
 package com.nred.nuclearcraft.block.fission;
 
+import com.nred.nuclearcraft.block.ITileLogicMultiblockPart;
+import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
+import com.nred.nuclearcraft.recipe.RecipeHelper;
+import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
+import com.nred.nuclearcraft.render.BlockHighlightTracker;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
+import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config2.fission_max_size;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class FissionSourceEntity extends AbstractFissionEntity { //implements IFissionManagerListener<FissionSourceManagerEntity, FissionSourceEntity>
+public class FissionSourceEntity extends AbstractFissionEntity implements ITileLogicMultiblockPart<FissionReactor, FissionReactorLogic> { //implements IFissionManagerListener<FissionSourceManagerEntity, FissionSourceEntity>
     private final FissionSourceType fissionSourceType;
+
+//    public static final Object2DoubleMap<String> DYN_EFFICIENCY_MAP = new Object2DoubleOpenHashMap<>(); TODO
 
     public boolean isActive = false;
     public Direction facing = Direction.DOWN;
@@ -24,6 +41,11 @@ public class FissionSourceEntity extends AbstractFissionEntity { //implements IF
     public FissionSourceEntity(final BlockPos position, final BlockState blockState, FissionSourceType fissionSourceType) {
         super(FISSION_ENTITY_TYPE.get("source").get(), position, blockState);
         this.fissionSourceType = fissionSourceType;
+    }
+
+    @Override
+    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
+        return position.isFace();
     }
 
     public static class Variant extends FissionSourceEntity {
@@ -50,10 +72,6 @@ public class FissionSourceEntity extends AbstractFissionEntity { //implements IF
         }
     }
 
-    public boolean isSourceActive() {
-        return false; // TODO (manager != null && manager.isManagerActive()) || getIsRedstonePowered();
-    }
-
     @Override
     public @Nonnull PartPosition getPartPosition() {
         PartPosition partPos = super.getPartPosition();
@@ -61,6 +79,29 @@ public class FissionSourceEntity extends AbstractFissionEntity { //implements IF
             facing = partPos.getDirection().get();
         }
         return partPos;
+    }
+
+    @Override
+    public int[] weakSidesToCheck(Level worldIn, BlockPos posIn) {
+        return new int[]{2, 3, 4, 5};
+    }
+
+    @Override
+    public void onBlockNeighborChanged(BlockState state, Level levelIn, BlockPos posIn, BlockPos fromPos) {
+        boolean wasActive = isActive;
+        super.onBlockNeighborChanged(state, levelIn, posIn, fromPos);
+        isActive = isSourceActive();
+        setActivity(isActive);
+        if (!levelIn.isClientSide && wasActive != isActive) {
+            FissionReactorLogic logic = getLogic();
+            if (logic != null) {
+                logic.onSourceUpdated(this);
+            }
+        }
+    }
+
+    public boolean isSourceActive() {
+        return getIsRedstonePowered(); // TODO (manager != null && manager.isManagerActive()) || getIsRedstonePowered();
     }
 
     public PrimingTargetInfo getPrimingTarget(boolean checkUpdate, boolean simulate) {
@@ -74,10 +115,10 @@ public class FissionSourceEntity extends AbstractFissionEntity { //implements IF
         Direction dir = posFacing.getOpposite();
         for (int i = 1; i <= fission_max_size; ++i) {
             BlockPos offPos = worldPosition.relative(dir, i);
-//            BasicRecipe blockRecipe = RecipeHelper.blockRecipe(NCRecipes.fission_reflector, world, offPos); TODO
-//            if (blockRecipe != null && blockRecipe.getFissionReflectorReflectivity() >= 1D) {
-//                return null;
-//            }
+            FissionReflectorRecipe blockRecipe = (FissionReflectorRecipe) RecipeHelper.blockRecipe(NCRecipes.fission_reflector, level, offPos);
+            if (blockRecipe != null && blockRecipe.getFissionReflectorReflectivity() >= 1D) {
+                return null;
+            }
 
             IFissionComponent component = getMultiblockController().get().getPartMap(IFissionComponent.class).get(offPos.asLong());
             // First check if source is blocked by a flux sink
@@ -139,7 +180,8 @@ public class FissionSourceEntity extends AbstractFissionEntity { //implements IF
 //            boolean wasActive = isActive;
 //            isActive = isSourceActive();
 //            if (wasActive != isActive) {
-////                setActivity(isActive); // TODO
+
+    /// /                setActivity(isActive); // TODO
 //                level.setBlockAndUpdate(managerPos, level.getBlockState(managerPos).setValue(ACTIVE, isActive));
 //                return true;
 //            }
@@ -160,65 +202,46 @@ public class FissionSourceEntity extends AbstractFissionEntity { //implements IF
 //        return FissionSourceManagerEntity.class;
 //    }
 
-//    // IMultitoolLogic
-//
-//    @Override
-//    public boolean onUseMultitool(ItemStack multitool, EntityPlayerMP player, World world, EnumFacing facing, float hitX, float hitY, float hitZ) {
-//        if (IFissionManagerListener.super.onUseMultitool(multitool, player, world, facing, hitX, hitY, hitZ)) {
+    // IMultitoolLogic
+    @Override
+    public boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level level, Direction facing, BlockPos hitPos) {
+//        if (IFissionManagerListener.super.onUseMultitool(multitool, player, level, facing, hitPos)) { TODO
 //            return true;
 //        }
-//        if (!player.isSneaking()) {
-//            PrimingTargetInfo targetInfo = getPrimingTarget(false, true);
-//            if (targetInfo == null) {
-//                player.sendMessage(new TextComponentString(Lang.localize("nuclearcraft.multiblock.fission_reactor_source.no_target")));
-//            }
-//            else {
-//                IFissionFuelComponent fuelComponent = targetInfo.fuelComponent;
-//                BlockPos pos = fuelComponent.getTilePos();
-//                BlockHighlightTracker.sendPacket(player, pos, 5000);
-//                player.sendMessage(new TextComponentString(Lang.localize("nuclearcraft.multiblock.fission_reactor_source.target", pos.getX(), pos.getY(), pos.getZ(), fuelComponent.getTileBlockDisplayName())));
-//            }
-//            return true;
-//        }
-//        return super.onUseMultitool(multitool, player, world, facing, hitX, hitY, hitZ);
-//    }
-//
-//    // NBT
-//
-//    @Override
-//    public NBTTagCompound writeAll(NBTTagCompound nbt) {
-//        super.writeAll(nbt);
-//        nbt.setInteger("facing", facing.getIndex());
-//
-//        if (sourceType == null) {
-//            nbt.setDouble("efficiency", efficiency);
-//        }
-//        else {
-//            nbt.setString("sourceType", sourceType);
-//        }
-//
-//        nbt.setBoolean("isSourceActive", isActive);
-//        nbt.setLong("managerPos", managerPos.toLong());
-//        return nbt;
-//    }
-//
-//    @Override
-//    public void readAll(NBTTagCompound nbt) {
-//        super.readAll(nbt);
-//        facing = EnumFacing.byIndex(nbt.getInteger("facing"));
-//
-//        if (nbt.hasKey("efficiency")) {
-//            efficiency = nbt.getDouble("efficiency");
-//        }
-//        else if (nbt.hasKey("sourceType")) {
-//            sourceType = nbt.getString("sourceType");
-//
-//            if (DYN_EFFICIENCY_MAP.containsKey(sourceType)) {
-//                efficiency = DYN_EFFICIENCY_MAP.getDouble(sourceType);
-//            }
-//        }
-//
-//        isActive = nbt.getBoolean("isSourceActive");
-//        managerPos = BlockPos.fromLong(nbt.getLong("managerPos"));
-//    }
+        if (!player.isCrouching()) {
+            PrimingTargetInfo targetInfo = getPrimingTarget(false, true);
+            if (targetInfo == null) {
+                player.sendSystemMessage(Component.translatable(MODID + ".fission_reactor_source.no_target"));
+            } else {
+                IFissionFuelComponent fuelComponent = targetInfo.fuelComponent;
+                BlockPos pos = fuelComponent.getTilePos();
+                BlockHighlightTracker.sendPacket(player, pos, 5000);
+                player.sendSystemMessage((Component.translatable(MODID + ".fission_reactor_source.target", pos.getX(), pos.getY(), pos.getZ(), fuelComponent.getTileBlockDisplayName())));
+            }
+            return true;
+        }
+        return super.onUseMultitool(multitool, player, level, facing, hitPos);
+    }
+
+    // NBT
+
+    @Override
+    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.writeAll(nbt, registries);
+        nbt.putInt("facing", facing.ordinal());
+
+        nbt.putBoolean("isSourceActive", isActive);
+        nbt.putLong("managerPos", managerPos.asLong());
+        return nbt;
+    }
+
+    @Override
+    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.readAll(nbt, registries);
+
+        facing = Direction.from3DDataValue(nbt.getInt("facing"));
+
+        isActive = nbt.getBoolean("isSourceActive");
+        managerPos = BlockPos.of(nbt.getLong("managerPos"));
+    }
 }

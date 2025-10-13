@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:moderator_recipe",
+  "efficiency": 1.1,
+  "fluxFactor": 10,
+  "moderator": {
+    "item": "nuclearcraftneohaul:graphite_block"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "nuclearcraftneohaul:solid_fission_recipe",
+  "criticality": 32,
+  "decayFactor": 0.08,
+  "efficiency": 1.4,
+  "heat": 1170,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:hea_242_ox"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:depleted_hea_242_ox"
+  },
+  "radiation": 5.958593749999999E-4,
+  "selfPriming": false,
+  "time": 1476
+}

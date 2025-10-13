@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineDynamoCoilEntity extends TurbineDynamoEntityPart {
-    public TurbineDynamoCoilType dynamoCoilType;
+    public final TurbineDynamoCoilType dynamoCoilType;
 
     public TurbineDynamoCoilEntity(final BlockPos position, final BlockState blockState, TurbineDynamoCoilType dynamoCoilType) {
         super(TURBINE_ENTITY_TYPE.get("dynamo").get(), position, blockState);
@@ -21,11 +21,6 @@ public class TurbineDynamoCoilEntity extends TurbineDynamoEntityPart {
         protected Variant(final BlockPos position, final BlockState blockState, TurbineDynamoCoilType dynamoCoilType) {
             super(position, blockState, dynamoCoilType);
         }
-
-//        @Override TODO
-//        public boolean shouldRefresh(Level level, BlockPos posIn, BlockState oldState, BlockState newState) {
-//            return oldState != newState;
-//        }
     }
 
     public static class Magnesium extends TurbineDynamoCoilEntity.Variant {

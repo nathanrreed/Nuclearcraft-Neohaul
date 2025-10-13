@@ -1,0 +1,18 @@
+{
+  "type": "nuclearcraftneohaul:solid_fission_recipe",
+  "criticality": 105,
+  "decayFactor": 0.075,
+  "efficiency": 1.25,
+  "heat": 146,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:lep_241_ni"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:depleted_lep_241_ni"
+  },
+  "radiation": 3.059723958333333E-4,
+  "selfPriming": false,
+  "time": 3946
+}

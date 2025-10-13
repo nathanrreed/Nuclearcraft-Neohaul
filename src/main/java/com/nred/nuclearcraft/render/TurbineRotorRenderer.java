@@ -1,9 +1,8 @@
 package com.nred.nuclearcraft.render;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.helpers.Tank;
+import com.nred.nuclearcraft.block.internal.fluid.Tank;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine.PlaneDir;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
@@ -58,12 +57,9 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
             return;
         }
 
-        float brightness = controller.nextRenderBrightness() / 15;
+        int brightness = controller.nextRenderBrightness();
 
         bindBlocksTexture();
-
-        GlStateManager._clearColor(1F, 1F, 1F, 1F); // TODO ??? pose?
-//		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 0F, 240F); TODO REMOVE
 
         BlockPos pos = controller.getBlockPos();
         double r = turbine.getRotorRadius(), scale = r / Math.sqrt(r * r + NCMath.sq(shaftWidth) / 4D);
@@ -110,19 +106,19 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
         poseStack.popPose();
 
         // Tanks
-        poseStack.pushPose(); // TODO make less opaque?
+        poseStack.pushPose();
 
-        BlockPos posOffset = turbine.getExtremeInteriorCoord(false, false, false).subtract(controller.getPos());
+        BlockPos posOffset = turbine.getExtremeInteriorCoord(false, false, false).subtract(controller.getTilePos());
         poseStack.translate(posOffset.getX(), posOffset.getY(), posOffset.getZ());
         int xSize = turbine.getInteriorLengthX() - 1, ySize = turbine.getInteriorLengthY() - 1, zSize = turbine.getInteriorLengthZ() - 1;
-        Tank outputTank = turbine.fluidTankHandler.get(1);
-        FluidTankRenderer.Single renderer = new FluidTankRenderer.Single(outputTank.getCapacity(), 0, 0, 0, xSize, ySize, zSize);
-        renderer.render(poseStack, bufferSource, packedLight, outputTank.getFluid());
+        Tank outputTank = turbine.tanks.get(1);
+        FluidTankRenderer.Single renderer = new FluidTankRenderer.Single(outputTank.getCapacity(), 0 , 0, 0, xSize, ySize, zSize);
+        renderer.render(poseStack, bufferSource, brightness, outputTank.getFluid());
 
         poseStack.popPose();
     }
 
-    public void renderRotor(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, float brightness, BlockState shaftState, Direction flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int depth) {
+    public void renderRotor(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, int brightness, BlockState shaftState, Direction flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int depth) {
         double depthScale = Math.pow(turbine_render_rotor_expansion, (double) (1 + depth - flowLength) / (double) flowLength);
 
         poseStack.pushPose();
@@ -144,7 +140,7 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
         poseStack.popPose();
     }
 
-    public void renderShaft(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, float brightness, BlockState shaftState, Direction flowDir, int flowLength, int shaftWidth, int depth) {
+    public void renderShaft(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, int brightness, BlockState shaftState, Direction flowDir, int flowLength, int shaftWidth, int depth) {
         poseStack.pushPose();
 
         if (turbine.renderPosArray.length < 1 + 4 * flowLength * shaftWidth + depth) {
@@ -159,12 +155,12 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
 
         poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(-90F), 0F, 1F, 0F));
 
-        context.getBlockRenderDispatcher().renderSingleBlock(shaftState, poseStack, bufferSource, (int) (255 * brightness), OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
+        context.getBlockRenderDispatcher().renderSingleBlock(shaftState, poseStack, bufferSource, brightness, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
 
         poseStack.popPose();
     }
 
-    public void renderBlades(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, float brightness, Direction flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int jMult, int depth) {
+    public void renderBlades(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, int brightness, Direction flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int jMult, int depth) {
         Vector3f renderPos;
         BlockState rotorState;
         TurbinePartDir bladeDir;
@@ -190,7 +186,7 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
 
             poseStack.translate(-0.5D, -0.5D, -0.5D);
 
-            context.getBlockRenderDispatcher().renderSingleBlock(rotorState, poseStack, bufferSource, (int) (255 * brightness), OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
+            context.getBlockRenderDispatcher().renderSingleBlock(rotorState, poseStack, bufferSource, brightness, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
 
             poseStack.popPose();
         }
@@ -198,10 +194,10 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
 
     @Override
     public @NotNull AABB getRenderBoundingBox(TurbineControllerEntity blockEntity) {
-        if (blockEntity.getMultiblockController().isPresent()){
+        if (blockEntity.getMultiblockController().isPresent()) {
             Turbine turbine = blockEntity.getMultiblockController().get();
             return turbine.getBoundingBox().getAABB().inflate(turbine.getInteriorLengthX(), turbine.getInteriorLengthY(), turbine.getInteriorLengthZ());
         }
-        return  BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
+        return BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
     }
 }

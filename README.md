@@ -30,7 +30,7 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Turbines
 
 #### Continual:
-- Integrations with JEI, EMI, CC: T
+- Integrations with JEI, EMI, CC: T, Mekanism
 - Sounds and Particles
 
 #### In progress:
@@ -42,6 +42,6 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Tools and Armour
 - Wasteland
 - Radiation
-- Integrations with other mods (CubeJS / CraftTweaker, Mekanism)
+- Integrations with other mods (CubeJS / CraftTweaker, Jade / TOP)
 - Multiblock (Reactors, etc)
 - And much more

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block.batteries;
 
+import com.nred.nuclearcraft.block.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
-import com.nred.nuclearcraft.info.energy.EnergyConnection;
 import com.nred.nuclearcraft.multiblock.battery.BatteryMultiblock;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockPart;

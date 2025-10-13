@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.util;
 import com.mojang.datafixers.util.Function13;
 import com.mojang.datafixers.util.Function16;
 import com.mojang.datafixers.util.Function8;
+import com.mojang.datafixers.util.Function9;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class StreamCodecsHelper {
-    public static final StreamCodec<RegistryFriendlyByteBuf, List<SizedFluidIngredient>> FLUID_INGREDIENT_LIST_STREAM_CODEC = new StreamCodec<>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, List<SizedFluidIngredient>> SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC = new StreamCodec<>() {
         @Override
         public @NotNull List<SizedFluidIngredient> decode(RegistryFriendlyByteBuf buffer) {
             return Arrays.stream(buffer.readArray(SizedFluidIngredient[]::new, buf -> SizedFluidIngredient.STREAM_CODEC.decode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE)))).toList();
@@ -39,7 +40,7 @@ public class StreamCodecsHelper {
         }
     };
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, List<SizedIngredient>> ITEM_INGREDIENT_LIST_STREAM_CODEC = new StreamCodec<>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, List<SizedIngredient>> SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC = new StreamCodec<>() {
         @Override
         public @NotNull List<SizedIngredient> decode(RegistryFriendlyByteBuf buffer) {
             return Arrays.stream(buffer.readArray(SizedIngredient[]::new, buf -> SizedIngredient.STREAM_CODEC.decode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE)))).toList();
@@ -93,6 +94,56 @@ public class StreamCodecsHelper {
                 codec6.encode(buffer, getter6.apply(value));
                 codec7.encode(buffer, getter7.apply(value));
                 codec8.encode(buffer, getter8.apply(value));
+            }
+        };
+    }
+
+    public static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9> StreamCodec<B, C> composite(
+            final StreamCodec<? super B, T1> codec1,
+            final Function<C, T1> getter1,
+            final StreamCodec<? super B, T2> codec2,
+            final Function<C, T2> getter2,
+            final StreamCodec<? super B, T3> codec3,
+            final Function<C, T3> getter3,
+            final StreamCodec<? super B, T4> codec4,
+            final Function<C, T4> getter4,
+            final StreamCodec<? super B, T5> codec5,
+            final Function<C, T5> getter5,
+            final StreamCodec<? super B, T6> codec6,
+            final Function<C, T6> getter6,
+            final StreamCodec<? super B, T7> codec7,
+            final Function<C, T7> getter7,
+            final StreamCodec<? super B, T8> codec8,
+            final Function<C, T8> getter8,
+            final StreamCodec<? super B, T9> codec9,
+            final Function<C, T9> getter9,
+            final Function9<T1, T2, T3, T4, T5, T6, T7, T8, T9, C> p_331335_) {
+        return new StreamCodec<>() {
+            @Override
+            public C decode(B buffer) {
+                T1 t1 = codec1.decode(buffer);
+                T2 t2 = codec2.decode(buffer);
+                T3 t3 = codec3.decode(buffer);
+                T4 t4 = codec4.decode(buffer);
+                T5 t5 = codec5.decode(buffer);
+                T6 t6 = codec6.decode(buffer);
+                T7 t7 = codec7.decode(buffer);
+                T8 t8 = codec8.decode(buffer);
+                T9 t9 = codec9.decode(buffer);
+                return p_331335_.apply(t1, t2, t3, t4, t5, t6, t7, t8, t9);
+            }
+
+            @Override
+            public void encode(B buffer, C value) {
+                codec1.encode(buffer, getter1.apply(value));
+                codec2.encode(buffer, getter2.apply(value));
+                codec3.encode(buffer, getter3.apply(value));
+                codec4.encode(buffer, getter4.apply(value));
+                codec5.encode(buffer, getter5.apply(value));
+                codec6.encode(buffer, getter6.apply(value));
+                codec7.encode(buffer, getter7.apply(value));
+                codec8.encode(buffer, getter8.apply(value));
+                codec9.encode(buffer, getter9.apply(value));
             }
         };
     }

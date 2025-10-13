@@ -1,7 +1,5 @@
 package com.nred.nuclearcraft.block.turbine;
 
-import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
-import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -13,7 +11,7 @@ public class TurbineGlassEntity extends AbstractTurbineEntity {
     }
 
     @Override
-    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
-        return position.isFace() || super.isGoodForPosition(position, validatorCallback);
+    public boolean isTransparent() {
+        return true;
     }
 }

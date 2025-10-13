@@ -47,6 +47,9 @@ public class ModEmiPlugin implements EmiPlugin {
     private static final EmiStack TURBINE_WORKSTATION = EmiStack.of(TURBINE_MAP.get("turbine_controller"));
     public static final EmiRecipeCategory EMI_TURBINE_CATEGORY = new EmiRecipeCategory(ncLoc("turbine"), TURBINE_WORKSTATION);
 
+    private static final EmiStack MODERATOR_WORKSTATION = EmiStack.of(HEAVY_WATER_MODERATOR);
+    public static final EmiRecipeCategory EMI_MODERATOR_CATEGORY = new EmiRecipeCategory(ncLoc("moderator"), MODERATOR_WORKSTATION);
+
     @Override
     public void register(EmiRegistry registry) {
         RecipeManager manager = registry.getRecipeManager();
@@ -144,7 +147,9 @@ public class ModEmiPlugin implements EmiPlugin {
         });
 
         for (RecipeHolder<TurbineRecipe> recipe : manager.getAllRecipesFor(TURBINE_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiTurbineRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().fluidInput()),NeoForgeEmiIngredient.of(recipe.value().fluidResult()), recipe.value().power_per_mb(), recipe.value().expansion_level(), recipe.value().get_spin_up_multiplier()));
+            registry.addRecipe(new EmiTurbineRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value().getTurbinePowerPerMB(), recipe.value().getTurbineExpansionLevel(), recipe.value().getTurbineSpinUpMultiplier()));
         }
+
+        registry.addRecipe(new EmiBasicInfoRecipe(manager.getAllRecipesFor(FISSION_MODERATOR_RECIPE_TYPE.get()).stream().map(i -> EmiIngredient.of(i.value().moderator())).toList(), EMI_MODERATOR_CATEGORY, ncLoc("moderators")));
     }
 }

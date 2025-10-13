@@ -1,12 +1,26 @@
 package com.nred.nuclearcraft.multiblock;
 
+import com.nred.nuclearcraft.block.internal.energy.EnergyStorage;
+import com.nred.nuclearcraft.block.ITickable;
+import com.nred.nuclearcraft.block.fluid.ITileFluid;
+import com.nred.nuclearcraft.block.inventory.ITileInventory;
+import com.nred.nuclearcraft.block.internal.fluid.Tank;
 import com.nred.nuclearcraft.util.NCMath;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectLists;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
+import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockController;
+import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.joml.Vector3f;
 
@@ -16,7 +30,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> extends AbstractCuboidMultiblockController<MULTIBLOCK> implements IMultiblockController<MULTIBLOCK>, IPacketMultiblock<MULTIBLOCK> {
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+
+public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> extends AbstractCuboidMultiblockController<MULTIBLOCK> implements IMultiblockController<MULTIBLOCK> {
     protected Multiblock(Level world) {
         super(world);
     }
@@ -61,6 +77,37 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
         return Optional.of(this.getBoundingBox().getMax());
     }
 
+    private List<ITickable> _attachedTickables = ObjectLists.emptyList();
+
+    @Override
+    protected boolean updateServer() {
+        _attachedTickables.forEach(ITickable::update);
+        return false;
+    }
+
+    @Override
+    protected void onPartAdded(IMultiblockPart<MULTIBLOCK> newPart) {
+        if (newPart instanceof ITickable && this.calledByLogicalServer()) {
+            if (ObjectLists.<ITickable>emptyList() == this._attachedTickables) {
+                this._attachedTickables = new ObjectArrayList<>(4);
+            }
+            this._attachedTickables.add((ITickable) newPart);
+        }
+    }
+
+    @Override
+    protected void onPartRemoved(IMultiblockPart<MULTIBLOCK> oldPart) {
+        if (oldPart instanceof ITickable && this.calledByLogicalServer() &&
+                ObjectLists.<ITickable>emptyList() != this._attachedTickables) {
+            this._attachedTickables.remove(oldPart);
+        }
+    }
+
+    @Override
+    protected void onAssimilated(IMultiblockController<MULTIBLOCK> iMultiblockController) {
+        this._attachedTickables.clear();
+    }
+
     public int getInteriorLength(Direction dir) {
         if (dir == null) {
             return getInteriorLengthY();
@@ -87,9 +134,6 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
 
     public int getPartCount(Class<?> clazz) {
         return getPartsCount(clazz::isInstance);
-    }
-
-    public void clearAllMaterial() {
     }
 
     @Override
@@ -227,6 +271,45 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
         return 2 * (getExteriorLengthX() * getExteriorLengthY() + getExteriorLengthY() * getExteriorLengthZ() + getExteriorLengthZ() * getExteriorLengthX());
     }
 
+    public boolean isInMinWall(Direction.Axis axis, BlockPos pos) {
+        if (axis == null) {
+            return false;
+        }
+
+        return switch (axis) {
+            case X -> pos.getX() == getMinX();
+            case Y -> pos.getY() == getMinY();
+            case Z -> pos.getZ() == getMinZ();
+        };
+    }
+
+    public boolean isInMaxWall(Direction.Axis axis, BlockPos pos) {
+        if (axis == null) {
+            return false;
+        }
+
+        return switch (axis) {
+            case X -> pos.getX() == getMaxX();
+            case Y -> pos.getY() == getMaxY();
+            case Z -> pos.getZ() == getMaxZ();
+        };
+    }
+
+    public boolean isInWall(Direction side, BlockPos pos) {
+        if (side == null) {
+            return false;
+        }
+
+        return switch (side) {
+            case DOWN -> pos.getY() == getMinY();
+            case UP -> pos.getY() == getMaxY();
+            case NORTH -> pos.getZ() == getMinZ();
+            case SOUTH -> pos.getZ() == getMaxZ();
+            case WEST -> pos.getX() == getMinX();
+            case EAST -> pos.getX() == getMaxX();
+        };
+    }
+
     public BlockPos getMinimumInteriorPlaneCoord(Direction normal, int depth, int uCushion, int vCushion) {
         if (normal == null) {
             return getExtremeInteriorCoord(false, false, false);
@@ -300,5 +383,83 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
             case WEST -> getInteriorPlaneMinX(depth, minUCushion, minVCushion, maxUCushion, maxVCushion);
             case EAST -> getInteriorPlaneMaxX(depth, minUCushion, minVCushion, maxUCushion, maxVCushion);
         };
+    }
+
+    // Validation helpers
+
+    public boolean standardLastError(BlockPos pos) {
+        setLastError(MODID + ".multiblock_validation.invalid_block", pos, pos.getX(), pos.getY(), pos.getZ(), getWorld().getBlockState(pos).getBlock().getName());
+        return false;
+    }
+
+    @Override
+    protected boolean isBlockGoodForFrame(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
+        return standardLastError(new BlockPos(x, y, z));
+    }
+
+    @Override
+    protected boolean isBlockGoodForTop(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
+        return standardLastError(new BlockPos(x, y, z));
+    }
+
+    @Override
+    protected boolean isBlockGoodForBottom(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
+        return standardLastError(new BlockPos(x, y, z));
+    }
+
+    @Override
+    protected boolean isBlockGoodForSides(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
+        return standardLastError(new BlockPos(x, y, z));
+    }
+
+    @Override
+    public void markReferenceCoordForUpdate() {
+        super.markReferenceCoordForUpdate();
+    }
+
+    // Clear Material
+
+    public void clearAllMaterial() {
+        for (IMultiblockPart<MULTIBLOCK> part : getConnectedParts()) {
+            if (part instanceof ITileInventory tileInventory) {
+                tileInventory.clearAllSlots();
+            }
+            if (part instanceof ITileFluid tileFluid) {
+                tileFluid.clearAllTanks();
+            }
+        }
+    }
+
+    // Data synchronization
+
+    public CompoundTag writeStacks(NonNullList<ItemStack> stacks, CompoundTag data, HolderLookup.Provider registries) {
+        ContainerHelper.saveAllItems(data, stacks, registries);
+        return data;
+    }
+
+    public void readStacks(NonNullList<ItemStack> stacks, CompoundTag data, HolderLookup.Provider registries) {
+        ContainerHelper.loadAllItems(data, stacks, registries);
+    }
+
+    public CompoundTag writeTanks(List<Tank> tanks, CompoundTag data, HolderLookup.Provider registries, String name) {
+        for (int i = 0; i < tanks.size(); ++i) {
+            tanks.get(i).writeToNBT(data, registries, name + i);
+        }
+        return data;
+    }
+
+    public void readTanks(List<Tank> tanks, CompoundTag data, HolderLookup.Provider registries, String name) {
+        for (int i = 0; i < tanks.size(); ++i) {
+            tanks.get(i).readFromNBT(data, registries, name + i);
+        }
+    }
+
+    public CompoundTag writeEnergy(EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
+        storage.writeToNBT(data, registries, string);
+        return data;
+    }
+
+    public void readEnergy(EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
+        storage.readFromNBT(data, registries, string);
     }
 }

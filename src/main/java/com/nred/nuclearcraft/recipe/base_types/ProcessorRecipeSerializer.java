@@ -12,8 +12,8 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.util.StreamCodecsHelper.FLUID_INGREDIENT_LIST_STREAM_CODEC;
-import static com.nred.nuclearcraft.util.StreamCodecsHelper.ITEM_INGREDIENT_LIST_STREAM_CODEC;
+import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC;
+import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC;
 
 public class ProcessorRecipeSerializer implements RecipeSerializer<ProcessorRecipe> {
     private final Class<? extends ProcessorRecipe> clazz;
@@ -44,10 +44,10 @@ public class ProcessorRecipeSerializer implements RecipeSerializer<ProcessorReci
     @Override
     public StreamCodec<RegistryFriendlyByteBuf, ProcessorRecipe> streamCodec() {
         return StreamCodec.composite(
-                ITEM_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getItemInputs,
-                ITEM_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getItemResults,
-                FLUID_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getFluidInputs,
-                FLUID_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getFluidResults,
+                SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getItemInputs,
+                SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getItemResults,
+                SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getFluidInputs,
+                SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getFluidResults,
                 ByteBufCodecs.DOUBLE, ProcessorRecipe::getTimeModifier,
                 ByteBufCodecs.DOUBLE, ProcessorRecipe::getPowerModifier,
                 ((itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier) -> {

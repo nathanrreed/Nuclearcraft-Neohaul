@@ -102,14 +102,14 @@ public abstract class Processor extends BaseEntityBlock {
                     stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
 
                     if (level.isClientSide)
-                        player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.save", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                        player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.save_processor_config", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
                 } else {
                     CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
                     if (tag.isEmpty()) return ItemInteractionResult.CONSUME;
 
                     if (!tag.getString("type").equals("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())) {
                         if (level.isClientSide)
-                            player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.error", Component.translatable(tag.getString("type")), Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                            player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.invalid_processor_config", Component.translatable(tag.getString("type")), Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
                     } else {
                         entity.itemStackHandler.outputSettings = SideConfigEnums.OutputSetting.deserializeNBT(null, (CompoundTag) tag.get("item"));
                         entity.itemStackHandler.sideConfig = SideConfigEnums.SideConfigSetting.deserializeNBT(null, (CompoundTag) tag.get("item"));
@@ -117,7 +117,7 @@ public abstract class Processor extends BaseEntityBlock {
                         entity.fluidHandler.sideConfig = SideConfigEnums.SideConfigSetting.deserializeNBT(null, (CompoundTag) tag.get("fluid"));
 
                         if (level.isClientSide)
-                            player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.load", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
+                            player.sendSystemMessage(Component.translatable(NuclearcraftNeohaul.MODID + ".message.multitool.load_processor_config", Component.translatable("block." + BuiltInRegistries.BLOCK.getKey(this).toLanguageKey())));
                     }
                 }
 

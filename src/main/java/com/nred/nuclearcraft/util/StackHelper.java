@@ -9,11 +9,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidUtil;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class StackHelper {
-
     public static ItemStack fixItemStack(Object object) {
         if (object instanceof ItemStack stack) {
             ItemStack copy = stack.copy();
@@ -82,7 +84,7 @@ public class StackHelper {
         return names.substring(2);
     }
 
-//	/** TODO
+    //	/** TODO
 //	 * Stack tag comparison without checking capabilities such as radiation
 //	 */
 //	public static boolean areItemStackTagsEqual(ItemStack stackA, ItemStack stackB) {
@@ -103,11 +105,10 @@ public class StackHelper {
 //		return false;
 //	}
 //
-//	public static ItemStack getBucket(@Nonnull FluidStack fluidStack) {
-//		return FluidUtil.getFilledBucket(fluidStack);
-//	}
-//
 //	public static ItemStack getBucket(String fluidName) {
-//		return getBucket(new FluidStack(FluidRegistry.getFluid(fluidName), Fluid.BUCKET_VOLUME));
+//		return getBucket(new FluidStack(FluidRegistry.getFluid(fluidName), FluidType.BUCKET_VOLUME));
 //	}
+    public static ItemStack getBucket(@Nonnull FluidStack fluidStack) {
+        return FluidUtil.getFilledBucket(fluidStack);
+    }
 }

@@ -67,7 +67,7 @@ public enum FissionHeatSinkType implements StringRepresentable, ITileEnum<SolidF
         return getSerializedName();
     }
 
-    public double getCoolingRate() {
+    public int getCoolingRate() {
         return coolingRate.get();
     }
 

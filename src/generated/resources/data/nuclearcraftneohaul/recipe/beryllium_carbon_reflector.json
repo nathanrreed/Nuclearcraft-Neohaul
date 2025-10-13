@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:reflector_recipe",
+  "block": {
+    "item": "nuclearcraftneohaul:beryllium_carbon_reflector"
+  },
+  "efficiency": 0.5,
+  "reflector": 0.25
+}

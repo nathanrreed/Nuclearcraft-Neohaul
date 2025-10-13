@@ -1,6 +1,10 @@
 package com.nred.nuclearcraft.block.fission;
 
+import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import com.nred.nuclearcraft.recipe.RecipeHelper;
+import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
+import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
@@ -173,25 +177,26 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
                                     updateModeratorLine(fluxSink, dir, line, componentFailCache, assumedValidCache, simulate);
                                 }
                             } else if (i - 1 <= fission_neutron_reach / 2) {
-//                                BasicRecipe recipe = RecipeHelper.blockRecipe(NCRecipes.fission_reflector, getTileWorld(), offPos); TODO
-//                                if (recipe != null) {
-//                                    line.reflectorRecipe = recipe;
-//                                    line.flux = (long) Math.floor(2D * line.flux * recipe.getFissionReflectorReflectivity());
-//                                    addFlux(line.flux);
-//                                    getModeratorLineFluxes()[index] = line.flux;
-//                                    getModeratorLineEfficiencies()[index] = recipe.getFissionReflectorEfficiency() * moderatorEfficiency / (i - 1);
-//                                    incrementHeatMultiplier();
-//
-//                                    if (isFunctional(simulate)) {
-//                                        onModeratorLineComplete(line, dir);
-//                                        addToModeratorCache(line, getMultiblock().activeModeratorCache, getMultiblock().passiveModeratorCache, componentFailCache, assumedValidCache);
-//                                        getMultiblock().activeReflectorCache.add(offPos.toLong());
-//                                    } else {
-//                                        getModeratorLineCaches()[index] = line;
-//                                        addToModeratorCache(line, dir, getActiveReflectorModeratorCaches(), getPassiveReflectorModeratorCaches(), componentFailCache, assumedValidCache);
-//                                        getActiveReflectorCache().add(offPos.toLong());
-//                                    }
-//                                }
+                                FissionReflectorRecipe recipe = (FissionReflectorRecipe) RecipeHelper.blockRecipe(NCRecipes.fission_reflector, getTileWorld(), offPos);
+                                if (recipe != null) {
+                                    line.reflectorRecipe = recipe;
+                                    line.flux = (long) Math.floor(2D * line.flux * recipe.getFissionReflectorReflectivity());
+                                    addFlux(line.flux);
+                                    getModeratorLineFluxes()[index] = line.flux;
+                                    getModeratorLineEfficiencies()[index] = recipe.getFissionReflectorEfficiency() * moderatorEfficiency / (i - 1);
+                                    incrementHeatMultiplier();
+
+                                    if (isFunctional(simulate)) {
+                                        onModeratorLineComplete(line, dir);
+
+                                        addToModeratorCache(line, getMultiblockController().get().activeModeratorCache, getMultiblockController().get().passiveModeratorCache, componentFailCache, assumedValidCache);
+                                        getMultiblockController().get().activeReflectorCache.add(offPos.asLong());
+                                    } else {
+                                        getModeratorLineCaches()[index] = line;
+                                        addToModeratorCache(line, dir, getActiveReflectorModeratorCaches(), getPassiveReflectorModeratorCaches(), componentFailCache, assumedValidCache);
+                                        getActiveReflectorCache().add(offPos.asLong());
+                                    }
+                                }
                             }
                         }
                         continue dirLoop;
@@ -202,11 +207,10 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
     }
 
     class ModeratorLine {
-
         public final List<ModeratorBlockInfo> info;
         public final IFissionFuelComponent fuelComponent;
         public IFissionFluxSink fluxSink = null;
-//        public BasicRecipe reflectorRecipe = null;
+        public FissionReflectorRecipe reflectorRecipe = null;
         public long flux = 0;
 
         public ModeratorLine(List<ModeratorBlockInfo> info, IFissionFuelComponent fuelComponent) {
@@ -215,7 +219,7 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
         }
 
         public boolean hasValidEndpoint(boolean simulate) {
-            return fluxSink != null && fluxSink.isFunctional(simulate);// || reflectorRecipe != null; TODO
+            return fluxSink != null && fluxSink.isFunctional(simulate) || reflectorRecipe != null;
         }
     }
 
@@ -225,16 +229,15 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
             return component.getModeratorBlockInfo(dir, validActiveModeratorPos);
         }
 
-//        BasicRecipe recipe = RecipeHelper.blockRecipe(NCRecipes.fission_moderator, getWorldPosition(), pos); TODO
-//        if (recipe != null) {
-//            return new ModeratorBlockInfo(pos, null, false, validActiveModeratorPos, recipe.getFissionModeratorFluxFactor(), recipe.getFissionModeratorEfficiency());
-//        }
+        FissionModeratorRecipe recipe = (FissionModeratorRecipe) RecipeHelper.blockRecipe(NCRecipes.fission_moderator, getTileWorld(), pos);
+        if (recipe != null) {
+            return new ModeratorBlockInfo(pos, null, false, validActiveModeratorPos, recipe.getFissionModeratorFluxFactor(), recipe.getFissionModeratorEfficiency());
+        }
 
         return null;
     }
 
     class ModeratorBlockInfo {
-
         public final long posLong;
         public final IFissionComponent component;
         public final boolean blockingFlux;

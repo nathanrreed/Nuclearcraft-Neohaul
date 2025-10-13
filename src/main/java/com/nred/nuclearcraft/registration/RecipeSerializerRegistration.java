@@ -2,8 +2,9 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeSerializer;
 import com.nred.nuclearcraft.recipe.collector.CollectorSerializer;
+import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.processor.*;
-import com.nred.nuclearcraft.recipe.turbine.TurbineRecipeSerializer;
+import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -32,9 +33,18 @@ public class RecipeSerializerRegistration {
     public static final DeferredHolder<RecipeSerializer<?>, ProcessorRecipeSerializer> SEPARATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("separator_recipe", () -> new ProcessorRecipeSerializer(SeparatorRecipe.class));
     public static final DeferredHolder<RecipeSerializer<?>, ProcessorRecipeSerializer> SUPERCOOLER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("supercooler_recipe", () -> new ProcessorRecipeSerializer(SupercoolerRecipe.class));
 
-    public static final DeferredHolder<RecipeSerializer<?>, TurbineRecipeSerializer> TURBINE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("turbine_recipe", TurbineRecipeSerializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, TurbineRecipe.Serializer> TURBINE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("turbine_recipe", TurbineRecipe.Serializer::new);
+
+    public static final DeferredHolder<RecipeSerializer<?>, FissionModeratorRecipe.Serializer> FISSION_MODERATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("moderator_recipe", FissionModeratorRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, FissionReflectorRecipe.Serializer> FISSION_REFLECTOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("reflector_recipe", FissionReflectorRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, SolidFissionRecipe.Serializer> SOLID_FISSION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("solid_fission_recipe", SolidFissionRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, SaltFissionRecipe.Serializer> SALT_FISSION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("salt_fission_recipe", SaltFissionRecipe.Serializer::new);
+
+    public static final DeferredHolder<RecipeSerializer<?>, FissionHeatingRecipe.Serializer> FISSION_HEATING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_heating", FissionHeatingRecipe.Serializer::new);
 
 
     public static void init() {
     }
+
+
 }

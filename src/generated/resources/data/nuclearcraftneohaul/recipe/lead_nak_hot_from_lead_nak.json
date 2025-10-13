@@ -1,0 +1,12 @@
+{
+  "type": "nuclearcraftneohaul:fission_heating",
+  "fluidIngredients": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:lead_nak"
+  },
+  "fluidProducts": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:lead_nak_hot"
+  },
+  "heatPerInputMB": 75
+}

@@ -90,7 +90,7 @@ public class TooltipItem extends Item {
         }
     }
 
-    // Reference of colouring from original code
+    // Reference of colouring from original code TODO
 //    public static TextFormatting getRadiationTextColor(double radiation) {
 //        return radiation < 0.000000001D ? TextFormatting.WHITE : radiation < 0.001D ? TextFormatting.YELLOW : radiation < 0.1D ? TextFormatting.GOLD : radiation < 1D ? TextFormatting.RED : TextFormatting.DARK_RED;
 //    }

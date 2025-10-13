@@ -1,0 +1,15 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine_overlayed",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/fission/port/heater/copper",
+    "back_overlay": "nuclearcraftneohaul:block/fission/port/heater/out",
+    "bottom": "nuclearcraftneohaul:block/fission/port/top",
+    "bottom_overlay": "nuclearcraftneohaul:block/block_invisible",
+    "front": "nuclearcraftneohaul:block/fission/port/heater/copper",
+    "front_overlay": "nuclearcraftneohaul:block/fission/port/heater/out",
+    "side": "nuclearcraftneohaul:block/fission/port/side",
+    "side_overlay": "nuclearcraftneohaul:block/block_invisible",
+    "top": "nuclearcraftneohaul:block/fission/port/top",
+    "top_overlay": "nuclearcraftneohaul:block/block_invisible"
+  }
+}

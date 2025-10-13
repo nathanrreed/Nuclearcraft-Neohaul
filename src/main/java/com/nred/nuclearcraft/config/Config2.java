@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -65,8 +66,6 @@ public class Config2 {
     public static double[] energy_upgrade_multipliers_fp;
     public static int[] upgrade_stack_sizes;
 
-    public static int rf_per_eu;
-    public static boolean enable_gtce_eu;
     public static boolean enable_mek_gas;
     public static boolean[] enable_fluid_recipe_expansion;
     public static int machine_update_rate;
@@ -79,11 +78,11 @@ public class Config2 {
 
     public static boolean default_processor_recipes_global;
     public static boolean[] default_processor_recipes;
-    public static boolean gtce_recipe_integration_global;
-    public static boolean[] gtce_recipe_integration;
-    public static boolean gtce_recipe_logging;
+    //    public static boolean gtce_recipe_integration_global; TODO REMOVE
+//    public static boolean[] gtce_recipe_integration;
+//    public static boolean gtce_recipe_logging;
     public static boolean smart_processor_input;
-    public static boolean factor_recipes;
+    //    public static boolean factor_recipes; TODO ADD or REMOVE
     public static boolean processor_particles;
 
     public static int[] rtg_power;
@@ -128,12 +127,12 @@ public class Config2 {
     public static double[] fission_source_efficiency;
     public static int[] fission_sink_cooling_rate;
     public static String[] fission_sink_rule;
-    public static int[] fission_heater_cooling_rate;
+    public static int[] fission_heater_cooling_rate = new int[]{55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205}; // TODO FIX / REMOVE
     public static String[] fission_heater_rule;
-    public static int[] fission_moderator_flux_factor;
-    public static double[] fission_moderator_efficiency;
-    public static double[] fission_reflector_efficiency;
-    public static double[] fission_reflector_reflectivity;
+    //    public static int[] fission_moderator_flux_factor;
+//    public static double[] fission_moderator_efficiency;
+//    public static double[] fission_reflector_efficiency;
+//    public static double[] fission_reflector_reflectivity;
     public static double[] fission_shield_heat_per_flux;
     public static double[] fission_shield_efficiency;
     public static double[] fission_irradiator_heat_per_flux;
@@ -158,77 +157,77 @@ public class Config2 {
     public static double fission_emergency_cooling_multiplier;
     public static double fission_sound_volume;
 
-    public static int[] fission_thorium_fuel_time;
-    public static int[] fission_thorium_heat_generation;
-    public static double[] fission_thorium_efficiency;
-    public static int[] fission_thorium_criticality;
-    public static double[] fission_thorium_decay_factor;
-    public static boolean[] fission_thorium_self_priming;
-    public static double[] fission_thorium_radiation;
+//    public static int[] fission_thorium_fuel_time;
+//    public static int[] fission_thorium_heat_generation;
+//    public static double[] fission_thorium_efficiency;
+//    public static int[] fission_thorium_criticality;
+//    public static double[] fission_thorium_decay_factor;
+//    public static boolean[] fission_thorium_self_priming;
+//    public static double[] fission_thorium_radiation;
 
-    public static int[] fission_uranium_fuel_time;
-    public static int[] fission_uranium_heat_generation;
-    public static double[] fission_uranium_efficiency;
-    public static int[] fission_uranium_criticality;
-    public static double[] fission_uranium_decay_factor;
-    public static boolean[] fission_uranium_self_priming;
-    public static double[] fission_uranium_radiation;
-
-    public static int[] fission_neptunium_fuel_time;
-    public static int[] fission_neptunium_heat_generation;
-    public static double[] fission_neptunium_efficiency;
-    public static int[] fission_neptunium_criticality;
-    public static double[] fission_neptunium_decay_factor;
-    public static boolean[] fission_neptunium_self_priming;
-    public static double[] fission_neptunium_radiation;
-
-    public static int[] fission_plutonium_fuel_time;
-    public static int[] fission_plutonium_heat_generation;
-    public static double[] fission_plutonium_efficiency;
-    public static int[] fission_plutonium_criticality;
-    public static double[] fission_plutonium_decay_factor;
-    public static boolean[] fission_plutonium_self_priming;
-    public static double[] fission_plutonium_radiation;
-
-    public static int[] fission_mixed_fuel_time;
-    public static int[] fission_mixed_heat_generation;
-    public static double[] fission_mixed_efficiency;
-    public static int[] fission_mixed_criticality;
-    public static double[] fission_mixed_decay_factor;
-    public static boolean[] fission_mixed_self_priming;
-    public static double[] fission_mixed_radiation;
-
-    public static int[] fission_americium_fuel_time;
-    public static int[] fission_americium_heat_generation;
-    public static double[] fission_americium_efficiency;
-    public static int[] fission_americium_criticality;
-    public static double[] fission_americium_decay_factor;
-    public static boolean[] fission_americium_self_priming;
-    public static double[] fission_americium_radiation;
-
-    public static int[] fission_curium_fuel_time;
-    public static int[] fission_curium_heat_generation;
-    public static double[] fission_curium_efficiency;
-    public static int[] fission_curium_criticality;
-    public static double[] fission_curium_decay_factor;
-    public static boolean[] fission_curium_self_priming;
-    public static double[] fission_curium_radiation;
-
-    public static int[] fission_berkelium_fuel_time;
-    public static int[] fission_berkelium_heat_generation;
-    public static double[] fission_berkelium_efficiency;
-    public static int[] fission_berkelium_criticality;
-    public static double[] fission_berkelium_decay_factor;
-    public static boolean[] fission_berkelium_self_priming;
-    public static double[] fission_berkelium_radiation;
-
-    public static int[] fission_californium_fuel_time;
-    public static int[] fission_californium_heat_generation;
-    public static double[] fission_californium_efficiency;
-    public static int[] fission_californium_criticality;
-    public static double[] fission_californium_decay_factor;
-    public static boolean[] fission_californium_self_priming;
-    public static double[] fission_californium_radiation;
+//    public static int[] fission_uranium_fuel_time;
+//    public static int[] fission_uranium_heat_generation;
+//    public static double[] fission_uranium_efficiency;
+//    public static int[] fission_uranium_criticality;
+//    public static double[] fission_uranium_decay_factor;
+//    public static boolean[] fission_uranium_self_priming;
+//    public static double[] fission_uranium_radiation;
+//
+//    public static int[] fission_neptunium_fuel_time;
+//    public static int[] fission_neptunium_heat_generation;
+//    public static double[] fission_neptunium_efficiency;
+//    public static int[] fission_neptunium_criticality;
+//    public static double[] fission_neptunium_decay_factor;
+//    public static boolean[] fission_neptunium_self_priming;
+//    public static double[] fission_neptunium_radiation;
+//
+//    public static int[] fission_plutonium_fuel_time;
+//    public static int[] fission_plutonium_heat_generation;
+//    public static double[] fission_plutonium_efficiency;
+//    public static int[] fission_plutonium_criticality;
+//    public static double[] fission_plutonium_decay_factor;
+//    public static boolean[] fission_plutonium_self_priming;
+//    public static double[] fission_plutonium_radiation;
+//
+//    public static int[] fission_mixed_fuel_time;
+//    public static int[] fission_mixed_heat_generation;
+//    public static double[] fission_mixed_efficiency;
+//    public static int[] fission_mixed_criticality;
+//    public static double[] fission_mixed_decay_factor;
+//    public static boolean[] fission_mixed_self_priming;
+//    public static double[] fission_mixed_radiation;
+//
+//    public static int[] fission_americium_fuel_time;
+//    public static int[] fission_americium_heat_generation;
+//    public static double[] fission_americium_efficiency;
+//    public static int[] fission_americium_criticality;
+//    public static double[] fission_americium_decay_factor;
+//    public static boolean[] fission_americium_self_priming;
+//    public static double[] fission_americium_radiation;
+//
+//    public static int[] fission_curium_fuel_time;
+//    public static int[] fission_curium_heat_generation;
+//    public static double[] fission_curium_efficiency;
+//    public static int[] fission_curium_criticality;
+//    public static double[] fission_curium_decay_factor;
+//    public static boolean[] fission_curium_self_priming;
+//    public static double[] fission_curium_radiation;
+//
+//    public static int[] fission_berkelium_fuel_time;
+//    public static int[] fission_berkelium_heat_generation;
+//    public static double[] fission_berkelium_efficiency;
+//    public static int[] fission_berkelium_criticality;
+//    public static double[] fission_berkelium_decay_factor;
+//    public static boolean[] fission_berkelium_self_priming;
+//    public static double[] fission_berkelium_radiation;
+//
+//    public static int[] fission_californium_fuel_time;
+//    public static int[] fission_californium_heat_generation;
+//    public static double[] fission_californium_efficiency;
+//    public static int[] fission_californium_criticality;
+//    public static double[] fission_californium_decay_factor;
+//    public static boolean[] fission_californium_self_priming;
+//    public static double[] fission_californium_radiation;
 
     public static double fusion_fuel_time_multiplier; // Default: 1
     public static double fusion_fuel_heat_multiplier; // Default: 1
@@ -438,8 +437,12 @@ public class Config2 {
     public static String[] ore_dict_priority;
     public static boolean hwyla_enabled;
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     static void onLoad(final ModConfigEvent event) {
+        loadConfig();
+    }
+
+    public static void loadConfig() {
         ore_dims = syncInts(ORE_DIMS, LIST);
         ore_dims_list_type = ORE_DIMS_LIST_TYPE.getAsBoolean();
         ore_gen = syncBooleans(ORE_GEN, ARRAY);
@@ -470,8 +473,6 @@ public class Config2 {
         energy_upgrade_multipliers_fp = syncDoubles(ENERGY_UPGRADE_MULTIPLIERS_FP, ARRAY);
         upgrade_stack_sizes = syncInts(UPGRADE_STACK_SIZES, ARRAY);
 
-        rf_per_eu = RF_PER_EU.getAsInt();
-        enable_gtce_eu = ENABLE_GTCE_EU.getAsBoolean();
         enable_mek_gas = ENABLE_MEK_GAS.getAsBoolean();
         enable_fluid_recipe_expansion = syncBooleans(ENABLE_FLUID_RECIPE_EXPANSION, ARRAY);
         machine_update_rate = MACHINE_UPDATE_RATE.getAsInt();
@@ -484,11 +485,11 @@ public class Config2 {
 
         default_processor_recipes_global = DEFAULT_PROCESSOR_RECIPES_GLOBAL.getAsBoolean();
         default_processor_recipes = syncBooleans(DEFAULT_PROCESSOR_RECIPES, ARRAY);
-        gtce_recipe_integration_global = GTCE_RECIPE_INTEGRATION_GLOBAL.getAsBoolean();
-        gtce_recipe_integration = syncBooleans(GTCE_RECIPE_INTEGRATION, ARRAY);
-        gtce_recipe_logging = GTCE_RECIPE_LOGGING.getAsBoolean();
+//        gtce_recipe_integration_global = GTCE_RECIPE_INTEGRATION_GLOBAL.getAsBoolean();
+//        gtce_recipe_integration = syncBooleans(GTCE_RECIPE_INTEGRATION, ARRAY);
+//        gtce_recipe_logging = GTCE_RECIPE_LOGGING.getAsBoolean();
         smart_processor_input = SMART_PROCESSOR_INPUT.getAsBoolean();
-        factor_recipes = FACTOR_RECIPES.getAsBoolean();
+//        factor_recipes = FACTOR_RECIPES.getAsBoolean();
         processor_particles = PROCESSOR_PARTICLES.getAsBoolean();
 
         rtg_power = syncInts(RTG_POWER, ARRAY);
@@ -536,10 +537,10 @@ public class Config2 {
         fission_sink_rule = syncStrings(FISSION_SINK_RULE, ARRAY);
         fission_heater_cooling_rate = syncInts(FISSION_HEATER_COOLING_RATE, ARRAY);
         fission_heater_rule = syncStrings(FISSION_HEATER_RULE, ARRAY);
-        fission_moderator_flux_factor = syncInts(FISSION_MODERATOR_FLUX_FACTOR, ARRAY);
-        fission_moderator_efficiency = syncDoubles(FISSION_MODERATOR_EFFICIENCY, ARRAY);
-        fission_reflector_efficiency = syncDoubles(FISSION_REFLECTOR_EFFICIENCY, ARRAY);
-        fission_reflector_reflectivity = syncDoubles(FISSION_REFLECTOR_REFLECTIVITY, ARRAY);
+//        fission_moderator_flux_factor = syncInts(FISSION_MODERATOR_FLUX_FACTOR, ARRAY);
+//        fission_moderator_efficiency = syncDoubles(FISSION_MODERATOR_EFFICIENCY, ARRAY);
+//        fission_reflector_efficiency = syncDoubles(FISSION_REFLECTOR_EFFICIENCY, ARRAY);
+//        fission_reflector_reflectivity = syncDoubles(FISSION_REFLECTOR_REFLECTIVITY, ARRAY);
         fission_shield_heat_per_flux = syncDoubles(FISSION_SHIELD_HEAT_PER_FLUX, ARRAY);
         fission_shield_efficiency = syncDoubles(FISSION_SHIELD_EFFICIENCY, ARRAY);
         fission_irradiator_heat_per_flux = syncDoubles(FISSION_IRRADIATOR_HEAT_PER_FLUX, ARRAY);
@@ -563,77 +564,77 @@ public class Config2 {
         fission_emergency_cooling_multiplier = FISSION_EMERGENCY_COOLING_MULTIPLIER.getAsDouble();
         fission_sound_volume = FISSION_SOUND_VOLUME.getAsDouble();
 
-        fission_thorium_fuel_time = syncInts(FISSION_THORIUM_FUEL_TIME, ARRAY);
-        fission_thorium_heat_generation = syncInts(FISSION_THORIUM_HEAT_GENERATION, ARRAY);
-        fission_thorium_efficiency = syncDoubles(FISSION_THORIUM_EFFICIENCY, ARRAY);
-        fission_thorium_criticality = syncInts(FISSION_THORIUM_CRITICALITY, ARRAY);
-        fission_thorium_decay_factor = syncDoubles(FISSION_THORIUM_DECAY_FACTOR, ARRAY);
-        fission_thorium_self_priming = syncBooleans(FISSION_THORIUM_SELF_PRIMING, ARRAY);
+//        fission_thorium_fuel_time = syncInts(FISSION_THORIUM_FUEL_TIME, ARRAY);
+//        fission_thorium_heat_generation = syncInts(FISSION_THORIUM_HEAT_GENERATION, ARRAY);
+//        fission_thorium_efficiency = syncDoubles(FISSION_THORIUM_EFFICIENCY, ARRAY);
+//        fission_thorium_criticality = syncInts(FISSION_THORIUM_CRITICALITY, ARRAY);
+//        fission_thorium_decay_factor = syncDoubles(FISSION_THORIUM_DECAY_FACTOR, ARRAY);
+//        fission_thorium_self_priming = syncBooleans(FISSION_THORIUM_SELF_PRIMING, ARRAY);
 //        fission_thorium_radiation = syncDoubles(FISSION_THORIUM_RADIATION, ARRAY);
 
-        fission_uranium_fuel_time = syncInts(FISSION_URANIUM_FUEL_TIME, ARRAY);
-        fission_uranium_heat_generation = syncInts(FISSION_URANIUM_HEAT_GENERATION, ARRAY);
-        fission_uranium_efficiency = syncDoubles(FISSION_URANIUM_EFFICIENCY, ARRAY);
-        fission_uranium_criticality = syncInts(FISSION_URANIUM_CRITICALITY, ARRAY);
-        fission_uranium_decay_factor = syncDoubles(FISSION_URANIUM_DECAY_FACTOR, ARRAY);
-        fission_uranium_self_priming = syncBooleans(FISSION_URANIUM_SELF_PRIMING, ARRAY);
-//        fission_uranium_radiation = syncDoubles(FISSION_URANIUM_RADIATION, ARRAY);
-
-        fission_neptunium_fuel_time = syncInts(FISSION_NEPTUNIUM_FUEL_TIME, ARRAY);
-        fission_neptunium_heat_generation = syncInts(FISSION_NEPTUNIUM_HEAT_GENERATION, ARRAY);
-        fission_neptunium_efficiency = syncDoubles(FISSION_NEPTUNIUM_EFFICIENCY, ARRAY);
-        fission_neptunium_criticality = syncInts(FISSION_NEPTUNIUM_CRITICALITY, ARRAY);
-        fission_neptunium_decay_factor = syncDoubles(FISSION_NEPTUNIUM_DECAY_FACTOR, ARRAY);
-        fission_neptunium_self_priming = syncBooleans(FISSION_NEPTUNIUM_SELF_PRIMING, ARRAY);
-//        fission_neptunium_radiation = syncDoubles(FISSION_NEPTUNIUM_RADIATION, ARRAY);
-
-        fission_plutonium_fuel_time = syncInts(FISSION_PLUTONIUM_FUEL_TIME, ARRAY);
-        fission_plutonium_heat_generation = syncInts(FISSION_PLUTONIUM_HEAT_GENERATION, ARRAY);
-        fission_plutonium_efficiency = syncDoubles(FISSION_PLUTONIUM_EFFICIENCY, ARRAY);
-        fission_plutonium_criticality = syncInts(FISSION_PLUTONIUM_CRITICALITY, ARRAY);
-        fission_plutonium_decay_factor = syncDoubles(FISSION_PLUTONIUM_DECAY_FACTOR, ARRAY);
-        fission_plutonium_self_priming = syncBooleans(FISSION_PLUTONIUM_SELF_PRIMING, ARRAY);
-//        fission_plutonium_radiation = syncDoubles(FISSION_PLUTONIUM_RADIATION, ARRAY);
-
-        fission_mixed_fuel_time = syncInts(FISSION_MIXED_FUEL_TIME, ARRAY);
-        fission_mixed_heat_generation = syncInts(FISSION_MIXED_HEAT_GENERATION, ARRAY);
-        fission_mixed_efficiency = syncDoubles(FISSION_MIXED_EFFICIENCY, ARRAY);
-        fission_mixed_criticality = syncInts(FISSION_MIXED_CRITICALITY, ARRAY);
-        fission_mixed_decay_factor = syncDoubles(FISSION_MIXED_DECAY_FACTOR, ARRAY);
-        fission_mixed_self_priming = syncBooleans(FISSION_MIXED_SELF_PRIMING, ARRAY);
-//        fission_mixed_radiation = syncDoubles(FISSION_MIXED_RADIATION, ARRAY);
-
-        fission_americium_fuel_time = syncInts(FISSION_AMERICIUM_FUEL_TIME, ARRAY);
-        fission_americium_heat_generation = syncInts(FISSION_AMERICIUM_HEAT_GENERATION, ARRAY);
-        fission_americium_efficiency = syncDoubles(FISSION_AMERICIUM_EFFICIENCY, ARRAY);
-        fission_americium_criticality = syncInts(FISSION_AMERICIUM_CRITICALITY, ARRAY);
-        fission_americium_decay_factor = syncDoubles(FISSION_AMERICIUM_DECAY_FACTOR, ARRAY);
-        fission_americium_self_priming = syncBooleans(FISSION_AMERICIUM_SELF_PRIMING, ARRAY);
-//        fission_americium_radiation = syncDoubles(FISSION_AMERICIUM_RADIATION, ARRAY);
-
-        fission_curium_fuel_time = syncInts(FISSION_CURIUM_FUEL_TIME, ARRAY);
-        fission_curium_heat_generation = syncInts(FISSION_CURIUM_HEAT_GENERATION, ARRAY);
-        fission_curium_efficiency = syncDoubles(FISSION_CURIUM_EFFICIENCY, ARRAY);
-        fission_curium_criticality = syncInts(FISSION_CURIUM_CRITICALITY, ARRAY);
-        fission_curium_decay_factor = syncDoubles(FISSION_CURIUM_DECAY_FACTOR, ARRAY);
-        fission_curium_self_priming = syncBooleans(FISSION_CURIUM_SELF_PRIMING, ARRAY);
-//        fission_curium_radiation = syncDoubles(FISSION_CURIUM_RADIATION, ARRAY);
-
-        fission_berkelium_fuel_time = syncInts(FISSION_BERKELIUM_FUEL_TIME, ARRAY);
-        fission_berkelium_heat_generation = syncInts(FISSION_BERKELIUM_HEAT_GENERATION, ARRAY);
-        fission_berkelium_efficiency = syncDoubles(FISSION_BERKELIUM_EFFICIENCY, ARRAY);
-        fission_berkelium_criticality = syncInts(FISSION_BERKELIUM_CRITICALITY, ARRAY);
-        fission_berkelium_decay_factor = syncDoubles(FISSION_BERKELIUM_DECAY_FACTOR, ARRAY);
-        fission_berkelium_self_priming = syncBooleans(FISSION_BERKELIUM_SELF_PRIMING, ARRAY);
-//        fission_berkelium_radiation = syncDoubles(FISSION_BERKELIUM_RADIATION, ARRAY);
-
-        fission_californium_fuel_time = syncInts(FISSION_CALIFORNIUM_FUEL_TIME, ARRAY);
-        fission_californium_heat_generation = syncInts(FISSION_CALIFORNIUM_HEAT_GENERATION, ARRAY);
-        fission_californium_efficiency = syncDoubles(FISSION_CALIFORNIUM_EFFICIENCY, ARRAY);
-        fission_californium_criticality = syncInts(FISSION_CALIFORNIUM_CRITICALITY, ARRAY);
-        fission_californium_decay_factor = syncDoubles(FISSION_CALIFORNIUM_DECAY_FACTOR, ARRAY);
-        fission_californium_self_priming = syncBooleans(FISSION_CALIFORNIUM_SELF_PRIMING, ARRAY);
-//        fission_californium_radiation = syncDoubles(FISSION_CALIFORNIUM_RADIATION, ARRAY);
+//        fission_uranium_fuel_time = syncInts(FISSION_URANIUM_FUEL_TIME, ARRAY);
+//        fission_uranium_heat_generation = syncInts(FISSION_URANIUM_HEAT_GENERATION, ARRAY);
+//        fission_uranium_efficiency = syncDoubles(FISSION_URANIUM_EFFICIENCY, ARRAY);
+//        fission_uranium_criticality = syncInts(FISSION_URANIUM_CRITICALITY, ARRAY);
+//        fission_uranium_decay_factor = syncDoubles(FISSION_URANIUM_DECAY_FACTOR, ARRAY);
+//        fission_uranium_self_priming = syncBooleans(FISSION_URANIUM_SELF_PRIMING, ARRAY);
+////        fission_uranium_radiation = syncDoubles(FISSION_URANIUM_RADIATION, ARRAY);
+//
+//        fission_neptunium_fuel_time = syncInts(FISSION_NEPTUNIUM_FUEL_TIME, ARRAY);
+//        fission_neptunium_heat_generation = syncInts(FISSION_NEPTUNIUM_HEAT_GENERATION, ARRAY);
+//        fission_neptunium_efficiency = syncDoubles(FISSION_NEPTUNIUM_EFFICIENCY, ARRAY);
+//        fission_neptunium_criticality = syncInts(FISSION_NEPTUNIUM_CRITICALITY, ARRAY);
+//        fission_neptunium_decay_factor = syncDoubles(FISSION_NEPTUNIUM_DECAY_FACTOR, ARRAY);
+//        fission_neptunium_self_priming = syncBooleans(FISSION_NEPTUNIUM_SELF_PRIMING, ARRAY);
+////        fission_neptunium_radiation = syncDoubles(FISSION_NEPTUNIUM_RADIATION, ARRAY);
+//
+//        fission_plutonium_fuel_time = syncInts(FISSION_PLUTONIUM_FUEL_TIME, ARRAY);
+//        fission_plutonium_heat_generation = syncInts(FISSION_PLUTONIUM_HEAT_GENERATION, ARRAY);
+//        fission_plutonium_efficiency = syncDoubles(FISSION_PLUTONIUM_EFFICIENCY, ARRAY);
+//        fission_plutonium_criticality = syncInts(FISSION_PLUTONIUM_CRITICALITY, ARRAY);
+//        fission_plutonium_decay_factor = syncDoubles(FISSION_PLUTONIUM_DECAY_FACTOR, ARRAY);
+//        fission_plutonium_self_priming = syncBooleans(FISSION_PLUTONIUM_SELF_PRIMING, ARRAY);
+////        fission_plutonium_radiation = syncDoubles(FISSION_PLUTONIUM_RADIATION, ARRAY);
+//
+//        fission_mixed_fuel_time = syncInts(FISSION_MIXED_FUEL_TIME, ARRAY);
+//        fission_mixed_heat_generation = syncInts(FISSION_MIXED_HEAT_GENERATION, ARRAY);
+//        fission_mixed_efficiency = syncDoubles(FISSION_MIXED_EFFICIENCY, ARRAY);
+//        fission_mixed_criticality = syncInts(FISSION_MIXED_CRITICALITY, ARRAY);
+//        fission_mixed_decay_factor = syncDoubles(FISSION_MIXED_DECAY_FACTOR, ARRAY);
+//        fission_mixed_self_priming = syncBooleans(FISSION_MIXED_SELF_PRIMING, ARRAY);
+////        fission_mixed_radiation = syncDoubles(FISSION_MIXED_RADIATION, ARRAY);
+//
+//        fission_americium_fuel_time = syncInts(FISSION_AMERICIUM_FUEL_TIME, ARRAY);
+//        fission_americium_heat_generation = syncInts(FISSION_AMERICIUM_HEAT_GENERATION, ARRAY);
+//        fission_americium_efficiency = syncDoubles(FISSION_AMERICIUM_EFFICIENCY, ARRAY);
+//        fission_americium_criticality = syncInts(FISSION_AMERICIUM_CRITICALITY, ARRAY);
+//        fission_americium_decay_factor = syncDoubles(FISSION_AMERICIUM_DECAY_FACTOR, ARRAY);
+//        fission_americium_self_priming = syncBooleans(FISSION_AMERICIUM_SELF_PRIMING, ARRAY);
+////        fission_americium_radiation = syncDoubles(FISSION_AMERICIUM_RADIATION, ARRAY);
+//
+//        fission_curium_fuel_time = syncInts(FISSION_CURIUM_FUEL_TIME, ARRAY);
+//        fission_curium_heat_generation = syncInts(FISSION_CURIUM_HEAT_GENERATION, ARRAY);
+//        fission_curium_efficiency = syncDoubles(FISSION_CURIUM_EFFICIENCY, ARRAY);
+//        fission_curium_criticality = syncInts(FISSION_CURIUM_CRITICALITY, ARRAY);
+//        fission_curium_decay_factor = syncDoubles(FISSION_CURIUM_DECAY_FACTOR, ARRAY);
+//        fission_curium_self_priming = syncBooleans(FISSION_CURIUM_SELF_PRIMING, ARRAY);
+////        fission_curium_radiation = syncDoubles(FISSION_CURIUM_RADIATION, ARRAY);
+//
+//        fission_berkelium_fuel_time = syncInts(FISSION_BERKELIUM_FUEL_TIME, ARRAY);
+//        fission_berkelium_heat_generation = syncInts(FISSION_BERKELIUM_HEAT_GENERATION, ARRAY);
+//        fission_berkelium_efficiency = syncDoubles(FISSION_BERKELIUM_EFFICIENCY, ARRAY);
+//        fission_berkelium_criticality = syncInts(FISSION_BERKELIUM_CRITICALITY, ARRAY);
+//        fission_berkelium_decay_factor = syncDoubles(FISSION_BERKELIUM_DECAY_FACTOR, ARRAY);
+//        fission_berkelium_self_priming = syncBooleans(FISSION_BERKELIUM_SELF_PRIMING, ARRAY);
+////        fission_berkelium_radiation = syncDoubles(FISSION_BERKELIUM_RADIATION, ARRAY);
+//
+//        fission_californium_fuel_time = syncInts(FISSION_CALIFORNIUM_FUEL_TIME, ARRAY);
+//        fission_californium_heat_generation = syncInts(FISSION_CALIFORNIUM_HEAT_GENERATION, ARRAY);
+//        fission_californium_efficiency = syncDoubles(FISSION_CALIFORNIUM_EFFICIENCY, ARRAY);
+//        fission_californium_criticality = syncInts(FISSION_CALIFORNIUM_CRITICALITY, ARRAY);
+//        fission_californium_decay_factor = syncDoubles(FISSION_CALIFORNIUM_DECAY_FACTOR, ARRAY);
+//        fission_californium_self_priming = syncBooleans(FISSION_CALIFORNIUM_SELF_PRIMING, ARRAY);
+////        fission_californium_radiation = syncDoubles(FISSION_CALIFORNIUM_RADIATION, ARRAY);
 
         fusion_fuel_time_multiplier = FUSION_FUEL_TIME_MULTIPLIER.getAsDouble();
         fusion_fuel_heat_multiplier = FUSION_FUEL_HEAT_MULTIPLIER.getAsDouble();
@@ -876,11 +877,11 @@ public class Config2 {
 
     private static final ModConfigSpec.BooleanValue DEFAULT_PROCESSOR_RECIPES_GLOBAL = add(CATEGORY_PROCESSOR, "default_processor_recipes_global", true);
     private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> DEFAULT_PROCESSOR_RECIPES = add(CATEGORY_PROCESSOR, "default_processor_recipes", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), ARRAY);
-    private static final ModConfigSpec.BooleanValue GTCE_RECIPE_INTEGRATION_GLOBAL = add(CATEGORY_PROCESSOR, "gtce_recipe_integration_global", true);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> GTCE_RECIPE_INTEGRATION = add(CATEGORY_PROCESSOR, "gtce_recipe_integration", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), ARRAY);
-    private static final ModConfigSpec.BooleanValue GTCE_RECIPE_LOGGING = add(CATEGORY_PROCESSOR, "gtce_recipe_logging", false);
+    // TODO   private static final ModConfigSpec.BooleanValue GTCE_RECIPE_INTEGRATION_GLOBAL = add(CATEGORY_PROCESSOR, "gtce_recipe_integration_global", true);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> GTCE_RECIPE_INTEGRATION = add(CATEGORY_PROCESSOR, "gtce_recipe_integration", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), ARRAY);
+//    private static final ModConfigSpec.BooleanValue GTCE_RECIPE_LOGGING = add(CATEGORY_PROCESSOR, "gtce_recipe_logging", false);
     private static final ModConfigSpec.BooleanValue SMART_PROCESSOR_INPUT = add(CATEGORY_PROCESSOR, "smart_processor_input", true);
-    private static final ModConfigSpec.BooleanValue FACTOR_RECIPES = add(CATEGORY_PROCESSOR, "factor_recipes", false);
+    //    private static final ModConfigSpec.BooleanValue FACTOR_RECIPES = add(CATEGORY_PROCESSOR, "factor_recipes", false);
     private static final ModConfigSpec.BooleanValue PROCESSOR_PARTICLES = add(CATEGORY_PROCESSOR, "processor_particles", true);
 
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RTG_POWER = add(CATEGORY_GENERATOR, "rtg_power", List.of(1, 40, 10, 200), 1, Integer.MAX_VALUE, ARRAY);
@@ -928,10 +929,10 @@ public class Config2 {
     private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_SINK_RULE = addString(CATEGORY_FISSION, "fission_sink_rule", List.of("one cell", "one moderator", "one cell && one moderator", "one redstone sink", "two axial glowstone sinks", "one obsidian sink", "two moderators", "one cell && one casing", "exactly two iron sinks", "two water sinks", "exactly one water sink && two lead sinks", "one reflector", "one reflector && one iron sink", "one cell && one gold sink", "one moderator && one prismarine sink", "one water sink", "two axial lapis sinks", "one iron sink", "exactly one quartz sink && one casing", "exactly two axial lead sinks && one casing", "exactly one moderator && one casing", "two cells", "one quartz sink && one lapis sink", "two glowstone sinks && one tin sink", "one gold sink && one prismarine sink", "one redstone sink && one end_stone sink", "one end_stone sink && one copper sink", "two axial reflectors", "two copper sinks && one purpur sink", "exactly two redstone sinks", "three moderators", "three cells"), ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_HEATER_COOLING_RATE = add(CATEGORY_FISSION, "fission_heater_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_HEATER_RULE = addString(CATEGORY_FISSION, "fission_heater_rule", List.of("one vessel", "one moderator", "one vessel && one moderator", "one redstone heater", "two axial glowstone heaters", "one obsidian heater", "two moderators", "one vessel && one casing", "exactly two iron heaters", "two standard heaters", "exactly one standard heater && two lead heaters", "one reflector", "one reflector && one iron heater", "one vessel && one gold heater", "one moderator && one prismarine heater", "one standard heater", "two axial lapis heaters", "one iron heater", "exactly one quartz heater && one casing", "exactly two axial lead heaters && one casing", "exactly one moderator && one casing", "two vessels", "one quartz heater && one lapis heater", "two glowstone heaters && one tin heater", "one gold heater && one prismarine heater", "one redstone heater && one end_stone heater", "one end_stone heater && one copper heater", "two axial reflectors", "two copper heaters && one purpur heater", "exactly two redstone heaters", "three moderators", "three vessels"), ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_MODERATOR_FLUX_FACTOR = add(CATEGORY_FISSION, "fission_moderator_flux_factor", List.of(10, 22, 36), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_MODERATOR_EFFICIENCY = add(CATEGORY_FISSION, "fission_moderator_efficiency", List.of(1.1D, 1.05D, 1D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_REFLECTOR_EFFICIENCY = add(CATEGORY_FISSION, "fission_reflector_efficiency", List.of(0.5D, 0.25D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_REFLECTOR_REFLECTIVITY = add(CATEGORY_FISSION, "fission_reflector_reflectivity", List.of(1D, 0.5D), 0D, 1D, ARRAY);
+    //    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_MODERATOR_FLUX_FACTOR = add(CATEGORY_FISSION, "fission_moderator_flux_factor", List.of(10, 22, 36), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_MODERATOR_EFFICIENCY = add(CATEGORY_FISSION, "fission_moderator_efficiency", List.of(1.1D, 1.05D, 1D), 0D, 255D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_REFLECTOR_EFFICIENCY = add(CATEGORY_FISSION, "fission_reflector_efficiency", List.of(0.5D, 0.25D), 0D, 255D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_REFLECTOR_REFLECTIVITY = add(CATEGORY_FISSION, "fission_reflector_reflectivity", List.of(1D, 0.5D), 0D, 1D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D), 0D, 32767D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D), 0D, 255D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_IRRADIATOR_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_irradiator_heat_per_flux", List.of(0D, 0D, 0D), 0D, 32767D, ARRAY);
@@ -955,77 +956,77 @@ public class Config2 {
     private static final ModConfigSpec.DoubleValue FISSION_EMERGENCY_COOLING_MULTIPLIER = add(CATEGORY_FISSION, "fission_emergency_cooling_multiplier", 1D, 0.001D, 255D);
     private static final ModConfigSpec.DoubleValue FISSION_SOUND_VOLUME = add(CATEGORY_FISSION, "fission_sound_volume", 1D, 0D, 15D);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_THORIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_thorium_fuel_time", List.of(14400, 14400, 18000, 11520, 18000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_THORIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_thorium_heat_generation", List.of(40, 40, 32, 50, 32), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_THORIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_thorium_efficiency", List.of(1.25D, 1.25D, 1.25D, 1.25D, 1.25D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_THORIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_thorium_criticality", List.of(199, 234, 293, 199, 234), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_THORIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_thorium_decay_factor", Arrays.stream(arrayCopies(5, 0.04D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_THORIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_thorium_self_priming", List.of(false, false, false, false, false), ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_THORIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_thorium_fuel_time", List.of(14400, 14400, 18000, 11520, 18000), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_THORIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_thorium_heat_generation", List.of(40, 40, 32, 50, 32), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_THORIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_thorium_efficiency", List.of(1.25D, 1.25D, 1.25D, 1.25D, 1.25D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_THORIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_thorium_criticality", List.of(199, 234, 293, 199, 234), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_THORIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_thorium_decay_factor", Arrays.stream(arrayCopies(5, 0.04D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_THORIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_thorium_self_priming", List.of(false, false, false, false, false), ARRAY);
 //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_THORIUM_RADIATION = add(CATEGORY_FISSION, "fission_thorium_radiation", List.of(RadSources.TBU_FISSION, RadSources.TBU_FISSION, RadSources.TBU_FISSION, RadSources.TBU_FISSION, RadSources.TBU_FISSION), 0D, 1000D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_URANIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_uranium_fuel_time", List.of(2666, 2666, 3348, 2134, 3348, 2666, 2666, 3348, 2134, 3348, 4800, 4800, 6000, 3840, 6000, 4800, 4800, 6000, 3840, 6000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_URANIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_uranium_heat_generation", List.of(216, 216, 172, 270, 172, 216 * 3, 216 * 3, 172 * 3, 270 * 3, 172 * 3, 120, 120, 96, 150, 96, 120 * 3, 120 * 3, 96 * 3, 150 * 3, 96 * 3), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_URANIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_uranium_efficiency", List.of(1.1D, 1.1D, 1.1D, 1.1D, 1.1D, 1.15D, 1.15D, 1.15D, 1.15D, 1.15D, 1D, 1D, 1D, 1D, 1D, 1.05D, 1.05D, 1.05D, 1.05D, 1.05D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_URANIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_uranium_criticality", List.of(66, 78, 98, 66, 78, 66 / 2, 78 / 2, 98 / 2, 66 / 2, 78 / 2, 87, 102, 128, 87, 102, 87 / 2, 102 / 2, 128 / 2, 87 / 2, 102 / 2), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_URANIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_uranium_decay_factor", Arrays.stream(arrayCopies(20, 0.065D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_URANIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_uranium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_URANIUM_RADIATION = add(CATEGORY_FISSION, "fission_uranium_radiation", List.of(RadSources.LEU_233_FISSION, RadSources.LEU_233_FISSION, RadSources.LEU_233_FISSION, RadSources.LEU_233_FISSION, RadSources.LEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.LEU_235_FISSION, RadSources.LEU_235_FISSION, RadSources.LEU_235_FISSION, RadSources.LEU_235_FISSION, RadSources.LEU_235_FISSION, RadSources.HEU_235_FISSION, RadSources.HEU_235_FISSION, RadSources.HEU_235_FISSION, RadSources.HEU_235_FISSION, RadSources.HEU_235_FISSION), 0D, 1000D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_NEPTUNIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_neptunium_fuel_time", List.of(1972, 1972, 2462, 1574, 2462, 1972, 1972, 2462, 1574, 2462), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_NEPTUNIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_neptunium_heat_generation", List.of(292, 292, 234, 366, 234, 292 * 3, 292 * 3, 234 * 3, 366 * 3, 234 * 3), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_NEPTUNIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_neptunium_efficiency", List.of(1.1D, 1.1D, 1.1D, 1.1D, 1.1D, 1.15D, 1.15D, 1.15D, 1.15D, 1.15D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_NEPTUNIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_neptunium_criticality", List.of(60, 70, 88, 60, 70, 60 / 2, 70 / 2, 88 / 2, 60 / 2, 70 / 2), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_NEPTUNIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_neptunium_decay_factor", Arrays.stream(arrayCopies(10, 0.07D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_NEPTUNIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_neptunium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_NEPTUNIUM_RADIATION = add(CATEGORY_FISSION, "fission_neptunium_radiation", List.of(RadSources.LEN_236_FISSION, RadSources.LEN_236_FISSION, RadSources.LEN_236_FISSION, RadSources.LEN_236_FISSION, RadSources.LEN_236_FISSION, RadSources.HEN_236_FISSION, RadSources.HEN_236_FISSION, RadSources.HEN_236_FISSION, RadSources.HEN_236_FISSION, RadSources.HEN_236_FISSION), 0D, 1000D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_PLUTONIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_plutonium_fuel_time", List.of(4572, 4572, 5760, 3646, 5760, 4572, 4572, 5760, 3646, 5760, 3164, 3164, 3946, 2526, 3946, 3164, 3164, 3946, 2526, 3946), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_PLUTONIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_plutonium_heat_generation", List.of(126, 126, 100, 158, 100, 126 * 3, 126 * 3, 100 * 3, 158 * 3, 100 * 3, 182, 182, 146, 228, 146, 182 * 3, 182 * 3, 146 * 3, 228 * 3, 146 * 3), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_PLUTONIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_plutonium_efficiency", List.of(1.2D, 1.2D, 1.2D, 1.2D, 1.2D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.3D, 1.3D, 1.3D, 1.3D, 1.3D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_PLUTONIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_plutonium_criticality", List.of(84, 99, 124, 84, 99, 84 / 2, 99 / 2, 124 / 2, 84 / 2, 99 / 2, 71, 84, 105, 71, 84, 71 / 2, 84 / 2, 105 / 2, 71 / 2, 84 / 2), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_PLUTONIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_plutonium_decay_factor", Arrays.stream(arrayCopies(20, 0.075D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_PLUTONIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_plutonium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_PLUTONIUM_RADIATION = add(CATEGORY_FISSION, "fission_plutonium_radiation", List.of(RadSources.LEP_239_FISSION, RadSources.LEP_239_FISSION, RadSources.LEP_239_FISSION, RadSources.LEP_239_FISSION, RadSources.LEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.LEP_241_FISSION, RadSources.LEP_241_FISSION, RadSources.LEP_241_FISSION, RadSources.LEP_241_FISSION, RadSources.LEP_241_FISSION, RadSources.HEP_241_FISSION, RadSources.HEP_241_FISSION, RadSources.HEP_241_FISSION, RadSources.HEP_241_FISSION, RadSources.HEP_241_FISSION), 0D, 1000D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_MIXED_FUEL_TIME = add(CATEGORY_FISSION, "fission_mixed_fuel_time", List.of(4354, 4354, 5486, 3472, 5486, 3014, 3014, 3758, 2406, 3758), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_MIXED_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_mixed_heat_generation", List.of(132, 132, 106, 166, 106, 192, 192, 154, 240, 154), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_MIXED_EFFICIENCY = add(CATEGORY_FISSION, "fission_mixed_efficiency", List.of(1.05D, 1.05D, 1.05D, 1.05D, 1.05D, 1.15D, 1.15D, 1.15D, 1.15D, 1.15D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_MIXED_CRITICALITY = add(CATEGORY_FISSION, "fission_mixed_criticality", List.of(80, 94, 118, 80, 94, 68, 80, 100, 68, 80), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_MIXED_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_mixed_decay_factor", Arrays.stream(arrayCopies(10, 0.075D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_MIXED_SELF_PRIMING = add(CATEGORY_FISSION, "fission_mixed_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_MIXED_RADIATION = add(CATEGORY_FISSION, "fission_mixed_radiation", List.of(RadSources.MIX_239_FISSION, RadSources.MIX_239_FISSION, RadSources.MIX_239_FISSION, RadSources.MIX_239_FISSION, RadSources.MIX_239_FISSION, RadSources.MIX_241_FISSION, RadSources.MIX_241_FISSION, RadSources.MIX_241_FISSION, RadSources.MIX_241_FISSION, RadSources.MIX_241_FISSION), 0D, 1000D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_AMERICIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_americium_fuel_time", List.of(1476, 1476, 1846, 1180, 1846, 1476, 1476, 1846, 1180, 1846), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_AMERICIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_americium_heat_generation", List.of(390, 390, 312, 488, 312, 390 * 3, 390 * 3, 312 * 3, 488 * 3, 312 * 3), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_AMERICIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_americium_efficiency", List.of(1.35D, 1.35D, 1.35D, 1.35D, 1.35D, 1.4D, 1.4D, 1.4D, 1.4D, 1.4D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_AMERICIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_americium_criticality", List.of(55, 65, 81, 55, 65, 55 / 2, 65 / 2, 81 / 2, 55 / 2, 65 / 2), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_AMERICIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_americium_decay_factor", Arrays.stream(arrayCopies(10, 0.08D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_AMERICIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_americium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_AMERICIUM_RADIATION = add(CATEGORY_FISSION, "fission_americium_radiation", List.of(RadSources.LEA_242_FISSION, RadSources.LEA_242_FISSION, RadSources.LEA_242_FISSION, RadSources.LEA_242_FISSION, RadSources.LEA_242_FISSION, RadSources.HEA_242_FISSION, RadSources.HEA_242_FISSION, RadSources.HEA_242_FISSION, RadSources.HEA_242_FISSION, RadSources.HEA_242_FISSION), 0D, 1000D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CURIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_curium_fuel_time", List.of(1500, 1500, 1870, 1200, 1870, 1500, 1500, 1870, 1200, 1870, 2420, 2420, 3032, 1932, 3032, 2420, 2420, 3032, 1932, 3032, 2150, 2150, 2692, 1714, 2692, 2150, 2150, 2692, 1714, 2692), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CURIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_curium_heat_generation", List.of(384, 384, 308, 480, 308, 384 * 3, 384 * 3, 308 * 3, 480 * 3, 308 * 3, 238, 238, 190, 298, 190, 238 * 3, 238 * 3, 190 * 3, 298 * 3, 190 * 3, 268, 268, 214, 336, 214, 268 * 3, 268 * 3, 214 * 3, 336 * 3, 214 * 3), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CURIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_curium_efficiency", List.of(1.45D, 1.45D, 1.45D, 1.45D, 1.45D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.6D, 1.6D, 1.6D, 1.6D, 1.6D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CURIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_curium_criticality", List.of(56, 66, 83, 56, 66, 56 / 2, 66 / 2, 83 / 2, 56 / 2, 66 / 2, 64, 75, 94, 64, 75, 64 / 2, 75 / 2, 94 / 2, 64 / 2, 75 / 2, 61, 72, 90, 61, 72, 61 / 2, 72 / 2, 90 / 2, 61 / 2, 72 / 2), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CURIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_curium_decay_factor", Arrays.stream(arrayCopies(30, 0.085D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_CURIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_curium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CURIUM_RADIATION = add(CATEGORY_FISSION, "fission_curium_radiation", List.of(RadSources.LECm_243_FISSION, RadSources.LECm_243_FISSION, RadSources.LECm_243_FISSION, RadSources.LECm_243_FISSION, RadSources.LECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.LECm_245_FISSION, RadSources.LECm_245_FISSION, RadSources.LECm_245_FISSION, RadSources.LECm_245_FISSION, RadSources.LECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.LECm_247_FISSION, RadSources.LECm_247_FISSION, RadSources.LECm_247_FISSION, RadSources.LECm_247_FISSION, RadSources.LECm_247_FISSION, RadSources.HECm_247_FISSION, RadSources.HECm_247_FISSION, RadSources.HECm_247_FISSION, RadSources.HECm_247_FISSION, RadSources.HECm_247_FISSION), 0D, 1000D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_BERKELIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_berkelium_fuel_time", List.of(2166, 2166, 2716, 1734, 2716, 2166, 2166, 2716, 1734, 2716), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_BERKELIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_berkelium_heat_generation", List.of(266, 266, 212, 332, 212, 266 * 3, 266 * 3, 212 * 3, 332 * 3, 212 * 3), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_BERKELIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_berkelium_efficiency", List.of(1.65D, 1.65D, 1.65D, 1.65D, 1.65D, 1.7D, 1.7D, 1.7D, 1.7D, 1.7D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_BERKELIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_berkelium_criticality", List.of(62, 73, 91, 62, 73, 62 / 2, 73 / 2, 91 / 2, 62 / 2, 73 / 2), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_BERKELIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_berkelium_decay_factor", Arrays.stream(arrayCopies(10, 0.09D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_BERKELIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_berkelium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_BERKELIUM_RADIATION = add(CATEGORY_FISSION, "fission_berkelium_radiation", List.of(RadSources.LEB_248_FISSION, RadSources.LEB_248_FISSION, RadSources.LEB_248_FISSION, RadSources.LEB_248_FISSION, RadSources.LEB_248_FISSION, RadSources.HEB_248_FISSION, RadSources.HEB_248_FISSION, RadSources.HEB_248_FISSION, RadSources.HEB_248_FISSION, RadSources.HEB_248_FISSION), 0D, 1000D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CALIFORNIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_californium_fuel_time", List.of(1066, 1066, 1334, 852, 1334, 1066, 1066, 1334, 852, 1334, 2000, 2000, 2504, 1600, 2504, 2000, 2000, 2504, 1600, 2504), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CALIFORNIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_californium_heat_generation", List.of(540, 540, 432, 676, 432, 540 * 3, 540 * 3, 432 * 3, 676 * 3, 432 * 3, 288, 288, 230, 360, 230, 288 * 3, 288 * 3, 230 * 3, 360 * 3, 230 * 3), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_californium_efficiency", List.of(1.75D, 1.75D, 1.75D, 1.75D, 1.75D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.85D, 1.85D, 1.85D, 1.85D, 1.85D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CALIFORNIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_californium_criticality", List.of(51, 60, 75, 51, 60, 51 / 2, 60 / 2, 75 / 2, 51 / 2, 60 / 2, 60, 71, 89, 60, 71, 60 / 2, 71 / 2, 89 / 2, 60 / 2, 71 / 2), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_californium_decay_factor", Arrays.stream(arrayCopies(20, 0.1D)).boxed().toList(), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_CALIFORNIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_californium_self_priming", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_RADIATION = add(CATEGORY_FISSION, "fission_californium_radiation", List.of(RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION), 0D, 1000D, ARRAY);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_URANIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_uranium_fuel_time", List.of(2666, 2666, 3348, 2134, 3348, 2666, 2666, 3348, 2134, 3348, 4800, 4800, 6000, 3840, 6000, 4800, 4800, 6000, 3840, 6000), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_URANIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_uranium_heat_generation", List.of(216, 216, 172, 270, 172, 216 * 3, 216 * 3, 172 * 3, 270 * 3, 172 * 3, 120, 120, 96, 150, 96, 120 * 3, 120 * 3, 96 * 3, 150 * 3, 96 * 3), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_URANIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_uranium_efficiency", List.of(1.1D, 1.1D, 1.1D, 1.1D, 1.1D, 1.15D, 1.15D, 1.15D, 1.15D, 1.15D, 1D, 1D, 1D, 1D, 1D, 1.05D, 1.05D, 1.05D, 1.05D, 1.05D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_URANIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_uranium_criticality", List.of(66, 78, 98, 66, 78, 66 / 2, 78 / 2, 98 / 2, 66 / 2, 78 / 2, 87, 102, 128, 87, 102, 87 / 2, 102 / 2, 128 / 2, 87 / 2, 102 / 2), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_URANIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_uranium_decay_factor", Arrays.stream(arrayCopies(20, 0.065D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_URANIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_uranium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), ARRAY);
+////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_URANIUM_RADIATION = add(CATEGORY_FISSION, "fission_uranium_radiation", List.of(RadSources.LEU_233_FISSION, RadSources.LEU_233_FISSION, RadSources.LEU_233_FISSION, RadSources.LEU_233_FISSION, RadSources.LEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.HEU_233_FISSION, RadSources.LEU_235_FISSION, RadSources.LEU_235_FISSION, RadSources.LEU_235_FISSION, RadSources.LEU_235_FISSION, RadSources.LEU_235_FISSION, RadSources.HEU_235_FISSION, RadSources.HEU_235_FISSION, RadSources.HEU_235_FISSION, RadSources.HEU_235_FISSION, RadSources.HEU_235_FISSION), 0D, 1000D, ARRAY);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_NEPTUNIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_neptunium_fuel_time", List.of(1972, 1972, 2462, 1574, 2462, 1972, 1972, 2462, 1574, 2462), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_NEPTUNIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_neptunium_heat_generation", List.of(292, 292, 234, 366, 234, 292 * 3, 292 * 3, 234 * 3, 366 * 3, 234 * 3), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_NEPTUNIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_neptunium_efficiency", List.of(1.1D, 1.1D, 1.1D, 1.1D, 1.1D, 1.15D, 1.15D, 1.15D, 1.15D, 1.15D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_NEPTUNIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_neptunium_criticality", List.of(60, 70, 88, 60, 70, 60 / 2, 70 / 2, 88 / 2, 60 / 2, 70 / 2), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_NEPTUNIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_neptunium_decay_factor", Arrays.stream(arrayCopies(10, 0.07D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_NEPTUNIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_neptunium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), ARRAY);
+////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_NEPTUNIUM_RADIATION = add(CATEGORY_FISSION, "fission_neptunium_radiation", List.of(RadSources.LEN_236_FISSION, RadSources.LEN_236_FISSION, RadSources.LEN_236_FISSION, RadSources.LEN_236_FISSION, RadSources.LEN_236_FISSION, RadSources.HEN_236_FISSION, RadSources.HEN_236_FISSION, RadSources.HEN_236_FISSION, RadSources.HEN_236_FISSION, RadSources.HEN_236_FISSION), 0D, 1000D, ARRAY);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_PLUTONIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_plutonium_fuel_time", List.of(4572, 4572, 5760, 3646, 5760, 4572, 4572, 5760, 3646, 5760, 3164, 3164, 3946, 2526, 3946, 3164, 3164, 3946, 2526, 3946), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_PLUTONIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_plutonium_heat_generation", List.of(126, 126, 100, 158, 100, 126 * 3, 126 * 3, 100 * 3, 158 * 3, 100 * 3, 182, 182, 146, 228, 146, 182 * 3, 182 * 3, 146 * 3, 228 * 3, 146 * 3), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_PLUTONIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_plutonium_efficiency", List.of(1.2D, 1.2D, 1.2D, 1.2D, 1.2D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.25D, 1.3D, 1.3D, 1.3D, 1.3D, 1.3D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_PLUTONIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_plutonium_criticality", List.of(84, 99, 124, 84, 99, 84 / 2, 99 / 2, 124 / 2, 84 / 2, 99 / 2, 71, 84, 105, 71, 84, 71 / 2, 84 / 2, 105 / 2, 71 / 2, 84 / 2), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_PLUTONIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_plutonium_decay_factor", Arrays.stream(arrayCopies(20, 0.075D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_PLUTONIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_plutonium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), ARRAY);
+////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_PLUTONIUM_RADIATION = add(CATEGORY_FISSION, "fission_plutonium_radiation", List.of(RadSources.LEP_239_FISSION, RadSources.LEP_239_FISSION, RadSources.LEP_239_FISSION, RadSources.LEP_239_FISSION, RadSources.LEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.HEP_239_FISSION, RadSources.LEP_241_FISSION, RadSources.LEP_241_FISSION, RadSources.LEP_241_FISSION, RadSources.LEP_241_FISSION, RadSources.LEP_241_FISSION, RadSources.HEP_241_FISSION, RadSources.HEP_241_FISSION, RadSources.HEP_241_FISSION, RadSources.HEP_241_FISSION, RadSources.HEP_241_FISSION), 0D, 1000D, ARRAY);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_MIXED_FUEL_TIME = add(CATEGORY_FISSION, "fission_mixed_fuel_time", List.of(4354, 4354, 5486, 3472, 5486, 3014, 3014, 3758, 2406, 3758), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_MIXED_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_mixed_heat_generation", List.of(132, 132, 106, 166, 106, 192, 192, 154, 240, 154), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_MIXED_EFFICIENCY = add(CATEGORY_FISSION, "fission_mixed_efficiency", List.of(1.05D, 1.05D, 1.05D, 1.05D, 1.05D, 1.15D, 1.15D, 1.15D, 1.15D, 1.15D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_MIXED_CRITICALITY = add(CATEGORY_FISSION, "fission_mixed_criticality", List.of(80, 94, 118, 80, 94, 68, 80, 100, 68, 80), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_MIXED_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_mixed_decay_factor", Arrays.stream(arrayCopies(10, 0.075D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_MIXED_SELF_PRIMING = add(CATEGORY_FISSION, "fission_mixed_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), ARRAY);
+////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_MIXED_RADIATION = add(CATEGORY_FISSION, "fission_mixed_radiation", List.of(RadSources.MIX_239_FISSION, RadSources.MIX_239_FISSION, RadSources.MIX_239_FISSION, RadSources.MIX_239_FISSION, RadSources.MIX_239_FISSION, RadSources.MIX_241_FISSION, RadSources.MIX_241_FISSION, RadSources.MIX_241_FISSION, RadSources.MIX_241_FISSION, RadSources.MIX_241_FISSION), 0D, 1000D, ARRAY);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_AMERICIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_americium_fuel_time", List.of(1476, 1476, 1846, 1180, 1846, 1476, 1476, 1846, 1180, 1846), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_AMERICIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_americium_heat_generation", List.of(390, 390, 312, 488, 312, 390 * 3, 390 * 3, 312 * 3, 488 * 3, 312 * 3), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_AMERICIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_americium_efficiency", List.of(1.35D, 1.35D, 1.35D, 1.35D, 1.35D, 1.4D, 1.4D, 1.4D, 1.4D, 1.4D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_AMERICIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_americium_criticality", List.of(55, 65, 81, 55, 65, 55 / 2, 65 / 2, 81 / 2, 55 / 2, 65 / 2), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_AMERICIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_americium_decay_factor", Arrays.stream(arrayCopies(10, 0.08D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_AMERICIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_americium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), ARRAY);
+////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_AMERICIUM_RADIATION = add(CATEGORY_FISSION, "fission_americium_radiation", List.of(RadSources.LEA_242_FISSION, RadSources.LEA_242_FISSION, RadSources.LEA_242_FISSION, RadSources.LEA_242_FISSION, RadSources.LEA_242_FISSION, RadSources.HEA_242_FISSION, RadSources.HEA_242_FISSION, RadSources.HEA_242_FISSION, RadSources.HEA_242_FISSION, RadSources.HEA_242_FISSION), 0D, 1000D, ARRAY);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CURIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_curium_fuel_time", List.of(1500, 1500, 1870, 1200, 1870, 1500, 1500, 1870, 1200, 1870, 2420, 2420, 3032, 1932, 3032, 2420, 2420, 3032, 1932, 3032, 2150, 2150, 2692, 1714, 2692, 2150, 2150, 2692, 1714, 2692), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CURIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_curium_heat_generation", List.of(384, 384, 308, 480, 308, 384 * 3, 384 * 3, 308 * 3, 480 * 3, 308 * 3, 238, 238, 190, 298, 190, 238 * 3, 238 * 3, 190 * 3, 298 * 3, 190 * 3, 268, 268, 214, 336, 214, 268 * 3, 268 * 3, 214 * 3, 336 * 3, 214 * 3), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CURIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_curium_efficiency", List.of(1.45D, 1.45D, 1.45D, 1.45D, 1.45D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.5D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.55D, 1.6D, 1.6D, 1.6D, 1.6D, 1.6D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CURIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_curium_criticality", List.of(56, 66, 83, 56, 66, 56 / 2, 66 / 2, 83 / 2, 56 / 2, 66 / 2, 64, 75, 94, 64, 75, 64 / 2, 75 / 2, 94 / 2, 64 / 2, 75 / 2, 61, 72, 90, 61, 72, 61 / 2, 72 / 2, 90 / 2, 61 / 2, 72 / 2), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CURIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_curium_decay_factor", Arrays.stream(arrayCopies(30, 0.085D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_CURIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_curium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false), ARRAY);
+////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CURIUM_RADIATION = add(CATEGORY_FISSION, "fission_curium_radiation", List.of(RadSources.LECm_243_FISSION, RadSources.LECm_243_FISSION, RadSources.LECm_243_FISSION, RadSources.LECm_243_FISSION, RadSources.LECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.HECm_243_FISSION, RadSources.LECm_245_FISSION, RadSources.LECm_245_FISSION, RadSources.LECm_245_FISSION, RadSources.LECm_245_FISSION, RadSources.LECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.HECm_245_FISSION, RadSources.LECm_247_FISSION, RadSources.LECm_247_FISSION, RadSources.LECm_247_FISSION, RadSources.LECm_247_FISSION, RadSources.LECm_247_FISSION, RadSources.HECm_247_FISSION, RadSources.HECm_247_FISSION, RadSources.HECm_247_FISSION, RadSources.HECm_247_FISSION, RadSources.HECm_247_FISSION), 0D, 1000D, ARRAY);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_BERKELIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_berkelium_fuel_time", List.of(2166, 2166, 2716, 1734, 2716, 2166, 2166, 2716, 1734, 2716), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_BERKELIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_berkelium_heat_generation", List.of(266, 266, 212, 332, 212, 266 * 3, 266 * 3, 212 * 3, 332 * 3, 212 * 3), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_BERKELIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_berkelium_efficiency", List.of(1.65D, 1.65D, 1.65D, 1.65D, 1.65D, 1.7D, 1.7D, 1.7D, 1.7D, 1.7D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_BERKELIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_berkelium_criticality", List.of(62, 73, 91, 62, 73, 62 / 2, 73 / 2, 91 / 2, 62 / 2, 73 / 2), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_BERKELIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_berkelium_decay_factor", Arrays.stream(arrayCopies(10, 0.09D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_BERKELIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_berkelium_self_priming", List.of(false, false, false, false, false, false, false, false, false, false), ARRAY);
+////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_BERKELIUM_RADIATION = add(CATEGORY_FISSION, "fission_berkelium_radiation", List.of(RadSources.LEB_248_FISSION, RadSources.LEB_248_FISSION, RadSources.LEB_248_FISSION, RadSources.LEB_248_FISSION, RadSources.LEB_248_FISSION, RadSources.HEB_248_FISSION, RadSources.HEB_248_FISSION, RadSources.HEB_248_FISSION, RadSources.HEB_248_FISSION, RadSources.HEB_248_FISSION), 0D, 1000D, ARRAY);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CALIFORNIUM_FUEL_TIME = add(CATEGORY_FISSION, "fission_californium_fuel_time", List.of(1066, 1066, 1334, 852, 1334, 1066, 1066, 1334, 852, 1334, 2000, 2000, 2504, 1600, 2504, 2000, 2000, 2504, 1600, 2504), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CALIFORNIUM_HEAT_GENERATION = add(CATEGORY_FISSION, "fission_californium_heat_generation", List.of(540, 540, 432, 676, 432, 540 * 3, 540 * 3, 432 * 3, 676 * 3, 432 * 3, 288, 288, 230, 360, 230, 288 * 3, 288 * 3, 230 * 3, 360 * 3, 230 * 3), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_EFFICIENCY = add(CATEGORY_FISSION, "fission_californium_efficiency", List.of(1.75D, 1.75D, 1.75D, 1.75D, 1.75D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.8D, 1.85D, 1.85D, 1.85D, 1.85D, 1.85D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CALIFORNIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_californium_criticality", List.of(51, 60, 75, 51, 60, 51 / 2, 60 / 2, 75 / 2, 51 / 2, 60 / 2, 60, 71, 89, 60, 71, 60 / 2, 71 / 2, 89 / 2, 60 / 2, 71 / 2), 0, 32767, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_californium_decay_factor", Arrays.stream(arrayCopies(20, 0.1D)).boxed().toList(), 0D, 1D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_CALIFORNIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_californium_self_priming", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), ARRAY);
+////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_RADIATION = add(CATEGORY_FISSION, "fission_californium_radiation", List.of(RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION), 0D, 1000D, ARRAY);
 
     private static final ModConfigSpec.DoubleValue FUSION_FUEL_TIME_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_time_multiplier", 1D, 0.001D, 255D);
     private static final ModConfigSpec.DoubleValue FUSION_FUEL_HEAT_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_heat_multiplier", 1D, 0D, 255D);

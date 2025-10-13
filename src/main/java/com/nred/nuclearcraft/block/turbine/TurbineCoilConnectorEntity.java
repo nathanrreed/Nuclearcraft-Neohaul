@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block.turbine;
 
+import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 

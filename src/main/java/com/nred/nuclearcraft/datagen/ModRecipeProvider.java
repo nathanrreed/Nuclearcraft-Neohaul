@@ -1,7 +1,8 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
-import com.nred.nuclearcraft.datagen.recipes.*;
+import com.nred.nuclearcraft.datagen.recipes.multilock.*;
+import com.nred.nuclearcraft.datagen.recipes.processor.*;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.*;
@@ -113,6 +114,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new TurbineProvider(recipeOutput);
         new SolidFissionProvider(recipeOutput);
         new SaltFissionProvider(recipeOutput);
+        new FissionModeratorProvider(recipeOutput);
+        new FissionReflectorProvider(recipeOutput);
+        new FissionHeatingProvider(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))

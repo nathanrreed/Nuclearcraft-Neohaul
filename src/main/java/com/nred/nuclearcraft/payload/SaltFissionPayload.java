@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload;
 
 import com.nred.nuclearcraft.block.fission.SaltFissionControllerEntity;
-import com.nred.nuclearcraft.helpers.HeatBuffer;
+import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.SaltFissionLogic;
 import net.minecraft.core.BlockPos;

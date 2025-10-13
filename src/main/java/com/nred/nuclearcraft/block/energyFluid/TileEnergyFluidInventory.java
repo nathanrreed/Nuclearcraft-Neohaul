@@ -1,0 +1,136 @@
+package com.nred.nuclearcraft.block.energyFluid;
+
+import com.nred.nuclearcraft.block.internal.energy.EnergyConnection;
+import com.nred.nuclearcraft.block.internal.fluid.FluidConnection;
+import com.nred.nuclearcraft.block.internal.inventory.InventoryConnection;
+import com.nred.nuclearcraft.block.internal.inventory.ItemOutputSetting;
+import com.nred.nuclearcraft.block.inventory.ITileInventory;
+import com.nred.nuclearcraft.util.NCMath;
+import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+
+public abstract class TileEnergyFluidInventory extends TileEnergyFluid implements ITileInventory {
+
+    private @Nonnull String inventoryName = null;
+
+    private @Nonnull NonNullList<ItemStack> inventoryStacks = null;
+
+    private @Nonnull InventoryConnection[] inventoryConnections = null;
+
+    private @Nonnull List<ItemOutputSetting> itemOutputSettings = null;
+
+    public TileEnergyFluidInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Set<ResourceKey<Fluid>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+        this(type, pos, blockState, name, size, inventoryConnections, capacity, NCMath.toInt(capacity), energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+    }
+
+    public TileEnergyFluidInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceKey<Fluid>>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+        this(type, pos, blockState, name, size, inventoryConnections, capacity, NCMath.toInt(capacity), energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+    }
+
+    public TileEnergyFluidInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Set<ResourceKey<Fluid>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+        super(type, pos, blockState, capacity, maxTransfer, energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+        initTileEnergyFluidInventory(name, size, inventoryConnections);
+    }
+
+    public TileEnergyFluidInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceKey<Fluid>>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+        super(type, pos, blockState, capacity, maxTransfer, energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+        initTileEnergyFluidInventory(name, size, inventoryConnections);
+    }
+
+    protected void initTileEnergyFluidInventory(String name, int size, @Nonnull InventoryConnection[] inventoryConnections) {
+        inventoryName = MODID + ".container." + name;
+        inventoryStacks = NonNullList.withSize(size, ItemStack.EMPTY);
+        this.inventoryConnections = inventoryConnections;
+        itemOutputSettings = new ArrayList<>();
+        for (int i = 0; i < size; ++i) {
+            itemOutputSettings.add(ItemOutputSetting.DEFAULT);
+        }
+    }
+
+    // Inventory
+
+//    @Override TODO REMOVE
+//    public Component getName() {
+//        return Component.translatable(inventoryName);
+//    }
+
+    @Override
+    public @Nonnull NonNullList<ItemStack> getInventoryStacks() {
+        return inventoryStacks;
+    }
+
+    @Override
+    public @Nonnull InventoryConnection[] getInventoryConnections() {
+        return inventoryConnections;
+    }
+
+    @Override
+    public void setInventoryConnections(@Nonnull InventoryConnection[] connections) {
+        inventoryConnections = connections;
+    }
+
+    @Override
+    public ItemOutputSetting getItemOutputSetting(int slot) {
+        return itemOutputSettings.get(slot);
+    }
+
+    @Override
+    public void setItemOutputSetting(int slot, ItemOutputSetting setting) {
+        itemOutputSettings.set(slot, setting);
+    }
+
+    // NBT
+
+    @Override
+    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.writeAll(nbt, registries);
+        writeInventory(nbt, registries);
+        writeInventoryConnections(nbt, registries);
+        writeSlotSettings(nbt, registries);
+        return nbt;
+    }
+
+    @Override
+    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.readAll(nbt, registries);
+        readInventory(nbt, registries);
+        readInventoryConnections(nbt, registries);
+        readSlotSettings(nbt, registries);
+    }
+
+//	// Capability TODO
+//
+//	@Override
+//	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing side) {
+//		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+//			return !getInventoryStacks().isEmpty() && hasInventorySideCapability(side);
+//		}
+//		return super.hasCapability(capability, side);
+//	}
+//
+//	@Override
+//	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing side) {
+//		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+//			if (!getInventoryStacks().isEmpty() && hasInventorySideCapability(side)) {
+//				return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getItemHandler(null));
+//			}
+//			return null;
+//		}
+//		return super.getCapability(capability, side);
+//	}
+}

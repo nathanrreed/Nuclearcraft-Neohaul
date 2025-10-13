@@ -3,14 +3,22 @@ package com.nred.nuclearcraft.block.fission;
 import com.nred.nuclearcraft.block.fission.IFissionFuelComponent.ModeratorBlockInfo;
 import com.nred.nuclearcraft.block.fission.IFissionFuelComponent.ModeratorLine;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
+import com.nred.nuclearcraft.util.NBTHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
+
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 public interface IFissionComponent extends IFissionPart {
 
@@ -23,7 +31,7 @@ public interface IFissionComponent extends IFissionPart {
 
     default void setCluster(@Nullable FissionCluster cluster) {
         if (cluster == null && getCluster() != null) {
-            // getCluster().getComponentMap().remove(pos.toLong());
+            // getCluster().getComponentMap().remove(pos.toLong()); original
         } else if (cluster != null) {
             cluster.getComponentMap().put(getWorldPosition().asLong(), this);
         }
@@ -118,22 +126,26 @@ public interface IFissionComponent extends IFissionPart {
         return false;
     }
 
-//    // IMultitoolLogic TODO
-//
-//    @Override
-//    default boolean onUseMultitool(ItemStack multitool, EntityPlayerMP player, World world, Direction facing, float hitX, float hitY, float hitZ) {
-//        NBTTagCompound nbt = NBTHelper.getStackNBT(multitool, "ncMultitool");
-//        if (nbt != null) {
-//            if (player.isSneaking()) {
-//                NBTTagCompound info = new NBTTagCompound();
-//                String displayName = getTileBlockDisplayName();
-//                info.setString("displayName", displayName);
-//                info.setLong("componentPos", getTilePos().toLong());
-//                player.sendMessage(new TextComponentString(Lang.localize("info.nuclearcraft.multitool.save_component_info", displayName)));
-//                nbt.setTag("fissionComponentInfo", info);
-//                return true;
-//            }
-//        }
-//        return IFissionPart.super.onUseMultitool(multitool, player, world, facing, hitX, hitY, hitZ);
-//    }
+    @Override
+    default boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level level, Direction facing, BlockPos hitPos) {
+        CompoundTag nbt = NBTHelper.getStackNBT(multitool, "ncMultitool");
+        if (nbt != null) {
+            if (player.isCrouching()) {
+                CompoundTag info = new CompoundTag();
+                Component displayName = getTileBlockDisplayName();
+                info.putString("displayName", displayName.getString());
+                info.putLong("componentPos", getTilePos().asLong());
+                player.sendSystemMessage(Component.translatable(MODID + ".message.multitool.save_component_info", displayName));
+                nbt.put("fissionComponentInfo", info);
+                return true;
+            }
+        }
+        return IFissionPart.super.onUseMultitool(multitool, player, level, facing, hitPos);
+    }
+
+    // ComputerCraft
+
+    String getCCKey();
+
+    Object getCCInfo();
 }

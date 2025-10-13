@@ -33,9 +33,10 @@ public class FissionSourceBlock extends GenericHorizontalTooltipDeviceBlock<Fiss
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos neighborPosition, boolean isMoving) {
+        super.neighborChanged(state, level, pos, block, neighborPosition, isMoving);
         level.setBlock(pos, state.setValue(ACTIVE, level.hasNeighborSignal(pos)), Block.UPDATE_ALL);
         if (level.getBlockEntity(pos) instanceof FissionSourceEntity source) {
-            source.getMultiblockController().get().logic.onSourceUpdated(source);
+            source.onBlockNeighborChanged(state, level, pos, neighborPosition);
         }
     }
 }

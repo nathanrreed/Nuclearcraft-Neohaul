@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.datagen;
 
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.data.DataGenerator;
@@ -43,8 +44,12 @@ public class ModLanguageProvider extends LanguageProvider {
         guide_book();
         string_formatting();
 
+        add(MODID + ".multiblock.validation.reactor.invalid_frame_block", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's frame");
+        add(MODID + ".multiblock.validation.invalid_part_for_interior", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's interior");
+
         add(SUPERCOLD_ICE.asItem(), capitalize(SUPERCOLD_ICE.getId().getPath()));
         add(TRITIUM_LAMP.asItem(), capitalize(TRITIUM_LAMP.getId().getPath()));
+        add(HEAVY_WATER_MODERATOR.asItem(), capitalize(HEAVY_WATER_MODERATOR.getId().getPath()));
         add(UNIVERSAL_BIN.asItem(), capitalize(UNIVERSAL_BIN.getId().getPath()));
         add(MACHINE_INTERFACE.asItem(), capitalize(MACHINE_INTERFACE.getId().getPath()));
         add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
@@ -81,14 +86,14 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".recipe_viewer.turbine_expansion", "Fluid Expansion: %s");
         add(MODID + ".recipe_viewer.turbine_spin_up_multiplier", "Spin-up Multiplier: %s");
 
-        add(MODID + ".multiblock_validation.multiblock.need_bearings", "There must be two sets of rotor bearings in opposing walls of the multiblock for it to form");
-        add(MODID + ".multiblock_validation.multiblock.bearings_side_square", "The walls housing the rotor bearings must be square for the multiblock to form");
-        add(MODID + ".multiblock_validation.multiblock.valve_wrong_wall", "Inlets and outlets must be installed opposite each other on the walls housing the rotor bearings for the multiblock to form");
-        add(MODID + ".multiblock_validation.multiblock.bearings_center_and_square", "The sets of rotor bearings must be square and centered in the middle of each opposing wall for the multiblock to form");
-        add(MODID + ".multiblock_validation.multiblock.shaft_center", "The rotor shaft must be fully connected to each set of rotor bearings for the multiblock to form");
-        add(MODID + ".multiblock_validation.multiblock.space_between_blades", "The space between the sets of rotor blades and stators must be empty for the multiblock to form");
-        add(MODID + ".multiblock_validation.multiblock.different_type_blades", "The rotor blades or stators about each section of the rotor shaft must be of the same type for the multiblock to form");
-        add(MODID + ".multiblock_validation.multiblock.missing_blades", "Each section of the rotor shaft must have rotor blades or stators of the same type extend fully to the wall for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.need_bearings", "There must be two sets of rotor bearings in opposing walls of the multiblock for it to form");
+        add(MODID + ".multiblock_validation.turbine.bearings_side_square", "The walls housing the rotor bearings must be square for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.valve_wrong_wall", "Inlets and outlets must be installed opposite each other on the walls housing the rotor bearings for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.bearings_center_and_square", "The sets of rotor bearings must be square and centered in the middle of each opposing wall for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.shaft_center", "The rotor shaft must be fully connected to each set of rotor bearings for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.space_between_blades", "The space between the sets of rotor blades and stators must be empty for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.different_type_blades", "The rotor blades or stators about each section of the rotor shaft must be of the same type for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.missing_blades", "Each section of the rotor shaft must have rotor blades or stators of the same type extend fully to the wall for the multiblock to form");
     }
 
     private void fission_reactor() {
@@ -113,6 +118,9 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.fission_controller.efficiency", "Mean Efficiency: %s");
         add(MODID + ".tooltip.fission_controller.heat_mult", "Mean Heat Multiplier: %s");
         add(MODID + ".tooltip.fission_controller.heat_stored", "Casing Heat Level: %s");
+
+        add(MODID + ".fission_reactor_source.no_target","Has no target!");
+        add(MODID + ".fission_reactor_source.target","=Targeting %4$s at [%1$d, %2$d, %3$d]");
     }
 
     private void string_formatting() {
@@ -564,12 +572,19 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void messages() {
-        add(MODID + ".message.multitool.save", "Saved %s configuration to Multitool");
-        add(MODID + ".message.multitool.load", "Loaded %s configuration from Multitool");
-        add(MODID + ".message.multitool.error", "%s configuration cannot be loaded to %s");
+        add(MODID + ".message.multitool.save_processor_config", "Saved %s configuration to Multitool");
+        add(MODID + ".message.multitool.load_processor_config", "Loaded %s configuration from Multitool");
+        add(MODID + ".message.multitool.invalid_processor_config", "%s configuration cannot be loaded to %s");
+
+        add(MODID + ".message.multitool.save_component_info", "Saved %s info to Multitool");
+        add(MODID + ".message.multitool.load_component_info", "Loaded %s info from Multitool");
+        add(MODID + ".message.multitool.invalid_component_info", "%s info from multiblock cannot be loaded to %s");
 
         add(MODID + ".message.multitool.energy_toggle", "Toggled side to ");
         add(MODID + ".message.multitool.energy_toggle_opposite", "Toggled opposite side to ");
+
+        add(MODID + ".multitool.quantum_computer.tool_set_angle", "Saved angle of %s degrees to multitool");
+        add(MODID + ".multitool.clear_info", "Cleared stored multitool info");
     }
 
     private void tooltips() {
@@ -646,6 +661,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.side_config.slot_setting.void_all", "VOID ALL");
 
         add(MODID + ".tooltip.shift_for_info", "Hold Shift for more info");
+        add(MODID + ".tooltip.ctrl_for_info", "Hold Ctrl for more info");
 
         add(MODID + ".tooltip.portable.ender_chest", "Access your Ender Chest on the move.");
         add(MODID + ".tooltip.marshmallow", "Many civilizations would not have fallen if they had these on their side.");
@@ -663,6 +679,11 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".tooltip.vent_toggle", "Toggled vent to %s mode!");
         add(MODID + ".tooltip.port_toggle", "Toggled port to %s mode!");
+
+        add(MODID + ".tooltip.moderator", "Moderators are the medium through which one fission reactor cell/vessel sends neutron flux to another or itself. A moderator line consists of EITHER at most %s collimated moderators with a cell/vessel at one endpoint and a cell/vessel at the other OR at most %s collimated moderators with a cell/vessel at one endpoint and a neutron reflector at the other. Moderators are only considered 'active' if part of a line AND adjacent to at least one functional endpoint cell/vessel. A primed or functional cell/vessel sends flux down the line, either to be accepted by the other cell/vessel or to be sent back by the reflector. The total flux sent is the sum of flux factors of the moderators in the line. This is doubled in the case of reflection, and is multiplied by the reflector's reflectivity factor. Finally, the total efficiency of the cells at the line endpoints is multiplied by the mean efficiency of the lines it receives flux from - the efficiency of a line is the mean efficiency multiplier of the moderators in the line.");
+        add(MODID + ".tooltip.moderator.underline", "Fission Reactor Moderator");
+        add(MODID + ".tooltip.moderator.flux_factor", "Flux Factor: %s");
+        add(MODID + ".tooltip.moderator.efficiency", "Efficiency Multiplier: %s");
     }
 
     private void damage_types() {

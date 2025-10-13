@@ -1,5 +1,13 @@
 {
   "variants": {
+    "facing=down,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/turbine_controller_off",
+      "x": 270
+    },
+    "facing=down,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/turbine_controller_on",
+      "x": 270
+    },
     "facing=east,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/turbine_controller_off",
       "y": 90
@@ -21,6 +29,14 @@
     "facing=south,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/turbine_controller_on",
       "y": 180
+    },
+    "facing=up,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/turbine_controller_off",
+      "x": 90
+    },
+    "facing=up,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/turbine_controller_on",
+      "x": 90
     },
     "facing=west,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/turbine_controller_off",

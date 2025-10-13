@@ -1,0 +1,12 @@
+{
+  "type": "nuclearcraftneohaul:fission_heating",
+  "fluidIngredients": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:preheated_water"
+  },
+  "fluidProducts": {
+    "amount": 4,
+    "fluid": "nuclearcraftneohaul:high_pressure_steam"
+  },
+  "heatPerInputMB": 32
+}

@@ -1,0 +1,18 @@
+{
+  "type": "nuclearcraftneohaul:solid_fission_recipe",
+  "criticality": 60,
+  "decayFactor": 0.1,
+  "efficiency": 1.75,
+  "heat": 540,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:lecf_249_ox"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:depleted_lecf_249_ox"
+  },
+  "radiation": 0.011202864583333333,
+  "selfPriming": true,
+  "time": 1066
+}

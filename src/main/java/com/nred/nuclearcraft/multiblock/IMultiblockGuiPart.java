@@ -1,11 +1,15 @@
 package com.nred.nuclearcraft.multiblock;
 
+import com.nred.nuclearcraft.block.ITileGui;
+import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.payload.multiblock.MultiblockUpdatePacket;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.Set;
 
-public interface IMultiblockGuiPart<MULTIBLOCK extends Multiblock<MULTIBLOCK>> extends IMultiblockPart<MULTIBLOCK> {
+public interface IMultiblockGuiPart<MULTIBLOCK extends Multiblock<MULTIBLOCK> & IPacketMultiblock<MULTIBLOCK, PACKET>, PACKET extends MultiblockUpdatePacket, GUITILE extends BlockEntity & IMultiblockGuiPart<MULTIBLOCK, PACKET, GUITILE, INFO>, INFO extends TileContainerInfo<GUITILE>> extends IMultiblockPart<MULTIBLOCK>, ITileGui<GUITILE, PACKET, INFO> {
     default void sendTileUpdatePacketToPlayer(Player player) {
         if (!getCurrentWorld().isClientSide && getMultiblockController().isPresent()) {
             getMultiblockController().get().sendMultiblockUpdatePacketToPlayer(player);

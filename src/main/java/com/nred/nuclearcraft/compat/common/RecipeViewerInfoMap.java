@@ -36,7 +36,7 @@ public class RecipeViewerInfoMap {
         map.put("collector_item", new RecipeViewerInfo("collector_item", new ScreenRectangle(36, 29, 88, 28), new ScreenPosition(24, 6), List.of(new ScreenPosition(5, 5)), List.of(new ScreenPosition(65, 5))));
         map.put("collector_fluid", new RecipeViewerInfo("collector_fluid", new ScreenRectangle(36, 29, 88, 28), new ScreenPosition(24, 6), List.of(new ScreenPosition(5, 5)), List.of(new ScreenPosition(61, 1))));
 
-        map.put("multiblock", new RecipeViewerInfo("multiblock", new ScreenRectangle(50, 29, 88, 28), new ScreenPosition(24, 7), List.of(new ScreenPosition(5, 5)), List.of(new ScreenPosition(61, 1))));
+        map.put("turbine", new RecipeViewerInfo("turbine", new ScreenRectangle(50, 29, 88, 28), new ScreenPosition(24, 7), List.of(new ScreenPosition(5, 5)), List.of(new ScreenPosition(61, 1))));
 
         return map;
     }

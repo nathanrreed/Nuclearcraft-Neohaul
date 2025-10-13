@@ -1,0 +1,18 @@
+{
+  "type": "nuclearcraftneohaul:solid_fission_recipe",
+  "criticality": 199,
+  "decayFactor": 0.04,
+  "efficiency": 1.25,
+  "heat": 50,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:tbu_za"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:depleted_tbu_za"
+  },
+  "radiation": 5.44950384952691E-4,
+  "selfPriming": false,
+  "time": 11520
+}
