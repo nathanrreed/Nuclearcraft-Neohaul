@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.menu.ContainerProcessorImpl.*;
 import com.nred.nuclearcraft.menu.multiblock.SaltFissionControllerMenu;
 import com.nred.nuclearcraft.menu.multiblock.SolidFissionControllerMenu;
 import com.nred.nuclearcraft.menu.multiblock.TurbineControllerMenu;
@@ -29,6 +30,11 @@ public class MenuRegistration {
     public static final DeferredHolder<MenuType<?>, MenuType<FissionVesselPortMenu>> FISSION_VESSEL_PORT_MENU_TYPE = MENUS.register("fission_vessel_port", () -> IMenuTypeExtension.create(FissionVesselPortMenu::new));
 
     // Parts
+    public static final DeferredHolder<MenuType<?>, MenuType<FissionIrradiatorMenu>> FISSION_IRRADIATOR_MENU_TYPE = MENUS.register("fission_irradiator", () -> IMenuTypeExtension.create(FissionIrradiatorMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<FissionCoolerMenu>> FISSION_COOLER_MENU_TYPE = MENUS.register("fission_cooler", () -> IMenuTypeExtension.create(FissionCoolerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<SolidFissionCellMenu>> FISSION_SOLID_CELL_MENU_TYPE = MENUS.register("fission_cell", () -> IMenuTypeExtension.create(SolidFissionCellMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<SaltFissionVesselMenu>> FISSION_SALT_VESSEL_MENU_TYPE = MENUS.register("fission_vessel", () -> IMenuTypeExtension.create(SaltFissionVesselMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<SaltFissionHeaterMenu>> FISSION_SALT_HEATER_MENU_TYPE = MENUS.register("fission_heater", () -> IMenuTypeExtension.create(SaltFissionHeaterMenu::new));
 // TODO
 
     private static HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu>>> createProcessors() {

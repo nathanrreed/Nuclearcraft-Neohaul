@@ -15,6 +15,7 @@ import com.nred.nuclearcraft.block.processor.IBasicProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.FissionCoolerUpdatePacket;
@@ -39,6 +40,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -47,15 +49,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
-import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class FissionCoolerEntity extends AbstractFissionEntity implements IBasicProcessor<FissionCoolerEntity, FissionCoolerUpdatePacket>, ITileFilteredFluid, IFissionCoolingComponent, IFissionPortTarget<FissionCoolerPortEntity, FissionCoolerEntity> {
     protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<FissionCoolerEntity, FissionCoolerUpdatePacket> info;
-
-    protected final @Nonnull String inventoryName; // TODO is this needed?
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
 
@@ -92,8 +91,6 @@ public class FissionCoolerEntity extends AbstractFissionEntity implements IBasic
         super(FISSION_ENTITY_TYPE.get("cooler").get(), pos, blockState);
         info = TileInfoHandler.getProcessorContainerInfo("fission_cooler");
 
-        inventoryName = MODID + ".container." + info.name;
-
         inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
 
         Set<ResourceKey<Fluid>> validFluids = (Set<ResourceKey<Fluid>>) NCRecipes.fission_emergency_cooling.validFluids.get(0);
@@ -112,13 +109,18 @@ public class FissionCoolerEntity extends AbstractFissionEntity implements IBasic
     // MenuProvider
 
     @Override
-    public @org.jetbrains.annotations.Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return null; // TODO
+    public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return new ContainerProcessorImpl.FissionCoolerMenu(containerId, playerInventory, this);
     }
 
     @Override
     public Component getDisplayName() {
         return getTileBlockDisplayName();
+    }
+
+    @Override
+    public boolean canOpenGui(Level world, BlockPos position, BlockState state) {
+        return true;
     }
 
     // IFissionComponent
@@ -439,11 +441,6 @@ public class FissionCoolerEntity extends AbstractFissionEntity implements IBasic
     }
 
     // ITileInventory
-
-//    @Override TODO REMOVE
-//    public Component getName() {
-//        return Component.translatable(inventoryName);
-//    }
 
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {

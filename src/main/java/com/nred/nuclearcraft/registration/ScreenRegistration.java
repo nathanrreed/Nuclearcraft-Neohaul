@@ -1,10 +1,11 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.menu.processor.*;
+import com.nred.nuclearcraft.screen.multiblock.*;
 import com.nred.nuclearcraft.screen.multiblock.controller.SaltFissionControllerScreen;
 import com.nred.nuclearcraft.screen.multiblock.controller.SolidFissionControllerScreen;
 import com.nred.nuclearcraft.screen.multiblock.controller.TurbineControllerScreen;
-import com.nred.nuclearcraft.screen.multiblock.port.FissionCellPortScreen;
+import com.nred.nuclearcraft.screen.multiblock.port.*;
 import com.nred.nuclearcraft.screen.processor.*;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.api.distmarker.Dist;
@@ -44,6 +45,17 @@ public class ScreenRegistration {
         event.register(TURBINE_CONTROLLER_MENU_TYPE.get(), TurbineControllerScreen::new);
         event.register(SOLID_FISSION_CONTROLLER_MENU_TYPE.get(), SolidFissionControllerScreen::new);
         event.register(SALT_FISSION_CONTROLLER_MENU_TYPE.get(), SaltFissionControllerScreen::new);
+
         event.register(FISSION_CELL_PORT_MENU_TYPE.get(), FissionCellPortScreen::new);
+        event.register(FISSION_COOLER_PORT_MENU_TYPE.get(), FissionCoolerPortScreen::new);
+        event.register(FISSION_HEATER_PORT_MENU_TYPE.get(), FissionHeaterPortScreen::new);
+        event.register(FISSION_IRRADIATOR_PORT_MENU_TYPE.get(), FissionIrradiatorPortScreen::new);
+        event.register(FISSION_VESSEL_PORT_MENU_TYPE.get(), FissionVesselPortScreen::new);
+
+        event.register(FISSION_SOLID_CELL_MENU_TYPE.get(), SolidFissionCellScreen::new);
+        event.register(FISSION_COOLER_MENU_TYPE.get(), FissionCoolerScreen::new);
+        event.register(FISSION_SALT_HEATER_MENU_TYPE.get(), SaltFissionHeaterScreen::new);
+        event.register(FISSION_IRRADIATOR_MENU_TYPE.get(), FissionIrradiatorScreen::new);
+        event.register(FISSION_SALT_VESSEL_MENU_TYPE.get(), SaltFissionVesselScreen::new);
     }
 }

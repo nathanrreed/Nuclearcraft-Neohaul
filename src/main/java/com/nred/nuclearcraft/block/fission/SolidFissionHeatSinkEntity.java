@@ -23,7 +23,6 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 
 public class SolidFissionHeatSinkEntity extends AbstractFissionEntity implements IFissionCoolingComponent {
     public FissionHeatSinkType heatSinkType;
-    public String ruleID;
 
     public PlacementRule<FissionReactor, AbstractFissionEntity> placementRule;
 

@@ -87,7 +87,7 @@ public class ItemRegistration {
     private static HashMap<String, DeferredItem<Item>> createFuels(List<String> names, String type) {
         HashMap<String, DeferredItem<Item>> map = new HashMap<>();
         for (String name : names) {
-            map.put(name, ITEMS.register(name, () -> new FuelItem(new Item.Properties(), name, type)));
+            map.put(name, ITEMS.register(name, () -> new Item(new Item.Properties())));
         }
         return map;
     }

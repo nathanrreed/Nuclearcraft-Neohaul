@@ -30,6 +30,6 @@ public class FissionCellPortScreen extends GuiInfoTile<FissionCellPortEntity, It
         guiGraphics.setColor(1, 1, 1, 1);
 
         int fontColor = tile.getMultiblockController().isPresent() && tile.getMultiblockController().get().isReactorOn ? -1 : 15641088;
-        guiGraphics.drawCenteredString(FONT, getTitle(), width / 2, getGuiTop() + 6, fontColor); // TODO why is there []
+        guiGraphics.drawCenteredString(FONT, getTitle(), width / 2, getGuiTop() + 6, fontColor);
     }
 }

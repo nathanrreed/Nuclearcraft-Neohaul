@@ -22,7 +22,7 @@ public class FissionIrradiatorPortMenu extends ContainerPort<FissionReactor, Fis
         super(FISSION_IRRADIATOR_PORT_MENU_TYPE.get(), containerId, inventory, tile);
 
         addSlot(new SlotFiltered.ProcessorInput(tile, NCRecipes.fission_irradiator, 0, 44, 35));
-        addSlot(new SlotFurnace(inventory.player, inventory, 1, 116, 35));
+        addSlot(new SlotFurnace(inventory.player, tile, 1, 116, 35));
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {

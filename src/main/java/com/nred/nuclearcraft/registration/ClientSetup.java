@@ -3,7 +3,6 @@ package com.nred.nuclearcraft.registration;
 import com.nred.nuclearcraft.block.batteries.BatteryEntity;
 import com.nred.nuclearcraft.block.batteries.BatteryRenderer;
 import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
 import com.nred.nuclearcraft.info.Fluids;

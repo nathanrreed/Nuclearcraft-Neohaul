@@ -1,10 +1,17 @@
 package com.nred.nuclearcraft;
 
+import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
+import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
+import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
 import com.nred.nuclearcraft.util.NCMath;
+import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.network.chat.Component;
 
+import java.util.List;
+
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.config.Config2.fission_decay_mechanics;
 import static com.nred.nuclearcraft.config.Config2.fission_neutron_reach;
 
 public class NCInfo {
@@ -74,21 +81,21 @@ public class NCInfo {
 //	public static String[] batteryInfo() {
 //		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".energy_storage.desc");
 //	}
-//
-//	// Fission Fuel
-//
-//	public static String[] fissionFuelInfo(BasicRecipe recipe) {
-//		List<String> list = Lists.newArrayList(Lang.localize("info." + Global.MOD_ID + ".fission_fuel.desc"), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_time.desc", UnitHelper.applyTimeUnit(recipe.getFissionFuelTime(), 3)), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_heat.desc", UnitHelper.prefix(recipe.getFissionFuelHeat(), 5, "H/t")), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.base_efficiency.desc", NCMath.pcDecimalPlaces(recipe.getFissionFuelEfficiency(), 1)), Lang.localize("info." + Global.MOD_ID + ".fission_fuel.criticality.desc", recipe.getFissionFuelCriticality() + " N/t"));
-//		if (fission_decay_mechanics) {
-//			list.add(Lang.localize("info." + Global.MOD_ID + ".fission_fuel.decay_factor.desc", NCMath.pcDecimalPlaces(recipe.getFissionFuelDecayFactor(), 1)));
-//		}
-//		if (recipe.getFissionFuelSelfPriming()) {
-//			list.add(Lang.localize("info." + Global.MOD_ID + ".fission_fuel.self_priming.desc"));
-//		}
-//		return list.toArray(new String[0]);
-//	}
-//
-//	// Fission Cooling
+
+    // Fission Fuel
+
+    public static Component[] fissionFuelInfo(SolidFissionRecipe recipe) {
+        List<Component> list = Lists.newArrayList(Component.translatable(MODID + ".info.fission_fuel"), Component.translatable(MODID + ".info.fission_fuel.base_time", UnitHelper.applyTimeUnit(recipe.getFissionFuelTime(), 3)), Component.translatable(MODID + ".info.fission_fuel.base_heat", UnitHelper.prefix(recipe.getFissionFuelHeat(), 5, "H/t")), Component.translatable(MODID + ".info.fission_fuel.base_efficiency", NCMath.pcDecimalPlaces(recipe.getFissionFuelEfficiency(), 1)), Component.translatable(MODID + ".info.fission_fuel.criticality", recipe.getFissionFuelCriticality() + " N/t"));
+        if (fission_decay_mechanics) {
+            list.add(Component.translatable(MODID + ".info.fission_fuel.decay_factor", NCMath.pcDecimalPlaces(recipe.getFissionFuelDecayFactor(), 1)));
+        }
+        if (recipe.getFissionFuelSelfPriming()) {
+            list.add(Component.translatable(MODID + ".info.fission_fuel.self_priming"));
+        }
+        return list.toArray(new Component[0]);
+    }
+
+//	// Fission Cooling TODO
 //
 //	public static <T extends Enum<T> & IStringSerializable & ICoolingComponentEnum<?>> String[][] coolingFixedInfo(T[] values, String name) {
 //		String[][] info = new String[values.length][];
@@ -191,16 +198,16 @@ public class NCInfo {
         return new Component[]{Component.translatable(MODID + ".tooltip.moderator", fission_neutron_reach, fission_neutron_reach / 2)};
     }
 
-//	// Fission Reflector
-//
-//	public static String[] fissionReflectorFixedInfo(BasicRecipe reflectorInfo) {
-//		return new String[] {Lang.localize("info." + Global.MOD_ID + ".reflector.fixd"), Lang.localize("info." + Global.MOD_ID + ".reflector.reflectivity.fixd", NCMath.pcDecimalPlaces(reflectorInfo.getFissionReflectorReflectivity(), 1)), Lang.localize("info." + Global.MOD_ID + ".reflector.efficiency.fixd", NCMath.pcDecimalPlaces(reflectorInfo.getFissionReflectorEfficiency(), 1))};
-//	}
-//
-//	public static String[] fissionReflectorInfo() {
-//		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".reflector.desc"));
-//	}
-//
+    // Fission Reflector
+
+    public static Component[] fissionReflectorFixedInfo(FissionReflectorRecipe reflectorInfo) {
+        return new Component[]{Component.translatable(MODID + ".info.reflector"), Component.translatable(MODID + ".info.reflector.reflectivity", NCMath.pcDecimalPlaces(reflectorInfo.getFissionReflectorReflectivity(), 1)), Component.translatable(MODID + ".info.reflector.efficiency", NCMath.pcDecimalPlaces(reflectorInfo.getFissionReflectorEfficiency(), 1))};
+    }
+
+    public static Component[] fissionReflectorInfo() {
+        return new Component[]{Component.empty()}; // TODO currently not in original translatable("" + MODID + "info.reflector");
+    }
+
 //	// HX Tube
 //
 //	public static String[] hxTubeFixedInfo(double heatTransferCoefficient, double heatRetentionMult) {

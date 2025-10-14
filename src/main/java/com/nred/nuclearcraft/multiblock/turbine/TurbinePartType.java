@@ -1,7 +1,6 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
 import com.nred.nuclearcraft.block.GenericDirectionalTooltipDeviceBlock;
-import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.turbine.*;
 import it.zerono.mods.zerocore.base.multiblock.part.GlassBlock;

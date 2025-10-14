@@ -1,7 +1,10 @@
 package com.nred.nuclearcraft.screen;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.block.internal.fluid.Tank;
 import com.nred.nuclearcraft.menu.slot.SlotFiltered;
+import com.nred.nuclearcraft.util.UnitHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,11 +12,17 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.helpers.GuiHelper.blitTile;
 
 public abstract class NCGui<MENU extends AbstractContainerMenu> extends AbstractContainerScreen<MENU> {
     public static final Font FONT = Minecraft.getInstance().font;
@@ -35,8 +44,20 @@ public abstract class NCGui<MENU extends AbstractContainerMenu> extends Abstract
 //		renderHoveredToolTip(mouseX, mouseY);
 //		renderTooltips(mouseX, mouseY);
 //	}
-//
-//	@Override
+
+    public void renderGuiTank(GuiGraphics guiGraphics, Tank tank, int x, int y, int w, int h) {
+        if (!tank.isEmpty())
+            blitTile(guiGraphics, Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(IClientFluidTypeExtensions.of(tank.getFluid().getFluid()).getStillTexture()), x, y, w, h, 16, 16, IClientFluidTypeExtensions.of(tank.getFluid().getFluid()).getTintColor());
+    }
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+
+        renderTooltip(guiGraphics, mouseX, mouseY);
+    }
+
+    //	@Override
 //	protected void renderHoveredToolTip(int x, int y) {
 //		Slot slot = getSlotUnderMouse();
 //		if (slot != null && mc.player.inventory.getItemStack().isEmpty()) {
@@ -114,52 +135,51 @@ public abstract class NCGui<MENU extends AbstractContainerMenu> extends Abstract
         drawTooltip(guiGraphics, Lists.newArrayList(text), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight);
     }
 
-//	protected List<String> fluidInfo(Tank tank) {
-//		String fluidName = tank.getFluidLocalizedName();
-//		String fluidAmount = UnitHelper.prefix(tank.getFluidAmount(), tank.getCapacity(), 5, "B", -1);
-//		return Lists.newArrayList(TextFormatting.GREEN + fluidName + TextFormatting.WHITE + " [" + fluidAmount + "]", TextFormatting.ITALIC + Lang.localize("gui.nc.container.shift_clear_tank"));
-//	}
-//
-//	protected List<String> fluidFilterInfo(Tank tank) {
-//		String fluidName = tank.getFluidLocalizedName();
-//		return Lists.newArrayList(TextFormatting.GREEN + fluidName + TextFormatting.WHITE, TextFormatting.ITALIC + Lang.localize("gui.nc.container.shift_clear_filter"));
-//	}
-//
-//	protected void drawFluidTooltip(Tank tank, int mouseX, int mouseY, int x, int y, int tooltipWidth, int tooltipHeight) {
-//		if (!tank.isEmpty()) {
-//			drawTooltip(fluidInfo(tank), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight + 1);
-//		}
-//	}
-//
-//	protected void drawFilteredFluidTooltip(Tank tank, Tank filterTank, int mouseX, int mouseY, int x, int y, int tooltipWidth, int tooltipHeight) {
-//		if (tank.isEmpty()) {
-//			if (!filterTank.isEmpty()) {
-//				drawTooltip(fluidFilterInfo(filterTank), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight + 1);
-//			}
-//		}
-//		else {
-//			drawTooltip(fluidInfo(tank), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight + 1);
-//		}
-//	}
-//
-//	protected List<String> energyInfo(IEnergyStorage energyStorage) {
-//		String energy = UnitHelper.prefix(energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored(), 5, "RF");
-//		return Lists.newArrayList(TextFormatting.LIGHT_PURPLE + Lang.localize("gui.nc.container.energy_stored") + TextFormatting.WHITE + " " + energy);
-//	}
-//
-//	protected List<String> noEnergyInfo() {
-//		return Lists.newArrayList(TextFormatting.RED + Lang.localize("gui.nc.container.no_energy"));
-//	}
-//
-//	protected void drawEnergyTooltip(IEnergyStorage energyStorage, int mouseX, int mouseY, int x, int y, int tooltipWidth, int tooltipHeight) {
-//		drawTooltip(energyInfo(energyStorage), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight);
-//	}
-//
-//	protected void drawNoEnergyTooltip(int mouseX, int mouseY, int x, int y, int tooltipWidth, int tooltipHeight) {
-//		drawTooltip(noEnergyInfo(), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight);
-//	}
-//
-//	public List<String> noClusterInfo() {
-//		return Lists.newArrayList(TextFormatting.RED + Lang.localize("gui.nc.container.no_cluster"));
-//	}
+    protected List<Component> fluidInfo(Tank tank) {
+        Component fluidName = tank.getFluidName();
+        String fluidAmount = UnitHelper.prefix(tank.getFluidAmount(), tank.getCapacity(), 5, "B", -1);
+        return Lists.newArrayList(fluidName.copy().withStyle(ChatFormatting.GREEN).append(" [" + fluidAmount + "]"), Component.translatable(MODID + ".tooltip.tank.clear").withStyle(ChatFormatting.ITALIC));
+    }
+
+    protected List<Component> fluidFilterInfo(Tank tank) {
+        Component fluidName = tank.getFluidName();
+        return Lists.newArrayList(fluidName.copy().withStyle(ChatFormatting.GREEN), Component.translatable(MODID + ".tooltip.tank.clear").withStyle(ChatFormatting.ITALIC));
+    }
+
+    protected void drawFluidTooltip(GuiGraphics guiGraphics, Tank tank, int mouseX, int mouseY, int x, int y, int tooltipWidth, int tooltipHeight) {
+        if (!tank.isEmpty()) {
+            drawTooltip(guiGraphics, fluidInfo(tank), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight + 1);
+        }
+    }
+
+    protected void drawFilteredFluidTooltip(GuiGraphics guiGraphics, Tank tank, Tank filterTank, int mouseX, int mouseY, int x, int y, int tooltipWidth, int tooltipHeight) {
+        if (tank.isEmpty()) {
+            if (!filterTank.isEmpty()) {
+                drawTooltip(guiGraphics, fluidFilterInfo(filterTank), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight + 1);
+            }
+        } else {
+            drawTooltip(guiGraphics, fluidInfo(tank), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight + 1);
+        }
+    }
+
+    protected List<Component> energyInfo(IEnergyStorage energyStorage) {
+        String energy = UnitHelper.prefix(energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored(), 5, "RF");
+        return Lists.newArrayList(Component.translatable(MODID + ".tooltip.processor.energy.stored", Component.literal(energy)).withStyle(ChatFormatting.LIGHT_PURPLE));
+    }
+
+    protected List<Component> noEnergyInfo() {
+        return Lists.newArrayList(Component.translatable(MODID + ".tooltip.processor.energy.not_required").withStyle(ChatFormatting.RED));
+    }
+
+    protected void drawEnergyTooltip(GuiGraphics guiGraphics, IEnergyStorage energyStorage, int mouseX, int mouseY, int x, int y, int tooltipWidth, int tooltipHeight) {
+        drawTooltip(guiGraphics, energyInfo(energyStorage), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight);
+    }
+
+    protected void drawNoEnergyTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y, int tooltipWidth, int tooltipHeight) {
+        drawTooltip(guiGraphics, noEnergyInfo(), mouseX, mouseY, x, y, tooltipWidth, tooltipHeight);
+    }
+
+    public List<Component> noClusterInfo() {
+        return Lists.newArrayList(Component.translatable(MODID + ".menu.fission.no_cluster").withStyle(ChatFormatting.RED));
+    }
 }

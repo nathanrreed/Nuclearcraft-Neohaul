@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.registration;
 import com.nred.nuclearcraft.payload.ButtonPressPayload;
 import com.nred.nuclearcraft.payload.ClearPayload;
 import com.nred.nuclearcraft.payload.RecipeSetPayload;
+import com.nred.nuclearcraft.payload.gui.*;
 import com.nred.nuclearcraft.payload.multiblock.*;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;
@@ -33,24 +34,24 @@ public class PayloadRegistration {
 
         // CLIENT -> SERVER
 
-//        registrar.playToServer(ClearTankPacket.TYPE, ClearTankPacket.class);
-//        registrar.playToServer(ClearFilterTankPacket.TYPE, ClearFilterTankPacket.class);
-//
-//        registrar.playToServer(ToggleInputTanksSeparatedPacket.TYPE, ToggleInputTanksSeparatedPacket.class);
-//        registrar.playToServer(ToggleVoidUnusableFluidInputPacket.TYPE, ToggleVoidUnusableFluidInputPacket.class);
-//        registrar.playToServer(ToggleVoidExcessFluidOutputPacket.TYPE, ToggleVoidExcessFluidOutputPacket.class);
-//        registrar.playToServer(ToggleAlternateComparatorPacket.TYPE, ToggleAlternateComparatorPacket.class);
-//        registrar.playToServer(ToggleRedstoneControlPacket.TYPE, ToggleRedstoneControlPacket.class);
-//
-//        registrar.playToServer(OpenGuiPacket.TYPE, OpenGuiPacket.class);
-//        registrar.playToServer(OpenTileGuiPacket.TYPE, OpenTileGuiPacket.class);
-//        registrar.playToServer(OpenSideConfigGuiPacket.TYPE, OpenSideConfigGuiPacket.class);
-//        registrar.playToServer(ToggleItemSorptionPacket.TYPE, ToggleItemSorptionPacket.class);
-//        registrar.playToServer(ResetItemSorptionsPacket.TYPE, ResetItemSorptionsPacket.class);
-//        registrar.playToServer(ToggleItemOutputSettingPacket.TYPE, ToggleItemOutputSettingPacket.class);
-//        registrar.playToServer(ToggleTankSorptionPacket.TYPE, ToggleTankSorptionPacket.class);
-//        registrar.playToServer(ResetTankSorptionsPacket.TYPE, ResetTankSorptionsPacket.class);
-//        registrar.playToServer(ToggleTankOutputSettingPacket.TYPE, ToggleTankOutputSettingPacket.class);
+        registrar.playToServer(ClearTankPacket.TYPE, ClearTankPacket.STREAM_CODEC, ClearTankPacket.Handler::handleOnServer);
+        registrar.playToServer(ClearFilterTankPacket.TYPE, ClearFilterTankPacket.STREAM_CODEC, ClearFilterTankPacket.Handler::handleOnServer);
+
+        registrar.playToServer(ToggleInputTanksSeparatedPacket.TYPE, ToggleInputTanksSeparatedPacket.STREAM_CODEC, ToggleInputTanksSeparatedPacket.Handler::handleOnServer);
+        registrar.playToServer(ToggleVoidUnusableFluidInputPacket.TYPE, ToggleVoidUnusableFluidInputPacket.STREAM_CODEC, ToggleVoidUnusableFluidInputPacket.Handler::handleOnServer);
+        registrar.playToServer(ToggleVoidExcessFluidOutputPacket.TYPE, ToggleVoidExcessFluidOutputPacket.STREAM_CODEC, ToggleVoidExcessFluidOutputPacket.Handler::handleOnServer);
+        registrar.playToServer(ToggleAlternateComparatorPacket.TYPE, ToggleAlternateComparatorPacket.STREAM_CODEC, ToggleAlternateComparatorPacket.Handler::handleOnServer);
+        registrar.playToServer(ToggleRedstoneControlPacket.TYPE, ToggleRedstoneControlPacket.STREAM_CODEC, ToggleRedstoneControlPacket.Handler::handleOnServer);
+
+//        registrar.playToServer(OpenGuiPacket.TYPE, OpenGuiPacket.class); TODO
+        registrar.playToServer(OpenTileGuiPacket.TYPE, OpenTileGuiPacket.STREAM_CODEC, OpenTileGuiPacket.Handler::handleOnServer);
+        registrar.playToServer(OpenSideConfigGuiPacket.TYPE, OpenSideConfigGuiPacket.STREAM_CODEC, OpenSideConfigGuiPacket.Handler::handleOnServer);
+        registrar.playToServer(ToggleItemSorptionPacket.TYPE, ToggleItemSorptionPacket.STREAM_CODEC, ToggleItemSorptionPacket.Handler::handleOnServer);
+        registrar.playToServer(ResetItemSorptionsPacket.TYPE, ResetItemSorptionsPacket.STREAM_CODEC, ResetItemSorptionsPacket.Handler::handleOnServer);
+        registrar.playToServer(ToggleItemOutputSettingPacket.TYPE, ToggleItemOutputSettingPacket.STREAM_CODEC, ToggleItemOutputSettingPacket.Handler::handleOnServer);
+        registrar.playToServer(ToggleTankSorptionPacket.TYPE, ToggleTankSorptionPacket.STREAM_CODEC, ToggleTankSorptionPacket.Handler::handleOnServer);
+        registrar.playToServer(ResetTankSorptionsPacket.TYPE, ResetTankSorptionsPacket.STREAM_CODEC, ResetTankSorptionsPacket.Handler::handleOnServer);
+        registrar.playToServer(ToggleTankOutputSettingPacket.TYPE, ToggleTankOutputSettingPacket.STREAM_CODEC, ToggleTankOutputSettingPacket.Handler::handleOnServer);
 //
         registrar.playToServer(ClearAllMaterialPacket.TYPE, ClearAllMaterialPacket.STREAM_CODEC, ClearAllMaterialPacket.Handler::handleOnServer);
 

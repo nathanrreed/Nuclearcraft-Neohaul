@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.datagen;
 
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.data.DataGenerator;
@@ -43,6 +42,7 @@ public class ModLanguageProvider extends LanguageProvider {
         damage_types();
         guide_book();
         string_formatting();
+        info();
 
         add(MODID + ".multiblock.validation.reactor.invalid_frame_block", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's frame");
         add(MODID + ".multiblock.validation.invalid_part_for_interior", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's interior");
@@ -62,6 +62,20 @@ public class ModLanguageProvider extends LanguageProvider {
             add(ORE_MAP.get(ore).get(), StringUtils.capitalize(ore) + " Ore");
             add(ORE_MAP.get(ore + "_deepslate").get(), StringUtils.capitalize(ore) + " Deepslate Ore");
         }
+    }
+
+    private void info() {
+        add(MODID + ".info.reflector", "Fission Reactor Reflector");
+        add(MODID + ".info.reflector.reflectivity", "Reflectivity Factor: %s");
+        add(MODID + ".info.reflector.efficiency", "Efficiency Multiplier: %s");
+
+        add(MODID + ".info.fission_fuel", "Fission Reactor Fuel");
+        add(MODID + ".info.fission_fuel.base_time", "Base Depletion Time: %s");
+        add(MODID + ".info.fission_fuel.base_heat", "Base Heat Gen: %s");
+        add(MODID + ".info.fission_fuel.base_efficiency", "Efficiency Multiplier: %s");
+        add(MODID + ".info.fission_fuel.criticality", "Criticality Factor: %s");
+        add(MODID + ".info.fission_fuel.decay_factor", "Decay Factor: %s");
+        add(MODID + ".info.fission_fuel.self_priming", "Self-priming!");
     }
 
     private void guide_book() {
@@ -119,8 +133,10 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.fission_controller.heat_mult", "Mean Heat Multiplier: %s");
         add(MODID + ".tooltip.fission_controller.heat_stored", "Casing Heat Level: %s");
 
-        add(MODID + ".fission_reactor_source.no_target","Has no target!");
-        add(MODID + ".fission_reactor_source.target","=Targeting %4$s at [%1$d, %2$d, %3$d]");
+        add(MODID + ".tooltip.fission_component.heat_stored", "Cluster Heat Level: %s");
+
+        add(MODID + ".fission_reactor_source.no_target", "Has no target!");
+        add(MODID + ".fission_reactor_source.target", "=Targeting %4$s at [%1$d, %2$d, %3$d]");
     }
 
     private void string_formatting() {
@@ -596,13 +612,13 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.fission_3", "Efficiency Multiplier: %s%%");
         add(MODID + ".tooltip.fission_4", "Criticality Factor: %s N/t");
 
-        add(MODID + ".tooltip.radiation", "Radiation: %s %sRad/t");
+        add(MODID + ".tooltip.radiation", "Radiation: %s %sRad/t"); // TODO remove
         add(MODID + ".tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");
         add(MODID + ".tooltip.collector", "Produces %s mb/t of %s constantly.");
         add(MODID + ".tooltip.solar", "Produces %s/t constantly during the daytime.");
         add(MODID + ".tooltip.universal_bin", "Destroys items, fluids and energy.");
         add(MODID + ".tooltip.machine_interface", "Automation can access the machine directly adjacent to this block. Can only extend one adjacent machine at maximum.");
-        add(MODID + ".tooltip.processor.energy.stored", "§dEnergy Stored:§r %s / %s");
+        add(MODID + ".tooltip.processor.energy.stored", "Energy Stored: %s");
         add(MODID + ".tooltip.processor.energy.using", "§dProcess Power:§r %s/t");
         add(MODID + ".tooltip.processor.energy.speed", "§bSpeed Multiplier:§r x%s");
         add(MODID + ".tooltip.processor.energy.energy", "§bPower Multiplier:§r x%s");
@@ -671,7 +687,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".tooltip.energy_stored", "Energy Stored: %s / %s");
         add(MODID + ".tooltip.process_time", "§aBase Process Time:§r %s");
-        add(MODID + ".tooltip.process_power", "§dBase Process Power:§r %s/t");
+        add(MODID + ".tooltip.process_power", "Base Process Power: %s");
 
         add(MODID + ".tooltip.production_rate", "§aProduction Rate:§r %s/t");
 
@@ -736,6 +752,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".multiblock_validation.invalid_block", "%4$s is not a valid block at [%1$d, %2$d, %3$d]");
         add(MODID + ".multiblock_validation.no_controller", "There must be a controller for the multiblock to form");
         add(MODID + ".multiblock_validation.too_many_controllers", "There must only be one controller for the multiblock to form");
+        add(MODID + ".menu.fission.no_cluster", "No cluster!");
     }
 
     private void creativeTabs() {

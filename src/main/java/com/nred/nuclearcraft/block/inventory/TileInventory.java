@@ -15,12 +15,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-
 public abstract class TileInventory extends NCTile implements ITileInventory {
-    private @Nonnull
-    final String inventoryName;
-
     private @Nonnull
     final NonNullList<ItemStack> inventoryStacks;
 
@@ -31,7 +26,6 @@ public abstract class TileInventory extends NCTile implements ITileInventory {
 
     public TileInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections) {
         super(type, pos, blockState);
-        inventoryName = MODID + ".container." + name;
         inventoryStacks = NonNullList.withSize(size, ItemStack.EMPTY);
         this.inventoryConnections = inventoryConnections;
         itemOutputSettings = new ArrayList<>();
@@ -41,12 +35,7 @@ public abstract class TileInventory extends NCTile implements ITileInventory {
     }
 
     // Inventory
-
-//    @Override TODO REMOVE
-//    public Component getName() {
-//        return Component.translatable(inventoryName);
-//    }
-
+    
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {
         return inventoryStacks;

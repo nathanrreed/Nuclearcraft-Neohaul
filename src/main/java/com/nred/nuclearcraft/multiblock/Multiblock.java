@@ -388,7 +388,7 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
     // Validation helpers
 
     public boolean standardLastError(BlockPos pos) {
-        setLastError(MODID + ".multiblock_validation.invalid_block", pos, pos.getX(), pos.getY(), pos.getZ(), getWorld().getBlockState(pos).getBlock().getName());
+        setLastError(MODID + ".multiblock_validation.invalid_block", pos.getX(), pos.getY(), pos.getZ(), getWorld().getBlockState(pos).getBlock().getName());
         return false;
     }
 

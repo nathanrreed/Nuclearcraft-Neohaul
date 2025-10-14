@@ -13,6 +13,7 @@ import com.nred.nuclearcraft.block.processor.IBasicProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.FissionIrradiatorUpdatePacket;
@@ -38,22 +39,19 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.IntStream;
 
-import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class FissionIrradiatorEntity extends AbstractFissionEntity implements IBasicProcessor<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket>, ITileFilteredInventory, IFissionHeatingComponent, IFissionFluxSink, IFissionPortTarget<FissionIrradiatorPortEntity, FissionIrradiatorEntity> {
     protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> info;
-
-    protected final @Nonnull String inventoryName;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
     protected final @Nonnull NonNullList<ItemStack> consumedStacks;
@@ -95,8 +93,6 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
         super(FISSION_ENTITY_TYPE.get("irradiator").get(), pos, blockState);
         info = TileInfoHandler.getProcessorContainerInfo("fission_irradiator");
 
-        inventoryName = MODID + ".container." + info.name;
-
         inventoryStacks = info.getInventoryStacks();
         consumedStacks = info.getConsumedStacks();
 
@@ -116,13 +112,18 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     // MenuProvider
 
     @Override
-    public @org.jetbrains.annotations.Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return null; // TODO
+    public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return new ContainerProcessorImpl.FissionIrradiatorMenu(containerId, playerInventory, this);
     }
 
     @Override
     public Component getDisplayName() {
         return getTileBlockDisplayName();
+    }
+
+    @Override
+    public boolean canOpenGui(Level world, BlockPos position, BlockState state) {
+        return true;
     }
 
     // IFissionComponent
@@ -180,7 +181,6 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
 
     @Override
     public void onClusterMeltdown(Iterator<IFissionComponent> componentIterator) {
-
     }
 
     @Override
@@ -494,11 +494,6 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     }
 
     // ITileInventory
-
-//    @Override TODO REMOVE
-//    public Component getName() {
-//        return Component.translatable(inventoryName);
-//    }
 
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {

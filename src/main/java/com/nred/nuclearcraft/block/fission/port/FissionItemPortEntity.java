@@ -42,8 +42,6 @@ import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<PORT, TARGET> & ITileFilteredInventory, TARGET extends IFissionPortTarget<PORT, TARGET> & ITileFilteredInventory> extends FissionPortEntity<PORT, TARGET> implements ITileFilteredInventory, ITileGui<PORT, ItemPortUpdatePacket, TileContainerInfo<PORT>> {
     protected final TileContainerInfo<PORT> info;
 
-    protected final @Nonnull String inventoryName; //TODO REMOVE
-
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks = NonNullList.withSize(2, ItemStack.EMPTY);
     protected final @Nonnull NonNullList<ItemStack> filterStacks = NonNullList.withSize(2, ItemStack.EMPTY);
 
@@ -58,7 +56,6 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
     public FissionItemPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, BasicRecipeHandler recipeHandler) {
         super(type, pos, blockState, portClass);
         info = TileInfoHandler.getTileContainerInfo(name);
-        inventoryName = MODID + ".container." + name;
         this.recipeHandler = recipeHandler;
     }
 
@@ -126,11 +123,6 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
     }
 
     // Inventory
-
-//    @Override
-//    public Component getName() {
-//        return Component.translatable(inventoryName);
-//    }
 
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {

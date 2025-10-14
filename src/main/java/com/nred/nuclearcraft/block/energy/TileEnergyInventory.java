@@ -4,7 +4,6 @@ import com.nred.nuclearcraft.block.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.block.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block.inventory.ITileInventory;
-import com.nred.nuclearcraft.block.internal.fluid.TankVoid;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,12 +17,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-
 public abstract class TileEnergyInventory extends TileEnergy implements ITileInventory {
-    private @Nonnull
-    final String inventoryName;
-
     private @Nonnull
     final NonNullList<ItemStack> inventoryStacks;
 
@@ -38,7 +32,6 @@ public abstract class TileEnergyInventory extends TileEnergy implements ITileInv
 
     public TileEnergyInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections) {
         super(type, pos, blockState, capacity, maxTransfer, energyConnections);
-        inventoryName = MODID + ".container." + name;
         inventoryStacks = NonNullList.withSize(size, ItemStack.EMPTY);
         this.inventoryConnections = inventoryConnections;
         itemOutputSettings = new ArrayList<>();
@@ -48,11 +41,6 @@ public abstract class TileEnergyInventory extends TileEnergy implements ITileInv
     }
 
     // Inventory
-
-//    @Override TODO REMOVE
-//    public Component getName() {
-//        return Component.translatable(inventoryName);
-//    }
 
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {

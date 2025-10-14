@@ -1,10 +1,12 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block.fission.AbstractFissionEntity;
+import com.nred.nuclearcraft.block.fission.*;
+import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.PlacementRule.AdjacencyType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.CountType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.PlacementMap;
+import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.StringHelper;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -405,73 +407,54 @@ public abstract class FissionPlacement {
     }
 
     public static boolean isConductor(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
-        return true;
-
-//        return reactor.filter(fissionReactor -> fissionReactor.getPartMap(TileFissionConductor.class).get(pos.asLong()) != null).isPresent();
+        return reactor.filter(fissionReactor -> fissionReactor.getPartMap(FissionConductorEntity.class).get(pos.asLong()) != null).isPresent();
     }
 
     public static boolean isActiveModerator(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
-        return true;
-
-//        if (reactor.isEmpty()) return false;
-//        IFissionComponent component = reactor.get().getPartMap(IFissionComponent.class).get(pos.asLong());
-//        return (component != null && component.isActiveModerator()) || (reactor.activeModeratorCache.contains(pos.asLong()) && RecipeHelper.blockRecipe(NCRecipes.fission_moderator, reactor.WORLD, pos) != null);
+        if (reactor.isEmpty()) return false;
+        IFissionComponent component = reactor.get().getPartMap(IFissionComponent.class).get(pos.asLong());
+        return (component != null && component.isActiveModerator()) || (reactor.get().activeModeratorCache.contains(pos.asLong()) && RecipeHelper.blockRecipe(NCRecipes.fission_moderator, reactor.get().getWorld(), pos) != null);
     }
 
     public static boolean isActiveReflector(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
-        return true;
-
-//        if (reactor.isEmpty()) return false;
-//        return reactor.get().activeReflectorCache.contains(pos.asLong()) && RecipeHelper.blockRecipe(NCRecipes.fission_reflector, reactor.WORLD, pos) != null;
+        if (reactor.isEmpty()) return false;
+        return reactor.get().activeReflectorCache.contains(pos.asLong()) && RecipeHelper.blockRecipe(NCRecipes.fission_reflector, reactor.get().getWorld(), pos) != null;
     }
 
     public static boolean isFunctionalIrradiator(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
-        return true;
-
-//        if (reactor.isEmpty()) return false;
-//        FissionIrradiatorEntity irradiator = reactor.get().getPartMap(FissionIrradiatorEntity.class).get(pos.asLong());
-//        return irradiator != null && irradiator.isFunctional(simulate);
+        if (reactor.isEmpty()) return false;
+        FissionIrradiatorEntity irradiator = reactor.get().getPartMap(FissionIrradiatorEntity.class).get(pos.asLong());
+        return irradiator != null && irradiator.isFunctional(simulate);
     }
 
     public static boolean isFunctionalShield(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
-        return true;
-
-//        if (reactor.isEmpty()) return false;
-//        FissionShieldEntity shield = reactor.get().getPartMap(FissionShieldEntity.class).get(pos.asLong());
-//        return shield != null && shield.isFunctional(simulate);
+        if (reactor.isEmpty()) return false;
+        FissionShieldEntity shield = reactor.get().getPartMap(FissionShieldEntity.class).get(pos.asLong());
+        return shield != null && shield.isFunctional(simulate);
     }
 
     public static boolean isFunctionalCell(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
-        return true;
-
-//        if (reactor.isEmpty()) return false;
-//        SolidFissionCellEntity cell = reactor.get().getPartMap(SolidFissionCellEntity.class).get(pos.asLong());
-//        return cell != null && cell.isFunctional(simulate);
+        if (reactor.isEmpty()) return false;
+        SolidFissionCellEntity cell = reactor.get().getPartMap(SolidFissionCellEntity.class).get(pos.asLong());
+        return cell != null && cell.isFunctional(simulate);
     }
 
     public static boolean isValidSink(Optional<FissionReactor> reactor, BlockPos pos, String sinkType, boolean simulate) {
-        return true;
-
-//        if (reactor.isEmpty()) return false;
-//        FissionHeatSinkEntity sink = reactor.get().getPartMap(FissionHeatSinkEntity.class).get(pos.asLong());
-//        return sink != null && sink.isFunctional(simulate) && (sinkType.equals("any") || sink.heatSinkType.getName().equals(sinkType));
+        if (reactor.isEmpty()) return false;
+        SolidFissionHeatSinkEntity sink = reactor.get().getPartMap(SolidFissionHeatSinkEntity.class).get(pos.asLong());
+        return sink != null && sink.isFunctional(simulate) && (sinkType.equals("any") || sink.heatSinkType.getName().equals(sinkType));
     }
 
     public static boolean isFunctionalVessel(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
-        return true;
-
-
-//        if (reactor.isEmpty()) return false;
-//        SaltFissionVesselEntity vessel = reactor.get().getPartMap(SaltFissionVesselEntity.class).get(pos.asLong());
-//        return vessel != null && vessel.isFunctional(simulate);
+        if (reactor.isEmpty()) return false;
+        SaltFissionVesselEntity vessel = reactor.get().getPartMap(SaltFissionVesselEntity.class).get(pos.asLong());
+        return vessel != null && vessel.isFunctional(simulate);
     }
 
     public static boolean isValidHeater(Optional<FissionReactor> reactor, BlockPos pos, String heaterType, boolean simulate) {
-        return true;
-
-//         if (reactor.isEmpty()) return false;
-//        FissionHeaterEntity heater = reactor.get().getPartMap(FissionHeaterEntity.class).get(pos.asLong());
-//        return heater != null && heater.isFunctional(simulate) && (heaterType.equals("any") || heater.heaterType.getName().equals(heaterType));
+        if (reactor.isEmpty()) return false;
+        SaltFissionHeaterEntity heater = reactor.get().getPartMap(SaltFissionHeaterEntity.class).get(pos.asLong());
+        return heater != null && heater.isFunctional(simulate) && (heaterType.equals("any") || heater.heaterType.getName().equals(heaterType));
     }
 
     // Default Tooltip Builder

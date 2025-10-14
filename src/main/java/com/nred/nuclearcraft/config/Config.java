@@ -14,7 +14,7 @@ import java.util.*;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 
-@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID)
+@EventBusSubscriber(modid = NuclearcraftNeohaul.MODID) // TODO DELETE
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec SPEC = build();
@@ -285,7 +285,7 @@ public class Config {
     }
 
     public static Map<String, ProcessorConfig> PROCESSOR_CONFIG_MAP = new HashMap<>();
-    public static Map<String, FuelConfig> FUEL_CONFIG_MAP = new HashMap<>();
+//    public static Map<String, FuelConfig> FUEL_CONFIG_MAP = new HashMap<>();
     public static List<Integer> SOLAR_CONFIG_PRODUCTION;
     public static List<Integer> SOLAR_CONFIG_CAPACITY;
     public static List<Integer> BATTERY_CONFIG_CAPACITY;
@@ -325,9 +325,9 @@ public class Config {
         for (String processor : PROCESSOR_MAP.keySet()) {
             PROCESSOR_CONFIG_MAP.put(processor, new ProcessorConfig(config.getIntOrElse("processor." + processor + ".base_time", 0), config.getIntOrElse("processor." + processor + ".base_power", 0), config.getIntOrElse("processor." + processor + ".fluid_capacity", 0)));
         }
-        for (String type : List.of("thorium", "uranium", "neptunium", "plutonium", "mixed", "americium", "curium", "berkelium", "californium")) {
-            FUEL_CONFIG_MAP.put(type, new FuelConfig(config.get("fission_fuel_info." + type + "_fuel_time"), config.get("fission_fuel_info." + type + "_heat_generation"), config.get("fission_fuel_info." + type + "_efficiency"), config.get("fission_fuel_info." + type + "_criticality"), config.get("fission_fuel_info." + type + "_decay_factor"), config.get("fission_fuel_info." + type + "_fuel_time")));
-        }
+//        for (String type : List.of("thorium", "uranium", "neptunium", "plutonium", "mixed", "americium", "curium", "berkelium", "californium")) {
+//            FUEL_CONFIG_MAP.put(type, new FuelConfig(config.get("fission_fuel_info." + type + "_fuel_time"), config.get("fission_fuel_info." + type + "_heat_generation"), config.get("fission_fuel_info." + type + "_efficiency"), config.get("fission_fuel_info." + type + "_criticality"), config.get("fission_fuel_info." + type + "_decay_factor"), config.get("fission_fuel_info." + type + "_fuel_time")));
+//        }
 
         SOLAR_CONFIG_PRODUCTION = config.get("solar.production");
         SOLAR_CONFIG_CAPACITY = config.get("solar.capacity");

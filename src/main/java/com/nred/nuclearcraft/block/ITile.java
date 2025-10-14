@@ -33,7 +33,7 @@ public interface ITile {
     }
 
     default Component getTileBlockDisplayName() {
-        return getTileBlockStack().getDisplayName();
+        return Component.translatable(getTileBlockStack().getDescriptionId());
     }
 
     default Direction getFacingHorizontal() {

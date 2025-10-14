@@ -25,9 +25,6 @@ import java.util.Set;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 public abstract class TileEnergyFluidInventory extends TileEnergyFluid implements ITileInventory {
-
-    private @Nonnull String inventoryName = null;
-
     private @Nonnull NonNullList<ItemStack> inventoryStacks = null;
 
     private @Nonnull InventoryConnection[] inventoryConnections = null;
@@ -53,7 +50,6 @@ public abstract class TileEnergyFluidInventory extends TileEnergyFluid implement
     }
 
     protected void initTileEnergyFluidInventory(String name, int size, @Nonnull InventoryConnection[] inventoryConnections) {
-        inventoryName = MODID + ".container." + name;
         inventoryStacks = NonNullList.withSize(size, ItemStack.EMPTY);
         this.inventoryConnections = inventoryConnections;
         itemOutputSettings = new ArrayList<>();
@@ -63,11 +59,6 @@ public abstract class TileEnergyFluidInventory extends TileEnergyFluid implement
     }
 
     // Inventory
-
-//    @Override TODO REMOVE
-//    public Component getName() {
-//        return Component.translatable(inventoryName);
-//    }
 
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {

@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.block.internal.fluid;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
@@ -127,8 +128,8 @@ public class Tank extends FluidTank {
         return BuiltInRegistries.FLUID.getKey(fluid.getFluid());
     }
 
-    public String getFluidName() {
-        return fluid.isEmpty() ? "" : fluid.getDescriptionId();
+    public Component getFluidName() {
+        return fluid.isEmpty() ? Component.empty() : Component.translatable(fluid.getDescriptionId());
     }
 
     public double getFluidAmountFraction() {

@@ -92,7 +92,5 @@ public class SolidFissionControllerScreen extends GuiLogicMultiblockController<F
 
         int h = NCMath.toInt(Math.round((double) logic.heatBuffer.getHeatStored() / (double) logic.heatBuffer.getHeatCapacity() * 164));
         guiGraphics.blitSprite(getGuiTexture(), 256, 256, 3, 114, getGuiLeft() + 6, getGuiTop() + 102, h, 6);
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 }

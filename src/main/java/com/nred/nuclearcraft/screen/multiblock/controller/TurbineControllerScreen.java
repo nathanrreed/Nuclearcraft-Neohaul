@@ -76,7 +76,5 @@ public class TurbineControllerScreen extends GuiMultiblockController<Turbine, Tu
             inputRate = Component.translatable(MODID + ".menu.turbine_controller.fluid_rate", UnitHelper.prefix(Math.round(multiblock.recipeInputRateFP), 5, "B/t", -1), " [" + NCMath.pcDecimalPlaces(rateRatioFP, 1) + (rateRatio > 1D ? "] [!]" : "]"));
         }
         guiGraphics.drawString(FONT, inputRate, middle_x - this.font.width(inputRate) / 2, getGuiTop() + 58, multiblock.bearingTension <= 0D ? fontColor : multiblock.isTurbineOn ? 0xFFFFFF - NCMath.toInt((255D * Mth.clamp(2D * multiblock.bearingTension, 0D, 1D))) - 256 * NCMath.toInt((255D * Mth.clamp(2D * multiblock.bearingTension - 1D, 0D, 1D))) : FastColor.ARGB32.lerp((float) multiblock.bearingTension, 15641088, 0xFF0000));
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 }

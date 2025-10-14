@@ -31,7 +31,7 @@ public class MultiblockValidationError {
             return this;
         }
         if (_resourceKey.equals(NuclearcraftNeohaul.MODID + ".multiblock_validation.invalid_block")) {
-            return new MultiblockValidationError(_resourceKey, pos, pos.getX(), pos.getY(), pos.getZ(), level.getBlockState(pos).getBlock().getName());
+            return new MultiblockValidationError(_resourceKey, pos, level.getBlockState(pos).getBlock().getName(), pos.getX(), pos.getY(), pos.getZ());
         }
         return this;
     }

@@ -18,7 +18,7 @@ public abstract class ProcessorContainerInfoBuilder<TILE extends BlockEntity & I
 //    public final Supplier<TILE> tileSupplier;
 
 //	public final Class<? extends Container> containerClass;
-//	public final ContainerFunction<TILE> containerFunction;
+//	public final MenuFunction menuFunction;
 //
 //	public final Class<? extends GuiContainer> guiClass;
 //	public final GuiFunction<TILE> guiFunction;
@@ -50,7 +50,7 @@ public abstract class ProcessorContainerInfoBuilder<TILE extends BlockEntity & I
 //        this.tileSupplier = tileSupplier;
 
 //		this.containerClass = containerClass;
-//		this.containerFunction = containerFunction;
+//		this.menuFunction = menuFunction;
 //
 //		this.guiClass = guiClass;
 //		this.guiFunction = guiFunction;

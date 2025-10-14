@@ -15,6 +15,7 @@ import com.nred.nuclearcraft.block.processor.IBasicProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -22,7 +23,6 @@ import com.nred.nuclearcraft.payload.multiblock.SaltFissionVesselUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
-import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
@@ -41,6 +41,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -49,7 +50,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.util.*;
 
-import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config2.*;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
@@ -58,8 +58,6 @@ import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class SaltFissionVesselEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket>, ITileFilteredFluid, IFissionFuelBunchComponent, IFissionPortTarget<FissionVesselPortEntity, SaltFissionVesselEntity> {
     protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> info;
-
-    protected final @Nonnull String inventoryName;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
     protected final @Nonnull NonNullList<ItemStack> consumedStacks;
@@ -122,8 +120,6 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
 
         info = TileInfoHandler.getProcessorContainerInfo("salt_fission_vessel");
 
-        inventoryName = MODID + ".container." + info.name;
-
         inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
         consumedStacks = info.getConsumedStacks();
 
@@ -140,13 +136,19 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return null; // TODO
+        return new ContainerProcessorImpl.SaltFissionVesselMenu(containerId, playerInventory, this);
     }
 
     @Override
     public Component getDisplayName() {
         return getTileBlockDisplayName();
     }
+
+    @Override
+    public boolean canOpenGui(Level world, BlockPos position, BlockState state) {
+        return true;
+    }
+
     // IFissionFuelComponent
 
     @Override
@@ -858,11 +860,6 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     }
 
     // ITileInventory
-
-//    @Override TODO REMOVE
-//    public Component getName() {
-//        return Component.translatable(inventoryName);
-//    }
 
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {

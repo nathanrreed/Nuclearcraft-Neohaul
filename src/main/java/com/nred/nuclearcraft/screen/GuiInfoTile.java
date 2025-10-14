@@ -8,7 +8,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-// TODO fix MENU
 public abstract class GuiInfoTile<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO>, PACKET extends NCPacket, INFO extends TileContainerInfo<TILE>, MENU extends ContainerInfoTile<TILE, PACKET, INFO>> extends NCGui<MENU> {
 //    protected final Player player;
 
