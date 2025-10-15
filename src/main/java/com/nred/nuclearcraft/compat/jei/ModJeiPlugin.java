@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ModJeiPlugin implements IModPlugin {
     public static IRecipeCategory<TurbineRecipe> TURBINE_CATEGORY;
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public @NotNull ResourceLocation getPluginUid() {
         return ncLoc("jei_plugin");
     }
 
@@ -78,6 +79,8 @@ public class ModJeiPlugin implements IModPlugin {
         });
 
         registration.addRecipes(TURBINE_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
+
+        // TODO add Fission Recipes
     }
 
     private static Map<String, IRecipeCategory<? extends ProcessorRecipe>> makeCategories(IRecipeCategoryRegistration registration) {

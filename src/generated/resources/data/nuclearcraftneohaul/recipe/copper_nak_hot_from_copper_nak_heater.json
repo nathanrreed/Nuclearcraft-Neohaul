@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:copper_nak"
+  },
+  "irradiatorFluxRequired": 70,
+  "irradiatorHeatPerFlux": "copper_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:copper_nak_hot"
+  }
+}

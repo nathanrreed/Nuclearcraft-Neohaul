@@ -61,7 +61,14 @@ public class EmiLangProvider extends LanguageProvider {
 
         add("emi.category." + EMI_TURBINE_CATEGORY.getId().toLanguageKey(), "Turbine");
 
+        add("emi.category." + EMI_SOLID_FISSION_CATEGORY.getId().toLanguageKey(), "Solid Fuel Fission");
+        add("emi.category." + EMI_SALT_FISSION_CATEGORY.getId().toLanguageKey(), "Molten Salt Fission");
         add("emi.category." + EMI_MODERATOR_CATEGORY.getId().toLanguageKey(), "Fission Moderator");
+        add("emi.category." + EMI_REFLECTOR_CATEGORY.getId().toLanguageKey(), "Fission Reflector");
+        add("emi.category." + EMI_IRRADIATOR_CATEGORY.getId().toLanguageKey(), "Fission Irradiator");
+        add("emi.category." + EMI_VENT_CATEGORY.getId().toLanguageKey(), "Fission Vent Heating");
+        add("emi.category." + EMI_EMERGENCY_COOLING_CATEGORY.getId().toLanguageKey(), "Fission Emergency Cooling");
+        add("emi.category." + EMI_SALT_COOLING_CATEGORY.getId().toLanguageKey(), "Molten Salt Cooling");
     }
 
     private void simpleName(List<String> list, TagKey<?> key, String append) {

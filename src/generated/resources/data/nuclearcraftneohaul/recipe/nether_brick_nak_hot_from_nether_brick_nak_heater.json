@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:nether_brick_nak"
+  },
+  "irradiatorFluxRequired": 150,
+  "irradiatorHeatPerFlux": "nether_brick_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:nether_brick_nak_hot"
+  }
+}

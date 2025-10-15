@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:end_stone_nak"
+  },
+  "irradiatorFluxRequired": 110,
+  "irradiatorHeatPerFlux": "end_stone_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:end_stone_nak_hot"
+  }
+}

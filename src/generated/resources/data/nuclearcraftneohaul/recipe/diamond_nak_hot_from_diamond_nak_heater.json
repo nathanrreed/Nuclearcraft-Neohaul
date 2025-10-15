@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:diamond_nak"
+  },
+  "irradiatorFluxRequired": 90,
+  "irradiatorHeatPerFlux": "diamond_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:diamond_nak_hot"
+  }
+}

@@ -10,6 +10,7 @@ import com.nred.nuclearcraft.block.info.ProcessorContainerInfoBuilderImpl.BasicP
 import com.nred.nuclearcraft.block.processor.IProcessor;
 import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.util.ModCheck;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -100,8 +101,8 @@ public class TileInfoHandler {
         registerContainerInfo(new TileContainerInfo<>("fission_heater_port", FissionHeaterPortEntity.class));
     }
 
-    public static void init() { // TODO
-//		if (ModCheck.jeiLoaded()) {
+    public static void init() {
+        if (ModCheck.jeiLoaded()) { // TODO remove?
 //			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("manufactory", ManufactoryRecipeWrapper.class, ManufactoryRecipeWrapper::new, Lists.newArrayList(NCBlocks.manufactory)));
 //			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("separator", SeparatorRecipeWrapper.class, SeparatorRecipeWrapper::new, Lists.newArrayList(NCBlocks.separator)));
 //			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("decay_hastener", DecayHastenerRecipeWrapper.class, DecayHastenerRecipeWrapper::new, Lists.newArrayList(NCBlocks.decay_hastener)));
@@ -144,9 +145,9 @@ public class TileInfoHandler {
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "multiblock_infiltrator", MultiblockInfiltratorRecipeWrapper.class, MultiblockInfiltratorRecipeWrapper::new, Lists.newArrayList(NCBlocks.infiltrator_controller), Lists.newArrayList()).setItemInputSlots(standardSlot(46, 31), standardSlot(66, 31)).setFluidInputSlots(standardSlot(46, 51), standardSlot(66, 51)).setItemOutputSlots(bigSlot(122, 37)).setProgressBarGuiXYWHUV(84, 31, 37, 36, 176, 3).setStandardJeiAlternateTitle().setStandardJeiAlternateTexture());
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "infiltrator_pressure_fluid", InfiltratorPressureFluidRecipeWrapper.class, InfiltratorPressureFluidRecipeWrapper::new, Lists.newArrayList(NCBlocks.infiltrator_pressure_chamber), Lists.newArrayList()).setFluidInputSlots(standardSlot(86, 35)).disableProgressBar().setStandardJeiAlternateTitle());
 //			
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("fission_irradiator", FissionIrradiatorRecipeWrapper.class, FissionIrradiatorRecipeWrapper::new, Lists.newArrayList(NCBlocks.fission_irradiator)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("solid_fission_cell", SolidFissionRecipeWrapper.class, SolidFissionRecipeWrapper::new, Lists.newArrayList(NCBlocks.solid_fission_controller, NCBlocks.solid_fission_cell)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("salt_fission_vessel", SaltFissionRecipeWrapper.class, SaltFissionRecipeWrapper::new, Lists.newArrayList(NCBlocks.salt_fission_controller, NCBlocks.salt_fission_vessel)));
+//          registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("fission_irradiator", FissionIrradiatorRecipeWrapper.class, FissionIrradiatorRecipeWrapper::new, Lists.newArrayList(NCBlocks.fission_irradiator)));
+//          registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("solid_fission_cell", SolidFissionRecipeWrapper.class, SolidFissionRecipeWrapper::new, Lists.newArrayList(NCBlocks.solid_fission_controller, NCBlocks.solid_fission_cell)));
+//          registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("salt_fission_vessel", SaltFissionRecipeWrapper.class, SaltFissionRecipeWrapper::new, Lists.newArrayList(NCBlocks.salt_fission_controller, NCBlocks.salt_fission_vessel)));
 //			
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "fission_moderator", FissionModeratorRecipeWrapper.class, FissionModeratorRecipeWrapper::new, NCJEI.getFissionModeratorCrafters(), Lists.newArrayList()).setItemInputSlots(standardSlot(86, 35)).disableProgressBar().setStandardJeiAlternateTitle());
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "fission_reflector", FissionReflectorRecipeWrapper.class, FissionReflectorRecipeWrapper::new, NCJEI.getFissionReflectorCrafters(), Lists.newArrayList()).setItemInputSlots(standardSlot(86, 35)).disableProgressBar().setStandardJeiAlternateTitle());
@@ -158,7 +159,7 @@ public class TileInfoHandler {
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "condenser", CondenserRecipeWrapper.class, CondenserRecipeWrapper::new, NCJEI.getCondenserCrafters(), Lists.newArrayList()).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle());
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "condenser_dissipation_fluid", CondenserDissipationFluidRecipeWrapper.class, CondenserDissipationFluidRecipeWrapper::new, Lists.newArrayList(NCBlocks.heat_exchanger_inlet), Lists.newArrayList()).setFluidInputSlots(standardSlot(86, 35)).disableProgressBar().setStandardJeiAlternateTitle());
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "turbine", TurbineRecipeWrapper.class, TurbineRecipeWrapper::new, NCJEI.getTurbineCrafters(), Lists.newArrayList()).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle());
-//		}
+        }
     }
 
     public static <T> void register(Map<String, T> map, String name, T value) {
@@ -184,7 +185,7 @@ public class TileInfoHandler {
 //	public static void registerJEICategoryInfo(JEICategoryInfo<?, ?, ?> info) {
 //		register(JEI_CATEGORY_INFO_MAP, info.getName(), info);
 //	}
-//	
+//
 //	public static <WRAPPER extends JEISimpleRecipeWrapper<WRAPPER>> void registerJEICategoryInfo(JEISimpleCategoryInfoBuilder<WRAPPER> builder) {
 //		JEISimpleCategoryInfo<WRAPPER> info = builder.buildCategoryInfo();
 //		registerJEICategoryInfo(info);

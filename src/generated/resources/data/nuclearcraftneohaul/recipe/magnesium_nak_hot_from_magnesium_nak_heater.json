@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:magnesium_nak"
+  },
+  "irradiatorFluxRequired": 130,
+  "irradiatorHeatPerFlux": "magnesium_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:magnesium_nak_hot"
+  }
+}

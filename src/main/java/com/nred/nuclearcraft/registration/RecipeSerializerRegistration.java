@@ -41,10 +41,10 @@ public class RecipeSerializerRegistration {
     public static final DeferredHolder<RecipeSerializer<?>, SaltFissionRecipe.Serializer> SALT_FISSION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("salt_fission_recipe", SaltFissionRecipe.Serializer::new);
 
     public static final DeferredHolder<RecipeSerializer<?>, FissionHeatingRecipe.Serializer> FISSION_HEATING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_heating", FissionHeatingRecipe.Serializer::new);
-
+    public static final DeferredHolder<RecipeSerializer<?>, FissionIrradiatorRecipe.Serializer> FISSION_IRRADIATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_irradiator", FissionIrradiatorRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, FissionCoolantHeaterRecipe.Serializer> FISSION_COOLANT_HEATER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_heater", FissionCoolantHeaterRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, FissionEmergencyCoolingRecipe.Serializer> FISSION_EMERGENCY_COOLING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_emergency_cooling", FissionEmergencyCoolingRecipe.Serializer::new);
 
     public static void init() {
     }
-
-
 }

@@ -228,31 +228,6 @@ public class BasicRecipe implements IRecipe, Recipe<BasicRecipeInput> {
 //        return 0;//(double) extras.get(1);
 //    }
 
-    // Fission Irradiator
-    public long getIrradiatorFluxRequired() {
-        return 0;//(long) extras.get(0);
-    }
-
-    public double getIrradiatorHeatPerFlux() {
-        return 0;//(double) extras.get(1);
-    }
-
-    public double getIrradiatorProcessEfficiency() {
-        return 0;//(double) extras.get(2);
-    }
-
-    public long getIrradiatorMinFluxPerTick() {
-        return 0;//(long) extras.get(3);
-    }
-
-    public long getIrradiatorMaxFluxPerTick() {
-        return 0;//(long) extras.get(4);
-    }
-
-    public double getIrradiatorBaseProcessRadiation() {
-        return 0;//(double) extras.get(5);
-    }
-
     // Fission Heating
 
     public int getFissionHeatingHeatPerInputMB() {
@@ -265,22 +240,22 @@ public class BasicRecipe implements IRecipe, Recipe<BasicRecipeInput> {
         return 0;// (double) extras.get(0);
     }
 
-    // Coolant Heater
-    public int getCoolantHeaterCoolingRate() {
-        return 0;//(int) extras.get(0);
-    }
+//    // Coolant Heater
+//    public int getCoolantHeaterCoolingRate() {
+//        return 0;//(int) extras.get(0);
+//    }
+//
+//    public String getCoolantHeaterPlacementRule() {
+//        return "";// (String) extras.get(1);
+//    }
 
-    public String getCoolantHeaterPlacementRule() {
-        return "";// (String) extras.get(1);
-    }
-
-    public String[] getCoolantHeaterJEIInfo() {
-//        String rule = FissionPlacement.TOOLTIP_MAP.get(getCoolantHeaterPlacementRule());
-//        if (rule != null) {
-//            return FontRenderHelper.wrapString(rule, InfoHelper.MAXIMUM_TEXT_WIDTH);
-//        }
-        return new String[]{};
-    }
+//    public String[] getCoolantHeaterJEIInfo() {
+////        String rule = FissionPlacement.TOOLTIP_MAP.get(getCoolantHeaterPlacementRule());
+////        if (rule != null) {
+////            return FontRenderHelper.wrapString(rule, InfoHelper.MAXIMUM_TEXT_WIDTH);
+////        }
+//        return new String[]{};
+//    }
 //
 //    // Heat Exchanger
 //

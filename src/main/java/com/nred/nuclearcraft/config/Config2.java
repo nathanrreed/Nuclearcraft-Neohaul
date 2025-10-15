@@ -11,12 +11,9 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.nred.nuclearcraft.util.CollectionHelper.arrayCopies;
 
 @EventBusSubscriber(modid = NuclearcraftNeohaul.MODID)
 public class Config2 {
@@ -135,8 +132,8 @@ public class Config2 {
 //    public static double[] fission_reflector_reflectivity;
     public static double[] fission_shield_heat_per_flux;
     public static double[] fission_shield_efficiency;
-    public static double[] fission_irradiator_heat_per_flux;
-    public static double[] fission_irradiator_efficiency;
+    //    public static double[] fission_irradiator_heat_per_flux;
+//    public static double[] fission_irradiator_efficiency;
     public static int fission_cooling_efficiency_leniency;
     public static double[] fission_sparsity_penalty_params; // Multiplier, threshold
     public static double fission_heating_coolant_heat_mult;
@@ -543,8 +540,8 @@ public class Config2 {
 //        fission_reflector_reflectivity = syncDoubles(FISSION_REFLECTOR_REFLECTIVITY, ARRAY);
         fission_shield_heat_per_flux = syncDoubles(FISSION_SHIELD_HEAT_PER_FLUX, ARRAY);
         fission_shield_efficiency = syncDoubles(FISSION_SHIELD_EFFICIENCY, ARRAY);
-        fission_irradiator_heat_per_flux = syncDoubles(FISSION_IRRADIATOR_HEAT_PER_FLUX, ARRAY);
-        fission_irradiator_efficiency = syncDoubles(FISSION_IRRADIATOR_EFFICIENCY, ARRAY);
+//        fission_irradiator_heat_per_flux = syncDoubles(FISSION_IRRADIATOR_HEAT_PER_FLUX, ARRAY);
+//        fission_irradiator_efficiency = syncDoubles(FISSION_IRRADIATOR_EFFICIENCY, ARRAY);
         fission_cooling_efficiency_leniency = FISSION_COOLING_EFFICIENCY_LENIENCY.getAsInt();
         fission_sparsity_penalty_params = syncDoubles(FISSION_SPARSITY_PENALTY_PARAMS, ARRAY);
         fission_heating_coolant_heat_mult = FISSION_HEATING_COOLANT_HEAT_MULT.getAsDouble();
@@ -935,8 +932,8 @@ public class Config2 {
 //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_REFLECTOR_REFLECTIVITY = add(CATEGORY_FISSION, "fission_reflector_reflectivity", List.of(1D, 0.5D), 0D, 1D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D), 0D, 32767D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_IRRADIATOR_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_irradiator_heat_per_flux", List.of(0D, 0D, 0D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_IRRADIATOR_EFFICIENCY = add(CATEGORY_FISSION, "fission_irradiator_efficiency", List.of(0D, 0D, 0.5D), 0D, 32767D, ARRAY);
+    //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_IRRADIATOR_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_irradiator_heat_per_flux", List.of(0D, 0D, 0D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_IRRADIATOR_EFFICIENCY = add(CATEGORY_FISSION, "fission_irradiator_efficiency", List.of(0D, 0D, 0.5D), 0D, 32767D, ARRAY);
     private static final ModConfigSpec.IntValue FISSION_COOLING_EFFICIENCY_LENIENCY = add(CATEGORY_FISSION, "fission_cooling_efficiency_leniency", 10, 0, 32767);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SPARSITY_PENALTY_PARAMS = add(CATEGORY_FISSION, "fission_sparsity_penalty_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
     private static final ModConfigSpec.DoubleValue FISSION_HEATING_COOLANT_HEAT_MULT = add(CATEGORY_FISSION, "fission_heating_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
@@ -1026,7 +1023,7 @@ public class Config2 {
 //    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_CALIFORNIUM_CRITICALITY = add(CATEGORY_FISSION, "fission_californium_criticality", List.of(51, 60, 75, 51, 60, 51 / 2, 60 / 2, 75 / 2, 51 / 2, 60 / 2, 60, 71, 89, 60, 71, 60 / 2, 71 / 2, 89 / 2, 60 / 2, 71 / 2), 0, 32767, ARRAY);
 //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_DECAY_FACTOR = add(CATEGORY_FISSION, "fission_californium_decay_factor", Arrays.stream(arrayCopies(20, 0.1D)).boxed().toList(), 0D, 1D, ARRAY);
 //    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_CALIFORNIUM_SELF_PRIMING = add(CATEGORY_FISSION, "fission_californium_self_priming", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), ARRAY);
-////    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_RADIATION = add(CATEGORY_FISSION, "fission_californium_radiation", List.of(RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION), 0D, 1000D, ARRAY);
+    /// /    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_CALIFORNIUM_RADIATION = add(CATEGORY_FISSION, "fission_californium_radiation", List.of(RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.LECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.HECf_249_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.LECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION, RadSources.HECf_251_FISSION), 0D, 1000D, ARRAY);
 
     private static final ModConfigSpec.DoubleValue FUSION_FUEL_TIME_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_time_multiplier", 1D, 0.001D, 255D);
     private static final ModConfigSpec.DoubleValue FUSION_FUEL_HEAT_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_heat_multiplier", 1D, 0D, 255D);

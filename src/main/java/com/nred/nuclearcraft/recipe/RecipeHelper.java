@@ -95,21 +95,21 @@ public class RecipeHelper {
 //		}
 //		return null;
 //	}
-
-//    public static List<List<ItemStack>> getItemInputLists(List<IItemIngredient> itemIngredientList) {
-//        return StreamHelper.map(itemIngredientList, IItemIngredient::getInputStackList);
+//
+//    public static List<ItemStack[]> getItemInputLists(List<SizedIngredient> itemIngredientList) {
+//        return StreamHelper.map(itemIngredientList, SizedIngredient::getItems);
 //    }
 //
-//    public static List<List<FluidStack>> getFluidInputLists(List<IFluidIngredient> fluidIngredientList) {
-//        return StreamHelper.map(fluidIngredientList, IFluidIngredient::getInputStackList);
+//    public static List<FluidStack[]> getFluidInputLists(List<SizedFluidIngredient> fluidIngredientList) {
+//        return StreamHelper.map(fluidIngredientList, SizedFluidIngredient::getFluids);
 //    }
 //
-//    public static List<List<ItemStack>> getItemOutputLists(List<IItemIngredient> itemIngredientList) {
-//        return StreamHelper.map(itemIngredientList, IItemIngredient::getOutputStackList);
+//    public static List<ItemStack[]> getItemOutputLists(List<SizedIngredient> itemIngredientList) {
+//        return StreamHelper.map(itemIngredientList, SizedIngredient::getItems);
 //    }
 //
-//    public static List<List<FluidStack>> getFluidOutputLists(List<IFluidIngredient> fluidIngredientList) {
-//        return StreamHelper.map(fluidIngredientList, IFluidIngredient::getOutputStackList);
+//    public static List<FluidStack[]> getFluidOutputLists(List<SizedFluidIngredient> fluidIngredientList) {
+//        return StreamHelper.map(fluidIngredientList, SizedFluidIngredient::getFluids);
 //    }
 //
 //    @Nullable

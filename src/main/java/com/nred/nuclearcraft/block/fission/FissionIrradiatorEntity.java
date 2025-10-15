@@ -20,6 +20,7 @@ import com.nred.nuclearcraft.payload.multiblock.FissionIrradiatorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.fission.FissionIrradiatorRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import com.nred.nuclearcraft.util.NBTHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
@@ -340,13 +341,22 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe recipe) {
-        baseProcessTime = recipe == null ? 1D : recipe.getIrradiatorFluxRequired();
-        baseProcessHeatPerFlux = recipe == null ? 0D : recipe.getIrradiatorHeatPerFlux();
-        baseProcessEfficiency = recipe == null ? 0D : recipe.getIrradiatorProcessEfficiency();
-        minFluxPerTick = recipe == null ? 0L : recipe.getIrradiatorMinFluxPerTick();
-        maxFluxPerTick = recipe == null ? -1L : recipe.getIrradiatorMaxFluxPerTick();
-        baseProcessRadiation = recipe == null ? 0D : recipe.getIrradiatorBaseProcessRadiation();
+    public void setRecipeStats(@Nullable BasicRecipe basic) {
+        if (basic instanceof FissionIrradiatorRecipe recipe) {
+            baseProcessTime = recipe.getIrradiatorFluxRequired();
+            baseProcessHeatPerFlux = recipe.getIrradiatorHeatPerFlux();
+            baseProcessEfficiency = recipe.getIrradiatorProcessEfficiency();
+            minFluxPerTick = recipe.getIrradiatorMinFluxPerTick();
+            maxFluxPerTick = recipe.getIrradiatorMaxFluxPerTick();
+            baseProcessRadiation = recipe.getIrradiatorBaseProcessRadiation();
+        } else {
+            baseProcessTime = 1;
+            baseProcessHeatPerFlux = 0;
+            baseProcessEfficiency = 0;
+            minFluxPerTick = 0;
+            maxFluxPerTick = -1;
+            baseProcessRadiation = 0;
+        }
     }
 
     @Override

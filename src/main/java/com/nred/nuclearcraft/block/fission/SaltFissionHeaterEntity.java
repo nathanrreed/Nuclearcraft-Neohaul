@@ -24,6 +24,7 @@ import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterT
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionHeaterUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.*;
@@ -542,9 +543,14 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe recipe) {
-        baseProcessCooling = recipe == null ? 0 : recipe.getCoolantHeaterCoolingRate();
-        placementRule = FissionPlacement.RULE_MAP.get(recipe == null ? "" : recipe.getCoolantHeaterPlacementRule());
+    public void setRecipeStats(@Nullable BasicRecipe basic) {
+        if (basic instanceof FissionCoolantHeaterRecipe recipe) {
+            baseProcessCooling = recipe.getCoolantHeaterCoolingRate();
+            placementRule = FissionPlacement.RULE_MAP.get(recipe.getCoolantHeaterPlacementRule());
+        } else {
+            baseProcessCooling = 0;
+            placementRule = FissionPlacement.RULE_MAP.get("");
+        }
     }
 
     @Override

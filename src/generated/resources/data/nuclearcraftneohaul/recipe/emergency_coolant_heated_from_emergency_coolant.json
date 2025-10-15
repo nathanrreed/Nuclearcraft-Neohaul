@@ -1,0 +1,12 @@
+{
+  "type": "nuclearcraftneohaul:fission_emergency_cooling",
+  "cooling_multiplier": 1.0,
+  "fluidIngredients": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:emergency_coolant"
+  },
+  "fluidProducts": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:emergency_coolant_heated"
+  }
+}

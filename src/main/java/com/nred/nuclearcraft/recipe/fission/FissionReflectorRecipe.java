@@ -20,15 +20,15 @@ import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.FI
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FISSION_REFLECTOR_RECIPE_TYPE;
 
 public class FissionReflectorRecipe extends BasicRecipe {
-    private final Ingredient block;
+    private final Ingredient reflector;
     private final double efficiency;
-    private final double reflector;
+    private final double reflectivity;
 
-    public FissionReflectorRecipe(Ingredient block, double efficiency, double reflector) {
-        super(List.of(new SizedIngredient(block, 1)), List.of(), List.of(), List.of());
-        this.block = block;
-        this.efficiency = efficiency;
+    public FissionReflectorRecipe(Ingredient reflector, double efficiency, double reflectivity) {
+        super(List.of(new SizedIngredient(reflector, 1)), List.of(), List.of(), List.of());
         this.reflector = reflector;
+        this.efficiency = efficiency;
+        this.reflectivity = reflectivity;
     }
 
     @Override
@@ -52,27 +52,27 @@ public class FissionReflectorRecipe extends BasicRecipe {
     }
 
     public double getFissionReflectorReflectivity() {
-        return reflector;
+        return reflectivity;
     }
 
     public double getFissionReflectorEfficiency() {
         return efficiency;
     }
 
-    public Ingredient block() {
-        return block;
+    public Ingredient reflector() {
+        return reflector;
     }
 
     public static class Serializer implements RecipeSerializer<FissionReflectorRecipe> {
         private static final MapCodec<FissionReflectorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        Ingredient.CODEC.fieldOf("block").forGetter(FissionReflectorRecipe::block),
+                        Ingredient.CODEC.fieldOf("block").forGetter(FissionReflectorRecipe::reflector),
                         Codec.DOUBLE.fieldOf("efficiency").forGetter(FissionReflectorRecipe::getFissionReflectorEfficiency),
                         Codec.DOUBLE.fieldOf("reflector").forGetter(FissionReflectorRecipe::getFissionReflectorReflectivity)
                 ).apply(inst, FissionReflectorRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, FissionReflectorRecipe> STREAM_CODEC = StreamCodec.composite(
-                Ingredient.CONTENTS_STREAM_CODEC, FissionReflectorRecipe::block,
+                Ingredient.CONTENTS_STREAM_CODEC, FissionReflectorRecipe::reflector,
                 ByteBufCodecs.DOUBLE, FissionReflectorRecipe::getFissionReflectorEfficiency,
                 ByteBufCodecs.DOUBLE, FissionReflectorRecipe::getFissionReflectorReflectivity,
                 FissionReflectorRecipe::new

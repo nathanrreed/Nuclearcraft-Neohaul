@@ -2,12 +2,12 @@ package com.nred.nuclearcraft.recipe.base_types;
 
 import com.google.common.base.CaseFormat;
 import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.recipe.SimpleRecipeBuilder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +20,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
-import net.neoforged.neoforge.fluids.crafting.TagFluidIngredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -182,25 +181,7 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
     }
 
     private ResourceLocation getDefaultRecipeId() {
-        return itemResults.isEmpty() ? getDefaultRecipeId(fluidInputs, fluidResults) : RecipeBuilder.getDefaultRecipeId(getResult());
-    }
-
-    public static ResourceLocation getDefaultRecipeId(List<SizedFluidIngredient> inputs, List<SizedFluidIngredient> outputs) {
-        return ncLoc((outputs.stream().map(ProcessorRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid) + "_from_" + inputs.stream().map(ProcessorRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid)).replaceAll("__", "_").replaceFirst("^_", ""));
-    }
-
-    public static ResourceLocation getDefaultRecipeId(SizedFluidIngredient input, SizedFluidIngredient output) {
-        return ncLoc((getKey(output) + "_from_" + getKey(input)).replaceAll("__", "_").replaceFirst("^_", ""));
-    }
-
-    public static String getKey(SizedFluidIngredient ingredient) {
-        try {
-            return BuiltInRegistries.FLUID.getKey(ingredient.getFluids()[0].getFluid()).getPath();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            if (ingredient.ingredient() instanceof TagFluidIngredient tagged)
-                return tagged.tag().location().getPath();
-            throw new RuntimeException("no ingredients");
-        }
+        return itemResults.isEmpty() ? SimpleRecipeBuilder.getDefaultRecipeId(fluidInputs, fluidResults) : RecipeBuilder.getDefaultRecipeId(getResult());
     }
 
     @Override

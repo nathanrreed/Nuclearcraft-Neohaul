@@ -21,6 +21,7 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.FissionCoolerUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -307,9 +308,12 @@ public class FissionCoolerEntity extends AbstractFissionEntity implements IBasic
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe recipe) {
-        // TODO
-        baseProcessCooling = recipe == null ? 0 : recipe.getCoolantHeaterCoolingRate();
+    public void setRecipeStats(@Nullable BasicRecipe basic) {
+        if (basic instanceof FissionCoolantHeaterRecipe recipe) {
+            baseProcessCooling = recipe.getCoolantHeaterCoolingRate();
+        } else {
+            baseProcessCooling = 0;
+        }
     }
 
     @Override

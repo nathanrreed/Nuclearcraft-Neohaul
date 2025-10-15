@@ -1,0 +1,25 @@
+{
+  "type": "nuclearcraftneohaul:fission_irradiator",
+  "input": {
+    "type": "neoforge:compound",
+    "children": [
+      {
+        "item": "nuclearcraftneohaul:thorium_ingot"
+      },
+      {
+        "item": "nuclearcraftneohaul:thorium_dust"
+      }
+    ],
+    "count": 1
+  },
+  "irradiatorBaseProcessRadiation": 7.15E-11,
+  "irradiatorFluxRequired": 160000,
+  "irradiatorHeatPerFlux": 0.0,
+  "irradiatorMaxFluxPerTick": -1,
+  "irradiatorMinFluxPerTick": 0,
+  "irradiatorProcessEfficiency": 0.0,
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:tbp_dust"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:lead_nak"
+  },
+  "irradiatorFluxRequired": 75,
+  "irradiatorHeatPerFlux": "lead_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:lead_nak_hot"
+  }
+}

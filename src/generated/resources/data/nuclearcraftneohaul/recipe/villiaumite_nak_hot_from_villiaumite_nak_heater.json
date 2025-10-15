@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:villiaumite_nak"
+  },
+  "irradiatorFluxRequired": 155,
+  "irradiatorHeatPerFlux": "villiaumite_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
+  }
+}

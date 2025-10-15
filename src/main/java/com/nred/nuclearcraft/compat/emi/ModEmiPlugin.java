@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
+import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
@@ -16,6 +17,7 @@ import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import it.unimi.dsi.fastutil.Pair;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
@@ -28,12 +30,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.helpers.Concat.fluidEntries;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+import static com.nred.nuclearcraft.info.Names.FISSION_HEAT_PARTS;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
-import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
+import static com.nred.nuclearcraft.registration.MenuRegistration.*;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
 @EmiEntrypoint
@@ -47,8 +51,26 @@ public class ModEmiPlugin implements EmiPlugin {
     private static final EmiStack TURBINE_WORKSTATION = EmiStack.of(TURBINE_MAP.get("turbine_controller"));
     public static final EmiRecipeCategory EMI_TURBINE_CATEGORY = new EmiRecipeCategory(ncLoc("turbine"), TURBINE_WORKSTATION);
 
-    private static final EmiStack MODERATOR_WORKSTATION = EmiStack.of(HEAVY_WATER_MODERATOR);
-    public static final EmiRecipeCategory EMI_MODERATOR_CATEGORY = new EmiRecipeCategory(ncLoc("moderator"), MODERATOR_WORKSTATION);
+    private static final EmiStack SOLID_FISSION_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"));
+    public static final EmiRecipeCategory EMI_SOLID_FISSION_CATEGORY = new EmiRecipeCategory(ncLoc("solid_fission"), SOLID_FISSION_WORKSTATION);
+
+    private static final EmiStack SALT_FISSION_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("molten_salt_fission_controller"));
+    public static final EmiRecipeCategory EMI_SALT_FISSION_CATEGORY = new EmiRecipeCategory(ncLoc("salt_fission"), SALT_FISSION_WORKSTATION);
+
+    private static final EmiStack IRRADIATOR_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("fission_irradiator"));
+    public static final EmiRecipeCategory EMI_IRRADIATOR_CATEGORY = new EmiRecipeCategory(ncLoc("fission_irradiator"), IRRADIATOR_WORKSTATION);
+
+    private static final EmiStack VENT_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("fission_vent"));
+    public static final EmiRecipeCategory EMI_VENT_CATEGORY = new EmiRecipeCategory(ncLoc("fission_vent"), VENT_WORKSTATION);
+
+    private static final EmiStack EMERGENCY_COOLING_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("fission_vent"));
+    public static final EmiRecipeCategory EMI_EMERGENCY_COOLING_CATEGORY = new EmiRecipeCategory(ncLoc("fission_emergency_cooling"), EMERGENCY_COOLING_WORKSTATION);
+
+    private static final EmiStack SALT_COOLING_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("standard_heater"));
+    public static final EmiRecipeCategory EMI_SALT_COOLING_CATEGORY = new EmiRecipeCategory(ncLoc("salt_cooling"), SALT_COOLING_WORKSTATION);
+
+    public static final EmiRecipeCategory EMI_MODERATOR_CATEGORY = new EmiRecipeCategory(ncLoc("fission_moderator"), EmiStack.of(HEAVY_WATER_MODERATOR));
+    public static final EmiRecipeCategory EMI_REFLECTOR_CATEGORY = new EmiRecipeCategory(ncLoc("fission_reflector"), EmiStack.of(FISSION_REACTOR_MAP.get("beryllium_carbon_reflector")));
 
     @Override
     public void register(EmiRegistry registry) {
@@ -95,22 +117,7 @@ public class ModEmiPlugin implements EmiPlugin {
         }
 
         registry.addCategory(EMI_COLLECTOR_CATEGORY);
-        registry.addRecipeHandler(null, new StandardRecipeHandler<InventoryMenu>() {
-            @Override
-            public List<Slot> getInputSources(InventoryMenu handler) {
-                return handler.slots;
-            }
-
-            @Override
-            public List<Slot> getCraftingSlots(InventoryMenu handler) {
-                return List.of();
-            }
-
-            @Override
-            public boolean supportsRecipe(EmiRecipe recipe) {
-                return (recipe.getCategory() == EMI_COLLECTOR_CATEGORY);
-            }
-        });
+        registry.addRecipeHandler(null, new SimpleRecipeHandler<InventoryMenu>(EMI_COLLECTOR_CATEGORY));
 
         for (String type : COLLECTOR_WORKSTATIONS.keySet()) {
             registry.addWorkstation(EMI_COLLECTOR_CATEGORY, COLLECTOR_WORKSTATIONS.get(type));
@@ -129,27 +136,74 @@ public class ModEmiPlugin implements EmiPlugin {
 
         registry.addCategory(EMI_TURBINE_CATEGORY);
         registry.addWorkstation(EMI_TURBINE_CATEGORY, TURBINE_WORKSTATION);
-        registry.addRecipeHandler(null, new StandardRecipeHandler<InventoryMenu>() {
-            @Override
-            public List<Slot> getInputSources(InventoryMenu handler) {
-                return handler.slots;
-            }
-
-            @Override
-            public List<Slot> getCraftingSlots(InventoryMenu handler) {
-                return List.of();
-            }
-
-            @Override
-            public boolean supportsRecipe(EmiRecipe recipe) {
-                return (recipe.getCategory() == EMI_TURBINE_CATEGORY);
-            }
-        });
-
+        registry.addRecipeHandler(TURBINE_CONTROLLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_TURBINE_CATEGORY));
         for (RecipeHolder<TurbineRecipe> recipe : manager.getAllRecipesFor(TURBINE_RECIPE_TYPE.get())) {
             registry.addRecipe(new EmiTurbineRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value().getTurbinePowerPerMB(), recipe.value().getTurbineExpansionLevel(), recipe.value().getTurbineSpinUpMultiplier()));
         }
 
+
+        registry.addCategory(EMI_SOLID_FISSION_CATEGORY);
+        registry.addWorkstation(EMI_SOLID_FISSION_CATEGORY, EmiIngredient.of(List.of(SOLID_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_cell")))));
+        registry.addRecipeHandler(SOLID_FISSION_CONTROLLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_SOLID_FISSION_CATEGORY));
+        for (RecipeHolder<SolidFissionRecipe> recipe : manager.getAllRecipesFor(SOLID_FISSION_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiSolidFissionRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getItemIngredient()), NeoForgeEmiIngredient.of(recipe.value().getItemProduct()), recipe.value()));
+        }
+
+        registry.addCategory(EMI_SALT_FISSION_CATEGORY);
+        registry.addWorkstation(EMI_SALT_FISSION_CATEGORY, EmiIngredient.of(List.of(SALT_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_vessel")))));
+        registry.addRecipeHandler(SALT_FISSION_CONTROLLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_SALT_FISSION_CATEGORY));
+        for (RecipeHolder<SaltFissionRecipe> recipe : manager.getAllRecipesFor(SALT_FISSION_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiSaltFissionRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));
+        }
+
+        registry.addCategory(EMI_IRRADIATOR_CATEGORY);
+        registry.addWorkstation(EMI_IRRADIATOR_CATEGORY, IRRADIATOR_WORKSTATION);
+        registry.addRecipeHandler(FISSION_IRRADIATOR_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_IRRADIATOR_CATEGORY));
+        for (RecipeHolder<FissionIrradiatorRecipe> recipe : manager.getAllRecipesFor(FISSION_IRRADIATOR_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiFissionIrradiatorRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getItemIngredient()), NeoForgeEmiIngredient.of(recipe.value().getItemProduct()), recipe.value()));
+        }
+
+        registry.addCategory(EMI_VENT_CATEGORY);
+        registry.addWorkstation(EMI_VENT_CATEGORY, VENT_WORKSTATION);
+        registry.addRecipeHandler(null, new SimpleRecipeHandler<>(EMI_VENT_CATEGORY));
+
+        for (RecipeHolder<FissionHeatingRecipe> recipe : manager.getAllRecipesFor(FISSION_HEATING_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiFissionVentRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));
+        }
+
+        registry.addCategory(EMI_EMERGENCY_COOLING_CATEGORY);
+        registry.addWorkstation(EMI_EMERGENCY_COOLING_CATEGORY, EMERGENCY_COOLING_WORKSTATION);
+        registry.addRecipeHandler(null, new SimpleRecipeHandler<>(EMI_EMERGENCY_COOLING_CATEGORY));
+
+        for (RecipeHolder<FissionEmergencyCoolingRecipe> recipe : manager.getAllRecipesFor(FISSION_EMERGENCY_COOLING_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiFissionEmergencyCoolingRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));
+        }
+
+        registry.addCategory(EMI_SALT_COOLING_CATEGORY);
+        registry.addWorkstation(EMI_SALT_COOLING_CATEGORY, EmiIngredient.of(Stream.concat(FISSION_HEAT_PARTS.stream().map(part -> EmiStack.of(FISSION_REACTOR_MAP.get(part + "_heater"))), Stream.of(SOLID_FISSION_WORKSTATION)).toList()));
+        registry.addRecipeHandler(FISSION_SALT_HEATER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_SALT_COOLING_CATEGORY));
+        for (RecipeHolder<FissionCoolantHeaterRecipe> recipe : manager.getAllRecipesFor(FISSION_COOLANT_HEATER_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiSaltCoolingRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));
+        }
+
         registry.addRecipe(new EmiBasicInfoRecipe(manager.getAllRecipesFor(FISSION_MODERATOR_RECIPE_TYPE.get()).stream().map(i -> EmiIngredient.of(i.value().moderator())).toList(), EMI_MODERATOR_CATEGORY, ncLoc("moderators")));
+        registry.addRecipe(new EmiBasicInfoRecipe(manager.getAllRecipesFor(FISSION_REFLECTOR_RECIPE_TYPE.get()).stream().map(i -> EmiIngredient.of(i.value().reflector())).toList(), EMI_REFLECTOR_CATEGORY, ncLoc("reflectors")));
+    }
+
+    private record SimpleRecipeHandler<T extends AbstractContainerMenu>(EmiRecipeCategory category) implements StandardRecipeHandler<T> {
+        @Override
+        public List<Slot> getInputSources(T handler) {
+            return handler.slots;
+        }
+
+        @Override
+        public List<Slot> getCraftingSlots(T handler) {
+            return List.of();
+        }
+
+        @Override
+        public boolean supportsRecipe(EmiRecipe recipe) {
+            return (recipe.getCategory() == category);
+        }
     }
 }

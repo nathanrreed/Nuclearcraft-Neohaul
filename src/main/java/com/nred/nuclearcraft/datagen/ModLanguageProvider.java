@@ -137,6 +137,17 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".fission_reactor_source.no_target", "Has no target!");
         add(MODID + ".fission_reactor_source.target", "=Targeting %4$s at [%1$d, %2$d, %3$d]");
+
+        add(MODID + ".recipe_viewer.irradiator_flux_required", "Total Flux Required: %s");
+        add(MODID + ".recipe_viewer.irradiator_heat_per_flux", "Heat Gen Per Flux: %s");
+        add(MODID + ".recipe_viewer.irradiator_process_efficiency", "Efficiency Bonus: %s");
+        add(MODID + ".recipe_viewer.irradiator_valid_flux_minimum", "Minimum Valid Flux: %s");
+        add(MODID + ".recipe_viewer.irradiator_valid_flux_maximum", "Maximum Valid Flux: %s");
+        add(MODID + ".recipe_viewer.irradiator_valid_flux_range", "Valid Flux Range: %s");
+        add(MODID + ".recipe_viewer.radiation_per_flux", "Radiation Per Flux: %s");
+        add(MODID + ".recipe_viewer.coolant_heater_rate", "Cooling Rate: %s");
+        add(MODID + ".recipe_viewer.fission_emergency_cooling_heating_required", "Heating Required: %s");
+        add(MODID + ".recipe_viewer.fission_heating_required", "Heating Required: %s");
     }
 
     private void string_formatting() {
@@ -606,11 +617,6 @@ public class ModLanguageProvider extends LanguageProvider {
     private void tooltips() {
         turbine();
         fission_reactor();
-        add(MODID + ".tooltip.fission_0", "Fission Reactor Fuel");
-        add(MODID + ".tooltip.fission_1", "Base Depletion Time: %s");
-        add(MODID + ".tooltip.fission_2", "Base Heat Gen: %s H/t");
-        add(MODID + ".tooltip.fission_3", "Efficiency Multiplier: %s%%");
-        add(MODID + ".tooltip.fission_4", "Criticality Factor: %s N/t");
 
         add(MODID + ".tooltip.radiation", "Radiation: %s %sRad/t"); // TODO remove
         add(MODID + ".tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");

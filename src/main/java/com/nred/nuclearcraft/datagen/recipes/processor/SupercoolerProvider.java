@@ -1,4 +1,4 @@
-package com.nred.nuclearcraft.datagen.recipes.multilock;
+package com.nred.nuclearcraft.datagen.recipes.processor;
 
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.SupercoolerRecipe;

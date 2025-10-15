@@ -2,10 +2,7 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
-import com.nred.nuclearcraft.recipe.fission.FissionHeatingRecipe;
-import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
-import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
-import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
+import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -45,8 +42,11 @@ public class RecipeTypeRegistration {
     public static final DeferredHolder<RecipeType<?>, RecipeType<TurbineRecipe>> TURBINE_RECIPE_TYPE = register("turbine");
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<FissionModeratorRecipe>> FISSION_MODERATOR_RECIPE_TYPE = register("fission_moderator");
-    public static final DeferredHolder<RecipeType<?>, RecipeType<FissionModeratorRecipe>> FISSION_REFLECTOR_RECIPE_TYPE = register("fission_reflector");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FissionReflectorRecipe>> FISSION_REFLECTOR_RECIPE_TYPE = register("fission_reflector");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FissionIrradiatorRecipe>> FISSION_IRRADIATOR_RECIPE_TYPE = register("fission_irradiator");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FissionCoolantHeaterRecipe>> FISSION_COOLANT_HEATER_RECIPE_TYPE = register("fission_heater");
     public static final DeferredHolder<RecipeType<?>, RecipeType<FissionHeatingRecipe>> FISSION_HEATING_RECIPE_TYPE = register("fission_heating");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FissionEmergencyCoolingRecipe>> FISSION_EMERGENCY_COOLING_RECIPE_TYPE = register("fission_emergency_cooling");
     public static final DeferredHolder<RecipeType<?>, RecipeType<SolidFissionRecipe>> SOLID_FISSION_RECIPE_TYPE = register("solid_fission");
     public static final DeferredHolder<RecipeType<?>, RecipeType<SaltFissionRecipe>> SALT_FISSION_RECIPE_TYPE = register("salt_fission");
 

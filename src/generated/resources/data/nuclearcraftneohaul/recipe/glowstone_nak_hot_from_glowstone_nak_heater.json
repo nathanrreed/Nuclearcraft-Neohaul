@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:glowstone_nak"
+  },
+  "irradiatorFluxRequired": 65,
+  "irradiatorHeatPerFlux": "glowstone_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:glowstone_nak_hot"
+  }
+}

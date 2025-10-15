@@ -129,7 +129,6 @@ public class SolidFissionProvider {
 //    TODO   addRecipe(getYelloriumIngredient(), "ingotCyanite", NCMath.toInt(fission_uranium_fuel_time[11] * 0.5D * 9D / 8D), NCMath.toInt(fission_uranium_heat_generation[11] * 8D / 9D), fission_uranium_efficiency[11], fission_uranium_criticality[11], fission_uranium_decay_factor[11], false, fission_uranium_radiation[11] * 8D / 9D);
     }
 
-
     public static class RecipeBuilder extends SimpleRecipeBuilder {
         private final ItemStack input;
         private final ItemStack output;

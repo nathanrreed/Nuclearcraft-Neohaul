@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:carobbiite_nak"
+  },
+  "irradiatorFluxRequired": 80,
+  "irradiatorHeatPerFlux": "carobbiite_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:carobbiite_nak_hot"
+  }
+}

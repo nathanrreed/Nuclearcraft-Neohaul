@@ -9,7 +9,6 @@ import net.neoforged.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
 
 public class RegistryHelper {
-
     public static Block getBlock(String location) {
         ResourceLocation resLoc = ResourceLocation.parse(location);
         if (ModList.get().getModContainerById(resLoc.getNamespace()).isEmpty()) {
@@ -28,7 +27,7 @@ public class RegistryHelper {
 
     public static ItemStack blockStackFromRegistry(String location, int stackSize) {
         Block block = getBlock(removeMeta(location));
-        return block == null ? null : new ItemStack(block, stackSize); //TODO, getMeta(location)
+        return block == null ? null : new ItemStack(block, stackSize);
     }
 
     public static ItemStack blockStackFromRegistry(String location) {

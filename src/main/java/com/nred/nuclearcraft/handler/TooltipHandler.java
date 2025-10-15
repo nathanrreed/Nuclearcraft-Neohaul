@@ -1,9 +1,7 @@
 package com.nred.nuclearcraft.handler;
 
-import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NCInfo;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.BasicRecipeInput;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
@@ -12,20 +10,16 @@ import com.nred.nuclearcraft.util.InfoHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
-
-import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FISSION_MODERATOR_RECIPE_TYPE;
 
 public class TooltipHandler {
     @OnlyIn(Dist.CLIENT)
@@ -49,9 +43,6 @@ public class TooltipHandler {
     @OnlyIn(Dist.CLIENT)
     private static void addRecipeTooltip(List<Component> tooltips, ItemStack stack, Level level) {
         BasicRecipe recipe;
-//        BasicRecipeInput input = new BasicRecipeInput(List.of(SizedIngredient.of(stack.getItem(), stack.getCount())), List.of());
-//        RecipeHolder<FissionModeratorRecipe> recipe = level.getRecipeManager().getAllRecipesFor(FISSION_MODERATOR_RECIPE_TYPE.get()).stream().filter(a -> a.value().matches(input, level)).findFirst().orElse(null);
-
 
         Function<BasicRecipeHandler<?>, BasicRecipe> itemRecipe = x -> {
             RecipeInfo<? extends BasicRecipe> recipeInfo = x.getRecipeInfoFromInputs(level, Collections.singletonList(stack), Collections.emptyList());
@@ -87,7 +78,7 @@ public class TooltipHandler {
 
         recipe = itemRecipe.apply(NCRecipes.fission_reflector);
         if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[] {ChatFormatting.UNDERLINE, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo((FissionReflectorRecipe) recipe), ChatFormatting.AQUA, NCInfo.fissionReflectorInfo());
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo((FissionReflectorRecipe) recipe), ChatFormatting.AQUA, NCInfo.fissionReflectorInfo());
         }
 
 //        recipe = itemRecipe.apply(NCRecipes.pebble_fission); TODO
@@ -97,7 +88,7 @@ public class TooltipHandler {
 
         recipe = itemRecipe.apply(NCRecipes.solid_fission);
         if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[] {ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((SolidFissionRecipe) recipe));
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((SolidFissionRecipe) recipe));
         }
     }
 }

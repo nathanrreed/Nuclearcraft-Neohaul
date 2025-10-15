@@ -3,16 +3,17 @@ package com.nred.nuclearcraft.multiblock.fisson.molten_salt;
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block.fission.*;
 import com.nred.nuclearcraft.block.fission.port.FissionHeaterPortEntity;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.handler.NCRecipes;
-import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.fission.FissionEmergencyCoolingRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
@@ -35,9 +36,9 @@ import static com.nred.nuclearcraft.config.Config2.fission_overheat;
 import static com.nred.nuclearcraft.config.Config2.fission_sparsity_penalty_params;
 
 public class SaltFissionLogic extends FissionReactorLogic {
-    public final List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, (Set<ResourceKey<Fluid>>) NCRecipes.fission_emergency_cooling.validFluids.get(0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
+    public final List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_emergency_cooling.validFluids.get(0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
 
-    public RecipeInfo<BasicRecipe> emergencyCoolingRecipeInfo;
+    public RecipeInfo<FissionEmergencyCoolingRecipe> emergencyCoolingRecipeInfo;
 
     public int heaterCount = 0;
     public double meanHeatingSpeedMultiplier = 0D, totalHeatingSpeedMultiplier = 0D;

@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:lapis_nak"
+  },
+  "irradiatorFluxRequired": 195,
+  "irradiatorHeatPerFlux": "lapis_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:lapis_nak_hot"
+  }
+}

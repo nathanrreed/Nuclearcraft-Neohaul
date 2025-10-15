@@ -1,0 +1,13 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:manganese_nak"
+  },
+  "irradiatorFluxRequired": 125,
+  "irradiatorHeatPerFlux": "manganese_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:manganese_nak_hot"
+  }
+}

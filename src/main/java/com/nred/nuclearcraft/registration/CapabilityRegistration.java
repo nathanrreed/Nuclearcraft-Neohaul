@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGeneratorEntity;
 import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollectorEntity;
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
+import com.nred.nuclearcraft.block.fission.FissionIrradiatorEntity;
 import com.nred.nuclearcraft.block.fission.FissionVentEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.block.turbine.TurbineCoilConnectorEntity;
@@ -13,13 +14,13 @@ import com.nred.nuclearcraft.block.turbine.TurbineOutletEntity;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.config.ProcessorConfig;
 import com.nred.nuclearcraft.item.EnergyItem;
+import com.nred.nuclearcraft.util.ModCheck;
 import mekanism.api.chemical.IChemicalHandler;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -77,19 +78,18 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("dynamo").get(), (entity, direction) -> ((TurbineDynamoCoilEntity) entity).getEnergySideCapability(direction));
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("coil_connector").get(), (entity, direction) -> ((TurbineCoilConnectorEntity) entity).getEnergySideCapability(direction));
 
-        //TODO
-//        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get().get(), (entity, direction) -> ((FissionIrradiatorEntity) entity).getItemSideCapability(direction));
-
+        // Fission TODO
+        // event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get("irradiator").get(), (entity, direction) -> ((FissionIrradiatorEntity) entity).getItemSideCapability(direction));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("vent").get(), (entity, direction) -> ((FissionVentEntity) entity).getFluidSideCapability(direction));
 
 
         items(event);
 
-        if (ModList.get().isLoaded("computercraft")) {
+        if (ModCheck.ccLoaded()) {
             RegisterPeripherals.registerPeripherals(event);
         }
 
-        if (ModList.get().isLoaded("mekanism")) {
+        if (ModCheck.mekanismLoaded()) {
             // Mekanism Chemical Capabilities
             BlockCapability.getAllProxyable().stream().filter(a -> a.name().equals(ResourceLocation.parse("mekanism:chemical_handler"))).findFirst().ifPresent(c -> {
                 BlockCapability<IChemicalHandler, Direction> CHEMICAL = (BlockCapability<IChemicalHandler, Direction>) c;
