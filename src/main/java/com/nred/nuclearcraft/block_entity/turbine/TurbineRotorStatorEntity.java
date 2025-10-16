@@ -1,0 +1,101 @@
+package com.nred.nuclearcraft.block_entity.turbine;
+
+import com.nred.nuclearcraft.block.turbine.TurbineRotorStatorBlock;
+import com.nred.nuclearcraft.multiblock.turbine.Turbine;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IRotorBladeType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IRotorStatorType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.ITurbineRotorBlade;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
+import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.Iterator;
+
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
+
+public class TurbineRotorStatorEntity extends AbstractTurbineEntity implements ITurbineRotorBlade<TurbineRotorStatorEntity> {
+    @Override
+    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
+        return position == PartPosition.Interior;
+    }
+
+    public IRotorStatorType statorType = null;
+    protected TurbinePartDir dir = TurbinePartDir.Y;
+
+    public TurbineRotorStatorEntity(final BlockPos position, final BlockState blockState, IRotorStatorType statorType) {
+        super(TURBINE_ENTITY_TYPE.get("rotor_stator").get(), position, blockState);
+        this.statorType = statorType;
+    }
+
+    public static class Variant extends TurbineRotorStatorEntity {
+        protected Variant(final BlockPos position, final BlockState blockState, TurbineRotorStatorType statorType) {
+            super(position, blockState, statorType);
+        }
+    }
+
+    public static class Standard extends Variant {
+        public Standard(final BlockPos position, final BlockState blockState) {
+            super(position, blockState, TurbineRotorStatorType.STANDARD);
+        }
+    }
+
+    @Override
+    public BlockPos bladePos() {
+        return worldPosition;
+    }
+
+    @Override
+    public TurbinePartDir getDir() {
+        return dir;
+    }
+
+    @Override
+    public void setDir(TurbinePartDir newDir) {
+        dir = newDir;
+    }
+
+    @Override
+    public IRotorBladeType getBladeType() {
+        return statorType;
+    }
+
+    @Override
+    public BlockState getRenderState() {
+        if (getBlockType() instanceof TurbineRotorStatorBlock) {
+            return getBlockType().defaultBlockState().setValue(TurbineRotorBladeUtil.DIR, dir);
+        }
+        return getBlockType().defaultBlockState();
+    }
+
+    @Override
+    public void onBearingFailure(Iterator<TurbineRotorStatorEntity> statorIterator) {
+        Turbine turbine = getMultiblockController().orElse(null);
+        if (turbine != null && turbine.rand.nextDouble() < 0.04D) {
+            statorIterator.remove();
+            level.removeBlockEntity(worldPosition);
+            level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(), 3);
+        }
+    }
+
+    // NBT
+    @Override
+    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.writeAll(nbt, registries);
+
+        nbt.putInt("bladeDir", dir.ordinal());
+        return nbt;
+    }
+
+    @Override
+    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.readAll(nbt, registries);
+        dir = TurbinePartDir.values()[nbt.getInt("bladeDir")];
+    }
+}

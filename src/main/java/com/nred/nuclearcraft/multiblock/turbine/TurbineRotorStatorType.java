@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
-import com.nred.nuclearcraft.block.turbine.TurbineRotorStatorEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorStatorEntity;
 import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;

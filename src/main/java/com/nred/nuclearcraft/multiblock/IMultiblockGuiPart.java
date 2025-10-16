@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock;
 
-import com.nred.nuclearcraft.block.ITileGui;
+import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.payload.multiblock.MultiblockUpdatePacket;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;

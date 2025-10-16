@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.fluid.CoriumFluid;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.util.FastColor;
 
@@ -138,7 +139,7 @@ public class FluidRegistration {
         map.put("plasma", new Fluids("plasma", true, false, -1, 50, 1000000, 100, 0));
         map.put("radaway", new Fluids("radaway", false, -1));
         map.put("radaway_slow", new Fluids("radaway_slow", false, -1));
-        map.put("corium", new Fluids("corium", "liquid", 0xFF7C7C6F, false, false));
+        map.put("corium", new Fluids("corium", 0xFF7C7C6F, Fluids.MOLTEN_TYPE, CoriumFluid.Source::new, CoriumFluid.Flowing::new));
         map.put("ice", new Fluids("ice", "liquid", false, false, 0xFFAFF1FF, 1000, 250, 2000, 0));
         map.put("slurry_ice", new Fluids("slurry_ice", "liquid", false, false, 0xFF7EAEB7, 950, 270, 4000, 0));
         map.put("emergency_coolant", new Fluids("emergency_coolant", "liquid", false, false, 0xFF6DD0E7, 2000, 100, 2000, 3));

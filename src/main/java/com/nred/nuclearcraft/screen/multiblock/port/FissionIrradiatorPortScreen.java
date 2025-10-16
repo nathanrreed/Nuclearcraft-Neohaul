@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.screen.multiblock.port;
 
-import com.nred.nuclearcraft.block.fission.port.FissionIrradiatorPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionIrradiatorPortMenu;
 import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;

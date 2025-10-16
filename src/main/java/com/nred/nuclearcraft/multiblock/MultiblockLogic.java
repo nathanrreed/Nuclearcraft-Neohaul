@@ -1,13 +1,13 @@
 package com.nred.nuclearcraft.multiblock;
 
-import com.nred.nuclearcraft.block.fission.FissionShieldEntity;
-import com.nred.nuclearcraft.block.fission.IFissionComponent;
-import com.nred.nuclearcraft.block.fission.IFissionFuelComponent;
-import com.nred.nuclearcraft.block.fission.IFissionFuelComponent.ModeratorBlockInfo;
-import com.nred.nuclearcraft.block.ITileFiltered;
-import com.nred.nuclearcraft.block.ITilePort;
-import com.nred.nuclearcraft.block.ITilePortTarget;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.fission.FissionShieldEntity;
+import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
+import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent;
+import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
+import com.nred.nuclearcraft.block_entity.ITileFiltered;
+import com.nred.nuclearcraft.block_entity.ITilePort;
+import com.nred.nuclearcraft.block_entity.ITilePortTarget;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.util.PosHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.*;
@@ -235,12 +235,12 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
         }
     }
 
-    public CompoundTag writeEnergy(com.nred.nuclearcraft.block.internal.energy.EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
+    public CompoundTag writeEnergy(com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
         storage.writeToNBT(data, registries, string);
         return data;
     }
 
-    public void readEnergy(com.nred.nuclearcraft.block.internal.energy.EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
+    public void readEnergy(com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
         storage.readFromNBT(data, registries, string);
     }
 

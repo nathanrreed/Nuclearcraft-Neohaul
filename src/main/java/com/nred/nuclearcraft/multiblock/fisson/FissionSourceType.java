@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block.fission.FissionSourceEntity;
+import com.nred.nuclearcraft.block_entity.fission.FissionSourceEntity;
 import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;

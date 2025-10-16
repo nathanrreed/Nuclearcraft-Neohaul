@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.processor;
 
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
-import com.nred.nuclearcraft.block.internal.fluid.Tank.TankInfo;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.payload.TileUpdatePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
-import com.nred.nuclearcraft.block.turbine.*;
+import com.nred.nuclearcraft.block_entity.turbine.*;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.PlacementRule.AdjacencyType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.CountType;

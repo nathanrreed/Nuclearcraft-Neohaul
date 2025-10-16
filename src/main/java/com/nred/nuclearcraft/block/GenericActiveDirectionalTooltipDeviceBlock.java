@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
-public class GenericActiveDirectionalTooltipDeviceBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericTooltipDeviceBlock<Controller, PartType> {
+public class GenericActiveDirectionalTooltipDeviceBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericTooltipDeviceBlock<Controller, PartType> implements IActivatable {
     public GenericActiveDirectionalTooltipDeviceBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
         registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));

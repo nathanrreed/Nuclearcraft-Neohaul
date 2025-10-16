@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.screen;
 
-import com.nred.nuclearcraft.block.info.ProcessorContainerInfo;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfo;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block.processor.IProcessor;
 import com.nred.nuclearcraft.gui.NCButton;
 import com.nred.nuclearcraft.gui.NCToggleButton;

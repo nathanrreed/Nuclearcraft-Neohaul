@@ -1,9 +1,9 @@
 package com.nred.nuclearcraft.menu.multiblock.port;
 
-import com.nred.nuclearcraft.block.ITileGui;
-import com.nred.nuclearcraft.block.ITilePort;
-import com.nred.nuclearcraft.block.ITilePortTarget;
-import com.nred.nuclearcraft.block.inventory.ITileFilteredInventory;
+import com.nred.nuclearcraft.block_entity.ITileGui;
+import com.nred.nuclearcraft.block_entity.ITilePort;
+import com.nred.nuclearcraft.block_entity.ITilePortTarget;
+import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.handler.*;
 import com.nred.nuclearcraft.menu.ContainerInfoTile;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
-import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
+import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.payload.processor.EnergyProcessorUpdatePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;

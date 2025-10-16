@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.screen;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.menu.slot.SlotFiltered;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;

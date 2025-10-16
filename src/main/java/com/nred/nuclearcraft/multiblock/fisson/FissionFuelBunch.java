@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block.fission.IFissionFuelBunchComponent;
+import com.nred.nuclearcraft.block_entity.fission.IFissionFuelBunchComponent;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;

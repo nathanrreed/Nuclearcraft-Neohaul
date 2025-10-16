@@ -4,13 +4,13 @@ import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGeneratorEntity;
 import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollectorEntity;
 import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
-import com.nred.nuclearcraft.block.fission.FissionIrradiatorEntity;
-import com.nred.nuclearcraft.block.fission.FissionVentEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineCoilConnectorEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineDynamoCoilEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineInletEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineOutletEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineCoilConnectorEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoCoilEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineInletEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineOutletEntity;
+import com.nred.nuclearcraft.block_entity.fission.*;
+import com.nred.nuclearcraft.block_entity.fission.port.*;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.config.ProcessorConfig;
 import com.nred.nuclearcraft.item.EnergyItem;
@@ -77,11 +77,19 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((TurbineOutletEntity) entity).getFluidSideCapability(direction));
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("dynamo").get(), (entity, direction) -> ((TurbineDynamoCoilEntity) entity).getEnergySideCapability(direction));
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, TURBINE_ENTITY_TYPE.get("coil_connector").get(), (entity, direction) -> ((TurbineCoilConnectorEntity) entity).getEnergySideCapability(direction));
-
-        // Fission TODO
-        // event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get("irradiator").get(), (entity, direction) -> ((FissionIrradiatorEntity) entity).getItemSideCapability(direction));
+        // Fission
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get("cell").get(), (entity, direction) -> ((SolidFissionCellEntity) entity).getItemSideCapability(direction));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("cooler").get(), (entity, direction) -> ((FissionCoolerEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("coolant_heater").get(), (entity, direction) -> ((SaltFissionHeaterEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get("irradiator").get(), (entity, direction) -> ((FissionIrradiatorEntity) entity).getItemSideCapability(direction));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("vent").get(), (entity, direction) -> ((FissionVentEntity) entity).getFluidSideCapability(direction));
-
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("vessel").get(), (entity, direction) -> ((SaltFissionVesselEntity) entity).getFluidSideCapability(direction));
+        // Fission Port
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get("cell_port").get(), (entity, direction) -> ((FissionCellPortEntity) entity).getItemSideCapability(direction));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("cooler_port").get(), (entity, direction) -> ((FissionCoolerPortEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), (entity, direction) -> ((FissionHeaterPortEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get("irradiator_port").get(), (entity, direction) -> ((FissionIrradiatorPortEntity) entity).getItemSideCapability(direction));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("vessel_port").get(), (entity, direction) -> ((FissionVesselPortEntity) entity).getFluidSideCapability(direction));
 
         items(event);
 
@@ -97,8 +105,15 @@ public class CapabilityRegistration {
                 // Turbine
                 event.registerBlockEntity(CHEMICAL, TURBINE_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((TurbineInletEntity) entity).getChemicalCapability(direction));
                 event.registerBlockEntity(CHEMICAL, TURBINE_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((TurbineOutletEntity) entity).getChemicalCapability(direction));
-
+                // Fission
+                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("cooler").get(), (entity, direction) -> ((FissionCoolerEntity) entity).getChemicalCapability(direction));
+                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("coolant_heater").get(), (entity, direction) -> ((SaltFissionHeaterEntity) entity).getChemicalCapability(direction));
                 event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vent").get(), (entity, direction) -> ((FissionVentEntity) entity).getChemicalCapability(direction));
+                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vessel").get(), (entity, direction) -> ((SaltFissionVesselEntity) entity).getChemicalCapability(direction));
+                // Fission Port
+                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("cooler_port").get(), (entity, direction) -> ((FissionCoolerPortEntity) entity).getChemicalCapability(direction));
+                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), (entity, direction) -> ((FissionHeaterPortEntity) entity).getChemicalCapability(direction));
+                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vessel_port").get(), (entity, direction) -> ((FissionVesselPortEntity) entity).getChemicalCapability(direction));
 
             });
         }

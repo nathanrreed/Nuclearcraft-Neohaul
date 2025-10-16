@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.block.turbine;
 
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
+import com.nred.nuclearcraft.multiblock.turbine.ITurbinePartType;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
-import it.zerono.mods.zerocore.base.multiblock.part.INeverCauseRenderingSkip;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;

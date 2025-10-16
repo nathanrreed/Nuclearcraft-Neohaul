@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine.PlaneDir;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;

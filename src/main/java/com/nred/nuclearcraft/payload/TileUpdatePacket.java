@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.payload;
 
-import com.nred.nuclearcraft.block.ITilePacket;
+import com.nred.nuclearcraft.block_entity.ITilePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

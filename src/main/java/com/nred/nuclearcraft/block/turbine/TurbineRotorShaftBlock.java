@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.turbine;
 
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
+import com.nred.nuclearcraft.multiblock.turbine.ITurbinePartType;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import it.zerono.mods.zerocore.base.multiblock.part.INeverCauseRenderingSkip;

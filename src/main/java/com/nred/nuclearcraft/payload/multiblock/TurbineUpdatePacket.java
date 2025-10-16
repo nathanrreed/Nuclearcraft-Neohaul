@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
-import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.block.internal.energy.EnergyStorage;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import net.minecraft.core.BlockPos;

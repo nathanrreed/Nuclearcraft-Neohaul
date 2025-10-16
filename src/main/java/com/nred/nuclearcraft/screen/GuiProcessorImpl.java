@@ -1,8 +1,7 @@
 package com.nred.nuclearcraft.screen;
 
-import com.nred.nuclearcraft.block.ITileFiltered;
-import com.nred.nuclearcraft.block.info.ProcessorContainerInfoImpl;
-import com.nred.nuclearcraft.block.inventory.ITileFilteredInventory;
+import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfoImpl;
+import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block.processor.IBasicProcessor;
 import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;

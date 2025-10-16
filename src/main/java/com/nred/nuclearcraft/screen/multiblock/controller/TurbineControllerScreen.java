@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.screen.multiblock.controller;
 
-import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineRotorBearingEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBearingEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.multiblock.TurbineControllerMenu;

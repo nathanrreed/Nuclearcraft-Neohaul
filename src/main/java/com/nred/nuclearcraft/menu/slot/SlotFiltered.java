@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.menu.slot;
 
-import com.nred.nuclearcraft.block.inventory.ITileFilteredInventory;
+import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;

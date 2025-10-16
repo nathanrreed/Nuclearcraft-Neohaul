@@ -1,9 +1,9 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
-import com.nred.nuclearcraft.block.fission.IFissionComponent;
-import com.nred.nuclearcraft.block.fission.IFissionController;
-import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
+import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
+import com.nred.nuclearcraft.block_entity.fission.IFissionController;
+import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.cct;
 
-import com.nred.nuclearcraft.block.fission.*;
-import com.nred.nuclearcraft.block.turbine.TurbineDynamoEntityPart;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoEntityPart;
+import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.util.CCHelper;

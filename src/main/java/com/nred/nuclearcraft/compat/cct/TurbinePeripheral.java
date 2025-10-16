@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.compat.cct;
 
-import com.nred.nuclearcraft.block.turbine.TurbineComputerPortEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineDynamoCoilEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineDynamoEntityPart;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineComputerPortEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoCoilEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoEntityPart;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.util.CCHelper;
 import dan200.computercraft.api.lua.LuaFunction;

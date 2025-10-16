@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.helpers;
 
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;

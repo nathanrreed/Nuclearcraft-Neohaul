@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block.fission.*;
+import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.PlacementRule.AdjacencyType;

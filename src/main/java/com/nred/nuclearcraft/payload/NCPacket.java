@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload;
 
 import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
-import com.nred.nuclearcraft.block.internal.fluid.Tank.TankInfo;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.util.PosHelper;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;

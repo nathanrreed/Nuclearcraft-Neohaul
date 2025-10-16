@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.screen;
 
-import com.nred.nuclearcraft.block.ITileGui;
+import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.ContainerInfoTile;
 import com.nred.nuclearcraft.payload.NCPacket;

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.cct;
 
-import com.nred.nuclearcraft.block.fission.FissionComputerPortEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineComputerPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.FissionComputerPortEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineComputerPortEntity;
 import dan200.computercraft.api.peripheral.PeripheralCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 

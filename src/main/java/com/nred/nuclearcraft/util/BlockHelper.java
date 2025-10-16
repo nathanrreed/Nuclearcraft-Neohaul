@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.util;
 
-import com.nred.nuclearcraft.block.fluid.ITileFluid;
+import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;

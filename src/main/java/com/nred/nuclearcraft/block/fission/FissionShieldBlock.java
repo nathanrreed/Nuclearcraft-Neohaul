@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block.fission;
 
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import com.nred.nuclearcraft.multiblock.fisson.IFissionPartType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;

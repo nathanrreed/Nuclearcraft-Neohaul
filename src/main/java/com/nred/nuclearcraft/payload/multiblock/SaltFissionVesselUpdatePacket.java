@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
-import com.nred.nuclearcraft.block.ITilePacket;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
-import com.nred.nuclearcraft.block.internal.fluid.Tank.TankInfo;
+import com.nred.nuclearcraft.block_entity.ITilePacket;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.payload.TileUpdatePacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;

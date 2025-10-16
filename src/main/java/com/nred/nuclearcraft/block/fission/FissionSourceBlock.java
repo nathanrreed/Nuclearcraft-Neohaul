@@ -1,7 +1,9 @@
 package com.nred.nuclearcraft.block.fission;
 
 import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
+import com.nred.nuclearcraft.block_entity.fission.FissionSourceEntity;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import com.nred.nuclearcraft.multiblock.fisson.IFissionPartType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;

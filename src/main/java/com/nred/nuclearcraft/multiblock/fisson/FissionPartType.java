@@ -1,7 +1,6 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
 import com.nred.nuclearcraft.block.GenericActiveDirectionalTooltipDeviceBlock;
-import com.nred.nuclearcraft.block.GenericDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.fission.*;
 import it.zerono.mods.zerocore.base.multiblock.part.GlassBlock;

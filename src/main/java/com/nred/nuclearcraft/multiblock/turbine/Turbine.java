@@ -1,11 +1,11 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block.internal.energy.EnergyStorage;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
-import com.nred.nuclearcraft.block.turbine.ITurbineController;
-import com.nred.nuclearcraft.block.turbine.TurbineRotorBladeEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineRotorStatorEntity;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.turbine.ITurbineController;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBladeEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorStatorEntity;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;

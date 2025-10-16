@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.menu;
 
-import com.nred.nuclearcraft.block.info.ProcessorContainerInfo;
+import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfo;
 import com.nred.nuclearcraft.block.processor.IProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.menu.slot.SlotFurnace;

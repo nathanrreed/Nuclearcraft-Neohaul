@@ -1,8 +1,7 @@
 package com.nred.nuclearcraft.payload.gui;
 
-import com.nred.nuclearcraft.block.internal.inventory.ItemOutputSetting;
-import com.nred.nuclearcraft.block.inventory.ITileInventory;
-import com.nred.nuclearcraft.payload.multiblock.ClearAllMaterialPacket;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
+import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;

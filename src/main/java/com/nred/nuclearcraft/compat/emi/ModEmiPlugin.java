@@ -188,6 +188,9 @@ public class ModEmiPlugin implements EmiPlugin {
 
         registry.addRecipe(new EmiBasicInfoRecipe(manager.getAllRecipesFor(FISSION_MODERATOR_RECIPE_TYPE.get()).stream().map(i -> EmiIngredient.of(i.value().moderator())).toList(), EMI_MODERATOR_CATEGORY, ncLoc("moderators")));
         registry.addRecipe(new EmiBasicInfoRecipe(manager.getAllRecipesFor(FISSION_REFLECTOR_RECIPE_TYPE.get()).stream().map(i -> EmiIngredient.of(i.value().reflector())).toList(), EMI_REFLECTOR_CATEGORY, ncLoc("reflectors")));
+
+
+        //  TODO add corium registry.addRecipe(EmiWorldInteractionRecipe.builder()..build());
     }
 
     private record SimpleRecipeHandler<T extends AbstractContainerMenu>(EmiRecipeCategory category) implements StandardRecipeHandler<T> {

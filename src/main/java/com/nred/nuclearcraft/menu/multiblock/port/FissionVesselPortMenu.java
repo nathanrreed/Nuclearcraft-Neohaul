@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.menu.multiblock.port;
 
-import com.nred.nuclearcraft.block.fission.SaltFissionVesselEntity;
-import com.nred.nuclearcraft.block.fission.port.FissionVesselPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.SaltFissionVesselEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileContainerInfo;

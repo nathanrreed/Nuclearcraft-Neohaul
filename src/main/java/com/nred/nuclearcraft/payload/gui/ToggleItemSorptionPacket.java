@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.gui;
 
-import com.nred.nuclearcraft.block.internal.inventory.ItemSorption;
-import com.nred.nuclearcraft.block.inventory.ITileInventory;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
+import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import net.minecraft.core.Direction;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

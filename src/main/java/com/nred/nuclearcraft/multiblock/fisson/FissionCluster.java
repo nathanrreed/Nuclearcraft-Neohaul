@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block.fission.IFissionComponent;
-import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
+import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
+import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 

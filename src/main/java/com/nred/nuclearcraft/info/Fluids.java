@@ -23,14 +23,15 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.antlr.v4.runtime.misc.Triple;
 
 import java.util.HexFormat;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.Registers.*;
 
 public class Fluids {
-    public final DeferredHolder<Fluid, BaseFlowingFluid.Source> still;
-    public final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> flowing;
+    public final DeferredHolder<Fluid, BaseFlowingFluid> still;
+    public final DeferredHolder<Fluid, BaseFlowingFluid> flowing;
     public final boolean gaseous;
     private BaseFlowingFluid.Properties properties;
     public final DeferredItem<BucketItem> bucket;
@@ -42,8 +43,8 @@ public class Fluids {
     public static final TypeInfo HOT_GAS_TYPE = new TypeInfo(true, "gas", "gas", FluidType.Properties.create().density(-10).viscosity(40).temperature(1000).sound(SoundActions.BUCKET_FILL, SoundEvents.FIRE_EXTINGUISH).sound(SoundActions.BUCKET_EMPTY, SoundEvents.FIRE_EXTINGUISH));
     public static final TypeInfo SUGAR_TYPE = new TypeInfo(false, "molten_still", "molten_flow", FluidType.Properties.create().density(1150).viscosity(8000).temperature(350).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
     public static final TypeInfo CHOCOLATE_TYPE = new TypeInfo(false, "molten_still", "molten_flow", FluidType.Properties.create().density(1325).viscosity(5000).temperature(330).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
-    public static final TypeInfo MOLTEN_TYPE = new TypeInfo(false, "molten_still", "molten_flow", FluidType.Properties.create().density(5000).viscosity(8000).lightLevel(10).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
-    public static final TypeInfo FISSION_TYPE = new TypeInfo(false, "molten_still", "molten_flow", FluidType.Properties.create().density(5000).viscosity(8000).lightLevel(10).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
+    public static final TypeInfo MOLTEN_TYPE = new TypeInfo(false, "molten_still", "molten_flow", FluidType.Properties.create().density(5000).viscosity(8000).lightLevel(8).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
+    public static final TypeInfo FISSION_TYPE = new TypeInfo(false, "molten_still", "molten_flow", FluidType.Properties.create().density(5000).viscosity(8000).lightLevel(8).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
     public static final TypeInfo STEAM_TYPE = new TypeInfo(true, "steam", "steam", FluidType.Properties.create().density(-10).viscosity(40).temperature(450).sound(SoundActions.BUCKET_FILL, SoundEvents.FIRE_EXTINGUISH).sound(SoundActions.BUCKET_EMPTY, SoundEvents.FIRE_EXTINGUISH));
     public static final TypeInfo HOT_COOLANT_TYPE = new TypeInfo(false, "molten_still", "molten_flow", FluidType.Properties.create().density(400).viscosity(10000).lightLevel(7).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
     public static final TypeInfo FLAMMABLE_TYPE = new TypeInfo(false, "liquid_still", "liquid_flow", FluidType.Properties.create().density(800).viscosity(800).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
@@ -56,43 +57,75 @@ public class Fluids {
     }
 
     public Fluids(String name, boolean same, int tint) {
-        this(name, tint, same, false);
+        this(name, same, tint, BaseFlowingFluid.Source::new, BaseFlowingFluid.Flowing::new);
+    }
+
+    public Fluids(String name, boolean same, int tint, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
+        this(name, tint, same, false, blockSource, blockFlowing);
     }
 
     public Fluids(String name, int tint, boolean same, boolean gaseous) {
-        this(name, name, tint, same, gaseous);
+        this(name, tint, same, gaseous, BaseFlowingFluid.Source::new, BaseFlowingFluid.Flowing::new);
+    }
+
+    public Fluids(String name, int tint, boolean same, boolean gaseous, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
+        this(name, name, tint, same, gaseous, blockSource, blockFlowing);
     }
 
     public Fluids(String name, String file, int tint, boolean same, boolean gaseous) {
-        this(name, tint, new TypeInfo(gaseous, file + (same ? "" : "_still"), file + (same ? "" : "_flow"), FluidType.Properties.create()));
+        this(name, file, tint, same, gaseous, BaseFlowingFluid.Source::new, BaseFlowingFluid.Flowing::new);
+    }
+
+    public Fluids(String name, String file, int tint, boolean same, boolean gaseous, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
+        this(name, tint, new TypeInfo(gaseous, file + (same ? "" : "_still"), file + (same ? "" : "_flow"), FluidType.Properties.create()), blockSource, blockFlowing);
     }
 
     public Fluids(String name, boolean same, int tint, int density, int temperature, int viscosity, int light_level) {
-        this(name, same, false, tint, density, viscosity, temperature, light_level);
+        this(name, same, false, tint, density, viscosity, temperature, light_level, BaseFlowingFluid.Source::new, BaseFlowingFluid.Flowing::new);
+    }
+
+    public Fluids(String name, boolean same, int tint, int density, int temperature, int viscosity, int light_level, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
+        this(name, same, false, tint, density, viscosity, temperature, light_level, blockSource, blockFlowing);
     }
 
     public Fluids(String name, boolean same, boolean gaseous, int tint, int density, int temperature, int viscosity, int light_level) {
-        this(name, name, same, gaseous, tint, density, viscosity, temperature, light_level);
+        this(name, same, gaseous, tint, density, temperature, viscosity, light_level, BaseFlowingFluid.Source::new, BaseFlowingFluid.Flowing::new);
+    }
+
+    public Fluids(String name, boolean same, boolean gaseous, int tint, int density, int temperature, int viscosity, int light_level, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
+        this(name, name, same, gaseous, tint, density, viscosity, temperature, light_level, blockSource, blockFlowing);
     }
 
     public Fluids(String name, String file, boolean same, boolean gaseous, int tint, int density, int temperature, int viscosity, int light_level) {
-        this(name, tint, new TypeInfo(gaseous, file + (same ? "" : "_still"), file + (same ? "" : "_flow"), FluidType.Properties.create().density(density).viscosity(viscosity).temperature(temperature).lightLevel(light_level)));
+        this(name, file, same, gaseous, tint, density, temperature, viscosity, light_level, BaseFlowingFluid.Source::new, BaseFlowingFluid.Flowing::new);
+    }
+
+    public Fluids(String name, String file, boolean same, boolean gaseous, int tint, int density, int temperature, int viscosity, int light_level, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
+        this(name, tint, new TypeInfo(gaseous, file + (same ? "" : "_still"), file + (same ? "" : "_flow"), FluidType.Properties.create().density(density).viscosity(viscosity).temperature(temperature).lightLevel(light_level)), blockSource, blockFlowing);
     }
 
     public Fluids(String name, int tint, TypeInfo type, int temperature) {
-        this(name, tint, new TypeInfo(type.gaseous, type.still, type.flowing, type.properties.temperature(temperature)));
+        this(name, tint, type, temperature, BaseFlowingFluid.Source::new, BaseFlowingFluid.Flowing::new);
     }
 
-    public Fluids(String name, int tint, TypeInfo type) { //TODO add effects and damage
+    public Fluids(String name, int tint, TypeInfo type, int temperature, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
+        this(name, tint, new TypeInfo(type.gaseous, type.still, type.flowing, type.properties.temperature(temperature)), blockSource, blockFlowing);
+    }
+
+    public Fluids(String name, int tint, TypeInfo type) {
+        this(name, tint, type, BaseFlowingFluid.Source::new, BaseFlowingFluid.Flowing::new);
+    }
+
+    public Fluids(String name, int tint, TypeInfo type, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) { //TODO add effects and damage
         this.type = FLUID_TYPES.register(name + "_type", () -> new FluidType(type.properties));
         this.gaseous = type.gaseous;
 
         if (gaseous) {
             this.still = FLUIDS.register(name, () -> new GasFluid(this.properties));
         } else {
-            this.still = FLUIDS.register(name, () -> new BaseFlowingFluid.Source(this.properties));
+            this.still = FLUIDS.register(name, () -> blockSource.apply(this.properties));
         }
-        this.flowing = FLUIDS.register(name + "_flowing", () -> new BaseFlowingFluid.Flowing(this.properties));
+        this.flowing = FLUIDS.register(name + "_flowing", () -> blockFlowing.apply(this.properties));
         this.block = BLOCKS.register(name, () -> new LitLiquidBlock(this.still.get(), blockProperties(tint)));
         this.bucket = ITEMS.register(name + "_bucket", () -> new BucketItem(this.still.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         this.properties = new BaseFlowingFluid.Properties(this.type, this.still, this.flowing).bucket(this.bucket).block(this.block);

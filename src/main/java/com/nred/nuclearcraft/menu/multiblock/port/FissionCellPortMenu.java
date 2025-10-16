@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.menu.multiblock.port;
 
-import com.nred.nuclearcraft.block.fission.SolidFissionCellEntity;
-import com.nred.nuclearcraft.block.fission.port.FissionCellPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.SolidFissionCellEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileContainerInfo;

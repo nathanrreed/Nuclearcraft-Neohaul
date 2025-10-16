@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.payload;
 
-import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
+import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.util.StreamCodecsHelper;
 import net.minecraft.core.BlockPos;
@@ -9,7 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import static com.nred.nuclearcraft.block.internal.heat.HeatBuffer.HEAT_BUFFER_STREAM_CODEC;
+import static com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer.HEAT_BUFFER_STREAM_CODEC;
 
 public record FissionUpdatePayload(BlockPos pos, boolean isReactorOn, HeatBuffer heatBuffer, int clusterCount, long cooling, long rawHeating, long totalHeatMult, double meanHeatMult,
                                    int fuelComponentCount, long usefulPartCount, double totalEfficiency, double meanEfficiency, double sparsityEfficiencyMult) {

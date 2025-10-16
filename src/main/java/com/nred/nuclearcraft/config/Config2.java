@@ -11,6 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -426,12 +427,12 @@ public class Config2 {
     public static int mushroom_gen_size;
     public static int mushroom_gen_rate;
 
-    public static int[] corium_solidification;
+    public static ResourceLocation[] corium_solidification;
     public static boolean corium_solidification_list_type;
 
     public static boolean ore_dict_raw_material_recipes;
-    public static boolean ore_dict_priority_bool;
-    public static String[] ore_dict_priority;
+//    public static boolean ore_dict_priority_bool;
+//    public static String[] ore_dict_priority;
     public static boolean hwyla_enabled;
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -819,11 +820,11 @@ public class Config2 {
         ctrl_info = CTRL_INFO.getAsBoolean();
         rare_drops = RARE_DROPS.getAsBoolean();
         dungeon_loot = DUNGEON_LOOT.getAsBoolean();
-        corium_solidification = syncInts(CORIUM_SOLIDIFICATION, LIST);
+        corium_solidification = syncResourceLocations(CORIUM_SOLIDIFICATION, LIST);
         corium_solidification_list_type = CORIUM_SOLIDIFICATION_LIST_TYPE.getAsBoolean();
-        ore_dict_raw_material_recipes = ORE_DICT_RAW_MATERIAL_RECIPES.getAsBoolean();
-        ore_dict_priority_bool = ORE_DICT_PRIORITY_BOOL.getAsBoolean();
-        ore_dict_priority = syncStrings(ORE_DICT_PRIORITY, LIST);
+//        ore_dict_raw_material_recipes = ORE_DICT_RAW_MATERIAL_RECIPES.getAsBoolean();
+//        ore_dict_priority_bool = ORE_DICT_PRIORITY_BOOL.getAsBoolean();
+//        ore_dict_priority = syncStrings(ORE_DICT_PRIORITY, LIST);
         hwyla_enabled = HWYLA_ENABLED.getAsBoolean();
 
         radiation_enabled_public = radiation_enabled;
@@ -1211,11 +1212,11 @@ public class Config2 {
     private static final ModConfigSpec.BooleanValue CTRL_INFO = add(CATEGORY_MISC, "ctrl_info", false);
     private static final ModConfigSpec.BooleanValue RARE_DROPS = add(CATEGORY_MISC, "rare_drops", false);
     private static final ModConfigSpec.BooleanValue DUNGEON_LOOT = add(CATEGORY_MISC, "dungeon_loot", false);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> CORIUM_SOLIDIFICATION = add(CATEGORY_MISC, "corium_solidification", List.of(0, 1, 2, -6, -100, 4598, -9999, -11325), Integer.MIN_VALUE, Integer.MAX_VALUE, LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> CORIUM_SOLIDIFICATION = addString(CATEGORY_MISC, "corium_solidification", List.of("minecraft:overworld", "minecraft:the_end"), LIST); // TODO 2, -6, -100, 4598, -9999, -11325
     private static final ModConfigSpec.BooleanValue CORIUM_SOLIDIFICATION_LIST_TYPE = add(CATEGORY_MISC, "corium_solidification_list_type", false);
-    private static final ModConfigSpec.BooleanValue ORE_DICT_RAW_MATERIAL_RECIPES = add(CATEGORY_MISC, "ore_dict_raw_material_recipes", false);
-    private static final ModConfigSpec.BooleanValue ORE_DICT_PRIORITY_BOOL = add(CATEGORY_MISC, "ore_dict_priority_bool", true);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> ORE_DICT_PRIORITY = addString(CATEGORY_MISC, "ore_dict_priority", List.of("minecraft", "thermalfoundation", "techreborn", "nuclearcraft", "immersiveengineering", "mekanism", "appliedenergistics2", "refinedstorage", "actuallyadditions", "libvulpes", "advancedrocketry", "thaumcraft", "biomesoplenty"), LIST);
+//    private static final ModConfigSpec.BooleanValue ORE_DICT_RAW_MATERIAL_RECIPES = add(CATEGORY_MISC, "ore_dict_raw_material_recipes", false);
+//    private static final ModConfigSpec.BooleanValue ORE_DICT_PRIORITY_BOOL = add(CATEGORY_MISC, "ore_dict_priority_bool", true);
+//    private static final ModConfigSpec.ConfigValue<List<? extends String>> ORE_DICT_PRIORITY = addString(CATEGORY_MISC, "ore_dict_priority", List.of("minecraft", "thermalfoundation", "techreborn", "nuclearcraft", "immersiveengineering", "mekanism", "appliedenergistics2", "refinedstorage", "actuallyadditions", "libvulpes", "advancedrocketry", "thaumcraft", "biomesoplenty"), LIST);
     private static final ModConfigSpec.BooleanValue HWYLA_ENABLED = add(CATEGORY_MISC, "hwyla_enabled", true);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
@@ -1234,6 +1235,9 @@ public class Config2 {
 
     public static String[] syncStrings(ModConfigSpec.ConfigValue<List<? extends String>> property, boolean fixedArray) {
         return fixedArray ? readStringArray(property) : property.get().toArray(String[]::new);
+    }
+    public static ResourceLocation[] syncResourceLocations(ModConfigSpec.ConfigValue<List<? extends String>> property, boolean fixedArray) {
+        return (fixedArray ? Arrays.stream(readStringArray(property)) : property.get().stream()).map(ResourceLocation::parse).toArray(ResourceLocation[]::new);
     }
 
     public static ModConfigSpec.ConfigValue<Integer> add(String category, String name, int defaultValue) {

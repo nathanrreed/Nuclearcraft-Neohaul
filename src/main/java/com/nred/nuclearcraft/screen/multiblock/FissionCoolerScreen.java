@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.screen.multiblock;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block.fission.FissionCoolerEntity;
+import com.nred.nuclearcraft.block_entity.fission.FissionCoolerEntity;
 import com.nred.nuclearcraft.gui.NCButton;
 import com.nred.nuclearcraft.menu.ContainerProcessorImpl.FissionCoolerMenu;
 import com.nred.nuclearcraft.payload.multiblock.FissionCoolerUpdatePacket;

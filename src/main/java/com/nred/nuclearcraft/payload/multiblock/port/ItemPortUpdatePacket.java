@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.payload.multiblock.port;
 
-import com.nred.nuclearcraft.block.ITilePacket;
+import com.nred.nuclearcraft.block_entity.ITilePacket;
 import com.nred.nuclearcraft.payload.TileUpdatePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;

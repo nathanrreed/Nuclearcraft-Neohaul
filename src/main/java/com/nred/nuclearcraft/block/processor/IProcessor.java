@@ -1,14 +1,14 @@
 package com.nred.nuclearcraft.block.processor;
 
-import com.nred.nuclearcraft.block.ITickable;
-import com.nred.nuclearcraft.block.ITileGui;
-import com.nred.nuclearcraft.block.fluid.ITileFluid;
-import com.nred.nuclearcraft.block.info.ProcessorContainerInfo;
-import com.nred.nuclearcraft.block.internal.fluid.TankOutputSetting;
-import com.nred.nuclearcraft.block.inventory.ITileInventory;
-import com.nred.nuclearcraft.block.internal.inventory.ItemOutputSetting;
+import com.nred.nuclearcraft.block_entity.ITickable;
+import com.nred.nuclearcraft.block_entity.ITileGui;
+import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
+import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfo;
+import com.nred.nuclearcraft.block_entity.internal.fluid.TankOutputSetting;
+import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.handler.*;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;

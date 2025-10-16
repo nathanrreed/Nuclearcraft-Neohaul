@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.batteries;
 
-import com.nred.nuclearcraft.block.internal.energy.EnergyConnection;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import com.nred.nuclearcraft.multiblock.battery.BatteryMultiblock;
 import com.nred.nuclearcraft.util.NCMath;

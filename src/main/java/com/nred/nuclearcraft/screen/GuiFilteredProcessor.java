@@ -1,10 +1,10 @@
 package com.nred.nuclearcraft.screen;
 
-import com.nred.nuclearcraft.block.ITileFiltered;
-import com.nred.nuclearcraft.block.fission.port.ITileFilteredFluid;
-import com.nred.nuclearcraft.block.info.ProcessorContainerInfo;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
-import com.nred.nuclearcraft.block.inventory.ITileFilteredInventory;
+import com.nred.nuclearcraft.block_entity.ITileFiltered;
+import com.nred.nuclearcraft.block_entity.fission.port.ITileFilteredFluid;
+import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfo;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block.processor.IProcessor;
 import com.nred.nuclearcraft.menu.ContainerInfoTile;
 import com.nred.nuclearcraft.payload.gui.ClearFilterTankPacket;

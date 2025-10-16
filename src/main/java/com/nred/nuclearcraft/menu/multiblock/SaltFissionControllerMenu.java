@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.menu.multiblock;
 
-import com.nred.nuclearcraft.block.fission.SaltFissionControllerEntity;
+import com.nred.nuclearcraft.block_entity.fission.SaltFissionControllerEntity;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.SaltFissionLogic;

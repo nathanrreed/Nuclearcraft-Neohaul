@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.screen.multiblock.controller;
 
-import com.nred.nuclearcraft.block.fission.SolidFissionControllerEntity;
+import com.nred.nuclearcraft.block_entity.fission.SolidFissionControllerEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.multiblock.SolidFissionControllerMenu;

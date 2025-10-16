@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.solar;
 
-import com.nred.nuclearcraft.block.IPushEnergy;
+import com.nred.nuclearcraft.block_entity.IPushEnergy;
 import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

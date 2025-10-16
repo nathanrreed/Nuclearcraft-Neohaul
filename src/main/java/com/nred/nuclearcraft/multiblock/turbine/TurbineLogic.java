@@ -1,11 +1,11 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
-import com.nred.nuclearcraft.block.internal.energy.EnergyConnection;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
-import com.nred.nuclearcraft.block.internal.fluid.Tank.TankInfo;
-import com.nred.nuclearcraft.block.internal.fluid.TankSorption;
-import com.nred.nuclearcraft.block.internal.fluid.TankVoid;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
+import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block.turbine.*;
+import com.nred.nuclearcraft.block_entity.turbine.*;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;

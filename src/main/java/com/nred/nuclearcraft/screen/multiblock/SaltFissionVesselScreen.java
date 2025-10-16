@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.screen.multiblock;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block.fission.SaltFissionVesselEntity;
+import com.nred.nuclearcraft.block_entity.fission.SaltFissionVesselEntity;
 import com.nred.nuclearcraft.gui.NCButton;
 import com.nred.nuclearcraft.menu.ContainerProcessorImpl.SaltFissionVesselMenu;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionVesselUpdatePacket;

@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
 import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
-import com.nred.nuclearcraft.block.internal.fluid.Tank.TankInfo;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 

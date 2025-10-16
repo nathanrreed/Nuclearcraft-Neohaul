@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
-import com.nred.nuclearcraft.block.fission.SaltFissionControllerEntity;
+import com.nred.nuclearcraft.block_entity.fission.SaltFissionControllerEntity;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
-import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
+import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.menu.multiblock;
 
-import com.nred.nuclearcraft.block.fission.SolidFissionControllerEntity;
+import com.nred.nuclearcraft.block_entity.fission.SolidFissionControllerEntity;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.solid.SolidFuelFissionLogic;

@@ -1,14 +1,14 @@
 package com.nred.nuclearcraft.handler;
 
-import com.nred.nuclearcraft.block.fission.*;
-import com.nred.nuclearcraft.block.fission.port.FissionCellPortEntity;
-import com.nred.nuclearcraft.block.fission.port.FissionHeaterPortEntity;
-import com.nred.nuclearcraft.block.fission.port.FissionIrradiatorPortEntity;
-import com.nred.nuclearcraft.block.fission.port.FissionVesselPortEntity;
-import com.nred.nuclearcraft.block.info.ProcessorContainerInfo;
-import com.nred.nuclearcraft.block.info.ProcessorContainerInfoBuilderImpl.BasicProcessorContainerInfoBuilder;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
+import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfo;
+import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfoBuilderImpl.BasicProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.block.processor.IProcessor;
-import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.util.ModCheck;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;

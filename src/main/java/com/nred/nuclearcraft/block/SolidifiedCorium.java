@@ -28,7 +28,7 @@ import static com.nred.nuclearcraft.registration.DamageTypeRegistration.CORIUM_B
 
 public class SolidifiedCorium extends MagmaBlock {
     public SolidifiedCorium() {
-        super(Properties.of().isValidSpawn((state, level, pos, value) -> false));
+        super(Properties.of().isValidSpawn((state, level, pos, value) -> false).lightLevel(s -> 4));
     }
 
     @Override

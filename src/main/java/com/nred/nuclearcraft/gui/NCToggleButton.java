@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.gui;
 
-import com.nred.nuclearcraft.block.ITile;
+import com.nred.nuclearcraft.block_entity.ITile;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;

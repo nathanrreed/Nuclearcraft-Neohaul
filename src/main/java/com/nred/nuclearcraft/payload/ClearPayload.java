@@ -1,8 +1,6 @@
 package com.nred.nuclearcraft.payload;
 
-import com.nred.nuclearcraft.block.fission.AbstractFissionEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
-import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

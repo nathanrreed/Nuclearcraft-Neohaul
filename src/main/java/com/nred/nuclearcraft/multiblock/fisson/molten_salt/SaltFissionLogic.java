@@ -1,9 +1,9 @@
 package com.nred.nuclearcraft.multiblock.fisson.molten_salt;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block.fission.*;
-import com.nred.nuclearcraft.block.fission.port.FissionHeaterPortEntity;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
@@ -22,8 +22,6 @@ import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.apache.commons.lang3.tuple.Pair;

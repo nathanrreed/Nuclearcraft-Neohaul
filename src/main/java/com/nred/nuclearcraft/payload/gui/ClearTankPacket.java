@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.payload.gui;
 
-import com.nred.nuclearcraft.block.fluid.ITileFluid;
+import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;

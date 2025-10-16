@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.processor;
 
-import com.nred.nuclearcraft.block.ITilePacket;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.ITilePacket;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;

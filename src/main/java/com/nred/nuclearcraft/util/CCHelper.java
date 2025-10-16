@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.util;
 
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import it.unimi.dsi.fastutil.longs.LongCollection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;

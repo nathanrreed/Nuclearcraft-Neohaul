@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.compat.cct;
 
-import com.nred.nuclearcraft.block.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.TilePartAbstract;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import dan200.computercraft.api.lua.LuaFunction;
 

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.gui;
 
-import com.nred.nuclearcraft.block.fluid.ITileFluid;
-import com.nred.nuclearcraft.block.internal.fluid.TankSorption;
+import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
+import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import net.minecraft.core.Direction;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.menu.multiblock;
 
-import com.nred.nuclearcraft.block.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.payload.multiblock.TurbineUpdatePacket;

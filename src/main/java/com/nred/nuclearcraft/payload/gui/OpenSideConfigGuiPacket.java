@@ -1,12 +1,11 @@
 package com.nred.nuclearcraft.payload.gui;
 
-import com.nred.nuclearcraft.block.ITileGui;
+import com.nred.nuclearcraft.block_entity.ITileGui;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;

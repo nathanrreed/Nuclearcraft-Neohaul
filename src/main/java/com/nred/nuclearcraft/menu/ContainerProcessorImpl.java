@@ -1,9 +1,9 @@
 package com.nred.nuclearcraft.menu;
 
-import com.nred.nuclearcraft.block.fission.*;
-import com.nred.nuclearcraft.block.info.ProcessorContainerInfoImpl;
-import com.nred.nuclearcraft.block.inventory.ITileFilteredInventory;
+import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfoImpl;
+import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block.processor.IBasicProcessor;
+import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.payload.multiblock.*;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import it.zerono.mods.zerocore.lib.block.AbstractModBlockEntity;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.fisson.molten_salt;
 
-import com.nred.nuclearcraft.block.fission.port.FissionHeaterPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
 import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;

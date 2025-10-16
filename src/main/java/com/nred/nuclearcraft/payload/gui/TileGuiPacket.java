@@ -1,16 +1,10 @@
 package com.nred.nuclearcraft.payload.gui;
 
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
-import com.nred.nuclearcraft.block.ITile;
+import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.payload.NCPacket;
-import com.nred.nuclearcraft.payload.render.BlockHighlightUpdatePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class TileGuiPacket extends NCPacket {
     protected BlockPos pos;

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.recipe;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.util.CollectionHelper;
 import com.nred.nuclearcraft.util.StackHelper;

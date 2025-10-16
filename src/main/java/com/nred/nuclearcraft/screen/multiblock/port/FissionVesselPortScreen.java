@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.screen.multiblock.port;
 
-import com.nred.nuclearcraft.block.fission.port.FissionVesselPortEntity;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.gui.NCButton;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionVesselPortMenu;

@@ -1,12 +1,12 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block.fission.*;
-import com.nred.nuclearcraft.block.fission.FissionSourceEntity.PrimingTargetInfo;
-import com.nred.nuclearcraft.block.fission.IFissionFuelComponent.ModeratorBlockInfo;
-import com.nred.nuclearcraft.block.fission.port.FissionCoolerPortEntity;
-import com.nred.nuclearcraft.block.fission.port.FissionIrradiatorPortEntity;
-import com.nred.nuclearcraft.block.internal.fluid.Tank;
-import com.nred.nuclearcraft.block.internal.heat.HeatBuffer;
+import com.nred.nuclearcraft.block_entity.fission.*;
+import com.nred.nuclearcraft.block_entity.fission.FissionSourceEntity.PrimingTargetInfo;
+import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionCoolerPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
 import com.nred.nuclearcraft.multiblock.MultiblockLogic;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
