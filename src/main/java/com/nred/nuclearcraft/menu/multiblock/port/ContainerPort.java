@@ -25,6 +25,14 @@ public abstract class ContainerPort<MULTIBLOCK extends Multiblock<MULTIBLOCK> & 
     public ContainerPort(MenuType<?> menuType, int containerId, Inventory inventory, PORT tile) {
         super(menuType, containerId, inventory, tile);
         this.tile = tile;
+
+        this.tile.addTileUpdatePacketListener(inventory.player);
+    }
+
+    @Override
+    public void removed(@NotNull Player player) {
+        super.removed(player);
+        this.tile.addTileUpdatePacketListener(inventory.player);
     }
 
     @Override

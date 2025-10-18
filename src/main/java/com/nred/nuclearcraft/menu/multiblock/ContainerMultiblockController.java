@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.jetbrains.annotations.NotNull;
 
 public class ContainerMultiblockController<MULTIBLOCK extends Multiblock<MULTIBLOCK> & IPacketMultiblock<MULTIBLOCK, PACKET>, PACKET extends MultiblockUpdatePacket, GUITILE extends BlockEntity & IMultiblockGuiPart<MULTIBLOCK, PACKET, GUITILE, INFO>, INFO extends TileContainerInfo<GUITILE>> extends ContainerInfoTile<GUITILE, PACKET, INFO> {
     public final GUITILE tile;
@@ -18,12 +19,12 @@ public class ContainerMultiblockController<MULTIBLOCK extends Multiblock<MULTIBL
         super(menuType, containerId, inventory, tile);
         this.tile = tile;
 
-        tile.addBEUpdatePacketListener(inventory.player);
+        tile.addTileUpdatePacketListener(inventory.player);
     }
 
     @Override
-    public void removed(Player player) {
+    public void removed(@NotNull Player player) {
         super.removed(player);
-        tile.addBEUpdatePacketListener(inventory.player);
+        tile.addTileUpdatePacketListener(inventory.player);
     }
 }

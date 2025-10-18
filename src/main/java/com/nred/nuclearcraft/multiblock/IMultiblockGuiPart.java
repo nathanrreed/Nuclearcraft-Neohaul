@@ -26,7 +26,7 @@ public interface IMultiblockGuiPart<MULTIBLOCK extends Multiblock<MULTIBLOCK> & 
         return getMultiblockController().isEmpty() ? null : getMultiblockController().get().getMultiblockUpdatePacketListeners();
     }
 
-    default void addBEUpdatePacketListener(Player player) {
+    default void addTileUpdatePacketListener(Player player) {
         if (getMultiblockController().isPresent()) {
             getTileUpdatePacketListeners().add(player);
             sendTileUpdatePacketToPlayer(player);
@@ -41,7 +41,7 @@ public interface IMultiblockGuiPart<MULTIBLOCK extends Multiblock<MULTIBLOCK> & 
 
     default void sendTileUpdatePacketToListeners() {
         if (getMultiblockController().isPresent()) {
-            getMultiblockController().get().sendMultiblockUpdatePacketToListeners();
+            getTileUpdatePacket().sendTo(getTileUpdatePacketListeners());
         }
     }
 }
