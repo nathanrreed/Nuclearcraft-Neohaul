@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "computercraft:cable"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "W": {
+      "item": "computercraft:wired_modem"
+    }
+  },
+  "pattern": [
+    "PRP",
+    "CSC",
+    "PWP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fission_computer_port"
+  }
+}

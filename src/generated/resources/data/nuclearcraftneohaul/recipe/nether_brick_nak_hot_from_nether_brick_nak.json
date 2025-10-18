@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:nether_brick_nak_hot"
   },
-  "heatPerInputMB": 150
+  "heatPerInputMB": 105,
+  "isCoolant": true
 }

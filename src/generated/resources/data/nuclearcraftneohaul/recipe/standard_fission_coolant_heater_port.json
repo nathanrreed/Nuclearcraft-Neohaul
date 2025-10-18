@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:elite_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:thermoconducting_alloy"
+    }
+  },
+  "pattern": [
+    "PMP",
+    "TST",
+    "PMP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:standard_fission_coolant_heater_port"
+  }
+}

@@ -32,7 +32,6 @@ import com.nred.nuclearcraft.block.solar.SolarPanel;
 import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
-import com.nred.nuclearcraft.multiblock.fisson.FissionReflectorType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterPortType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
@@ -219,7 +218,7 @@ public class BlockRegistration {
         HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
         map.put("solid_fuel_fission_controller", registerBlockItem("solid_fuel_fission_controller", FissionPartType.SolidFuelController::createBlock));
         map.put("molten_salt_fission_controller", registerBlockItem("molten_salt_fission_controller", FissionPartType.MoltenSaltController::createBlock));
-        map.put("fission_casing", registerBlockItem("fission_casing", FissionPartType.Casing::createBlock));
+        map.put("fission_casing", registerBlockItem("fission_reactor_casing", FissionPartType.Casing::createBlock));
         map.put("fission_glass", registerBlockItem("fission_glass", FissionPartType.Glass::createBlock));
         map.put("fission_vent", registerBlockItem("fission_vent", FissionPartType.Vent::createBlock));
         map.put("fission_conductor", registerBlockItem("fission_conductor", FissionPartType.Conductor::createBlock));
@@ -230,11 +229,11 @@ public class BlockRegistration {
         map.put("polonium_beryllium_source", registerBlockItem("polonium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.POLONIUM_BERYLLIUM)));
         map.put("californium_source", registerBlockItem("californium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.CALIFORNIUM)));
 
-        map.put("beryllium_carbon_reflector", registerBlockItem("beryllium_carbon_reflector", () -> FissionPartType.Reflector.createBlock(FissionReflectorType.BERYLLIUM_CARBON)));
-        map.put("lead_steel_reflector", registerBlockItem("lead_steel_reflector", () -> FissionPartType.Reflector.createBlock(FissionReflectorType.LEAD_STEEL)));
+        map.put("beryllium_carbon_reflector", registerBlockItem("beryllium_carbon_reflector", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
+        map.put("lead_steel_reflector", registerBlockItem("lead_steel_reflector", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
 
-        map.put("fission_cell", registerBlockItem("fission_cell", FissionPartType.Cell::createBlock));
-        map.put("fission_cell_port", registerBlockItem("fission_cell_port", FissionPartType.CellPort::createBlock));
+        map.put("fission_fuel_cell", registerBlockItem("fission_fuel_cell", FissionPartType.Cell::createBlock));
+        map.put("fission_fuel_cell_port", registerBlockItem("fission_fuel_cell_port", FissionPartType.CellPort::createBlock));
 
         map.put("fission_cooler", registerBlockItem("fission_cooler", FissionPartType.Cooler::createBlock));
         map.put("fission_cooler_port", registerBlockItem("fission_cooler_port", FissionPartType.CoolerPort::createBlock));
@@ -242,16 +241,16 @@ public class BlockRegistration {
         map.put("fission_irradiator", registerBlockItem("fission_irradiator", FissionPartType.Irradiator::createBlock));
         map.put("fission_irradiator_port", registerBlockItem("fission_irradiator_port", FissionPartType.IrradiatorPort::createBlock));
 
-        map.put("fission_vessel", registerBlockItem("fission_vessel", FissionPartType.Vessel::createBlock));
-        map.put("fission_vessel_port", registerBlockItem("fission_vessel_port", FissionPartType.VesselPort::createBlock));
+        map.put("fission_fuel_vessel", registerBlockItem("fission_fuel_vessel", FissionPartType.Vessel::createBlock));
+        map.put("fission_fuel_vessel_port", registerBlockItem("fission_fuel_vessel_port", FissionPartType.VesselPort::createBlock));
 
-        map.put("water_sink", registerBlockItem("water_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.WATER)));
-        map.put("standard_heater", registerBlockItem("standard_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.STANDARD)));
-        map.put("standard_heater_port", registerBlockItem("standard_heater_port", () -> FissionPartType.HeaterPort.createBlock(FissionCoolantHeaterPortType.STANDARD)));
+        map.put("water_fission_heat_sink", registerBlockItem("water_fission_heat_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.WATER)));
+        map.put("standard_fission_coolant_heater", registerBlockItem("standard_fission_coolant_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.STANDARD)));
+        map.put("standard_fission_coolant_heater_port", registerBlockItem("standard_fission_coolant_heater_port", () -> FissionPartType.HeaterPort.createBlock(FissionCoolantHeaterPortType.STANDARD)));
         for (String name : FISSION_HEAT_PARTS) {
-            map.put(name + "_sink", registerBlockItem(name + "_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.valueOf(name.toUpperCase()))));
-            map.put(name + "_heater", registerBlockItem(name + "_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.valueOf(name.toUpperCase()))));
-            map.put(name + "_heater_port", registerBlockItem(name + "_heater_port", () -> FissionPartType.HeaterPort.createBlock(FissionCoolantHeaterPortType.valueOf(name.toUpperCase()))));
+            map.put(name + "_fission_heat_sink", registerBlockItem(name + "_fission_heat_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.valueOf(name.toUpperCase()))));
+            map.put(name + "_fission_coolant_heater", registerBlockItem(name + "_fission_coolant_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.valueOf(name.toUpperCase()))));
+            map.put(name + "_fission_coolant_heater_port", registerBlockItem(name + "_fission_coolant_heater_port", () -> FissionPartType.HeaterPort.createBlock(FissionCoolantHeaterPortType.valueOf(name.toUpperCase()))));
         }
 
         map.put("fission_computer_port", registerBlockItem("fission_computer_port", FissionPartType.ComputerPort::createBlock));

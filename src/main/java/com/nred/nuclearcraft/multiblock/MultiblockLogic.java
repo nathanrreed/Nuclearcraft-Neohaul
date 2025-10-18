@@ -1,12 +1,12 @@
 package com.nred.nuclearcraft.multiblock;
 
+import com.nred.nuclearcraft.block_entity.ITileFiltered;
+import com.nred.nuclearcraft.block_entity.ITilePort;
+import com.nred.nuclearcraft.block_entity.ITilePortTarget;
 import com.nred.nuclearcraft.block_entity.fission.FissionShieldEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
-import com.nred.nuclearcraft.block_entity.ITileFiltered;
-import com.nred.nuclearcraft.block_entity.ITilePort;
-import com.nred.nuclearcraft.block_entity.ITilePortTarget;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.util.PosHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
@@ -114,7 +114,7 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
     public boolean containsBlacklistedPart() {
         for (Pair<Class<? extends IMultiblockPart<MULTIBLOCK>>, String> pair : getPartBlacklist()) {
             for (long posLong : multiblock.getPartMap(pair.getLeft()).keySet()) {
-                multiblock.setLastError(pair.getRight(), BlockPos.of(posLong));
+                multiblock.setLastError(BlockPos.of(posLong), pair.getRight());
                 return true;
             }
         }
@@ -204,7 +204,7 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
 
 //    public <MANAGER extends ITileManager<MULTIBLOCK, LOGIC, MANAGER, LISTENER>, LISTENER extends ITileManagerListener<MULTIBLOCK, LOGIC, T, MANAGER, LISTENER>> void refreshManagers(Class<MANAGER> managerClass) {
 //        for (MANAGER manager : ((Long2ObjectMap<MANAGER>) getPartMap(managerClass.asSubclass(multiblock.tClass))).values()) {
-//            manager.refreshManager();
+//            manager.refreshManager(); TODO
 //        }
 //    }
 

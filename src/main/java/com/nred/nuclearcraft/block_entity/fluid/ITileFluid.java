@@ -54,7 +54,7 @@ public interface ITileFluid extends ITile {
     }
 
     default boolean isFluidValidForTank(int tankNumber, FluidStack stack) {
-        return getTanks().get(tankNumber).canFillFluidType(stack);
+        return getTanks().get(tankNumber).isFluidValid(stack);
     }
 
     default void clearTank(int tankNumber) {

@@ -4,11 +4,12 @@ import com.nred.nuclearcraft.block_entity.ITickable;
 import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfo;
-import com.nred.nuclearcraft.block_entity.internal.fluid.TankOutputSetting;
-import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
-import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
-import com.nred.nuclearcraft.handler.*;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.internal.fluid.TankOutputSetting;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
+import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
+import com.nred.nuclearcraft.handler.AbstractRecipeHandler;
+import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
@@ -39,14 +40,14 @@ import static com.nred.nuclearcraft.config.Config2.smart_processor_input;
 
 public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorContainerInfo<TILE, PACKET, INFO>> extends ITickable, ITileInventory, ITileFluid, ITileGui<TILE, PACKET, INFO> {
 
-    BasicRecipeHandler getRecipeHandler();
+    BasicRecipeHandler<? extends BasicRecipe> getRecipeHandler();
 
-    RecipeInfo<BasicRecipe> getRecipeInfo();
+    RecipeInfo<? extends BasicRecipe> getRecipeInfo();
 
-    void setRecipeInfo(RecipeInfo<BasicRecipe> recipeInfo);
+    void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo);
 
     default boolean setRecipeStats() {
-        RecipeInfo<BasicRecipe> recipeInfo = getRecipeInfo();
+        RecipeInfo<? extends BasicRecipe> recipeInfo = getRecipeInfo();
         setRecipeStats(recipeInfo == null ? null : recipeInfo.recipe);
         return recipeInfo != null;
     }
@@ -312,7 +313,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
     }
 
     default void consumeInputs() {
-        RecipeInfo<BasicRecipe> recipeInfo;
+        RecipeInfo<? extends BasicRecipe> recipeInfo;
         if (getHasConsumed() || (recipeInfo = getRecipeInfo()) == null) {
             return;
         }

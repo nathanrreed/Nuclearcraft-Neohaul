@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:emerald_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:emerald_nak"
   },
-  "irradiatorFluxRequired": 100,
+  "irradiatorFluxRequired": 195,
   "irradiatorHeatPerFlux": "emerald_heater",
   "product": {
     "amount": 1,

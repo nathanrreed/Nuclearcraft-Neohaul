@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.block.processor.IBasicProcessor;
+import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.IFissionPortTarget;
 import com.nred.nuclearcraft.block_entity.fission.port.ITileFilteredFluid;
@@ -11,9 +13,8 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
-import com.nred.nuclearcraft.block.processor.IBasicProcessor;
-import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
@@ -27,7 +28,10 @@ import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
-import it.unimi.dsi.fastutil.objects.*;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
@@ -36,27 +40,26 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket>, ITileFilteredFluid, IFissionCoolingComponent, IFissionPortTarget<FissionHeaterPortEntity, SaltFissionHeaterEntity> {
     public FissionCoolantHeaterType heaterType;
-    public static final Object2ObjectMap<String, ResourceKey<Fluid>> DYN_COOLANT_NAME_MAP = new Object2ObjectOpenHashMap<>();
+//    public static final Object2ObjectMap<String, ResourceLocation> DYN_COOLANT_NAME_MAP = new Object2ObjectOpenHashMap<>();
 
     protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> info;
 
@@ -83,11 +86,9 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     public boolean isProcessing, canProcessInputs, hasConsumed;
     public boolean isRunningSimulated;
 
-    protected RecipeInfo<BasicRecipe> recipeInfo = null;
+    protected RecipeInfo<FissionCoolantHeaterRecipe> recipeInfo = null;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
-
-    public ResourceKey<Fluid> coolantName;
 
     protected FissionCluster cluster = null;
     protected long heat = 0L;
@@ -100,16 +101,17 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     public SaltFissionHeaterEntity(final BlockPos position, final BlockState blockState, FissionCoolantHeaterType heaterType) {
         super(FISSION_ENTITY_TYPE.get("coolant_heater").get(), position, blockState);
-        this.heaterType = heaterType;
         info = TileInfoHandler.getProcessorContainerInfo("salt_fission_heater");
+
+        this.heaterType = heaterType;
 
         inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
         consumedStacks = info.getConsumedStacks();
 
-        tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, null), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
+        tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, Collections.singleton(heaterType.getCoolantId())), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
         consumedTanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
 
-        filterTanks = Lists.newArrayList(new Tank(1000, null), new Tank(1000, new ObjectOpenHashSet<>()));
+        filterTanks = Lists.newArrayList(new Tank(1000, Collections.singleton(heaterType.getCoolantId())), new Tank(1000, new ObjectOpenHashSet<>()));
 
         fluidConnections = ITileFluid.fluidConnectionAll(info.nonTankSorptions());
     }
@@ -326,7 +328,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public Component getDisplayName() {
-        return getTileBlockDisplayName();
+        return Component.translatable(MODID + ".menu.fission_heater.title");
     }
 
     @Override
@@ -372,7 +374,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
         isInValidPosition = false;
         heatingSpeedMultiplier = 0;
 
-//        refreshAll();
+        refreshAll();
     }
 
     @Override
@@ -382,7 +384,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public void clusterSearch(Integer id, final Object2IntMap<IFissionComponent> clusterSearchCache, final Long2ObjectMap<IFissionComponent> componentFailCache, final Long2ObjectMap<IFissionComponent> assumedValidCache, boolean simulate) {
-//        refreshDirty();
+        refreshDirty();
 
         IFissionCoolingComponent.super.clusterSearch(id, clusterSearchCache, componentFailCache, assumedValidCache, simulate);
 
@@ -397,7 +399,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
             isProcessing = isProcessing(checkValid, simulate);
             isRunningSimulated = false;
         }
-//        hasConsumed = hasConsumed();
+        hasConsumed = hasConsumed();
     }
 
     @Override
@@ -505,7 +507,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     @Override
     public void refreshRecipe() {
         boolean hasConsumed = getHasConsumed();
-//        recipeInfo = NCRecipes.coolant_heater.getRecipeInfoFromHeaterInputs(heaterType, getFluidInputs(hasConsumed)); TODO
+        recipeInfo = NCRecipes.coolant_heater.getRecipeInfoFromHeaterInputs(level, heaterType, getFluidInputs(hasConsumed));
         if (info.consumesInputs) {
             consumeInputs();
         }
@@ -528,18 +530,18 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public BasicRecipeHandler getRecipeHandler() {
-        return null;//NCRecipes.coolant_heater; TODO
+    public BasicRecipeHandler<FissionCoolantHeaterRecipe> getRecipeHandler() {
+        return NCRecipes.coolant_heater;
     }
 
     @Override
-    public RecipeInfo<BasicRecipe> getRecipeInfo() {
+    public RecipeInfo<FissionCoolantHeaterRecipe> getRecipeInfo() {
         return recipeInfo;
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<BasicRecipe> recipeInfo) {
-        this.recipeInfo = recipeInfo;
+    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
+        this.recipeInfo = (RecipeInfo<FissionCoolantHeaterRecipe>) recipeInfo;
     }
 
     @Override
@@ -696,11 +698,6 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public boolean stillValid(Player player) {
-        return true; // TODO
-    }
-
-    @Override
     public @Nonnull InventoryConnection[] getInventoryConnections() {
         return inventoryConnections;
     }
@@ -813,7 +810,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public Object getFilterKey() {
-        return heaterType;
+        return heaterType.getName();
     }
 
     // ITileGui
@@ -861,12 +858,6 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     @Override
     public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
         super.readAll(nbt, registries);
-
-        if (DYN_COOLANT_NAME_MAP.containsKey(heaterType.getName())) {
-            coolantName = DYN_COOLANT_NAME_MAP.get(heaterType);
-            tanks.get(0).setAllowedFluids(Collections.singleton(coolantName));
-            filterTanks.get(0).setAllowedFluids(Collections.singleton(coolantName));
-        }
 
         readTanks(nbt, registries);
 

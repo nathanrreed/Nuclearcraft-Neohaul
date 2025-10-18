@@ -1,58 +1,58 @@
 {
 	"music_disc.wanderer": {
-		"subtitle": "nuclearcraftneohaul:music_disc.wanderer",
+		"subtitle": "nuclearcraftneohaul.music_disc.wanderer",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/wanderer", "stream": true } ]
 	},
 	"music_disc.end_of_the_world": {
-		"subtitle": "nuclearcraftneohaul:music_disc.end_of_the_world",
+		"subtitle": "nuclearcraftneohaul.music_disc.end_of_the_world",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/end_of_the_world", "stream": true } ]
 	},
 	"music_disc.money_for_nothing": {
-		"subtitle": "nuclearcraftneohaul:music_disc.money_for_nothing",
+		"subtitle": "nuclearcraftneohaul.music_disc.money_for_nothing",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/money_for_nothing", "stream": true } ]
 	},
 	"music_disc.hyperspace": {
-		"subtitle": "nuclearcraftneohaul:music_disc.hyperspace",
+		"subtitle": "nuclearcraftneohaul.music_disc.hyperspace",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/hyperspace", "stream": true } ]
 	},
 	"player.chems_wear_off": {
-		"subtitle": "nuclearcraftneohaul:sound.player.chems_wear_off",
+		"subtitle": "nuclearcraftneohaul.sound.player.chems_wear_off",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/chems_wear_off", "stream": false } ]
 	},
 	"player.geiger_tick": {
-		"subtitle": "nuclearcraftneohaul:sound.player.geiger_tick",
+		"subtitle": "nuclearcraftneohaul.sound.player.geiger_tick",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/geiger_tick", "stream": false } ]
 	},
 	"player.rad_poisoning": {
-		"subtitle": "nuclearcraftneohaul:sound.player.rad_poisoning",
+		"subtitle": "nuclearcraftneohaul.sound.player.rad_poisoning",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/rad_poisoning", "stream": false } ]
 	},
 	"player.rad_x": {
-		"subtitle": "nuclearcraftneohaul:sound.player.rad_x",
+		"subtitle": "nuclearcraftneohaul.sound.player.rad_x",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/rad_x", "stream": false } ]
 	},
 	"player.radaway": {
-		"subtitle": "nuclearcraftneohaul:sound.player.radaway",
+		"subtitle": "nuclearcraftneohaul.sound.player.radaway",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/radaway", "stream": false } ]
 	},
 	"block.distiller_run": {
-		"subtitle": "nuclearcraftneohaul:sound.block.distiller_run",
+		"subtitle": "nuclearcraftneohaul.sound.block.distiller_run",
 		"sounds": [ { "name": "nuclearcraftneohaul:block/distiller_run", "stream": false } ]
 	},
 	"block.electrolyzer_run": {
-		"subtitle": "nuclearcraftneohaul:sound.block.electrolyzer_run",
+		"subtitle": "nuclearcraftneohaul.sound.block.electrolyzer_run",
 		"sounds": [ { "name": "nuclearcraftneohaul:block/electrolyzer_run", "stream": false } ]
 	},
 	"block.fusion_run": {
-		"subtitle": "nuclearcraftneohaul:sound.block.fusion_run",
+		"subtitle": "nuclearcraftneohaul.sound.block.fusion_run",
 		"sounds": [ { "name": "nuclearcraftneohaul:block/fusion_run", "stream": false } ]
 	},
 	"block.infiltrator_run": {
-		"subtitle": "nuclearcraftneohaul:sound.block.infiltrator_run",
+		"subtitle": "nuclearcraftneohaul.sound.block.infiltrator_run",
 		"sounds": [ { "name": "nuclearcraftneohaul:block/infiltrator_run", "stream": false } ]
 	},
 	"block.turbine_run": {
-		"subtitle": "nuclearcraftneohaul:sound.block.turbine_run",
+		"subtitle": "nuclearcraftneohaul.sound.block.turbine_run",
 		"sounds": [ { "name": "nuclearcraftneohaul:block/turbine_run", "stream": false } ]
 	}
 }

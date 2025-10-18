@@ -8,5 +8,6 @@
     "amount": 4,
     "fluid": "nuclearcraftneohaul:high_pressure_steam"
   },
-  "heatPerInputMB": 32
+  "heatPerInputMB": 32,
+  "isCoolant": false
 }

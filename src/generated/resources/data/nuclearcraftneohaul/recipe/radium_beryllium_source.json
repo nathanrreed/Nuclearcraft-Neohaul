@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:dusts/beryllium"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "R": {
+      "item": "nuclearcraftneohaul:radium_dust"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    }
+  },
+  "pattern": [
+    "PRP",
+    "BSB",
+    "PRP"
+  ],
+  "result": {
+    "count": 2,
+    "id": "nuclearcraftneohaul:radium_beryllium_source"
+  }
+}

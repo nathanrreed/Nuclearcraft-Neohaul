@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:boron_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:boron_nak"
   },
-  "irradiatorFluxRequired": 85,
+  "irradiatorFluxRequired": 160,
   "irradiatorHeatPerFlux": "boron_heater",
   "product": {
     "amount": 1,

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:end_stone"
+    },
+    "D": {
+      "tag": "c:dusts/end_stone"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:empty_heat_sink"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "BSB",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:end_stone_fission_heat_sink"
+  }
+}

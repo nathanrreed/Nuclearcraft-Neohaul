@@ -19,18 +19,24 @@ import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FISSION_
 
 public class FissionHeatingRecipe extends BasicRecipe {
     private final int heatPerInputMB;
+    private final boolean isCoolant;
 
-    public FissionHeatingRecipe(SizedFluidIngredient fluidIngredient, SizedFluidIngredient fluidProduct, int heatPerInputMB) {
+    public FissionHeatingRecipe(SizedFluidIngredient fluidIngredient, SizedFluidIngredient fluidProduct, int heatPerInputMB, boolean isCoolant) {
         super(List.of(), List.of(fluidIngredient), List.of(), List.of(fluidProduct));
         this.heatPerInputMB = heatPerInputMB;
+        this.isCoolant = isCoolant;
     }
 
     public int getFissionHeatingHeatPerInputMB() {
-        return (int) (heatPerInputMB * fission_heating_coolant_heat_mult);
+        return (int) (heatPerInputMB * (isCoolant ? fission_heating_coolant_heat_mult : 1));
     }
 
     public int getFissionHeatingHeatPerInputMBRaw() {
         return heatPerInputMB;
+    }
+
+    public boolean getIsCoolant() {
+        return isCoolant;
     }
 
     @Override
@@ -47,13 +53,15 @@ public class FissionHeatingRecipe extends BasicRecipe {
         public static MapCodec<FissionHeatingRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 SizedFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredients").forGetter(FissionHeatingRecipe::getFluidIngredient),
                 SizedFluidIngredient.FLAT_CODEC.fieldOf("fluidProducts").forGetter(FissionHeatingRecipe::getFluidProduct),
-                Codec.INT.fieldOf("heatPerInputMB").forGetter(FissionHeatingRecipe::getFissionHeatingHeatPerInputMBRaw)
+                Codec.INT.fieldOf("heatPerInputMB").forGetter(FissionHeatingRecipe::getFissionHeatingHeatPerInputMBRaw),
+                Codec.BOOL.fieldOf("isCoolant").forGetter(FissionHeatingRecipe::getIsCoolant)
         ).apply(inst, FissionHeatingRecipe::new));
 
         public static StreamCodec<RegistryFriendlyByteBuf, FissionHeatingRecipe> STREAM_CODEC = StreamCodec.composite(
                 SizedFluidIngredient.STREAM_CODEC, FissionHeatingRecipe::getFluidIngredient,
                 SizedFluidIngredient.STREAM_CODEC, FissionHeatingRecipe::getFluidProduct,
                 ByteBufCodecs.INT, FissionHeatingRecipe::getFissionHeatingHeatPerInputMBRaw,
+                ByteBufCodecs.BOOL, FissionHeatingRecipe::getIsCoolant,
                 FissionHeatingRecipe::new
         );
 

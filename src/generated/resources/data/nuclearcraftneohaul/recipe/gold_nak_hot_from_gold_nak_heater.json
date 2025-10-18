@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:gold_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:gold_nak"
   },
-  "irradiatorFluxRequired": 95,
+  "irradiatorFluxRequired": 110,
   "irradiatorHeatPerFlux": "gold_heater",
   "product": {
     "amount": 1,

@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:glowstone_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:glowstone_nak"
   },
-  "irradiatorFluxRequired": 65,
+  "irradiatorFluxRequired": 90,
   "irradiatorHeatPerFlux": "glowstone_heater",
   "product": {
     "amount": 1,

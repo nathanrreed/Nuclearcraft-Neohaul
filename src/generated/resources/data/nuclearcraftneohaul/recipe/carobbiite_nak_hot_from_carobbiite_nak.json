@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:carobbiite_nak_hot"
   },
-  "heatPerInputMB": 80
+  "heatPerInputMB": 140,
+  "isCoolant": true
 }

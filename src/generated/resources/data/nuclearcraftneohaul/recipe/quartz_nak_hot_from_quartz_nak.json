@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:quartz_nak_hot"
   },
-  "heatPerInputMB": 180
+  "heatPerInputMB": 80,
+  "isCoolant": true
 }

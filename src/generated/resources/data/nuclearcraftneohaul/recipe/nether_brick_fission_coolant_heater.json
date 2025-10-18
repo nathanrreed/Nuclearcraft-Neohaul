@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:nether_bricks"
+    },
+    "D": {
+      "item": "minecraft:nether_brick"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "BHB",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:nether_brick_fission_coolant_heater"
+  }
+}

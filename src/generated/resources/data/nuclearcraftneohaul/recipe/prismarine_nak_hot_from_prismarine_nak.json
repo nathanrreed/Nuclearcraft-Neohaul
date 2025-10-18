@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:prismarine_nak_hot"
   },
-  "heatPerInputMB": 170
+  "heatPerInputMB": 115,
+  "isCoolant": true
 }

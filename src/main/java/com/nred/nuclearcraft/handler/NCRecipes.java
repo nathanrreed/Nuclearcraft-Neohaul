@@ -86,7 +86,7 @@ public class NCRecipes {
         putHandler(new SolidFissionRecipes());
         putHandler(new FissionHeatingRecipes());
         putHandler(new SaltFissionRecipes());
-//        putHandler(new CoolantHeaterRecipes());
+        putHandler(new CoolantHeaterRecipes());
         putHandler(new FissionEmergencyCoolingRecipes());
 //        putHandler(new HeatExchangerRecipes());
 //        putHandler(new CondenserRecipes());

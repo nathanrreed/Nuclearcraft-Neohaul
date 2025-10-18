@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.config.Config2.fission_heater_cooling_rate;
 
-public enum FissionCoolantHeaterType implements StringRepresentable, ITileEnum<SaltFissionHeaterEntity.Variant>, IMultiblockVariant {
+public enum FissionCoolantHeaterType implements StringRepresentable, ITileEnum<SaltFissionHeaterEntity.Variant>, IMultiblockVariant, ICoolantType {
     STANDARD("standard", () -> fission_heater_cooling_rate[0], SaltFissionHeaterEntity.Standard.class),
     IRON("iron", () -> fission_heater_cooling_rate[1], SaltFissionHeaterEntity.Iron.class),
     REDSTONE("redstone", () -> fission_heater_cooling_rate[2], SaltFissionHeaterEntity.Redstone.class),
@@ -48,7 +48,7 @@ public enum FissionCoolantHeaterType implements StringRepresentable, ITileEnum<S
     CRYOTHEUM("cryotheum", () -> fission_heater_cooling_rate[31], SaltFissionHeaterEntity.Cryotheum.class);
 
     private final String name;
-    private final Supplier<Integer> coolingRate;
+    private final Supplier<Integer> coolingRate; // TODO remove?
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
     private final Class<? extends SaltFissionHeaterEntity.Variant> tileClass;

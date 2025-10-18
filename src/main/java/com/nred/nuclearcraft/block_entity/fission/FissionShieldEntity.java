@@ -11,6 +11,8 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
+import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -59,6 +61,11 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
         public BoronSilver(final BlockPos position, final BlockState blockState) {
             super(position, blockState, FissionNeutronShieldType.BORON_SILVER);
         }
+    }
+
+    @Override
+    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
+        return position == PartPosition.Interior;
     }
 
     @Override

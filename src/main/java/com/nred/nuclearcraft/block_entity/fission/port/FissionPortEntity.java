@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.fission.port;
 
-import com.nred.nuclearcraft.block_entity.fission.AbstractFissionEntity;
 import com.nred.nuclearcraft.block_entity.ITickable;
+import com.nred.nuclearcraft.block_entity.fission.AbstractFissionEntity;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;

@@ -5,17 +5,15 @@ import com.nred.nuclearcraft.block_entity.energy.TileEnergy;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
-import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -35,26 +33,26 @@ public abstract class TileEnergyFluid extends TileEnergy implements ITileFluid {
     private List<Boolean> voidUnusableFluidInputs;
     private List<TankOutputSetting> tankOutputSettings;
 
-    public TileEnergyFluid(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Set<ResourceKey<Fluid>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
-        this(type, pos, blockState, capacity, NCMath.toInt(capacity), energyConnections, new IntArrayList(new int[]{fluidCapacity}), Lists.<Set<ResourceKey<Fluid>>>newArrayList(allowedFluids), fluidConnections);
+    public TileEnergyFluid(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Set<ResourceLocation> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+        this(type, pos, blockState, capacity, NCMath.toInt(capacity), energyConnections, new IntArrayList(new int[]{fluidCapacity}), Lists.<Set<ResourceLocation>>newArrayList(allowedFluids), fluidConnections);
     }
 
-    public TileEnergyFluid(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceKey<Fluid>>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+    public TileEnergyFluid(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceLocation>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
         this(type, pos, blockState, capacity, NCMath.toInt(capacity), energyConnections, fluidCapacity, allowedFluids, fluidConnections);
     }
 
-    public TileEnergyFluid(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Set<ResourceKey<Fluid>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
-        this(type, pos, blockState, capacity, maxTransfer, energyConnections, new IntArrayList(new int[]{fluidCapacity}), Lists.<Set<ResourceKey<Fluid>>>newArrayList(allowedFluids), fluidConnections);
+    public TileEnergyFluid(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Set<ResourceLocation> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+        this(type, pos, blockState, capacity, maxTransfer, energyConnections, new IntArrayList(new int[]{fluidCapacity}), Lists.<Set<ResourceLocation>>newArrayList(allowedFluids), fluidConnections);
     }
 
-    public TileEnergyFluid(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceKey<Fluid>>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+    public TileEnergyFluid(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceLocation>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
         super(type, pos, blockState, capacity, maxTransfer, energyConnections);
         initTileEnergyFluid(fluidCapacity, allowedFluids, fluidConnections);
         fluidSides = ITileFluid.getDefaultFluidSides(this);
         chemicalSides = ITileFluid.getDefaultChemicalSides(this);
     }
 
-    protected void initTileEnergyFluid(@Nonnull IntList fluidCapacity, List<Set<ResourceKey<Fluid>>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
+    protected void initTileEnergyFluid(@Nonnull IntList fluidCapacity, List<Set<ResourceLocation>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
         tanks = new ArrayList<>();
         voidUnusableFluidInputs = new ArrayList<>();
         tankOutputSettings = new ArrayList<>();

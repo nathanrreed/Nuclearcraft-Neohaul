@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:silver_nak_hot"
   },
-  "heatPerInputMB": 135
+  "heatPerInputMB": 170,
+  "isCoolant": true
 }

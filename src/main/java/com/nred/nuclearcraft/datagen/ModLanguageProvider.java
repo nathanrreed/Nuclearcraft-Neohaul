@@ -138,6 +138,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".fission_reactor_source.no_target", "Has no target!");
         add(MODID + ".fission_reactor_source.target", "=Targeting %4$s at [%1$d, %2$d, %3$d]");
 
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_cells", "This is not a solid fuel reactor - there must be no cells for it to form");
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_sinks", "This is not a solid fuel reactor - there must be no sinks for it to form");
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_vessels", "This is not a molten salt reactor - there must be no vessels for it to form");
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_heaters", "This is not a molten salt reactor - there must be no heaters for it to form");
+
         add(MODID + ".recipe_viewer.irradiator_flux_required", "Total Flux Required: %s");
         add(MODID + ".recipe_viewer.irradiator_heat_per_flux", "Heat Gen Per Flux: %s");
         add(MODID + ".recipe_viewer.irradiator_process_efficiency", "Efficiency Bonus: %s");
@@ -498,7 +503,7 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleBlocks(PROCESSOR_MAP);
         simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel", "solar_panel_advanced", "Advanced Solar Panel", "solar_panel_du", "DU Solar Panel", "solar_panel_elite", "Elite Solar Panel"));
         simpleBlocks(TURBINE_MAP, Map.of("sic_turbine_rotor_blade", "SiC-SiC CMC Turbine Rotor Blade", "turbine_inlet", "Turbine Fluid Inlet", "turbine_outlet", "Turbine Fluid Outlet"));
-        simpleBlocks(FISSION_REACTOR_MAP, Map.of("fission_casing", "Fission Reactor Casing"));
+        simpleBlocks(FISSION_REACTOR_MAP, Map.of("boron_silver_shield", "Boron-Silver Fission Neutron Shield", "radium_beryllium_source", "Ra-Be Fission Neutron Source", "polonium_beryllium_source", "Po-Be Fission Neutron Source", "californium_source", "Cf-252 Fission Neutron Source", "beryllium_carbon_reflector", "Beryllium-Carbon Neutron Reflector", "lead_steel_reflector", "Lead-Steel Neutron Reflector"));
         simpleBlocks(BATTERY_MAP, Map.of("du_voltaic_pile", "DU Voltaic Pile", "du_lithium_ion_battery", "DU Lithium Ion Battery"));
     }
 
@@ -609,6 +614,8 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".message.multitool.energy_toggle", "Toggled side to ");
         add(MODID + ".message.multitool.energy_toggle_opposite", "Toggled opposite side to ");
+
+        add(MODID + "message.filter", "Set filter to: %s");
 
         add(MODID + ".multitool.quantum_computer.tool_set_angle", "Saved angle of %s degrees to multitool");
         add(MODID + ".multitool.clear_info", "Cleared stored multitool info");
@@ -759,6 +766,9 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".multiblock_validation.no_controller", "There must be a controller for the multiblock to form");
         add(MODID + ".multiblock_validation.too_many_controllers", "There must only be one controller for the multiblock to form");
         add(MODID + ".menu.fission.no_cluster", "No cluster!");
+
+        add(MODID + ".menu.fission_heater.title", "Fission Coolant Heater");
+        add(MODID + ".menu.fission_heater_port.title", "Fission Coolant Heater Port");
     }
 
     private void creativeTabs() {

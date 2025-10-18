@@ -5,30 +5,26 @@ import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionHeaterPortMenu;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterPortType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 
 public class FissionHeaterPortEntity extends FissionFluidPortEntity<FissionHeaterPortEntity, SaltFissionHeaterEntity> {
     private final FissionCoolantHeaterPortType heaterPortType;
-    protected ResourceKey<Fluid> coolantName;
 
     public FissionHeaterPortEntity(final BlockPos pos, final BlockState blockState, FissionCoolantHeaterPortType heaterPortType) {
-        super(FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), pos, blockState, "fission_heater_port", FissionHeaterPortEntity.class, INGOT_BLOCK_VOLUME, null, NCRecipes.coolant_heater);
+        super(FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), pos, blockState, "fission_heater_port", FissionHeaterPortEntity.class, INGOT_BLOCK_VOLUME, Collections.singleton(heaterPortType.getCoolantId()), NCRecipes.coolant_heater);
         this.heaterPortType = heaterPortType;
-        tanks.get(0).setAllowedFluids(Collections.singleton(heaterPortType.getCoolantId()));
     }
 
     // MenuProvider
@@ -36,6 +32,11 @@ public class FissionHeaterPortEntity extends FissionFluidPortEntity<FissionHeate
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new FissionHeaterPortMenu(containerId, playerInventory, this);
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable(MODID + ".menu.fission_heater_port.title");
     }
 
     @Override
@@ -243,22 +244,6 @@ public class FissionHeaterPortEntity extends FissionFluidPortEntity<FissionHeate
 
     @Override
     public Object getFilterKey() {
-        return heaterPortType;
-    }
-
-    // NBT
-
-    @Override
-    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
-        return super.writeAll(nbt, registries);
-    }
-
-    @Override
-    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
-        super.readAll(nbt, registries);
-        if (SaltFissionHeaterEntity.DYN_COOLANT_NAME_MAP.containsKey(heaterPortType.getName())) {
-            coolantName = SaltFissionHeaterEntity.DYN_COOLANT_NAME_MAP.get(heaterPortType.getName());
-            tanks.get(0).setAllowedFluids(Collections.singleton(coolantName));
-        }
+        return heaterPortType.getName();
     }
 }

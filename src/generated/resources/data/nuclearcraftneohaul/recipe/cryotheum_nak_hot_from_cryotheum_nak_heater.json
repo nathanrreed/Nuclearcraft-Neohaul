@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:cryotheum_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:cryotheum_nak"
   },
-  "irradiatorFluxRequired": 105,
+  "irradiatorFluxRequired": 205,
   "irradiatorHeatPerFlux": "cryotheum_heater",
   "product": {
     "amount": 1,

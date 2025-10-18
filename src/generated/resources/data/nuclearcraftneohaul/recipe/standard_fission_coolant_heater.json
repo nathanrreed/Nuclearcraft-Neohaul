@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:elite_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:thermoconducting_alloy"
+    }
+  },
+  "pattern": [
+    "PEP",
+    "TST",
+    "PEP"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nuclearcraftneohaul:standard_fission_coolant_heater"
+  }
+}

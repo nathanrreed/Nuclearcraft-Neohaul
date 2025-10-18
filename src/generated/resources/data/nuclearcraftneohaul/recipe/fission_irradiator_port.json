@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "Z": {
+      "tag": "c:ingots/zirconium"
+    }
+  },
+  "pattern": [
+    "PHP",
+    "ZSZ",
+    "PHP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:fission_irradiator_port"
+  }
+}

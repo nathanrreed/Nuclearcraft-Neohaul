@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:lapis_nak_hot"
   },
-  "heatPerInputMB": 195
+  "heatPerInputMB": 100,
+  "isCoolant": true
 }

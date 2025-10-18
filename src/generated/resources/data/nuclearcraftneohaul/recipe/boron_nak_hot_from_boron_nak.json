@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:boron_nak_hot"
   },
-  "heatPerInputMB": 85
+  "heatPerInputMB": 160,
+  "isCoolant": true
 }

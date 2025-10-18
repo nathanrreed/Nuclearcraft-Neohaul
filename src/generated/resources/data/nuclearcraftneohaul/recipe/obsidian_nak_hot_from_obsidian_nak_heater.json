@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:obsidian_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:obsidian_nak"
   },
-  "irradiatorFluxRequired": 175,
+  "irradiatorFluxRequired": 70,
   "irradiatorHeatPerFlux": "obsidian_heater",
   "product": {
     "amount": 1,

@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:lapis_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:lapis_nak"
   },
-  "irradiatorFluxRequired": 195,
+  "irradiatorFluxRequired": 100,
   "irradiatorHeatPerFlux": "lapis_heater",
   "product": {
     "amount": 1,

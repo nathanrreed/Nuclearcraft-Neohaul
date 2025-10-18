@@ -21,7 +21,6 @@ public enum FissionPartType implements IFissionPartType {
     Casing(() -> FISSION_ENTITY_TYPE.get("casing")::get, FissionCasingBlock::new, ""),
     Glass(() -> FISSION_ENTITY_TYPE.get("glass")::get, GlassBlock::new, "", GlassBlock::addGlassProperties),
     Vent(() -> FISSION_ENTITY_TYPE.get("vent")::get, FissionVentBlock::new, ""),
-    Reflector(() -> FISSION_ENTITY_TYPE.get("reflector")::get, GenericTooltipDeviceBlock::new, ""),
     Conductor(() -> FISSION_ENTITY_TYPE.get("conductor")::get, GenericTooltipDeviceBlock::new, ""),
 
     Shield(() -> FISSION_ENTITY_TYPE.get("shield")::get, FissionShieldBlock::new, ""),

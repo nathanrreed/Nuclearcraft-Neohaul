@@ -50,5 +50,5 @@ public class Names {
     public static final List<String> FERTILE_ISOTOPES = List.of("americium", "berkelium", "californium", "curium", "neptunium", "plutonium", "uranium");
 
 
-    public static final List<String> FISSION_HEAT_PARTS = List.of("aluminum", "arsenic", "boron", "carobbiite", "copper", "cryotheum", "diamond", "emerald", "end_stone", "enderium", "fluorite", "glowstone", "gold", "iron", "lapis", "lead", "liquid_helium", "liquid_nitrogen", "lithium", "magnesium", "manganese", "nether_brick", "obsidian", "prismarine", "purpur", "quartz", "redstone", "silver", "slime", "tin", "villiaumite"); //, "standard", "water"
+    public static final List<String> FISSION_HEAT_PARTS = List.of("iron", "redstone", "quartz", "obsidian", "nether_brick", "glowstone", "lapis", "gold", "prismarine", "slime", "end_stone", "purpur", "diamond", "emerald", "copper", "tin", "lead", "boron", "lithium", "magnesium", "manganese", "aluminum", "silver", "fluorite", "villiaumite", "carobbiite", "arsenic", "liquid_nitrogen", "liquid_helium", "enderium", "cryotheum"); //, "standard", "water"
 }

@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:glowstone_nak_hot"
   },
-  "heatPerInputMB": 65
+  "heatPerInputMB": 90,
+  "isCoolant": true
 }

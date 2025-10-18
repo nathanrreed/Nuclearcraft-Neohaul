@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:liquid_helium_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:liquid_helium_nak"
   },
-  "irradiatorFluxRequired": 120,
+  "irradiatorFluxRequired": 190,
   "irradiatorHeatPerFlux": "liquid_helium_heater",
   "product": {
     "amount": 1,

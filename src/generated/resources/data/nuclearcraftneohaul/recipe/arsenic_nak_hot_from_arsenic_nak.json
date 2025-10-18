@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:arsenic_nak_hot"
   },
-  "heatPerInputMB": 50
+  "heatPerInputMB": 135,
+  "isCoolant": true
 }

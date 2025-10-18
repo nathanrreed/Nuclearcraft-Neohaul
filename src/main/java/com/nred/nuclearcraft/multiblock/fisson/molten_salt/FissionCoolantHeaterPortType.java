@@ -4,18 +4,13 @@ import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
 import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Fluid;
 
 import java.util.function.Function;
 
-import static com.nred.nuclearcraft.registration.FluidRegistration.COOLANT_MAP;
-
-public enum FissionCoolantHeaterPortType implements StringRepresentable, ITileEnum<FissionHeaterPortEntity.Variant>, IMultiblockVariant {
+public enum FissionCoolantHeaterPortType implements StringRepresentable, ITileEnum<FissionHeaterPortEntity.Variant>, IMultiblockVariant, ICoolantType {
     STANDARD("standard", FissionHeaterPortEntity.Standard.class),
     IRON("iron", FissionHeaterPortEntity.Iron.class),
     REDSTONE("redstone", FissionHeaterPortEntity.Redstone.class),
@@ -75,14 +70,6 @@ public enum FissionCoolantHeaterPortType implements StringRepresentable, ITileEn
     @Override
     public Class<? extends FissionHeaterPortEntity.Variant> getTileClass() {
         return this.tileClass;
-    }
-
-    public ResourceKey<Fluid> getCoolantId() {
-        if (this == STANDARD) {
-            return BuiltInRegistries.FLUID.getResourceKey(COOLANT_MAP.get("nak").still.value()).get();
-        } else {
-            return BuiltInRegistries.FLUID.getResourceKey(COOLANT_MAP.get(getName() + "_nak").still.value()).get();
-        }
     }
 
     @Override

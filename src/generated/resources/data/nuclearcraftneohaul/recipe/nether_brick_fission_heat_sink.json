@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:nether_bricks"
+    },
+    "D": {
+      "item": "minecraft:nether_brick"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:empty_heat_sink"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "BSB",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:nether_brick_fission_heat_sink"
+  }
+}

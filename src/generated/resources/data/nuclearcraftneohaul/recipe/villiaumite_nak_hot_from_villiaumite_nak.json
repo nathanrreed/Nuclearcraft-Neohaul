@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
   },
-  "heatPerInputMB": 155
+  "heatPerInputMB": 180,
+  "isCoolant": true
 }

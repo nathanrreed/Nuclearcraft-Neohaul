@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:obsidian"
+    },
+    "D": {
+      "tag": "c:dusts/obsidian"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater_port"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "BPB",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:obsidian_fission_coolant_heater_port"
+  }
+}

@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:prismarine_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:prismarine_nak"
   },
-  "irradiatorFluxRequired": 170,
+  "irradiatorFluxRequired": 115,
   "irradiatorHeatPerFlux": "prismarine_heater",
   "product": {
     "amount": 1,

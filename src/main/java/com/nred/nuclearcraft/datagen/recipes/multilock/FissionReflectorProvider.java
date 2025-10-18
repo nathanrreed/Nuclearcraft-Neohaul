@@ -17,8 +17,8 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACT
 
 public class FissionReflectorProvider {
     public FissionReflectorProvider(RecipeOutput recipeOutput) {
-        new RecipeBuilder(Ingredient.of(FISSION_REACTOR_MAP.get("beryllium_carbon_reflector")), FissionReflectorType.BERYLLIUM_CARBON.getEfficiency(), FissionReflectorType.BERYLLIUM_CARBON.getReflectivity()).save(recipeOutput, MODID + ":beryllium_carbon_reflector");
-        new RecipeBuilder(Ingredient.of(FISSION_REACTOR_MAP.get("lead_steel_reflector")), FissionReflectorType.LEAD_STEEL.getEfficiency(), FissionReflectorType.LEAD_STEEL.getReflectivity()).save(recipeOutput, MODID + ":lead_steel_reflector");
+        new RecipeBuilder(Ingredient.of(FISSION_REACTOR_MAP.get("beryllium_carbon_reflector")), FissionReflectorType.BERYLLIUM_CARBON.getEfficiency(), FissionReflectorType.BERYLLIUM_CARBON.getReflectivity()).save(recipeOutput, MODID + ":beryllium_carbon_reflector_recipe");
+        new RecipeBuilder(Ingredient.of(FISSION_REACTOR_MAP.get("lead_steel_reflector")), FissionReflectorType.LEAD_STEEL.getEfficiency(), FissionReflectorType.LEAD_STEEL.getReflectivity()).save(recipeOutput, MODID + ":lead_steel_reflector_recipe");
     }
 
     public static class RecipeBuilder extends SimpleRecipeBuilder {

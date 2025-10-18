@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:enderium_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:enderium_nak"
   },
-  "irradiatorFluxRequired": 115,
+  "irradiatorFluxRequired": 155,
   "irradiatorHeatPerFlux": "enderium_heater",
   "product": {
     "amount": 1,

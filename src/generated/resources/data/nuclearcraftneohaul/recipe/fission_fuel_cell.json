@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    },
+    "Z": {
+      "item": "nuclearcraftneohaul:zircaloy_alloy"
+    }
+  },
+  "pattern": [
+    "PTP",
+    "ZSZ",
+    "PTP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:fission_fuel_cell"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "c:dusts/glowstone"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater_port"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NPN",
+    "NNN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:glowstone_fission_coolant_heater_port"
+  }
+}

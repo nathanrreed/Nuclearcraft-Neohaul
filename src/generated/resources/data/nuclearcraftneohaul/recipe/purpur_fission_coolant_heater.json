@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:purpur_block"
+    },
+    "D": {
+      "item": "minecraft:popped_chorus_fruit"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "BHB",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:purpur_fission_coolant_heater"
+  }
+}

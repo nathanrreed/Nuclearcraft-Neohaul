@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:magnesium_nak_hot"
   },
-  "heatPerInputMB": 130
+  "heatPerInputMB": 125,
+  "isCoolant": true
 }

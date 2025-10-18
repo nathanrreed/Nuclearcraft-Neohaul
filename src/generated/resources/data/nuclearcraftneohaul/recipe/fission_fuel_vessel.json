@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "nuclearcraftneohaul:zirconium_molybdenum_alloy"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:elite_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "Z": {
+      "item": "nuclearcraftneohaul:zircaloy_alloy"
+    }
+  },
+  "pattern": [
+    "PMP",
+    "ZSZ",
+    "PMP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:fission_fuel_vessel"
+  }
+}

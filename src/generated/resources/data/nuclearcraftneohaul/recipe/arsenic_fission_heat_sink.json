@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "c:dusts/arsenic"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:empty_heat_sink"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NSN",
+    "NNN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:arsenic_fission_heat_sink"
+  }
+}

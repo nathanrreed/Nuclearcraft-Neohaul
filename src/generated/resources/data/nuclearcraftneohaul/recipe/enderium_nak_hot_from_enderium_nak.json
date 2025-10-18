@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:enderium_nak_hot"
   },
-  "heatPerInputMB": 115
+  "heatPerInputMB": 155,
+  "isCoolant": true
 }

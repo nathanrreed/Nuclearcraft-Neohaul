@@ -11,6 +11,7 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -522,20 +523,20 @@ public class RecipeHelper {
 //        return ingredientNames;
 //    }
 //
-    public static List<Set<ResourceKey<Fluid>>> validFluids(BasicRecipeHandler recipeHandler) {
+    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler recipeHandler) {
         return validFluids(recipeHandler, Collections.emptySet());
     }
 
-    public static List<Set<ResourceKey<Fluid>>> validFluids(BasicRecipeHandler recipeHandler, Set<ResourceKey<Fluid>> exceptions) {
-        Set<ResourceKey<Fluid>> fluidNameSet = new ObjectOpenHashSet<>();
+    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler recipeHandler, Set<ResourceLocation> exceptions) {
+        Set<ResourceLocation> fluidNameSet = new ObjectOpenHashSet<>();
         for (Map.Entry<ResourceKey<Fluid>, Fluid> entry : BuiltInRegistries.FLUID.entrySet()) {
-            ResourceKey<Fluid> fluidKey = entry.getKey();
+            ResourceLocation fluidKey = entry.getKey().location();
             if (recipeHandler.isValidFluidInput(new FluidStack(entry.getValue(), 1000)) && !exceptions.contains(fluidKey)) {
                 fluidNameSet.add(fluidKey);
             }
         }
 
-        List<Set<ResourceKey<Fluid>>> allowedFluidSets = new ArrayList<>();
+        List<Set<ResourceLocation>> allowedFluidSets = new ArrayList<>();
         for (int i = 0; i < recipeHandler.fluidInputSize; ++i) {
             allowedFluidSets.add(fluidNameSet);
         }

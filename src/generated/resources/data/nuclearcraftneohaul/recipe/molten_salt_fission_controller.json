@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "Z": {
+      "item": "nuclearcraftneohaul:zirconium_molybdenum_alloy"
+    }
+  },
+  "pattern": [
+    "PZP",
+    "ESE",
+    "PZP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:molten_salt_fission_controller"
+  }
+}

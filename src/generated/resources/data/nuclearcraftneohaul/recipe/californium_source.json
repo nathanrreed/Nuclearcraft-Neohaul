@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": [
+      {
+        "item": "nuclearcraftneohaul:californium_252"
+      },
+      {
+        "item": "nuclearcraftneohaul:californium_252_c"
+      },
+      {
+        "item": "nuclearcraftneohaul:californium_252_ni"
+      },
+      {
+        "item": "nuclearcraftneohaul:californium_252_ox"
+      },
+      {
+        "item": "nuclearcraftneohaul:californium_252_za"
+      }
+    ],
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "CSC",
+    "PCP"
+  ],
+  "result": {
+    "count": 2,
+    "id": "nuclearcraftneohaul:californium_source"
+  }
+}

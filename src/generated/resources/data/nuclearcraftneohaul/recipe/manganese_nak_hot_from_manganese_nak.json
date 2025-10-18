@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:manganese_nak_hot"
   },
-  "heatPerInputMB": 125
+  "heatPerInputMB": 150,
+  "isCoolant": true
 }

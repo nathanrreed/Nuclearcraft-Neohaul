@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:fluorite_nak_hot"
   },
-  "heatPerInputMB": 145
+  "heatPerInputMB": 165,
+  "isCoolant": true
 }

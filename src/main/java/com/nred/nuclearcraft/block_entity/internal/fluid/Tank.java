@@ -4,7 +4,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -16,9 +15,9 @@ import java.util.List;
 import java.util.Set;
 
 public class Tank extends FluidTank {
-    protected Set<ResourceKey<Fluid>> allowedFluids;
+    protected Set<ResourceLocation> allowedFluids; // TODO replace with FluidTank validator
 
-    public Tank(int capacity, Set<ResourceKey<Fluid>> allowedFluids) {
+    public Tank(int capacity, Set<ResourceLocation> allowedFluids) {
         super(capacity);
         setAllowedFluids(allowedFluids);
     }
@@ -29,15 +28,15 @@ public class Tank extends FluidTank {
 
     // FluidTank
 
-    public boolean canFillFluidType(FluidStack fluidIn) {
-        return fluidIn != null && canFillFluidType(fluidIn.getFluid());
+    public boolean isFluidValid(FluidStack fluidIn) {
+        return !fluidIn.isEmpty() && isFluidValid(fluidIn.getFluid());
     }
 
-    public boolean canFillFluidType(Fluid fluidIn) {
-        return fluidIn != null && (allowedFluids == null || allowedFluids.contains(BuiltInRegistries.FLUID.getResourceKey(fluidIn).orElse(null)));
+    public boolean isFluidValid(Fluid fluidIn) {
+        return fluidIn != null && (allowedFluids == null || allowedFluids.contains(BuiltInRegistries.FLUID.getKey(fluidIn)));
     }
 
-    public void setAllowedFluids(Set<ResourceKey<Fluid>> allowedFluids) {
+    public void setAllowedFluids(Set<ResourceLocation> allowedFluids) {
         this.allowedFluids = allowedFluids;
     }
 

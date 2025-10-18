@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater"
+    },
+    "N": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NHN",
+    "NNN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:redstone_fission_coolant_heater"
+  }
+}

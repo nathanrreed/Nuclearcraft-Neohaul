@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.block.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.IFissionPortTarget;
 import com.nred.nuclearcraft.block_entity.fission.port.ITileFilteredFluid;
@@ -11,7 +12,6 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
-import com.nred.nuclearcraft.block.processor.IBasicProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
@@ -29,13 +29,15 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.*;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
+import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -43,7 +45,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -84,7 +85,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
 
     public double decayProcessHeat = 0D, decayHeatFraction = 0D, iodineFraction = 0D, poisonFraction = 0D;
 
-    protected RecipeInfo<BasicRecipe> recipeInfo = null;
+    protected RecipeInfo<SaltFissionRecipe> recipeInfo = null;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
@@ -123,13 +124,18 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
         inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
         consumedStacks = info.getConsumedStacks();
 
-        Set<ResourceKey<Fluid>> validFluids = (Set<ResourceKey<Fluid>>) NCRecipes.salt_fission.validFluids.get(0);
+        Set<ResourceLocation> validFluids = (Set<ResourceLocation>) NCRecipes.salt_fission.validFluids.get(0);
         tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
         consumedTanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
 
         filterTanks = Lists.newArrayList(new Tank(1000, validFluids), new Tank(1000, new ObjectOpenHashSet<>()));
 
         fluidConnections = ITileFluid.fluidConnectionAll(info.nonTankSorptions());
+    }
+
+    @Override
+    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
+        return position == PartPosition.Interior;
     }
 
     // MenuProvider
@@ -677,18 +683,18 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public BasicRecipeHandler getRecipeHandler() { // TODO
+    public BasicRecipeHandler<SaltFissionRecipe> getRecipeHandler() {
         return NCRecipes.salt_fission;
     }
 
     @Override
-    public RecipeInfo<BasicRecipe> getRecipeInfo() {
+    public RecipeInfo<SaltFissionRecipe> getRecipeInfo() {
         return recipeInfo;
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<BasicRecipe> recipeInfo) {
-        this.recipeInfo = recipeInfo;
+    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
+        this.recipeInfo = (RecipeInfo<SaltFissionRecipe>) recipeInfo;
     }
 
     @Override

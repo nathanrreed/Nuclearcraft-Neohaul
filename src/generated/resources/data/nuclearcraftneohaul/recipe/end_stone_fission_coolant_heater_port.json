@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:end_stone"
+    },
+    "D": {
+      "tag": "c:dusts/end_stone"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater_port"
+    }
+  },
+  "pattern": [
+    "DBD",
+    "BPB",
+    "DBD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:end_stone_fission_coolant_heater_port"
+  }
+}

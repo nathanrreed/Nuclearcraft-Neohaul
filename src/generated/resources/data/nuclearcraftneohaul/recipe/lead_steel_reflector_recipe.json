@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:reflector_recipe",
+  "block": {
+    "item": "nuclearcraftneohaul:lead_steel_reflector"
+  },
+  "efficiency": 0.25,
+  "reflector": 0.5
+}

@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.payload.gui;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,6 +38,11 @@ public class ClearTankPacket extends TileGuiPacket {
     public void toBytes(RegistryFriendlyByteBuf buf) {
         super.toBytes(buf);
         buf.writeInt(tank);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     public static class Handler extends TileGuiPacket.Handler<ClearTankPacket> {

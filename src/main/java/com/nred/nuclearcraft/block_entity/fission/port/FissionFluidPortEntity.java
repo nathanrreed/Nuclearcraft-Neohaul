@@ -4,8 +4,9 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
-import com.nred.nuclearcraft.handler.*;
-import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.ChatFormatting;
@@ -14,14 +15,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
@@ -46,11 +46,11 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
     protected @Nonnull FluidTileWrapper[] fluidSides;
     protected @Nonnull ChemicalTileWrapper[] chemicalSides;
 
-    protected final BasicRecipeHandler recipeHandler;
+    protected final BasicRecipeHandler<?> recipeHandler;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
-    public FissionFluidPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, int capacity, Set<ResourceKey<Fluid>> validFluids, BasicRecipeHandler recipeHandler) {
+    public FissionFluidPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, int capacity, Set<ResourceLocation> validFluids, BasicRecipeHandler<?> recipeHandler) {
         super(type, pos, blockState, portClass);
         info = TileInfoHandler.getTileContainerInfo(name);
 
@@ -256,7 +256,6 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
     }
 
     // NBT
-
 
     @Override
     public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {

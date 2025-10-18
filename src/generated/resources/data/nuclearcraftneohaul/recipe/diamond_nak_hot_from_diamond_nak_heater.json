@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:diamond_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:diamond_nak"
   },
-  "irradiatorFluxRequired": 90,
+  "irradiatorFluxRequired": 200,
   "irradiatorHeatPerFlux": "diamond_heater",
   "product": {
     "amount": 1,

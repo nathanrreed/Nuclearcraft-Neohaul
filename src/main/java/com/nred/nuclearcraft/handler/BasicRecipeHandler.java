@@ -8,15 +8,15 @@ import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.util.StreamHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +34,7 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
 
 //    public final int itemInputLastIndex, fluidInputLastIndex, itemOutputLastIndex, fluidOutputLastIndex;
 
-    public final List<Set<ResourceKey<Fluid>>> validFluids = new ArrayList<>();
+    public final List<Set<ResourceLocation>> validFluids = new ArrayList<>();
 
     public BasicRecipeHandler(@Nonnull String name, int itemInputSize, int fluidInputSize, int itemOutputSize, int fluidOutputSize) {
         this.name = name;
@@ -409,7 +409,7 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
     /**
      * Smart insertion - don't insert if stack is not valid for any possible recipes
      */
-    public boolean isValidItemInput(ItemStack stack, int index, List<ItemStack> inputs, List<FluidStack> associatedInputs, RecipeInfo<BasicRecipe> recipeInfo, int inputSize, int associatedInputSize, Predicate<ItemStack> isEmptyFunction, Predicate<FluidStack> associatedIsEmptyFunction, Predicate<ItemStack> isEqualFunction, Function<BasicRecipe, List<SizedIngredient>> ingredientsFunction, Function<BasicRecipe, List<SizedFluidIngredient>> associatedIngredientsFunction) {
+    public boolean isValidItemInput(ItemStack stack, int index, List<ItemStack> inputs, List<FluidStack> associatedInputs, RecipeInfo<? extends BasicRecipe> recipeInfo, int inputSize, int associatedInputSize, Predicate<ItemStack> isEmptyFunction, Predicate<FluidStack> associatedIsEmptyFunction, Predicate<ItemStack> isEqualFunction, Function<BasicRecipe, List<SizedIngredient>> ingredientsFunction, Function<BasicRecipe, List<SizedFluidIngredient>> associatedIngredientsFunction) {
         List<ItemStack> otherInputs = inputsExcludingIndex(inputs, index);
         if ((otherInputs.stream().allMatch(isEmptyFunction) && associatedInputs.stream().allMatch(associatedIsEmptyFunction)) || isEqualFunction.test(inputs.get(index))) {
             return isValidInput(stack, ingredientsFunction);
@@ -459,7 +459,7 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
         }
     }
 
-    public boolean isValidFluidInput(FluidStack stack, int index, List<FluidStack> inputs, List<ItemStack> associatedInputs, RecipeInfo<BasicRecipe> recipeInfo, int inputSize, int associatedInputSize, Predicate<FluidStack> isEmptyFunction, Predicate<ItemStack> associatedIsEmptyFunction, Predicate<FluidStack> isEqualFunction, Function<BasicRecipe, List<SizedFluidIngredient>> ingredientsFunction, Function<BasicRecipe, List<SizedIngredient>> associatedIngredientsFunction) {
+    public boolean isValidFluidInput(FluidStack stack, int index, List<FluidStack> inputs, List<ItemStack> associatedInputs, RecipeInfo<? extends BasicRecipe> recipeInfo, int inputSize, int associatedInputSize, Predicate<FluidStack> isEmptyFunction, Predicate<ItemStack> associatedIsEmptyFunction, Predicate<FluidStack> isEqualFunction, Function<BasicRecipe, List<SizedFluidIngredient>> ingredientsFunction, Function<BasicRecipe, List<SizedIngredient>> associatedIngredientsFunction) {
         List<FluidStack> otherInputs = inputsExcludingIndex(inputs, index);
         if ((otherInputs.stream().allMatch(isEmptyFunction) && associatedInputs.stream().allMatch(associatedIsEmptyFunction)) || isEqualFunction.test(inputs.get(index))) {
             return isValidInput(stack, ingredientsFunction);
@@ -511,11 +511,11 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
     }
 
 
-    public boolean isValidItemInput(ItemStack stack, int slot, List<ItemStack> itemInputs, List<Tank> fluidInputs, RecipeInfo<BasicRecipe> recipeInfo) {
+    public boolean isValidItemInput(ItemStack stack, int slot, List<ItemStack> itemInputs, List<Tank> fluidInputs, RecipeInfo<? extends BasicRecipe> recipeInfo) {
         return isValidItemInput(stack, slot, itemInputs, StreamHelper.map(fluidInputs, Tank::getFluid), recipeInfo, itemInputSize, fluidInputSize, ItemStack::isEmpty, x -> x == null || x.getAmount() <= 0, x -> ItemStack.isSameItemSameComponents(stack, x), BasicRecipe::getItemIngredients, BasicRecipe::getFluidIngredients);
     }
 
-    public boolean isValidFluidInput(FluidStack stack, int tankNumber, List<Tank> fluidInputs, List<ItemStack> itemInputs, RecipeInfo<BasicRecipe> recipeInfo) {
+    public boolean isValidFluidInput(FluidStack stack, int tankNumber, List<Tank> fluidInputs, List<ItemStack> itemInputs, @Nullable RecipeInfo<? extends BasicRecipe> recipeInfo) {
         return isValidFluidInput(stack, tankNumber, StreamHelper.map(fluidInputs, Tank::getFluid), itemInputs, recipeInfo, fluidInputSize, itemInputSize, x -> x == null || x.getAmount() <= 0, ItemStack::isEmpty, stack == null ? Objects::isNull : x -> (FluidStack.isSameFluidSameComponents(stack, x)), BasicRecipe::getFluidIngredients, BasicRecipe::getItemIngredients);
     }
 

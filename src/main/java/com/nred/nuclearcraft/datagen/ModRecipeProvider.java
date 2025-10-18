@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,17 +28,18 @@ import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
+import org.antlr.v4.runtime.misc.Triple;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.cLoc;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
-import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_MAP;
-import static com.nred.nuclearcraft.registration.FluidRegistration.GAS_MAP;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 
@@ -92,6 +94,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         solar_panels(recipeOutput);
         fuels(recipeOutput);
         turbine(recipeOutput);
+        fission(recipeOutput);
 
         new AlloyFurnaceRecipeProvider(recipeOutput);
         new CentrifugeProvider(recipeOutput);
@@ -553,7 +556,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_redstone_port"), 1).pattern("HRH").pattern("TST").pattern("HRH")
                 .define('T', Items.REDSTONE_TORCH).define('R', Items.REDSTONE).define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
-        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_computer_port"), 4).pattern("HRH").pattern("CSC").pattern("HWH")
+        ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_computer_port"), 1).pattern("HRH").pattern("CSC").pattern("HWH")
                 .define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
 
@@ -592,6 +595,140 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
     }
 
+    private void fission(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), 1).pattern("PTP").pattern("HSH").pattern("PTP")
+                .define('P', PART_MAP.get("advanced_plating")).define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hard_carbon")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), 1).pattern("PZP").pattern("ESE").pattern("PZP")
+                .define('P', PART_MAP.get("advanced_plating")).define('Z', ALLOY_MAP.get("zirconium_molybdenum")).define('E', ALLOY_MAP.get("extreme")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_casing"), 8).pattern(" P ").pattern("PSP").pattern(" P ")
+                .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("fission_casing"), 1).requires(FISSION_REACTOR_MAP.get("fission_glass"))
+                .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("fission_glass")), has(FISSION_REACTOR_MAP.get("fission_glass"))).save(recipeOutput, MODID + ":fission_casing_from_fission_glass");
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("fission_glass"), 1).requires(FISSION_REACTOR_MAP.get("fission_casing")).requires(Tags.Items.GLASS_BLOCKS)
+                .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("fission_casing")), has(FISSION_REACTOR_MAP.get("fission_casing"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_vent"), 4).pattern("PTP").pattern("MSM").pattern("PTP")
+                .define('P', PART_MAP.get("basic_plating")).define('M', PART_MAP.get("servomechanism")).define('T', ALLOY_MAP.get("tough")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("fission_conductor"), 1).requires(FISSION_REACTOR_MAP.get("fission_casing"))
+                .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("fission_casing")), has(FISSION_REACTOR_MAP.get("fission_casing"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("boron_silver_shield"), 4).pattern("PBP").pattern("ISI").pattern("PBP")
+                .define('P', PART_MAP.get("basic_plating")).define('I', tag(Tags.Items.INGOTS, "silver")).define('B', tag(Tags.Items.INGOTS, "boron")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("radium_beryllium_source"), 2).pattern("PRP").pattern("BSB").pattern("PRP")
+                .define('P', PART_MAP.get("basic_plating")).define('R', FISSION_DUST_MAP.get("radium")).define('B', tag(Tags.Items.DUSTS, "beryllium")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("polonium_beryllium_source"), 2).pattern("POP").pattern("BSB").pattern("POP")
+                .define('P', PART_MAP.get("basic_plating")).define('O', FISSION_DUST_MAP.get("polonium")).define('B', tag(Tags.Items.DUSTS, "beryllium")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("californium_source"), 2).pattern("PCP").pattern("CSC").pattern("PCP")
+                .define('P', PART_MAP.get("basic_plating")).define('C', ingredient(CALIFORNIUM_MAP, List.of("252", "252_c", "252_ni", "252_ox", "252_za"))).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"), 2).pattern("BGB").pattern("GSG").pattern("BGB")
+                .define('G', tag(Tags.Items.INGOTS, "graphite")).define('B', tag(Tags.Items.INGOTS, "beryllium")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("lead_steel_reflector"), 2).pattern("LTL").pattern("TST").pattern("LTL")
+                .define('L', tag(Tags.Items.INGOTS, "lead")).define('T', tag(Tags.Items.INGOTS, "steel")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_fuel_cell"), 4).pattern("PTP").pattern("ZSZ").pattern("PTP")
+                .define('P', PART_MAP.get("advanced_plating")).define('T', ALLOY_MAP.get("tough")).define('Z', ALLOY_MAP.get("zircaloy")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_fuel_cell_port"), 4).pattern("PHP").pattern("ZSZ").pattern("PHP")
+                .define('P', PART_MAP.get("advanced_plating")).define('Z', ALLOY_MAP.get("zircaloy")).define('H', Items.HOPPER).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_irradiator"), 4).pattern("PZP").pattern("ASA").pattern("PZP")
+                .define('P', PART_MAP.get("basic_plating")).define('Z', tag(Tags.Items.INGOTS, "zirconium")).define('A', ALLOY_MAP.get("zircaloy")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_irradiator_port"), 4).pattern("PHP").pattern("ZSZ").pattern("PHP")
+                .define('P', PART_MAP.get("basic_plating")).define('Z', tag(Tags.Items.INGOTS, "zirconium")).define('H', Items.HOPPER).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_fuel_vessel"), 4).pattern("PMP").pattern("ZSZ").pattern("PMP")
+                .define('P', PART_MAP.get("elite_plating")).define('Z', ALLOY_MAP.get("zircaloy")).define('M', ALLOY_MAP.get("zirconium_molybdenum")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_fuel_vessel_port"), 4).pattern("PMP").pattern("ZSZ").pattern("PMP")
+                .define('P', PART_MAP.get("elite_plating")).define('Z', ALLOY_MAP.get("zircaloy")).define('M', PART_MAP.get("servomechanism")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("water_fission_heat_sink"), 1).requires(PART_BLOCK_MAP.get("empty_heat_sink")).requires(Tags.Items.BUCKETS_WATER)
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_heat_sink")), has(PART_BLOCK_MAP.get("empty_heat_sink"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 8).pattern("PEP").pattern("TST").pattern("PEP")
+                .define('P', PART_MAP.get("elite_plating")).define('E', ALLOY_MAP.get("extreme")).define('T', ALLOY_MAP.get("thermoconducting")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"), 4).pattern("PMP").pattern("TST").pattern("PMP")
+                .define('P', PART_MAP.get("elite_plating")).define('M', PART_MAP.get("servomechanism")).define('T', ALLOY_MAP.get("thermoconducting")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        for (Tuple<String, TagKey<Item>> tuple : List.of(new Tuple<>("iron", Tags.Items.INGOTS_IRON), new Tuple<>("gold", Tags.Items.INGOTS_GOLD), new Tuple<>("prismarine", Tags.Items.GEMS_PRISMARINE), new Tuple<>("diamond", Tags.Items.GEMS_DIAMOND), new Tuple<>("emerald", Tags.Items.GEMS_EMERALD), new Tuple<>("copper", Tags.Items.INGOTS_COPPER), new Tuple<>("tin", tag(Tags.Items.INGOTS, "tin")), new Tuple<>("lead", tag(Tags.Items.INGOTS, "lead")), new Tuple<>("boron", tag(Tags.Items.INGOTS, "boron")), new Tuple<>("lithium", tag(Tags.Items.INGOTS, "lithium")), new Tuple<>("magnesium", tag(Tags.Items.INGOTS, "magnesium")), new Tuple<>("manganese", tag(Tags.Items.INGOTS, "manganese")), new Tuple<>("aluminum", tag(Tags.Items.INGOTS, "aluminum")), new Tuple<>("silver", tag(Tags.Items.INGOTS, "silver")))) {
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(tuple.getA() + "_fission_heat_sink"), 1).pattern(" N ").pattern("NSN").pattern(" N ")
+                    .define('N', tuple.getB()).define('S', PART_BLOCK_MAP.get("empty_heat_sink"))
+                    .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_heat_sink")), has(PART_BLOCK_MAP.get("empty_heat_sink"))).save(recipeOutput);
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(tuple.getA() + "_fission_coolant_heater"), 1).pattern(" N ").pattern("NHN").pattern(" N ")
+                    .define('N', tuple.getB()).define('H', FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))
+                    .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))).save(recipeOutput);
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(tuple.getA() + "_fission_coolant_heater_port"), 1).pattern(" N ").pattern("NPN").pattern(" N ")
+                    .define('N', tuple.getB()).define('P', FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))
+                    .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))).save(recipeOutput);
+        }
+        for (Tuple<String, TagKey<Item>> tuple : List.of(new Tuple<>("redstone", Tags.Items.DUSTS_REDSTONE), new Tuple<>("quartz", Tags.Items.GEMS_QUARTZ), new Tuple<>("glowstone", Tags.Items.DUSTS_GLOWSTONE), new Tuple<>("lapis", Tags.Items.GEMS_LAPIS), new Tuple<>("slime", Tags.Items.SLIME_BALLS), new Tuple<>("fluorite", tag(Tags.Items.GEMS, "fluorite")), new Tuple<>("villiaumite", tag(Tags.Items.GEMS, "villiaumite")), new Tuple<>("carobbiite", tag(Tags.Items.GEMS, "carobbiite")), new Tuple<>("arsenic", tag(Tags.Items.DUSTS, "arsenic")))) {
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(tuple.getA() + "_fission_heat_sink"), 1).pattern("NNN").pattern("NSN").pattern("NNN")
+                    .define('N', tuple.getB()).define('S', PART_BLOCK_MAP.get("empty_heat_sink"))
+                    .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_heat_sink")), has(PART_BLOCK_MAP.get("empty_heat_sink"))).save(recipeOutput);
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(tuple.getA() + "_fission_coolant_heater"), 1).pattern("NNN").pattern("NHN").pattern("NNN")
+                    .define('N', tuple.getB()).define('H', FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))
+                    .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))).save(recipeOutput);
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(tuple.getA() + "_fission_coolant_heater_port"), 1).pattern("NNN").pattern("NPN").pattern("NNN")
+                    .define('N', tuple.getB()).define('P', FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))
+                    .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))).save(recipeOutput);
+        }
+        for (Triple<String, Item, TagKey<Item>> triple : List.of(new Triple<>("obsidian", Items.OBSIDIAN, tag(Tags.Items.DUSTS, "obsidian")), new Triple<>("end_stone", Items.END_STONE, tag(Tags.Items.DUSTS, "end_stone")))) {
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(triple.a + "_fission_heat_sink"), 1).pattern("DBD").pattern("BSB").pattern("DBD")
+                    .define('B', triple.b).define('D', triple.c).define('S', PART_BLOCK_MAP.get("empty_heat_sink"))
+                    .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_heat_sink")), has(PART_BLOCK_MAP.get("empty_heat_sink"))).save(recipeOutput);
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(triple.a + "_fission_coolant_heater"), 1).pattern("DBD").pattern("BHB").pattern("DBD")
+                    .define('B', triple.b).define('D', triple.c).define('H', FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))
+                    .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))).save(recipeOutput);
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(triple.a + "_fission_coolant_heater_port"), 1).pattern("DBD").pattern("BPB").pattern("DBD")
+                    .define('B', triple.b).define('D', triple.c).define('P', FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))
+                    .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))).save(recipeOutput);
+        }
+        for (Triple<String, Item, Item> triple : List.of(new Triple<>("nether_brick", Items.NETHER_BRICKS, Items.NETHER_BRICK), new Triple<>("purpur", Items.PURPUR_BLOCK, Items.POPPED_CHORUS_FRUIT))) {
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(triple.a + "_fission_heat_sink"), 1).pattern("DBD").pattern("BSB").pattern("DBD")
+                    .define('B', triple.b).define('D', triple.c).define('S', PART_BLOCK_MAP.get("empty_heat_sink"))
+                    .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_heat_sink")), has(PART_BLOCK_MAP.get("empty_heat_sink"))).save(recipeOutput);
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(triple.a + "_fission_coolant_heater"), 1).pattern("DBD").pattern("BHB").pattern("DBD")
+                    .define('B', triple.b).define('D', triple.c).define('H', FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))
+                    .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))).save(recipeOutput);
+            ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get(triple.a + "_fission_coolant_heater_port"), 1).pattern("DBD").pattern("BPB").pattern("DBD")
+                    .define('B', triple.b).define('D', triple.c).define('P', FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))
+                    .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))).save(recipeOutput);
+        }
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_heat_sink"), 1).requires(PART_BLOCK_MAP.get("empty_heat_sink")).requires(CUSTOM_FLUID_MAP.get("liquid_nitrogen").bucket)
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_heat_sink")), has(PART_BLOCK_MAP.get("empty_heat_sink"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("liquid_helium_fission_heat_sink"), 1).requires(PART_BLOCK_MAP.get("empty_heat_sink")).requires(CUSTOM_FLUID_MAP.get("liquid_helium").bucket)
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_heat_sink")), has(PART_BLOCK_MAP.get("empty_heat_sink"))).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_coolant_heater"), 1).requires(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater")).requires(CUSTOM_FLUID_MAP.get("liquid_nitrogen").bucket)
+                .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("liquid_helium_fission_coolant_heater"), 1).requires(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater")).requires(CUSTOM_FLUID_MAP.get("liquid_helium").bucket)
+                .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"))).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_coolant_heater_port"), 1).requires(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port")).requires(CUSTOM_FLUID_MAP.get("liquid_nitrogen").bucket)
+                .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get("liquid_helium_fission_coolant_heater_port"), 1).requires(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port")).requires(CUSTOM_FLUID_MAP.get("liquid_helium").bucket)
+                .unlockedBy(getHasName(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port")), has(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_computer_port"), 1).pattern("PRP").pattern("CSC").pattern("PWP")
+                .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+    }
+
 
     private void foods(RecipeOutput recipeOutput) {
         ShapedRecipeBuilder.shaped(FOOD, FOOD_MAP.get("dominos"), 4).pattern("BBB").pattern("PSC").pattern("MUU")
@@ -625,5 +762,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private Ingredient ingredient(TagKey<Item> tag, String name) {
         return Ingredient.of(ItemTags.create(tag.location().withSuffix("/" + name)));
+    }
+
+    private Ingredient ingredient(Map<String, DeferredItem<Item>> map, List<String> names) {
+        return Ingredient.of(names.stream().map(name -> map.get(name).toStack()));
     }
 }

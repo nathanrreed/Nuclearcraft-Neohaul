@@ -15,16 +15,15 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.EMI_SALT_COOLING_CATEGORY;
-import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
 
 public class EmiSaltCoolingRecipe extends RecipeViewerRecipe {
     private final FissionCoolantHeaterRecipe recipe;
 
-    public EmiSaltCoolingRecipe(ResourceLocation id,EmiIngredient fluidInput, EmiIngredient fluidResult, FissionCoolantHeaterRecipe recipe) {
+    public EmiSaltCoolingRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, FissionCoolantHeaterRecipe recipe) {
         super(EMI_SALT_COOLING_CATEGORY, id, 0, 0);
         this.recipe = recipe;
 
-        this.inputs.add(EmiStack.of(FISSION_REACTOR_MAP.get(recipe.getCoolantHeaterPlacementRule()))); // TODO should this be changed?
+        this.inputs.add(EmiStack.of(recipe.getHeater()));
         this.inputs.add(fluidInput);
         this.outputs.addAll(fluidResult.getEmiStacks());
     }

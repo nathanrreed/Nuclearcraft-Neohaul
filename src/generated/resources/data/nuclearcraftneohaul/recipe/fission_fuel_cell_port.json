@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "Z": {
+      "item": "nuclearcraftneohaul:zircaloy_alloy"
+    }
+  },
+  "pattern": [
+    "PHP",
+    "ZSZ",
+    "PHP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:fission_fuel_cell_port"
+  }
+}

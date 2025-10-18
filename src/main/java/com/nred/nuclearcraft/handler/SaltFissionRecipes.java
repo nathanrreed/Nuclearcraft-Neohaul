@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.handler;
 
-public class SaltFissionRecipes extends BasicRecipeHandler {
+import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
+
+public class SaltFissionRecipes extends BasicRecipeHandler<SaltFissionRecipe> {
 
     public SaltFissionRecipes() {
         super("salt_fission", 0, 1, 0, 1);

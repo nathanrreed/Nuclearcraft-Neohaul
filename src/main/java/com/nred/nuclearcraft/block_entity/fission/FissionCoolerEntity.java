@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.block.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCoolerPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.IFissionPortTarget;
@@ -11,7 +12,6 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
-import com.nred.nuclearcraft.block.processor.IBasicProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
@@ -22,6 +22,7 @@ import com.nred.nuclearcraft.payload.multiblock.FissionCoolerUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
+import com.nred.nuclearcraft.recipe.fission.FissionEmergencyCoolingRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -36,14 +37,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
@@ -76,7 +76,7 @@ public class FissionCoolerEntity extends AbstractFissionEntity implements IBasic
     public boolean isProcessing, canProcessInputs;
     public boolean isRunningSimulated;
 
-    protected RecipeInfo<BasicRecipe> recipeInfo = null;
+    protected RecipeInfo<FissionEmergencyCoolingRecipe> recipeInfo = null;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>(); // TODO Merge into parent?
 
@@ -94,7 +94,7 @@ public class FissionCoolerEntity extends AbstractFissionEntity implements IBasic
 
         inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
 
-        Set<ResourceKey<Fluid>> validFluids = (Set<ResourceKey<Fluid>>) NCRecipes.fission_emergency_cooling.validFluids.get(0);
+        Set<ResourceLocation> validFluids = NCRecipes.fission_emergency_cooling.validFluids.get(0);
         tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
 
         filterTanks = Lists.newArrayList(new Tank(1000, validFluids), new Tank(1000, new ObjectOpenHashSet<>()));
@@ -293,18 +293,18 @@ public class FissionCoolerEntity extends AbstractFissionEntity implements IBasic
     }
 
     @Override
-    public BasicRecipeHandler<?> getRecipeHandler() { //TODO
+    public BasicRecipeHandler<FissionEmergencyCoolingRecipe> getRecipeHandler() {
         return NCRecipes.fission_emergency_cooling;
     }
 
     @Override
-    public RecipeInfo<BasicRecipe> getRecipeInfo() {
+    public RecipeInfo<FissionEmergencyCoolingRecipe> getRecipeInfo() {
         return recipeInfo;
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<BasicRecipe> recipeInfo) {
-        this.recipeInfo = recipeInfo;
+    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
+        this.recipeInfo = (RecipeInfo<FissionEmergencyCoolingRecipe>) recipeInfo;
     }
 
     @Override

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "c:ingots/copper"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater_port"
+    }
+  },
+  "pattern": [
+    " N ",
+    "NPN",
+    " N "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:copper_fission_coolant_heater_port"
+  }
+}

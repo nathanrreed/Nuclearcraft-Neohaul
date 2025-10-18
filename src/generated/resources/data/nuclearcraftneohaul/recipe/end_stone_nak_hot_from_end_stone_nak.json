@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:end_stone_nak_hot"
   },
-  "heatPerInputMB": 110
+  "heatPerInputMB": 65,
+  "isCoolant": true
 }

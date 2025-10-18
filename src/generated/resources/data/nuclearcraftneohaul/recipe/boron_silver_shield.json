@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/boron"
+    },
+    "I": {
+      "tag": "c:ingots/silver"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "ISI",
+    "PBP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:boron_silver_shield"
+  }
+}

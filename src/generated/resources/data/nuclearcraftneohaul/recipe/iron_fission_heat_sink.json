@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "c:ingots/iron"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:empty_heat_sink"
+    }
+  },
+  "pattern": [
+    " N ",
+    "NSN",
+    " N "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:iron_fission_heat_sink"
+  }
+}

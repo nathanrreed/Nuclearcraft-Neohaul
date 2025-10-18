@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import java.util.function.Function;
 
 public enum FissionReflectorType implements StringRepresentable, IMultiblockVariant {
-    BERYLLIUM_CARBON("beryllium_carbon", 0.5D, 0.25D),
-    LEAD_STEEL("lead_steel", 1D, 0.5D);
+    BERYLLIUM_CARBON("beryllium_carbon", 0.5D, 1D),
+    LEAD_STEEL("lead_steel", 0.25D, 0.5D);
 
     private final String name;
     private final double efficiency;

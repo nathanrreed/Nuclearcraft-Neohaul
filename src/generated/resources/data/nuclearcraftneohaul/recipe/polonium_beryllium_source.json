@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:dusts/beryllium"
+    },
+    "O": {
+      "item": "nuclearcraftneohaul:polonium_dust"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    }
+  },
+  "pattern": [
+    "POP",
+    "BSB",
+    "POP"
+  ],
+  "result": {
+    "count": 2,
+    "id": "nuclearcraftneohaul:polonium_beryllium_source"
+  }
+}

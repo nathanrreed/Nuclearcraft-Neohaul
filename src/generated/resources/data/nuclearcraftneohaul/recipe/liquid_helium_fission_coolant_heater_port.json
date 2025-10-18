@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater_port"
+    },
+    {
+      "item": "nuclearcraftneohaul:liquid_helium_bucket"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:liquid_helium_fission_coolant_heater_port"
+  }
+}

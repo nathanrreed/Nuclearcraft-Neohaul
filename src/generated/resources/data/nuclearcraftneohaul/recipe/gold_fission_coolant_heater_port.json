@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "tag": "c:ingots/gold"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:standard_fission_coolant_heater_port"
+    }
+  },
+  "pattern": [
+    " N ",
+    "NPN",
+    " N "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:gold_fission_coolant_heater_port"
+  }
+}

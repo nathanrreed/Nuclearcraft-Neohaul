@@ -8,7 +8,6 @@ import com.nred.nuclearcraft.multiblock.PlacementRule.CountType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.PlacementMap;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.StringHelper;
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -35,7 +34,7 @@ public abstract class FissionPlacement {
     /**
      * Map of all placement rule IDs to unparsed rule strings, used for ordered iterations.
      */
-    public static final Object2ObjectMap<String, String> RULE_MAP_RAW = new Object2ObjectArrayMap<>();
+//    public static final Object2ObjectMap<String, String> RULE_MAP_RAW = new Object2ObjectArrayMap<>();
 
     /**
      * Map of all defined placement rules.
@@ -65,75 +64,75 @@ public abstract class FissionPlacement {
 
         RULE_MAP.put("", new PlacementRule.Or<>(new ArrayList<>()));
 
-        addRule("water_sink", fission_sink_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("water_sink"), 1));
-        addRule("iron_sink", fission_sink_rule[1], new ItemStack(FISSION_REACTOR_MAP.get("iron_sink"), 1));
-        addRule("redstone_sink", fission_sink_rule[2], new ItemStack(FISSION_REACTOR_MAP.get("redstone_sink"), 1));
-        addRule("quartz_sink", fission_sink_rule[3], new ItemStack(FISSION_REACTOR_MAP.get("quartz_sink"), 1));
-        addRule("obsidian_sink", fission_sink_rule[4], new ItemStack(FISSION_REACTOR_MAP.get("obsidian_sink"), 1));
-        addRule("nether_brick_sink", fission_sink_rule[5], new ItemStack(FISSION_REACTOR_MAP.get("nether_brick_sink"), 1));
-        addRule("glowstone_sink", fission_sink_rule[6], new ItemStack(FISSION_REACTOR_MAP.get("glowstone_sink"), 1));
-        addRule("lapis_sink", fission_sink_rule[7], new ItemStack(FISSION_REACTOR_MAP.get("lapis_sink"), 1));
-        addRule("gold_sink", fission_sink_rule[8], new ItemStack(FISSION_REACTOR_MAP.get("gold_sink"), 1));
-        addRule("prismarine_sink", fission_sink_rule[9], new ItemStack(FISSION_REACTOR_MAP.get("prismarine_sink"), 1));
-        addRule("slime_sink", fission_sink_rule[10], new ItemStack(FISSION_REACTOR_MAP.get("slime_sink"), 1));
-        addRule("end_stone_sink", fission_sink_rule[11], new ItemStack(FISSION_REACTOR_MAP.get("end_stone_sink"), 1));
-        addRule("purpur_sink", fission_sink_rule[12], new ItemStack(FISSION_REACTOR_MAP.get("purpur_sink"), 1));
-        addRule("diamond_sink", fission_sink_rule[13], new ItemStack(FISSION_REACTOR_MAP.get("diamond_sink"), 1));
-        addRule("emerald_sink", fission_sink_rule[14], new ItemStack(FISSION_REACTOR_MAP.get("emerald_sink"), 1));
-        addRule("copper_sink", fission_sink_rule[15], new ItemStack(FISSION_REACTOR_MAP.get("copper_sink"), 1));
-        addRule("tin_sink", fission_sink_rule[16], new ItemStack(FISSION_REACTOR_MAP.get("tin_sink"), 1));
-        addRule("lead_sink", fission_sink_rule[17], new ItemStack(FISSION_REACTOR_MAP.get("lead_sink"), 1));
-        addRule("boron_sink", fission_sink_rule[18], new ItemStack(FISSION_REACTOR_MAP.get("boron_sink"), 1));
-        addRule("lithium_sink", fission_sink_rule[19], new ItemStack(FISSION_REACTOR_MAP.get("lithium_sink"), 1));
-        addRule("magnesium_sink", fission_sink_rule[20], new ItemStack(FISSION_REACTOR_MAP.get("magnesium_sink"), 1));
-        addRule("manganese_sink", fission_sink_rule[21], new ItemStack(FISSION_REACTOR_MAP.get("manganese_sink"), 1));
-        addRule("aluminum_sink", fission_sink_rule[22], new ItemStack(FISSION_REACTOR_MAP.get("aluminum_sink"), 1));
-        addRule("silver_sink", fission_sink_rule[23], new ItemStack(FISSION_REACTOR_MAP.get("silver_sink"), 1));
-        addRule("fluorite_sink", fission_sink_rule[24], new ItemStack(FISSION_REACTOR_MAP.get("fluorite_sink"), 1));
-        addRule("villiaumite_sink", fission_sink_rule[25], new ItemStack(FISSION_REACTOR_MAP.get("villiaumite_sink"), 1));
-        addRule("carobbiite_sink", fission_sink_rule[26], new ItemStack(FISSION_REACTOR_MAP.get("carobbiite_sink"), 1));
-        addRule("arsenic_sink", fission_sink_rule[27], new ItemStack(FISSION_REACTOR_MAP.get("arsenic_sink"), 1));
-        addRule("liquid_nitrogen_sink", fission_sink_rule[28], new ItemStack(FISSION_REACTOR_MAP.get("liquid_nitrogen_sink"), 1));
-        addRule("liquid_helium_sink", fission_sink_rule[29], new ItemStack(FISSION_REACTOR_MAP.get("liquid_helium_sink"), 1));
-        addRule("enderium_sink", fission_sink_rule[30], new ItemStack(FISSION_REACTOR_MAP.get("enderium_sink"), 1));
-        addRule("cryotheum_sink", fission_sink_rule[31], new ItemStack(FISSION_REACTOR_MAP.get("cryotheum_sink"), 1));
+        addRule("water_fission_heat_sink", fission_sink_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("water_fission_heat_sink"), 1));
+        addRule("iron_sink", fission_sink_rule[1], new ItemStack(FISSION_REACTOR_MAP.get("iron_fission_heat_sink"), 1));
+        addRule("redstone_sink", fission_sink_rule[2], new ItemStack(FISSION_REACTOR_MAP.get("redstone_fission_heat_sink"), 1));
+        addRule("quartz_sink", fission_sink_rule[3], new ItemStack(FISSION_REACTOR_MAP.get("quartz_fission_heat_sink"), 1));
+        addRule("obsidian_sink", fission_sink_rule[4], new ItemStack(FISSION_REACTOR_MAP.get("obsidian_fission_heat_sink"), 1));
+        addRule("nether_brick_sink", fission_sink_rule[5], new ItemStack(FISSION_REACTOR_MAP.get("nether_brick_fission_heat_sink"), 1));
+        addRule("glowstone_sink", fission_sink_rule[6], new ItemStack(FISSION_REACTOR_MAP.get("glowstone_fission_heat_sink"), 1));
+        addRule("lapis_sink", fission_sink_rule[7], new ItemStack(FISSION_REACTOR_MAP.get("lapis_fission_heat_sink"), 1));
+        addRule("gold_sink", fission_sink_rule[8], new ItemStack(FISSION_REACTOR_MAP.get("gold_fission_heat_sink"), 1));
+        addRule("prismarine_sink", fission_sink_rule[9], new ItemStack(FISSION_REACTOR_MAP.get("prismarine_fission_heat_sink"), 1));
+        addRule("slime_sink", fission_sink_rule[10], new ItemStack(FISSION_REACTOR_MAP.get("slime_fission_heat_sink"), 1));
+        addRule("end_stone_sink", fission_sink_rule[11], new ItemStack(FISSION_REACTOR_MAP.get("end_stone_fission_heat_sink"), 1));
+        addRule("purpur_sink", fission_sink_rule[12], new ItemStack(FISSION_REACTOR_MAP.get("purpur_fission_heat_sink"), 1));
+        addRule("diamond_sink", fission_sink_rule[13], new ItemStack(FISSION_REACTOR_MAP.get("diamond_fission_heat_sink"), 1));
+        addRule("emerald_sink", fission_sink_rule[14], new ItemStack(FISSION_REACTOR_MAP.get("emerald_fission_heat_sink"), 1));
+        addRule("copper_sink", fission_sink_rule[15], new ItemStack(FISSION_REACTOR_MAP.get("copper_fission_heat_sink"), 1));
+        addRule("tin_sink", fission_sink_rule[16], new ItemStack(FISSION_REACTOR_MAP.get("tin_fission_heat_sink"), 1));
+        addRule("lead_sink", fission_sink_rule[17], new ItemStack(FISSION_REACTOR_MAP.get("lead_fission_heat_sink"), 1));
+        addRule("boron_sink", fission_sink_rule[18], new ItemStack(FISSION_REACTOR_MAP.get("boron_fission_heat_sink"), 1));
+        addRule("lithium_sink", fission_sink_rule[19], new ItemStack(FISSION_REACTOR_MAP.get("lithium_fission_heat_sink"), 1));
+        addRule("magnesium_sink", fission_sink_rule[20], new ItemStack(FISSION_REACTOR_MAP.get("magnesium_fission_heat_sink"), 1));
+        addRule("manganese_sink", fission_sink_rule[21], new ItemStack(FISSION_REACTOR_MAP.get("manganese_fission_heat_sink"), 1));
+        addRule("aluminum_sink", fission_sink_rule[22], new ItemStack(FISSION_REACTOR_MAP.get("aluminum_fission_heat_sink"), 1));
+        addRule("silver_sink", fission_sink_rule[23], new ItemStack(FISSION_REACTOR_MAP.get("silver_fission_heat_sink"), 1));
+        addRule("fluorite_sink", fission_sink_rule[24], new ItemStack(FISSION_REACTOR_MAP.get("fluorite_fission_heat_sink"), 1));
+        addRule("villiaumite_sink", fission_sink_rule[25], new ItemStack(FISSION_REACTOR_MAP.get("villiaumite_fission_heat_sink"), 1));
+        addRule("carobbiite_sink", fission_sink_rule[26], new ItemStack(FISSION_REACTOR_MAP.get("carobbiite_fission_heat_sink"), 1));
+        addRule("arsenic_sink", fission_sink_rule[27], new ItemStack(FISSION_REACTOR_MAP.get("arsenic_fission_heat_sink"), 1));
+        addRule("liquid_nitrogen_sink", fission_sink_rule[28], new ItemStack(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_heat_sink"), 1));
+        addRule("liquid_helium_sink", fission_sink_rule[29], new ItemStack(FISSION_REACTOR_MAP.get("liquid_helium_fission_heat_sink"), 1));
+        addRule("enderium_sink", fission_sink_rule[30], new ItemStack(FISSION_REACTOR_MAP.get("enderium_fission_heat_sink"), 1));
+        addRule("cryotheum_sink", fission_sink_rule[31], new ItemStack(FISSION_REACTOR_MAP.get("cryotheum_fission_heat_sink"), 1));
 
-        addRule("standard_heater", fission_heater_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("standard_heater"), 1));
-        addRule("iron_heater", fission_heater_rule[1], new ItemStack(FISSION_REACTOR_MAP.get("iron_heater"), 1));
-        addRule("redstone_heater", fission_heater_rule[2], new ItemStack(FISSION_REACTOR_MAP.get("redstone_heater"), 1));
-        addRule("quartz_heater", fission_heater_rule[3], new ItemStack(FISSION_REACTOR_MAP.get("quartz_heater"), 1));
-        addRule("obsidian_heater", fission_heater_rule[4], new ItemStack(FISSION_REACTOR_MAP.get("obsidian_heater"), 1));
-        addRule("nether_brick_heater", fission_heater_rule[5], new ItemStack(FISSION_REACTOR_MAP.get("nether_brick_heater"), 1));
-        addRule("glowstone_heater", fission_heater_rule[6], new ItemStack(FISSION_REACTOR_MAP.get("glowstone_heater"), 1));
-        addRule("lapis_heater", fission_heater_rule[7], new ItemStack(FISSION_REACTOR_MAP.get("lapis_heater"), 1));
-        addRule("gold_heater", fission_heater_rule[8], new ItemStack(FISSION_REACTOR_MAP.get("gold_heater"), 1));
-        addRule("prismarine_heater", fission_heater_rule[9], new ItemStack(FISSION_REACTOR_MAP.get("prismarine_heater"), 1));
-        addRule("slime_heater", fission_heater_rule[10], new ItemStack(FISSION_REACTOR_MAP.get("slime_heater"), 1));
-        addRule("end_stone_heater", fission_heater_rule[11], new ItemStack(FISSION_REACTOR_MAP.get("end_stone_heater"), 1));
-        addRule("purpur_heater", fission_heater_rule[12], new ItemStack(FISSION_REACTOR_MAP.get("purpur_heater"), 1));
-        addRule("diamond_heater", fission_heater_rule[13], new ItemStack(FISSION_REACTOR_MAP.get("diamond_heater"), 1));
-        addRule("emerald_heater", fission_heater_rule[14], new ItemStack(FISSION_REACTOR_MAP.get("emerald_heater"), 1));
-        addRule("copper_heater", fission_heater_rule[15], new ItemStack(FISSION_REACTOR_MAP.get("copper_heater"), 1));
-        addRule("tin_heater", fission_heater_rule[16], new ItemStack(FISSION_REACTOR_MAP.get("tin_heater"), 1));
-        addRule("lead_heater", fission_heater_rule[17], new ItemStack(FISSION_REACTOR_MAP.get("lead_heater"), 1));
-        addRule("boron_heater", fission_heater_rule[18], new ItemStack(FISSION_REACTOR_MAP.get("boron_heater"), 1));
-        addRule("lithium_heater", fission_heater_rule[19], new ItemStack(FISSION_REACTOR_MAP.get("lithium_heater"), 1));
-        addRule("magnesium_heater", fission_heater_rule[20], new ItemStack(FISSION_REACTOR_MAP.get("magnesium_heater"), 1));
-        addRule("manganese_heater", fission_heater_rule[21], new ItemStack(FISSION_REACTOR_MAP.get("manganese_heater"), 1));
-        addRule("aluminum_heater", fission_heater_rule[22], new ItemStack(FISSION_REACTOR_MAP.get("aluminum_heater"), 1));
-        addRule("silver_heater", fission_heater_rule[23], new ItemStack(FISSION_REACTOR_MAP.get("silver_heater"), 1));
-        addRule("fluorite_heater", fission_heater_rule[24], new ItemStack(FISSION_REACTOR_MAP.get("fluorite_heater"), 1));
-        addRule("villiaumite_heater", fission_heater_rule[25], new ItemStack(FISSION_REACTOR_MAP.get("villiaumite_heater"), 1));
-        addRule("carobbiite_heater", fission_heater_rule[26], new ItemStack(FISSION_REACTOR_MAP.get("carobbiite_heater"), 1));
-        addRule("arsenic_heater", fission_heater_rule[27], new ItemStack(FISSION_REACTOR_MAP.get("arsenic_heater"), 1));
-        addRule("liquid_nitrogen_heater", fission_heater_rule[28], new ItemStack(FISSION_REACTOR_MAP.get("liquid_nitrogen_heater"), 1));
-        addRule("liquid_helium_heater", fission_heater_rule[29], new ItemStack(FISSION_REACTOR_MAP.get("liquid_helium_heater"), 1));
-        addRule("enderium_heater", fission_heater_rule[30], new ItemStack(FISSION_REACTOR_MAP.get("enderium_heater"), 1));
-        addRule("cryotheum_heater", fission_heater_rule[31], new ItemStack(FISSION_REACTOR_MAP.get("cryotheum_heater"), 1));
+        addRule("standard_heater", fission_heater_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1));
+        addRule("iron_heater", fission_heater_rule[1], new ItemStack(FISSION_REACTOR_MAP.get("iron_fission_coolant_heater"), 1));
+        addRule("redstone_heater", fission_heater_rule[2], new ItemStack(FISSION_REACTOR_MAP.get("redstone_fission_coolant_heater"), 1));
+        addRule("quartz_heater", fission_heater_rule[3], new ItemStack(FISSION_REACTOR_MAP.get("quartz_fission_coolant_heater"), 1));
+        addRule("obsidian_heater", fission_heater_rule[4], new ItemStack(FISSION_REACTOR_MAP.get("obsidian_fission_coolant_heater"), 1));
+        addRule("nether_brick_heater", fission_heater_rule[5], new ItemStack(FISSION_REACTOR_MAP.get("nether_brick_fission_coolant_heater"), 1));
+        addRule("glowstone_heater", fission_heater_rule[6], new ItemStack(FISSION_REACTOR_MAP.get("glowstone_fission_coolant_heater"), 1));
+        addRule("lapis_heater", fission_heater_rule[7], new ItemStack(FISSION_REACTOR_MAP.get("lapis_fission_coolant_heater"), 1));
+        addRule("gold_heater", fission_heater_rule[8], new ItemStack(FISSION_REACTOR_MAP.get("gold_fission_coolant_heater"), 1));
+        addRule("prismarine_heater", fission_heater_rule[9], new ItemStack(FISSION_REACTOR_MAP.get("prismarine_fission_coolant_heater"), 1));
+        addRule("slime_heater", fission_heater_rule[10], new ItemStack(FISSION_REACTOR_MAP.get("slime_fission_coolant_heater"), 1));
+        addRule("end_stone_heater", fission_heater_rule[11], new ItemStack(FISSION_REACTOR_MAP.get("end_stone_fission_coolant_heater"), 1));
+        addRule("purpur_heater", fission_heater_rule[12], new ItemStack(FISSION_REACTOR_MAP.get("purpur_fission_coolant_heater"), 1));
+        addRule("diamond_heater", fission_heater_rule[13], new ItemStack(FISSION_REACTOR_MAP.get("diamond_fission_coolant_heater"), 1));
+        addRule("emerald_heater", fission_heater_rule[14], new ItemStack(FISSION_REACTOR_MAP.get("emerald_fission_coolant_heater"), 1));
+        addRule("copper_heater", fission_heater_rule[15], new ItemStack(FISSION_REACTOR_MAP.get("copper_fission_coolant_heater"), 1));
+        addRule("tin_heater", fission_heater_rule[16], new ItemStack(FISSION_REACTOR_MAP.get("tin_fission_coolant_heater"), 1));
+        addRule("lead_heater", fission_heater_rule[17], new ItemStack(FISSION_REACTOR_MAP.get("lead_fission_coolant_heater"), 1));
+        addRule("boron_heater", fission_heater_rule[18], new ItemStack(FISSION_REACTOR_MAP.get("boron_fission_coolant_heater"), 1));
+        addRule("lithium_heater", fission_heater_rule[19], new ItemStack(FISSION_REACTOR_MAP.get("lithium_fission_coolant_heater"), 1));
+        addRule("magnesium_heater", fission_heater_rule[20], new ItemStack(FISSION_REACTOR_MAP.get("magnesium_fission_coolant_heater"), 1));
+        addRule("manganese_heater", fission_heater_rule[21], new ItemStack(FISSION_REACTOR_MAP.get("manganese_fission_coolant_heater"), 1));
+        addRule("aluminum_heater", fission_heater_rule[22], new ItemStack(FISSION_REACTOR_MAP.get("aluminum_fission_coolant_heater"), 1));
+        addRule("silver_heater", fission_heater_rule[23], new ItemStack(FISSION_REACTOR_MAP.get("silver_fission_coolant_heater"), 1));
+        addRule("fluorite_heater", fission_heater_rule[24], new ItemStack(FISSION_REACTOR_MAP.get("fluorite_fission_coolant_heater"), 1));
+        addRule("villiaumite_heater", fission_heater_rule[25], new ItemStack(FISSION_REACTOR_MAP.get("villiaumite_fission_coolant_heater"), 1));
+        addRule("carobbiite_heater", fission_heater_rule[26], new ItemStack(FISSION_REACTOR_MAP.get("carobbiite_fission_coolant_heater"), 1));
+        addRule("arsenic_heater", fission_heater_rule[27], new ItemStack(FISSION_REACTOR_MAP.get("arsenic_fission_coolant_heater"), 1));
+        addRule("liquid_nitrogen_heater", fission_heater_rule[28], new ItemStack(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_coolant_heater"), 1));
+        addRule("liquid_helium_heater", fission_heater_rule[29], new ItemStack(FISSION_REACTOR_MAP.get("liquid_helium_fission_coolant_heater"), 1));
+        addRule("enderium_heater", fission_heater_rule[30], new ItemStack(FISSION_REACTOR_MAP.get("enderium_fission_coolant_heater"), 1));
+        addRule("cryotheum_heater", fission_heater_rule[31], new ItemStack(FISSION_REACTOR_MAP.get("cryotheum_fission_coolant_heater"), 1));
     }
 
     public static void addRule(String id, String rule, Object... blocks) {
-        RULE_MAP_RAW.put(id, rule);
+//        RULE_MAP_RAW.put(id, rule);
         RULE_MAP.put(id, parse(rule));
 //        for (Object block : blocks) {
 //            recipe_handler.addRecipe(block, id);

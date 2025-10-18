@@ -1,9 +1,10 @@
 package com.nred.nuclearcraft.multiblock.fisson.molten_salt;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
-import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.fission.*;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
@@ -27,7 +28,10 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config2.fission_overheat;
@@ -84,7 +88,7 @@ public class SaltFissionLogic extends FissionReactorLogic {
     @Override
     public void refreshConnections() {
         super.refreshConnections();
-        refreshFilteredPorts(FissionHeaterPortEntity.class, SaltFissionHeaterEntity.class);
+        refreshFilteredPorts(FissionVesselPortEntity.class, SaltFissionVesselEntity.class);
         refreshFilteredPorts(FissionHeaterPortEntity.class, SaltFissionHeaterEntity.class);
         formFuelBunches(SaltFissionVesselEntity.class, (x, y) -> x.getFilterKey().equals(y.getFilterKey()));
     }

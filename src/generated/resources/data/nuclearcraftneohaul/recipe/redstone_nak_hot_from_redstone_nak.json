@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:redstone_nak_hot"
   },
-  "heatPerInputMB": 140
+  "heatPerInputMB": 85,
+  "isCoolant": true
 }

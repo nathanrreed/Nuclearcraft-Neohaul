@@ -20,6 +20,7 @@ import com.nred.nuclearcraft.payload.multiblock.SolidFissionCellUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
 import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import com.nred.nuclearcraft.util.NBTHelper;
@@ -82,7 +83,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     public double decayProcessHeat = 0D, decayHeatFraction = 0D, iodineFraction = 0D, poisonFraction = 0D;
 
-    protected RecipeInfo<BasicRecipe> recipeInfo = null;
+    protected RecipeInfo<SaltFissionRecipe> recipeInfo = null;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
@@ -476,7 +477,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     @Override
     public void refreshMasterPort() {
         Optional<FissionReactor> multiblock = getMultiblockController();
-        masterPort = multiblock.isEmpty() ? null : multiblock.get().getPartMap(FissionCellPortEntity.class).get(masterPortPos.asLong());
+        masterPort = multiblock.map(fissionReactor -> fissionReactor.getPartMap(FissionCellPortEntity.class).get(masterPortPos.asLong())).orElse(null);
         if (masterPort == null) {
             masterPortPos = DEFAULT_NON;
         }
@@ -637,18 +638,18 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     }
 
     @Override
-    public BasicRecipeHandler getRecipeHandler() { // TODO
+    public BasicRecipeHandler<SaltFissionRecipe> getRecipeHandler() {
         return NCRecipes.solid_fission;
     }
 
     @Override
-    public RecipeInfo<BasicRecipe> getRecipeInfo() {
+    public RecipeInfo<SaltFissionRecipe> getRecipeInfo() {
         return recipeInfo;
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<BasicRecipe> recipeInfo) {
-        this.recipeInfo = recipeInfo;
+    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
+        this.recipeInfo = (RecipeInfo<SaltFissionRecipe>) recipeInfo;
     }
 
     @Override

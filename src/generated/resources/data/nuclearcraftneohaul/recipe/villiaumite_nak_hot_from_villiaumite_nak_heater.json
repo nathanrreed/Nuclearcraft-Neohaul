@@ -1,10 +1,14 @@
 {
   "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:villiaumite_fission_coolant_heater"
+  },
   "input": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:villiaumite_nak"
   },
-  "irradiatorFluxRequired": 155,
+  "irradiatorFluxRequired": 180,
   "irradiatorHeatPerFlux": "villiaumite_heater",
   "product": {
     "amount": 1,

@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater",
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:aluminum_fission_coolant_heater"
+  },
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:aluminum_nak"
+  },
+  "irradiatorFluxRequired": 175,
+  "irradiatorHeatPerFlux": "aluminum_heater",
+  "product": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:aluminum_nak_hot"
+  }
+}

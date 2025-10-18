@@ -76,7 +76,7 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     public boolean isProcessing, canProcessInputs, hasConsumed;
     public boolean isRunningSimulated;
 
-    protected RecipeInfo<BasicRecipe> recipeInfo = null;
+    protected RecipeInfo<FissionIrradiatorRecipe> recipeInfo = null;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
@@ -326,18 +326,18 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public BasicRecipeHandler getRecipeHandler() {
+    public BasicRecipeHandler<FissionIrradiatorRecipe> getRecipeHandler() {
         return NCRecipes.fission_irradiator;
     }
 
     @Override
-    public RecipeInfo<BasicRecipe> getRecipeInfo() {
+    public RecipeInfo<FissionIrradiatorRecipe> getRecipeInfo() {
         return recipeInfo;
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<BasicRecipe> recipeInfo) {
-        this.recipeInfo = recipeInfo;
+    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
+        this.recipeInfo = (RecipeInfo<FissionIrradiatorRecipe>) recipeInfo;
     }
 
     @Override

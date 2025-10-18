@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PosHelper {
 
-    public static final BlockPos DEFAULT_NON = new BlockPos(0, -1, 0);
+    public static final BlockPos DEFAULT_NON = new BlockPos(0, Integer.MIN_VALUE, 0);
 
     public static Direction getAxisDirectionDir(@Nonnull Direction.Axis axis, @Nonnull Direction.AxisDirection dir) {
         int index = 1 - getAxisDirIndex(dir);

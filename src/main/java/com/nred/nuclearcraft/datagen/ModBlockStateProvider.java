@@ -141,8 +141,8 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem("beryllium_carbon", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"), "fission/reflector");
         blockWithItem("lead_steel", FISSION_REACTOR_MAP.get("lead_steel_reflector"), "fission/reflector");
 
-        blockWithItem("cell", FISSION_REACTOR_MAP.get("fission_cell"), "fission/solid");
-        directionalBooleanBlock("cell_out", "cell_in", FISSION_REACTOR_MAP.get("fission_cell_port"), "fission/port", "fission/port", ACTIVE);
+        blockWithItem("cell", FISSION_REACTOR_MAP.get("fission_fuel_cell"), "fission/solid");
+        directionalBooleanBlock("cell_out", "cell_in", FISSION_REACTOR_MAP.get("fission_fuel_cell_port"), "fission/port", "fission/port", ACTIVE);
 
         blockWithItem("cooler", FISSION_REACTOR_MAP.get("fission_cooler"), "fission");
         directionalBooleanBlock("cooler_out", "cooler_in", FISSION_REACTOR_MAP.get("fission_cooler_port"), "fission/port", "fission/port", ACTIVE);
@@ -150,17 +150,17 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem("irradiator", FISSION_REACTOR_MAP.get("fission_irradiator"), "fission");
         directionalBooleanBlock("irradiator_out", "irradiator_in", FISSION_REACTOR_MAP.get("fission_irradiator_port"), "fission/port", "fission/port", ACTIVE);
 
-        blockWithItem("vessel", FISSION_REACTOR_MAP.get("fission_vessel"), "fission/salt");
-        directionalBooleanBlock("vessel_out", "vessel_in", FISSION_REACTOR_MAP.get("fission_vessel_port"), "fission/port", "fission/port", ACTIVE);
+        blockWithItem("vessel", FISSION_REACTOR_MAP.get("fission_fuel_vessel"), "fission/salt");
+        directionalBooleanBlock("vessel_out", "vessel_in", FISSION_REACTOR_MAP.get("fission_fuel_vessel_port"), "fission/port", "fission/port", ACTIVE);
 
-        blockWithItem("water", FISSION_REACTOR_MAP.get("water_sink"), "fission/solid/sink");
-        blockWithItem("standard", FISSION_REACTOR_MAP.get("standard_heater"), "fission/salt/heater");
-        directionalBooleanBlockOverlay("standard", "out", "in", FISSION_REACTOR_MAP.get("standard_heater_port"), "fission/port", "fission/port/heater", ACTIVE);
+        blockWithItem("water", FISSION_REACTOR_MAP.get("water_fission_heat_sink"), "fission/solid/sink");
+        blockWithItem("standard", FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), "fission/salt/heater");
+        directionalBooleanBlockOverlay("standard", "out", "in", FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"), "fission/port", "fission/port/heater", ACTIVE);
 
         for (String name : FISSION_HEAT_PARTS) {
-            blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_sink"), "fission/solid/sink");
-            blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_heater"), "fission/salt/heater");
-            directionalBooleanBlockOverlay(name, "out", "in", FISSION_REACTOR_MAP.get(name + "_heater_port"), "fission/port", "fission/port/heater", ACTIVE);
+            blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_fission_heat_sink"), "fission/solid/sink");
+            blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_fission_coolant_heater"), "fission/salt/heater");
+            directionalBooleanBlockOverlay(name, "out", "in", FISSION_REACTOR_MAP.get(name + "_fission_coolant_heater_port"), "fission/port", "fission/port/heater", ACTIVE);
         }
 
         blockWithItem("computer_port", FISSION_REACTOR_MAP.get("fission_computer_port"), "fission");

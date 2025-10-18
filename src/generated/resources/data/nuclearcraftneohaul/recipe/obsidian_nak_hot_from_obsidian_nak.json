@@ -8,5 +8,6 @@
     "amount": 1,
     "fluid": "nuclearcraftneohaul:obsidian_nak_hot"
   },
-  "heatPerInputMB": 175
+  "heatPerInputMB": 70,
+  "isCoolant": true
 }
