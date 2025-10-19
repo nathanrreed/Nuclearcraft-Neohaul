@@ -30,7 +30,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class TurbineControllerEntity extends AbstractTurbineEntity implements ITurbineController<TurbineControllerEntity>, MenuProvider {
-    protected final TileContainerInfo info = TileInfoHandler.getTileContainerInfo("turbine_controller"); // TODO look at use of this
+    protected final TileContainerInfo<TurbineControllerEntity> info = TileInfoHandler.getTileContainerInfo("turbine_controller"); // TODO look at use of this
 
     protected boolean isRenderer = false;
 
@@ -54,7 +54,7 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements IT
     }
 
     @Override
-    public TileContainerInfo getContainerInfo() {
+    public TileContainerInfo<TurbineControllerEntity> getContainerInfo() {
         return info;
     }
 

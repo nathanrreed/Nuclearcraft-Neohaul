@@ -37,6 +37,8 @@ import com.nred.nuclearcraft.block.processor.supercooler.SupercoolerEntity;
 import com.nred.nuclearcraft.block.solar.SolarPanelEntity;
 import com.nred.nuclearcraft.block.universal_bin.UniversalBinEntity;
 import com.nred.nuclearcraft.block_entity.fission.*;
+import com.nred.nuclearcraft.block_entity.fission.manager.FissionShieldManagerEntity;
+import com.nred.nuclearcraft.block_entity.fission.manager.FissionSourceManagerEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.*;
 import com.nred.nuclearcraft.block_entity.turbine.*;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
@@ -190,6 +192,10 @@ public class BlockEntityRegistration {
         map.put("heat_sink", BLOCK_ENTITY_TYPES.register("fission_heat_sink", () -> BlockEntityType.Builder.of((pos, state) -> new SolidFissionHeatSinkEntity(pos, state, ((FissionHeatSinkType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), Stream.concat(FISSION_HEAT_PARTS.stream(), Stream.of("water")).map(name -> FISSION_REACTOR_MAP.get(name + "_fission_heat_sink").get()).toArray(Block[]::new)).build(null)));
         map.put("coolant_heater", BLOCK_ENTITY_TYPES.register("fission_coolant_heater", () -> BlockEntityType.Builder.of((pos, state) -> new SaltFissionHeaterEntity(pos, state, ((FissionCoolantHeaterType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), Stream.concat(FISSION_HEAT_PARTS.stream(), Stream.of("standard")).map(name -> FISSION_REACTOR_MAP.get(name + "_fission_coolant_heater").get()).toArray(Block[]::new)).build(null)));
         map.put("coolant_heater_port", BLOCK_ENTITY_TYPES.register("fission_coolant_heater_port", () -> BlockEntityType.Builder.of((pos, state) -> new FissionHeaterPortEntity(pos, state, ((FissionCoolantHeaterPortType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), Stream.concat(FISSION_HEAT_PARTS.stream(), Stream.of("standard")).map(name -> FISSION_REACTOR_MAP.get(name + "_fission_coolant_heater_port").get()).toArray(Block[]::new)).build(null)));
+
+        map.put("monitor", BLOCK_ENTITY_TYPES.register("fission_monitor", () -> BlockEntityType.Builder.of(FissionMonitorEntity::new, FISSION_REACTOR_MAP.get("fission_monitor").get()).build(null)));
+        map.put("shield_manager", BLOCK_ENTITY_TYPES.register("fission_shield_manager", () -> BlockEntityType.Builder.of(FissionShieldManagerEntity::new, FISSION_REACTOR_MAP.get("fission_shield_manager").get()).build(null)));
+        map.put("source_manager", BLOCK_ENTITY_TYPES.register("fission_source_manager", () -> BlockEntityType.Builder.of(FissionSourceManagerEntity::new, FISSION_REACTOR_MAP.get("fission_source_manager").get()).build(null)));
 
         map.put("computer_port", BLOCK_ENTITY_TYPES.register("fission_computer_port", () -> BlockEntityType.Builder.of(FissionComputerPortEntity::new, FISSION_REACTOR_MAP.get("fission_computer_port").get()).build(null)));
 

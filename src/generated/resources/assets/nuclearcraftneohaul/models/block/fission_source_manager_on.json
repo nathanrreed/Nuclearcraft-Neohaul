@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/fission/source_manager_back",
+    "bottom": "nuclearcraftneohaul:block/fission/source_manager_bottom",
+    "front": "nuclearcraftneohaul:block/fission/source_manager_front_on",
+    "side": "nuclearcraftneohaul:block/fission/source_manager_side",
+    "top": "nuclearcraftneohaul:block/fission/source_manager_top"
+  }
+}

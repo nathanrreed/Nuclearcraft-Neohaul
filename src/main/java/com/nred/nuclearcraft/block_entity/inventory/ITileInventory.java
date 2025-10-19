@@ -1,13 +1,13 @@
 package com.nred.nuclearcraft.block_entity.inventory;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.block.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.block_entity.ITilePort;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemHandler;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
-import com.nred.nuclearcraft.block.processor.IProcessor;
 import com.nred.nuclearcraft.util.BlockHelper;
 import com.nred.nuclearcraft.util.NCInventoryHelper;
 import net.minecraft.core.Direction;
@@ -30,7 +30,6 @@ import java.util.Collections;
 import java.util.List;
 
 public interface ITileInventory extends ITile, WorldlyContainer {
-
     // Inventory
 
     @Nonnull
@@ -41,21 +40,11 @@ public interface ITileInventory extends ITile, WorldlyContainer {
         Collections.fill(stacks, ItemStack.EMPTY);
     }
 
-//    // Nameable TODO
-//
-//    @Override
-//    default boolean hasCustomName() {
-//        return false;
-//    }
-//
-//    @Override
-//    Component getName();
-
     // Container
 
     @Override
     default boolean stillValid(Player player) {
-        return true; // TODO FIX
+        return ITile.super.isUsableByPlayer(player);
     }
 
     @Override

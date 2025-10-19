@@ -163,6 +163,10 @@ class ModBlockStateProvider extends BlockStateProvider {
             directionalBooleanBlockOverlay(name, "out", "in", FISSION_REACTOR_MAP.get(name + "_fission_coolant_heater_port"), "fission/port", "fission/port/heater", ACTIVE);
         }
 
+        directionalMachine("monitor", FISSION_REACTOR_MAP.get("fission_monitor"), "fission", ACTIVE);
+        directionalMachine("source_manager", FISSION_REACTOR_MAP.get("fission_source_manager"), "fission", ACTIVE);
+        directionalMachine("shield_manager", FISSION_REACTOR_MAP.get("fission_shield_manager"), "fission", ACTIVE);
+
         blockWithItem("computer_port", FISSION_REACTOR_MAP.get("fission_computer_port"), "fission");
     }
 

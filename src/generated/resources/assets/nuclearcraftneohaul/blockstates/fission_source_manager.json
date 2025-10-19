@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=down,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_off",
+      "x": 270
+    },
+    "facing=down,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_on",
+      "x": 270
+    },
+    "facing=east,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_off",
+      "y": 90
+    },
+    "facing=east,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_on",
+      "y": 90
+    },
+    "facing=north,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_off"
+    },
+    "facing=north,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_on"
+    },
+    "facing=south,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_off",
+      "y": 180
+    },
+    "facing=south,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_on",
+      "y": 180
+    },
+    "facing=up,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_off",
+      "x": 90
+    },
+    "facing=up,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_on",
+      "x": 90
+    },
+    "facing=west,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_off",
+      "y": 270
+    },
+    "facing=west,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_source_manager_on",
+      "y": 270
+    }
+  }
+}

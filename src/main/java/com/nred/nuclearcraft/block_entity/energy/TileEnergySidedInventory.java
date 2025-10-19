@@ -16,17 +16,4 @@ public abstract class TileEnergySidedInventory extends TileEnergyInventory {
     public TileEnergySidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections) {
         super(type, pos, blockState, name, size, inventoryConnections, capacity, maxTransfer, energyConnections);
     }
-
-//    // Capability TODO
-//
-//    @Override
-//    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing side) {
-//        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-//            if (!getInventoryStacks().isEmpty() && hasInventorySideCapability(side)) {
-//                return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getItemHandler(side));
-//            }
-//            return null;
-//        }
-//        return super.getCapability(capability, side);
-//    }
 }

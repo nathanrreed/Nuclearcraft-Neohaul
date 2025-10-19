@@ -100,25 +100,4 @@ public abstract class TileEnergyFluidInventory extends TileEnergyFluid implement
         readInventoryConnections(nbt, registries);
         readSlotSettings(nbt, registries);
     }
-
-//	// Capability TODO
-//
-//	@Override
-//	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing side) {
-//		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-//			return !getInventoryStacks().isEmpty() && hasInventorySideCapability(side);
-//		}
-//		return super.hasCapability(capability, side);
-//	}
-//
-//	@Override
-//	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing side) {
-//		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-//			if (!getInventoryStacks().isEmpty() && hasInventorySideCapability(side)) {
-//				return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getItemHandler(null));
-//			}
-//			return null;
-//		}
-//		return super.getCapability(capability, side);
-//	}
 }

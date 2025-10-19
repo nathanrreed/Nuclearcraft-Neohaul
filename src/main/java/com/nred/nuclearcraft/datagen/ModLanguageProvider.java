@@ -136,7 +136,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.fission_component.heat_stored", "Cluster Heat Level: %s");
 
         add(MODID + ".fission_reactor_source.no_target", "Has no target!");
-        add(MODID + ".fission_reactor_source.target", "=Targeting %4$s at [%1$d, %2$d, %3$d]");
+        add(MODID + ".fission_reactor_source.target", "Targeting %4$s at [%1$d, %2$d, %3$d]");
 
         add(MODID + ".multiblock_validation.fission_reactor.prohibit_cells", "This is not a solid fuel reactor - there must be no cells for it to form");
         add(MODID + ".multiblock_validation.fission_reactor.prohibit_sinks", "This is not a solid fuel reactor - there must be no sinks for it to form");
@@ -609,8 +609,16 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".message.multitool.invalid_processor_config", "%s configuration cannot be loaded to %s");
 
         add(MODID + ".message.multitool.save_component_info", "Saved %s info to Multitool");
-        add(MODID + ".message.multitool.load_component_info", "Loaded %s info from Multitool");
+        add(MODID + ".message.multitool.load_component_info", "Loaded %s info from Multitool to %s");
         add(MODID + ".message.multitool.invalid_component_info", "%s info from multiblock cannot be loaded to %s");
+
+        add(MODID + ".message.multitool.start_manager_listener_set", "%s now waiting for set of listeners...");
+        add(MODID + ".message.multitool.append_manager_listener_set", "Added listener %s to multitool");
+        add(MODID + ".message.multitool.finish_manager_listener_set", "%s now connected to %s listeners");
+        add(MODID + ".message.multitool.manager_listener_info", "%s currently connected to %s listeners");
+
+        add(MODID + ".message.multitool.no_connected_component_info", "%s currently has no connected component!");
+        add(MODID + ".message.multitool.connected_component_info", "%s currently connected to %s at [%d, %d, %d]");
 
         add(MODID + ".message.multitool.energy_toggle", "Toggled side to ");
         add(MODID + ".message.multitool.energy_toggle_opposite", "Toggled opposite side to ");

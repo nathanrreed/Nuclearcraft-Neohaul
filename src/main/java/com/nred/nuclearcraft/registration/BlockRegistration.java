@@ -253,6 +253,10 @@ public class BlockRegistration {
             map.put(name + "_fission_coolant_heater_port", registerBlockItem(name + "_fission_coolant_heater_port", () -> FissionPartType.HeaterPort.createBlock(FissionCoolantHeaterPortType.valueOf(name.toUpperCase()))));
         }
 
+        map.put("fission_monitor", registerBlockItem("fission_monitor", FissionPartType.Monitor::createBlock));
+        map.put("fission_shield_manager", registerBlockItem("fission_shield_manager", FissionPartType.ShieldManager::createBlock));
+        map.put("fission_source_manager", registerBlockItem("fission_source_manager", FissionPartType.SourceManager::createBlock));
+
         map.put("fission_computer_port", registerBlockItem("fission_computer_port", FissionPartType.ComputerPort::createBlock));
 
         return map;

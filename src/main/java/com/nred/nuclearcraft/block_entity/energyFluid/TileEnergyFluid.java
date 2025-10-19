@@ -137,31 +137,4 @@ public abstract class TileEnergyFluid extends TileEnergy implements ITileFluid {
         readFluidConnections(nbt, registries);
         readTankSettings(nbt, registries);
     }
-
-//	// Capability TODO
-//
-//	@Override
-//	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing side) {
-//		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || (ModCheck.mekanismLoaded() && enable_mek_gas && capability == CapabilityHelper.GAS_HANDLER_CAPABILITY)) {
-//			return !getTanks().isEmpty() && hasFluidSideCapability(side);
-//		}
-//		return super.hasCapability(capability, side);
-//	}
-//
-//	@Override
-//	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing side) {
-//		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-//			if (!getTanks().isEmpty() && hasFluidSideCapability(side)) {
-//				return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(getFluidSide(nonNullSide(side)));
-//			}
-//			return null;
-//		}
-//		else if (ModCheck.mekanismLoaded() && capability == CapabilityHelper.GAS_HANDLER_CAPABILITY) {
-//			if (enable_mek_gas && !getTanks().isEmpty() && hasFluidSideCapability(side)) {
-//				return CapabilityHelper.GAS_HANDLER_CAPABILITY.cast(getGasWrapper());
-//			}
-//			return null;
-//		}
-//		return super.getCapability(capability, side);
-//	}
 }

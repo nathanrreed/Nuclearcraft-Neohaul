@@ -19,8 +19,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
-
 public interface ITile {
     BlockEntity getTile();
 
@@ -39,7 +37,9 @@ public interface ITile {
     }
 
     default Direction getFacingHorizontal() {
-        return getTileBlockType().defaultBlockState().getValue(FACING_HORIZONTAL); // TODO is this right?
+        // return getTileBlockType().getStateFromMeta(getTileBlockMeta()).getValue(BlockProperties.FACING_HORIZONTAL);
+        throw new RuntimeException("ERROR FIX");
+//        return getTileBlockType().defaultBlockState().getValue(FACING_HORIZONTAL); // TODO this is not right!
     }
 
     default BlockState getBlockState(BlockPos pos) {

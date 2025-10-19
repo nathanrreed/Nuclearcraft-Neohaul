@@ -2,6 +2,8 @@ package com.nred.nuclearcraft.block_entity.fission;
 
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorLine;
+import com.nred.nuclearcraft.block_entity.fission.manager.IFissionManagerListener;
+import com.nred.nuclearcraft.block_entity.fission.manager.FissionShieldManagerEntity;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
@@ -29,7 +31,7 @@ import java.util.Iterator;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class FissionShieldEntity extends AbstractFissionEntity implements IFissionHeatingComponent { // TODO , IFissionManagerListener<TileFissionShieldManager, TileFissionShield>
+public class FissionShieldEntity extends AbstractFissionEntity implements IFissionHeatingComponent, IFissionManagerListener<FissionShieldManagerEntity, FissionShieldEntity> {
     private final FissionNeutronShieldType fissionNeutronShieldType;
 
     public FissionShieldEntity(final BlockPos position, final BlockState blockState, FissionNeutronShieldType fissionNeutronShieldType) {
@@ -49,7 +51,7 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
     protected ModeratorLine[] activeModeratorLines = new ModeratorLine[]{null, null, null};
 
     protected BlockPos managerPos = DEFAULT_NON;
-//    protected TileFissionShieldManager manager = null;
+    protected FissionShieldManagerEntity manager = null;
 
     public static class Variant extends FissionShieldEntity {
         protected Variant(final BlockPos position, final BlockState blockState, FissionNeutronShieldType fissionNeutronShieldType) {
@@ -68,8 +70,14 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
         return position == PartPosition.Interior;
     }
 
+    public boolean isShieldActive() {
+        return manager != null && manager.isManagerActive();
+    }
+
+    // IFissionComponent
+
     @Override
-    public @javax.annotation.Nullable FissionCluster getCluster() {
+    public @Nullable FissionCluster getCluster() {
         return cluster;
     }
 
@@ -208,62 +216,62 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
         return NCMath.toInt(innerFlux);
     }
 
-//    // IFissionManagerListener TODO
-//
-//    @Override
-//    public BlockPos getManagerPos() {
-//        return managerPos;
-//    }
-//
-//    @Override
-//    public void setManagerPos(BlockPos pos) {
-//        managerPos = pos;
-//    }
-//
-//    @Override
-//    public TileFissionShieldManager getManager() {
-//        return manager;
-//    }
-//
-//    @Override
-//    public void setManager(TileFissionShieldManager manager) {
-//        this.manager = manager;
-//    }
-//
-//    @Override
-//    public boolean onManagerRefresh(TileFissionShieldManager manager) {
-//        this.manager = manager;
-//        if (manager != null) {
-//            managerPos = manager.getPos();
-//            boolean wasShielding = isShielding;
-//            isShielding = isShieldActive();
-//            if (wasShielding != isShielding) {
-//                setActivity(isShielding);
-//                return true;
-//            }
-//        } else {
-//            managerPos = DEFAULT_NON;
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public String getManagerType() {
-//        return "fissionShieldManager";
-//    }
-//
-//    @Override
-//    public Class<TileFissionShieldManager> getManagerClass() {
-//        return TileFissionShieldManager.class;
-//    }
+    // IFissionManagerListener
+
+    @Override
+    public BlockPos getManagerPos() {
+        return managerPos;
+    }
+
+    @Override
+    public void setManagerPos(BlockPos pos) {
+        managerPos = pos;
+    }
+
+    @Override
+    public FissionShieldManagerEntity getManager() {
+        return manager;
+    }
+
+    @Override
+    public void setManager(FissionShieldManagerEntity manager) {
+        this.manager = manager;
+    }
+
+    @Override
+    public boolean onManagerRefresh(FissionShieldManagerEntity manager) {
+        this.manager = manager;
+        if (manager != null) {
+            managerPos = manager.getBlockPos();
+            boolean wasShielding = isShielding;
+            isShielding = isShieldActive();
+            if (wasShielding != isShielding) {
+                setActivity(isShielding);
+                return true;
+            }
+        } else {
+            managerPos = DEFAULT_NON;
+        }
+        return false;
+    }
+
+    @Override
+    public String getManagerType() {
+        return "fissionShieldManager";
+    }
+
+    @Override
+    public Class<FissionShieldManagerEntity> getManagerClass() {
+        return FissionShieldManagerEntity.class;
+    }
 
     // IMultitoolLogic
 
     @Override
     public boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level level, Direction facing, BlockPos hitPos) {
-//        if (IFissionManagerListener.super.onUseMultitool(multitool, player, level, facing, hitPos)) {
-//            return true; TODO
-//        }
+        if (IFissionManagerListener.super.onUseMultitool(multitool, player, level, facing, hitPos)) {
+            return true;
+        }
         return IFissionHeatingComponent.super.onUseMultitool(multitool, player, level, facing, hitPos);
     }
 
@@ -271,7 +279,7 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
 
     @Override
     public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
-         super.writeAll(nbt, registries);
+        super.writeAll(nbt, registries);
         nbt.putBoolean("isShielding", isShielding);
         nbt.putBoolean("inCompleteModeratorLine", inCompleteModeratorLine);
         nbt.putBoolean("activeModerator", activeModerator);

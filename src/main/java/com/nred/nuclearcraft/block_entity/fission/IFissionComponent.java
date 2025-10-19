@@ -80,7 +80,7 @@ public interface IFissionComponent extends IFissionPart {
             BlockPos offPos = getWorldPosition().relative(dir);
             if (!getCluster().connectedToWall) {
                 BlockEntity tile = getPartWorld().get().getBlockEntity(offPos);
-                if (tile instanceof AbstractFissionEntity part && part.getPartPosition().isFace()) { // TODO CHECK .isGoodForWall()
+                if (tile instanceof AbstractFissionEntity part && part.getPartPosition().isFace()) {
                     getCluster().connectedToWall = true;
                     continue;
                 }

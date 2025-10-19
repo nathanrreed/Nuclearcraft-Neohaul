@@ -198,17 +198,7 @@ public abstract class NCTile extends BlockEntity implements ITile {
 //        }
 //        return super.getCapability(capability, side);
 //    }
-//
-//    // For when the raw TE capabilities need to be reached:
-//
-//    protected boolean hasCapabilityDefault(Capability<?> capability, @Nullable EnumFacing side) {
-//        return super.hasCapability(capability, side);
-//    }
-//
-//    protected <T> T getCapabilityDefault(Capability<T> capability, @Nullable EnumFacing side) {
-//        return super.getCapability(capability, side);
-//    }
-//
+
 //    // TESR
 //
 //    @Override

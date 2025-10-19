@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block_entity.fission.FissionMonitorEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionController;
 import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
@@ -281,9 +282,9 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
                 controller.setActivity(isReactorOn);
                 sendMultiblockUpdatePacketToAll();
             }
-//            for (TileFissionMonitor monitor : getParts(TileFissionMonitor.class)) { TODO
-//                monitor.setActiveState(isReactorOn);
-//            }
+            for (FissionMonitorEntity monitor : getParts(FissionMonitorEntity.class)) {
+                monitor.setActivity(isReactorOn);
+            }
         }
     }
 

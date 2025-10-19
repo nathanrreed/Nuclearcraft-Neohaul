@@ -28,7 +28,7 @@ public class NBTHelper {
             return null;
         }
 
-        CompoundTag nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        CompoundTag nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).getUnsafe();
         if (nbt.isEmpty()) {
             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt = new CompoundTag()));
         }
@@ -44,6 +44,13 @@ public class NBTHelper {
 
         return nbt;
     }
+//    public static void setStackNBT(ItemStack stack, CompoundTag nbt) {
+//        if (stack.isEmpty()) {
+//            return;
+//        }
+//        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+//        stack.update(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+//    }
 
     public static void clearStackNBT(ItemStack stack, String... subKeys) {
         if (!stack.has(DataComponents.CUSTOM_DATA)) {

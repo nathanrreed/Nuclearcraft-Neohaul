@@ -73,30 +73,4 @@ public abstract class TileEnergy extends NCTile implements ITileEnergy {
     public void setEnergyConnectionAll(EnergyConnection energyConnection) {
         energyConnections = ITileEnergy.energyConnectionAll(energyConnection);
     }
-
-//    // Capability TODO
-//
-//    @Override
-//    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing side) {
-//        if (capability == CapabilityEnergy.ENERGY || (ModCheck.gregtechLoaded() && enable_gtce_eu && capability == GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER)) {
-//            return hasEnergySideCapability(side);
-//        }
-//        return super.hasCapability(capability, side);
-//    }
-//
-//    @Override
-//    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing side) {
-//        if (capability == CapabilityEnergy.ENERGY) {
-//            if (hasEnergySideCapability(side)) {
-//                return CapabilityEnergy.ENERGY.cast(getEnergySide(nonNullSide(side)));
-//            }
-//            return null;
-//        } else if (ModCheck.gregtechLoaded() && capability == GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER) {
-//            if (enable_gtce_eu && hasEnergySideCapability(side)) {
-//                return GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER.cast(getEnergySideGT(nonNullSide(side)));
-//            }
-//            return null;
-//        }
-//        return super.getCapability(capability, side);
-//    }
 }

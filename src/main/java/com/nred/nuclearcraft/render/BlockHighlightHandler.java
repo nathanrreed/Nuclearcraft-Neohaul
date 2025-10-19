@@ -4,16 +4,16 @@
 
 package com.nred.nuclearcraft.render;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.Long2LongMap;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.longs.LongList;
-import it.zerono.mods.zerocore.internal.client.RenderTypes;
-import it.zerono.mods.zerocore.lib.client.render.ModRenderHelper;
-import it.zerono.mods.zerocore.lib.data.gfx.Colour;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -32,7 +32,7 @@ public class BlockHighlightHandler {
 
     @SubscribeEvent
     public void highlightBlocks(RenderLevelStageEvent event) {
-        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL) return;
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_LEVEL) return;
         for (Long2LongMap.Entry entry : getHighlightMap().long2LongEntrySet()) {
             highlightBlock(event, entry);
         }
@@ -63,7 +63,10 @@ public class BlockHighlightHandler {
 
         final Vec3 projectedView = event.getCamera().getPosition();
 
-        // TODO test vs original
-        ModRenderHelper.paintVoxelShape(Shapes.block(), event.getPoseStack(), Minecraft.getInstance().renderBuffers().bufferSource(), RenderTypes.ERROR_BLOCK_HIGHLIGHT, pos.getX() - projectedView.x, pos.getY() - projectedView.y, pos.getZ() - projectedView.z, new Colour(r, g, b));
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        LevelRenderer.renderVoxelShape(event.getPoseStack(), Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.LINES), Shapes.block(), pos.getX() - projectedView.x, pos.getY() - projectedView.y, pos.getZ() - projectedView.z, r, g, b, 1f, false);
+        RenderSystem.enableDepthTest();
+        RenderSystem.depthMask(true);
     }
 }

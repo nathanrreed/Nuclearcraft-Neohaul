@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
-import com.nred.nuclearcraft.block_entity.ITileLogicMultiblockPart;
+import com.nred.nuclearcraft.block_entity.fission.manager.IFissionManagerListener;
+import com.nred.nuclearcraft.block_entity.fission.manager.FissionSourceManagerEntity;
 import com.nred.nuclearcraft.handler.NCRecipes;
-import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
@@ -27,16 +27,14 @@ import static com.nred.nuclearcraft.config.Config2.fission_max_size;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class FissionSourceEntity extends AbstractFissionEntity implements ITileLogicMultiblockPart<FissionReactor, FissionReactorLogic> { //implements IFissionManagerListener<FissionSourceManagerEntity, FissionSourceEntity>
+public class FissionSourceEntity extends AbstractFissionEntity implements IFissionManagerListener<FissionSourceManagerEntity, FissionSourceEntity> {
     private final FissionSourceType fissionSourceType;
-
-//    public static final Object2DoubleMap<String> DYN_EFFICIENCY_MAP = new Object2DoubleOpenHashMap<>(); TODO
 
     public boolean isActive = false;
     public Direction facing = Direction.DOWN;
 
     protected BlockPos managerPos = DEFAULT_NON;
-//    protected FissionSourceManagerEntity manager = null;
+    protected FissionSourceManagerEntity manager = null;
 
     public FissionSourceEntity(final BlockPos position, final BlockState blockState, FissionSourceType fissionSourceType) {
         super(FISSION_ENTITY_TYPE.get("source").get(), position, blockState);
@@ -101,7 +99,7 @@ public class FissionSourceEntity extends AbstractFissionEntity implements ITileL
     }
 
     public boolean isSourceActive() {
-        return getIsRedstonePowered(); // TODO (manager != null && manager.isManagerActive()) || getIsRedstonePowered();
+        return (manager != null && manager.isManagerActive()) || getIsRedstonePowered();
     }
 
     public PrimingTargetInfo getPrimingTarget(boolean checkUpdate, boolean simulate) {
@@ -150,65 +148,62 @@ public class FissionSourceEntity extends AbstractFissionEntity implements ITileL
             this.newSourceEfficiency = newSourceEfficiency;
         }
     }
-//    // IFissionManagerListener // TODO
-//
-//    @Override
-//    public BlockPos getManagerPos() {
-//        return managerPos;
-//    }
-//
-//    @Override
-//    public void setManagerPos(BlockPos pos) {
-//        managerPos = pos;
-//    }
-//
-//    @Override
-//    public FissionSourceManagerEntity getManager() {
-//        return manager;
-//    }
-//
-//    @Override
-//    public void setManager(FissionSourceManagerEntity manager) {
-//        this.manager = manager;
-//    }
-//
-//    @Override
-//    public boolean onManagerRefresh(FissionSourceManagerEntity manager) {
-//        this.manager = manager;
-//        if (manager != null) {
-//            managerPos = manager.getPos();
-//            boolean wasActive = isActive;
-//            isActive = isSourceActive();
-//            if (wasActive != isActive) {
+    // IFissionManagerListener
 
-   // //                setActivity(isActive);
-//                level.setBlockAndUpdate(managerPos, level.getBlockState(managerPos).setValue(ACTIVE, isActive));
-//                return true;
-//            }
-//        }
-//        else {
-//            managerPos = DEFAULT_NON;
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public String getManagerType() {
-//        return "fissionSourceManager";
-//    }
-//
-//    @Override
-//    public Class<FissionSourceManagerEntity> getManagerClass() {
-//        return FissionSourceManagerEntity.class;
-//    }
+    @Override
+    public BlockPos getManagerPos() {
+        return managerPos;
+    }
+
+    @Override
+    public void setManagerPos(BlockPos pos) {
+        managerPos = pos;
+    }
+
+    @Override
+    public FissionSourceManagerEntity getManager() {
+        return manager;
+    }
+
+    @Override
+    public void setManager(FissionSourceManagerEntity manager) {
+        this.manager = manager;
+    }
+
+    @Override
+    public boolean onManagerRefresh(FissionSourceManagerEntity manager) {
+        this.manager = manager;
+        if (manager != null) {
+            managerPos = manager.getBlockPos();
+            boolean wasActive = isActive;
+            isActive = isSourceActive();
+            if (wasActive != isActive) {
+                setActivity(isActive);
+                return true;
+            }
+        } else {
+            managerPos = DEFAULT_NON;
+        }
+        return false;
+    }
+
+    @Override
+    public String getManagerType() {
+        return "fissionSourceManager";
+    }
+
+    @Override
+    public Class<FissionSourceManagerEntity> getManagerClass() {
+        return FissionSourceManagerEntity.class;
+    }
 
     // IMultitoolLogic
 
     @Override
     public boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level level, Direction facing, BlockPos hitPos) {
-//        if (IFissionManagerListener.super.onUseMultitool(multitool, player, level, facing, hitPos)) { TODO
-//            return true;
-//        }
+        if (IFissionManagerListener.super.onUseMultitool(multitool, player, level, facing, hitPos)) {
+            return true;
+        }
         if (!player.isCrouching()) {
             PrimingTargetInfo targetInfo = getPrimingTarget(false, true);
             if (targetInfo == null) {

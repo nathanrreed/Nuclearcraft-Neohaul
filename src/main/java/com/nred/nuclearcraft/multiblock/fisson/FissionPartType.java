@@ -3,6 +3,8 @@ package com.nred.nuclearcraft.multiblock.fisson;
 import com.nred.nuclearcraft.block.GenericActiveDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.fission.*;
+import com.nred.nuclearcraft.block.fission.manager.FissionShieldManagerBlock;
+import com.nred.nuclearcraft.block.fission.manager.FissionSourceManagerBlock;
 import it.zerono.mods.zerocore.base.multiblock.part.GlassBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartTypeProperties;
@@ -44,13 +46,12 @@ public enum FissionPartType implements IFissionPartType {
 
     ComputerPort(() -> FISSION_ENTITY_TYPE.get("computer_port")::get, GenericTooltipDeviceBlock::new, ""),
 
-    // TODO
-//    Monitor(() -> FISSION_ENTITY_TYPE.get("monitor")::get, GenericTooltipDeviceBlock::new, ""),
-//    PowerPort(() -> FISSION_ENTITY_TYPE.get("power_port")::get, GenericTooltipDeviceBlock::new, ""),
-//    Manager(() -> FISSION_ENTITY_TYPE.get("manager")::get, GenericTooltipDeviceBlock::new, ""),
-//    ShieldManager(() -> FISSION_ENTITY_TYPE.get("shield_manager")::get, GenericTooltipDeviceBlock::new, ""),
-//    SourceManager(() -> FISSION_ENTITY_TYPE.get("source_manager")::get, GenericTooltipDeviceBlock::new, ""),
+    Monitor(() -> FISSION_ENTITY_TYPE.get("monitor")::get, FissionMonitorBlock::new, ""),
+    ShieldManager(() -> FISSION_ENTITY_TYPE.get("shield_manager")::get, FissionShieldManagerBlock::new, ""),
+    SourceManager(() -> FISSION_ENTITY_TYPE.get("source_manager")::get, FissionSourceManagerBlock::new, ""),
 
+    // TODO
+//    PowerPort(() -> FISSION_ENTITY_TYPE.get("power_port")::get, GenericTooltipDeviceBlock::new, ""),
     ;
 
     private final MultiblockPartTypeProperties<FissionReactor, IFissionPartType> _properties;

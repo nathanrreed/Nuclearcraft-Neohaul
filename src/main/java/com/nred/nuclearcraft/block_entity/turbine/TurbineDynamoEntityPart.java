@@ -21,9 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nonnull;
 
 public class TurbineDynamoEntityPart extends AbstractTurbineEntity implements ITickable, ITileEnergy {
-    //    public static final Object2DoubleMap<String> DYN_CONDUCTIVITY_MAP = new Object2DoubleOpenHashMap<>(); TODO REMOVE
-//    public static final Object2ObjectMap<String, String> DYN_RULE_ID_MAP = new Object2ObjectOpenHashMap<>();
-
     protected final EnergyStorage backupStorage = new EnergyStorage(0L);
 
     protected final EnergyConnection[] energyConnections = ITileEnergy.energyConnectionAll(EnergyConnection.OUT);
