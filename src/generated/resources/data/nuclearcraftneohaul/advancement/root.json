@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "unlocked": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "nuclearcraftneohaul:textures/block/wasteland_earth.png",
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.root.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:leu_233"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "unlocked"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

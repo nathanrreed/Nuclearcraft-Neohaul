@@ -1,0 +1,91 @@
+{
+  "parent": "nuclearcraftneohaul:plutonium",
+  "criteria": {
+    "pickup_curium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:curium_247_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_246_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_243_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_247_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_243_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_245_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_245_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_246_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_243_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_243"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_243_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_245"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_246"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_247"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_247_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_247_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_245_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_246_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_245_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:curium_246_ox"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.curium.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:curium_243"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.curium.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_curium"
+    ]
+  ]
+}

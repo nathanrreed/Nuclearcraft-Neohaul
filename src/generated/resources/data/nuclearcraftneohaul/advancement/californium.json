@@ -1,0 +1,91 @@
+{
+  "parent": "nuclearcraftneohaul:curium",
+  "criteria": {
+    "pickup_californium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:californium_249_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_252_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_249_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_250_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_249_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_252_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_251_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_251_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_252_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_250"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_250_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_251"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_251_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_250_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_252"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_249"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_251_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_250_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_249_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:californium_252_ni"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.californium.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:californium_251"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.californium.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_californium"
+    ]
+  ]
+}

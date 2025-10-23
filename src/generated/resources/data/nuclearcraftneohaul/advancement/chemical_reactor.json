@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:alloy_furnace",
+  "criteria": {
+    "pickup_chemical_reactor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:chemical_reactor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.chemical_reactor.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:chemical_reactor"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.chemical_reactor.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_chemical_reactor"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:manufactory",
+  "criteria": {
+    "pickup_energy_upgrade": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:energy_upgrade"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.energy_upgrade.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:energy_upgrade"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.energy_upgrade.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_energy_upgrade"
+    ]
+  ]
+}

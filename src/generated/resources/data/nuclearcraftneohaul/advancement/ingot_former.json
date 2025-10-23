@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:melter",
+  "criteria": {
+    "pickup_ingot_former": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:ingot_former"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.ingot_former.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:ingot_former"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.ingot_former.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_ingot_former"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:root",
+  "criteria": {
+    "pickup_universal_bin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:universal_bin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.universal_bin.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:universal_bin"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.universal_bin.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_universal_bin"
+    ]
+  ]
+}

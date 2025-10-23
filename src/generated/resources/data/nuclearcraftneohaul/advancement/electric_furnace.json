@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:manufactory",
+  "criteria": {
+    "pickup_electric_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:electric_furnace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.electric_furnace.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:electric_furnace"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.electric_furnace.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_electric_furnace"
+    ]
+  ]
+}

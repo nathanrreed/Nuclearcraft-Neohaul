@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:alloy_furnace",
+  "criteria": {
+    "pickup_fluid_infuser": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:fluid_infuser"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.fluid_infuser.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:fluid_infuser"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.fluid_infuser.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_fluid_infuser"
+    ]
+  ]
+}

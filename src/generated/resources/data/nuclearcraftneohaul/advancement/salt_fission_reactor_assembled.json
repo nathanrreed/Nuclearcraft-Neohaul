@@ -1,0 +1,26 @@
+{
+  "parent": "nuclearcraftneohaul:molten_salt_fission_controller",
+  "criteria": {
+    "assemble_salt_fission_reactor_assembled": {
+      "trigger": "nuclearcraftneohaul:salt_fission_reactor_assembled"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.salt_fission_reactor_assembled.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:molten_salt_fission_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.salt_fission_reactor_assembled.title"
+    }
+  },
+  "requirements": [
+    [
+      "assemble_salt_fission_reactor_assembled"
+    ]
+  ]
+}

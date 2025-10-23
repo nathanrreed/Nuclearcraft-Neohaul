@@ -1,0 +1,61 @@
+{
+  "parent": "nuclearcraftneohaul:solid_fission_reactor_assembled",
+  "criteria": {
+    "pickup_neptunium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:neptunium_236_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_236"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_236_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_236_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_236_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237_ni"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.neptunium.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:neptunium_236"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.neptunium.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_neptunium"
+    ]
+  ]
+}

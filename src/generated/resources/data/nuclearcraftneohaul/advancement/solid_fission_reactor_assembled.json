@@ -1,0 +1,26 @@
+{
+  "parent": "nuclearcraftneohaul:solid_fuel_fission_controller",
+  "criteria": {
+    "assemble_solid_fission_reactor_assembled": {
+      "trigger": "nuclearcraftneohaul:solid_fission_reactor_assembled"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.solid_fission_reactor_assembled.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:solid_fuel_fission_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.solid_fission_reactor_assembled.title"
+    }
+  },
+  "requirements": [
+    [
+      "assemble_solid_fission_reactor_assembled"
+    ]
+  ]
+}
