@@ -19,6 +19,7 @@ public class Registration {
         BlockEntityRegistration.init();
         RecipeSerializerRegistration.init();
         RecipeTypeRegistration.init();
+        TriggerTypeRegistration.init();
         MenuRegistration.init();
         CreativeTabsRegistration.init();
         SoundRegistration.init();
@@ -36,5 +37,6 @@ public class Registration {
         MENUS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
+        TRIGGER_TYPES.register(modEventBus);
     }
 }

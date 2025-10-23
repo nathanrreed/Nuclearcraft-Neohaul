@@ -43,7 +43,8 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput, lookupProvider));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));
-//        generator.addProvider(event.includeServer(), ModEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper))
+//      generator.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModLanguageProvider(generator, "en_us"));
         generator.addProvider(event.includeClient(), new EmiLangProvider(generator, "en_us"));
     }

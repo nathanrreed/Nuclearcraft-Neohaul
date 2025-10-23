@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.item.MultiToolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
+import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.util.ModCheck;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -28,5 +29,6 @@ public class CommonSetup {
     public static void postInit(ServerAboutToStartEvent event) { // TODO is this the right event type
         PlacementRule.postInit();
         NCRecipes.init(event.getServer().getRecipeManager());
+        RecipeStats.init();
     }
 }

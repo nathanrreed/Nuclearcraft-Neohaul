@@ -9,6 +9,7 @@ import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config2.fission_decay_mechanics;
@@ -64,18 +65,18 @@ public class NCInfo {
 //		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".infiltrator_pressure_fluid.desc"));
 //	}
 //
-//	// RTG
-//
-//	public static String[] rtgInfo(long power) {
-//		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".rtg.desc", UnitHelper.prefix(power, 5, "RF/t"));
-//	}
-//
-//	// Solar Panel
-//
-//	public static String[] solarPanelInfo(long power) {
-//		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".solar_panel.desc", UnitHelper.prefix(power, 5, "RF/t"));
-//	}
-//
+    // RTG
+
+    public static Component rtgInfo(long power) {
+        return Component.translatable(MODID + ".tooltip.rtg", UnitHelper.prefix(power, 5, "RF/t"));
+    }
+
+    // Solar Panel
+
+    public static Component solarPanelInfo(Supplier<Integer> power) {
+        return Component.translatable(MODID + ".tooltip.solar", (Supplier<String>) () -> UnitHelper.prefix(power.get(), 5, "RF/t"));
+    }
+
 //	// Battery
 //
 //	public static String[] batteryInfo() {

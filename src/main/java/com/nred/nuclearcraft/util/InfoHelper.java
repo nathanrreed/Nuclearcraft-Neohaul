@@ -11,7 +11,6 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config2.ctrl_info;
 
 public class InfoHelper {
-
     public static final int MAXIMUM_TEXT_WIDTH = 225;
 
     public static final Component SHIFT_STRING = Component.translatable(MODID + ".tooltip.shift_for_info").withStyle(ChatFormatting.GRAY);
@@ -124,7 +123,7 @@ public class InfoHelper {
 
     public static Component[] buildFixedInfo(String unlocName, Component... tooltip) {
         if (tooltip.length == 0) {
-            return standardFixedInfo(unlocName, unlocName);
+            return standardFixedInfo(unlocName);
         } else {
             return tooltip;
         }
@@ -132,7 +131,7 @@ public class InfoHelper {
 
     public static Component[] buildInfo(String unlocName, Component... tooltip) {
         if (tooltip.length == 0) {
-            return standardInfo(unlocName, unlocName);
+            return standardInfo(unlocName);
         } else {
             return tooltip;
         }
@@ -148,22 +147,22 @@ public class InfoHelper {
     }
 
     public static <T extends Enum<T> & StringRepresentable> Component[][] buildFixedInfo(String unlocNameBase, Class<T> enumm, Component[]... tooltips) {
-        return buildGeneralInfo(unlocNameBase, getEnumNames(enumm), ".fixd", ".fix", tooltips);
+        return buildGeneralInfo(unlocNameBase, getEnumNames(enumm), ".fixd", tooltips);
     }
 
     public static Component[][] buildFixedInfo(String unlocNameBase, String[] types, Component[]... tooltips) {
-        return buildGeneralInfo(unlocNameBase, types, ".fixd", ".fix", tooltips);
+        return buildGeneralInfo(unlocNameBase, types, ".fixd", tooltips);
     }
 
     public static <T extends Enum<T> & StringRepresentable> Component[][] buildInfo(String unlocNameBase, Class<T> enumm, Component[]... tooltips) {
-        return buildGeneralInfo(unlocNameBase, getEnumNames(enumm), ".desc", ".des", tooltips);
+        return buildGeneralInfo(unlocNameBase, getEnumNames(enumm), ".desc", tooltips);
     }
 
     public static Component[][] buildInfo(String unlocNameBase, String[] names, Component[]... tooltips) {
-        return buildGeneralInfo(unlocNameBase, names, ".desc", ".des", tooltips);
+        return buildGeneralInfo(unlocNameBase, names, ".desc", tooltips);
     }
 
-    public static Component[][] buildGeneralInfo(String unlocNameBase, String[] types, String desc, String des, Component[]... tooltips) {
+    public static Component[][] buildGeneralInfo(String unlocNameBase, String[] types, String desc, Component[]... tooltips) {
         Component[][] strings = new Component[types.length][];
 
         if (Arrays.deepEquals(tooltips, NULL_ARRAYS)) {
@@ -177,7 +176,7 @@ public class InfoHelper {
             if (CollectionHelper.isNull(tooltips, i)) {
                 strings[i] = EMPTY_ARRAY;
             } else if (CollectionHelper.isEmpty(tooltips, i)) {
-                strings[i] = standardGeneralInfo(unlocNameBase + "." + types[i], unlocNameBase, desc, des);
+                strings[i] = standardGeneralInfo(unlocNameBase + "." + types[i], desc);
             } else {
                 strings[i] = tooltips[i];
             }
@@ -185,34 +184,15 @@ public class InfoHelper {
         return strings;
     }
 
-    public static Component[] standardFixedInfo(String unlocName, String generalName) {
-        return standardGeneralInfo(unlocName, generalName, ".fixd", ".fix");
+    public static Component[] standardFixedInfo(String unlocName) {
+        return standardGeneralInfo(unlocName, ".fixd");
     }
 
-    public static Component[] standardInfo(String unlocName, String generalName) {
-        return standardGeneralInfo(unlocName, generalName, ".desc", ".des");
+    public static Component[] standardInfo(String unlocName) {
+        return standardGeneralInfo(unlocName, ".desc");
     }
 
-    public static Component[] standardGeneralInfo(String unlocName, String generalName, String desc, String des) {
-        for (String name : new String[]{unlocName, generalName}) {
-            if (Lang.canLocalize(name + desc)) {
-                return new Component[]{Component.translatable(name + desc)};
-            }
-        }
-        return getNumberedInfo(unlocName + des);
-    }
-
-    public static Component[] getNumberedInfo(String base) {
-        String firstLine = base + 0;
-        if (!Lang.canLocalize(firstLine)) {
-            return EMPTY_ARRAY;
-        }
-        Component[] info = new Component[]{Component.translatable(firstLine)};
-        int line = 1;
-        while (Lang.canLocalize(base + line)) {
-            info = CollectionHelper.concatenate(info, Component.translatable(base + line));
-            ++line;
-        }
-        return info;
+    public static Component[] standardGeneralInfo(String unlocNameString, String desc) {
+        return new Component[]{Component.translatable(unlocNameString + desc)};
     }
 }

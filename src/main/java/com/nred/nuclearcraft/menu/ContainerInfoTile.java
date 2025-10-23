@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.menu;
 
 import com.nred.nuclearcraft.block_entity.ITileGui;
-import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfoImpl;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.helpers.MenuHelper;
 import com.nred.nuclearcraft.payload.NCPacket;

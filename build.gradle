@@ -84,6 +84,12 @@ configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
 
+minecraft {
+    accessTransformers {
+        file("src/main/resources/META-INF/accesstransformer.cfg")
+    }
+}
+
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 

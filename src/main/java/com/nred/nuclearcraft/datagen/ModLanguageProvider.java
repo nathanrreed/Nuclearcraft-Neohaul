@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.datagen;
 
-import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
@@ -30,6 +29,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        advancements();
         ores();
         items();
         blocks();
@@ -55,6 +55,197 @@ public class ModLanguageProvider extends LanguageProvider {
         add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
         add(LITHIUM_ION_CELL.asItem(), capitalize(LITHIUM_ION_CELL.getId().getPath()));
         add("jei.probability", "Production chance: %s%%");
+    }
+
+    private void advancements() {
+        add("advancement." + MODID + ".root.title", "NuclearCraft");
+        add("advancement." + MODID + ".root.description", "Nuclear Physics, Minecraft Style");
+
+        add("advancement." + MODID + ".manufactory.title", "Industrializing");
+        add("advancement." + MODID + ".manufactory.description", "Craft a Manufactory");
+
+        add("advancement." + MODID + ".separator.title", "Fractionalization");
+        add("advancement." + MODID + ".separator.description", "Craft a Separator");
+
+        add("advancement." + MODID + ".basic_voltaic_pile.title", "Electric Avenue");
+        add("advancement." + MODID + ".basic_voltaic_pile.description", "Craft a Basic Voltaic Pile");
+
+        add("advancement." + MODID + ".electrolyzer.title", "Gift of Fizzacles");
+        add("advancement." + MODID + ".electrolyzer.description", "Craft an Electrolyzer");
+
+        add("advancement." + MODID + ".decay_generator.title", "Alpha Power");
+        add("advancement." + MODID + ".decay_generator.description", "Craft a Decay Generator");
+
+        add("advancement." + MODID + ".bin.title", "Mr Dilkington");
+        add("advancement." + MODID + ".bin.description", "Craft a Universal Bin");
+
+        add("advancement." + MODID + ".portable_ender_chest.title", "Mary Poppins");
+        add("advancement." + MODID + ".portable_ender_chest.description", "Craft a Portable Ender Chest");
+
+        add("advancement." + MODID + ".speed_upgrade.title", "Overclocking");
+        add("advancement." + MODID + ".speed_upgrade.description", "Craft a Speed Upgrade");
+
+        add("advancement." + MODID + ".energy_upgrade.title", "Polynomial Quenching");
+        add("advancement." + MODID + ".energy_upgrade.description", "Craft an Energy Upgrade");
+
+        add("advancement." + MODID + ".machine_interface.title", "Cubic Extension");
+        add("advancement." + MODID + ".machine_interface.description", "Craft a Machine Interface");
+
+        add("advancement." + MODID + ".alloy_furnace.title", "Smelting up a Storm");
+        add("advancement." + MODID + ".alloy_furnace.description", "Craft an Alloy Furnace");
+
+        add("advancement." + MODID + ".fuel_reprocessor.title", "Picking up the Pieces");
+        add("advancement." + MODID + ".fuel_reprocessor.description", "Craft a Fuel Reprocessor");
+
+        add("advancement." + MODID + ".decay_hastener.title", "Extreme Radiation");
+        add("advancement." + MODID + ".decay_hastener.description", "Craft a Decay Hastener");
+
+        add("advancement." + MODID + ".basic_lithium_ion_battery.title", "Volta's Footsteps");
+        add("advancement." + MODID + ".basic_lithium_ion_battery.description", "Craft a Basic Lithium Ion Battery");
+
+        add("advancement." + MODID + ".assembler.title", "Production Line");
+        add("advancement." + MODID + ".assembler.description", "Craft an Assembler");
+
+        add("advancement." + MODID + ".solar_panel_basic.title", "Eco-Friendly");
+        add("advancement." + MODID + ".solar_panel_basic.description", "Craft a Basic Solar Panel");
+
+        add("advancement." + MODID + ".rtg_uranium.title", "Warm Green Glow");
+        add("advancement." + MODID + ".rtg_uranium.description", "Craft a Uranium RTG");
+
+        add("advancement." + MODID + ".infuser.title", "Soaking it Up");
+        add("advancement." + MODID + ".infuser.description", "Craft a Fluid Infuser");
+
+        add("advancement." + MODID + ".melter.title", "Hot and Spicy");
+        add("advancement." + MODID + ".melter.description", "Craft a Melter");
+
+        add("advancement." + MODID + ".chemical_reactor.title", "The Full Poliakoff");
+        add("advancement." + MODID + ".chemical_reactor.description", "Craft a Chemical Reactor");
+
+        add("advancement." + MODID + ".supercooler.title", "Hoth Machine");
+        add("advancement." + MODID + ".supercooler.description", "Craft a Supercooler");
+
+        add("advancement." + MODID + ".extractor.title", "Squeezing the Sponge");
+        add("advancement." + MODID + ".extractor.description", "Craft a Fluid Extractor");
+
+        add("advancement." + MODID + ".enricher.title", "Chemical Brewery");
+        add("advancement." + MODID + ".enricher.description", "Craft a Fluid Enricher");
+
+        add("advancement." + MODID + ".nuclear_furnace.title", "Kitchen Nightmare");
+        add("advancement." + MODID + ".nuclear_furnace.description", "Craft a Nuclear Furnace");
+
+        add("advancement." + MODID + ".neptunium.title", "Sweet Neptune");
+        add("advancement." + MODID + ".neptunium.description", "Obtain some Neptunium");
+
+        add("advancement." + MODID + ".rtg_plutonium.title", "Demon Core");
+        add("advancement." + MODID + ".rtg_plutonium.description", "Craft a Plutonium RTG");
+
+        add("advancement." + MODID + ".ingot_former.title", "Ceramic Mold");
+        add("advancement." + MODID + ".ingot_former.description", "Craft an Ingot Former");
+
+        add("advancement." + MODID + ".salt_mixer.title", "Blend and Fold");
+        add("advancement." + MODID + ".salt_mixer.description", "Craft a Fluid Mixer");
+
+        add("advancement." + MODID + ".crystallizer.title", "Breaking Bad");
+        add("advancement." + MODID + ".crystallizer.description", "Craft a Crystallizer");
+
+        add("advancement." + MODID + ".centrifuge.title", "James Bond");
+        add("advancement." + MODID + ".centrifuge.description", "Craft a Centrifuge");
+
+        add("advancement." + MODID + ".rock_crusher.title", "Rolling Stones");
+        add("advancement." + MODID + ".rock_crusher.description", "Craft a Rock Crusher");
+
+        add("advancement." + MODID + ".electric_furnace.title", "Proof by Induction");
+        add("advancement." + MODID + ".electric_furnace.description", "Craft an Electric Furnace");
+
+        add("advancement." + MODID + ".plutonium.title", "Criticality");
+        add("advancement." + MODID + ".plutonium.description", "Obtain some Plutonium");
+
+        add("advancement." + MODID + ".rtg_americium.title", "Rad-Spangled Power");
+        add("advancement." + MODID + ".rtg_americium.description", "Craft an Americium RTG");
+
+        add("advancement." + MODID + ".pressurizer.title", "The Terror of Knowing");
+        add("advancement." + MODID + ".pressurizer.description", "Craft a Pressurizer");
+
+        add("advancement." + MODID + ".americium.title", "In Physics We Trust");
+        add("advancement." + MODID + ".americium.description", "Obtain some Americium");
+
+        add("advancement." + MODID + ".rtg_californium.title", "End of the Line");
+        add("advancement." + MODID + ".rtg_californium.description", "Craft a Californium RTG");
+
+        add("advancement." + MODID + ".curium.title", "Curious Marie");
+        add("advancement." + MODID + ".curium.description", "Obtain some Curium");
+
+        add("advancement." + MODID + ".berkelium.title", "Made in Alameda");
+        add("advancement." + MODID + ".berkelium.description", "Obtain some Berkelium");
+
+        add("advancement." + MODID + ".californium.title", "California Dreamin'");
+        add("advancement." + MODID + ".californium.description", "Obtain some Californium");
+
+        add("advancement." + MODID + ".solid_fuel_fission_controller.title", "Splitting the Atom [1/2]");
+        add("advancement." + MODID + ".solid_fuel_fission_controller.description", "Craft a Solid Fuel Fission Controller");
+
+        add("advancement." + MODID + ".molten_salt_fission_controller.title", "Next Gen Nuclear [1/2]");
+        add("advancement." + MODID + ".molten_salt_fission_controller.description", "Craft a Molten Salt Fission Controller");
+
+        add("advancement." + MODID + ".heat_exchanger_controller.title", "Thermal Contact [1/2]");
+        add("advancement." + MODID + ".heat_exchanger_controller.description", "Craft a Heat Exchanger Controller");
+
+        add("advancement." + MODID + ".condenser_controller.title", "Latent Ludwig [1/2]");
+        add("advancement." + MODID + ".condenser_controller.description", "Craft a Condenser Controller");
+
+        add("advancement." + MODID + ".turbine_controller.title", "Respecting Rankine [1/2]");
+        add("advancement." + MODID + ".turbine_controller.description", "Craft a Turbine Controller");
+
+        add("advancement." + MODID + ".electrolyzer_assembled.title", "Fizzing Electrodes");
+        add("advancement." + MODID + ".electrolyzer_assembled.description", "Build a Multiblock Electrolyzer");
+
+        add("advancement." + MODID + ".distiller_assembled.title", "Gertcha Cowson");
+        add("advancement." + MODID + ".distiller_assembled.description", "Build a Multiblock Distiller");
+
+        add("advancement." + MODID + ".infiltrator_assembled.title", "Hola Pablo");
+        add("advancement." + MODID + ".infiltrator_assembled.description", "Build a Multiblock Infiltrator");
+
+        add("advancement." + MODID + ".solid_fission_reactor_assembled.title", "Splitting the Atom [2/2]");
+        add("advancement." + MODID + ".solid_fission_reactor_assembled.description", "Build a Solid Fuel Fission Reactor");
+
+        add("advancement." + MODID + ".salt_fission_reactor_assembled.title", "Next Gen Nuclear [2/2]");
+        add("advancement." + MODID + ".salt_fission_reactor_assembled.description", "Build a Molten Salt Fission Reactor");
+
+        add("advancement." + MODID + ".heat_exchanger_assembled.title", "Thermal Contact [2/2]");
+        add("advancement." + MODID + ".heat_exchanger_assembled.description", "Build a Heat Exchanger");
+
+        add("advancement." + MODID + ".condenser_assembled.title", "Latent Ludwig [2/2]");
+        add("advancement." + MODID + ".condenser_assembled.description", "Build a Condenser");
+
+        add("advancement." + MODID + ".turbine_assembled.title", "Respecting Rankine [2/2]");
+        add("advancement." + MODID + ".turbine_assembled.description", "Build a Turbine");
+
+        add("advancement." + MODID + ".geiger_counter.title", "Pripyat Preparations");
+        add("advancement." + MODID + ".geiger_counter.description", "Craft a Geiger Counter");
+
+        add("advancement." + MODID + ".radaway.title", "Ridding the Rads");
+        add("advancement." + MODID + ".radaway.description", "Make some RadAway");
+
+        add("advancement." + MODID + ".rad_x.title", "Imitative Immunity");
+        add("advancement." + MODID + ".rad_x.description", "Make some Rad-X");
+
+        add("advancement." + MODID + ".rad_shielding.title", "Brave Sir Robin");
+        add("advancement." + MODID + ".rad_shielding.description", "Craft some Heavy Radiation Shielding");
+
+        add("advancement." + MODID + ".radiation_scrubber.title", "Pollution Control");
+        add("advancement." + MODID + ".radiation_scrubber.description", "Craft a Radiation Scrubber");
+
+        add("advancement." + MODID + ".marshmallow.title", "The Lansdell Manoeuvre");
+        add("advancement." + MODID + ".marshmallow.description", "Make a Marshmallow");
+
+        add("advancement." + MODID + ".smore.title", "Gather Round the Campfire");
+        add("advancement." + MODID + ".smore.description", "Make a S'more S'mingot");
+
+        add("advancement." + MODID + ".moresmore.title", "S'more of the Same");
+        add("advancement." + MODID + ".moresmore.description", "Make a MoreS'more DoubleS'mingot");
+
+        add("advancement." + MODID + ".foursmore.title", "Even S'more Where That Came From");
+        add("advancement." + MODID + ".foursmore.description", "Make a FourS'more QuadS'mingot");
     }
 
     private void ores() {
@@ -493,14 +684,13 @@ public class ModLanguageProvider extends LanguageProvider {
         add(FERTILE_ISOTOPE_MAP.get("plutonium").get(), "Plutonium-242 Block");
         add(FERTILE_ISOTOPE_MAP.get("uranium").get(), "Uranium-238 Block");
 
-        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
-            for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
-                String type = level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase();
-                add(COLLECTOR_MAP.get(machine + type).asItem(), capitalize(type + "_" + machine));
-            }
+        for (String collector : COLLECTOR_MAP.keySet()) {
+            add(COLLECTOR_MAP.get(collector).asItem(), capitalize(collector));
         }
 
         simpleBlocks(PROCESSOR_MAP);
+        add(NUCLEAR_FURNACE.asItem(), capitalize(NUCLEAR_FURNACE.getId().getPath()));
+
         simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel", "solar_panel_advanced", "Advanced Solar Panel", "solar_panel_du", "DU Solar Panel", "solar_panel_elite", "Elite Solar Panel"));
         simpleBlocks(TURBINE_MAP, Map.of("sic_turbine_rotor_blade", "SiC-SiC CMC Turbine Rotor Blade", "turbine_inlet", "Turbine Fluid Inlet", "turbine_outlet", "Turbine Fluid Outlet"));
         simpleBlocks(FISSION_REACTOR_MAP, Map.of("boron_silver_shield", "Boron-Silver Fission Neutron Shield", "radium_beryllium_source", "Ra-Be Fission Neutron Source", "polonium_beryllium_source", "Po-Be Fission Neutron Source", "californium_source", "Cf-252 Fission Neutron Source", "beryllium_carbon_reflector", "Beryllium-Carbon Neutron Reflector", "lead_steel_reflector", "Lead-Steel Neutron Reflector"));
@@ -634,37 +824,42 @@ public class ModLanguageProvider extends LanguageProvider {
         fission_reactor();
 
         add(MODID + ".tooltip.radiation", "Radiation: %s %sRad/t"); // TODO remove
-        add(MODID + ".tooltip.cobblestone_generator", "Produces %s Cobblestone/t constantly.");
-        add(MODID + ".tooltip.collector", "Produces %s mb/t of %s constantly.");
-        add(MODID + ".tooltip.solar", "Produces %s/t constantly during the daytime.");
-        add(MODID + ".tooltip.universal_bin", "Destroys items, fluids and energy.");
-        add(MODID + ".tooltip.machine_interface", "Automation can access the machine directly adjacent to this block. Can only extend one adjacent machine at maximum.");
+        add(MODID + ".tooltip.cobblestone_generator_no_req_power", "Produces %s constantly.");
+        add(MODID + ".tooltip.cobblestone_generator_req_power", "Produces %s constantly if supplied %s.");
+        add(MODID + ".tooltip.water_source", "Produces %s of water constantly.");
+        add(MODID + ".tooltip.nitrogen_collector", "Produces %s of nitrogen constantly.");
+        add(MODID + ".tooltip.solar", "Produces %s constantly during the daytime.");
+        add(MODID + ".tooltip.rtg", "Produces %s constantly.");
         add(MODID + ".tooltip.processor.energy.stored", "Energy Stored: %s");
         add(MODID + ".tooltip.processor.energy.using", "§dProcess Power:§r %s/t");
         add(MODID + ".tooltip.processor.energy.speed", "§bSpeed Multiplier:§r x%s");
         add(MODID + ".tooltip.processor.energy.energy", "§bPower Multiplier:§r x%s");
         add(MODID + ".tooltip.processor.energy.not_required", "Does not require energy!");
 
-        add(MODID + ".tooltip.alloy_furnace", "Combines base metals into alloys.");
-        add(MODID + ".tooltip.assembler", "Combines components into a complex product.");
-        add(MODID + ".tooltip.centrifuge", "Separates the isotopes of fluid materials.");
-        add(MODID + ".tooltip.chemical_reactor", "Houses reactions between fluids.");
-        add(MODID + ".tooltip.crystallizer", "Precipitates solids from solution.");
-        add(MODID + ".tooltip.decay_hastener", "Forces radioactive materials to decay.");
-        add(MODID + ".tooltip.electric_furnace", "Smelts items using energy.");
-        add(MODID + ".tooltip.electrolyzer", "Splits compounds into their elements.");
-        add(MODID + ".tooltip.fluid_enricher", "Enriches fluids with materials.");
-        add(MODID + ".tooltip.fluid_extractor", "Draws fluids from materials.");
-        add(MODID + ".tooltip.fuel_reprocessor", "Extracts materials from depleted fuel.");
-        add(MODID + ".tooltip.fluid_infuser", "Enhances materials with fluids.");
-        add(MODID + ".tooltip.ingot_former", "Forms ingots and gems from molten materials.");
-        add(MODID + ".tooltip.manufactory", "A handy machine that has many uses.");
-        add(MODID + ".tooltip.melter", "Melts down materials.");
-        add(MODID + ".tooltip.pressurizer", "Processes items under immense pressure.");
-        add(MODID + ".tooltip.rock_crusher", "Smashes up rock to produce mineral dusts.");
-        add(MODID + ".tooltip.fluid_mixer", "Blends fluids together.");
-        add(MODID + ".tooltip.separator", "Breaks materials into their constituents.");
-        add(MODID + ".tooltip.supercooler", "Lowers the temperature of fluids.");
+        addTooltip(PROCESSOR_MAP.get("alloy_furnace"), "Combines base metals into alloys.");
+        addTooltip(PROCESSOR_MAP.get("assembler"), "Combines components into a complex product.");
+        addTooltip(PROCESSOR_MAP.get("centrifuge"), "Separates the isotopes of fluid materials.");
+        addTooltip(PROCESSOR_MAP.get("chemical_reactor"), "Houses reactions between fluids.");
+        addTooltip(PROCESSOR_MAP.get("crystallizer"), "Precipitates solids from solution.");
+        addTooltip(PROCESSOR_MAP.get("decay_hastener"), "Forces radioactive materials to decay.");
+        addTooltip(PROCESSOR_MAP.get("electric_furnace"), "Smelts items using energy.");
+        addTooltip(PROCESSOR_MAP.get("electrolyzer"), "Splits compounds into their elements.");
+        addTooltip(PROCESSOR_MAP.get("fluid_enricher"), "Enriches fluids with materials.");
+        addTooltip(PROCESSOR_MAP.get("fluid_extractor"), "Draws fluids from materials.");
+        addTooltip(PROCESSOR_MAP.get("fuel_reprocessor"), "Extracts materials from depleted fuel.");
+        addTooltip(PROCESSOR_MAP.get("fluid_infuser"), "Enhances materials with fluids.");
+        addTooltip(PROCESSOR_MAP.get("ingot_former"), "Forms ingots and gems from molten materials.");
+        addTooltip(PROCESSOR_MAP.get("manufactory"), "A handy machine that has many uses.");
+        addTooltip(PROCESSOR_MAP.get("melter"), "Melts down materials.");
+        addTooltip(PROCESSOR_MAP.get("pressurizer"), "Processes items under immense pressure.");
+        addTooltip(PROCESSOR_MAP.get("rock_crusher"), "Smashes up rock to produce mineral dusts.");
+        addTooltip(PROCESSOR_MAP.get("fluid_mixer"), "Blends fluids together.");
+        addTooltip(PROCESSOR_MAP.get("separator"), "Breaks materials into their constituents.");
+        addTooltip(PROCESSOR_MAP.get("supercooler"), "Lowers the temperature of fluids.");
+
+        addTooltip(NUCLEAR_FURNACE, "Smelts items very quickly using uranium ingots and dust as fuel.");
+        addTooltip(UNIVERSAL_BIN, "Destroys items, fluids and energy.");
+        addTooltip(MACHINE_INTERFACE, "Automation can access the machine directly adjacent to this block. Can only extend one adjacent machine at maximum.");
 
         add(MODID + ".tooltip.tank", "%s [%s mB / %s mB]");
         add(MODID + ".tooltip.tank.clear", "Shift Click to clear tank");
@@ -723,6 +918,10 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.moderator.efficiency", "Efficiency Multiplier: %s");
     }
 
+    private void addTooltip(DeferredBlock<Block> block, String string) {
+        add(block.get().getDescriptionId() + ".desc", string);
+    }
+
     private void damage_types() {
         add(MODID + ".death.attack.superfluid_freeze", "%swas Bose-Einstein condensated");
         add(MODID + ".death.attack.plasma_burn", "%s was incinerated by plasma");
@@ -754,6 +953,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".menu.title.ingot_former", "Ingot Former");
         add(MODID + ".menu.title.manufactory", "Manufactory");
         add(MODID + ".menu.title.melter", "Melter");
+        add(MODID + ".menu.title.nuclear_furnace", "Nuclear Furnace");
         add(MODID + ".menu.title.pressurizer", "Pressurizer");
         add(MODID + ".menu.title.rock_crusher", "Rock Crusher");
         add(MODID + ".menu.title.fluid_mixer", "Fluid Mixer");

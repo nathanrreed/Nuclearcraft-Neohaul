@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.screen;
 
-import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfoImpl;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
-import com.nred.nuclearcraft.block.processor.IBasicProcessor;
+import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import net.minecraft.network.chat.Component;

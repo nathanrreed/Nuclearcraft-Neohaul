@@ -22,7 +22,6 @@ import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.GLOWING_MUSHROOM;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ORE_MAP;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
-import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 class ModItemTagProvider extends ItemTagsProvider {

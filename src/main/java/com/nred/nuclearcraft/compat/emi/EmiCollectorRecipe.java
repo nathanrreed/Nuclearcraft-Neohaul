@@ -20,10 +20,10 @@ import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.EMI_COLLECTOR_CATEGO
 
 public class EmiCollectorRecipe extends BasicEmiRecipe {
     private final RecipeViewerInfo recipeViewerInfo;
-    private final double rate;
+    private final String rate;
     private final boolean isItem;
 
-    public EmiCollectorRecipe(ResourceLocation id, ItemLike catalyst, List<EmiIngredient> itemResults, List<EmiIngredient> fluidResults, double rate) {
+    public EmiCollectorRecipe(ResourceLocation id, ItemLike catalyst, List<EmiIngredient> itemResults, List<EmiIngredient> fluidResults, String rate) {
         super(EMI_COLLECTOR_CATEGORY, id, 0, 0);
         this.rate = rate;
         this.isItem = !itemResults.isEmpty();
@@ -64,6 +64,6 @@ public class EmiCollectorRecipe extends BasicEmiRecipe {
             }
         }
 
-        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 4, 600, true, false, false).tooltipText(List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.production_rate", rate + (isItem ? " C" : " mB"))));
+        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 4, 600, true, false, false).tooltipText(List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.production_rate", rate)));
     }
 }

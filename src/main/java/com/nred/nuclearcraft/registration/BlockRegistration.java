@@ -1,13 +1,10 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.NCInfo;
+import com.nred.nuclearcraft.block.NCItemBlock;
 import com.nred.nuclearcraft.block.SolidifiedCorium;
 import com.nred.nuclearcraft.block.SupercoldIceBlock;
 import com.nred.nuclearcraft.block.batteries.BatteryBlock;
-import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
-import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGenerator;
-import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollector;
-import com.nred.nuclearcraft.block.collector.water_source.WaterSource;
-import com.nred.nuclearcraft.block.machine_interface.MachineInterface;
 import com.nred.nuclearcraft.block.processor.alloy_furnace.AlloyFurnace;
 import com.nred.nuclearcraft.block.processor.assembler.Assembler;
 import com.nred.nuclearcraft.block.processor.centrifuge.Centrifuge;
@@ -24,12 +21,13 @@ import com.nred.nuclearcraft.block.processor.fuel_reprocessor.FuelReprocessor;
 import com.nred.nuclearcraft.block.processor.ingot_former.IngotFormer;
 import com.nred.nuclearcraft.block.processor.manufactory.Manufactory;
 import com.nred.nuclearcraft.block.processor.melter.Melter;
+import com.nred.nuclearcraft.block.processor.nuclear_furnace.NuclearFurnace;
 import com.nred.nuclearcraft.block.processor.pressurizer.Pressurizer;
 import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusher;
 import com.nred.nuclearcraft.block.processor.separator.Separator;
 import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
-import com.nred.nuclearcraft.block.solar.SolarPanel;
-import com.nred.nuclearcraft.block.universal_bin.UniversalBin;
+import com.nred.nuclearcraft.block.tile.BlockSimpleTile;
+import com.nred.nuclearcraft.block.tile.dummy.BlockMachineInterface;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
@@ -37,9 +35,16 @@ import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterP
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
+import com.nred.nuclearcraft.util.InfoHelper;
+import com.nred.nuclearcraft.util.NCMath;
+import com.nred.nuclearcraft.util.PrimitiveFunction.ObjIntFunction;
+import com.nred.nuclearcraft.util.UnitHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -55,10 +60,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.config.Config2.*;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType.*;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType.*;
@@ -92,8 +100,30 @@ public class BlockRegistration {
 
     public static final DeferredBlock<Block> SUPERCOLD_ICE = registerBlockItem("supercold_ice", SupercoldIceBlock::new);
     public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCorium::new);
-    public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItem("universal_bin", UniversalBin::new);
-    public static final DeferredBlock<Block> MACHINE_INTERFACE = registerBlockItem("machine_interface", MachineInterface::new);
+    public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItemWithTooltip("universal_bin", () -> new BlockSimpleTile<>("bin"), false);
+    public static final DeferredBlock<Block> MACHINE_INTERFACE = registerBlockItemWithTooltip("machine_interface", () -> new BlockMachineInterface("machine_interface"), false);
+    public static final DeferredBlock<Block> NUCLEAR_FURNACE = registerBlockItemWithTooltip("nuclear_furnace", () -> new NuclearFurnace(BlockBehaviour.Properties.ofFullCopy(Blocks.FURNACE)), false);
+
+    public static final DeferredBlock<Block> DECAY_GENERATOR = registerBlockItem("decay_generator", () -> new BlockSimpleTile<>("decay_generator"));
+
+
+    public static <T extends Block> DeferredBlock<Block> registerBlockItemWithTooltip(String name, Supplier<T> block, boolean hasFixed, Component... tooltip) {
+        DeferredBlock<Block> toReturn = BLOCKS.register(name, block);
+        ITEMS.register(name, () -> new NCItemBlock(toReturn.get(), ChatFormatting.RED, InfoHelper.EMPTY_ARRAY, hasFixed, ChatFormatting.AQUA, tooltip));
+        return toReturn;
+    }
+
+    private static DeferredBlock<Block> registerBlockItem(String name, Supplier<Block> block) {
+        DeferredBlock<Block> toReturn = BLOCKS.register(name, block);
+        ITEMS.registerSimpleBlockItem(name, toReturn);
+        return toReturn;
+    }
+
+    private static DeferredBlock<Block> registerBlockItemWithTooltip(String name, Supplier<Block> block, Function<Block, ? extends BlockItem> itemBlockFunction) {
+        DeferredBlock<Block> toReturn = BLOCKS.register(name, block);
+        ITEMS.register(name, () -> itemBlockFunction.apply(toReturn.get()));
+        return toReturn;
+    }
 
     // TODO make real mushroom
     public static final DeferredBlock<Block> GLOWING_MUSHROOM = registerBlockItem("glowing_mushroom", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)
@@ -105,7 +135,7 @@ public class BlockRegistration {
     });
 
     private static HashMap<String, DeferredBlock<Block>> createOres() {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         for (String ore : ORES) {
             map.put(ore, registerBlockItem(ore + "_ore", () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F))));
             map.put(ore + "_deepslate", registerBlockItem(ore + "_deepslate_ore", () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE))));
@@ -114,18 +144,12 @@ public class BlockRegistration {
         return map;
     }
 
-    private static DeferredBlock<Block> registerBlockItem(String name, Supplier<Block> block) {
-        DeferredBlock<Block> toReturn = BLOCKS.register(name, block);
-        ITEMS.registerSimpleBlockItem(name, toReturn);
-        return toReturn;
-    }
-
     private static HashMap<String, DeferredBlock<Block>> createBlocks(List<String> names, String append, Block copy) {
         return createBlocks(names, "", append, copy);
     }
 
     private static HashMap<String, DeferredBlock<Block>> createBlocks(List<String> names, String prepend, String append, Block copy) {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         for (String name : names) {
             String reg_name = (!prepend.isEmpty() ? (prepend + "_") : "") + name + "_" + append;
             map.put(name, BLOCKS.register(reg_name, () -> new Block(BlockBehaviour.Properties.ofFullCopy(copy))));
@@ -135,60 +159,63 @@ public class BlockRegistration {
     }
 
     private static HashMap<String, DeferredBlock<Block>> createCollectors() {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
-        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
-            String type = level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase();
-            String name = "cobblestone_generator" + type;
-            map.put(name, BLOCKS.register(name, () -> new CobbleGenerator(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
-            ITEMS.registerSimpleBlockItem(name, map.get(name));
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        ObjIntFunction<Block, BlockItem> cobbleGenFn = (x, y) -> {
+            Supplier<String> rateString = () -> NCMath.sigFigs(processor_passive_rate[0] * y, 5) + " C/t";
+            return new NCItemBlock(x, cobble_gen_power > 0 ? Component.translatable(MODID + ".tooltip.cobblestone_generator_req_power", rateString, UnitHelper.prefix(cobble_gen_power * y, 5, "RF/t")) : Component.translatable(MODID + ".tooltip.cobblestone_generator_no_req_power", rateString));
+        };
+        map.put("cobblestone_generator", registerBlockItemWithTooltip("cobblestone_generator", () -> new BlockSimpleTile<>("cobblestone_generator"), x -> cobbleGenFn.apply(x, 1)));
+        map.put("cobblestone_generator_compact", registerBlockItemWithTooltip("cobblestone_generator_compact", () -> new BlockSimpleTile<>("cobblestone_generator_compact"), x -> cobbleGenFn.apply(x, 8)));
+        map.put("cobblestone_generator_dense", registerBlockItemWithTooltip("cobblestone_generator_dense", () -> new BlockSimpleTile<>("cobblestone_generator_dense"), x -> cobbleGenFn.apply(x, 64)));
 
-            name = "water_source" + type;
-            map.put(name, BLOCKS.register(name, () -> new WaterSource(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
-            ITEMS.registerSimpleBlockItem(name, map.get(name));
+        ObjIntFunction<Block, BlockItem> waterSourceItemBlockFunction = (x, y) -> new NCItemBlock(x, Component.translatable(MODID + ".tooltip.water_source", (Supplier<String>) () -> UnitHelper.prefix(processor_passive_rate[1] * y, 5, "B/t", -1)));
+        map.put("water_source", registerBlockItemWithTooltip("water_source", () -> new BlockSimpleTile<>("water_source"), x -> waterSourceItemBlockFunction.apply(x, 1)));
+        map.put("water_source_compact", registerBlockItemWithTooltip("water_source_compact", () -> new BlockSimpleTile<>("water_source_compact"), x -> waterSourceItemBlockFunction.apply(x, 8)));
+        map.put("water_source_dense", registerBlockItemWithTooltip("water_source_dense", () -> new BlockSimpleTile<>("water_source_dense"), x -> waterSourceItemBlockFunction.apply(x, 64)));
+        ObjIntFunction<Block, BlockItem> nitrogenCollectorItemBlockFunction = (x, y) -> new NCItemBlock(x, Component.translatable(MODID + ".tooltip.nitrogen_collector", (Supplier<String>) () -> UnitHelper.prefix(processor_passive_rate[2] * y, 5, "B/t", -1)));
+        map.put("nitrogen_collector", registerBlockItemWithTooltip("nitrogen_collector", () -> new BlockSimpleTile<>("nitrogen_collector"), x -> nitrogenCollectorItemBlockFunction.apply(x, 1)));
+        map.put("nitrogen_collector_compact", registerBlockItemWithTooltip("nitrogen_collector_compact", () -> new BlockSimpleTile<>("nitrogen_collector_compact"), x -> nitrogenCollectorItemBlockFunction.apply(x, 8)));
+        map.put("nitrogen_collector_dense", registerBlockItemWithTooltip("nitrogen_collector_dense", () -> new BlockSimpleTile<>("nitrogen_collector_dense"), x -> nitrogenCollectorItemBlockFunction.apply(x, 64)));
 
-            name = "nitrogen_collector" + type;
-            map.put(name, BLOCKS.register(name, () -> new NitrogenCollector(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE), level)));
-            ITEMS.registerSimpleBlockItem(name, map.get(name));
-        }
         return map;
     }
 
     private static HashMap<String, DeferredBlock<Block>> createProcessors() {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
-        map.put("alloy_furnace", registerBlockItem("alloy_furnace", () -> new AlloyFurnace(BASE_PROPERTIES)));
-        map.put("assembler", registerBlockItem("assembler", () -> new Assembler(BASE_PROPERTIES)));
-        map.put("centrifuge", registerBlockItem("centrifuge", () -> new Centrifuge(BASE_PROPERTIES)));
-        map.put("chemical_reactor", registerBlockItem("chemical_reactor", () -> new ChemicalReactor(BASE_PROPERTIES)));
-        map.put("crystallizer", registerBlockItem("crystallizer", () -> new Crystallizer(BASE_PROPERTIES)));
-        map.put("decay_hastener", registerBlockItem("decay_hastener", () -> new DecayHastener(BASE_PROPERTIES)));
-        map.put("electric_furnace", registerBlockItem("electric_furnace", () -> new ElectricFurnace(BASE_PROPERTIES)));
-        map.put("electrolyzer", registerBlockItem("electrolyzer", () -> new Electrolyzer(BASE_PROPERTIES)));
-        map.put("fluid_enricher", registerBlockItem("fluid_enricher", () -> new Enricher(BASE_PROPERTIES)));
-        map.put("fluid_extractor", registerBlockItem("fluid_extractor", () -> new Extractor(BASE_PROPERTIES)));
-        map.put("fuel_reprocessor", registerBlockItem("fuel_reprocessor", () -> new FuelReprocessor(BASE_PROPERTIES)));
-        map.put("fluid_infuser", registerBlockItem("fluid_infuser", () -> new Infuser(BASE_PROPERTIES)));
-        map.put("ingot_former", registerBlockItem("ingot_former", () -> new IngotFormer(BASE_PROPERTIES)));
-        map.put("manufactory", registerBlockItem("manufactory", () -> new Manufactory(BASE_PROPERTIES)));
-        map.put("melter", registerBlockItem("melter", () -> new Melter(BASE_PROPERTIES)));
-        map.put("pressurizer", registerBlockItem("pressurizer", () -> new Pressurizer(BASE_PROPERTIES)));
-        map.put("rock_crusher", registerBlockItem("rock_crusher", () -> new RockCrusher(BASE_PROPERTIES)));
-        map.put("fluid_mixer", registerBlockItem("fluid_mixer", () -> new SaltMixer(BASE_PROPERTIES)));
-        map.put("separator", registerBlockItem("separator", () -> new Separator(BASE_PROPERTIES)));
-        map.put("supercooler", registerBlockItem("supercooler", () -> new Supercooler(BASE_PROPERTIES)));
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        map.put("alloy_furnace", registerBlockItemWithTooltip("alloy_furnace", () -> new AlloyFurnace(BASE_PROPERTIES), false));
+        map.put("assembler", registerBlockItemWithTooltip("assembler", () -> new Assembler(BASE_PROPERTIES), false));
+        map.put("centrifuge", registerBlockItemWithTooltip("centrifuge", () -> new Centrifuge(BASE_PROPERTIES), false));
+        map.put("chemical_reactor", registerBlockItemWithTooltip("chemical_reactor", () -> new ChemicalReactor(BASE_PROPERTIES), false));
+        map.put("crystallizer", registerBlockItemWithTooltip("crystallizer", () -> new Crystallizer(BASE_PROPERTIES), false));
+        map.put("decay_hastener", registerBlockItemWithTooltip("decay_hastener", () -> new DecayHastener(BASE_PROPERTIES), false));
+        map.put("electric_furnace", registerBlockItemWithTooltip("electric_furnace", () -> new ElectricFurnace(BASE_PROPERTIES), false));
+        map.put("electrolyzer", registerBlockItemWithTooltip("electrolyzer", () -> new Electrolyzer(BASE_PROPERTIES), false));
+        map.put("fluid_enricher", registerBlockItemWithTooltip("fluid_enricher", () -> new Enricher(BASE_PROPERTIES), false));
+        map.put("fluid_extractor", registerBlockItemWithTooltip("fluid_extractor", () -> new Extractor(BASE_PROPERTIES), false));
+        map.put("fuel_reprocessor", registerBlockItemWithTooltip("fuel_reprocessor", () -> new FuelReprocessor(BASE_PROPERTIES), false));
+        map.put("fluid_infuser", registerBlockItemWithTooltip("fluid_infuser", () -> new Infuser(BASE_PROPERTIES), false));
+        map.put("ingot_former", registerBlockItemWithTooltip("ingot_former", () -> new IngotFormer(BASE_PROPERTIES), false));
+        map.put("manufactory", registerBlockItemWithTooltip("manufactory", () -> new Manufactory(BASE_PROPERTIES), false));
+        map.put("melter", registerBlockItemWithTooltip("melter", () -> new Melter(BASE_PROPERTIES), false));
+        map.put("pressurizer", registerBlockItemWithTooltip("pressurizer", () -> new Pressurizer(BASE_PROPERTIES), false));
+        map.put("rock_crusher", registerBlockItemWithTooltip("rock_crusher", () -> new RockCrusher(BASE_PROPERTIES), false));
+        map.put("fluid_mixer", registerBlockItemWithTooltip("fluid_mixer", () -> new SaltMixer(BASE_PROPERTIES), false));
+        map.put("separator", registerBlockItemWithTooltip("separator", () -> new Separator(BASE_PROPERTIES), false));
+        map.put("supercooler", registerBlockItemWithTooltip("supercooler", () -> new Supercooler(BASE_PROPERTIES), false));
         return map;
     }
 
     private static HashMap<String, DeferredBlock<Block>> createSolarPanels() {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
-        map.put("solar_panel_basic", registerBlockItem("solar_panel_basic", () -> new SolarPanel(0)));
-        map.put("solar_panel_advanced", registerBlockItem("solar_panel_advanced", () -> new SolarPanel(1)));
-        map.put("solar_panel_du", registerBlockItem("solar_panel_du", () -> new SolarPanel(2)));
-        map.put("solar_panel_elite", registerBlockItem("solar_panel_elite", () -> new SolarPanel(3)));
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        map.put("solar_panel_basic", registerBlockItemWithTooltip("solar_panel_basic", () -> new BlockSimpleTile<>("solar_panel_basic"), false, NCInfo.solarPanelInfo(() -> solar_power[0])));
+        map.put("solar_panel_advanced", registerBlockItemWithTooltip("solar_panel_advanced", () -> new BlockSimpleTile<>("solar_panel_advanced"), false, NCInfo.solarPanelInfo(() -> solar_power[1])));
+        map.put("solar_panel_du", registerBlockItemWithTooltip("solar_panel_du", () -> new BlockSimpleTile<>("solar_panel_du"), false, NCInfo.solarPanelInfo(() -> solar_power[2])));
+        map.put("solar_panel_elite", registerBlockItemWithTooltip("solar_panel_elite", () -> new BlockSimpleTile<>("solar_panel_elite"), false, NCInfo.solarPanelInfo(() -> solar_power[3])));
         return map;
     }
 
     private static HashMap<String, DeferredBlock<Block>> createTurbineParts() {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         map.put("turbine_casing", registerBlockItem("turbine_casing", TurbinePartType.Casing::createBlock));
         map.put("turbine_glass", registerBlockItem("turbine_glass", TurbinePartType.Glass::createBlock));
         map.put("turbine_rotor_bearing", registerBlockItem("turbine_rotor_bearing", TurbinePartType.RotorBearing::createBlock));
@@ -215,7 +242,7 @@ public class BlockRegistration {
     }
 
     private static HashMap<String, DeferredBlock<Block>> createFissionParts() {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         map.put("solid_fuel_fission_controller", registerBlockItem("solid_fuel_fission_controller", FissionPartType.SolidFuelController::createBlock));
         map.put("molten_salt_fission_controller", registerBlockItem("molten_salt_fission_controller", FissionPartType.MoltenSaltController::createBlock));
         map.put("fission_casing", registerBlockItem("fission_reactor_casing", FissionPartType.Casing::createBlock));
@@ -263,7 +290,7 @@ public class BlockRegistration {
     }
 
     private static HashMap<String, DeferredBlock<Block>> createBatteries() {
-        HashMap<String, DeferredBlock<Block>> map = new HashMap<>();
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         map.put("basic_voltaic_pile", registerBlockItem("basic_voltaic_pile", () -> new BatteryBlock(0)));
         map.put("advanced_voltaic_pile", registerBlockItem("advanced_voltaic_pile", () -> new BatteryBlock(1)));
         map.put("du_voltaic_pile", registerBlockItem("du_voltaic_pile", () -> new BatteryBlock(2)));

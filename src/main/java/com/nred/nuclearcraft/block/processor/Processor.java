@@ -4,7 +4,6 @@ import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.helpers.SideConfigEnums;
 import com.nred.nuclearcraft.menu.processor.ProcessorInfo;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,9 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -64,11 +61,6 @@ public abstract class Processor extends BaseEntityBlock {
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (level.isClientSide) return null;
         return createTickerHelper(blockEntityType, PROCESSOR_ENTITY_TYPE.get(typeName).get(), (level1, pos, state1, blockEntity) -> blockEntity.tick(level1, pos, state1, blockEntity));
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip." + typeName).withStyle(ChatFormatting.AQUA));
     }
 
     @Override
@@ -135,7 +127,8 @@ public abstract class Processor extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof ProcessorEntity entity) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof ProcessorEntity entity) {
                 player.openMenu(state.getMenuProvider(level, pos), buf -> new ProcessorInfo(pos, entity.redstoneMode, entity.itemStackHandler, entity.fluidHandler, typeName).write(buf));
             } else {
                 throw new IllegalStateException("Missing Container Provider");

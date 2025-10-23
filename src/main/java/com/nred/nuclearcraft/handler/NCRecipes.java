@@ -1,6 +1,10 @@
 package com.nred.nuclearcraft.handler;
 
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
+import com.nred.nuclearcraft.recipe.CollectorRecipe;
+import com.nred.nuclearcraft.recipe.fission.*;
+import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.resources.ResourceKey;
@@ -69,8 +73,8 @@ public class NCRecipes {
 //        putHandler(new CentrifugeRecipes());
 //        putHandler(new RockCrusherRecipes());
 //        putHandler(new ElectricFurnaceRecipes());
-//        putHandler(new CollectorRecipes());
-//        putHandler(new DecayGeneratorRecipes());
+        putHandler(new CollectorRecipes());
+        putHandler(new DecayGeneratorRecipes());
 //        putHandler(new MachineDiaphragmRecipes());
 //        putHandler(new MachineSieveAssemblyRecipes());
 //        putHandler(new MultiblockElectrolyzerRecipes());
@@ -95,7 +99,7 @@ public class NCRecipes {
 //        putHandler(new RadiationScrubberRecipes());
 //        putHandler(new RadiationBlockMutation());
 //        putHandler(new RadiationBlockPurification());
-//
+
         registerShortcuts();
 //
 //        CraftingRecipeHandler.registerCraftingRecipes();
@@ -127,9 +131,9 @@ public class NCRecipes {
 //    public static CentrifugeRecipes centrifuge;
 //    public static RockCrusherRecipes rock_crusher;
 //    public static ElectricFurnaceRecipes electric_furnace;
-//    public static CollectorRecipes collector;
-//    public static DecayGeneratorRecipes decay_generator;
-//    public static MachineDiaphragmRecipes machine_diaphragm;
+    public static CollectorRecipes collector;
+    public static DecayGeneratorRecipes decay_generator;
+    //    public static MachineDiaphragmRecipes machine_diaphragm;
 //    public static MachineSieveAssemblyRecipes machine_sieve_assembly;
 //    public static MultiblockElectrolyzerRecipes multiblock_electrolyzer;
 //    public static ElectrolyzerCathodeRecipes electrolyzer_cathode;
@@ -175,8 +179,8 @@ public class NCRecipes {
 //        centrifuge = getHandler("centrifuge");
 //        rock_crusher = getHandler("rock_crusher");
 //        electric_furnace = getHandler("electric_furnace");
-//        collector = getHandler("collector");
-//        decay_generator = getHandler("decay_generator");
+        collector = getHandler("collector");
+        decay_generator = getHandler("decay_generator");
 //        machine_diaphragm = getHandler("machine_diaphragm");
 //        machine_sieve_assembly = getHandler("machine_sieve_assembly");
 //        multiblock_electrolyzer = getHandler("multiblock_electrolyzer");
@@ -218,6 +222,66 @@ public class NCRecipes {
     public static void clearRecipes() {
         for (BasicRecipeHandler<?> handler : getHandlers()) {
             handler.clearRecipes();
+        }
+    }
+
+    public static class FissionModeratorRecipes extends BasicRecipeHandler<FissionModeratorRecipe> {
+        public FissionModeratorRecipes() {
+            super("fission_moderator", 1, 0, 0, 0);
+        }
+    }
+
+    public static class FissionIrradiatorRecipes extends BasicRecipeHandler<FissionIrradiatorRecipe> {
+        public FissionIrradiatorRecipes() {
+            super("fission_irradiator", 1, 0, 1, 0);
+        }
+    }
+
+    public static class FissionHeatingRecipes extends BasicRecipeHandler<FissionHeatingRecipe> {
+        public FissionHeatingRecipes() {
+            super("fission_heating", 0, 1, 0, 1);
+        }
+    }
+
+    public static class FissionEmergencyCoolingRecipes extends BasicRecipeHandler<FissionEmergencyCoolingRecipe> {
+        public FissionEmergencyCoolingRecipes() {
+            super("fission_emergency_cooling", 0, 1, 0, 1);
+        }
+    }
+
+    public static class FissionReflectorRecipes extends BasicRecipeHandler<FissionReflectorRecipe> {
+        public FissionReflectorRecipes() {
+            super("fission_reflector", 1, 0, 0, 0);
+        }
+    }
+
+    public static class SaltFissionRecipes extends BasicRecipeHandler<SaltFissionRecipe> {
+        public SaltFissionRecipes() {
+            super("salt_fission", 0, 1, 0, 1);
+        }
+    }
+
+    public static class SolidFissionRecipes extends BasicRecipeHandler<SaltFissionRecipe> {
+        public SolidFissionRecipes() {
+            super("solid_fission", 1, 0, 1, 0);
+        }
+    }
+
+    public static class TurbineRecipes extends BasicRecipeHandler<TurbineRecipe> {
+        public TurbineRecipes() {
+            super("turbine", 0, 1, 0, 1);
+        }
+    }
+
+    public static class DecayGeneratorRecipes extends BasicRecipeHandler<DecayGeneratorRecipe> {
+        public DecayGeneratorRecipes() {
+            super("decay_generator", 1, 0, 1, 0);
+        }
+    }
+
+    public static class CollectorRecipes extends BasicRecipeHandler<CollectorRecipe> {
+        public CollectorRecipes() {
+            super("collector", 1, 0, 1, 1);
         }
     }
 }

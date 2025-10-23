@@ -1,0 +1,13 @@
+{
+    "required": true,
+    "package": "com.nred.nuclearcraft.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "TranslatableSupplierContents"
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

@@ -1,0 +1,125 @@
+package com.nred.nuclearcraft.recipe;
+
+import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
+import com.nred.nuclearcraft.util.NCMath;
+
+import static com.nred.nuclearcraft.config.Config2.fission_neutron_reach;
+import static com.nred.nuclearcraft.config.Config2.machine_update_rate;
+
+public class RecipeStats {
+    private static int decay_generator_max_power;
+    private static int fission_max_moderator_line_flux;
+    private static double block_mutation_threshold;
+    private static double block_purification_threshold;
+
+    public static void init() {
+//		setBasicProcessorMaxStats(); TODO
+//		setScrubberMaxStats();
+        setDecayGeneratorMaxPower();
+        setFissionMaxModeratorLineFlux();
+//        setBlockMutationThreshold();
+//        setBlockPurificationThreshold();
+    }
+
+//	private static void setBasicProcessorMaxStats() { TODO
+//		for (TileContainerInfo<?> info : TileInfoHandler.TILE_CONTAINER_INFO_MAP.values()) {
+//			if (info instanceof ProcessorContainerInfo<?, ?, ?> processorInfo) {
+//				if (processorInfo.getRecipeHandler() instanceof BasicProcessorRecipeHandler processorRecipeHandler) {
+//					List<BasicRecipe> recipeList = processorRecipeHandler.getRecipeList();
+//					if (recipeList.isEmpty()) {
+//						processorInfo.maxBaseProcessTime = processor_time_multiplier * processorInfo.defaultProcessTime;
+//						processorInfo.maxBaseProcessPower = processor_power_multiplier * processorInfo.defaultProcessPower;
+//					}
+//					else {
+//						double maxProcessTimeMultiplier = 1D, maxProcessPowerMultiplier = 0D;
+//						int maxFluidInputSize = 0, maxFluidOutputSize = 0;
+//
+//						for (BasicRecipe recipe : processorRecipeHandler.getRecipeList()) {
+//							maxProcessTimeMultiplier = Math.max(maxProcessTimeMultiplier, recipe.getProcessTimeMultiplier());
+//							maxProcessPowerMultiplier = Math.max(maxProcessPowerMultiplier, recipe.getProcessPowerMultiplier());
+//
+//							for (SizedFluidIngredient ingredient : recipe.getFluidIngredients()) {
+//								maxFluidInputSize = Math.max(maxFluidInputSize, ingredient.amount());
+//							}
+//
+//							for (SizedFluidIngredient ingredient : recipe.getFluidProducts()) {
+//								maxFluidOutputSize = Math.max(maxFluidOutputSize, ingredient.amount());
+//							}
+//						}
+//
+//						processorInfo.maxBaseProcessTime = maxProcessTimeMultiplier * processor_time_multiplier * processorInfo.defaultProcessTime;
+//						processorInfo.maxBaseProcessPower = maxProcessPowerMultiplier * processor_power_multiplier * processorInfo.defaultProcessPower;
+//
+//						processorInfo.inputTankCapacity = Math.max(processorInfo.inputTankCapacity, 2 * maxFluidInputSize);
+//						processorInfo.outputTankCapacity = Math.max(processorInfo.outputTankCapacity, 2 * maxFluidOutputSize);
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	private static void setScrubberMaxStats() {
+//		ProcessorContainerInfo<?, ?, ?> info = TileInfoHandler.getProcessorContainerInfo("radiation_scrubber");
+//		info.maxBaseProcessTime = 1D;
+//		info.maxBaseProcessPower = 0D;
+//		for (BasicRecipe recipe : info.getRecipeHandler().getRecipeList()) {
+//			info.maxBaseProcessTime = Math.max(info.maxBaseProcessTime, recipe.getScrubberProcessTime());
+//			info.maxBaseProcessPower = Math.max(info.maxBaseProcessPower, recipe.getScrubberProcessPower());
+//		}
+//	}
+
+    public static int getDecayGeneratorMaxPower() {
+        return decay_generator_max_power;
+    }
+
+    private static void setDecayGeneratorMaxPower() {
+        double max = 0D;
+        for (DecayGeneratorRecipe recipe : NCRecipes.decay_generator.getRecipeList()) {
+            if (recipe != null) {
+                max = Math.max(max, recipe.getDecayGeneratorPower());
+            }
+        }
+        decay_generator_max_power = NCMath.toInt(machine_update_rate * max);
+    }
+
+    public static int getFissionMaxModeratorLineFlux() {
+        return fission_max_moderator_line_flux;
+    }
+
+    private static void setFissionMaxModeratorLineFlux() {
+        fission_max_moderator_line_flux = 0;
+        for (FissionModeratorRecipe recipe : NCRecipes.fission_moderator.getRecipeList()) {
+            if (recipe != null) {
+                fission_max_moderator_line_flux = Math.max(fission_max_moderator_line_flux, recipe.getFissionModeratorFluxFactor());
+            }
+        }
+        fission_max_moderator_line_flux *= fission_neutron_reach;
+    }
+
+//	public static double getBlockMutationThreshold() { TODO
+//		return block_mutation_threshold;
+//	}
+//
+//	private static void setBlockMutationThreshold() {
+//		block_mutation_threshold = Double.MAX_VALUE;
+//		for (BasicRecipe recipe : NCRecipes.radiation_block_mutation.recipeList) {
+//			if (recipe != null) {
+//				block_mutation_threshold = Math.min(block_mutation_threshold, recipe.getBlockMutationThreshold());
+//			}
+//		}
+//	}
+//
+//	public static double getBlockPurificationThreshold() {
+//		return block_purification_threshold;
+//	}
+//
+//	private static void setBlockPurificationThreshold() {
+//		block_purification_threshold = 0D;
+//		for (BasicRecipe recipe : NCRecipes.radiation_block_purification.recipeList) {
+//			if (recipe != null) {
+//				block_purification_threshold = Math.max(block_purification_threshold, recipe.getBlockMutationThreshold());
+//			}
+//		}
+//	}
+}

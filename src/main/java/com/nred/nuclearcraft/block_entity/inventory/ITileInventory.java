@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.inventory;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block.processor.IProcessor;
+import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.block_entity.ITilePort;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;

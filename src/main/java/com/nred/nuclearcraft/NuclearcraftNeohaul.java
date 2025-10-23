@@ -25,8 +25,6 @@ public class NuclearcraftNeohaul {
     public static final String MODID = "nuclearcraftneohaul";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-//    public static NuclearcraftNeohaul instance;
-
     public static final BlockHighlightTracker blockOverlayTracker = new BlockHighlightTracker();
     public static final NCRecipes recipes = new NCRecipes();
 
@@ -52,7 +50,6 @@ public class NuclearcraftNeohaul {
     private void commonSetup(FMLCommonSetupEvent event) {
         setRecipeCacheManager(new ReloadListener());
     }
-
 
     public class ReloadListener implements ResourceManagerReloadListener {
         @Override

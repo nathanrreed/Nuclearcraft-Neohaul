@@ -2,8 +2,8 @@ package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
+import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
-import com.nred.nuclearcraft.recipe.collector.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
@@ -22,8 +22,6 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.*;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.Comparator;
 import java.util.List;
@@ -129,7 +127,7 @@ public class ModEmiPlugin implements EmiPlugin {
                 Pair.of(COBBLE_GENERATOR_RECIPE_TYPE, "cobblestone_generator"), Pair.of(COBBLE_GENERATOR_COMPACT_RECIPE_TYPE, "cobblestone_generator_compact"), Pair.of(COBBLE_GENERATOR_DENSE_RECIPE_TYPE, "cobblestone_generator_dense")
         ).forEach(i -> {
             for (RecipeHolder<? extends CollectorRecipe> recipe : manager.getAllRecipesFor(i.first().get())) {
-                registry.addRecipe(new EmiCollectorRecipe(recipe.id(), COLLECTOR_MAP.get(i.second()), recipe.value().itemResult().isEmpty() ? List.of() : List.of(NeoForgeEmiIngredient.of(SizedIngredient.of(recipe.value().itemResult().getItem(), recipe.value().itemResult().getCount()))), recipe.value().fluidResult().isEmpty() ? List.of() : List.of(NeoForgeEmiIngredient.of(SizedFluidIngredient.of(recipe.value().fluidResult()))), recipe.value().rate()));
+                registry.addRecipe(new EmiCollectorRecipe(recipe.id(), COLLECTOR_MAP.get(i.second()), recipe.value().getItemProducts().stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().getFluidProducts().stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().getCollectorProductionRate()));
             }
         });
 

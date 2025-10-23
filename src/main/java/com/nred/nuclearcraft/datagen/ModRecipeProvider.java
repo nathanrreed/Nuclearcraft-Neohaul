@@ -1,10 +1,9 @@
 package com.nred.nuclearcraft.datagen;
 
-import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
+import com.nred.nuclearcraft.datagen.recipes.CollectorProvider;
 import com.nred.nuclearcraft.datagen.recipes.multilock.*;
 import com.nred.nuclearcraft.datagen.recipes.processor.*;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
-import com.nred.nuclearcraft.recipe.collector.CollectorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,16 +15,13 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
-import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.antlr.v4.runtime.misc.Triple;
@@ -37,6 +33,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.cLoc;
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
@@ -123,6 +120,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new FissionReflectorProvider(recipeOutput);
         new FissionHeatingProvider(recipeOutput);
         new FissionCoolantHeaterProvider(recipeOutput);
+        new CollectorProvider(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))
@@ -387,18 +385,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, COLLECTOR_MAP.get("nitrogen_collector_dense"), 1).pattern("CCC").pattern("CGC").pattern("CCC")
                 .define('C', COLLECTOR_MAP.get("nitrogen_collector_compact")).define('G', tag(Tags.Items.INGOTS, "gold"))
                 .unlockedBy(getHasName(COLLECTOR_MAP.get("nitrogen_collector_compact")), has(COLLECTOR_MAP.get("nitrogen_collector_compact"))).save(recipeOutput);
-
-        new CollectorRecipeBuilder(new ItemStack(Items.COBBLESTONE), MACHINE_LEVEL.BASE, 0.125).save(recipeOutput, MODID + ":cobblestone_generator_rate");
-        new CollectorRecipeBuilder(new ItemStack(Items.COBBLESTONE), MACHINE_LEVEL.COMPACT, 1.0).save(recipeOutput, MODID + ":cobblestone_generator_compact_rate");
-        new CollectorRecipeBuilder(new ItemStack(Items.COBBLESTONE), MACHINE_LEVEL.DENSE, 8.0).save(recipeOutput, MODID + ":cobblestone_generator_dense_rate");
-
-        new CollectorRecipeBuilder(new FluidStack(Fluids.WATER, 10), MACHINE_LEVEL.BASE).save(recipeOutput, MODID + ":water_source_rate");
-        new CollectorRecipeBuilder(new FluidStack(Fluids.WATER, 80), MACHINE_LEVEL.COMPACT).save(recipeOutput, MODID + ":water_source_compact_rate");
-        new CollectorRecipeBuilder(new FluidStack(Fluids.WATER, 640), MACHINE_LEVEL.DENSE).save(recipeOutput, MODID + ":water_source_dense_rate");
-
-        new CollectorRecipeBuilder(new FluidStack(GAS_MAP.get("nitrogen").still, 5), MACHINE_LEVEL.BASE).save(recipeOutput, MODID + ":nitrogen_collector_rate");
-        new CollectorRecipeBuilder(new FluidStack(GAS_MAP.get("nitrogen").still, 40), MACHINE_LEVEL.COMPACT).save(recipeOutput, MODID + ":nitrogen_collector_compact_rate");
-        new CollectorRecipeBuilder(new FluidStack(GAS_MAP.get("nitrogen").still, 320), MACHINE_LEVEL.DENSE).save(recipeOutput, MODID + ":nitrogen_collector_dense_rate");
     }
 
     private void solar_panels(RecipeOutput recipeOutput) {
@@ -750,10 +736,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(FOOD, FOURSMORE, 1).pattern("SC").pattern("MS")
                 .define('S', FOOD_MAP.get("moresmore")).define('C', FOOD_MAP.get("milk_chocolate")).define('M', FOOD_MAP.get("marshmallow"))
                 .unlockedBy(getHasName(FOOD_MAP.get("moresmore")), has(FOOD_MAP.get("moresmore"))).save(recipeOutput);
-    }
-
-    public static TagKey<Item> tag(TagKey<Item> tag, String name) {
-        return ItemTags.create(tag.location().withSuffix("/" + name));
     }
 
     public static TagKey<Fluid> fluidTag(String name) {

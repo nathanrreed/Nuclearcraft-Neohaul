@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.datagen;
 
-import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
@@ -8,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -53,15 +53,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(SOLIDIFIED_CORIUM);
         blockWithItem(UNIVERSAL_BIN);
         blockWithItem(MACHINE_INTERFACE);
+        blockWithItem(DECAY_GENERATOR);
         blockWithItem(TRITIUM_LAMP);
         blockWithItem(HEAVY_WATER_MODERATOR, "fission");
         crossBlock(GLOWING_MUSHROOM);
 
-        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
-            for (String machine : List.of("cobblestone_generator", "water_source", "nitrogen_collector")) {
-                String name = machine + (level.toString().isEmpty() ? "" : "_" + level.toString().toLowerCase());
-                blockWithItem(name, COLLECTOR_MAP.get(name), "collectors");
-            }
+        for (String typeName : COLLECTOR_MAP.keySet()) {
+            blockWithItem(typeName, COLLECTOR_MAP.get(typeName), "collectors");
         }
 
         for (String typeName : SOLAR_MAP.keySet()) {
@@ -75,6 +73,8 @@ class ModBlockStateProvider extends BlockStateProvider {
         for (String typeName : PROCESSOR_MAP.keySet()) {
             processorModel(typeName, PROCESSOR_MAP.get(typeName), "processor");
         }
+
+        horizontalMachine("nuclear_furnace", NUCLEAR_FURNACE, "processor", AbstractFurnaceBlock.LIT);
 
         fluids();
         turbine();

@@ -1,5 +1,5 @@
 {
-  "type": "nuclearcraftneohaul:fission_emergency_cooling",
+  "type": "nuclearcraftneohaul:fission_emergency_cooling_recipe",
   "cooling_multiplier": 1.0,
   "fluidIngredients": {
     "amount": 1,

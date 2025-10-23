@@ -1,5 +1,5 @@
 {
-  "type": "nuclearcraftneohaul:fission_irradiator",
+  "type": "nuclearcraftneohaul:fission_irradiator_recipe",
   "input": {
     "type": "neoforge:compound",
     "children": [

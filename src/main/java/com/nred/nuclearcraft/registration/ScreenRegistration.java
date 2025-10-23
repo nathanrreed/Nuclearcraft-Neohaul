@@ -42,6 +42,8 @@ public class ScreenRegistration {
         event.register((MenuType<SeparatorMenu>) PROCESSOR_MENU_TYPES.get("separator").get(), SeparatorScreen::new);
         event.register((MenuType<SupercoolerMenu>) PROCESSOR_MENU_TYPES.get("supercooler").get(), SupercoolerScreen::new);
 
+        event.register(NUCLEAR_FURNACE_MENU_TYPE.get(), NuclearFurnaceScreen::new);
+
         event.register(TURBINE_CONTROLLER_MENU_TYPE.get(), TurbineControllerScreen::new);
         event.register(SOLID_FISSION_CONTROLLER_MENU_TYPE.get(), SolidFissionControllerScreen::new);
         event.register(SALT_FISSION_CONTROLLER_MENU_TYPE.get(), SaltFissionControllerScreen::new);

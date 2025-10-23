@@ -22,6 +22,7 @@ import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class RecipeHelper {
@@ -83,7 +84,7 @@ public class RecipeHelper {
         }
     }
 
-//	public static OreIngredient oreStackFromString(String name) { TODO
+    //	public static OreIngredient oreStackFromString(String name) { TODO
 //		if (OreDictHelper.oreExists(name)) {
 //			return new OreIngredient(name, 1);
 //		}
@@ -145,13 +146,13 @@ public class RecipeHelper {
 //        return stacks;
 //    }
 //
-//    @Nullable
-//    public static ItemStack getItemStackFromIngredientList(List<IItemIngredient> itemIngredientList, int pos) {
-//        if (pos < itemIngredientList.size()) {
-//            return itemIngredientList.get(pos).getStack();
-//        }
-//        return null;
-//    }
+    @Nullable
+    public static ItemStack getItemStackFromIngredientList(List<SizedIngredient> itemIngredientList, int pos) {
+        if (pos < itemIngredientList.size()) {
+            return Arrays.stream(itemIngredientList.get(pos).getItems()).findFirst().orElse(ItemStack.EMPTY);
+        }
+        return null;
+    }
 //
 //    @Nullable
 //    public static FluidStack getFluidStackFromIngredientList(List<IFluidIngredient> fluidIngredientList, int pos) {

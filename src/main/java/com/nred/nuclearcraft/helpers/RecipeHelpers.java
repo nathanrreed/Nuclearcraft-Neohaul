@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.helpers;
 import com.ibm.icu.impl.Pair;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -17,7 +18,6 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 import static com.nred.nuclearcraft.config.Config.UPGRADES_CONFIG;
-import static com.nred.nuclearcraft.datagen.ModRecipeProvider.tag;
 import static com.nred.nuclearcraft.menu.processor.ProcessorMenu.ENERGY;
 import static com.nred.nuclearcraft.menu.processor.ProcessorMenu.SPEED;
 
@@ -66,6 +66,10 @@ public class RecipeHelpers {
         return new SizedIngredient(Ingredient.fromValues(tags.stream().map(Ingredient.TagValue::new)), count);
     }
 
+    public static TagKey<Item> tag(TagKey<Item> tag, String name) {
+        return ItemTags.create(tag.location().withSuffix("/" + name));
+    }
+
     public static int probabilityPacker(int probability, int amount) {
         return (probability << 16) | (amount & 0xFFFF);
     }
@@ -81,7 +85,7 @@ public class RecipeHelpers {
         ArrayList<EmiIngredient> list = new ArrayList<>();
         for (EmiIngredient ingredient : itemInputs) {
             List<EmiStack> stacks = ingredient.getEmiStacks().stream().filter(emiStack -> !emiStack.getItemStack().is(Items.BARRIER)).toList();
-            if (!stacks.isEmpty()){
+            if (!stacks.isEmpty()) {
                 list.add(EmiIngredient.of(stacks));
             }
         }

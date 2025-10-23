@@ -1,5 +1,5 @@
 {
-  "type": "nuclearcraftneohaul:fission_heater",
+  "type": "nuclearcraftneohaul:fission_heater_recipe",
   "heater": {
     "count": 1,
     "id": "nuclearcraftneohaul:arsenic_fission_coolant_heater"

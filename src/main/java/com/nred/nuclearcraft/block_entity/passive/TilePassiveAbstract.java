@@ -5,8 +5,8 @@ import com.nred.nuclearcraft.block_entity.energyFluid.TileEnergyFluidSidedInvent
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
-import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
+import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.recipe.IngredientSorption;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.NCMath;
@@ -18,12 +18,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,38 +43,38 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
     public final double energyRate, itemRate, fluidRate;
     public double energyBuffer, itemBuffer, fluidBuffer;
 
-    public final SizedIngredient itemType;
-    public final SizedFluidIngredient fluidType;
+    public final Ingredient itemType;
+    public final FluidIngredient fluidType;
 
-    private static final SizedIngredient ITEM_BACKUP = SizedIngredient.of(Items.STICK, 1);
-    private static final SizedFluidIngredient FLUID_BACKUP = SizedFluidIngredient.of(new FluidStack(Fluids.WATER, 1));
+    private static final Ingredient ITEM_BACKUP = Ingredient.of(Items.STICK);
+    private static final FluidIngredient FLUID_BACKUP = FluidIngredient.of(Fluids.WATER);
 
     public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, double energyRate) {
         this(type, pos, blockState, name, ITEM_BACKUP, 0, energyRate, FLUID_BACKUP, 0);
     }
 
-    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, SizedIngredient itemType, double itemRate) {
+    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Ingredient itemType, double itemRate) {
         this(type, pos, blockState, name, itemType, itemRate, 0, FLUID_BACKUP, 0);
     }
 
-    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, SizedFluidIngredient fluidType, double fluidRate) {
+    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, FluidIngredient fluidType, double fluidRate) {
         this(type, pos, blockState, name, ITEM_BACKUP, 0, 0, fluidType, fluidRate);
     }
 
-    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, SizedIngredient itemType, double itemRate, double energyRate) {
+    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Ingredient itemType, double itemRate, double energyRate) {
         this(type, pos, blockState, name, itemType, itemRate, energyRate, FLUID_BACKUP, 0);
     }
 
-    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, double energyRate, SizedFluidIngredient fluidType, double fluidRate) {
+    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, double energyRate, FluidIngredient fluidType, double fluidRate) {
         this(type, pos, blockState, name, ITEM_BACKUP, 0, energyRate, fluidType, fluidRate);
     }
 
-    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, SizedIngredient itemType, double itemRate, SizedFluidIngredient fluidType, double fluidRate) {
+    public TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Ingredient itemType, double itemRate, FluidIngredient fluidType, double fluidRate) {
         this(type, pos, blockState, name, itemType, itemRate, 0, fluidType, fluidRate);
     }
 
-    protected TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, SizedIngredient itemType, double itemRate, double energyRate, SizedFluidIngredient fluidType, double fluidRate) {
-        super(type, pos, blockState, name, 1, itemRate > 0D ? ITileInventory.inventoryConnectionAll(ItemSorption.OUT) : itemRate < 0D ? ITileInventory.inventoryConnectionAll(ItemSorption.IN) : ITileInventory.inventoryConnectionAll(ItemSorption.NON), energyRate == 0D ? 1 : Mth.ceil(machine_update_rate * Math.abs(energyRate)), energyRate == 0D ? 0 : Mth.ceil(machine_update_rate * Math.abs(energyRate)), energyRate > 0D ? ITileEnergy.energyConnectionAll(EnergyConnection.OUT) : energyRate < 0D ? ITileEnergy.energyConnectionAll(EnergyConnection.IN) : ITileEnergy.energyConnectionAll(EnergyConnection.NON), fluidRate == 0D ? 1 : Mth.ceil(6 * machine_update_rate * Math.abs(fluidRate)), Collections.singleton(BuiltInRegistries.FLUID.getKey(Arrays.stream(fluidType.getFluids()).findFirst().orElse(FluidStack.EMPTY).getFluid())), fluidRate > 0D ? ITileFluid.fluidConnectionAll(TankSorption.OUT) : fluidRate < 0D ? ITileFluid.fluidConnectionAll(TankSorption.IN) : ITileFluid.fluidConnectionAll(TankSorption.NON));
+    protected TilePassiveAbstract(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Ingredient itemType, double itemRate, double energyRate, FluidIngredient fluidType, double fluidRate) {
+        super(type, pos, blockState, name, 1, itemRate > 0D ? ITileInventory.inventoryConnectionAll(ItemSorption.OUT) : itemRate < 0D ? ITileInventory.inventoryConnectionAll(ItemSorption.IN) : ITileInventory.inventoryConnectionAll(ItemSorption.NON), energyRate == 0D ? 1 : Mth.ceil(machine_update_rate * Math.abs(energyRate)), energyRate == 0D ? 0 : Mth.ceil(machine_update_rate * Math.abs(energyRate)), energyRate > 0D ? ITileEnergy.energyConnectionAll(EnergyConnection.OUT) : energyRate < 0D ? ITileEnergy.energyConnectionAll(EnergyConnection.IN) : ITileEnergy.energyConnectionAll(EnergyConnection.NON), fluidRate == 0D ? 1 : Mth.ceil(6 * machine_update_rate * Math.abs(fluidRate)), Collections.singleton(BuiltInRegistries.FLUID.getKey(Arrays.stream(fluidType.getStacks()).findFirst().orElse(FluidStack.EMPTY).getFluid())), fluidRate > 0D ? ITileFluid.fluidConnectionAll(TankSorption.OUT) : fluidRate < 0D ? ITileFluid.fluidConnectionAll(TankSorption.IN) : ITileFluid.fluidConnectionAll(TankSorption.NON));
         this.energyRate = energyRate;
         this.itemRate = itemRate;
         this.itemType = itemType;
@@ -153,7 +154,7 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
         int itemChange = NCMath.toInt(itemBuffer);
         itemBuffer -= itemChange;
 
-        if (!simulateChange && !RecipeHelper.matchIngredient(itemType, getInventoryStacks().get(0), IngredientSorption.NEUTRAL).matches()) {
+        if (!simulateChange && !RecipeHelper.matchIngredient(new SizedIngredient(itemType, 1), getInventoryStacks().get(0), IngredientSorption.NEUTRAL).matches()) {
             getInventoryStacks().set(0, ItemStack.EMPTY);
         }
 
@@ -163,7 +164,7 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
             }
             if (!simulateChange && changeEnergy(true) && changeFluid(true)) {
                 if (getInventoryStacks().get(0).isEmpty()) {
-                    getInventoryStacks().set(0, Arrays.stream(itemType.getItems()).findFirst().orElse(ItemStack.EMPTY));
+                    getInventoryStacks().set(0, Arrays.stream(itemType.getItems()).findFirst().orElse(ItemStack.EMPTY).copy());
                 } else {
                     getInventoryStacks().get(0).grow(itemChange);
                 }
@@ -202,7 +203,7 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
         if (!simulateChange) {
             if (changeEnergy(true) && changeStack(true)) {
                 if (fluidRate > 0) {
-                    getTanks().get(0).changeFluidStored(Arrays.stream(fluidType.getFluids()).findFirst().orElse(FluidStack.EMPTY).getFluid(), fluidChange);
+                    getTanks().get(0).changeFluidStored(Arrays.stream(fluidType.getStacks()).findFirst().orElse(FluidStack.EMPTY).getFluid(), fluidChange);
                 } else {
                     getTanks().get(0).changeFluidAmount(fluidChange);
                 }
@@ -290,7 +291,7 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
 
     @Override
     public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction side) {
-        return itemRate < 0 && super.canPlaceItemThroughFace(slot, stack, side) && RecipeHelper.matchIngredient(itemType, stack, IngredientSorption.NEUTRAL).matches();
+        return itemRate < 0 && super.canPlaceItemThroughFace(slot, stack, side) && RecipeHelper.matchIngredient(new SizedIngredient(itemType, 1), stack, IngredientSorption.NEUTRAL).matches();
     }
 
     @Override
@@ -324,67 +325,4 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
         itemBuffer = nbt.getDouble("itemBuffer");
         fluidBuffer = nbt.getDouble("fluidBuffer");
     }
-
-//	// Capability TODO
-//
-//	@Override
-//	public boolean hasCapability(Capability<?> capability, @Nullable Direction side) {
-//		if (capability == IRadiationSource.CAPABILITY_RADIATION_SOURCE) {
-//			return getRadiationSource() != null;
-//		}
-//		else if (capability == CapabilityEnergy.ENERGY) {
-//			return energyRate != 0 && hasEnergySideCapability(side);
-//		}
-//		else if (ModCheck.gregtechLoaded() && capability == GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER) {
-//			return enable_gtce_eu && energyRate != 0 && hasEnergySideCapability(side);
-//		}
-//		else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-//			return fluidRate != 0 && hasFluidSideCapability(side);
-//		}
-//		else if (ModCheck.mekanismLoaded() && capability == CapabilityHelper.GAS_HANDLER_CAPABILITY) {
-//			return enable_mek_gas && fluidRate != 0 && hasFluidSideCapability(side);
-//		}
-//		else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-//			return itemRate != 0;
-//		}
-//		return hasCapabilityDefault(capability, side);
-//	}
-//
-//	@Override
-//	public <T> T getCapability(Capability<T> capability, @Nullable Direction side) {
-//		if (capability == IRadiationSource.CAPABILITY_RADIATION_SOURCE) {
-//			return IRadiationSource.CAPABILITY_RADIATION_SOURCE.cast(getRadiationSource());
-//		}
-//		else if (capability == CapabilityEnergy.ENERGY) {
-//			if (energyRate != 0 && hasEnergySideCapability(side)) {
-//				return CapabilityEnergy.ENERGY.cast(getEnergySide(nonNullSide(side)));
-//			}
-//			return null;
-//		}
-//		else if (ModCheck.gregtechLoaded() && capability == GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER) {
-//			if (enable_gtce_eu && energyRate != 0 && hasEnergySideCapability(side)) {
-//				return GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER.cast(getEnergySideGT(nonNullSide(side)));
-//			}
-//			return null;
-//		}
-//		else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-//			if (fluidRate != 0 && hasFluidSideCapability(side)) {
-//				return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(getFluidSide(nonNullSide(side)));
-//			}
-//			return null;
-//		}
-//		else if (ModCheck.mekanismLoaded() && capability == CapabilityHelper.GAS_HANDLER_CAPABILITY) {
-//			if (enable_mek_gas && fluidRate != 0 && hasFluidSideCapability(side)) {
-//				return CapabilityHelper.GAS_HANDLER_CAPABILITY.cast(getGasWrapper());
-//			}
-//			return null;
-//		}
-//		else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-//			if (itemRate != 0) {
-//				return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(getItemHandler(null));
-//			}
-//			return null;
-//		}
-//		return getCapabilityDefault(capability, side);
-//	}
 }

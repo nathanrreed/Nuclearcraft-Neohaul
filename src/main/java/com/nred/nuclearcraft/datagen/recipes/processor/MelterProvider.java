@@ -10,7 +10,7 @@ import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.datagen.ModRecipeProvider.tag;
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.tags;
 import static com.nred.nuclearcraft.registration.BlockRegistration.INGOT_BLOCK_MAP;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;

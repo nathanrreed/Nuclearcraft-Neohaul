@@ -12,7 +12,6 @@ import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.nred.nuclearcraft.datagen.ModRecipeProvider.tag;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 

@@ -85,8 +85,8 @@ public class Config2 {
 
     public static int[] rtg_power;
     public static int[] solar_power;
-    public static double[] decay_lifetime;
-    public static double[] decay_power;
+//    public static double[] decay_lifetime;
+//    public static double[] decay_power;
 
     public static int[] battery_block_capacity;
     public static int[] battery_block_max_transfer;
@@ -395,9 +395,9 @@ public class Config2 {
     public static double radiation_badge_durability;
     public static double radiation_badge_info_rate;
 
-    public static boolean[] register_processor;
-    public static boolean[] register_passive;
-    public static boolean[] register_battery;
+//    public static boolean[] register_processor;
+//    public static boolean[] register_passive;
+//    public static boolean[] register_battery;
     public static boolean register_quantum;
     public static boolean[] register_tool;
     public static boolean[] register_tic_tool;
@@ -492,8 +492,8 @@ public class Config2 {
 
         rtg_power = syncInts(RTG_POWER, ARRAY);
         solar_power = syncInts(SOLAR_POWER, ARRAY);
-        decay_lifetime = syncDoubles(DECAY_LIFETIME, ARRAY);
-        decay_power = syncDoubles(DECAY_POWER, ARRAY);
+//        decay_lifetime = syncDoubles(DECAY_LIFETIME, ARRAY);
+//        decay_power = syncDoubles(DECAY_POWER, ARRAY);
 
         battery_block_capacity = syncInts(BATTERY_BLOCK_CAPACITY, ARRAY);
         battery_block_max_transfer = syncInts(BATTERY_BLOCK_MAX_TRANSFER, ARRAY);
@@ -801,9 +801,9 @@ public class Config2 {
         radiation_badge_durability = RADIATION_BADGE_DURABILITY.getAsDouble();
         radiation_badge_info_rate = RADIATION_BADGE_INFO_RATE.getAsDouble();
 
-        register_processor = syncBooleans(REGISTER_PROCESSOR, ARRAY);
-        register_passive = syncBooleans(REGISTER_PASSIVE, ARRAY);
-        register_battery = syncBooleans(REGISTER_BATTERY, ARRAY);
+//        register_processor = syncBooleans(REGISTER_PROCESSOR, ARRAY);
+//        register_passive = syncBooleans(REGISTER_PASSIVE, ARRAY);
+//        register_battery = syncBooleans(REGISTER_BATTERY, ARRAY);
         register_quantum = REGISTER_QUANTUM.getAsBoolean();
         register_tool = syncBooleans(REGISTER_TOOL, ARRAY);
         register_tic_tool = syncBooleans(REGISTER_TIC_TOOL, ARRAY);
@@ -884,8 +884,8 @@ public class Config2 {
 
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RTG_POWER = add(CATEGORY_GENERATOR, "rtg_power", List.of(1, 40, 10, 200), 1, Integer.MAX_VALUE, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> SOLAR_POWER = add(CATEGORY_GENERATOR, "solar_power", List.of(5, 20, 80, 320), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> DECAY_LIFETIME = add(CATEGORY_GENERATOR, "decay_lifetime", List.of(12000D / 0.75D, 12000D / 1.2D, 1200D, 12000D / 2.2D, 12000D / 3D, 12000D / 18D, 12000D / 28D, 12000D / 80D, 12000D / 1000D), 1D, 16777215D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> DECAY_POWER = add(CATEGORY_GENERATOR, "decay_power", List.of(0.75D, 1.2D, 1D, 2.2D, 3D, 18D, 28D, 80D, 1000D), 0D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> DECAY_LIFETIME = add(CATEGORY_GENERATOR, "decay_lifetime", List.of(12000D / 0.75D, 12000D / 1.2D, 1200D, 12000D / 2.2D, 12000D / 3D, 12000D / 18D, 12000D / 28D, 12000D / 80D, 12000D / 1000D), 1D, 16777215D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> DECAY_POWER = add(CATEGORY_GENERATOR, "decay_power", List.of(0.75D, 1.2D, 1D, 2.2D, 3D, 18D, 28D, 80D, 1000D), 0D, 32767D, ARRAY);
 
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_CAPACITY = add(CATEGORY_ENERGY_STORAGE, "battery_block_capacity", List.of(1600000, 6400000, 25600000, 102400000, 32000000, 128000000, 512000000, 2048000000), 1, Integer.MAX_VALUE, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_MAX_TRANSFER = add(CATEGORY_ENERGY_STORAGE, "battery_block_max_transfer", List.of(16000, 64000, 256000, 1024000, 320000, 1280000, 5120000, 20480000), 1, Integer.MAX_VALUE, ARRAY);
@@ -1193,9 +1193,9 @@ public class Config2 {
     private static final ModConfigSpec.DoubleValue RADIATION_BADGE_DURABILITY = add(CATEGORY_RADIATION, "radiation_badge_durability", 250D, 0.000000000000000001D, 1000D);
     private static final ModConfigSpec.DoubleValue RADIATION_BADGE_INFO_RATE = add(CATEGORY_RADIATION, "radiation_badge_info_rate", 0.1D, 0.000000000000000001D, 1D);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> REGISTER_PROCESSOR = add(CATEGORY_REGISTRATION, "register_processor", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> REGISTER_PASSIVE = add(CATEGORY_REGISTRATION, "register_passive", List.of(true, true, true), ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> REGISTER_BATTERY = add(CATEGORY_REGISTRATION, "register_battery", List.of(true, true), ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> REGISTER_PROCESSOR = add(CATEGORY_REGISTRATION, "register_processor", List.of(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> REGISTER_PASSIVE = add(CATEGORY_REGISTRATION, "register_passive", List.of(true, true, true), ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> REGISTER_BATTERY = add(CATEGORY_REGISTRATION, "register_battery", List.of(true, true), ARRAY);
     private static final ModConfigSpec.BooleanValue REGISTER_QUANTUM = add(CATEGORY_REGISTRATION, "register_quantum", true);
     private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> REGISTER_TOOL = add(CATEGORY_REGISTRATION, "register_tool", List.of(true, true, true, true), ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> REGISTER_TIC_TOOL = add(CATEGORY_REGISTRATION, "register_tic_tool", List.of(true, true, true, true, true, true, true, true), ARRAY);

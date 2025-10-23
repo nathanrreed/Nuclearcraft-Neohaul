@@ -1,16 +1,16 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.block.collector.MACHINE_LEVEL;
-import com.nred.nuclearcraft.block.collector.cobblestone_generator.CobbleGeneratorEntity;
-import com.nred.nuclearcraft.block.collector.nitrogen_collector.NitrogenCollectorEntity;
-import com.nred.nuclearcraft.block.collector.water_source.WaterSourceEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
+import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
+import com.nred.nuclearcraft.block_entity.fission.*;
+import com.nred.nuclearcraft.block_entity.fission.port.*;
+import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemHandler;
+import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineCoilConnectorEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoCoilEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineInletEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineOutletEntity;
-import com.nred.nuclearcraft.block_entity.fission.*;
-import com.nred.nuclearcraft.block_entity.fission.port.*;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.config.ProcessorConfig;
 import com.nred.nuclearcraft.item.EnergyItem;
@@ -26,9 +26,11 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.energy.EnergyStorage;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
+import static com.nred.nuclearcraft.config.Config2.enable_mek_gas;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CELL;
@@ -37,11 +39,17 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CE
 public class CapabilityRegistration {
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        for (MACHINE_LEVEL level : MACHINE_LEVEL.values()) {
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, COBBLE_GENERATOR_TYPES.get(level).get(), (collectorEntity, direction) -> ((CobbleGeneratorEntity) collectorEntity).itemStackHandler);
-            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, WATER_SOURCE_TYPES.get(level).get(), (collectorEntity, direction) -> ((WaterSourceEntity) collectorEntity).fluidStackHandler);
-            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, NITROGEN_COLLECTOR_TYPES.get(level).get(), (collectorEntity, direction) -> ((NitrogenCollectorEntity) collectorEntity).fluidStackHandler);
-        }
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, COBBLESTONE_GENERATOR_ENTITY_TYPE.get(), ItemHandler::new);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, COBBLESTONE_GENERATOR_COMPACT_ENTITY_TYPE.get(), ItemHandler::new);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, COBBLESTONE_GENERATOR_DENSE_ENTITY_TYPE.get(), ItemHandler::new);
+
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, WATER_SOURCE_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, WATER_SOURCE_COMPACT_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, WATER_SOURCE_DENSE_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, NITROGEN_COLLECTOR_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, NITROGEN_COLLECTOR_COMPACT_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, NITROGEN_COLLECTOR_DENSE_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
 
         for (String typeName : PROCESSOR_MAP.keySet()) {
             event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ProcessorEntity::getItemHandler);
@@ -53,19 +61,21 @@ public class CapabilityRegistration {
                 event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ProcessorEntity::getFluidHandler);
         }
 
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, NUCLEAR_FURNACE_ENTITY_TYPE.get(), (entity, d) -> new InvWrapper(entity));
+
         for (int tier = 0; tier < 4; tier++) {
-            event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, SOLAR_PANEL_ENTITY_TYPE.get(tier).get(), (entity, context) -> entity.energyHandler);
+            event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, SOLAR_PANEL_ENTITY_TYPE.get(tier).get(), ITileEnergy::getEnergySideCapability);
         }
 
         // Universal Bin
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.itemStackHandler);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.fluidStackHandler);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.energyHandler);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> new InvWrapper(entity));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.tank);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.energyStorage);
 
         // Machine Interface
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), (entity, direction) -> entity.getLevel().isClientSide() || entity.proxyPos == null ? null : entity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, entity.proxyPos, direction));
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), (entity, direction) -> entity.getLevel().isClientSide() || entity.proxyPos == null ? null : entity.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, entity.proxyPos, direction));
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), (entity, direction) -> entity.getLevel().isClientSide() || entity.proxyPos == null ? null : entity.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, entity.proxyPos, direction));
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), ITileInventory::getItemSideCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), ITileEnergy::getEnergySideCapability);
 
         // Batteries / Voltaic Piles
         for (int tier : new int[]{0, 1, 2, 3, 10, 11, 12, 13}) {
@@ -114,6 +124,14 @@ public class CapabilityRegistration {
                 event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("cooler_port").get(), (entity, direction) -> ((FissionCoolerPortEntity) entity).getChemicalCapability(direction));
                 event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), (entity, direction) -> ((FissionHeaterPortEntity) entity).getChemicalCapability(direction));
                 event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vessel_port").get(), (entity, direction) -> ((FissionVesselPortEntity) entity).getChemicalCapability(direction));
+
+                // Universal Bin
+                event.registerBlockEntity(CHEMICAL, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.tank);
+
+                // Collectors
+                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_ENTITY_TYPE.get(), enable_mek_gas ? ITileFluid::getChemicalCapability : null);
+                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_COMPACT_ENTITY_TYPE.get(), enable_mek_gas ? ITileFluid::getChemicalCapability : null);
+                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_DENSE_ENTITY_TYPE.get(), enable_mek_gas ? ITileFluid::getChemicalCapability : null);
 
             });
         }

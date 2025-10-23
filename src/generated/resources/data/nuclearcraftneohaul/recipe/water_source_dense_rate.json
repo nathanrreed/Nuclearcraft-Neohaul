@@ -1,10 +1,11 @@
 {
   "type": "nuclearcraftneohaul:collector_recipe",
-  "fluidResult": {
-    "amount": 640,
-    "id": "minecraft:water"
-  },
-  "itemResult": {},
-  "level": "DENSE",
-  "rate": 640.0
+  "fluidProduct": [
+    {
+      "amount": 1,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "itemProduct": [],
+  "typeName": "water_source_dense"
 }

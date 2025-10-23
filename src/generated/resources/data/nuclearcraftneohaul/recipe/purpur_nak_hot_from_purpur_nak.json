@@ -1,5 +1,5 @@
 {
-  "type": "nuclearcraftneohaul:fission_heating",
+  "type": "nuclearcraftneohaul:fission_heating_recipe",
   "fluidIngredients": {
     "amount": 1,
     "fluid": "nuclearcraftneohaul:purpur_nak"

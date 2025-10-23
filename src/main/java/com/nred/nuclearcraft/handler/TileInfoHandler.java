@@ -1,14 +1,22 @@
 package com.nred.nuclearcraft.handler;
 
+import com.nred.nuclearcraft.block.tile.info.BlockSimpleTileInfo;
+import com.nred.nuclearcraft.block.tile.info.BlockTileInfo;
+import com.nred.nuclearcraft.block_entity.UniversalBinEntity;
+import com.nred.nuclearcraft.block_entity.dummy.MachineInterfaceEntity;
+import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
-import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfo;
-import com.nred.nuclearcraft.block_entity.info.ProcessorContainerInfoBuilderImpl.BasicProcessorContainerInfoBuilder;
-import com.nred.nuclearcraft.block.processor.IProcessor;
+import com.nred.nuclearcraft.block_entity.generator.DecayGeneratorEntity;
+import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
+import com.nred.nuclearcraft.block_entity.passive.TilePassive;
+import com.nred.nuclearcraft.block_entity.processor.IProcessor;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfo;
+import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilder;
+import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilderImpl.BasicProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.util.ModCheck;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -22,37 +30,37 @@ import static com.nred.nuclearcraft.util.ContainerInfoHelper.standardSlot;
 
 public class TileInfoHandler {
 
-//	public static final Object2ObjectMap<String, BlockTileInfo<?>> BLOCK_TILE_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Object2ObjectMap<String, BlockTileInfo<?>> BLOCK_TILE_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
 
     public static final Object2ObjectMap<String, TileContainerInfo<?>> TILE_CONTAINER_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
 
 //	public static final Object2ObjectMap<String, JEICategoryInfo<?, ?, ?>> JEI_CATEGORY_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
 
     public static void preInit() {
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "machine_interface", TileMachineInterface.class, TileMachineInterface::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "decay_generator", TileDecayGenerator.class, TileDecayGenerator::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "bin", TileBin.class, TileBin::new, NCTabs.machine));
-//		
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "solar_panel_basic", TileSolarPanel.Basic.class, TileSolarPanel.Basic::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "solar_panel_advanced", TileSolarPanel.Advanced.class, TileSolarPanel.Advanced::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "solar_panel_du", TileSolarPanel.DU.class, TileSolarPanel.DU::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "solar_panel_elite", TileSolarPanel.Elite.class, TileSolarPanel.Elite::new, NCTabs.machine));
-//		
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "cobblestone_generator", TilePassive.CobblestoneGenerator.class, TilePassive.CobblestoneGenerator::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "cobblestone_generator_compact", TilePassive.CobblestoneGeneratorCompact.class, TilePassive.CobblestoneGeneratorCompact::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "cobblestone_generator_dense", TilePassive.CobblestoneGeneratorDense.class, TilePassive.CobblestoneGeneratorDense::new, NCTabs.machine));
-//		
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "water_source", TilePassive.WaterSource.class, TilePassive.WaterSource::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "water_source_compact", TilePassive.WaterSourceCompact.class, TilePassive.WaterSourceCompact::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "water_source_dense", TilePassive.WaterSourceDense.class, TilePassive.WaterSourceDense::new, NCTabs.machine));
-//		
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "nitrogen_collector", TilePassive.NitrogenCollector.class, TilePassive.NitrogenCollector::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "nitrogen_collector_compact", TilePassive.NitrogenCollectorCompact.class, TilePassive.NitrogenCollectorCompact::new, NCTabs.machine));
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "nitrogen_collector_dense", TilePassive.NitrogenCollectorDense.class, TilePassive.NitrogenCollectorDense::new, NCTabs.machine));
-//		
-//		registerBlockTileInfo(new BlockSimpleTileInfo<>(Global.MOD_ID, "geiger_block", TileGeigerCounter.class, TileGeigerCounter::new, NCTabs.radiation));
-//		
-//		registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>(Global.MOD_ID, "nuclear_furnace", TileNuclearFurnace.class, TileNuclearFurnace::new, ContainerNuclearFurnace.class, ContainerNuclearFurnace::new, proxy.clientGet(() -> GuiNuclearFurnace.class), proxy.clientGet(() -> GuiNuclearFurnace::new)));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("machine_interface", MachineInterfaceEntity.class, MachineInterfaceEntity::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("decay_generator", DecayGeneratorEntity.class, DecayGeneratorEntity::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("bin", UniversalBinEntity.class, UniversalBinEntity::new));
+
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_basic", TileSolarPanel.Basic.class, TileSolarPanel.Basic::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_advanced", TileSolarPanel.Advanced.class, TileSolarPanel.Advanced::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_du", TileSolarPanel.DU.class, TileSolarPanel.DU::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_elite", TileSolarPanel.Elite.class, TileSolarPanel.Elite::new));
+
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("cobblestone_generator", TilePassive.CobblestoneGenerator.class, TilePassive.CobblestoneGenerator::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("cobblestone_generator_compact", TilePassive.CobblestoneGeneratorCompact.class, TilePassive.CobblestoneGeneratorCompact::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("cobblestone_generator_dense", TilePassive.CobblestoneGeneratorDense.class, TilePassive.CobblestoneGeneratorDense::new));
+
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("water_source", TilePassive.WaterSource.class, TilePassive.WaterSource::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("water_source_compact", TilePassive.WaterSourceCompact.class, TilePassive.WaterSourceCompact::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("water_source_dense", TilePassive.WaterSourceDense.class, TilePassive.WaterSourceDense::new));
+
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("nitrogen_collector", TilePassive.NitrogenCollector.class, TilePassive.NitrogenCollector::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("nitrogen_collector_compact", TilePassive.NitrogenCollectorCompact.class, TilePassive.NitrogenCollectorCompact::new));
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("nitrogen_collector_dense", TilePassive.NitrogenCollectorDense.class, TilePassive.NitrogenCollectorDense::new));
+
+//        registerBlockTileInfo(new BlockSimpleTileInfo<>("geiger_block", TileGeigerCounter.class, TileGeigerCounter::new,)); TODO
+
+//		registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>("nuclear_furnace", NuclearFurnaceTest.class, NuclearFurnaceTest::new)); TODO REMOVE
 //		
 //		registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>(Global.MOD_ID, "manufactory", TileManufactory.class, TileManufactory::new, ContainerManufactory.class, ContainerManufactory::new, proxy.clientGet(() -> GuiManufactory.class), proxy.clientGet(() -> GuiManufactory::new)).setParticles("crit", "reddust").setDefaultProcessTime(processor_time[0]).setDefaultProcessPower(processor_power[0]).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setJeiCategoryEnabled(register_processor[1]));
 //		registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>(Global.MOD_ID, "separator", TileSeparator.class, TileSeparator::new, ContainerSeparator.class, ContainerSeparator::new, proxy.clientGet(() -> GuiSeparator.class), proxy.clientGet(() -> GuiSeparator::new)).setParticles("reddust", "smoke").setDefaultProcessTime(processor_time[1]).setDefaultProcessPower(processor_power[1]).setItemInputSlots(standardSlot(42, 35)).setItemOutputSlots(bigSlot(98, 31), bigSlot(126, 31)).setProgressBarGuiXYWHUV(60, 34, 37, 18, 176, 3).setJeiCategoryEnabled(register_processor[2]));
@@ -89,11 +97,11 @@ public class TileInfoHandler {
         registerContainerInfo(new TileContainerInfo<>("turbine_controller", TurbineControllerEntity.class));
 
 
-        registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("fission_irradiator", FissionIrradiatorEntity.class).setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().setStandardJeiAlternateTexture().buildContainerInfo());
-        registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("solid_fission_cell", SolidFissionCellEntity.class).setRecipeHandlerName("solid_fission").setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
-        registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("salt_fission_vessel", SaltFissionVesselEntity.class).setRecipeHandlerName("salt_fission").setConsumesInputs(true).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
-        registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("salt_fission_heater", SaltFissionHeaterEntity.class).setRecipeHandlerName("coolant_heater").setConsumesInputs(true).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
-
+        registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("fission_irradiator", FissionIrradiatorEntity.class, FissionIrradiatorEntity::new).setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().setStandardJeiAlternateTexture().buildContainerInfo());
+        registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("solid_fission_cell", SolidFissionCellEntity.class, SolidFissionCellEntity::new).setRecipeHandlerName("solid_fission").setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
+        registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("salt_fission_vessel", SaltFissionVesselEntity.class, SaltFissionVesselEntity::new).setRecipeHandlerName("salt_fission").setConsumesInputs(true).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
+//      TODO  registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("salt_fission_heater", SaltFissionHeaterEntity.class, SaltFissionHeaterEntity::new).setRecipeHandlerName("coolant_heater").setConsumesInputs(true).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
+        registerContainerInfo(new TileContainerInfo<>("salt_fission_heater", SaltFissionHeaterEntity.class));
 
         registerContainerInfo(new TileContainerInfo<>("fission_irradiator_port", FissionIrradiatorPortEntity.class));
         registerContainerInfo(new TileContainerInfo<>("fission_cell_port", FissionCellPortEntity.class));
@@ -169,19 +177,19 @@ public class TileInfoHandler {
         }
     }
 
-//	public static void registerBlockTileInfo(BlockTileInfo<?> info) {
-//		register(BLOCK_TILE_INFO_MAP, info.name, info);
-//	}
+    public static void registerBlockTileInfo(BlockTileInfo<?> info) {
+        register(BLOCK_TILE_INFO_MAP, info.name, info);
+    }
 
     public static void registerContainerInfo(TileContainerInfo<?> info) {
         register(TILE_CONTAINER_INFO_MAP, info.name, info);
     }
 
-//	public static void registerProcessorInfo(ProcessorContainerInfoBuilder<?, ?, ?, ?> builder) {
-//		registerBlockTileInfo(builder.buildBlockInfo());
-//		registerContainerInfo(builder.buildContainerInfo());
-//	}
-//	
+	public static void registerProcessorInfo(ProcessorContainerInfoBuilder<?, ?, ?, ?> builder) {
+		registerBlockTileInfo(builder.buildBlockInfo());
+		registerContainerInfo(builder.buildContainerInfo());
+	}
+
 //	public static void registerJEICategoryInfo(JEICategoryInfo<?, ?, ?> info) {
 //		register(JEI_CATEGORY_INFO_MAP, info.getName(), info);
 //	}
@@ -191,11 +199,11 @@ public class TileInfoHandler {
 //		registerJEICategoryInfo(info);
 //	}
 
-//    @SuppressWarnings("unchecked")
-//    public static <TILE extends BlockEntity, INFO extends BlockSimpleTileInfo<TILE>> INFO getBlockSimpleTileInfo(String name) {
-//        return (INFO) BLOCK_TILE_INFO_MAP.get(name);
-//    }
-//
+    @SuppressWarnings("unchecked")
+    public static <TILE extends BlockEntity, INFO extends BlockSimpleTileInfo<TILE>> INFO getBlockSimpleTileInfo(String name) {
+        return (INFO) BLOCK_TILE_INFO_MAP.get(name);
+    }
+
 //    @SuppressWarnings("unchecked")
 //    public static <TILE extends BlockEntity, INFO extends ProcessorBlockInfo<TILE>> INFO getProcessorBlockInfo(String name) {
 //        return (INFO) BLOCK_TILE_INFO_MAP.get(name);

@@ -1,10 +1,11 @@
 {
   "type": "nuclearcraftneohaul:collector_recipe",
-  "fluidResult": {},
-  "itemResult": {
-    "count": 1,
-    "id": "minecraft:cobblestone"
-  },
-  "level": "COMPACT",
-  "rate": 1.0
+  "fluidProduct": [],
+  "itemProduct": [
+    {
+      "count": 1,
+      "item": "minecraft:cobblestone"
+    }
+  ],
+  "typeName": "cobblestone_generator_compact"
 }
