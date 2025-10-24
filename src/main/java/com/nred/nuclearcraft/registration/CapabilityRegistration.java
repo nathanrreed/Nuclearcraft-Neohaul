@@ -78,9 +78,13 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_INTERFACE_ENTITY_TYPE.get(), ITileEnergy::getEnergySideCapability);
 
         // Batteries / Voltaic Piles
-        for (int tier : new int[]{0, 1, 2, 3, 10, 11, 12, 13}) {
-            event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BATTERY_ENTITY_TYPE.get(tier).get(), (entity, context) -> !entity.ignoreSide(context) ? entity.getEnergyStorage() : null);
-        }
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BATTERY_ENTITY_TYPE.get(), (entity, side) -> !entity.ignoreSide(side) ? entity.getEnergySideCapability(side) : null);
+
+        // Decay Generator
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, DECAY_GENERATOR_ENTITY_TYPE.get(), ITileEnergy::getEnergySideCapability);
+
+        // RTG
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, RTG_ENTITY_TYPE.get(), (entity, side) -> !entity.ignoreSide(side) ? entity.getEnergySideCapability(side) : null);
 
         // Turbine
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, TURBINE_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((TurbineInletEntity) entity).getFluidSideCapability((direction)));

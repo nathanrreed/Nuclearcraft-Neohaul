@@ -51,6 +51,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(TRITIUM_LAMP.asItem(), capitalize(TRITIUM_LAMP.getId().getPath()));
         add(HEAVY_WATER_MODERATOR.asItem(), capitalize(HEAVY_WATER_MODERATOR.getId().getPath()));
         add(UNIVERSAL_BIN.asItem(), capitalize(UNIVERSAL_BIN.getId().getPath()));
+        add(DECAY_GENERATOR.asItem(), capitalize(DECAY_GENERATOR.getId().getPath()));
         add(MACHINE_INTERFACE.asItem(), capitalize(MACHINE_INTERFACE.getId().getPath()));
         add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
         add(LITHIUM_ION_CELL.asItem(), capitalize(LITHIUM_ION_CELL.getId().getPath()));
@@ -689,6 +690,7 @@ public class ModLanguageProvider extends LanguageProvider {
         }
 
         simpleBlocks(PROCESSOR_MAP);
+        simpleBlocks(RTG_MAP, Map.of("rtg_uranium", "Uranium RTG", "rtg_plutonium", "Plutonium RTG", "rtg_americium", "Americium RTG", "rtg_californium", "Californium RTG"));
         add(NUCLEAR_FURNACE.asItem(), capitalize(NUCLEAR_FURNACE.getId().getPath()));
 
         simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel", "solar_panel_advanced", "Advanced Solar Panel", "solar_panel_du", "DU Solar Panel", "solar_panel_elite", "Elite Solar Panel"));
@@ -861,6 +863,9 @@ public class ModLanguageProvider extends LanguageProvider {
         addTooltip(UNIVERSAL_BIN, "Destroys items, fluids and energy.");
         addTooltip(MACHINE_INTERFACE, "Automation can access the machine directly adjacent to this block. Can only extend one adjacent machine at maximum.");
 
+        add("item." + MODID + ".upgrade.speed_desc", "Increases the processing speed of machines at the cost of additional processing power. These upgrades can be stacked - the speed will %s each additional upgrade while the power use will %s.");
+        add("item." + MODID + ".upgrade.energy_desc", "Decreases the processing power of machines. These upgrades can be stacked, but the maximum number that will have an effect is equal to the number of installed speed upgrades. The power use will %s each additional upgrade.");
+
         add(MODID + ".tooltip.tank", "%s [%s mB / %s mB]");
         add(MODID + ".tooltip.tank.clear", "Shift Click to clear tank");
         add(MODID + ".tooltip.shift_clear_multiblock", "Shift click to clear out ALL components' items and fluids");
@@ -901,13 +906,13 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".tooltip.solidified_corium", "The solidified form of a poisonous mixture of fuel and components produced in fission reactor meltdowns.");
 
-        add(MODID + ".tooltip.energy_stored", "Energy Stored: %s / %s");
+        add(MODID + ".tooltip.energy_stored", "Energy Stored: %s");
         add(MODID + ".tooltip.process_time", "§aBase Process Time:§r %s");
         add(MODID + ".tooltip.process_power", "Base Process Power: %s");
 
         add(MODID + ".tooltip.production_rate", "§aProduction Rate:§r %s/t");
 
-        add(MODID + ".tooltip.battery.info", "Right click a side to read the energy level and right click with a multitool to toggle the side's energy connection. Sneaking while placing will maintain the energy connection configuration.");
+        add(MODID + ".tooltip.energy_storage.desc", "Right click a side to read the energy level and right click with a multitool to toggle the side's energy connection. Sneaking while placing will maintain the energy connection configuration.");
 
         add(MODID + ".tooltip.vent_toggle", "Toggled vent to %s mode!");
         add(MODID + ".tooltip.port_toggle", "Toggled port to %s mode!");

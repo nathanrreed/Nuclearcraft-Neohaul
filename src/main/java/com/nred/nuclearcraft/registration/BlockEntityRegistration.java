@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.block.batteries.BatteryEntity;
 import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.block.processor.alloy_furnace.AlloyFurnaceEntity;
 import com.nred.nuclearcraft.block.processor.assembler.AssemblerEntity;
@@ -23,6 +22,7 @@ import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusherEntity;
 import com.nred.nuclearcraft.block.processor.separator.SeparatorEntity;
 import com.nred.nuclearcraft.block.processor.supercooler.SupercoolerEntity;
 import com.nred.nuclearcraft.block_entity.UniversalBinEntity;
+import com.nred.nuclearcraft.block_entity.battery.TileBattery;
 import com.nred.nuclearcraft.block_entity.dummy.MachineInterfaceEntity;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.manager.FissionShieldManagerEntity;
@@ -32,12 +32,15 @@ import com.nred.nuclearcraft.block_entity.generator.DecayGeneratorEntity;
 import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
 import com.nred.nuclearcraft.block_entity.passive.TilePassive;
 import com.nred.nuclearcraft.block_entity.processor.NuclearFurnaceEntity;
+import com.nred.nuclearcraft.block_entity.rtg.RTGEntity;
 import com.nred.nuclearcraft.block_entity.turbine.*;
+import com.nred.nuclearcraft.multiblock.battery.BatteryType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterPortType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
+import com.nred.nuclearcraft.multiblock.rtg.RTGType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
@@ -57,7 +60,6 @@ import static com.nred.nuclearcraft.registration.Registers.BLOCK_ENTITY_TYPES;
 public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> PROCESSOR_ENTITY_TYPE = createProcessors();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TileSolarPanel>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
-    public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> BATTERY_ENTITY_TYPE = createBatteries();
 
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractTurbineEntity>>> TURBINE_ENTITY_TYPE = createTurbine();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractFissionEntity>>> FISSION_ENTITY_TYPE = createFission();
@@ -80,6 +82,8 @@ public class BlockEntityRegistration {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TilePassive.NitrogenCollectorDense>> NITROGEN_COLLECTOR_DENSE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("nitrogen_collector_dense", () -> BlockEntityType.Builder.of(TilePassive.NitrogenCollectorDense::new, COLLECTOR_MAP.get("nitrogen_collector_dense").get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends NuclearFurnaceEntity>> NUCLEAR_FURNACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("nuclear_furnace", () -> BlockEntityType.Builder.of(NuclearFurnaceEntity::new, NUCLEAR_FURNACE.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends RTGEntity>> RTG_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("rtg", () -> BlockEntityType.Builder.of((pos, state) -> new RTGEntity(pos, state, ((RTGType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), RTG_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new)).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TileBattery>> BATTERY_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("battery", () -> BlockEntityType.Builder.of((pos, state) -> new TileBattery(pos, state, ((BatteryType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), BATTERY_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new)).build(null));
 
     private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> createProcessors() {
         Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> map = new HashMap<>();
@@ -112,19 +116,6 @@ public class BlockEntityRegistration {
         map.put(1, BLOCK_ENTITY_TYPES.register("solar_panel_advanced", () -> BlockEntityType.Builder.of(TileSolarPanel.Advanced::new, SOLAR_MAP.get("solar_panel_advanced").get()).build(null)));
         map.put(2, BLOCK_ENTITY_TYPES.register("solar_panel_du", () -> BlockEntityType.Builder.of(TileSolarPanel.DU::new, SOLAR_MAP.get("solar_panel_du").get()).build(null)));
         map.put(3, BLOCK_ENTITY_TYPES.register("solar_panel_elite", () -> BlockEntityType.Builder.of(TileSolarPanel.Elite::new, SOLAR_MAP.get("solar_panel_elite").get()).build(null)));
-        return map;
-    }
-
-    private static Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> createBatteries() {
-        Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>>> map = new HashMap<>();
-        map.put(0, BLOCK_ENTITY_TYPES.register("basic_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 0), BATTERY_MAP.get("basic_voltaic_pile").get()).build(null)));
-        map.put(1, BLOCK_ENTITY_TYPES.register("advanced_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 1), BATTERY_MAP.get("advanced_voltaic_pile").get()).build(null)));
-        map.put(2, BLOCK_ENTITY_TYPES.register("du_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 2), BATTERY_MAP.get("du_voltaic_pile").get()).build(null)));
-        map.put(3, BLOCK_ENTITY_TYPES.register("elite_voltaic_pile", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 3), BATTERY_MAP.get("elite_voltaic_pile").get()).build(null)));
-        map.put(10, BLOCK_ENTITY_TYPES.register("basic_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 10), BATTERY_MAP.get("basic_lithium_ion_battery").get()).build(null)));
-        map.put(11, BLOCK_ENTITY_TYPES.register("advanced_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 11), BATTERY_MAP.get("advanced_lithium_ion_battery").get()).build(null)));
-        map.put(12, BLOCK_ENTITY_TYPES.register("du_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 12), BATTERY_MAP.get("du_lithium_ion_battery").get()).build(null)));
-        map.put(13, BLOCK_ENTITY_TYPES.register("elite_lithium_ion_battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, 13), BATTERY_MAP.get("elite_lithium_ion_battery").get()).build(null)));
         return map;
     }
 

@@ -41,7 +41,7 @@ public class FontRenderHelper {
         return sizeString(longestWord);
     }
 
-    private static int sizeString(String string) {
+    protected static int sizeString(String string) {
         int size = 0;
         for (int i = 0; i < string.length(); ++i) {
             char c = string.charAt(i);

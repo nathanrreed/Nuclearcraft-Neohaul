@@ -4,10 +4,11 @@ import net.minecraft.util.Mth;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.function.DoubleFunction;
 
 public class UnitHelper {
-
     public static final String[] SI_PREFIX = new String[]{" q", " r", " y", " z", " a", " f", " p", " n", " u", " m", " ", " k", " M", " G", " T", " P", " E", " Z", " Y", " R", " Q"};
 
     // Long
@@ -137,6 +138,34 @@ public class UnitHelper {
         }
         slashMaxVal = !hasMax ? "" : SI_PREFIX[SI_PREFIX.length - 1] + unit + " / " + sigFigs.apply(NCMath.magnitudeMult(max, -3));
         return sign + sigFigs.apply(NCMath.magnitudeMult(value, -3)) + slashMaxVal + SI_PREFIX[SI_PREFIX.length - 1] + unit;
+    }
+
+    public static String getFormattedNum(double num, String unit) {
+        int i = 10;
+        if (num == 0) {
+            return 0 + SI_PREFIX[i] + unit;
+        }
+        double tvalue = num;
+        while (tvalue > 1000.0) {
+            tvalue /= 1000.0;
+            i++;
+        }
+        while (tvalue < 1.0) {
+            tvalue *= 1000;
+            i--;
+        }
+
+        if (i < 0 || i > SI_PREFIX.length - 1) {
+            return num + unit; // TODO
+        }
+
+        DecimalFormat formater = new DecimalFormat("#.##");
+        formater.setRoundingMode(RoundingMode.DOWN);
+        return formater.format(tvalue) + SI_PREFIX[i] + unit;
+    }
+
+    public static String getFormattedFraction(double num, double num2, String unit) {
+        return getFormattedNum(num, unit) + " / " + getFormattedNum(num2, unit);
     }
 
     public static String prefix(double value, int maxLength, String unit, int startingPrefix) {

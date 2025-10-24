@@ -24,7 +24,6 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.DECAY_G
 
 public class DecayGeneratorEntity extends TileEnergy implements ITickable, IInterfaceable {
     Random rand = new Random();
-    public int tickCount;
 
     protected DecayGeneratorRecipe[] recipes = new DecayGeneratorRecipe[6];
 

@@ -1,0 +1,14 @@
+{
+  "type": "nuclearcraftneohaul:decay_generator_recipe",
+  "decayFactor": 28.0,
+  "efficiency": 428.57142857142856,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:fertile_isotope_curium_block"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:fertile_isotope_plutonium_block"
+  },
+  "radiation": 2.15E-4
+}

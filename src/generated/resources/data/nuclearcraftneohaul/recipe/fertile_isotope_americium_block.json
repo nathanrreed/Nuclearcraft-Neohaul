@@ -1,0 +1,14 @@
+{
+  "type": "nuclearcraftneohaul:decay_generator_recipe",
+  "decayFactor": 80.0,
+  "efficiency": 150.0,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:fertile_isotope_berkelium_block"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:fertile_isotope_americium_block"
+  },
+  "radiation": 7.25E-4
+}

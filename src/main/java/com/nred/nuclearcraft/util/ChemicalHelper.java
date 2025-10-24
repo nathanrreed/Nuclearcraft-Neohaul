@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static mekanism.api.recipes.MekanismRecipeTypes.NAME_ROTARY;
 
-public class ChemicalHelper {
+public class ChemicalHelper { // TODO look into protected RecipeManager.CachedCheck<RotaryRecipeInput, ? extends RotaryRecipe> quickCheck;
     public static FluidStack getFluidFromGas(ChemicalStack chemicalStack, Level level) {
         if (chemicalStack.isEmpty() || level == null) {
             return FluidStack.EMPTY;

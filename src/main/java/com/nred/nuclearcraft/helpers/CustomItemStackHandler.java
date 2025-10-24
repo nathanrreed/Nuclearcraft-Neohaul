@@ -14,7 +14,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CustomItemStackHandler extends ItemStackHandler implements IProcessorHandlerConfigs {
+public class CustomItemStackHandler extends ItemStackHandler implements IProcessorHandlerConfigs {  // TODO REMOVE
     private final boolean allowInput;
     private final boolean allowOutput;
     public ArrayList<OutputSetting> outputSettings;

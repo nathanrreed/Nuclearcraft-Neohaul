@@ -27,7 +27,6 @@ public class DecayGeneratorRecipe extends BasicRecipe {
         this.radiation = radiation;
     }
 
-
     public double getDecayGeneratorLifetime() {
         return lifetime;
     }

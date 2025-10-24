@@ -39,19 +39,25 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     }
 
     private void blocks() {
-        for (Block block : blockValues(INGOT_BLOCK_MAP, MATERIAL_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP, FERTILE_ISOTOPE_MAP)) {
+        for (Block block : blockValues(INGOT_BLOCK_MAP, MATERIAL_BLOCK_MAP, RAW_BLOCK_MAP, FERTILE_ISOTOPE_MAP)) {
             dropSelf(block);
         }
     }
 
     private void multiblocks() {
-        for (Block block : blockValues(TURBINE_MAP, BATTERY_MAP)) {
+        for (Block block : blockValues(TURBINE_MAP, FISSION_REACTOR_MAP)) {
             dropSelf(block);
         }
     }
 
-    private void processors() {
-        for (Block block : blockValues(PROCESSOR_MAP)) {
+    private void blocks_with_save() {
+        for (Block block : blockValues(PROCESSOR_MAP, RTG_MAP, BATTERY_MAP, SOLAR_MAP)) {
+            add(block, createMachineDrop(block));
+        }
+    }
+
+    private void collectors() {
+        for (Block block : blockValues(COLLECTOR_MAP)) {
             add(block, createMachineDrop(block));
         }
     }
@@ -75,22 +81,28 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         ores();
         blocks();
         multiblocks();
-        processors();
+        blocks_with_save();
+        collectors();
 
+        dropWhenSilkTouch(TRITIUM_LAMP.get());
+        dropWhenSilkTouch(SUPERCOLD_ICE.get());
+        dropSelf(HEAVY_WATER_MODERATOR.get());
         dropSelf(SOLIDIFIED_CORIUM.get());
-        dropSelf(GLOWING_MUSHROOM.get());
         dropSelf(UNIVERSAL_BIN.get());
         dropSelf(MACHINE_INTERFACE.get());
-        dropWhenSilkTouch(SUPERCOLD_ICE.get());
-        dropWhenSilkTouch(TRITIUM_LAMP.get());
+        dropSelf(NUCLEAR_FURNACE.get());
+        dropSelf(GLOWING_MUSHROOM.get());
+        dropSelf(DECAY_GENERATOR.get());
     }
 
     @Override
     protected @NotNull Iterable<Block> getKnownBlocks() {
         List<Block> all = new ArrayList<>();
-        all.addAll(blockValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, COLLECTOR_MAP, PROCESSOR_MAP, MATERIAL_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
-        all.addAll(blockValues(SOLIDIFIED_CORIUM, SUPERCOLD_ICE, GLOWING_MUSHROOM, UNIVERSAL_BIN, MACHINE_INTERFACE, TRITIUM_LAMP));
-        all.addAll(blockValues(TURBINE_MAP, BATTERY_MAP));
+        all.addAll(blockValues(ORE_MAP, INGOT_BLOCK_MAP, MATERIAL_BLOCK_MAP, RAW_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
+        all.addAll(blockValues(COLLECTOR_MAP, SOLAR_MAP, BATTERY_MAP, RTG_MAP));
+        all.addAll(blockValues(PROCESSOR_MAP));
+        all.addAll(blockValues(TURBINE_MAP, FISSION_REACTOR_MAP));
+        all.addAll(blockValues(GLOWING_MUSHROOM, TRITIUM_LAMP, HEAVY_WATER_MODERATOR, SUPERCOLD_ICE, SOLIDIFIED_CORIUM, UNIVERSAL_BIN, MACHINE_INTERFACE, NUCLEAR_FURNACE, DECAY_GENERATOR));
         return all;
     }
 }

@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
-import com.nred.nuclearcraft.item.MultiToolItem;
+import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.util.ModCheck;
@@ -20,7 +20,7 @@ public class CommonSetup {
         ModCheck.init();
 
         PlacementRule.init();
-        MultiToolItem.registerRightClickLogic();
+        MultitoolItem.registerRightClickLogic();
 
         TileInfoHandler.init();
     }

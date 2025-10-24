@@ -73,7 +73,8 @@ public class BlockMachineInterface extends BlockSimpleDummy<MachineInterfaceEnti
             BlockPos masterPos = iface.masterPosition;
             BlockEntity master = level.getBlockEntity(masterPos);
             if (master instanceof ITileGui<?, ?, ?>) {
-                return level.getBlockState(masterPos).useWithoutItem(level, player, hitResult.withPosition(masterPos));
+                player.openMenu(level.getBlockState(masterPos).getMenuProvider(level, masterPos), buf -> buf.writeBlockPos(masterPos));
+                return InteractionResult.CONSUME;
             }
         }
         return InteractionResult.CONSUME;

@@ -1,0 +1,14 @@
+{
+  "type": "nuclearcraftneohaul:decay_generator_recipe",
+  "decayFactor": 1000.0,
+  "efficiency": 12.0,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:fertile_isotope_californium_block"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:lead_block"
+  },
+  "radiation": 0.38
+}

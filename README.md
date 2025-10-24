@@ -28,20 +28,19 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Solar panels
 - Processors
 - Turbines
+- Fission Reactors
+- - Multitool
+- Machine Interface
 
 #### Continual:
 - Integrations with JEI, EMI, CC: T, Mekanism
-- Sounds and Particles
 
 #### In progress:
-- Multitool
-- Machine Interface
-- Fission Reactors
+- Remaining Multiblocks
 
 #### Future Additions:
 - Tools and Armour
 - Wasteland
 - Radiation
 - Integrations with other mods (CubeJS / CraftTweaker, Jade / TOP)
-- Multiblock (Reactors, etc)
 - And much more

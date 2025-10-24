@@ -21,7 +21,7 @@ public class InfoHelper {
 
     public static void infoLine(List<Component> list, ChatFormatting fixedColor, Component line) {
         if (fixedColor.equals(ChatFormatting.UNDERLINE)) {
-            list.add(line.copy().withStyle(fixedColor, ChatFormatting.GRAY));
+            list.add(line.copy().withStyle(fixedColor, ChatFormatting.GRAY).withStyle());
         } else {
             list.add(line.copy().withStyle(fixedColor));
         }
@@ -64,9 +64,9 @@ public class InfoHelper {
     public static void infoFull(List<Component> list, ChatFormatting fixedColor, Component[] fixedLines, ChatFormatting infoColor, Component... lines) {
         if (showFixedInfo(fixedLines, lines)) {
             fixedInfoList(list, !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY), fixedColor, fixedLines);
-        } else if (showInfo(fixedLines, lines)) {
+        } else if (showInfo(lines)) {
             infoList(list, infoColor, lines);
-        } else if (showShiftInfo(fixedLines, lines)) {
+        } else if (showShiftInfo(lines)) {
             shiftInfo(list);
         }
     }
@@ -74,9 +74,9 @@ public class InfoHelper {
     public static void infoFull(List<Component> list, ChatFormatting fixedColor, Component[] fixedLines, ChatFormatting[] infoColors, Component... lines) {
         if (showFixedInfo(fixedLines, lines)) {
             fixedInfoList(list, !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY), fixedColor, fixedLines);
-        } else if (showInfo(fixedLines, lines)) {
+        } else if (showInfo(lines)) {
             infoList(list, infoColors, lines);
-        } else if (showShiftInfo(fixedLines, lines)) {
+        } else if (showShiftInfo(lines)) {
             shiftInfo(list);
         }
     }
@@ -84,9 +84,9 @@ public class InfoHelper {
     public static void infoFull(List<Component> list, ChatFormatting[] fixedColors, Component[] fixedLines, ChatFormatting infoColor, Component... lines) {
         if (showFixedInfo(fixedLines, lines)) {
             fixedInfoList(list, !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY), fixedColors, fixedLines);
-        } else if (showInfo(fixedLines, lines)) {
+        } else if (showInfo(lines)) {
             infoList(list, infoColor, lines);
-        } else if (showShiftInfo(fixedLines, lines)) {
+        } else if (showShiftInfo(lines)) {
             shiftInfo(list);
         }
     }
@@ -94,9 +94,9 @@ public class InfoHelper {
     public static void infoFull(List<Component> list, ChatFormatting[] fixedColors, Component[] fixedLines, ChatFormatting[] infoColors, Component... lines) {
         if (showFixedInfo(fixedLines, lines)) {
             fixedInfoList(list, !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY), fixedColors, fixedLines);
-        } else if (showInfo(fixedLines, lines)) {
+        } else if (showInfo(lines)) {
             infoList(list, infoColors, lines);
-        } else if (showShiftInfo(fixedLines, lines)) {
+        } else if (showShiftInfo(lines)) {
             shiftInfo(list);
         }
     }
@@ -105,11 +105,11 @@ public class InfoHelper {
         return !Arrays.equals(fixedLines, EMPTY_ARRAY) && !Arrays.equals(fixedLines, NULL_ARRAY) && (!NCUtil.isInfoKeyDown() || Arrays.equals(lines, EMPTY_ARRAY));
     }
 
-    public static boolean showInfo(Component[] fixedLines, Component... lines) {
-        return (NCUtil.isInfoKeyDown() || lines.length == 1) && !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY);
+    public static boolean showInfo(Component... lines) {
+        return (NCUtil.isInfoKeyDown() || (lines.length == 1 && FontRenderHelper.sizeString(lines[0].getString()) < MAXIMUM_TEXT_WIDTH)) && !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY);
     }
 
-    public static boolean showShiftInfo(Component[] fixedLines, Component... lines) {
+    public static boolean showShiftInfo(Component... lines) {
         return !Arrays.equals(lines, EMPTY_ARRAY) && !Arrays.equals(lines, NULL_ARRAY);
     }
 

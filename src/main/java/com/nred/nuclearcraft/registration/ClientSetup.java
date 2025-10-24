@@ -1,11 +1,10 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.block.batteries.BatteryEntity;
-import com.nred.nuclearcraft.block.batteries.BatteryRenderer;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
 import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.render.BatteryRenderer;
 import com.nred.nuclearcraft.render.BlockHighlightHandler;
 import com.nred.nuclearcraft.render.TurbineRotorRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -20,7 +19,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
@@ -55,9 +53,7 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void blockEntityRenderer(final FMLCommonSetupEvent event) {
-        for (DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>> type : BATTERY_ENTITY_TYPE.values()) {
-            BlockEntityRenderers.register(type.get(), BatteryRenderer::new);
-        }
+        BlockEntityRenderers.register(BATTERY_ENTITY_TYPE.get(), BatteryRenderer::new);
         BlockEntityRenderers.register((BlockEntityType<TurbineControllerEntity>) TURBINE_ENTITY_TYPE.get("controller").get(), TurbineRotorRenderer::new);
     }
 

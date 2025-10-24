@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.datagen.recipes.CollectorProvider;
+import com.nred.nuclearcraft.datagen.recipes.DecayGeneratorProvider;
 import com.nred.nuclearcraft.datagen.recipes.multilock.*;
 import com.nred.nuclearcraft.datagen.recipes.processor.*;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
@@ -92,6 +93,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         fuels(recipeOutput);
         turbine(recipeOutput);
         fission(recipeOutput);
+        rtg(recipeOutput);
 
         new AlloyFurnaceRecipeProvider(recipeOutput);
         new CentrifugeProvider(recipeOutput);
@@ -121,6 +123,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new FissionHeatingProvider(recipeOutput);
         new FissionCoolantHeaterProvider(recipeOutput);
         new CollectorProvider(recipeOutput);
+        new DecayGeneratorProvider(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))
@@ -713,6 +716,21 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_computer_port"), 1).pattern("PRP").pattern("CSC").pattern("PWP")
                 .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+    }
+
+    private void rtg(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(MISC, RTG_MAP.get("rtg_uranium"), 1).pattern("PGP").pattern("GUG").pattern("PGP")
+                .define('P', PART_MAP.get("basic_plating")).define('G', tag(Tags.Items.INGOTS, "graphite")).define('U', FERTILE_ISOTOPE_MAP.get("uranium"))
+                .unlockedBy(getHasName(FERTILE_ISOTOPE_MAP.get("uranium")), has(FERTILE_ISOTOPE_MAP.get("uranium"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, RTG_MAP.get("rtg_plutonium"), 1).pattern("PGP").pattern("GLG").pattern("PGP")
+                .define('P', PART_MAP.get("advanced_plating")).define('G', tag(Tags.Items.INGOTS, "graphite")).define('L', ingredient(PLUTONIUM_MAP, List.of("238", "238_c", "238_ni", "238_ox", "238_za")))
+                .unlockedBy(getHasName(FERTILE_ISOTOPE_MAP.get("uranium")), has(FERTILE_ISOTOPE_MAP.get("uranium"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, RTG_MAP.get("rtg_americium"), 1).pattern("PGP").pattern("GAG").pattern("PGP")
+                .define('P', PART_MAP.get("advanced_plating")).define('G', tag(Tags.Items.INGOTS, "graphite")).define('A', ingredient(AMERICIUM_MAP, List.of("241", "241_c", "241_ni", "241_ox", "241_za")))
+                .unlockedBy(getHasName(FERTILE_ISOTOPE_MAP.get("uranium")), has(FERTILE_ISOTOPE_MAP.get("uranium"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, RTG_MAP.get("rtg_californium"), 1).pattern("PGP").pattern("GCG").pattern("PGP")
+                .define('P', PART_MAP.get("advanced_plating")).define('G', tag(Tags.Items.INGOTS, "graphite")).define('C', ingredient(CALIFORNIUM_MAP, List.of("250", "250_c", "250_ni", "250_ox", "250_za")))
+                .unlockedBy(getHasName(FERTILE_ISOTOPE_MAP.get("uranium")), has(FERTILE_ISOTOPE_MAP.get("uranium"))).save(recipeOutput);
     }
 
 

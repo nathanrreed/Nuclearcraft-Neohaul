@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": [
+      {
+        "item": "nuclearcraftneohaul:americium_241"
+      },
+      {
+        "item": "nuclearcraftneohaul:americium_241_c"
+      },
+      {
+        "item": "nuclearcraftneohaul:americium_241_ni"
+      },
+      {
+        "item": "nuclearcraftneohaul:americium_241_ox"
+      },
+      {
+        "item": "nuclearcraftneohaul:americium_241_za"
+      }
+    ],
+    "G": {
+      "tag": "c:ingots/graphite"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    }
+  },
+  "pattern": [
+    "PGP",
+    "GAG",
+    "PGP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:rtg_americium"
+  }
+}

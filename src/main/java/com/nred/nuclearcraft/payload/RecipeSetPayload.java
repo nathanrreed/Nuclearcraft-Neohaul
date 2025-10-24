@@ -10,7 +10,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public record RecipeSetPayload(ResourceLocation recipeKey) implements CustomPacketPayload {
+public record RecipeSetPayload(ResourceLocation recipeKey) implements CustomPacketPayload { // TODO DELETE
     public static final Type<RecipeSetPayload> TYPE = new Type<>(ncLoc("recipe_set_server_to_client"));
     public static final StreamCodec<FriendlyByteBuf, RecipeSetPayload> STREAM_CODEC = StreamCodec.composite(ResourceLocation.STREAM_CODEC, RecipeSetPayload::recipeKey, RecipeSetPayload::new);
 

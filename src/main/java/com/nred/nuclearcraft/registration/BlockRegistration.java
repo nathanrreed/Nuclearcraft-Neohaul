@@ -1,10 +1,11 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.NCInfo;
-import com.nred.nuclearcraft.block.NCItemBlock;
 import com.nred.nuclearcraft.block.SolidifiedCorium;
 import com.nred.nuclearcraft.block.SupercoldIceBlock;
-import com.nred.nuclearcraft.block.batteries.BatteryBlock;
+import com.nred.nuclearcraft.block.battery.BlockBattery;
+import com.nred.nuclearcraft.block.item.NCItemBlock;
+import com.nred.nuclearcraft.block.item.energy.ItemBlockBattery;
 import com.nred.nuclearcraft.block.processor.alloy_furnace.AlloyFurnace;
 import com.nred.nuclearcraft.block.processor.assembler.Assembler;
 import com.nred.nuclearcraft.block.processor.centrifuge.Centrifuge;
@@ -28,12 +29,16 @@ import com.nred.nuclearcraft.block.processor.separator.Separator;
 import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
 import com.nred.nuclearcraft.block.tile.BlockSimpleTile;
 import com.nred.nuclearcraft.block.tile.dummy.BlockMachineInterface;
+import com.nred.nuclearcraft.multiblock.battery.BatteryPartType;
+import com.nred.nuclearcraft.multiblock.battery.BatteryType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterPortType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
+import com.nred.nuclearcraft.multiblock.rtg.RTGPartType;
+import com.nred.nuclearcraft.multiblock.rtg.RTGType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
 import com.nred.nuclearcraft.util.InfoHelper;
 import com.nred.nuclearcraft.util.NCMath;
@@ -80,6 +85,7 @@ public class BlockRegistration {
     public static final DirectionProperty FACING_HORIZONTAL = BlockStateProperties.HORIZONTAL_FACING;
     public static final DirectionProperty FACING_ALL = BlockStateProperties.FACING;
     public static final EnumProperty<Direction.Axis> AXIS_ALL = EnumProperty.create("axis", Direction.Axis.class);
+//    public static final EnumProperty<MachinePortSorption> MACHINE_PORT_SORPTION = EnumProperty.create("machine_port_sorption", MachinePortSorption.class);
 
     public static final HashMap<String, DeferredBlock<Block>> ORE_MAP = createOres();
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
@@ -91,14 +97,15 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> TURBINE_MAP = createTurbineParts();
     public static final HashMap<String, DeferredBlock<Block>> FISSION_REACTOR_MAP = createFissionParts();
     public static final HashMap<String, DeferredBlock<Block>> BATTERY_MAP = createBatteries();
+    public static final HashMap<String, DeferredBlock<Block>> RTG_MAP = createRTGs();
 
     private static final BlockBehaviour.Properties BASE_PROPERTIES = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 1200.0F).isValidSpawn(Blocks::never).isRedstoneConductor((a, b, c) -> false);
     public static final HashMap<String, DeferredBlock<Block>> PROCESSOR_MAP = createProcessors();
 
     public static final DeferredBlock<Block> TRITIUM_LAMP = registerBlockItem("tritium_lamp", () -> new Block(BlockBehaviour.Properties.of().lightLevel(blockState -> 15)));
-    public static final DeferredBlock<Block> HEAVY_WATER_MODERATOR = registerBlockItem("heavy_water_moderator", () -> new Block(BlockBehaviour.Properties.of()));
-
     public static final DeferredBlock<Block> SUPERCOLD_ICE = registerBlockItem("supercold_ice", SupercoldIceBlock::new);
+
+    public static final DeferredBlock<Block> HEAVY_WATER_MODERATOR = registerBlockItem("heavy_water_moderator", () -> new Block(BlockBehaviour.Properties.of()));
     public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCorium::new);
     public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItemWithTooltip("universal_bin", () -> new BlockSimpleTile<>("bin"), false);
     public static final DeferredBlock<Block> MACHINE_INTERFACE = registerBlockItemWithTooltip("machine_interface", () -> new BlockMachineInterface("machine_interface"), false);
@@ -290,16 +297,26 @@ public class BlockRegistration {
     }
 
     private static HashMap<String, DeferredBlock<Block>> createBatteries() {
+        Function<Block, ItemBlockBattery> itemBlockBatteryFunction = x -> new ItemBlockBattery((BlockBattery) x, NCInfo.batteryInfo());
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
-        map.put("basic_voltaic_pile", registerBlockItem("basic_voltaic_pile", () -> new BatteryBlock(0)));
-        map.put("advanced_voltaic_pile", registerBlockItem("advanced_voltaic_pile", () -> new BatteryBlock(1)));
-        map.put("du_voltaic_pile", registerBlockItem("du_voltaic_pile", () -> new BatteryBlock(2)));
-        map.put("elite_voltaic_pile", registerBlockItem("elite_voltaic_pile", () -> new BatteryBlock(3)));
+        map.put("basic_voltaic_pile", registerBlockItemWithTooltip("basic_voltaic_pile", () -> BatteryPartType.BATTERY.createBlock(BatteryType.VOLTAIC_PILE_BASIC), itemBlockBatteryFunction));
+        map.put("advanced_voltaic_pile", registerBlockItemWithTooltip("advanced_voltaic_pile", () -> BatteryPartType.BATTERY.createBlock(BatteryType.VOLTAIC_PILE_ADVANCED), itemBlockBatteryFunction));
+        map.put("du_voltaic_pile", registerBlockItemWithTooltip("du_voltaic_pile", () -> BatteryPartType.BATTERY.createBlock(BatteryType.VOLTAIC_PILE_DU), itemBlockBatteryFunction));
+        map.put("elite_voltaic_pile", registerBlockItemWithTooltip("elite_voltaic_pile", () -> BatteryPartType.BATTERY.createBlock(BatteryType.VOLTAIC_PILE_ELITE), itemBlockBatteryFunction));
 
-        map.put("basic_lithium_ion_battery", registerBlockItem("basic_lithium_ion_battery", () -> new BatteryBlock(10)));
-        map.put("advanced_lithium_ion_battery", registerBlockItem("advanced_lithium_ion_battery", () -> new BatteryBlock(11)));
-        map.put("du_lithium_ion_battery", registerBlockItem("du_lithium_ion_battery", () -> new BatteryBlock(12)));
-        map.put("elite_lithium_ion_battery", registerBlockItem("elite_lithium_ion_battery", () -> new BatteryBlock(13)));
+        map.put("basic_lithium_ion_battery", registerBlockItemWithTooltip("basic_lithium_ion_battery", () -> BatteryPartType.BATTERY.createBlock(BatteryType.LITHIUM_ION_BATTERY_BASIC), itemBlockBatteryFunction));
+        map.put("advanced_lithium_ion_battery", registerBlockItemWithTooltip("advanced_lithium_ion_battery", () -> BatteryPartType.BATTERY.createBlock(BatteryType.LITHIUM_ION_BATTERY_ADVANCED), itemBlockBatteryFunction));
+        map.put("du_lithium_ion_battery", registerBlockItemWithTooltip("du_lithium_ion_battery", () -> BatteryPartType.BATTERY.createBlock(BatteryType.LITHIUM_ION_BATTERY_DU), itemBlockBatteryFunction));
+        map.put("elite_lithium_ion_battery", registerBlockItemWithTooltip("elite_lithium_ion_battery", () -> BatteryPartType.BATTERY.createBlock(BatteryType.LITHIUM_ION_BATTERY_ELITE), itemBlockBatteryFunction));
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createRTGs() {
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        map.put("rtg_uranium", registerBlockItemWithTooltip("rtg_uranium", () -> RTGPartType.RTG.createBlock(RTGType.URANIUM), false, NCInfo.rtgInfo(() -> rtg_power[0])));
+        map.put("rtg_plutonium", registerBlockItemWithTooltip("rtg_plutonium", () -> RTGPartType.RTG.createBlock((RTGType.PLUTONIUM)), false, NCInfo.rtgInfo(() -> rtg_power[1])));
+        map.put("rtg_americium", registerBlockItemWithTooltip("rtg_americium", () -> RTGPartType.RTG.createBlock((RTGType.AMERICIUM)), false, NCInfo.rtgInfo(() -> rtg_power[2])));
+        map.put("rtg_californium", registerBlockItemWithTooltip("rtg_californium", () -> RTGPartType.RTG.createBlock((RTGType.CALIFORNIUM)), false, NCInfo.rtgInfo(() -> rtg_power[3])));
         return map;
     }
 

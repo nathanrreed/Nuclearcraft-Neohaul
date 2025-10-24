@@ -79,6 +79,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         fluids();
         turbine();
         fission();
+        rtgs();
     }
 
     private void crossBlock(DeferredBlock<Block> deferredBlock) {
@@ -168,6 +169,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         directionalMachine("shield_manager", FISSION_REACTOR_MAP.get("fission_shield_manager"), "fission", ACTIVE);
 
         blockWithItem("computer_port", FISSION_REACTOR_MAP.get("fission_computer_port"), "fission");
+    }
+
+    private void rtgs() {
+        blockSidesAndTop(RTG_MAP.get("rtg_uranium"), "rtg", "rtg_uranium_top", "rtg_uranium_side", None);
+        blockSidesAndTop(RTG_MAP.get("rtg_plutonium"), "rtg", "rtg_plutonium_top", "rtg_plutonium_side", None);
+        blockSidesAndTop(RTG_MAP.get("rtg_americium"), "rtg", "rtg_americium_top", "rtg_americium_side", None);
+        blockSidesAndTop(RTG_MAP.get("rtg_californium"), "rtg", "rtg_californium_top", "rtg_californium_side", None);
     }
 
     // TODO rename all these functions and merge similar

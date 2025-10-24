@@ -27,8 +27,8 @@ class ModBlockTagProvider extends BlockTagsProvider {
     @Override
     public void addTags(HolderLookup.Provider provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(blockValues(ORE_MAP, COLLECTOR_MAP, PROCESSOR_MAP).toArray(Block[]::new))
-                .add(blockValues(SOLIDIFIED_CORIUM).toArray(Block[]::new));
+                .add(blockValues(ORE_MAP, INGOT_BLOCK_MAP, MATERIAL_BLOCK_MAP, RAW_BLOCK_MAP, FERTILE_ISOTOPE_MAP, COLLECTOR_MAP, SOLAR_MAP, RTG_MAP, TURBINE_MAP, FISSION_REACTOR_MAP, BATTERY_MAP, PROCESSOR_MAP).toArray(Block[]::new))
+                .add(blockValues(TRITIUM_LAMP, HEAVY_WATER_MODERATOR, SUPERCOLD_ICE, SOLIDIFIED_CORIUM, UNIVERSAL_BIN, MACHINE_INTERFACE, NUCLEAR_FURNACE, DECAY_GENERATOR).toArray(Block[]::new));
 
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(blockValues(ORE_MAP, PROCESSOR_MAP).toArray(Block[]::new));

@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.helpers;
 
 import net.minecraft.core.Direction;
 
-public interface IProcessorHandlerConfigs {
+public interface IProcessorHandlerConfigs { // TODO REMOVE
     void createOutputSettings();
 
     void createSideConfig(int inputs, int outputs);

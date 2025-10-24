@@ -17,7 +17,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<CompoundTag>, IProcessorHandlerConfigs {
+public abstract class CustomFluidStackHandler implements IFluidHandler, INBTSerializable<CompoundTag>, IProcessorHandlerConfigs { // TODO REMOVE
     private final int capacity;
     private final int tanks;
     private final boolean allowInput;

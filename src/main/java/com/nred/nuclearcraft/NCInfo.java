@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
+import com.nred.nuclearcraft.util.Lang;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.network.chat.Component;
@@ -67,8 +68,8 @@ public class NCInfo {
 //
     // RTG
 
-    public static Component rtgInfo(long power) {
-        return Component.translatable(MODID + ".tooltip.rtg", UnitHelper.prefix(power, 5, "RF/t"));
+    public static Component rtgInfo(Supplier<Integer> power) {
+        return Component.translatable(MODID + ".tooltip.rtg", (Supplier<String>) () -> UnitHelper.prefix(power.get(), 5, "RF/t"));
     }
 
     // Solar Panel
@@ -77,11 +78,11 @@ public class NCInfo {
         return Component.translatable(MODID + ".tooltip.solar", (Supplier<String>) () -> UnitHelper.prefix(power.get(), 5, "RF/t"));
     }
 
-//	// Battery
-//
-//	public static String[] batteryInfo() {
-//		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".energy_storage.desc");
-//	}
+    // Battery
+
+    public static Component batteryInfo() {
+        return Component.translatable(MODID + ".tooltip.energy_storage.desc");
+    }
 
     // Fission Fuel
 
@@ -256,32 +257,21 @@ public class NCInfo {
 //	public static String[] rotorStatorInfo() {
 //		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".turbine_rotor_stator.desc");
 //	}
-//
-//	// Speed Upgrade
-//
-//	public static String[][] upgradeInfo() {
-//		String[][] info = new String[MetaEnums.UpgradeType.values().length][];
-//		for (int i = 0; i < MetaEnums.UpgradeType.values().length; ++i) {
-//			info[i] = InfoHelper.EMPTY_ARRAY;
-//		}
-//		info[0] = InfoHelper.formattedInfo(Lang.localize("item.nuclearcraft.upgrade.speed_desc", powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")));
-//		info[1] = InfoHelper.formattedInfo(Lang.localize("item.nuclearcraft.upgrade.energy_desc", powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")));
-//		return info;
-//	}
-//
-//	public static String powerAdverb(double power, String verb, String preposition) {
-//		if (power != (long) power) {
-//			verb += "_approximately";
-//		}
-//		verb = Lang.localize("nc.sf." + verb);
-//
-//		long p = Math.round(power);
-//
-//		preposition = "nc.sf." + preposition;
-//		return Lang.canLocalize(preposition) ? Lang.localize("nc.sf.power_adverb_preposition", Lang.localize("nc.sf.power_adverb" + p, verb), Lang.localize(preposition)) : Lang.localize("nc.sf.power_adverb" + p, verb);
-//	}
-//
-//	// Rad Shielding
+
+    // Upgrade
+    public static String powerAdverb(double power, String verb, String preposition) {
+        if (power != (long) power) {
+            verb += "_approximately";
+        }
+        verb = Lang.localize("nc.sf." + verb);
+
+        long p = Math.round(power);
+
+        preposition = "nc.sf." + preposition;
+        return Lang.canLocalize(preposition) ? Lang.localize("nc.sf.power_adverb_preposition", Lang.localize("nc.sf.power_adverb" + p, verb), Lang.localize(preposition)) : Lang.localize("nc.sf.power_adverb" + p, verb);
+    }
+
+    // Rad Shielding
 //
 //	public static String[][] radShieldingInfo() {
 //		String[][] info = new String[MetaEnums.RadShieldingType.values().length][];

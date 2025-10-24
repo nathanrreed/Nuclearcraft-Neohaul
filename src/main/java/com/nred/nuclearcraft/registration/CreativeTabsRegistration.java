@@ -26,11 +26,14 @@ public class CreativeTabsRegistration {
             .withTabsBefore(MATERIALS_TAB.getId())
             .icon(() -> PROCESSOR_MAP.get("manufactory").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.acceptAll(blockStackValues(PROCESSOR_MAP, SOLAR_MAP, COLLECTOR_MAP));
-                output.acceptAll(itemStackValues(UPGRADE_MAP));
                 output.accept(NUCLEAR_FURNACE);
-                output.accept(UNIVERSAL_BIN);
+                output.acceptAll(blockStackValues(PROCESSOR_MAP));
                 output.accept(MACHINE_INTERFACE);
+                output.acceptAll(blockStackValues(SOLAR_MAP));
+                output.accept(DECAY_GENERATOR);
+                output.accept(UNIVERSAL_BIN);
+                output.acceptAll(blockStackValues(COLLECTOR_MAP));
+                output.acceptAll(itemStackValues(UPGRADE_MAP));
                 output.accept(LITHIUM_ION_CELL);
                 output.accept(MULTITOOL);
             }).build());
@@ -40,7 +43,7 @@ public class CreativeTabsRegistration {
             .withTabsBefore(MACHINES_TAB.getId())
             .icon(() -> FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.acceptAll(blockStackValues(TURBINE_MAP, FISSION_REACTOR_MAP, BATTERY_MAP));
+                output.acceptAll(blockStackValues(RTG_MAP, BATTERY_MAP, TURBINE_MAP, FISSION_REACTOR_MAP));
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RADIATION_TAB = CREATIVE_MODE_TABS.register("radiation_tab", () -> CreativeModeTab.builder()

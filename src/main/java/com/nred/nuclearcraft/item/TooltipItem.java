@@ -23,20 +23,24 @@ public class TooltipItem extends Item {
     public static final Component shiftForDetails = Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.shift_for_info").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
     private final boolean byPassShift;
 
-    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean radiation, boolean byPassShift) {
+    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips, boolean radiation, boolean byPassShift) {
         super(properties);
 
-        if (tooltips.size() > 1) {
+        if (tooltips.size() > 1 || hasShiftTooltips) {
             shiftTooltips = tooltips;
         } else if (!tooltips.isEmpty()) {
             tooltip = tooltips.getFirst();
         }
 
-        this.byPassShift = byPassShift;
+        this.byPassShift = byPassShift; // TODO
     }
 
     public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean byPassShift) {
-        this(properties, tooltips, false, byPassShift);
+        this(properties, tooltips, false, false, byPassShift);
+    }
+
+    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips, boolean byPassShift) {
+        this(properties, tooltips, hasShiftTooltips, false, byPassShift);
     }
 
     public TooltipItem(Properties properties, List<String> tooltips) {
@@ -44,7 +48,7 @@ public class TooltipItem extends Item {
     }
 
     public TooltipItem(Properties properties) {
-        this(properties, List.of(), false, false);
+        this(properties, List.of(), false, false, false);
     }
 
     public TooltipItem(Properties properties, boolean byPassShift) {

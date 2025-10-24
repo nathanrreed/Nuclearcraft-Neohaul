@@ -1,0 +1,7 @@
+{
+  "parent": "nuclearcraftneohaul:block/top_sides",
+  "textures": {
+    "sides": "nuclearcraftneohaul:block/rtg/rtg_plutonium_side",
+    "top": "nuclearcraftneohaul:block/rtg/rtg_plutonium_top"
+  }
+}

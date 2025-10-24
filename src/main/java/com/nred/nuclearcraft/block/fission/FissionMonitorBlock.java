@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.block.GenericDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.IActivatable;
 import com.nred.nuclearcraft.block_entity.fission.FissionMonitorEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
-import com.nred.nuclearcraft.item.MultiToolItem;
+import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.render.BlockHighlightTracker;
@@ -45,7 +45,7 @@ public class FissionMonitorBlock<Controller extends IMultiblockController<Contro
             return ItemInteractionResult.FAIL;
         }
 
-        if (!MultiToolItem.isMultitool(player.getItemInHand(hand))) {
+        if (!MultitoolItem.isMultitool(player.getItemInHand(hand))) {
             BlockEntity tile = level.getBlockEntity(pos);
             if (tile instanceof FissionMonitorEntity monitor) {
                 if (!level.isClientSide) {

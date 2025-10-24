@@ -1,0 +1,14 @@
+{
+  "type": "nuclearcraftneohaul:decay_generator_recipe",
+  "decayFactor": 1.0,
+  "efficiency": 1200.0,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:fertile_isotope_uranium_block"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:lead_block"
+  },
+  "radiation": 2.25E-10
+}

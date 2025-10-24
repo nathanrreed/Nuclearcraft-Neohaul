@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:ingots/graphite"
+    },
+    "L": [
+      {
+        "item": "nuclearcraftneohaul:plutonium_238"
+      },
+      {
+        "item": "nuclearcraftneohaul:plutonium_238_c"
+      },
+      {
+        "item": "nuclearcraftneohaul:plutonium_238_ni"
+      },
+      {
+        "item": "nuclearcraftneohaul:plutonium_238_ox"
+      },
+      {
+        "item": "nuclearcraftneohaul:plutonium_238_za"
+      }
+    ],
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    }
+  },
+  "pattern": [
+    "PGP",
+    "GLG",
+    "PGP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:rtg_plutonium"
+  }
+}

@@ -6,7 +6,7 @@ import net.minecraft.util.Mth;
 import net.neoforged.neoforge.energy.EnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
-public class CustomEnergyHandler extends EnergyStorage {
+public class CustomEnergyHandler extends EnergyStorage { // TODO REMOVE
     private final boolean allowInput;
     private final boolean allowOutput;
     private int tempEnergy = 0;

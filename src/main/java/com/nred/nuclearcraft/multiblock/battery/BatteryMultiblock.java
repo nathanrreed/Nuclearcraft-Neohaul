@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.multiblock.battery;
 
-import com.nred.nuclearcraft.block.batteries.BatteryEntity;
-import com.nred.nuclearcraft.helpers.CustomEnergyHandler;
+import com.nred.nuclearcraft.block_entity.battery.TileBattery;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
@@ -10,12 +10,11 @@ import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
 public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
-    protected final @Nonnull CustomEnergyHandler storage = new CustomEnergyHandler(1, true, true);
+    protected final @Nonnull EnergyStorage storage = new EnergyStorage(1);
     protected int comparatorStrength = 0;
 
     protected boolean refreshEnergy = false;
@@ -24,44 +23,8 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
         super(level);
     }
 
-    public @Nonnull CustomEnergyHandler getEnergyStorage() {
+    public @Nonnull EnergyStorage getEnergyStorage() {
         return storage;
-    }
-
-    @Override
-    public int getMinimumInteriorLength() {
-        return 0;
-    }
-
-    @Override
-    public int getMaximumInteriorLength() {
-        return Integer.MAX_VALUE - 2;
-    }
-
-    @Override
-    protected int getMinimumNumberOfPartsForAssembledMachine() {
-        return 1;
-    }
-
-    @Override
-    protected void onPartAdded(IMultiblockPart<BatteryMultiblock> iMultiblockPart) {
-    }
-
-    @Override
-    protected void onPartRemoved(IMultiblockPart<BatteryMultiblock> iMultiblockPart) {
-    }
-
-    @Override
-    public void syncDataFrom(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-        storage.deserializeNBT(registries, data.get("energy"));
-        comparatorStrength = data.getInt("comparatorStrength");
-    }
-
-    @Override
-    public @NotNull CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-        data.put("energy", storage.serializeNBT(registries));
-        data.putInt("comparatorStrength", comparatorStrength);
-        return data;
     }
 
     @Override
@@ -74,25 +37,72 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
         onMultiblockFormed();
     }
 
-    @Override
-    protected void onMachinePaused() {
-
-    }
-
-    @Override
-    protected void onMachineDisassembled() {
-
-    }
-
-    @Override
-    protected void onAssimilate(IMultiblockController<BatteryMultiblock> iMultiblockController) {
-        if (iMultiblockController instanceof BatteryMultiblock assimilated) {
-            storage.mergeEnergyStorage(assimilated.storage);
+    protected void onMultiblockFormed() {
+        if (!getWorld().isClientSide()) {
+            long capacity = 0L;
+            for (TileBattery battery : getParts(TileBattery.class)) {
+                capacity += battery.batteryType.getCapacity();
+                battery.onMultiblockRefresh();
+            }
+            storage.setStorageCapacity(capacity);
+            storage.setMaxTransfer(capacity);
+            refreshEnergy = true;
         }
     }
 
     @Override
-    protected void onAssimilated(IMultiblockController<BatteryMultiblock> iMultiblockController) {
+    protected void onMachinePaused() {
+    }
+
+    @Override
+    protected void onMachineDisassembled() {
+        int i = 0;
+    }
+
+    @Override
+    protected int getMinimumNumberOfPartsForAssembledMachine() {
+        return 1;
+    }
+
+    @Override
+    protected int getMaximumXSize() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected int getMaximumZSize() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected int getMaximumYSize() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
+        return true;
+    }
+
+    @Override
+    protected void onAssimilate(IMultiblockController<BatteryMultiblock> assimilated) {
+        storage.mergeEnergyStorage(((BatteryMultiblock) assimilated).storage);
+    }
+
+    @Override
+    protected void onPartRemoved(IMultiblockPart<BatteryMultiblock> oldPart) {
+        super.onPartRemoved(oldPart);
+        if (oldPart instanceof TileBattery battery) {
+            EnergyStorage storage = this.getEnergyStorage();
+            if (this.getPartCount(TileBattery.class) < 2) {
+                battery.waitingEnergy += storage.getEnergyStored();
+            } else {
+                double fraction = (double) getEnergyStorage().getEnergyStoredLong() / (double) getEnergyStorage().getMaxEnergyStoredLong();
+                long energy = (long) (fraction * battery.batteryType.getCapacity());
+                battery.waitingEnergy += energy;
+                storage.changeEnergyStored(-energy);
+            }
+        }
     }
 
     @Override
@@ -109,11 +119,16 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
         }
         comparatorStrength = compStrength;
         if (shouldUpdate) {
-            for (BatteryEntity battery : getConnectedParts(test -> test instanceof BatteryEntity).map(e -> (BatteryEntity) e).toList()) {
-                getWorld().setBlocksDirty(battery.getBlockPos(), battery.getBlockState(), battery.getBlockState());
+            for (TileBattery battery : getParts(TileBattery.class)) {
+                battery.setChanged();
+                battery.updateComparatorOutputLevel();
             }
         }
-        return shouldUpdate;
+        return shouldUpdate || super.updateServer();
+    }
+
+    public int getComparatorStrength() {
+        return NCMath.getComparatorSignal(storage.getEnergyStoredLong(), storage.getMaxEnergyStoredLong(), 0D);
     }
 
     @Override
@@ -121,61 +136,30 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
     }
 
     @Override
-    protected boolean isBlockGoodForFrame(Level level, int i, int i1, int i2, IMultiblockValidator iMultiblockValidator) {
-        return true;
-    }
-
-    @Override
-    protected boolean isBlockGoodForTop(Level level, int i, int i1, int i2, IMultiblockValidator iMultiblockValidator) {
-        return true;
-    }
-
-    @Override
-    protected boolean isBlockGoodForBottom(Level level, int i, int i1, int i2, IMultiblockValidator iMultiblockValidator) {
-        return true;
-    }
-
-    @Override
-    protected boolean isBlockGoodForSides(Level level, int i, int i1, int i2, IMultiblockValidator iMultiblockValidator) {
-        return true;
-    }
-
-    @Override
     protected boolean isBlockGoodForInterior(Level level, int i, int i1, int i2, IMultiblockValidator iMultiblockValidator) {
         return true;
     }
 
-    protected void onMultiblockFormed() {
-        if (!getWorld().isClientSide) {
-            int capacity = 0;
-            for (IMultiblockPart<BatteryMultiblock> part : getConnectedParts()) {
-                if (part instanceof BatteryEntity batteryEntity) {
-                    capacity += batteryEntity.capacity;
-                    batteryEntity.onMultiblockRefresh();
-                }
-            }
-
-            storage.setCapacity(capacity);
-            storage.setMaxTransfer(capacity);
-            refreshEnergy = true;
-
-            //TODO not working properly when mekanism energy cube is placed before this
-
-// TODO REMOVE
-//            for (IMultiblockPart<BatteryMultiblock> part : getConnectedParts()) {
-//                if (part instanceof BatteryEntity batteryEntity) {
-//                    getWorld().setBlock(batteryEntity.getBlockPos(), batteryEntity.getBlockState(), Block.UPDATE_ALL_IMMEDIATE);
-//                }
-//            }
-        }
+    @Override
+    public int getMinimumInteriorLength() {
+        return 0;
     }
 
     @Override
-    protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
-        return true;
+    public int getMaximumInteriorLength() {
+        return 0;
     }
 
-    public int getComparatorStrength() {
-        return NCMath.getComparatorSignal(storage.getEnergyStored(), storage.getMaxEnergyStored(), 0D);
+    @Override
+    public void syncDataFrom(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
+        readEnergy(storage, data, registries, "energyStorage");
+        comparatorStrength = data.getInt("comparatorStrength");
+    }
+
+    @Override
+    public CompoundTag syncDataTo(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
+        writeEnergy(storage, data, registries, "energyStorage");
+        data.putInt("comparatorStrength", comparatorStrength);
+        return data;
     }
 }

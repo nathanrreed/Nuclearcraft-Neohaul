@@ -88,12 +88,10 @@ public class Config2 {
 //    public static double[] decay_lifetime;
 //    public static double[] decay_power;
 
-    public static int[] battery_block_capacity;
-    public static int[] battery_block_max_transfer;
-    public static int[] battery_block_energy_tier;
-    public static int[] battery_item_capacity;
-    public static int[] battery_item_max_transfer;
-    public static int[] battery_item_energy_tier;
+//    public static int[] battery_block_capacity;
+//    public static int[] battery_block_max_transfer;
+//    public static int[] battery_item_capacity;
+//    public static int[] battery_item_max_transfer;
 
     public static int machine_min_size; // Default: 1
     public static int machine_max_size; // Default: 24
@@ -495,12 +493,12 @@ public class Config2 {
 //        decay_lifetime = syncDoubles(DECAY_LIFETIME, ARRAY);
 //        decay_power = syncDoubles(DECAY_POWER, ARRAY);
 
-        battery_block_capacity = syncInts(BATTERY_BLOCK_CAPACITY, ARRAY);
-        battery_block_max_transfer = syncInts(BATTERY_BLOCK_MAX_TRANSFER, ARRAY);
-        battery_block_energy_tier = syncInts(BATTERY_BLOCK_ENERGY_TIER, ARRAY);
-        battery_item_capacity = syncInts(BATTERY_ITEM_CAPACITY, ARRAY);
-        battery_item_max_transfer = syncInts(BATTERY_ITEM_MAX_TRANSFER, ARRAY);
-        battery_item_energy_tier = syncInts(BATTERY_ITEM_ENERGY_TIER, ARRAY);
+//        battery_block_capacity = syncInts(BATTERY_BLOCK_CAPACITY, ARRAY);
+//        battery_block_max_transfer = syncInts(BATTERY_BLOCK_MAX_TRANSFER, ARRAY);
+//        battery_block_energy_tier = syncInts(BATTERY_BLOCK_ENERGY_TIER, ARRAY);
+//        battery_item_capacity = syncInts(BATTERY_ITEM_CAPACITY, ARRAY);
+//        battery_item_max_transfer = syncInts(BATTERY_ITEM_MAX_TRANSFER, ARRAY);
+//        battery_item_energy_tier = syncInts(BATTERY_ITEM_ENERGY_TIER, ARRAY);
 
         machine_min_size = MACHINE_MIN_SIZE.getAsInt();
         machine_max_size = MACHINE_MAX_SIZE.getAsInt();
@@ -887,12 +885,12 @@ public class Config2 {
 //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> DECAY_LIFETIME = add(CATEGORY_GENERATOR, "decay_lifetime", List.of(12000D / 0.75D, 12000D / 1.2D, 1200D, 12000D / 2.2D, 12000D / 3D, 12000D / 18D, 12000D / 28D, 12000D / 80D, 12000D / 1000D), 1D, 16777215D, ARRAY);
 //    private static final ModConfigSpec.ConfigValue<List<? extends Double>> DECAY_POWER = add(CATEGORY_GENERATOR, "decay_power", List.of(0.75D, 1.2D, 1D, 2.2D, 3D, 18D, 28D, 80D, 1000D), 0D, 32767D, ARRAY);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_CAPACITY = add(CATEGORY_ENERGY_STORAGE, "battery_block_capacity", List.of(1600000, 6400000, 25600000, 102400000, 32000000, 128000000, 512000000, 2048000000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_MAX_TRANSFER = add(CATEGORY_ENERGY_STORAGE, "battery_block_max_transfer", List.of(16000, 64000, 256000, 1024000, 320000, 1280000, 5120000, 20480000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_ENERGY_TIER = add(CATEGORY_ENERGY_STORAGE, "battery_block_energy_tier", List.of(1, 2, 3, 4, 3, 4, 5, 6), 1, 10, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_CAPACITY = add(CATEGORY_ENERGY_STORAGE, "battery_item_capacity", List.of(8000000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_MAX_TRANSFER = add(CATEGORY_ENERGY_STORAGE, "battery_item_max_transfer", List.of(80000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_ENERGY_TIER = add(CATEGORY_ENERGY_STORAGE, "battery_item_energy_tier", List.of(3), 1, 10, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_CAPACITY = add(CATEGORY_ENERGY_STORAGE, "battery_block_capacity", List.of(1600000, 6400000, 25600000, 102400000, 32000000, 128000000, 512000000, 2048000000), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_MAX_TRANSFER = add(CATEGORY_ENERGY_STORAGE, "battery_block_max_transfer", List.of(16000, 64000, 256000, 1024000, 320000, 1280000, 5120000, 20480000), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_ENERGY_TIER = add(CATEGORY_ENERGY_STORAGE, "battery_block_energy_tier", List.of(1, 2, 3, 4, 3, 4, 5, 6), 1, 10, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_CAPACITY = add(CATEGORY_ENERGY_STORAGE, "battery_item_capacity", List.of(8000000), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_MAX_TRANSFER = add(CATEGORY_ENERGY_STORAGE, "battery_item_max_transfer", List.of(80000), 1, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_ENERGY_TIER = add(CATEGORY_ENERGY_STORAGE, "battery_item_energy_tier", List.of(3), 1, 10, ARRAY);
 
     private static final ModConfigSpec.IntValue MACHINE_MIN_SIZE = add(CATEGORY_MACHINE, "machine_min_size", 1, 1, 255);
     private static final ModConfigSpec.IntValue MACHINE_MAX_SIZE = add(CATEGORY_MACHINE, "machine_max_size", 24, 3, 255);

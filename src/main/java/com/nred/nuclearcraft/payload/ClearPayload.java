@@ -11,7 +11,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public record ClearPayload(int tank, BlockPos pos) implements CustomPacketPayload {
+public record ClearPayload(int tank, BlockPos pos) implements CustomPacketPayload { // TODO REMOVE
     public ClearPayload(BlockPos pos) {
         this(0, pos);
     }

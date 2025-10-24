@@ -28,11 +28,11 @@ public abstract class TileEnergy extends NCTile implements ITileEnergy {
     public TileEnergy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections) {
         super(type, pos, blockState);
         initTileEnergy(capacity, maxTransfer, energyConnections);
-        energySides = ITileEnergy.getDefaultEnergySides(this);
+        this.energySides = ITileEnergy.getDefaultEnergySides(this);
     }
 
     protected void initTileEnergy(long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections) {
-        storage = new EnergyStorage(capacity, maxTransfer);
+        this.storage = new EnergyStorage(capacity, maxTransfer);
         this.energyConnections = energyConnections;
     }
 

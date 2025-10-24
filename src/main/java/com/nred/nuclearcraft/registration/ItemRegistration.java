@@ -1,7 +1,8 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.item.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -9,7 +10,12 @@ import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Supplier;
 
+import static com.nred.nuclearcraft.NCInfo.powerAdverb;
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.config.Config2.energy_upgrade_power_laws_fp;
+import static com.nred.nuclearcraft.config.Config2.speed_upgrade_power_laws_fp;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.newEffect;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.Registers.ITEMS;
@@ -27,13 +33,13 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> PART_MAP = createItems(PARTS, "");
     public static final HashMap<String, DeferredItem<Item>> PART_BLOCK_MAP = createItems(PART_BLOCKS, "");
     public static final HashMap<String, DeferredItem<Item>> COMPOUND_MAP = createItems(COMPOUNDS, "");
-    public static final HashMap<String, DeferredItem<Item>> UPGRADE_MAP = createItems(UPGRADES, "upgrade", true);
+    public static final HashMap<String, DeferredItem<Item>> UPGRADE_MAP = createUpgrades();
     public static final HashMap<String, DeferredItem<Item>> FOOD_MAP = createFoods();
     public static final HashMap<String, DeferredItem<Item>> MUSIC_DISC_MAP = createMusicDiscs();
     public static final DeferredItem<Item> PORTABLE_ENDER_CHEST = ITEMS.register("portable_ender_chest", () -> new PortableEnderChest(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> FOURSMORE = ITEMS.register("foursmore", () -> new FoodItem(48, 8.6F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 1200), newEffect(MobEffects.DIG_SPEED, 2, 1200), newEffect(MobEffects.ABSORPTION, 2, 1200))));
     public static final DeferredItem<Item> LITHIUM_ION_CELL = ITEMS.register("lithium_ion_cell", () -> new LithiumIonCell(new Item.Properties()));
-    public static final DeferredItem<Item> MULTITOOL = ITEMS.register("multitool", () -> new MultiToolItem(new Item.Properties()));
+    public static final DeferredItem<Item> MULTITOOL = ITEMS.register("multitool", () -> new MultitoolItem(new Item.Properties()));
 
     public static final HashMap<String, DeferredItem<Item>> AMERICIUM_MAP = createItems(AMERICIUMS, "americium", "");
     public static final HashMap<String, DeferredItem<Item>> BERKELIUM_MAP = createItems(BERKELIUMS, "berkelium", "");
@@ -97,12 +103,12 @@ public class ItemRegistration {
         map.put("cocoa_butter", ITEMS.register("cocoa_butter", () -> new FoodItem(2, 0.2F, List.of(newEffect(MobEffects.ABSORPTION, 1, 300)))));
         map.put("cocoa_solids", ITEMS.register("cocoa_solids", () -> new Item(new Item.Properties())));
         map.put("dark_chocolate", ITEMS.register("dark_chocolate", () -> new FoodItem(3, 0.4F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)))));
-        map.put("dominos", ITEMS.register("dominos", () -> new FoodItem(16, 1.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 2, 600), newEffect(MobEffects.DIG_SPEED, 2, 600)), NuclearcraftNeohaul.MODID + ".tooltip.dominos")));
+        map.put("dominos", ITEMS.register("dominos", () -> new FoodItem(16, 1.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 2, 600), newEffect(MobEffects.DIG_SPEED, 2, 600)), MODID + ".tooltip.dominos")));
         map.put("flour", ITEMS.register("flour", () -> new Item(new Item.Properties())));
         map.put("gelatin", ITEMS.register("gelatin", () -> new Item(new Item.Properties())));
         map.put("graham_cracker", ITEMS.register("graham_cracker", () -> new FoodItem(1, 0.2f)));
         map.put("ground_cocoa_nibs", ITEMS.register("ground_cocoa_nibs", () -> new FoodItem(1, 0.2F)));
-        map.put("marshmallow", ITEMS.register("marshmallow", () -> new FoodItem(1, 0.4F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)), NuclearcraftNeohaul.MODID + ".tooltip.marshmallow")));
+        map.put("marshmallow", ITEMS.register("marshmallow", () -> new FoodItem(1, 0.4F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)), MODID + ".tooltip.marshmallow")));
         map.put("milk_chocolate", ITEMS.register("milk_chocolate", () -> new FoodItem(4, 0.6F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300), newEffect(MobEffects.ABSORPTION, 1, 300)))));
         map.put("moresmore", ITEMS.register("moresmore", () -> new FoodItem(20, 3.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 600), newEffect(MobEffects.DIG_SPEED, 2, 600), newEffect(MobEffects.ABSORPTION, 2, 600)))));
         map.put("roasted_cocoa_beans", ITEMS.register("roasted_cocoa_beans", () -> new Item(new Item.Properties())));
@@ -111,12 +117,19 @@ public class ItemRegistration {
         return map;
     }
 
+    public static HashMap<String, DeferredItem<Item>> createUpgrades() {
+        HashMap<String, DeferredItem<Item>> map = new HashMap<>();
+        map.put("speed", ITEMS.register("speed_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.speed_desc", (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")).withStyle(ChatFormatting.AQUA)), true, true)));
+        map.put("energy", ITEMS.register("energy_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.energy_desc", (Supplier<String>) () -> powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")).withStyle(ChatFormatting.AQUA)), true, true)));
+        return map;
+    }
+
     public static HashMap<String, DeferredItem<Item>> createMusicDiscs() {
         HashMap<String, DeferredItem<Item>> map = new HashMap<>();
-        map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(WANDERER_KEY), List.of(NuclearcraftNeohaul.MODID + ".music_disc.wanderer.credit"))));
-        map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(END_OF_THE_WORLD_KEY), List.of(NuclearcraftNeohaul.MODID + ".music_disc.end_of_the_world.credit"))));
-        map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(MONEY_FOR_NOTHING_KEY), List.of(NuclearcraftNeohaul.MODID + ".music_disc.money_for_nothing.credit"))));
-        map.put("music_disc_hyperspace", ITEMS.register("music_disc_hyperspace", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(HYPERSPACE_KEY), List.of(NuclearcraftNeohaul.MODID + ".music_disc.hyperspace.credit"))));
+        map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(WANDERER_KEY), List.of(MODID + ".music_disc.wanderer", MODID + ".music_disc.wanderer.credit"))));
+        map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(END_OF_THE_WORLD_KEY), List.of(MODID + ".music_disc.end_of_the_world", MODID + ".music_disc.end_of_the_world.credit"))));
+        map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(MONEY_FOR_NOTHING_KEY), List.of(MODID + ".music_disc.money_for_nothing", MODID + ".music_disc.money_for_nothing.credit"))));
+        map.put("music_disc_hyperspace", ITEMS.register("music_disc_hyperspace", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(HYPERSPACE_KEY), List.of(MODID + ".music_disc.hyperspace", MODID + ".music_disc.hyperspace.credit"))));
         return map;
     }
 
