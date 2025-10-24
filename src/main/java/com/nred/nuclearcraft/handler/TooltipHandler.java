@@ -1,14 +1,22 @@
 package com.nred.nuclearcraft.handler;
 
 import com.nred.nuclearcraft.NCInfo;
+import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
+import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
+import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbinePlacement;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
 import com.nred.nuclearcraft.util.InfoHelper;
+import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
@@ -28,7 +36,7 @@ public class TooltipHandler {
         List<Component> tooltip = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
-//        addPlacementRuleTooltip(tooltip, stack);
+        addPlacementRuleTooltip(tooltip, stack);
 
         if (event.getContext().level() != null)
             addRecipeTooltip(tooltip, stack, event.getContext().level());
@@ -38,6 +46,28 @@ public class TooltipHandler {
 //            addRadiationTooltip(tooltip, stack);
 //            addFoodRadiationTooltip(tooltip, stack);
 //        }
+    }
+
+    // Placement Rule Tooltips
+
+    @OnlyIn(Dist.CLIENT)
+    private static void addPlacementRuleTooltip(List<Component> tooltip, ItemStack stack) {
+        if (stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof GenericDeviceBlock<?, ?> block && (block.getPartType() == TurbinePartType.DynamoConnector || block.getMultiblockVariant().isPresent())) {
+            String rule = null;
+            if (block.getPartType() == TurbinePartType.DynamoConnector) {
+                rule = TurbinePlacement.TOOLTIP_MAP.get("connector");
+            } else if (block.getMultiblockVariant().get() instanceof TurbineDynamoCoilType coil) {
+                rule = TurbinePlacement.TOOLTIP_MAP.get(coil.getSerializedName() + "_coil");
+            } else if (block.getMultiblockVariant().get() instanceof FissionCoolantHeaterType heater) {
+                rule = FissionPlacement.TOOLTIP_MAP.get(heater.getSerializedName() + "_heater");
+            } else if (block.getMultiblockVariant().get() instanceof FissionHeatSinkType sink) {
+                rule = FissionPlacement.TOOLTIP_MAP.get(sink.getSerializedName() + "_sink");
+            }
+
+            if (rule != null) {
+                InfoHelper.infoFull(tooltip, ChatFormatting.AQUA, Component.literal(rule));
+            }
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -78,7 +108,7 @@ public class TooltipHandler {
 
         recipe = itemRecipe.apply(NCRecipes.fission_reflector);
         if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo((FissionReflectorRecipe) recipe), ChatFormatting.AQUA, NCInfo.fissionReflectorInfo());
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo((FissionReflectorRecipe) recipe), ChatFormatting.AQUA); // TODO not in NCO , NCInfo.fissionReflectorInfo()
         }
 
 //        recipe = itemRecipe.apply(NCRecipes.pebble_fission); TODO

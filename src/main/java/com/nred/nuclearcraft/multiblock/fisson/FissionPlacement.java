@@ -8,6 +8,7 @@ import com.nred.nuclearcraft.multiblock.PlacementRule.CountType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.PlacementMap;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.StringHelper;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -34,7 +35,7 @@ public abstract class FissionPlacement {
     /**
      * Map of all placement rule IDs to unparsed rule strings, used for ordered iterations.
      */
-//    public static final Object2ObjectMap<String, String> RULE_MAP_RAW = new Object2ObjectArrayMap<>();
+    public static final Object2ObjectMap<String, String> RULE_MAP_RAW = new Object2ObjectArrayMap<>();
 
     /**
      * Map of all defined placement rules.
@@ -45,8 +46,6 @@ public abstract class FissionPlacement {
      * List of all defined tooltip builders. Earlier entries are prioritised!
      */
     public static final List<PlacementRule.TooltipBuilder<FissionReactor, AbstractFissionEntity>> TOOLTIP_BUILDER_LIST = new LinkedList<>();
-
-//	public static PlacementRule.RecipeHandler recipe_handler; TODO
 
     /**
      * Map of all localized tooltips.
@@ -60,8 +59,6 @@ public abstract class FissionPlacement {
     }
 
     public static void init() {
-//		recipe_handler = new RecipeHandler();
-
         RULE_MAP.put("", new PlacementRule.Or<>(new ArrayList<>()));
 
         addRule("water_fission_heat_sink", fission_sink_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("water_fission_heat_sink"), 1));
@@ -132,11 +129,8 @@ public abstract class FissionPlacement {
     }
 
     public static void addRule(String id, String rule, Object... blocks) {
-//        RULE_MAP_RAW.put(id, rule);
+        RULE_MAP_RAW.put(id, rule);
         RULE_MAP.put(id, parse(rule));
-//        for (Object block : blocks) {
-//            recipe_handler.addRecipe(block, id);
-//        }
     }
 
     public static void postInit() {
@@ -460,13 +454,4 @@ public abstract class FissionPlacement {
 
     public static class DefaultTooltipBuilder extends PlacementRule.DefaultTooltipBuilder<FissionReactor, AbstractFissionEntity> {
     }
-
-    // Recipe Handler
-
-//	public static class RecipeHandler extends PlacementRule.RecipeHandler {
-//
-//		public RecipeHandler() {
-//			super("fission");
-//		}
-//	}
 }

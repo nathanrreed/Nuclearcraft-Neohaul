@@ -1,6 +1,13 @@
 package com.nred.nuclearcraft;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
+import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
+import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
+import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
@@ -13,8 +20,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.fission_decay_mechanics;
-import static com.nred.nuclearcraft.config.Config2.fission_neutron_reach;
+import static com.nred.nuclearcraft.config.Config2.*;
 
 public class NCInfo {
 //
@@ -97,96 +103,37 @@ public class NCInfo {
         return list.toArray(new Component[0]);
     }
 
-//	// Fission Cooling TODO
-//
-//	public static <T extends Enum<T> & IStringSerializable & ICoolingComponentEnum<?>> String[][] coolingFixedInfo(T[] values, String name) {
-//		String[][] info = new String[values.length][];
-//		for (int i = 0; i < values.length; ++i) {
-//			info[i] = coolingRateInfo(values[i], name);
-//		}
-//		return info;
-//	}
-//
-//	public static <T extends Enum<T> & ICoolingComponentEnum<?>> String[] coolingRateInfo(T type, String name) {
-//		return coolingRateInfo(type.getCooling(), name);
-//	}
-//
-//	public static String[] coolingRateInfo(int cooling, String name) {
-//		return new String[] {Lang.localize("tile." + Global.MOD_ID + "." + name + ".cooling_rate") + " " + cooling + " H/t"};
-//	}
-//
-//	public static String[][] heatSinkFixedInfo() {
-//		return coolingFixedInfo(MetaEnums.HeatSinkType.values(), "solid_fission_sink");
-//	}
-//
-//	public static String[][] heatSinkFixedInfo2() {
-//		return coolingFixedInfo(MetaEnums.HeatSinkType2.values(), "solid_fission_sink");
-//	}
-//
-//	public static String[][] coolantHeaterFixedInfo() {
-//		return coolingFixedInfo(MetaEnums.CoolantHeaterType.values(), "salt_fission_heater");
-//	}
-//
-//	public static String[][] coolantHeaterFixedInfo2() {
-//		return coolingFixedInfo(MetaEnums.CoolantHeaterType2.values(), "salt_fission_heater");
-//	}
-//
-//	// Neutron Source
-//
-//	public static String[][] neutronSourceFixedInfo() {
-//		MetaEnums.NeutronSourceType[] values = MetaEnums.NeutronSourceType.values();
-//		String[][] info = new String[values.length][];
-//		for (int i = 0; i < values.length; ++i) {
-//			info[i] = neutronSourceEfficiencyInfo(values[i].getEfficiency());
-//		}
-//		return info;
-//	}
-//
-//	public static String[] neutronSourceEfficiencyInfo(double efficiency) {
-//		return new String[] {Lang.localize("info." + Global.MOD_ID + ".fission_source.efficiency.fixd", NCMath.pcDecimalPlaces(efficiency, 1))};
-//	}
-//
-//	public static String[][] neutronSourceInfo() {
-//		MetaEnums.NeutronSourceType[] values = MetaEnums.NeutronSourceType.values();
-//		String[][] info = new String[values.length][];
-//		for (int i = 0; i < values.length; ++i) {
-//			info[i] = neutronSourceDescriptionInfo();
-//		}
-//		return info;
-//	}
-//
-//	public static String[] neutronSourceDescriptionInfo() {
-//		return InfoHelper.formattedInfo(Lang.localize("tile." + Global.MOD_ID + ".fission_source.desc"));
-//	}
-//
-//	// Neutron Shield
-//
-//	public static String[][] neutronShieldFixedInfo() {
-//		MetaEnums.NeutronShieldType[] values = MetaEnums.NeutronShieldType.values();
-//		String[][] info = new String[values.length][];
-//		for (int i = 0; i < values.length; ++i) {
-//			info[i] = neutronShieldStatInfo(values[i].getHeatPerFlux(), values[i].getEfficiency());
-//		}
-//		return info;
-//	}
-//
-//	public static String[] neutronShieldStatInfo(double heatPerFlux, double efficiency) {
-//		return new String[] {Lang.localize("info." + Global.MOD_ID + ".fission_shield.heat_per_flux.fixd", UnitHelper.prefix(heatPerFlux, 5, "H/N")), Lang.localize("info." + Global.MOD_ID + ".fission_shield.efficiency.fixd", NCMath.pcDecimalPlaces(efficiency, 1))};
-//	}
-//
-//	public static String[][] neutronShieldInfo() {
-//		MetaEnums.NeutronShieldType[] values = MetaEnums.NeutronShieldType.values();
-//		String[][] info = new String[values.length][];
-//		for (int i = 0; i < values.length; ++i) {
-//			info[i] = neutronShieldDescriptionInfo();
-//		}
-//		return info;
-//	}
-//
-//	public static String[] neutronShieldDescriptionInfo() {
-//		return InfoHelper.formattedInfo(Lang.localize("tile." + Global.MOD_ID + ".fission_shield.desc"));
-//	}
-//
+    // Fission Cooling
+
+    public static Component[] sinkCoolingRateFixedInfo(FissionHeatSinkType type) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.solid_fission_sink.cooling_rate", (Supplier<Integer>) type::getCoolingRate)};
+    }
+
+    public static Component[] heaterCoolingRateFixedInfo(FissionCoolantHeaterType type) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.salt_fission_heater.cooling_rate", (Supplier<Double>) type::getCoolingRate)};
+    }
+
+    // Neutron Source
+
+    public static Component[] neutronSourceFixedInfo(FissionSourceType type) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.fission_source.efficiency", (Supplier<String>) () -> NCMath.pcDecimalPlaces(type.getEfficiency(), 1))};
+    }
+
+    public static Component neutronSourceInfo() {
+        return Component.translatable(MODID + ".tooltip.fission_source"); // TODO not in NCO
+    }
+
+    // Neutron Shield
+
+    public static Component[] neutronShieldFixedInfo(FissionNeutronShieldType type) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.fission_shield.heat_per_flux", (Supplier<String>) () -> UnitHelper.prefix(type.getHeatPerFlux(), 5, "H/N")), Component.translatable(MODID + ".tooltip.fission_shield.efficiency", (Supplier<String>) () -> NCMath.pcDecimalPlaces(type.getEfficiency(), 1))};
+    }
+
+
+    public static Component neutronShieldInfo() {
+        return Component.translatable(MODID + ".tooltip.fission_shield"); // TODO not in NCO
+    }
+
     // Fission Moderator
 
     public static Component[] fissionModeratorFixedInfo(FissionModeratorRecipe moderatorInfo) {
@@ -206,8 +153,8 @@ public class NCInfo {
         return new Component[]{Component.translatable(MODID + ".info.reflector"), Component.translatable(MODID + ".info.reflector.reflectivity", NCMath.pcDecimalPlaces(reflectorInfo.getFissionReflectorReflectivity(), 1)), Component.translatable(MODID + ".info.reflector.efficiency", NCMath.pcDecimalPlaces(reflectorInfo.getFissionReflectorEfficiency(), 1))};
     }
 
-    public static Component[] fissionReflectorInfo() {
-        return new Component[]{Component.empty()}; // TODO currently not in original translatable("" + MODID + "info.reflector");
+    public static Component fissionReflectorInfo() {
+        return Component.translatable(MODID + ".tooltip.reflector"); // TODO not in NCO
     }
 
 //	// HX Tube
@@ -220,43 +167,32 @@ public class NCInfo {
 //		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".heat_exchanger_tube.desc");
 //	}
 //
-//	// Dynamo Coil
-//
-//	public static String[][] dynamoCoilFixedInfo() {
-//		String[][] info = new String[TurbineDynamoCoilType.values().length][];
-//		for (int i = 0; i < TurbineDynamoCoilType.values().length; ++i) {
-//			info[i] = coilConductivityInfo(i);
-//		}
-//		return info;
-//	}
-//
-//	public static String[] coilConductivityInfo(int meta) {
-//		return coilConductivityInfo(TurbineDynamoCoilType.values()[meta].getConductivity());
-//	}
-//
-//	public static String[] coilConductivityInfo(double conductivity) {
-//		return new String[] {Lang.localize("tile." + Global.MOD_ID + ".turbine_dynamo_coil.conductivity") + " " + NCMath.pcDecimalPlaces(conductivity, 1)};
-//	}
-//
-//	// Rotor Blade
-//
-//	public static String[] rotorBladeFixedInfo(double efficiency, double expansionCoefficient) {
-//		return new String[] {Lang.localize("tile." + Global.MOD_ID + ".turbine_rotor_blade_efficiency.fixd", NCMath.pcDecimalPlaces(efficiency, 1)), Lang.localize("tile." + Global.MOD_ID + ".turbine_rotor_blade_expansion.fixd", NCMath.pcDecimalPlaces(expansionCoefficient, 1))};
-//	}
-//
-//	public static String[] rotorBladeInfo() {
-//		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".turbine_rotor_blade.desc", UnitHelper.prefix(turbine_mb_per_blade, 5, "B/t", -1));
-//	}
-//
-//	// Rotor Stator
-//
-//	public static String[] rotorStatorFixedInfo(double expansionCoefficient) {
-//		return new String[] {Lang.localize("tile." + Global.MOD_ID + ".turbine_rotor_stator_expansion.fixd", NCMath.pcDecimalPlaces(expansionCoefficient, 1))};
-//	}
-//
-//	public static String[] rotorStatorInfo() {
-//		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".turbine_rotor_stator.desc");
-//	}
+    // Dynamo Coil
+
+    public static Component[] dynamoCoilFixedInfo(TurbineDynamoCoilType type) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.turbine_dynamo_coil.conductivity", (Supplier<String>) () -> NCMath.pcDecimalPlaces(type.getConductivity(), 1))};
+    }
+
+    // Rotor Blade
+
+    public static Component[] rotorBladeFixedInfo(TurbineRotorBladeType type) {
+        return new Component[]{Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.turbine_rotor_blade_efficiency", (Supplier<String>) () -> NCMath.pcDecimalPlaces(type.getEfficiency(), 1)), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.turbine_rotor_blade_expansion", (Supplier<String>) () -> NCMath.pcDecimalPlaces(type.getExpansionCoefficient(), 1))};
+    }
+
+    public static Component rotorBladeInfo() {
+        return Component.translatable("block." + MODID + ".turbine_rotor_blade.desc", (Supplier<String>) () -> UnitHelper.prefix(turbine_mb_per_blade, 5, "B/t", -1));
+    }
+
+    // Rotor Stator
+
+    public static Component[] rotorStatorFixedInfo(TurbineRotorStatorType type) {
+        return new Component[]{Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.turbine_rotor_blade_expansion", (Supplier<String>) () -> NCMath.pcDecimalPlaces(type.getExpansionCoefficient(), 1))};
+
+    }
+
+    public static Component rotorStatorInfo() {
+        return Component.translatable("block." + MODID + ".turbine_rotor_stator.desc");
+    }
 
     // Upgrade
     public static String powerAdverb(double power, String verb, String preposition) {

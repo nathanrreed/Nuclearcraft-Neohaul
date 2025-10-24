@@ -119,8 +119,8 @@ public class ItemRegistration {
 
     public static HashMap<String, DeferredItem<Item>> createUpgrades() {
         HashMap<String, DeferredItem<Item>> map = new HashMap<>();
-        map.put("speed", ITEMS.register("speed_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.speed_desc", (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")).withStyle(ChatFormatting.AQUA)), true, true)));
-        map.put("energy", ITEMS.register("energy_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.energy_desc", (Supplier<String>) () -> powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")).withStyle(ChatFormatting.AQUA)), true, true)));
+        map.put("speed", ITEMS.register("speed_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.speed.desc", (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")).withStyle(ChatFormatting.AQUA)), true, true)));
+        map.put("energy", ITEMS.register("energy_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.energy.desc", (Supplier<String>) () -> powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")).withStyle(ChatFormatting.AQUA)), true, true)));
         return map;
     }
 

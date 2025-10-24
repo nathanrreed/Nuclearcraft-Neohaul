@@ -18,16 +18,24 @@ public class NCItemBlock extends BlockItem {
     private final ChatFormatting infoColor;
     public final Component[] fixedInfo, info;
 
-    public NCItemBlock(Block block, ChatFormatting[] fixedColors, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, Component... tooltip) {
+    public NCItemBlock(Block block, ChatFormatting[] fixedColors, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, boolean hasInfo, Component... tooltip) {
         super(block, new Item.Properties());
         this.fixedColors = fixedColors;
         this.fixedInfo = hasFixed ? InfoHelper.buildFixedInfo(block.getDescriptionId(), fixedTooltip) : new Component[]{};
         this.infoColor = infoColor;
-        this.info = InfoHelper.buildInfo(block.getDescriptionId(), tooltip);
+        this.info = hasInfo ? InfoHelper.buildInfo(block.getDescriptionId(), tooltip) : new Component[]{};
+    }
+
+    public NCItemBlock(Block block, ChatFormatting[] fixedColors, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, Component... tooltip) {
+        this(block, fixedColors, fixedTooltip, hasFixed, infoColor, true, tooltip);
+    }
+
+    public NCItemBlock(Block block, ChatFormatting fixedColor, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, boolean hasInfo, Component... tooltip) {
+        this(block, new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, hasInfo, tooltip);
     }
 
     public NCItemBlock(Block block, ChatFormatting fixedColor, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, Component... tooltip) {
-        this(block, new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, tooltip);
+        this(block, new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, true, tooltip);
     }
 
     public NCItemBlock(Block block, ChatFormatting infoColor, Component... tooltip) {

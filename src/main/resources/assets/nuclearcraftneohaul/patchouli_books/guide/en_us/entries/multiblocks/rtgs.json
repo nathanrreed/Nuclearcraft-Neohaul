@@ -6,7 +6,7 @@
 	"pages": [
 		{
 			"anchor": "rtg",
-			"type": "todo",
+			"type": "blocks/4",
 			"header": "RTGs",
 			"block1": "nuclearcraftneohaul:rtg_uranium",
 			"block2": "nuclearcraftneohaul:rtg_plutonium",

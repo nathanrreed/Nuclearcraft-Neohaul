@@ -45,8 +45,6 @@ public abstract class TurbinePlacement {
      */
     public static final List<PlacementRule.TooltipBuilder<Turbine, AbstractTurbineEntity>> TOOLTIP_BUILDER_LIST = new LinkedList<>();
 
-//	public static PlacementRule.RecipeHandler recipe_handler; TODO
-
     /**
      * Map of all localized tooltips.
      */
@@ -59,8 +57,6 @@ public abstract class TurbinePlacement {
     }
 
     public static void init() {
-//		recipe_handler = new RecipeHandler();
-
         RULE_MAP.put("", new PlacementRule.Or<>(new ArrayList<>()));
 
         addRule("magnesium_coil", turbine_coil_rule[0], new ItemStack(TURBINE_MAP.get("magnesium_turbine_dynamo_coil"), 1));
@@ -76,9 +72,6 @@ public abstract class TurbinePlacement {
     public static void addRule(String id, String rule, Object... blocks) {
         RULE_MAP_RAW.put(id, rule);
         RULE_MAP.put(id, parse(rule));
-//		for (Object block : blocks) {
-//			recipe_handler.addRecipe(block, id);
-//		}
     }
 
     public static void postInit() {
@@ -292,13 +285,4 @@ public abstract class TurbinePlacement {
 
     public static class DefaultTooltipBuilder extends PlacementRule.DefaultTooltipBuilder<Turbine, AbstractTurbineEntity> {
     }
-
-//	// Recipe Handler TODO REMOVE
-//
-//	public static class RecipeHandler extends PlacementRule.RecipeHandler {
-//
-//		public RecipeHandler() {
-//			super("multiblock");
-//		}
-//	}
 }

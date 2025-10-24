@@ -11,14 +11,14 @@
 		},
 		{
 			"anchor": "machine_interface",
-			"type": "nuclearcraftneohaul:blocks/1",
+			"type": "blocks/1",
 			"header": "Machine Interface",
 			"block": "nuclearcraftneohaul:machine_interface",
 			"text": "The $(item)Machine Interface$() extends a processing machine on one of its sides. It can be used if there is no room for pipes or cables."
 		},
 		{
 			"anchor": "universal_bin",
-			"type": "nuclearcraftneohaul:blocks/1",
+			"type": "blocks/1",
 			"header": "Universal Bin",
 			"block": "nuclearcraftneohaul:universal_bin",
 			"text": "The $(item)Universal Bin$() allows for the simple disposal of anything. It destroys all materials and energy fed to it."

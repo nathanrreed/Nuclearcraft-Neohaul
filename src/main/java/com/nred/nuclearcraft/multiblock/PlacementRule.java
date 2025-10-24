@@ -68,11 +68,6 @@ public abstract class PlacementRule<MULTIBLOCK extends AbstractMultiblockControl
         TurbinePlacement.postInit();
     }
 
-    public static void refreshRecipeCaches() {
-//		FissionPlacement.recipe_handler.refreshCache(); TODO
-//		TurbinePlacement.recipe_handler.refreshCache();
-    }
-
     // Rule Parser
 
     public static <MULTIBLOCK extends AbstractMultiblockController<MULTIBLOCK>, T extends AbstractMultiblockPart<MULTIBLOCK>> PlacementRule<MULTIBLOCK, T> parse(String string, List<RuleParser<MULTIBLOCK, T>> parsers) {
@@ -746,23 +741,4 @@ public abstract class PlacementRule<MULTIBLOCK extends AbstractMultiblockControl
             }
         }
     }
-
-//	// Recipe Handler TODO REMOVE
-//
-//	public static class RecipeHandler extends BasicRecipeHandler {
-//
-//		public RecipeHandler(String type) {
-//			super(type + "_placement_rules", 1, 0, 0, 0);
-//		}
-//
-//		@Override
-//		public void addRecipes() {}
-//
-//		@Override
-//		protected List<Object> fixedExtras(List<Object> extras) {
-//			ExtrasFixer fixer = new ExtrasFixer(extras);
-//			fixer.add(String.class, "");
-//			return fixer.fixed;
-//		}
-//	}
 }

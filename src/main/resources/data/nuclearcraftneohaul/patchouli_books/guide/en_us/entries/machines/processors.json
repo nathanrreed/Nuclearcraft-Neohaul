@@ -11,7 +11,7 @@
 		},
 		{
 			"anchor": "nuclear_furnace",
-			"type": "todo",
+			"type": "blocks/1",
 			"header": "Nuclear Furnace",
 			"block": "nuclearcraftneohaul:nuclear_furnace",
 			"text": "The $(item)Nuclear Furnace$() quickly smelts items, using uranium ingots or dust as fuel."

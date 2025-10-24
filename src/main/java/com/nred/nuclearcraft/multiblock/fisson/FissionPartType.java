@@ -40,8 +40,8 @@ public enum FissionPartType implements IFissionPartType {
     Vessel(() -> FISSION_ENTITY_TYPE.get("vessel")::get, GenericTooltipDeviceBlock::new, ""),
     VesselPort(() -> FISSION_ENTITY_TYPE.get("vessel_port")::get, GenericActiveDirectionalTooltipDeviceBlock::new, ""),
 
-    HeatSink(() -> FISSION_ENTITY_TYPE.get("heat_sink")::get, GenericTooltipDeviceBlock::new, "custom"),
-    Heater(() -> FISSION_ENTITY_TYPE.get("coolant_heater")::get, GenericTooltipDeviceBlock::new, "custom"),
+    HeatSink(() -> FISSION_ENTITY_TYPE.get("heat_sink")::get, GenericTooltipDeviceBlock::new, ""),
+    Heater(() -> FISSION_ENTITY_TYPE.get("coolant_heater")::get, GenericTooltipDeviceBlock::new, ""),
     HeaterPort(() -> FISSION_ENTITY_TYPE.get("coolant_heater_port")::get, GenericActiveDirectionalTooltipDeviceBlock::new, ""),
 
     ComputerPort(() -> FISSION_ENTITY_TYPE.get("computer_port")::get, GenericTooltipDeviceBlock::new, ""),

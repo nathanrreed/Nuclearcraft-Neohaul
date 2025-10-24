@@ -21,7 +21,7 @@
 		},
 		{
 			"anchor": "decay_generator",
-			"type": "todo",
+			"type": "blocks/1",
 			"header": "Decay Generator",
 			"block": "nuclearcraftneohaul:decay_generator",
 			"text": "The $(item)Decay Generator$() generates energy from the decay of adjacent radioactive blocks."
