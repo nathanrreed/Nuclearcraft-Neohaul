@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_neptunium_236": {
+    "has_neptunium_236_c": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:neptunium_236"
+            "items": "nuclearcraftneohaul:neptunium_236_c"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_neptunium_236"
+      "has_neptunium_236_c"
     ]
   ],
   "rewards": {

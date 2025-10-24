@@ -11,7 +11,7 @@ import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
-import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
+import com.nred.nuclearcraft.recipe.fission.ItemFissionRecipe;
 import com.nred.nuclearcraft.util.InfoHelper;
 import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
 import net.minecraft.ChatFormatting;
@@ -111,14 +111,14 @@ public class TooltipHandler {
             InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo((FissionReflectorRecipe) recipe), ChatFormatting.AQUA); // TODO not in NCO , NCInfo.fissionReflectorInfo()
         }
 
-//        recipe = itemRecipe.apply(NCRecipes.pebble_fission); TODO
-//        if (recipe != null) {
-//            InfoHelper.infoFull(tooltips, new ChatFormatting[] {ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo(recipe));
-//        }
-
         recipe = itemRecipe.apply(NCRecipes.solid_fission);
         if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((SolidFissionRecipe) recipe));
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((ItemFissionRecipe) recipe));
+        }
+
+        recipe = itemRecipe.apply(NCRecipes.pebble_fission);
+        if (recipe != null) {
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((ItemFissionRecipe) recipe));
         }
     }
 }

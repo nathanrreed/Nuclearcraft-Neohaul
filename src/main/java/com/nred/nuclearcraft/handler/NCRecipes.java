@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.handler;
 
 import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
+import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -86,7 +86,7 @@ public class NCRecipes {
         putHandler(new FissionModeratorRecipes());
         putHandler(new FissionReflectorRecipes());
         putHandler(new FissionIrradiatorRecipes());
-//        putHandler(new PebbleFissionRecipes());
+        putHandler(new PebbleFissionRecipes());
         putHandler(new SolidFissionRecipes());
         putHandler(new FissionHeatingRecipes());
         putHandler(new SaltFissionRecipes());
@@ -144,7 +144,7 @@ public class NCRecipes {
     public static FissionModeratorRecipes fission_moderator;
     public static FissionReflectorRecipes fission_reflector;
     public static FissionIrradiatorRecipes fission_irradiator;
-    //    public static PebbleFissionRecipes pebble_fission;
+    public static PebbleFissionRecipes pebble_fission;
     public static SolidFissionRecipes solid_fission;
     public static FissionHeatingRecipes fission_heating;
     public static SaltFissionRecipes salt_fission;
@@ -192,7 +192,7 @@ public class NCRecipes {
         fission_moderator = getHandler("fission_moderator");
         fission_reflector = getHandler("fission_reflector");
         fission_irradiator = getHandler("fission_irradiator");
-//        pebble_fission = getHandler("pebble_fission");
+        pebble_fission = getHandler("pebble_fission");
         solid_fission = getHandler("solid_fission");
         fission_heating = getHandler("fission_heating");
         salt_fission = getHandler("salt_fission");
@@ -255,15 +255,21 @@ public class NCRecipes {
         }
     }
 
+    public static class SolidFissionRecipes extends BasicRecipeHandler<SolidFissionRecipe> {
+        public SolidFissionRecipes() {
+            super("solid_fission", 1, 0, 1, 0);
+        }
+    }
+
     public static class SaltFissionRecipes extends BasicRecipeHandler<SaltFissionRecipe> {
         public SaltFissionRecipes() {
             super("salt_fission", 0, 1, 0, 1);
         }
     }
 
-    public static class SolidFissionRecipes extends BasicRecipeHandler<SaltFissionRecipe> {
-        public SolidFissionRecipes() {
-            super("solid_fission", 1, 0, 1, 0);
+    public static class PebbleFissionRecipes extends BasicRecipeHandler<PebbleFissionRecipe> {
+        public PebbleFissionRecipes() {
+            super("pebble_fission", 1, 0, 1, 0);
         }
     }
 
@@ -284,4 +290,22 @@ public class NCRecipes {
             super("collector", 1, 0, 1, 1);
         }
     }
+
+//    public class ElectrolyzerCathodeRecipes extends BasicRecipeHandler<ElectrolyzerCathodeRecipe> { TODO
+//        public ElectrolyzerCathodeRecipes() {
+//            super("electrolyzer_cathode", 1, 0, 0, 0);
+//        }
+//    }
+//
+//    public class MachineDiaphragmRecipes extends BasicRecipeHandler<MachineDiaphragmRecipe> {
+//        public MachineDiaphragmRecipes() {
+//            super("machine_diaphragm", 1, 0, 0, 0);
+//        }
+//    }
+//
+//    public class MachineSieveAssemblyRecipes extends BasicRecipeHandler<MachineSieveAssemblyRecipe> {
+//        public MachineSieveAssemblyRecipes() {
+//            super("machine_sieve_assembly", 1, 0, 0, 0);
+//        }
+//    }
 }

@@ -5,34 +5,34 @@
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:neptunium_236_c"
-          },
-          {
-            "items": "nuclearcraftneohaul:neptunium_237_c"
-          },
-          {
             "items": "nuclearcraftneohaul:neptunium_236"
           },
           {
-            "items": "nuclearcraftneohaul:neptunium_237"
-          },
-          {
-            "items": "nuclearcraftneohaul:neptunium_236_ox"
-          },
-          {
-            "items": "nuclearcraftneohaul:neptunium_237_ox"
-          },
-          {
-            "items": "nuclearcraftneohaul:neptunium_236_za"
-          },
-          {
-            "items": "nuclearcraftneohaul:neptunium_237_za"
+            "items": "nuclearcraftneohaul:neptunium_236_c"
           },
           {
             "items": "nuclearcraftneohaul:neptunium_236_ni"
           },
           {
+            "items": "nuclearcraftneohaul:neptunium_236_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_236_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237_c"
+          },
+          {
             "items": "nuclearcraftneohaul:neptunium_237_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:neptunium_237_za"
           }
         ]
       },

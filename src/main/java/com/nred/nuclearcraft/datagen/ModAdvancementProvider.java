@@ -61,7 +61,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
             // or pass in the values directly. If values are passed in directly, a DisplayInfo object will be created for you.
             builder.display(
                     // The advancement icon. Can be an ItemStack or an ItemLike.
-                    FUEL_URANIUM_MAP.get("leu_233"),
+                    PELLET_URANIUM_MAP.get("leu_233"),
                     // The advancement title and description. Don't forget to add translations for these!
                     Component.translatable("advancement." + MODID + ".root.title"),
                     Component.translatable("advancement." + MODID + ".root.description"),

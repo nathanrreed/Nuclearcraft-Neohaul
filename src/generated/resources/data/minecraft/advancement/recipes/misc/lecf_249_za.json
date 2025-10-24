@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_californium_249": {
+    "has_californium_249_za": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:californium_249"
+            "items": "nuclearcraftneohaul:californium_249_za"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_californium_249"
+      "has_californium_249_za"
     ]
   ],
   "rewards": {

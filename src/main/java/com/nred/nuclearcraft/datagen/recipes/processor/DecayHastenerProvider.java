@@ -19,7 +19,7 @@ public class DecayHastenerProvider {
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("thorium"), 1).addItemResult(DUST_MAP.get("lead"), 1).save(recipeOutput, "lead_from_thorium");
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("radium"), 1).addItemResult(DUST_MAP.get("lead"), 1).save(recipeOutput, "lead_from_radium");
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("polonium"), 1).addItemResult(DUST_MAP.get("lead"), 1).save(recipeOutput, "lead_from_polonium");
-        new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("tbp"), 1).addItemResult(FUEL_THORIUM_MAP.get("tbu"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("tbp"), 1).addItemResult(PELLET_THORIUM_MAP.get("tbu"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("protactinium_233"), 1).addItemResult(URANIUM_MAP.get("233"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("strontium_90"), 1).addItemResult(DUST_MAP.get("zirconium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(DecayHastenerRecipe.class, 1, 1).addItemInput(FISSION_DUST_MAP.get("ruthenium_106"), 1).addItemResult(DUST_MAP.get("palladium"), 1).save(recipeOutput);

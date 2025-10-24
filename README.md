@@ -17,6 +17,7 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - [EMI](https://github.com/emilyploszaj/emi)
 - [JEI](https://github.com/mezz/JustEnoughItems)
 - [CC: Tweaked](https://github.com/cc-tweaked/CC-Tweaked)
+- [Patchouli](https://github.com/VazkiiMods/Patchouli)
 
 ### Current Status:
 

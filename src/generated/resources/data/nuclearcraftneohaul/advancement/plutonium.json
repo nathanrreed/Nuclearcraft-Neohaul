@@ -5,22 +5,52 @@
       "conditions": {
         "items": [
           {
+            "items": "nuclearcraftneohaul:plutonium_238"
+          },
+          {
             "items": "nuclearcraftneohaul:plutonium_238_c"
           },
           {
-            "items": "nuclearcraftneohaul:plutonium_239_c"
+            "items": "nuclearcraftneohaul:plutonium_238_ni"
           },
           {
             "items": "nuclearcraftneohaul:plutonium_238_ox"
           },
           {
-            "items": "nuclearcraftneohaul:plutonium_241_c"
+            "items": "nuclearcraftneohaul:plutonium_238_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:plutonium_239"
+          },
+          {
+            "items": "nuclearcraftneohaul:plutonium_239_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:plutonium_239_ni"
           },
           {
             "items": "nuclearcraftneohaul:plutonium_239_ox"
           },
           {
+            "items": "nuclearcraftneohaul:plutonium_239_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:plutonium_241"
+          },
+          {
+            "items": "nuclearcraftneohaul:plutonium_241_c"
+          },
+          {
             "items": "nuclearcraftneohaul:plutonium_241_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:plutonium_241_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:plutonium_241_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:plutonium_242"
           },
           {
             "items": "nuclearcraftneohaul:plutonium_242_c"
@@ -29,40 +59,10 @@
             "items": "nuclearcraftneohaul:plutonium_242_ni"
           },
           {
-            "items": "nuclearcraftneohaul:plutonium_241"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_242"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_241_za"
+            "items": "nuclearcraftneohaul:plutonium_242_ox"
           },
           {
             "items": "nuclearcraftneohaul:plutonium_242_za"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_239_za"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_238_za"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_238"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_238_ni"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_239"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_239_ni"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_241_ox"
-          },
-          {
-            "items": "nuclearcraftneohaul:plutonium_242_ox"
           }
         ]
       },

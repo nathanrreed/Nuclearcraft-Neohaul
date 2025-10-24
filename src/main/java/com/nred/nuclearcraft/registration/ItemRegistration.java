@@ -9,6 +9,7 @@ import net.minecraft.world.item.Rarity;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -46,11 +47,13 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> BORON_MAP = createItems(BORONS, "boron", "");
     public static final HashMap<String, DeferredItem<Item>> CALIFORNIUM_MAP = createItems(CALIFORNIUMS, "californium", "");
     public static final HashMap<String, DeferredItem<Item>> CURIUM_MAP = createItems(CURIUMS, "curium", "");
+    public static final HashMap<String, DeferredItem<Item>> NEPTUNIUM_MAP = createItems(NEPTUNIUMS, "neptunium", "");
+    public static final HashMap<String, DeferredItem<Item>> PLUTONIUM_MAP = createItems(PLUTONIUMS, "plutonium", "");
+    public static final HashMap<String, DeferredItem<Item>> URANIUM_MAP = createItems(URANIUMS, "uranium", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_AMERICIUM_MAP = createItems(DEPLETED_FUEL_AMERICIUMS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_BERKELIUM_MAP = createItems(DEPLETED_FUEL_BERKELIUMS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_CALIFORNIUM_MAP = createItems(DEPLETED_FUEL_CALIFORNIUMS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_CURIUM_MAP = createItems(DEPLETED_FUEL_CURIUMS, "depleted", "");
-    public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_IC2_MAP = createItems(DEPLETED_FUEL_IC2S, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_MIXED_MAP = createItems(DEPLETED_FUEL_MIXEDS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_NEPTUNIUM_MAP = createItems(DEPLETED_FUEL_NEPTUNIUMS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_PLUTONIUM_MAP = createItems(DEPLETED_FUEL_PLUTONIUMS, "depleted", "");
@@ -65,10 +68,16 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> FUEL_PLUTONIUM_MAP = createFuels(FUEL_PLUTONIUMS, "plutonium");
     public static final HashMap<String, DeferredItem<Item>> FUEL_THORIUM_MAP = createFuels(FUEL_THORIUMS, "thorium");
     public static final HashMap<String, DeferredItem<Item>> FUEL_URANIUM_MAP = createFuels(FUEL_URANIUMS, "uranium");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_AMERICIUM_MAP = createFuels(PELLET_AMERICIUMS, "americium");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_BERKELIUM_MAP = createFuels(PELLET_BERKELIUMS, "berkelium");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_CALIFORNIUM_MAP = createFuels(PELLET_CALIFORNIUMS, "californium");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_CURIUM_MAP = createFuels(PELLET_CURIUMS, "curium");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_MIXED_MAP = createFuels(PELLET_MIXEDS, "mixed");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_NEPTUNIUM_MAP = createFuels(PELLET_NEPTUNIUMS, "neptunium");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_PLUTONIUM_MAP = createFuels(PELLET_PLUTONIUMS, "plutonium");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_THORIUM_MAP = createFuels(PELLET_THORIUMS, "thorium");
+    public static final HashMap<String, DeferredItem<Item>> PELLET_URANIUM_MAP = createFuels(PELLET_URANIUMS, "uranium");
     public static final HashMap<String, DeferredItem<Item>> LITHIUM_MAP = createItems(LITHIUMS, "lithium", "");
-    public static final HashMap<String, DeferredItem<Item>> NEPTUNIUM_MAP = createItems(NEPTUNIUMS, "neptunium", "");
-    public static final HashMap<String, DeferredItem<Item>> PLUTONIUM_MAP = createItems(PLUTONIUMS, "plutonium", "");
-    public static final HashMap<String, DeferredItem<Item>> URANIUM_MAP = createItems(URANIUMS, "uranium", "");
 
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String append) {
         return createItems(names, "", append, false);
@@ -83,7 +92,7 @@ public class ItemRegistration {
     }
 
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String prepend, String append, boolean byPassShift) {
-        HashMap<String, DeferredItem<Item>> map = new HashMap<>();
+        HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
         for (String name : names) {
             map.put(name, ITEMS.register((!prepend.isEmpty() ? prepend + "_" : "") + name + (!append.isEmpty() ? "_" + append : ""), () -> new TooltipItem(new Item.Properties(), byPassShift)));
         }
@@ -91,7 +100,7 @@ public class ItemRegistration {
     }
 
     private static HashMap<String, DeferredItem<Item>> createFuels(List<String> names, String type) {
-        HashMap<String, DeferredItem<Item>> map = new HashMap<>();
+        HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
         for (String name : names) {
             map.put(name, ITEMS.register(name, () -> new Item(new Item.Properties())));
         }
@@ -99,7 +108,7 @@ public class ItemRegistration {
     }
 
     public static HashMap<String, DeferredItem<Item>> createFoods() {
-        HashMap<String, DeferredItem<Item>> map = new HashMap<>();
+        HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
         map.put("cocoa_butter", ITEMS.register("cocoa_butter", () -> new FoodItem(2, 0.2F, List.of(newEffect(MobEffects.ABSORPTION, 1, 300)))));
         map.put("cocoa_solids", ITEMS.register("cocoa_solids", () -> new Item(new Item.Properties())));
         map.put("dark_chocolate", ITEMS.register("dark_chocolate", () -> new FoodItem(3, 0.4F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)))));
@@ -118,14 +127,14 @@ public class ItemRegistration {
     }
 
     public static HashMap<String, DeferredItem<Item>> createUpgrades() {
-        HashMap<String, DeferredItem<Item>> map = new HashMap<>();
+        HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
         map.put("speed", ITEMS.register("speed_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.speed.desc", (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")).withStyle(ChatFormatting.AQUA)), true, true)));
         map.put("energy", ITEMS.register("energy_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.energy.desc", (Supplier<String>) () -> powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")).withStyle(ChatFormatting.AQUA)), true, true)));
         return map;
     }
 
     public static HashMap<String, DeferredItem<Item>> createMusicDiscs() {
-        HashMap<String, DeferredItem<Item>> map = new HashMap<>();
+        HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
         map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(WANDERER_KEY), List.of(MODID + ".music_disc.wanderer", MODID + ".music_disc.wanderer.credit"))));
         map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(END_OF_THE_WORLD_KEY), List.of(MODID + ".music_disc.end_of_the_world", MODID + ".music_disc.end_of_the_world.credit"))));
         map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new TooltipItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(MONEY_FOR_NOTHING_KEY), List.of(MODID + ".music_disc.money_for_nothing", MODID + ".music_disc.money_for_nothing.credit"))));

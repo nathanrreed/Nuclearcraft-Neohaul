@@ -1,18 +1,18 @@
 {
   "values": [
-    "nuclearcraftneohaul:dominos",
-    "nuclearcraftneohaul:milk_chocolate",
-    "nuclearcraftneohaul:cocoa_solids",
     "nuclearcraftneohaul:cocoa_butter",
-    "nuclearcraftneohaul:marshmallow",
-    "nuclearcraftneohaul:roasted_cocoa_beans",
-    "nuclearcraftneohaul:graham_cracker",
+    "nuclearcraftneohaul:cocoa_solids",
     "nuclearcraftneohaul:dark_chocolate",
-    "nuclearcraftneohaul:smore",
+    "nuclearcraftneohaul:dominos",
     "nuclearcraftneohaul:flour",
-    "nuclearcraftneohaul:ground_cocoa_nibs",
-    "nuclearcraftneohaul:unsweetened_chocolate",
     "nuclearcraftneohaul:gelatin",
-    "nuclearcraftneohaul:moresmore"
+    "nuclearcraftneohaul:graham_cracker",
+    "nuclearcraftneohaul:ground_cocoa_nibs",
+    "nuclearcraftneohaul:marshmallow",
+    "nuclearcraftneohaul:milk_chocolate",
+    "nuclearcraftneohaul:moresmore",
+    "nuclearcraftneohaul:roasted_cocoa_beans",
+    "nuclearcraftneohaul:smore",
+    "nuclearcraftneohaul:unsweetened_chocolate"
   ]
 }

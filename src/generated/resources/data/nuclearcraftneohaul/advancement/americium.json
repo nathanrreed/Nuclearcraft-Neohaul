@@ -5,13 +5,22 @@
       "conditions": {
         "items": [
           {
+            "items": "nuclearcraftneohaul:americium_241"
+          },
+          {
             "items": "nuclearcraftneohaul:americium_241_c"
           },
           {
-            "items": "nuclearcraftneohaul:americium_243_c"
+            "items": "nuclearcraftneohaul:americium_241_ni"
           },
           {
-            "items": "nuclearcraftneohaul:americium_241_ni"
+            "items": "nuclearcraftneohaul:americium_241_ox"
+          },
+          {
+            "items": "nuclearcraftneohaul:americium_241_za"
+          },
+          {
+            "items": "nuclearcraftneohaul:americium_242"
           },
           {
             "items": "nuclearcraftneohaul:americium_242_c"
@@ -20,19 +29,7 @@
             "items": "nuclearcraftneohaul:americium_242_ni"
           },
           {
-            "items": "nuclearcraftneohaul:americium_243_ni"
-          },
-          {
-            "items": "nuclearcraftneohaul:americium_241"
-          },
-          {
-            "items": "nuclearcraftneohaul:americium_242"
-          },
-          {
-            "items": "nuclearcraftneohaul:americium_243_ox"
-          },
-          {
-            "items": "nuclearcraftneohaul:americium_241_za"
+            "items": "nuclearcraftneohaul:americium_242_ox"
           },
           {
             "items": "nuclearcraftneohaul:americium_242_za"
@@ -41,13 +38,16 @@
             "items": "nuclearcraftneohaul:americium_243"
           },
           {
+            "items": "nuclearcraftneohaul:americium_243_c"
+          },
+          {
+            "items": "nuclearcraftneohaul:americium_243_ni"
+          },
+          {
+            "items": "nuclearcraftneohaul:americium_243_ox"
+          },
+          {
             "items": "nuclearcraftneohaul:americium_243_za"
-          },
-          {
-            "items": "nuclearcraftneohaul:americium_241_ox"
-          },
-          {
-            "items": "nuclearcraftneohaul:americium_242_ox"
           }
         ]
       },

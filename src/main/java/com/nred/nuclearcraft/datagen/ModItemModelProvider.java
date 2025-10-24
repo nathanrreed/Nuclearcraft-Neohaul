@@ -52,7 +52,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItems(DEPLETED_FUEL_BERKELIUM_MAP, "depleted_fuel_berkelium");
         simpleItems(DEPLETED_FUEL_CALIFORNIUM_MAP, "depleted_fuel_californium");
         simpleItems(DEPLETED_FUEL_CURIUM_MAP, "depleted_fuel_curium");
-        simpleItems(DEPLETED_FUEL_IC2_MAP, "depleted_fuel_ic2");
         simpleItems(DEPLETED_FUEL_MIXED_MAP, "depleted_fuel_mixed");
         simpleItems(DEPLETED_FUEL_NEPTUNIUM_MAP, "depleted_fuel_neptunium");
         simpleItems(DEPLETED_FUEL_PLUTONIUM_MAP, "depleted_fuel_plutonium");
@@ -67,10 +66,18 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItems(FUEL_PLUTONIUM_MAP, "fuel_plutonium");
         simpleItems(FUEL_THORIUM_MAP, "fuel_thorium");
         simpleItems(FUEL_URANIUM_MAP, "fuel_uranium");
+        simpleItems(PELLET_AMERICIUM_MAP, "fuel_americium");
+        simpleItems(PELLET_BERKELIUM_MAP, "fuel_berkelium");
+        simpleItems(PELLET_CALIFORNIUM_MAP, "fuel_californium");
+        simpleItems(PELLET_CURIUM_MAP, "fuel_curium");
+        simpleItems(PELLET_MIXED_MAP, "fuel_mixed");
+        simpleItems(PELLET_NEPTUNIUM_MAP, "fuel_neptunium");
+        simpleItems(PELLET_PLUTONIUM_MAP, "fuel_plutonium");
+        simpleItems(PELLET_THORIUM_MAP, "fuel_thorium");
+        simpleItems(PELLET_URANIUM_MAP, "fuel_uranium");
         simpleItems(LITHIUM_MAP, "lithium");
         simpleItems(NEPTUNIUM_MAP, "neptunium");
         simpleItems(PLUTONIUM_MAP, "plutonium");
-//        simpleItems(THORIUM_MAP, "thorium");
         simpleItems(URANIUM_MAP, "uranium");
 
         simpleBlocks(List.of("empty_frame", "empty_heat_sink"), PART_BLOCK_MAP, "part");

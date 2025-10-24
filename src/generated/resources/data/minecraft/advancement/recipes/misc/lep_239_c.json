@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_plutonium_239": {
+    "has_plutonium_239_c": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:plutonium_239"
+            "items": "nuclearcraftneohaul:plutonium_239_c"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_plutonium_239"
+      "has_plutonium_239_c"
     ]
   ],
   "rewards": {

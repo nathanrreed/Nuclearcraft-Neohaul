@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_americium_242": {
+    "has_americium_242_c": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:americium_242"
+            "items": "nuclearcraftneohaul:americium_242_c"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_americium_242"
+      "has_americium_242_c"
     ]
   ],
   "rewards": {

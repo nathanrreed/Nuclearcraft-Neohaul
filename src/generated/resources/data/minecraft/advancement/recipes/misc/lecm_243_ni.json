@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_curium_243": {
+    "has_curium_243_ni": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:curium_243"
+            "items": "nuclearcraftneohaul:curium_243_ni"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_curium_243"
+      "has_curium_243_ni"
     ]
   ],
   "rewards": {

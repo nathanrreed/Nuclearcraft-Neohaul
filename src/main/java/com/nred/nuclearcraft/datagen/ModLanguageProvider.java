@@ -626,49 +626,61 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(GLOWING_MUSHROOM.get(), "Glowing Mushroom");
 
-        fuelTypeItems(AMERICIUM_MAP, "Americium-", "");
-        fuelTypeItems(BERKELIUM_MAP, "Berkelium-", "");
-        fuelTypeItems(BORON_MAP, "Boron-", "");
-        fuelTypeItems(CALIFORNIUM_MAP, "Californium-", "");
-        fuelTypeItems(CURIUM_MAP, "Curium-", "");
-        fuelTypeItems(LITHIUM_MAP, "Lithium-", "");
-        fuelTypeItems(NEPTUNIUM_MAP, "Neptunium-", "");
-        fuelTypeItems(PLUTONIUM_MAP, "Plutonium-", "");
-//        fuelTypeItems(THORIUM_MAP, "Thorium-", "");
-        fuelTypeItems(URANIUM_MAP, "Uranium-", "");
+        fuelTypeItems(AMERICIUM_MAP, "Americium-");
+        fuelTypeItems(BERKELIUM_MAP, "Berkelium-");
+        fuelTypeItems(BORON_MAP, "Boron-");
+        fuelTypeItems(CALIFORNIUM_MAP, "Californium-");
+        fuelTypeItems(CURIUM_MAP, "Curium-");
+        fuelTypeItems(LITHIUM_MAP, "Lithium-");
+        fuelTypeItems(NEPTUNIUM_MAP, "Neptunium-");
+        fuelTypeItems(PLUTONIUM_MAP, "Plutonium-");
+        fuelTypeItems(URANIUM_MAP, "Uranium-");
 
-        fuelPelletTypeItems(FUEL_AMERICIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_BERKELIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_CALIFORNIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_CURIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_NEPTUNIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_PLUTONIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_THORIUM_MAP, "", " Fuel Pellet");
-        fuelPelletTypeItems(FUEL_URANIUM_MAP, "", " Fuel Pellet");
+        fuelPelletItems(PELLET_AMERICIUM_MAP);
+        fuelPelletItems(PELLET_BERKELIUM_MAP);
+        fuelPelletItems(PELLET_CALIFORNIUM_MAP);
+        fuelPelletItems(PELLET_CURIUM_MAP);
+        fuelPelletItems(PELLET_MIXED_MAP);
+        fuelPelletItems(PELLET_NEPTUNIUM_MAP);
+        fuelPelletItems(PELLET_PLUTONIUM_MAP);
+        fuelPelletItems(PELLET_THORIUM_MAP);
+        fuelPelletItems(PELLET_URANIUM_MAP);
 
-        add(FUEL_MIXED_MAP.get("mix_239").get(), "MIX-239");
-        add(FUEL_MIXED_MAP.get("mix_239_c").get(), "MIX-239 Carbide");
+        fuelPelletTypeItems(FUEL_AMERICIUM_MAP, "");
+        fuelPelletTypeItems(FUEL_BERKELIUM_MAP, "");
+        fuelPelletTypeItems(FUEL_CALIFORNIUM_MAP, "");
+        fuelPelletTypeItems(FUEL_CURIUM_MAP, "");
+        fuelPelletTypeItems(FUEL_NEPTUNIUM_MAP, "");
+        fuelPelletTypeItems(FUEL_PLUTONIUM_MAP, "");
+        fuelPelletTypeItems(FUEL_THORIUM_MAP, "");
+        fuelPelletTypeItems(FUEL_URANIUM_MAP, "");
+
         add(FUEL_MIXED_MAP.get("mix_239_ni").get(), "MNI-239 Fuel Pellet");
         add(FUEL_MIXED_MAP.get("mix_239_ox").get(), "MOX-239 Fuel Pellet");
         add(FUEL_MIXED_MAP.get("mix_239_tr").get(), "MTRISO-239 Fuel Pellet");
         add(FUEL_MIXED_MAP.get("mix_239_za").get(), "MZA-239 Fuel Pellet");
-        add(FUEL_MIXED_MAP.get("mix_241").get(), "MIX-241");
-        add(FUEL_MIXED_MAP.get("mix_241_c").get(), "MIX-241 Carbide");
         add(FUEL_MIXED_MAP.get("mix_241_ni").get(), "MNI-241 Fuel Pellet");
         add(FUEL_MIXED_MAP.get("mix_241_ox").get(), "MOX-241 Fuel Pellet");
         add(FUEL_MIXED_MAP.get("mix_241_tr").get(), "MTRISO-241 Fuel Pellet");
         add(FUEL_MIXED_MAP.get("mix_241_za").get(), "MZA-241 Fuel Pellet");
 
-        fuelPelletTypeItems(DEPLETED_FUEL_AMERICIUM_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_BERKELIUM_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_CALIFORNIUM_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_CURIUM_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_IC2_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_MIXED_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_NEPTUNIUM_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_PLUTONIUM_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_THORIUM_MAP, "Depleted ", " Fuel Pellet");
-        fuelPelletTypeItems(DEPLETED_FUEL_URANIUM_MAP, "Depleted ", " Fuel Pellet");
+        fuelPelletTypeItems(DEPLETED_FUEL_AMERICIUM_MAP, "Depleted ");
+        fuelPelletTypeItems(DEPLETED_FUEL_BERKELIUM_MAP, "Depleted ");
+        fuelPelletTypeItems(DEPLETED_FUEL_CALIFORNIUM_MAP, "Depleted ");
+        fuelPelletTypeItems(DEPLETED_FUEL_CURIUM_MAP, "Depleted ");
+        fuelPelletTypeItems(DEPLETED_FUEL_NEPTUNIUM_MAP, "Depleted ");
+        fuelPelletTypeItems(DEPLETED_FUEL_PLUTONIUM_MAP, "Depleted ");
+        fuelPelletTypeItems(DEPLETED_FUEL_THORIUM_MAP, "Depleted ");
+        fuelPelletTypeItems(DEPLETED_FUEL_URANIUM_MAP, "Depleted ");
+
+        add(DEPLETED_FUEL_MIXED_MAP.get("mix_239_ni").get(), "Depleted MNI-239 Fuel Pellet");
+        add(DEPLETED_FUEL_MIXED_MAP.get("mix_239_ox").get(), "Depleted MOX-239 Fuel Pellet");
+        add(DEPLETED_FUEL_MIXED_MAP.get("mix_239_tr").get(), "Depleted MTRISO-239 Fuel Pebble");
+        add(DEPLETED_FUEL_MIXED_MAP.get("mix_239_za").get(), "Depleted MZA-239 Fuel Pellet");
+        add(DEPLETED_FUEL_MIXED_MAP.get("mix_241_ni").get(), "Depleted MNI-241 Fuel Pellet");
+        add(DEPLETED_FUEL_MIXED_MAP.get("mix_241_ox").get(), "Depleted MOX-241 Fuel Pellet");
+        add(DEPLETED_FUEL_MIXED_MAP.get("mix_241_tr").get(), "Depleted MTRISO-241 Fuel Pebble");
+        add(DEPLETED_FUEL_MIXED_MAP.get("mix_241_za").get(), "Depleted MZA-241 Fuel Pellet");
 
         simpleItems(FOOD_MAP, Map.of("dominos", "Domino's Special", "smore", "S'more S'mingot", "moresmore", "MoreS'more DoubleS'mingot"));
         add(PORTABLE_ENDER_CHEST.get(), "Portable Ender Chest");
@@ -1024,26 +1036,51 @@ public class ModLanguageProvider extends LanguageProvider {
 
     }
 
-    private void fuelTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
+    private void fuelTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend) {
         for (String name : map.keySet()) {
-            add(map.get(name).asItem(), prepend + capitalize(fuelTypes(name, false)) + append);
+            add(map.get(name).asItem(), prepend + capitalize(fuelTypes(name, false, false)));
         }
     }
 
-    private void fuelPelletTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend, String append) {
+    private void fuelPelletTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend) {
         for (String name : map.keySet()) {
-            add(map.get(name).asItem(), prepend + fuelTypes(name, true).replace("_", "-") + (name.endsWith("_c") || name.split("_").length == 2 ? "" : append));
+            add(map.get(name).asItem(), prepend + fuelTypes(name, true, true).replace("_", "-"));
         }
     }
 
-    private String fuelTypes(String name, boolean upperCase) {
+    private void fuelPelletItems(HashMap<String, DeferredItem<Item>> map) {
+        for (String name : map.keySet()) {
+            add(map.get(name).asItem(), pelletTypes(name).replace("_", "-"));
+        }
+    }
+
+    private String fuelTypes(String name, boolean upperCase, boolean pellet) {
         if (!name.contains("_")) return upperCase ? name.toUpperCase() : name;
         String suffix = switch (name.substring(name.lastIndexOf('_') + 1)) {
             case "c" -> " Carbide";
-            case "ni" -> " Nitride";
-            case "ox" -> " Oxide";
-            case "za" -> "-Zirconium Alloy";
-            case "tr" -> " TRISO";
+            case "ni" -> " Nitride" + (pellet ? " Fuel Pellet" : "");
+            case "ox" -> " Oxide" + (pellet ? " Fuel Pellet" : "");
+            case "za" -> "-Zirconium Alloy" + (pellet ? " Fuel Pellet" : "");
+            case "tr" -> " TRISO" + (pellet ? " Fuel Pebble" : "");
+            case String val -> {
+                try {
+                    yield "-" + Integer.parseInt(val);
+                } catch (Exception e) {
+                    throw new RuntimeException("ERROR, not a valid type");
+                }
+            }
+        };
+
+        if (upperCase) {
+            return name.substring(0, name.lastIndexOf('_')).toUpperCase().replaceAll("(?<=[LH]EC)M", "m").replaceAll("(?<=[LH]EC)F", "f") + suffix;
+        }
+        return name.substring(0, name.lastIndexOf('_')) + suffix;
+    }
+
+    private String pelletTypes(String name) {
+        if (!name.contains("_")) return name.toUpperCase();
+        String suffix = switch (name.substring(name.lastIndexOf('_') + 1)) {
+            case "c" -> " Carbide";
             case String val -> {
                 try {
                     yield "-" + Integer.parseInt(val);
@@ -1053,10 +1090,7 @@ public class ModLanguageProvider extends LanguageProvider {
             }
         };
 
-        if (upperCase) {
-            return name.substring(0, name.lastIndexOf('_')).toUpperCase().replaceAll("(?<=[LH]EC)M", "m").replaceAll("(?<=[LH]EC)F", "f") + suffix;
-        }
-        return name.substring(0, name.lastIndexOf('_')) + suffix;
+        return name.substring(0, name.lastIndexOf('_')).toUpperCase().replaceAll("(?<=[LH]EC)M", "m").replaceAll("(?<=[LH]EC)F", "f") + suffix;
     }
 
     private void simpleItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String append) {

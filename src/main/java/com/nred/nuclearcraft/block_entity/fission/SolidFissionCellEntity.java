@@ -638,7 +638,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     }
 
     @Override
-    public BasicRecipeHandler<SaltFissionRecipe> getRecipeHandler() {
+    public BasicRecipeHandler<SolidFissionRecipe> getRecipeHandler() {
         return NCRecipes.solid_fission;
     }
 

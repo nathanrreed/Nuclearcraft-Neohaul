@@ -16,9 +16,14 @@ public class CreativeTabsRegistration {
             .title(Component.translatable(NuclearcraftNeohaul.MODID + ".creative_tab.title.materials"))
             .icon(() -> ALLOY_MAP.get("extreme").get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.acceptAll(blockStackValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
-                output.acceptAll(itemStackValues(INGOT_MAP, NUGGET_MAP, RAW_MAP, DUST_MAP, GEM_MAP, GEM_DUST_MAP, ALLOY_MAP, COMPOUND_MAP, PART_MAP, PART_BLOCK_MAP, AMERICIUM_MAP, BERKELIUM_MAP, BORON_MAP, CALIFORNIUM_MAP, CURIUM_MAP, DEPLETED_FUEL_AMERICIUM_MAP, DEPLETED_FUEL_BERKELIUM_MAP, DEPLETED_FUEL_CALIFORNIUM_MAP, DEPLETED_FUEL_CURIUM_MAP, DEPLETED_FUEL_IC2_MAP, DEPLETED_FUEL_MIXED_MAP, DEPLETED_FUEL_NEPTUNIUM_MAP, DEPLETED_FUEL_PLUTONIUM_MAP, DEPLETED_FUEL_THORIUM_MAP, DEPLETED_FUEL_URANIUM_MAP, FUEL_AMERICIUM_MAP, FUEL_BERKELIUM_MAP, FUEL_CALIFORNIUM_MAP, FUEL_CURIUM_MAP, FUEL_MIXED_MAP, FUEL_NEPTUNIUM_MAP, FUEL_PLUTONIUM_MAP, FUEL_THORIUM_MAP, FUEL_URANIUM_MAP, LITHIUM_MAP, NEPTUNIUM_MAP, PLUTONIUM_MAP)); //, THORIUM_MAP
+                output.acceptAll(blockStackValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, MATERIAL_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
                 output.accept(SUPERCOLD_ICE);
+                output.acceptAll(itemStackValues(INGOT_MAP, NUGGET_MAP, RAW_MAP, DUST_MAP, GEM_MAP, GEM_DUST_MAP, ALLOY_MAP, COMPOUND_MAP, PART_MAP, PART_BLOCK_MAP, FISSION_DUST_MAP));
+                output.acceptAll(itemStackValues(URANIUM_MAP, NEPTUNIUM_MAP, PLUTONIUM_MAP, AMERICIUM_MAP, CURIUM_MAP, BERKELIUM_MAP, CALIFORNIUM_MAP));
+                output.acceptAll(itemStackValues(PELLET_THORIUM_MAP, PELLET_URANIUM_MAP, PELLET_NEPTUNIUM_MAP, PELLET_PLUTONIUM_MAP, PELLET_MIXED_MAP, PELLET_AMERICIUM_MAP, PELLET_CURIUM_MAP, PELLET_BERKELIUM_MAP, PELLET_CALIFORNIUM_MAP));
+                output.acceptAll(itemStackValues(FUEL_THORIUM_MAP, FUEL_URANIUM_MAP, FUEL_NEPTUNIUM_MAP, FUEL_PLUTONIUM_MAP, FUEL_MIXED_MAP, FUEL_AMERICIUM_MAP, FUEL_CURIUM_MAP, FUEL_BERKELIUM_MAP, FUEL_CALIFORNIUM_MAP));
+                output.acceptAll(itemStackValues(DEPLETED_FUEL_AMERICIUM_MAP, DEPLETED_FUEL_BERKELIUM_MAP, DEPLETED_FUEL_CALIFORNIUM_MAP, DEPLETED_FUEL_CURIUM_MAP, DEPLETED_FUEL_MIXED_MAP, DEPLETED_FUEL_NEPTUNIUM_MAP, DEPLETED_FUEL_PLUTONIUM_MAP, DEPLETED_FUEL_THORIUM_MAP, DEPLETED_FUEL_URANIUM_MAP));
+                output.acceptAll(itemStackValues(BORON_MAP, LITHIUM_MAP));
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MACHINES_TAB = CREATIVE_MODE_TABS.register("machines_tab", () -> CreativeModeTab.builder()
@@ -59,12 +64,13 @@ public class CreativeTabsRegistration {
             .withTabsBefore(RADIATION_TAB.getId())
             .icon(() -> FOOD_MAP.get("smore").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
+                output.accept(HEAVY_WATER_MODERATOR);
                 output.accept(TRITIUM_LAMP);
                 output.accept(SOLIDIFIED_CORIUM);
                 output.accept(PORTABLE_ENDER_CHEST);
-                output.accept(HEAVY_WATER_MODERATOR);
-                output.acceptAll(itemStackValues(MUSIC_DISC_MAP, FOOD_MAP));
+                output.acceptAll(itemStackValues(FOOD_MAP));
                 output.accept(FOURSMORE);
+                output.acceptAll(itemStackValues(MUSIC_DISC_MAP));
             }).build());
 
     public static void init() {

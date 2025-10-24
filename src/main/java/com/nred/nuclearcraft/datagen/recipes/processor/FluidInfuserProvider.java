@@ -3,11 +3,14 @@ package com.nred.nuclearcraft.datagen.recipes.processor;
 import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.FluidInfuserRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.registries.DeferredItem;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -75,5 +78,20 @@ public class FluidInfuserProvider {
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Ingredient.of(Items.DIRT, Items.GRASS_BLOCK), 1).addFluidInput(Fluids.WATER, 2000).addItemResult(Items.CLAY, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Items.BRICK, 1).addFluidInput(Fluids.WATER, 2000).addItemResult(Items.CLAY_BALL, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 2, 1).addItemInput(Items.TERRACOTTA, 1).addFluidInput(Fluids.WATER, 4000).addItemResult(Items.CLAY, 1).save(recipeOutput, "clay_from_terracotta");
+
+        nitrogenOxygenPair(recipeOutput, List.of("233", "235", "238"), URANIUM_MAP, "uranium_");
+        nitrogenOxygenPair(recipeOutput, List.of("236", "237"), NEPTUNIUM_MAP, "neptunium_");
+        nitrogenOxygenPair(recipeOutput, List.of("238", "239", "241", "242"), PLUTONIUM_MAP, "plutonium_");
+        nitrogenOxygenPair(recipeOutput, List.of("241", "242", "243"), AMERICIUM_MAP, "americium_");
+        nitrogenOxygenPair(recipeOutput, List.of("243", "245", "246", "247"), CURIUM_MAP, "curium_");
+        nitrogenOxygenPair(recipeOutput, List.of("247", "248"), BERKELIUM_MAP, "berkelium_");
+        nitrogenOxygenPair(recipeOutput, List.of("249", "250", "251", "252"), CALIFORNIUM_MAP, "californium_");
+    }
+
+    private void nitrogenOxygenPair(RecipeOutput recipeOutput, List<String> types, HashMap<String, DeferredItem<Item>> map, String name) {
+        for (String type : types) {
+            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(map.get(type), 1).addFluidInput(GAS_MAP.get("nitrogen"), 1000).addItemResult(map.get(type + "_ni"), 1).save(recipeOutput, name + type + "_from_ni");
+            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(map.get(type), 1).addFluidInput(GAS_MAP.get("oxygen"), 1000).addItemResult(map.get(type + "_ox"), 1).save(recipeOutput, name + type + "_from_ox");
+        }
     }
 }

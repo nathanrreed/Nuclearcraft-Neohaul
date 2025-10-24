@@ -7,11 +7,11 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_uranium_235": {
+    "has_uranium_235_ox": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:uranium_235"
+            "items": "nuclearcraftneohaul:uranium_235_ox"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_uranium_235"
+      "has_uranium_235_ox"
     ]
   ],
   "rewards": {

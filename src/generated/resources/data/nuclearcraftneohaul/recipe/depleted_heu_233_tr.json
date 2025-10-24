@@ -1,0 +1,18 @@
+{
+  "type": "nuclearcraftneohaul:pebble_fission_recipe",
+  "criticality": 33,
+  "decayFactor": 0.065,
+  "efficiency": 1.1,
+  "heat": 648,
+  "ingredient": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:heu_233_tr"
+  },
+  "product": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:depleted_heu_233_tr"
+  },
+  "radiation": 8.818056119791668E-5,
+  "selfPriming": false,
+  "time": 2666
+}

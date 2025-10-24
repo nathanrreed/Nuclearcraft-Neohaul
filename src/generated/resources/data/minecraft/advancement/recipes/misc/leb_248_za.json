@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_berkelium_248": {
+    "has_berkelium_248_za": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:berkelium_248"
+            "items": "nuclearcraftneohaul:berkelium_248_za"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_berkelium_248"
+      "has_berkelium_248_za"
     ]
   ],
   "rewards": {

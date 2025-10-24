@@ -50,6 +50,7 @@ public class RecipeTypeRegistration {
     public static final DeferredHolder<RecipeType<?>, RecipeType<FissionEmergencyCoolingRecipe>> FISSION_EMERGENCY_COOLING_RECIPE_TYPE = register("fission_emergency_cooling");
     public static final DeferredHolder<RecipeType<?>, RecipeType<SolidFissionRecipe>> SOLID_FISSION_RECIPE_TYPE = register("solid_fission");
     public static final DeferredHolder<RecipeType<?>, RecipeType<SaltFissionRecipe>> SALT_FISSION_RECIPE_TYPE = register("salt_fission");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<PebbleFissionRecipe>> PEBBLE_FISSION_RECIPE_TYPE = register("pebble_fission");
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<DecayGeneratorRecipe>> DECAY_GENERATOR_RECIPE_TYPE = register("decay_generator");
     public static void init() {

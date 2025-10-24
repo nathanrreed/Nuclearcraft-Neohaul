@@ -116,6 +116,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new TurbineProvider(recipeOutput);
         new SolidFissionProvider(recipeOutput);
         new SaltFissionProvider(recipeOutput);
+        new PebbleFissionProvider(recipeOutput);
         new FissionModeratorProvider(recipeOutput);
         new FissionIrradiatorProvider(recipeOutput);
         new FissionEmergencyCoolingProvider(recipeOutput);
@@ -155,81 +156,87 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void fuels(RecipeOutput recipeOutput) {
-        fuel(recipeOutput, "233", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 1, "leu_");
-        fuel(recipeOutput, "233", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 3, "heu_");
-        fuel(recipeOutput, "235", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 1, "leu_");
-        fuel(recipeOutput, "235", "238", URANIUM_MAP, FUEL_URANIUM_MAP, 3, "heu_");
+        fuel(recipeOutput, "233", "238", URANIUM_MAP, PELLET_URANIUM_MAP, FUEL_URANIUM_MAP, 1, "leu_");
+        fuel(recipeOutput, "233", "238", URANIUM_MAP, PELLET_URANIUM_MAP, FUEL_URANIUM_MAP, 3, "heu_");
+        fuel(recipeOutput, "235", "238", URANIUM_MAP, PELLET_URANIUM_MAP, FUEL_URANIUM_MAP, 1, "leu_");
+        fuel(recipeOutput, "235", "238", URANIUM_MAP, PELLET_URANIUM_MAP, FUEL_URANIUM_MAP, 3, "heu_");
 
-        fuel(recipeOutput, "236", "237", NEPTUNIUM_MAP, FUEL_NEPTUNIUM_MAP, 1, "len_");
-        fuel(recipeOutput, "236", "237", NEPTUNIUM_MAP, FUEL_NEPTUNIUM_MAP, 3, "hen_");
+        fuel(recipeOutput, "236", "237", NEPTUNIUM_MAP, PELLET_NEPTUNIUM_MAP, FUEL_NEPTUNIUM_MAP, 1, "len_");
+        fuel(recipeOutput, "236", "237", NEPTUNIUM_MAP, PELLET_NEPTUNIUM_MAP, FUEL_NEPTUNIUM_MAP, 3, "hen_");
 
-        fuel(recipeOutput, "239", "242", PLUTONIUM_MAP, FUEL_PLUTONIUM_MAP, 1, "lep_");
-        fuel(recipeOutput, "239", "242", PLUTONIUM_MAP, FUEL_PLUTONIUM_MAP, 3, "hep_");
-        fuel(recipeOutput, "241", "242", PLUTONIUM_MAP, FUEL_PLUTONIUM_MAP, 1, "lep_");
-        fuel(recipeOutput, "241", "242", PLUTONIUM_MAP, FUEL_PLUTONIUM_MAP, 3, "hep_");
+        fuel(recipeOutput, "239", "242", PLUTONIUM_MAP, PELLET_PLUTONIUM_MAP, FUEL_PLUTONIUM_MAP, 1, "lep_");
+        fuel(recipeOutput, "239", "242", PLUTONIUM_MAP, PELLET_PLUTONIUM_MAP, FUEL_PLUTONIUM_MAP, 3, "hep_");
+        fuel(recipeOutput, "241", "242", PLUTONIUM_MAP, PELLET_PLUTONIUM_MAP, FUEL_PLUTONIUM_MAP, 1, "lep_");
+        fuel(recipeOutput, "241", "242", PLUTONIUM_MAP, PELLET_PLUTONIUM_MAP, FUEL_PLUTONIUM_MAP, 3, "hep_");
 
-        fuel(recipeOutput, "242", "243", AMERICIUM_MAP, FUEL_AMERICIUM_MAP, 1, "lea_");
-        fuel(recipeOutput, "242", "243", AMERICIUM_MAP, FUEL_AMERICIUM_MAP, 3, "hea_");
+        fuel(recipeOutput, "242", "243", AMERICIUM_MAP, PELLET_AMERICIUM_MAP, FUEL_AMERICIUM_MAP, 1, "lea_");
+        fuel(recipeOutput, "242", "243", AMERICIUM_MAP, PELLET_AMERICIUM_MAP, FUEL_AMERICIUM_MAP, 3, "hea_");
 
-        fuel(recipeOutput, "243", "246", CURIUM_MAP, FUEL_CURIUM_MAP, 1, "lecm_");
-        fuel(recipeOutput, "243", "246", CURIUM_MAP, FUEL_CURIUM_MAP, 3, "hecm_");
-        fuel(recipeOutput, "245", "246", CURIUM_MAP, FUEL_CURIUM_MAP, 1, "lecm_");
-        fuel(recipeOutput, "245", "246", CURIUM_MAP, FUEL_CURIUM_MAP, 3, "hecm_");
-        fuel(recipeOutput, "247", "246", CURIUM_MAP, FUEL_CURIUM_MAP, 1, "lecm_");
-        fuel(recipeOutput, "247", "246", CURIUM_MAP, FUEL_CURIUM_MAP, 3, "hecm_");
+        fuel(recipeOutput, "243", "246", CURIUM_MAP, PELLET_CURIUM_MAP, FUEL_CURIUM_MAP, 1, "lecm_");
+        fuel(recipeOutput, "243", "246", CURIUM_MAP, PELLET_CURIUM_MAP, FUEL_CURIUM_MAP, 3, "hecm_");
+        fuel(recipeOutput, "245", "246", CURIUM_MAP, PELLET_CURIUM_MAP, FUEL_CURIUM_MAP, 1, "lecm_");
+        fuel(recipeOutput, "245", "246", CURIUM_MAP, PELLET_CURIUM_MAP, FUEL_CURIUM_MAP, 3, "hecm_");
+        fuel(recipeOutput, "247", "246", CURIUM_MAP, PELLET_CURIUM_MAP, FUEL_CURIUM_MAP, 1, "lecm_");
+        fuel(recipeOutput, "247", "246", CURIUM_MAP, PELLET_CURIUM_MAP, FUEL_CURIUM_MAP, 3, "hecm_");
 
-        fuel(recipeOutput, "248", "247", BERKELIUM_MAP, FUEL_BERKELIUM_MAP, 1, "leb_");
-        fuel(recipeOutput, "248", "247", BERKELIUM_MAP, FUEL_BERKELIUM_MAP, 3, "heb_");
+        fuel(recipeOutput, "248", "247", BERKELIUM_MAP, PELLET_BERKELIUM_MAP, FUEL_BERKELIUM_MAP, 1, "leb_");
+        fuel(recipeOutput, "248", "247", BERKELIUM_MAP, PELLET_BERKELIUM_MAP, FUEL_BERKELIUM_MAP, 3, "heb_");
 
-        fuel(recipeOutput, "249", "252", CALIFORNIUM_MAP, FUEL_CALIFORNIUM_MAP, 1, "lecf_");
-        fuel(recipeOutput, "249", "252", CALIFORNIUM_MAP, FUEL_CALIFORNIUM_MAP, 3, "hecf_");
-        fuel(recipeOutput, "251", "252", CALIFORNIUM_MAP, FUEL_CALIFORNIUM_MAP, 1, "lecf_");
-        fuel(recipeOutput, "251", "252", CALIFORNIUM_MAP, FUEL_CALIFORNIUM_MAP, 3, "hecf_");
+        fuel(recipeOutput, "249", "252", CALIFORNIUM_MAP, PELLET_CALIFORNIUM_MAP, FUEL_CALIFORNIUM_MAP, 1, "lecf_");
+        fuel(recipeOutput, "249", "252", CALIFORNIUM_MAP, PELLET_CALIFORNIUM_MAP, FUEL_CALIFORNIUM_MAP, 3, "hecf_");
+        fuel(recipeOutput, "251", "252", CALIFORNIUM_MAP, PELLET_CALIFORNIUM_MAP, FUEL_CALIFORNIUM_MAP, 1, "lecf_");
+        fuel(recipeOutput, "251", "252", CALIFORNIUM_MAP, PELLET_CALIFORNIUM_MAP, FUEL_CALIFORNIUM_MAP, 3, "hecf_");
 
-        fuel(recipeOutput, "239", "238", PLUTONIUM_MAP, URANIUM_MAP, FUEL_MIXED_MAP, 1, "mix_");
-        fuel(recipeOutput, "241", "238", PLUTONIUM_MAP, URANIUM_MAP, FUEL_MIXED_MAP, 1, "mix_");
-        for (String suffix : List.of("_za", "_c")) {
-            new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(FUEL_MIXED_MAP.get("mix_239" + suffix), 9).addItemResult(URANIUM_MAP.get("238" + suffix), 8).addItemResult(PLUTONIUM_MAP.get("239" + suffix), 1).save(recipeOutput, "mix_239" + suffix);
-            new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(FUEL_MIXED_MAP.get("mix_241" + suffix), 9).addItemResult(URANIUM_MAP.get("238" + suffix), 8).addItemResult(PLUTONIUM_MAP.get("241" + suffix), 1).save(recipeOutput, "mix_241" + suffix);
-        }
+        fuel(recipeOutput, "239", "238", PLUTONIUM_MAP, URANIUM_MAP, PELLET_MIXED_MAP, FUEL_MIXED_MAP, 1, "mix_");
+        fuel(recipeOutput, "241", "238", PLUTONIUM_MAP, URANIUM_MAP, PELLET_MIXED_MAP, FUEL_MIXED_MAP, 1, "mix_");
 
-        fuel(recipeOutput, "tbu", "tbu", new HashMap<>(), FUEL_THORIUM_MAP, 1, "");
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(FUEL_MIXED_MAP.get("mix_239_za"), 9).addItemResult(URANIUM_MAP.get("238_za"), 8).addItemResult(PLUTONIUM_MAP.get("239_za"), 1).save(recipeOutput, "mix_239_za");
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(FUEL_MIXED_MAP.get("mix_241_za"), 9).addItemResult(URANIUM_MAP.get("238_za"), 8).addItemResult(PLUTONIUM_MAP.get("241_za"), 1).save(recipeOutput, "mix_241_za");
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(PELLET_MIXED_MAP.get("mix_239_c"), 9).addItemResult(URANIUM_MAP.get("238_c"), 8).addItemResult(PLUTONIUM_MAP.get("239_c"), 1).save(recipeOutput, "mix_239_c");
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(PELLET_MIXED_MAP.get("mix_241_c"), 9).addItemResult(URANIUM_MAP.get("238_c"), 8).addItemResult(PLUTONIUM_MAP.get("241_c"), 1).save(recipeOutput, "mix_241_c");
+
+        fuel(recipeOutput, "tbu", "tbu", new HashMap<>(), PELLET_THORIUM_MAP, FUEL_THORIUM_MAP, 1, "");
     }
 
-    private void fuel(RecipeOutput recipeOutput, String minor, String major, HashMap<String, DeferredItem<Item>> typeMap, HashMap<String, DeferredItem<Item>> fuelTypeMap, int amount, String prefix) {
-        fuel(recipeOutput, minor, major, typeMap, typeMap, fuelTypeMap, amount, prefix);
+    private void fuel(RecipeOutput recipeOutput, String minor, String major, HashMap<String, DeferredItem<Item>> typeMap, HashMap<String, DeferredItem<Item>> pelletMap, HashMap<String, DeferredItem<Item>> fuelTypeMap, int amount, String prefix) {
+        fuel(recipeOutput, minor, major, typeMap, typeMap, pelletMap, fuelTypeMap, amount, prefix);
     }
 
-    private void fuel(RecipeOutput recipeOutput, String minor, String major, HashMap<String, DeferredItem<Item>> typeMap1, HashMap<String, DeferredItem<Item>> typeMap2, HashMap<String, DeferredItem<Item>> fuelTypeMap, int amount, String prefix) {
+    private void fuel(RecipeOutput recipeOutput, String minor, String major, HashMap<String, DeferredItem<Item>> typeMap1, HashMap<String, DeferredItem<Item>> typeMap2, HashMap<String, DeferredItem<Item>> pelletMap, HashMap<String, DeferredItem<Item>> fuelTypeMap, int amount, String prefix) {
         if (!prefix.isEmpty()) {
-            for (String suffix : List.of("", "_c", "_ox", "_ni", "_za")) {
-                ShapelessRecipeBuilder.shapeless(MISC, fuelTypeMap.get(prefix + minor + suffix)).requires(typeMap1.get(minor), amount).requires(typeMap2.get(major), 9 - amount)
-                        .unlockedBy(getHasName(typeMap1.get(minor)), has(typeMap1.get(minor))).save(recipeOutput, prefix + minor + suffix);
+            for (String suffix : List.of("", "_c")) {
+                ShapelessRecipeBuilder.shapeless(MISC, pelletMap.get(prefix + minor + suffix)).requires(typeMap1.get(minor + suffix), amount).requires(typeMap2.get(major + suffix), 9 - amount)
+                        .unlockedBy(getHasName(typeMap1.get(minor + suffix)), has(typeMap1.get(minor + suffix))).save(recipeOutput, prefix + minor + suffix);
+            }
+            for (String suffix : List.of("_ox", "_ni", "_za")) {
+                ShapelessRecipeBuilder.shapeless(MISC, fuelTypeMap.get(prefix + minor + suffix)).requires(typeMap1.get(minor + suffix), amount).requires(typeMap2.get(major + suffix), 9 - amount)
+                        .unlockedBy(getHasName(typeMap1.get(minor + suffix)), has(typeMap1.get(minor + suffix))).save(recipeOutput, prefix + minor + suffix);
             }
         }
 
-        oreSmelting(recipeOutput, List.of(Ingredient.of(fuelTypeMap.get(prefix + minor + "_ni"), fuelTypeMap.get(prefix + minor + "_ox"))), MISC, fuelTypeMap.get(prefix + minor), 0.25f, 200, minor, true);
+        oreSmelting(recipeOutput, List.of(Ingredient.of(fuelTypeMap.get(prefix + minor + "_ni"), fuelTypeMap.get(prefix + minor + "_ox"))), MISC, pelletMap.get(prefix + minor), 0.25f, 200, minor, true);
 
-        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + "_za"), 1).addItemResult(fuelTypeMap.get(prefix + minor), 1).addItemResult(DUST_MAP.get("zirconium"), 1).save(recipeOutput, prefix + minor + "_from_za");
-        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + "_c"), 1).addItemResult(fuelTypeMap.get(prefix + minor), 1).addItemResult(DUST_MAP.get("graphite"), 1).save(recipeOutput, prefix + minor + "_from_c");
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + "_za"), 1).addItemResult(pelletMap.get(prefix + minor), 1).addItemResult(DUST_MAP.get("zirconium"), 1).save(recipeOutput, prefix + minor + "_from_za");
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor + "_c"), 1).addItemResult(pelletMap.get(prefix + minor), 1).addItemResult(DUST_MAP.get("graphite"), 1).save(recipeOutput, prefix + minor + "_from_c");
 
         if (!prefix.isEmpty()) {
-            for (String suffix : List.of("", "_ox", "_ni")) {
+            for (String suffix : List.of("_ox", "_ni")) {
                 new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + suffix), 9).addItemResult(typeMap2.get(major + suffix), 9 - amount).addItemResult(typeMap1.get(minor + suffix), amount).save(recipeOutput, prefix + minor + suffix);
             }
+            new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 9).addItemResult(typeMap2.get(major), 9 - amount).addItemResult(typeMap1.get(minor), amount).save(recipeOutput, prefix + minor);
         }
 
-        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("graphite"), DUST_MAP.get("graphite")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_c"), 1).save(recipeOutput, prefix + minor + "_from_c");
-        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("zirconium"), DUST_MAP.get("zirconium")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_za"), 1).save(recipeOutput, prefix + minor + "_from_za");
+        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("graphite"), DUST_MAP.get("graphite")), 1).addItemResult(pelletMap.get(prefix + minor + "_c"), 1).save(recipeOutput, prefix + minor + "_from_c");
+        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("zirconium"), DUST_MAP.get("zirconium")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_za"), 1).save(recipeOutput, prefix + minor + "_from_za");
 
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("nitrogen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ni"), 1).save(recipeOutput, prefix + minor + "_from_ni");
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("oxygen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ox"), 1).save(recipeOutput, prefix + minor + "_from_ox");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("nitrogen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ni"), 1).save(recipeOutput, prefix + minor + "_from_ni");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("oxygen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ox"), 1).save(recipeOutput, prefix + minor + "_from_ox");
 
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get(prefix + minor), 144).addItemResult(fuelTypeMap.get(prefix + minor), 1).save(recipeOutput, prefix + minor);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get(prefix + minor), 144).addItemResult(pelletMap.get(prefix + minor), 1).save(recipeOutput, prefix + minor);
 
-        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor), 1).addFluidResult(FISSION_FUEL_MAP.get(prefix + minor), 144).save(recipeOutput, prefix + minor);
+        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidResult(FISSION_FUEL_MAP.get(prefix + minor), 144).save(recipeOutput, prefix + minor);
 
-        new ProcessorRecipeBuilder(AssemblerRecipe.class, 1, 1).addItemInput(fuelTypeMap.get(prefix + minor + "_c"), 9).addItemInput(DUST_MAP.get("graphite"), 1).addItemInput(PART_MAP.get("pyrolytic_carbon"), 1).addItemInput(ALLOY_MAP.get("silicon_carbide"), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_tr"), 9).save(recipeOutput, prefix + minor);
+        new ProcessorRecipeBuilder(AssemblerRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor + "_c"), 9).addItemInput(DUST_MAP.get("graphite"), 1).addItemInput(PART_MAP.get("pyrolytic_carbon"), 1).addItemInput(ALLOY_MAP.get("silicon_carbide"), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_tr"), 9).save(recipeOutput, prefix + minor);
     }
 
     private void full9Block(RecipeOutput recipeOutput, List<String> list, HashMap<String, DeferredItem<Item>> itemMap, HashMap<String, DeferredBlock<Block>> resultMap) {
