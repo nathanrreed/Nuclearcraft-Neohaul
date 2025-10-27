@@ -8,9 +8,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Concat {
     @SafeVarargs
@@ -31,6 +29,20 @@ public class Concat {
     @SafeVarargs
     public static List<Block> blockValues(Map<String, DeferredBlock<Block>>... args) {
         return Arrays.stream(args).flatMap(m -> m.values().stream()).map(DeferredHolder::get).toList();
+    }
+
+    @SafeVarargs
+    public static List<Block> blockValuesExcluding(Set<String> exclude, Map<String, DeferredBlock<Block>>... args) {
+        ArrayList<Block> blocks = new ArrayList<>();
+        for (Map<String, DeferredBlock<Block>> map : args) {
+            for (String name : map.keySet()) {
+                if (!exclude.contains(name)) {
+                    blocks.add(map.get(name).get());
+                }
+            }
+        }
+
+        return blocks;
     }
 
     @SafeVarargs

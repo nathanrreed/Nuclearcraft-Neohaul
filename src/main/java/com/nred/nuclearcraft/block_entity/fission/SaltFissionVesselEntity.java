@@ -124,7 +124,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
         inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
         consumedStacks = info.getConsumedStacks();
 
-        Set<ResourceLocation> validFluids = (Set<ResourceLocation>) NCRecipes.salt_fission.validFluids.get(0);
+        Set<ResourceLocation> validFluids = NCRecipes.salt_fission.validFluids.get(0);
         tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
         consumedTanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
 

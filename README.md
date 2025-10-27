@@ -27,21 +27,23 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Music Discs
 - Foods
 - Solar panels
+- RTGs
 - Processors
 - Turbines
-- Fission Reactors
-- - Multitool
+- Fission Reactors (SFR and MSR)
+- Multitool
 - Machine Interface
 
 #### Continual:
 - Integrations with JEI, EMI, CC: T, Mekanism
 
 #### In progress:
-- Remaining Multiblocks
+- Heat exchanger
+- Multiblock Machines
 
 #### Future Additions:
+- Quantum Computer
 - Tools and Armour
 - Wasteland
 - Radiation
 - Integrations with other mods (CubeJS / CraftTweaker, Jade / TOP)
-- And much more

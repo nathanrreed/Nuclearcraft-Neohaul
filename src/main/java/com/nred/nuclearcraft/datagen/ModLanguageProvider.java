@@ -1037,49 +1037,6 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void config() {
-        add(MODID + ".configuration.world_gen", "World Gen Configs");
-        add(MODID + ".configuration.world_gen.tooltip", "Configure world generation.");
-
-//add(MODID + ".configuration.ore_dims", "Ore Gen Dimension List
-//add(MODID + ".configuration.ore_dims.tooltip", "List of IDs of dimensions to whitelist/blacklist for ore generation.
-//add(MODID + ".configuration.ore_dims_list_type", "Ore Gen Dim Whitelist/Blacklist
-//add(MODID + ".configuration.ore_dims_list_type.tooltip", "Is the dimension list a whitelist (false) or a blacklist (true)?
-//add(MODID + ".configuration.ore_gen", "Generate Ores
-//add(MODID + ".configuration.ore_gen.tooltip", "Will these ores generate in the world? Order: copper, tin, lead, thorium, uranium, boron, lithium, magnesium.
-//add(MODID + ".configuration.ore_size", "Chunk Sizes
-//add(MODID + ".configuration.ore_size.tooltip", "Mean numbers of ore blocks per ore chunk. Order: copper, tin, lead, thorium, uranium, boron, lithium, magnesium.
-//add(MODID + ".configuration.ore_rate", "Spawn Rates
-//add(MODID + ".configuration.ore_rate.tooltip", "Rates at which ores generate (uses a vanilla-style ore generator). Order: copper, tin, lead, thorium, uranium, boron, lithium, magnesium.
-//add(MODID + ".configuration.ore_min_height", "Minimum Gen Heights
-//add(MODID + ".configuration.ore_min_height.tooltip", "Minimum heights at which ores generate. Order: copper, tin, lead, thorium, uranium, boron, lithium, magnesium.
-//add(MODID + ".configuration.ore_max_height", "Maximum Gen Heights
-//add(MODID + ".configuration.ore_max_height.tooltip", "Maximum heights at which ores generate. Order: copper, tin, lead, thorium, uranium, boron, lithium, magnesium.
-//add(MODID + ".configuration.ore_drops", "Enable Extra Ore Drops
-//add(MODID + ".configuration.ore_drops.tooltip", "Will vanilla ores drop extra resources? Order: rhodochrosite, beryllium dust, zirconium dust, fluorite, sulfur, villiaumite, carobbiite.
-//add(MODID + ".configuration.ore_hide_disabled", "Hide Disabled Ores
-//add(MODID + ".configuration.ore_hide_disabled.tooltip", "Remove disabled ores from the Ore Dictionary and JEI?
-//add(MODID + ".configuration.ore_harvest_levels", "Ore Harvest Levels
-//add(MODID + ".configuration.ore_harvest_levels.tooltip", "Pickaxe harvest levels of ores. Order: copper, tin, lead, thorium, uranium, boron, lithium, magnesium.
-//add(
-//add(MODID + ".configuration.wasteland_biome", "Generate Wasteland Biome
-//add(MODID + ".configuration.wasteland_biome.tooltip", "Will wasteland biomes generate in the overworld?
-//add(MODID + ".configuration.wasteland_biome_weight", "Wasteland Biome Gen Weight
-//add(MODID + ".configuration.wasteland_biome_weight.tooltip", "The weight assigned to the generation of the wasteland biomes - higher numbers correspond to higher generation rates.
-//add(
-//add(MODID + ".configuration.wasteland_dimension_gen", "Enable Wasteland Dimension
-//add(MODID + ".configuration.wasteland_dimension_gen.tooltip", "Will the wasteland dimension be generated?
-//add(MODID + ".configuration.wasteland_dimension", "Wasteland Dimension ID
-//add(MODID + ".configuration.wasteland_dimension.tooltip", "Sets the ID for the wasteland dimension.
-
-//add(MODID + ".configuration.mushroom_spread_rate", "Mushroom Spread Rate
-//add(MODID + ".configuration.mushroom_spread_rate.tooltip", "The rate at which mushrooms added by NC will spread - higher numbers correspond to higher spread rates.
-//add(MODID + ".configuration.mushroom_gen", "Generate Mushrooms
-//add(MODID + ".configuration.mushroom_gen.tooltip", "Will mushrooms added by NC generate in the nether and wasteland biomes?
-//add(MODID + ".configuration.mushroom_gen_size", "Mushroom Gen Size
-//add(MODID + ".configuration.mushroom_gen_size.tooltip", "Determines the maximum number of mushrooms added by NC that will spawn at a time. Note that this is typically much higher than the mean number of generated mushrooms.
-//add(MODID + ".configuration.mushroom_gen_rate", "Mushroom Gen Rate
-//add(MODID + ".configuration.mushroom_gen_rate.tooltip", "Determines how often mushrooms added by NC will spawn - higher numbers correspond to higher generation rates.
-
         add(MODID + ".configuration.processor", "Processor Configs");
         add(MODID + ".configuration.processor.tooltip", "Configure processors.");
 
@@ -1549,8 +1506,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.misc", "Misc Configs");
         add(MODID + ".configuration.misc.tooltip", "Miscellaneous configurations.");
 
-//add(MODID + ".configuration.give_guidebook", "Give Guidebook
-//add(MODID + ".configuration.give_guidebook.tooltip", "Give new players a copy of the NC guidebook after logging in?
+        add(MODID + ".configuration.give_guidebook", "Give Guidebook");
+        add(MODID + ".configuration.give_guidebook.tooltip", "Give new players a copy of the NC guidebook after logging in?");
         add(MODID + ".configuration.ctrl_info", "Ctrl For More Info");
         add(MODID + ".configuration.ctrl_info.tooltip", "Hold down the control key rather than the shift key to show extra tooltip info?");
 //add(MODID + ".configuration.rare_drops", "Enable Rare Drops

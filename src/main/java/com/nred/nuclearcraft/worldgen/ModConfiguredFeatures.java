@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.info.Names.ORES;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ORE_MAP;
+import static com.nred.nuclearcraft.worldgen.ModPlacedFeatures.oreInfoMap;
 
 public class ModConfiguredFeatures {
     public static final Map<String, ResourceKey<ConfiguredFeature<?, ?>>> ORE_KEYS = ores();
@@ -39,10 +39,9 @@ public class ModConfiguredFeatures {
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
         for (String ore : ORES) {
-            Random rand = new Random(ore.hashCode());
             List<OreConfiguration.@NotNull TargetBlockState> ores = List.of(OreConfiguration.target(stoneReplaceables, ORE_MAP.get(ore).get().defaultBlockState()), OreConfiguration.target(deepslateReplaceables, ORE_MAP.get(ore + "_deepslate").get().defaultBlockState()));
-            register(context, ORE_KEYS.get(ore + "_common"), Feature.ORE, new OreConfiguration(ores, rand.nextInt(6, 12)));
-            register(context, ORE_KEYS.get(ore + "_rare"), Feature.ORE, new OreConfiguration(ores, rand.nextInt(4, 8)));
+            register(context, ORE_KEYS.get(ore + "_common"), Feature.ORE, new OreConfiguration(ores, oreInfoMap.get(ore).ore_size()));
+            register(context, ORE_KEYS.get(ore + "_rare"), Feature.ORE, new OreConfiguration(ores, oreInfoMap.get(ore).ore_size()));
         }
     }
 

@@ -12,10 +12,12 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.blockValues;
+import static com.nred.nuclearcraft.helpers.Concat.blockValuesExcluding;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 
@@ -31,9 +33,10 @@ class ModBlockTagProvider extends BlockTagsProvider {
                 .add(blockValues(TRITIUM_LAMP, HEAVY_WATER_MODERATOR, SUPERCOLD_ICE, SOLIDIFIED_CORIUM, UNIVERSAL_BIN, MACHINE_INTERFACE, NUCLEAR_FURNACE, DECAY_GENERATOR).toArray(Block[]::new));
 
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(blockValues(ORE_MAP, PROCESSOR_MAP).toArray(Block[]::new));
+                .add(blockValuesExcluding(Set.of("tin", "lead"), ORE_MAP).toArray(Block[]::new));
 
-        tag(BlockTags.NEEDS_DIAMOND_TOOL);
+        tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(ORE_MAP.get("tin").get(), ORE_MAP.get("lead").get());
 
         simpleTag(INGOTS, INGOT_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS);
         simpleTag(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, Tags.Blocks.STORAGE_BLOCKS);

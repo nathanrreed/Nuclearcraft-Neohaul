@@ -6,7 +6,7 @@ import net.minecraft.world.damagesource.DamageType;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class DamageTypeRegistration {
+public class DamageTypeRegistration { // TODO add these to fluids
     public static final ResourceKey<DamageType> SUPERFLUID_FREEZE = ResourceKey.create(Registries.DAMAGE_TYPE, ncLoc("superfluid_freeze"));
     public static final ResourceKey<DamageType> PLASMA_BURN = ResourceKey.create(Registries.DAMAGE_TYPE, ncLoc("plasma_burn"));
     public static final ResourceKey<DamageType> GAS_BURN = ResourceKey.create(Registries.DAMAGE_TYPE, ncLoc("gas_burn"));

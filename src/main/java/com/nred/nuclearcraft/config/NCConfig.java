@@ -12,9 +12,7 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
@@ -22,7 +20,6 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 public class NCConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    public static final String CATEGORY_WORLD_GEN = "world_gen";
     public static final String CATEGORY_PROCESSOR = "processor";
     public static final String CATEGORY_GENERATOR = "generator";
     public static final String CATEGORY_ENERGY_STORAGE = "energy_storage";
@@ -36,25 +33,9 @@ public class NCConfig {
     public static final String CATEGORY_ARMOR = "armor";
     public static final String CATEGORY_ENTITY = "entity";
     public static final String CATEGORY_RADIATION = "radiation";
-    public static final String CATEGORY_REGISTRATION = "registration";
     public static final String CATEGORY_MISC = "misc";
 
-    public static final String CATEGORY_OUTPUT = "output";
-
-    protected static final Map<String, List<String>> PROPERTY_ORDER_MAP = new HashMap<>();
-
     protected static final boolean LIST = false, ARRAY = true;
-
-//    public static int[] ore_dims;
-//    public static boolean ore_dims_list_type;
-//    public static boolean[] ore_gen;
-//    public static int[] ore_size;
-//    public static int[] ore_rate;
-//    public static int[] ore_min_height;
-//    public static int[] ore_max_height;
-//    public static boolean[] ore_drops;
-//    public static boolean ore_hide_disabled;
-//    public static int[] ore_harvest_levels;
 
     public static double processor_time_multiplier; // Default: 1
     public static double processor_power_multiplier; // Default: 1
@@ -71,12 +52,7 @@ public class NCConfig {
     public static double[] processor_passive_rate;
     public static boolean passive_push;
     public static double cobble_gen_power;
-//    public static boolean ore_processing;
-//    public static int[] manufactory_wood;
-//    public static boolean rock_crusher_alternate;
 
-    //    public static boolean default_processor_recipes_global;
-//    public static boolean[] default_processor_recipes;
     public static boolean smart_processor_input;
     //    public static boolean factor_recipes; TODO ADD or REMOVE
     public static boolean processor_particles;
@@ -141,78 +117,6 @@ public class NCConfig {
     public static boolean[] fission_heat_dissipation;
     public static double fission_heat_dissipation_rate;
     public static double fission_sound_volume;
-
-//    public static int[] fission_thorium_fuel_time;
-//    public static int[] fission_thorium_heat_generation;
-//    public static double[] fission_thorium_efficiency;
-//    public static int[] fission_thorium_criticality;
-//    public static double[] fission_thorium_decay_factor;
-//    public static boolean[] fission_thorium_self_priming;
-//    public static double[] fission_thorium_radiation;
-
-//    public static int[] fission_uranium_fuel_time;
-//    public static int[] fission_uranium_heat_generation;
-//    public static double[] fission_uranium_efficiency;
-//    public static int[] fission_uranium_criticality;
-//    public static double[] fission_uranium_decay_factor;
-//    public static boolean[] fission_uranium_self_priming;
-//    public static double[] fission_uranium_radiation;
-//
-//    public static int[] fission_neptunium_fuel_time;
-//    public static int[] fission_neptunium_heat_generation;
-//    public static double[] fission_neptunium_efficiency;
-//    public static int[] fission_neptunium_criticality;
-//    public static double[] fission_neptunium_decay_factor;
-//    public static boolean[] fission_neptunium_self_priming;
-//    public static double[] fission_neptunium_radiation;
-//
-//    public static int[] fission_plutonium_fuel_time;
-//    public static int[] fission_plutonium_heat_generation;
-//    public static double[] fission_plutonium_efficiency;
-//    public static int[] fission_plutonium_criticality;
-//    public static double[] fission_plutonium_decay_factor;
-//    public static boolean[] fission_plutonium_self_priming;
-//    public static double[] fission_plutonium_radiation;
-//
-//    public static int[] fission_mixed_fuel_time;
-//    public static int[] fission_mixed_heat_generation;
-//    public static double[] fission_mixed_efficiency;
-//    public static int[] fission_mixed_criticality;
-//    public static double[] fission_mixed_decay_factor;
-//    public static boolean[] fission_mixed_self_priming;
-//    public static double[] fission_mixed_radiation;
-//
-//    public static int[] fission_americium_fuel_time;
-//    public static int[] fission_americium_heat_generation;
-//    public static double[] fission_americium_efficiency;
-//    public static int[] fission_americium_criticality;
-//    public static double[] fission_americium_decay_factor;
-//    public static boolean[] fission_americium_self_priming;
-//    public static double[] fission_americium_radiation;
-//
-//    public static int[] fission_curium_fuel_time;
-//    public static int[] fission_curium_heat_generation;
-//    public static double[] fission_curium_efficiency;
-//    public static int[] fission_curium_criticality;
-//    public static double[] fission_curium_decay_factor;
-//    public static boolean[] fission_curium_self_priming;
-//    public static double[] fission_curium_radiation;
-//
-//    public static int[] fission_berkelium_fuel_time;
-//    public static int[] fission_berkelium_heat_generation;
-//    public static double[] fission_berkelium_efficiency;
-//    public static int[] fission_berkelium_criticality;
-//    public static double[] fission_berkelium_decay_factor;
-//    public static boolean[] fission_berkelium_self_priming;
-//    public static double[] fission_berkelium_radiation;
-//
-//    public static int[] fission_californium_fuel_time;
-//    public static int[] fission_californium_heat_generation;
-//    public static double[] fission_californium_efficiency;
-//    public static int[] fission_californium_criticality;
-//    public static double[] fission_californium_decay_factor;
-//    public static boolean[] fission_californium_self_priming;
-//    public static double[] fission_californium_radiation;
 
     public static double fusion_fuel_time_multiplier; // Default: 1
     public static double fusion_fuel_heat_multiplier; // Default: 1
@@ -385,17 +289,6 @@ public class NCConfig {
     public static boolean rare_drops;
     public static boolean dungeon_loot;
 
-    public static boolean wasteland_biome;
-    public static int wasteland_biome_weight;
-
-    public static boolean wasteland_dimension_gen;
-    public static int wasteland_dimension;
-
-    public static int mushroom_spread_rate;
-    public static boolean mushroom_gen;
-    public static int mushroom_gen_size;
-    public static int mushroom_gen_rate;
-
     public static ResourceLocation[] corium_solidification;
     public static boolean corium_solidification_list_type;
 
@@ -406,26 +299,6 @@ public class NCConfig {
     }
 
     public static void loadConfig() {
-//        ore_dims = syncInts(ORE_DIMS, LIST);
-//        ore_dims_list_type = ORE_DIMS_LIST_TYPE.getAsBoolean();
-//        ore_gen = syncBooleans(ORE_GEN, ARRAY);
-//        ore_size = syncInts(ORE_SIZE, ARRAY);
-//        ore_rate = syncInts(ORE_RATE, ARRAY);
-//        ore_min_height = syncInts(ORE_MIN_HEIGHT, ARRAY);
-//        ore_max_height = syncInts(ORE_MAX_HEIGHT, ARRAY);
-//        ore_drops = syncBooleans(ORE_DROPS, ARRAY);
-//        ore_hide_disabled = ORE_HIDE_DISABLED.getAsBoolean();
-//        ore_harvest_levels = syncInts(ORE_HARVEST_LEVELS, ARRAY);
-//
-//        wasteland_biome = WASTELAND_BIOME.getAsBoolean();
-//        wasteland_biome_weight = WASTELAND_BIOME_WEIGHT.getAsInt();
-//        wasteland_dimension_gen = WASTELAND_DIMENSION_GEN.getAsBoolean();
-//        wasteland_dimension = WASTELAND_DIMENSION.getAsInt();
-//        mushroom_spread_rate = MUSHROOM_SPREAD_RATE.getAsInt();
-//        mushroom_gen = MUSHROOM_GEN.getAsBoolean();
-//        mushroom_gen_size = MUSHROOM_GEN_SIZE.getAsInt();
-//        mushroom_gen_rate = MUSHROOM_GEN_RATE.getAsInt();
-
         processor_time_multiplier = PROCESSOR_TIME_MULTIPLIER.getAsDouble();
         processor_power_multiplier = PROCESSOR_POWER_MULTIPLIER.getAsDouble();
         processor_time = syncInts(PROCESSOR_TIME, ARRAY);
@@ -682,26 +555,6 @@ public class NCConfig {
         radiation_horse_armor_public = radiation_horse_armor;
     }
 
-//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ORE_DIMS = add(CATEGORY_WORLD_GEN, "ore_dims", List.of(0, 2, -6, -100, 4598, -9999, -11325), Integer.MIN_VALUE, Integer.MAX_VALUE);
-//    private static final ModConfigSpec.BooleanValue ORE_DIMS_LIST_TYPE = add(CATEGORY_WORLD_GEN, "ore_dims_list_type", false);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> ORE_GEN = add(CATEGORY_WORLD_GEN, "ore_gen", List.of(true, true, true, true, true, true, true, true), ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ORE_SIZE = add(CATEGORY_WORLD_GEN, "ore_size", List.of(6, 6, 6, 3, 3, 4, 4, 5), 1, Integer.MAX_VALUE, ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ORE_RATE = add(CATEGORY_WORLD_GEN, "ore_rate", List.of(5, 4, 6, 3, 6, 6, 6, 4), 1, Integer.MAX_VALUE, ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ORE_MIN_HEIGHT = add(CATEGORY_WORLD_GEN, "ore_min_height", List.of(0, 0, 0, 0, 0, 0, 0, 0), -63, 255, ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ORE_MAX_HEIGHT = add(CATEGORY_WORLD_GEN, "ore_max_height", List.of(48, 40, 36, 32, 32, 28, 28, 24), 1, 255, ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> ORE_DROPS = add(CATEGORY_WORLD_GEN, "ore_drops", List.of(false, false, false, false, false, false, false), ARRAY);
-//    private static final ModConfigSpec.BooleanValue ORE_HIDE_DISABLED = add(CATEGORY_WORLD_GEN, "ore_hide_disabled", false);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ORE_HARVEST_LEVELS = add(CATEGORY_WORLD_GEN, "ore_harvest_levels", List.of(1, 1, 1, 2, 2, 2, 2, 2), 0, 15, ARRAY);
-
-//    private static final ModConfigSpec.BooleanValue WASTELAND_BIOME = add(CATEGORY_WORLD_GEN, "wasteland_biome", true);
-//    private static final ModConfigSpec.IntValue WASTELAND_BIOME_WEIGHT = add(CATEGORY_WORLD_GEN, "wasteland_biome_weight", 5, 0, 255);
-//    private static final ModConfigSpec.BooleanValue WASTELAND_DIMENSION_GEN = add(CATEGORY_WORLD_GEN, "wasteland_dimension_gen", true);
-//    private static final ModConfigSpec.IntValue WASTELAND_DIMENSION = add(CATEGORY_WORLD_GEN, "wasteland_dimension", 4598, Integer.MIN_VALUE, Integer.MAX_VALUE);
-//    private static final ModConfigSpec.IntValue MUSHROOM_SPREAD_RATE = add(CATEGORY_WORLD_GEN, "mushroom_spread_rate", 16, 0, 511);
-//    private static final ModConfigSpec.BooleanValue MUSHROOM_GEN = add(CATEGORY_WORLD_GEN, "mushroom_gen", true);
-//    private static final ModConfigSpec.IntValue MUSHROOM_GEN_SIZE = add(CATEGORY_WORLD_GEN, "mushroom_gen_size", 32, 0, 511);
-//    private static final ModConfigSpec.IntValue MUSHROOM_GEN_RATE = add(CATEGORY_WORLD_GEN, "mushroom_gen_rate", 64, 0, 511);
-
     private static final ModConfigSpec.DoubleValue PROCESSOR_TIME_MULTIPLIER = add(CATEGORY_PROCESSOR, "processor_time_multiplier", 1D, 0.001D, 255D);
     private static final ModConfigSpec.DoubleValue PROCESSOR_POWER_MULTIPLIER = add(CATEGORY_PROCESSOR, "processor_power_multiplier", 1D, 0D, 255D);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> PROCESSOR_TIME = add(CATEGORY_PROCESSOR, "processor_time", List.of(400, 800, 800, 400, 400, 600, 800, 600, 3200, 600, 400, 600, 800, 600, 1600, 600, 2400, 1200, 400, 200), 1, 128000, ARRAY);
@@ -865,7 +718,7 @@ public class NCConfig {
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOME_LIMITS = addString(CATEGORY_RADIATION, "radiation_biome_limits", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RADIATION_FROM_BIOMES_DIMS_BLACKLIST = add(CATEGORY_RADIATION, "radiation_from_biomes_dims_blacklist", List.of(144), Integer.MIN_VALUE, Integer.MAX_VALUE, LIST);
 
-        private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES = addString(CATEGORY_RADIATION, "radiation_ores", List.of("depletedFuelIC2U_" + (RadSources.URANIUM_238 * 4D + RadSources.PLUTONIUM_239 / 9D), "depletedFuelIC2MOX_" + RadSources.PLUTONIUM_239 * 28D / 9D), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES = addString(CATEGORY_RADIATION, "radiation_ores", List.of("depletedFuelIC2U_" + (RadSources.URANIUM_238 * 4D + RadSources.PLUTONIUM_239 / 9D), "depletedFuelIC2MOX_" + RadSources.PLUTONIUM_239 * 28D / 9D), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ITEMS = addString(CATEGORY_RADIATION, "radiation_items", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BLOCKS = addString(CATEGORY_RADIATION, "radiation_blocks", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FLUIDS = addString(CATEGORY_RADIATION, "radiation_fluids", List.of(), LIST);
@@ -1110,31 +963,4 @@ public class NCConfig {
     private static boolean validateItemName(final Object obj) {
         return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
     }
-
-//    public static void setCategoryPropertyOrders(Configuration config) {
-//        for (Map.Entry<String, List<String>> entry : PROPERTY_ORDER_MAP.entrySet()) {
-//            config.setCategoryPropertyOrder(entry.getKey(), entry.getValue());
-//        }
-//    }
-//
-//    protected static class ServerConfigEventHandler {
-//
-//        protected ServerConfigEventHandler() {
-//        }
-//
-//        @SubscribeEvent
-//        public void configOnWorldLoad(PlayerEvent.PlayerLoggedInEvent event) {
-//            new ConfigUpdatePacket(radiation_enabled, radiation_horse_armor).sendTo(event.getEntity());
-//        }
-//    }
-//
-//    public static void onConfigPacket(ConfigUpdatePacket message) {
-//        if (!radiation_enabled_public && message.radiation_enabled) {
-//            String unloc = "message.nuclearcraft.radiation_config_info" + (ModCheck.jeiLoaded() ? "_jei" : "");
-//            Minecraft.getInstance().player.sendSystemMessage(Component.translatable(unloc).withStyle(ChatFormatting.GOLD));
-//        }
-//        radiation_enabled_public = message.radiation_enabled;
-//        radiation_horse_armor_public = message.radiation_horse_armor;
-//    }
-
 }

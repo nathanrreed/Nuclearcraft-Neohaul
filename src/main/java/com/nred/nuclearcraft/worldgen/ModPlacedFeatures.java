@@ -12,7 +12,6 @@ import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.info.Names.ORES;
@@ -39,16 +38,29 @@ public class ModPlacedFeatures {
     }
 
     private static List<PlacementModifier> rareOrePlacement(int chance, PlacementModifier heightRange) {
-        return orePlacement(RarityFilter.onAverageOnceEvery(chance), heightRange);
+        return orePlacement(RarityFilter.onAverageOnceEvery(chance / 2), heightRange);
     }
+
+    record OreInfo(int min_y, int max_y, int ore_rate, int ore_size) {
+    }
+
+    static final Map<String, OreInfo> oreInfoMap = Map.of(
+            "tin", new OreInfo(-16, 50, 4, 6),
+            "lead", new OreInfo(-16, 36, 6, 6),
+            "thorium", new OreInfo(-32, 32, 3, 3),
+            "uranium", new OreInfo(-32, 32, 6, 3),
+            "boron", new OreInfo(-42, 28, 6, 4),
+            "lithium", new OreInfo(-52, 28, 6, 4),
+            "magnesium", new OreInfo(-64, 24, 4, 5)
+
+    );
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
         for (String ore : ORES) {
-            Random rand = new Random(ore.hashCode());
-            register(context, ORE_PLACED_KEYS.get(ore + "_common"), configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_KEYS.get(ore + "_common")), commonOrePlacement(rand.nextInt(3, 15), HeightRangePlacement.uniform(VerticalAnchor.absolute(rand.nextInt(-32, -10)), VerticalAnchor.absolute(rand.nextInt(0, 60)))));
-            register(context, ORE_PLACED_KEYS.get(ore + "_rare"), configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_KEYS.get(ore + "_rare")), rareOrePlacement(rand.nextInt(6, 10), HeightRangePlacement.triangle(VerticalAnchor.absolute(rand.nextInt(-64, -24)), VerticalAnchor.absolute(rand.nextInt(-20, -8)))));
+            register(context, ORE_PLACED_KEYS.get(ore + "_common"), configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_KEYS.get(ore + "_common")), commonOrePlacement(oreInfoMap.get(ore).ore_rate, HeightRangePlacement.triangle(VerticalAnchor.absolute(oreInfoMap.get(ore).min_y), VerticalAnchor.absolute(oreInfoMap.get(ore).max_y))));
+            register(context, ORE_PLACED_KEYS.get(ore + "_rare"), configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_KEYS.get(ore + "_rare")), rareOrePlacement(oreInfoMap.get(ore).ore_rate, HeightRangePlacement.uniform(VerticalAnchor.absolute(oreInfoMap.get(ore).min_y), VerticalAnchor.absolute(oreInfoMap.get(ore).max_y))));
         }
     }
 
