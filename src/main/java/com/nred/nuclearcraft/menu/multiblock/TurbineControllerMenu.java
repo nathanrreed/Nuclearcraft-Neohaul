@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.TURBINE_CONTROLLER_MENU_TYPE;
 
-public class TurbineControllerMenu extends ContainerMultiblockController<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>> {
+public class TurbineControllerMenu extends MultiblockControllerMenu<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>> {
     public TurbineControllerMenu(int containerId, Inventory inventory, final TurbineControllerEntity controller) {
         super(TURBINE_CONTROLLER_MENU_TYPE.get(), containerId, inventory, controller);
     }

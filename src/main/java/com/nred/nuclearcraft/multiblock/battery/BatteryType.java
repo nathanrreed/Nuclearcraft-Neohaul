@@ -8,41 +8,41 @@ import net.neoforged.fml.common.asm.enumextension.ExtensionInfo;
 import net.neoforged.fml.common.asm.enumextension.IExtensibleEnum;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static com.nred.nuclearcraft.config.NCConfig.battery_block_capacity;
+import static com.nred.nuclearcraft.config.NCConfig.battery_block_max_transfer;
 
 public enum BatteryType implements IBatteryType, IMultiblockVariant, IExtensibleEnum {
-    VOLTAIC_PILE_BASIC(0, 1600000, 16000),
-    VOLTAIC_PILE_ADVANCED(1, 6400000, 64000),
-    VOLTAIC_PILE_DU(2, 25600000, 256000),
-    VOLTAIC_PILE_ELITE(3, 102400000, 1024000),
+    VOLTAIC_PILE_BASIC(0),
+    VOLTAIC_PILE_ADVANCED(1),
+    VOLTAIC_PILE_DU(2),
+    VOLTAIC_PILE_ELITE(3),
 
-    LITHIUM_ION_BATTERY_BASIC(4, 32000000, 320000),
-    LITHIUM_ION_BATTERY_ADVANCED(5, 128000000, 1280000),
-    LITHIUM_ION_BATTERY_DU(6, 512000000, 5120000),
-    LITHIUM_ION_BATTERY_ELITE(7, 2048000000, 20480000);
+    LITHIUM_ION_BATTERY_BASIC(4),
+    LITHIUM_ION_BATTERY_ADVANCED(5),
+    LITHIUM_ION_BATTERY_DU(6),
+    LITHIUM_ION_BATTERY_ELITE(7);
 
     private final int id;
-    private final int capacity;
-    private final int max_transfer;
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
 
-    BatteryType(int id, int capacity, int max_transfer) {
+    BatteryType(int id) {
         this.id = id;
-        this.capacity = capacity;
-        this.max_transfer = max_transfer;
 
         this._translationKey = ""; // TODO ADD
         this._blockPropertiesFixer = null;
     }
 
     @Override
-    public long getCapacity() {
-        return capacity;
+    public Supplier<Integer> getCapacity() {
+        return () -> battery_block_capacity[id];
     }
 
     @Override
-    public int getMaxTransfer() {
-        return max_transfer;
+    public Supplier<Integer> getMaxTransfer() {
+        return () -> battery_block_max_transfer[id];
     }
 
     @Override

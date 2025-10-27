@@ -6,27 +6,8 @@ import com.nred.nuclearcraft.block.SupercoldIceBlock;
 import com.nred.nuclearcraft.block.battery.BlockBattery;
 import com.nred.nuclearcraft.block.item.NCItemBlock;
 import com.nred.nuclearcraft.block.item.energy.ItemBlockBattery;
-import com.nred.nuclearcraft.block.processor.alloy_furnace.AlloyFurnace;
-import com.nred.nuclearcraft.block.processor.assembler.Assembler;
-import com.nred.nuclearcraft.block.processor.centrifuge.Centrifuge;
-import com.nred.nuclearcraft.block.processor.chemical_reactor.ChemicalReactor;
-import com.nred.nuclearcraft.block.processor.crystallizer.Crystallizer;
-import com.nred.nuclearcraft.block.processor.decay_hastener.DecayHastener;
-import com.nred.nuclearcraft.block.processor.electric_furnace.ElectricFurnace;
-import com.nred.nuclearcraft.block.processor.electrolyzer.Electrolyzer;
-import com.nred.nuclearcraft.block.processor.fluid_enricher.Enricher;
-import com.nred.nuclearcraft.block.processor.fluid_extractor.Extractor;
-import com.nred.nuclearcraft.block.processor.fluid_infuser.Infuser;
-import com.nred.nuclearcraft.block.processor.fluid_mixer.SaltMixer;
-import com.nred.nuclearcraft.block.processor.fuel_reprocessor.FuelReprocessor;
-import com.nred.nuclearcraft.block.processor.ingot_former.IngotFormer;
-import com.nred.nuclearcraft.block.processor.manufactory.Manufactory;
-import com.nred.nuclearcraft.block.processor.melter.Melter;
-import com.nred.nuclearcraft.block.processor.nuclear_furnace.NuclearFurnace;
-import com.nred.nuclearcraft.block.processor.pressurizer.Pressurizer;
-import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusher;
-import com.nred.nuclearcraft.block.processor.separator.Separator;
-import com.nred.nuclearcraft.block.processor.supercooler.Supercooler;
+import com.nred.nuclearcraft.block.processor.BlockProcessor;
+import com.nred.nuclearcraft.block.processor.NuclearFurnaceBlock;
 import com.nred.nuclearcraft.block.tile.BlockSimpleTile;
 import com.nred.nuclearcraft.block.tile.dummy.BlockMachineInterface;
 import com.nred.nuclearcraft.multiblock.battery.BatteryPartType;
@@ -73,7 +54,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.*;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType.BORON_SILVER;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType.*;
@@ -112,7 +93,7 @@ public class BlockRegistration {
     public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCorium::new);
     public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItemWithTooltip("universal_bin", () -> new BlockSimpleTile<>("bin"), false);
     public static final DeferredBlock<Block> MACHINE_INTERFACE = registerBlockItemWithTooltip("machine_interface", () -> new BlockMachineInterface("machine_interface"), false);
-    public static final DeferredBlock<Block> NUCLEAR_FURNACE = registerBlockItemWithTooltip("nuclear_furnace", () -> new NuclearFurnace(BlockBehaviour.Properties.ofFullCopy(Blocks.FURNACE)), false);
+    public static final DeferredBlock<Block> NUCLEAR_FURNACE = registerBlockItemWithTooltip("nuclear_furnace", () -> new NuclearFurnaceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FURNACE)), false);
 
     public static final DeferredBlock<Block> DECAY_GENERATOR = registerBlockItem("decay_generator", () -> new BlockSimpleTile<>("decay_generator"));
 
@@ -193,26 +174,26 @@ public class BlockRegistration {
 
     private static HashMap<String, DeferredBlock<Block>> createProcessors() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
-        map.put("alloy_furnace", registerBlockItemWithTooltip("alloy_furnace", () -> new AlloyFurnace(BASE_PROPERTIES), false));
-        map.put("assembler", registerBlockItemWithTooltip("assembler", () -> new Assembler(BASE_PROPERTIES), false));
-        map.put("centrifuge", registerBlockItemWithTooltip("centrifuge", () -> new Centrifuge(BASE_PROPERTIES), false));
-        map.put("chemical_reactor", registerBlockItemWithTooltip("chemical_reactor", () -> new ChemicalReactor(BASE_PROPERTIES), false));
-        map.put("crystallizer", registerBlockItemWithTooltip("crystallizer", () -> new Crystallizer(BASE_PROPERTIES), false));
-        map.put("decay_hastener", registerBlockItemWithTooltip("decay_hastener", () -> new DecayHastener(BASE_PROPERTIES), false));
-        map.put("electric_furnace", registerBlockItemWithTooltip("electric_furnace", () -> new ElectricFurnace(BASE_PROPERTIES), false));
-        map.put("electrolyzer", registerBlockItemWithTooltip("electrolyzer", () -> new Electrolyzer(BASE_PROPERTIES), false));
-        map.put("fluid_enricher", registerBlockItemWithTooltip("fluid_enricher", () -> new Enricher(BASE_PROPERTIES), false));
-        map.put("fluid_extractor", registerBlockItemWithTooltip("fluid_extractor", () -> new Extractor(BASE_PROPERTIES), false));
-        map.put("fuel_reprocessor", registerBlockItemWithTooltip("fuel_reprocessor", () -> new FuelReprocessor(BASE_PROPERTIES), false));
-        map.put("fluid_infuser", registerBlockItemWithTooltip("fluid_infuser", () -> new Infuser(BASE_PROPERTIES), false));
-        map.put("ingot_former", registerBlockItemWithTooltip("ingot_former", () -> new IngotFormer(BASE_PROPERTIES), false));
-        map.put("manufactory", registerBlockItemWithTooltip("manufactory", () -> new Manufactory(BASE_PROPERTIES), false));
-        map.put("melter", registerBlockItemWithTooltip("melter", () -> new Melter(BASE_PROPERTIES), false));
-        map.put("pressurizer", registerBlockItemWithTooltip("pressurizer", () -> new Pressurizer(BASE_PROPERTIES), false));
-        map.put("rock_crusher", registerBlockItemWithTooltip("rock_crusher", () -> new RockCrusher(BASE_PROPERTIES), false));
-        map.put("fluid_mixer", registerBlockItemWithTooltip("fluid_mixer", () -> new SaltMixer(BASE_PROPERTIES), false));
-        map.put("separator", registerBlockItemWithTooltip("separator", () -> new Separator(BASE_PROPERTIES), false));
-        map.put("supercooler", registerBlockItemWithTooltip("supercooler", () -> new Supercooler(BASE_PROPERTIES), false));
+        map.put("alloy_furnace", registerBlockItemWithTooltip("alloy_furnace", () -> new BlockProcessor<>("alloy_furnace"), false));
+        map.put("assembler", registerBlockItemWithTooltip("assembler", () -> new BlockProcessor<>("assembler"), false));
+        map.put("centrifuge", registerBlockItemWithTooltip("centrifuge", () -> new BlockProcessor<>("centrifuge"), false));
+        map.put("chemical_reactor", registerBlockItemWithTooltip("chemical_reactor", () -> new BlockProcessor<>("chemical_reactor"), false));
+        map.put("crystallizer", registerBlockItemWithTooltip("crystallizer", () -> new BlockProcessor<>("crystallizer"), false));
+        map.put("decay_hastener", registerBlockItemWithTooltip("decay_hastener", () -> new BlockProcessor<>("decay_hastener"), false));
+        map.put("electric_furnace", registerBlockItemWithTooltip("electric_furnace", () -> new BlockProcessor<>("electric_furnace"), false));
+        map.put("electrolyzer", registerBlockItemWithTooltip("electrolyzer", () -> new BlockProcessor<>("electrolyzer"), false));
+        map.put("fluid_enricher", registerBlockItemWithTooltip("fluid_enricher", () -> new BlockProcessor<>("fluid_enricher"), false));
+        map.put("fluid_extractor", registerBlockItemWithTooltip("fluid_extractor", () -> new BlockProcessor<>("fluid_extractor"), false));
+        map.put("fuel_reprocessor", registerBlockItemWithTooltip("fuel_reprocessor", () -> new BlockProcessor<>("fuel_reprocessor"), false));
+        map.put("fluid_infuser", registerBlockItemWithTooltip("fluid_infuser", () -> new BlockProcessor<>("fluid_infuser"), false));
+        map.put("ingot_former", registerBlockItemWithTooltip("ingot_former", () -> new BlockProcessor<>("ingot_former"), false));
+        map.put("manufactory", registerBlockItemWithTooltip("manufactory", () -> new BlockProcessor<>("manufactory"), false));
+        map.put("melter", registerBlockItemWithTooltip("melter", () -> new BlockProcessor<>("melter"), false));
+        map.put("pressurizer", registerBlockItemWithTooltip("pressurizer", () -> new BlockProcessor<>("pressurizer"), false));
+        map.put("rock_crusher", registerBlockItemWithTooltip("rock_crusher", () -> new BlockProcessor<>("rock_crusher"), false));
+        map.put("fluid_mixer", registerBlockItemWithTooltip("fluid_mixer", () -> new BlockProcessor<>("fluid_mixer"), false));
+        map.put("separator", registerBlockItemWithTooltip("separator", () -> new BlockProcessor<>("separator"), false));
+        map.put("supercooler", registerBlockItemWithTooltip("supercooler", () -> new BlockProcessor<>("supercooler"), false));
         return map;
     }
 

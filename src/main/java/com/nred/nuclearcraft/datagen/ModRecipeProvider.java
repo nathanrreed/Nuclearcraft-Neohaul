@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.datagen.recipes.CollectorProvider;
 import com.nred.nuclearcraft.datagen.recipes.DecayGeneratorProvider;
 import com.nred.nuclearcraft.datagen.recipes.multilock.*;
 import com.nred.nuclearcraft.datagen.recipes.processor.*;
-import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
+import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;

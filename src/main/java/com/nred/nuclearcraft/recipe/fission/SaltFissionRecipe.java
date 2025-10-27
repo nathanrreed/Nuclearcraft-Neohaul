@@ -15,7 +15,7 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.config.Config2.*;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SALT_FISSION_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SALT_FISSION_RECIPE_TYPE;
 

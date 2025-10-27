@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import net.minecraft.core.Direction;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -44,6 +45,11 @@ public class ResetItemSorptionsPacket extends TileGuiPacket {
         super.toBytes(buf);
         buf.writeInt(slot);
         buf.writeBoolean(defaults);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     public static class Handler extends TileGuiPacket.Handler<ResetItemSorptionsPacket> {

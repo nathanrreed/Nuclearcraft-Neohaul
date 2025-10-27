@@ -11,8 +11,8 @@ import java.util.function.BiFunction;
 public class ProcessorBlockInfo<TILE extends BlockEntity> extends BlockTileInfo<TILE> {
     public final List<String> particles;
 
-    public ProcessorBlockInfo(String name, Class<TILE> tileClass, BiFunction<BlockPos, BlockState, TILE> tileSupplier, List<String> particles) {
-        super(name, tileClass, tileSupplier);
+    public ProcessorBlockInfo(String name, Class<TILE> menuFunction, BiFunction<BlockPos, BlockState, TILE> tileSupplier, List<String> particles) {
+        super(name, menuFunction, tileSupplier);
         this.particles = particles;
     }
 }

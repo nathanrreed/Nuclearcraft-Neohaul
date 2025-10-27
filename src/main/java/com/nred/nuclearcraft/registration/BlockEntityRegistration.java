@@ -1,26 +1,5 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.block.processor.ProcessorEntity;
-import com.nred.nuclearcraft.block.processor.alloy_furnace.AlloyFurnaceEntity;
-import com.nred.nuclearcraft.block.processor.assembler.AssemblerEntity;
-import com.nred.nuclearcraft.block.processor.centrifuge.CentrifugeEntity;
-import com.nred.nuclearcraft.block.processor.chemical_reactor.ChemicalReactorEntity;
-import com.nred.nuclearcraft.block.processor.crystallizer.CrystallizerEntity;
-import com.nred.nuclearcraft.block.processor.decay_hastener.DecayHastenerEntity;
-import com.nred.nuclearcraft.block.processor.electric_furnace.ElectricFurnaceEntity;
-import com.nred.nuclearcraft.block.processor.electrolyzer.ElectrolyzerEntity;
-import com.nred.nuclearcraft.block.processor.fluid_enricher.EnricherEntity;
-import com.nred.nuclearcraft.block.processor.fluid_extractor.ExtractorEntity;
-import com.nred.nuclearcraft.block.processor.fluid_infuser.InfuserEntity;
-import com.nred.nuclearcraft.block.processor.fluid_mixer.SaltMixerEntity;
-import com.nred.nuclearcraft.block.processor.fuel_reprocessor.FuelReprocessorEntity;
-import com.nred.nuclearcraft.block.processor.ingot_former.IngotFormerEntity;
-import com.nred.nuclearcraft.block.processor.manufactory.ManufactoryEntity;
-import com.nred.nuclearcraft.block.processor.melter.MelterEntity;
-import com.nred.nuclearcraft.block.processor.pressurizer.PressurizerEntity;
-import com.nred.nuclearcraft.block.processor.rock_crusher.RockCrusherEntity;
-import com.nred.nuclearcraft.block.processor.separator.SeparatorEntity;
-import com.nred.nuclearcraft.block.processor.supercooler.SupercoolerEntity;
 import com.nred.nuclearcraft.block_entity.UniversalBinEntity;
 import com.nred.nuclearcraft.block_entity.battery.TileBattery;
 import com.nred.nuclearcraft.block_entity.dummy.MachineInterfaceEntity;
@@ -32,6 +11,7 @@ import com.nred.nuclearcraft.block_entity.generator.DecayGeneratorEntity;
 import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
 import com.nred.nuclearcraft.block_entity.passive.TilePassive;
 import com.nred.nuclearcraft.block_entity.processor.NuclearFurnaceEntity;
+import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
 import com.nred.nuclearcraft.block_entity.rtg.RTGEntity;
 import com.nred.nuclearcraft.block_entity.turbine.*;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
@@ -58,7 +38,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.Registers.BLOCK_ENTITY_TYPES;
 
 public class BlockEntityRegistration {
-    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> PROCESSOR_ENTITY_TYPE = createProcessors();
+    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> PROCESSOR_ENTITY_TYPE = createProcessors();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TileSolarPanel>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
 
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractTurbineEntity>>> TURBINE_ENTITY_TYPE = createTurbine();
@@ -85,8 +65,8 @@ public class BlockEntityRegistration {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends RTGEntity>> RTG_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("rtg", () -> BlockEntityType.Builder.of((pos, state) -> new RTGEntity(pos, state, ((RTGType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), RTG_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new)).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TileBattery>> BATTERY_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("battery", () -> BlockEntityType.Builder.of((pos, state) -> new TileBattery(pos, state, ((BatteryType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), BATTERY_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new)).build(null));
 
-    private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> createProcessors() {
-        Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends ProcessorEntity>>> map = new HashMap<>();
+    private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> createProcessors() {
+        Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> map = new HashMap<>();
         map.put("alloy_furnace", BLOCK_ENTITY_TYPES.register("alloy_furnace", () -> BlockEntityType.Builder.of(AlloyFurnaceEntity::new, PROCESSOR_MAP.get("alloy_furnace").get()).build(null)));
         map.put("assembler", BLOCK_ENTITY_TYPES.register("assembler", () -> BlockEntityType.Builder.of(AssemblerEntity::new, PROCESSOR_MAP.get("assembler").get()).build(null)));
         map.put("centrifuge", BLOCK_ENTITY_TYPES.register("centrifuge", () -> BlockEntityType.Builder.of(CentrifugeEntity::new, PROCESSOR_MAP.get("centrifuge").get()).build(null)));

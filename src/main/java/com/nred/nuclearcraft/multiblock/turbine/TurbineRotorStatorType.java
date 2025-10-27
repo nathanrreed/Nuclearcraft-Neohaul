@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.nred.nuclearcraft.config.Config2.turbine_stator_expansion;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_stator_expansion;
 
 public enum TurbineRotorStatorType implements TurbineRotorBladeUtil.IRotorStatorType, ITileEnum<TurbineRotorStatorEntity.Variant>, IMultiblockVariant {
     STANDARD("standard", () -> turbine_stator_expansion, TurbineRotorStatorEntity.Standard.class);

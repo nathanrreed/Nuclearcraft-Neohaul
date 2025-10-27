@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.nred.nuclearcraft.config.Config2.turbine_coil_conductivity;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_coil_conductivity;
 
 public enum TurbineDynamoCoilType implements StringRepresentable, ITileEnum<TurbineDynamoCoilEntity.Variant>, IMultiblockVariant {
     MAGNESIUM("magnesium", () -> turbine_coil_conductivity[0], TurbineDynamoCoilEntity.Magnesium.class),

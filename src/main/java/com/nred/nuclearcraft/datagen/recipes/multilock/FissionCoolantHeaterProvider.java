@@ -5,7 +5,7 @@ import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
-import static com.nred.nuclearcraft.config.Config2.fission_heater_cooling_rate;
+import static com.nred.nuclearcraft.config.NCConfig.fission_heater_cooling_rate;
 import static com.nred.nuclearcraft.info.Names.FISSION_HEAT_PARTS;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
 import static com.nred.nuclearcraft.registration.FluidRegistration.COOLANT_MAP;

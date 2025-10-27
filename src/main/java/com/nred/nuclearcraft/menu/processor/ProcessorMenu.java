@@ -1,134 +1,109 @@
 package com.nred.nuclearcraft.menu.processor;
 
-import com.nred.nuclearcraft.block.processor.ProcessorEntity;
-import com.nred.nuclearcraft.helpers.CustomFluidStackHandler;
-import com.nred.nuclearcraft.helpers.CustomItemStackHandler;
-import com.nred.nuclearcraft.helpers.MenuHelper;
-import com.nred.nuclearcraft.menu.FluidSlot;
-import com.nred.nuclearcraft.payload.RecipeSetPayload;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
+import com.nred.nuclearcraft.block_entity.processor.IProcessor;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
+import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.menu.InfoTileMenu;
+import com.nred.nuclearcraft.menu.slot.ProcessorInputSlot;
+import com.nred.nuclearcraft.menu.slot.ProcessorResultSlot;
+import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-import java.util.ArrayList;
+public abstract class ProcessorMenu<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends InfoTileMenu<TILE, PACKET, INFO> {
+    protected final TILE tile;
+    protected final BasicRecipeHandler<?> recipeHandler;
 
-import static com.nred.nuclearcraft.helpers.MenuHelper.listPlayerInventoryHotbarPos;
-import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
-import static com.nred.nuclearcraft.registration.MenuRegistration.PROCESSOR_MENU_TYPES;
+    public ProcessorMenu(MenuType<?> menuType, int containerId, Inventory inventory, TILE tile) {
+        super(menuType, containerId, inventory, tile);
+        this.tile = tile;
+        this.recipeHandler = tile.getRecipeHandler();
 
-public abstract class ProcessorMenu extends AbstractContainerMenu {
-    public IItemHandler itemHandler;
-    public CustomFluidStackHandler fluidHandler;
-    public IEnergyStorage energyStorage;
-    public final Inventory inventory;
-    public ContainerLevelAccess access;
-    public ProcessorInfo info;
-    public DataSlot progress;
-    public static final int SPEED = 0;
-    public static final int ENERGY = 1;
-    public ArrayList<Slot> ITEM_INPUTS = new ArrayList<>();
-    public ArrayList<Slot> ITEM_OUTPUTS = new ArrayList<>();
-    public ArrayList<FluidSlot> FLUID_INPUTS = new ArrayList<>();
-    public ArrayList<FluidSlot> FLUID_OUTPUTS = new ArrayList<>();
-    public Slot SPEED_SLOT;
-    public Slot ENERGY_SLOT;
-    private ResourceLocation cachedRecipe;
+        addMachineSlots(inventory.player);
+        info.addPlayerSlots(this::addSlot, inventory.player);
+        tile.addTileUpdatePacketListener(inventory.player);
+    }
 
-    protected ProcessorMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress, int offset) {
-        super(PROCESSOR_MENU_TYPES.get(info.typeName()).get(), containerId);
-        this.inventory = inventory;
-        this.access = access;
-        this.info = info;
-        this.progress = progress;
-
-        this.energyStorage = inventory.player.level().getCapability(Capabilities.EnergyStorage.BLOCK, info.pos(), null);
-        this.itemHandler = inventory.player.level().getCapability(Capabilities.ItemHandler.BLOCK, info.pos(), null);
-        this.fluidHandler = (CustomFluidStackHandler) inventory.player.level().getCapability(Capabilities.FluidHandler.BLOCK, info.pos(), null);
-
-        // Progress
-        this.addDataSlot(this.progress);
-
-        // Set Inventory Slot locations
-        for (int[] slotInfo : listPlayerInventoryHotbarPos(offset)) {
-            this.addSlot(new Slot(inventory, slotInfo[0], slotInfo[1], slotInfo[2]));
+    protected void addMachineSlots(Player player) {
+        for (int i = 0; i < info.itemInputSize; ++i) {
+            int[] stackXY = info.itemInputStackXY.get(i);
+            addInputSlot(player, i, stackXY[0], stackXY[1]);
         }
 
-        // Upgrade slots
-        SPEED_SLOT = this.addSlot(new CustomSlotItemHandler(itemHandler, SPEED, 132, 64 + offset));
-        ENERGY_SLOT = this.addSlot(new CustomSlotItemHandler(itemHandler, ENERGY, 152, 64 + offset));
-    }
-
-    @Override
-    public void broadcastChanges() {
-        if (inventory.player instanceof ServerPlayer player && player.level().getBlockEntity(info.pos()) instanceof ProcessorEntity entity) {
-            if (entity.recipe != null) {
-                ResourceLocation temp = entity.recipe.id();
-                if (cachedRecipe == null || !cachedRecipe.equals(temp)) { // Don't send if recipe hasn't changed
-                    cachedRecipe = temp;
-                    PacketDistributor.sendToPlayer(player, new RecipeSetPayload(temp));
-                }
-            } else if (cachedRecipe != null) {
-                cachedRecipe = null;
-                PacketDistributor.sendToPlayer(player, new RecipeSetPayload(ResourceLocation.parse("")));
-            }
+        for (int i = 0; i < info.itemOutputSize; ++i) {
+            int[] stackXY = info.itemOutputStackXY.get(i);
+            addOutputSlot(player, i + info.itemInputSize, stackXY[0], stackXY[1]);
         }
-        super.broadcastChanges();
     }
 
-    protected ProcessorMenu(int containerId, Inventory inventory, ContainerLevelAccess access, ProcessorInfo info, DataSlot progress) {
-        this(containerId, inventory, access, info, progress, 0);
+    protected void addInputSlot(Player player, int index, int xPosition, int yPosition) {
+        addSlot(new ProcessorInputSlot(tile, recipeHandler, index, xPosition, yPosition));
     }
 
-    @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        return MenuHelper.quickMoveStack(player, index, slots, this::moveItemStackTo, 2 + ITEM_INPUTS.size() + ITEM_OUTPUTS.size());
+    protected void addOutputSlot(Player player, int index, int xPosition, int yPosition) {
+        addSlot(new ProcessorResultSlot(player, tile, index, xPosition, yPosition));
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, PROCESSOR_MAP.get(info.typeName()).get());
+        return tile.isUsableByPlayer(player);
     }
 
-    public class CustomSlotItemHandler extends SlotItemHandler {
-        public CustomSlotItemHandler(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        tile.removeTileUpdatePacketListener(player);
+    }
 
-        public CustomItemStackHandler getCustomItemHandler() {
-            return (CustomItemStackHandler) itemHandler;
-        }
+    @Override
+    public ItemStack quickMoveStack(Player player, int index) {
+        ItemStack stackCopy = ItemStack.EMPTY;
+        Slot slot = slots.get(index);
+        int invStart = info.getInventorySize();
+        int invEnd = info.getCombinedInventorySize();
 
-        @Override
-        public boolean mayPickup(Player playerIn) {
-            return !this.getCustomItemHandler().internalExtractItem(index, 1, true).isEmpty();
-        }
+        if (slot.hasItem()) {
+            ItemStack stack = slot.getItem();
+            stackCopy = stack.copy();
 
-        @Override
-        public boolean mayPlace(ItemStack stack) {
-            if (stack.isEmpty())
-                return false;
+            if (index >= info.itemInputSize && index < invStart) {
+                if (!moveItemStackTo(stack, invStart, invEnd, false)) {
+                    return ItemStack.EMPTY;
+                }
+                slot.onQuickCraft(stack, stackCopy);
+            } else if (index >= invStart) {
+                ItemStack transfer = transferPlayerStack(player, index, invStart, invEnd, stack);
+                if (transfer != null) {
+                    return transfer;
+                }
+            } else if (!moveItemStackTo(stack, invStart, invEnd, false)) {
+                return ItemStack.EMPTY;
+            }
 
-            if (index > ENERGY + ITEM_INPUTS.size()) { // Outputs can only be done internally so I am just going to assume it's fine
-                return false;
+            if (stack.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
             } else {
-                return super.mayPlace(stack);
+                slot.setChanged();
+            }
+
+            if (stack.getCount() == stackCopy.getCount()) {
+                return ItemStack.EMPTY;
+            }
+            slot.onTake(player, stack);
+        }
+        return stackCopy;
+    }
+
+    public ItemStack transferPlayerStack(Player player, int index, int invStart, int invEnd, ItemStack stack) {
+        if (recipeHandler.isValidItemInput(stack)) {
+            if (!moveItemStackTo(stack, 0, info.itemInputSize, false)) {
+                return ItemStack.EMPTY;
             }
         }
-
-        @Override
-        public ItemStack remove(int amount) {
-            return this.getCustomItemHandler().internalExtractItem(index, amount, false);
-        }
+        return transferPlayerStackDefault(player, index, invStart, invEnd, stack);
     }
 }

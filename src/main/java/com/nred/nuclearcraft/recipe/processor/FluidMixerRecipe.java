@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.recipe.processor;
 
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;

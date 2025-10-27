@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.nred.nuclearcraft.config.Config2.turbine_blade_efficiency;
-import static com.nred.nuclearcraft.config.Config2.turbine_blade_expansion;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_blade_efficiency;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_blade_expansion;
 
 public enum TurbineRotorBladeType implements TurbineRotorBladeUtil.IRotorBladeType, ITileEnum<TurbineRotorBladeEntity.Variant>, IMultiblockVariant {
     STEEL("steel", () -> turbine_blade_efficiency[0], () -> turbine_blade_expansion[0], TurbineRotorBladeEntity.Steel.class),

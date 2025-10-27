@@ -27,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import static com.nred.nuclearcraft.config.Config2.turbine_render_blade_width;
-import static com.nred.nuclearcraft.config.Config2.turbine_render_rotor_expansion;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_render_blade_width;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_render_rotor_expansion;
 import static it.zerono.mods.zerocore.lib.CodeHelper.getSystemTime;
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.bindBlocksTexture;
 

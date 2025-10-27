@@ -14,7 +14,7 @@ import net.minecraft.core.Direction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nred.nuclearcraft.config.Config2.fission_neutron_reach;
+import static com.nred.nuclearcraft.config.NCConfig.fission_neutron_reach;
 
 
 public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeatingComponent {

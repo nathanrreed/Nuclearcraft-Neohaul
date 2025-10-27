@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.ctrl_info;
+import static com.nred.nuclearcraft.config.NCConfig.ctrl_info;
 
 public class InfoHelper {
     public static final int MAXIMUM_TEXT_WIDTH = 225;

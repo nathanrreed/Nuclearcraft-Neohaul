@@ -1,7 +1,9 @@
 package com.nred.nuclearcraft.multiblock.battery;
 
-public interface IBatteryType {
-    long getCapacity();
+import java.util.function.Supplier;
 
-    int getMaxTransfer();
+public interface IBatteryType {
+    Supplier<Integer> getCapacity();
+
+    Supplier<Integer> getMaxTransfer();
 }

@@ -3,17 +3,17 @@ package com.nred.nuclearcraft.block_entity.fission;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.IFissionPortTarget;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfoImpl;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
-import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SolidFissionCellMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.SolidFissionCellUpdatePacket;
@@ -50,13 +50,13 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.IntStream;
 
-import static com.nred.nuclearcraft.config.Config2.*;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class SolidFissionCellEntity extends AbstractFissionEntity implements IBasicProcessor<SolidFissionCellEntity, SolidFissionCellUpdatePacket>, ITileFilteredInventory, IFissionFuelComponent, IFissionPortTarget<FissionCellPortEntity, SolidFissionCellEntity> {
-    protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SolidFissionCellEntity, SolidFissionCellUpdatePacket> info;
+    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SolidFissionCellEntity, SolidFissionCellUpdatePacket> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
     protected final @Nonnull NonNullList<ItemStack> consumedStacks;
@@ -136,7 +136,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ContainerProcessorImpl.SolidFissionCellMenu(containerId, playerInventory, this);
+        return new SolidFissionCellMenu(containerId, playerInventory, this);
     }
 
     @Override
@@ -633,7 +633,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     // IProcessor
 
     @Override
-    public ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SolidFissionCellEntity, SolidFissionCellUpdatePacket> getContainerInfo() {
+    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SolidFissionCellEntity, SolidFissionCellUpdatePacket> getContainerInfo() {
         return info;
     }
 

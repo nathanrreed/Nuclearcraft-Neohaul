@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.fluid;
 
-import com.nred.nuclearcraft.config.Config2;
+import com.nred.nuclearcraft.config.NCConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -43,10 +43,10 @@ public abstract class CoriumFluid extends BaseFlowingFluid { //TODO
         super.randomTick(level, pos, state, random);
 
         if (solidification_dim_set == null) {
-            solidification_dim_set = Arrays.stream(Config2.corium_solidification).collect(Collectors.toSet());
+            solidification_dim_set = Arrays.stream(NCConfig.corium_solidification).collect(Collectors.toSet());
         }
 
-        if (state.isSource() && solidification_dim_set.contains(level.dimension().location()) != Config2.corium_solidification_list_type) {
+        if (state.isSource() && solidification_dim_set.contains(level.dimension().location()) != NCConfig.corium_solidification_list_type) {
             int count = 0;
             for (Direction side : Direction.values()) {
                 FluidState fluidState = level.getFluidState(pos.relative(side));

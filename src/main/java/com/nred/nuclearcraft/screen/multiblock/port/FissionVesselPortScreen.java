@@ -17,26 +17,26 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class FissionVesselPortScreen extends GuiInfoTile<FissionVesselPortEntity, FluidPortUpdatePacket, TileContainerInfo<FissionVesselPortEntity>, FissionVesselPortMenu> {
+public class FissionVesselPortScreen extends GuiInfoTile<FissionVesselPortMenu, FissionVesselPortEntity, FluidPortUpdatePacket, TileContainerInfo<FissionVesselPortEntity>> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "fission_vessel_port");
 
     public FissionVesselPortScreen(FissionVesselPortMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
+        super(menu, playerInventory, title, gui_texture);
         titleLabelY = Integer.MIN_VALUE;
     }
 
     @Override
-    protected void init() {
+    public void init() {
         super.init();
         initButtons();
     }
 
     public void initButtons() {
-        addWidget(new NCButton.ClearTank(0, getGuiLeft() + 40, getGuiTop() + 31, 24, 24, btn -> actionPerformed((NCButton) btn)));
-        addWidget(new NCButton.ClearTank(1, getGuiLeft() + 112, getGuiTop() + 31, 24, 24, btn -> actionPerformed((NCButton) btn)));
+        addWidget(new NCButton.ClearTank(0, getGuiLeft() + 40, getGuiTop() + 31, 24, 24, this::clearTankPressed));
+        addWidget(new NCButton.ClearTank(1, getGuiLeft() + 112, getGuiTop() + 31, 24, 24, this::clearTankPressed));
     }
 
-    protected void actionPerformed(NCButton guiButton) {
+    protected void clearTankPressed(NCButton guiButton, int pressed) {
         if (tile.getLevel().isClientSide) {
             for (int i = 0; i < 2; ++i) {
                 if (guiButton.id == i && NCUtil.isModifierKeyDown()) {
@@ -53,13 +53,11 @@ public class FissionVesselPortScreen extends GuiInfoTile<FissionVesselPortEntity
 
         Tank filterTank = tile.getFilterTanks().get(0);
         if (!filterTank.isEmpty()) {
-            guiGraphics.setColor(1, 1, 1, 0.5f);
-            renderGuiTank(guiGraphics, filterTank, getGuiLeft() + 40, getGuiTop() + 31, 24, 24);
-            guiGraphics.setColor(1, 1, 1, 1);
+            renderGuiTank(guiGraphics, filterTank, getGuiLeft() + 40, getGuiTop() + 31, 24, 24, 0.5f);
         }
 
-        renderGuiTank(guiGraphics, tile.getTanks().get(0), getGuiLeft() + 40, getGuiTop() + 31, 24, 24);
-        renderGuiTank(guiGraphics, tile.getTanks().get(1), getGuiLeft() + 112, getGuiTop() + 31, 24, 24);
+        renderGuiTank(guiGraphics, tile.getTanks().get(0), getGuiLeft() + 40, getGuiTop() + 31, 24, 24, 1f);
+        renderGuiTank(guiGraphics, tile.getTanks().get(1), getGuiLeft() + 112, getGuiTop() + 31, 24, 24, 1f);
 
         int fontColor = tile.getMultiblockController().isPresent() && tile.getMultiblockController().get().isReactorOn ? -1 : 15641088;
         guiGraphics.drawCenteredString(FONT, getTitle(), width / 2, getGuiTop() + 6, fontColor);

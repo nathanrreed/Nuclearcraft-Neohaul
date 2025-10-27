@@ -21,8 +21,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static com.nred.nuclearcraft.config.Config2.fission_heater_rule;
-import static com.nred.nuclearcraft.config.Config2.fission_sink_rule;
+import static com.nred.nuclearcraft.config.NCConfig.fission_heater_rule;
+import static com.nred.nuclearcraft.config.NCConfig.fission_sink_rule;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
 
 public abstract class FissionPlacement {

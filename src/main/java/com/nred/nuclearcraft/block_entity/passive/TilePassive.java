@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 
-import static com.nred.nuclearcraft.config.Config2.cobble_gen_power;
-import static com.nred.nuclearcraft.config.Config2.processor_passive_rate;
+import static com.nred.nuclearcraft.config.NCConfig.cobble_gen_power;
+import static com.nred.nuclearcraft.config.NCConfig.processor_passive_rate;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.GAS_MAP;
 

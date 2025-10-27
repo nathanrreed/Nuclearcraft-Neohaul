@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,10 +23,9 @@ import net.neoforged.neoforge.items.IItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.Random;
 import java.util.function.UnaryOperator;
 
-import static com.nred.nuclearcraft.config.Config2.processor_particles;
+import static com.nred.nuclearcraft.config.NCConfig.processor_particles;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 
@@ -70,7 +70,7 @@ public class BlockHelper {
         return facing;
     }
 
-    public static void spawnParticleOnProcessor(BlockState state, Level level, BlockPos pos, Random rand, Direction side, String particleName) {
+    public static void spawnParticleOnProcessor(BlockState state, Level level, BlockPos pos, RandomSource rand, Direction side, String particleName) {
         if (particleName.isEmpty() || !processor_particles) {
             return;
         }

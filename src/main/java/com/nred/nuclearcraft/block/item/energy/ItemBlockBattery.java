@@ -6,8 +6,10 @@ import com.nred.nuclearcraft.multiblock.battery.BatteryType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.Block;
 
+import java.util.function.Supplier;
+
 public class ItemBlockBattery extends ItemBlockEnergy {
-    public ItemBlockBattery(Block block, long capacity, int maxTransfer, Component... tooltip) {
+    public ItemBlockBattery(Block block, Supplier<Integer> capacity, Supplier<Integer> maxTransfer, Component... tooltip) {
         super(block, capacity, maxTransfer, EnergyConnection.BOTH, tooltip);
     }
 

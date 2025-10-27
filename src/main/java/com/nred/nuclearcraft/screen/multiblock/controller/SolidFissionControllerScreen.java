@@ -27,13 +27,13 @@ public class SolidFissionControllerScreen extends GuiLogicMultiblockController<F
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "solid_fission_controller");
 
     public SolidFissionControllerScreen(SolidFissionControllerMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
+        super(menu, playerInventory, title,  gui_texture);
         imageWidth = 176;
         imageHeight = 114;
     }
 
     @Override
-    protected void init() {
+    public void init() {
         super.init();
         clearAllButton = this.addRenderableWidget(new MultiblockButton.ClearAllMaterial(getGuiLeft() + 153, getGuiTop() + 81, (btn) -> {
             if (NCUtil.isModifierKeyDown()) new ClearAllMaterialPacket(tile.getTilePos()).sendToServer();

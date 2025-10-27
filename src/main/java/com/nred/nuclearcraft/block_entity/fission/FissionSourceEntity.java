@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nonnull;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.fission_max_size;
+import static com.nred.nuclearcraft.config.NCConfig.fission_max_size;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 

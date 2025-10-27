@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
-import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;

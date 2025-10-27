@@ -115,56 +115,6 @@ public class BasicRecipe implements IRecipe, Recipe<BasicRecipeInput> {
         return null;
     }
 
-    // Recipe Extras
-
-    // Processors TODO
-
-    public double getProcessTimeMultiplier() {
-        return 0;// (double) extras.get(0);
-    }
-
-    public double getProcessPowerMultiplier() {
-        return 0;// (double) extras.get(1);
-    }
-
-    public double getBaseProcessTime(double defaultProcessTime) {
-        return 0;// getProcessTimeMultiplier() * defaultProcessTime;
-    }
-
-    public double getBaseProcessPower(double defaultProcessPower) {
-        return 0;// getProcessPowerMultiplier() * defaultProcessPower;
-    }
-
-    public double getBaseProcessRadiation() {
-        return 0;//  (double) extras.get(2);
-    }
-//
-//    // Passive Collector
-//
-//    public String getCollectorProductionRate() {
-//        return (String) extras.get(0);
-//    }
-//
-//    // Decay Generator
-//
-//    public double getDecayGeneratorLifetime() {
-//        return (double) extras.get(0);
-//    }
-//
-//    public double getDecayGeneratorPower() {
-//        return (double) extras.get(1);
-//    }
-//
-//    public double getDecayGeneratorRadiation() {
-//        return (double) extras.get(2);
-//    }
-//
-//    // Placement Rule
-//
-//    public String getPlacementRuleID() {
-//        return (String) extras.get(0);
-//    }
-//
 //    // Diaphragm
 //
 //    public double getMachineDiaphragmEfficiency() {

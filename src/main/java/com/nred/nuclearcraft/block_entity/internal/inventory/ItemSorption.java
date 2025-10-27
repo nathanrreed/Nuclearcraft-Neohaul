@@ -2,7 +2,10 @@ package com.nred.nuclearcraft.block_entity.internal.inventory;
 
 import com.nred.nuclearcraft.gui.IGuiButton;
 import net.minecraft.ChatFormatting;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
+
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public enum ItemSorption implements StringRepresentable, IGuiButton {
     IN,
@@ -94,20 +97,8 @@ public enum ItemSorption implements StringRepresentable, IGuiButton {
     }
 
     @Override
-    public int getTextureX() {
-        return switch (this) {
-            case IN, AUTO_IN -> 108;
-            case OUT, AUTO_OUT -> 126;
-            case NON, BOTH -> 144;
-        };
-    }
-
-    @Override
-    public int getTextureY() {
-        return switch (this) {
-            case IN, OUT, NON -> 0;
-            case AUTO_IN, AUTO_OUT, BOTH -> 18;
-        };
+    public ResourceLocation getTexture(boolean hovered) {
+        return ncLoc("button/item_" + this.getSerializedName());
     }
 
     @Override

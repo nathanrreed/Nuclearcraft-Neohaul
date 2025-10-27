@@ -1,0 +1,178 @@
+package com.nred.nuclearcraft.screen.processor;
+
+import com.nred.nuclearcraft.block_entity.ITileGui;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
+import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
+import com.nred.nuclearcraft.block_entity.processor.IProcessor;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
+import com.nred.nuclearcraft.gui.NCButton;
+import com.nred.nuclearcraft.gui.NCEnumButton;
+import com.nred.nuclearcraft.menu.InfoTileMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
+import com.nred.nuclearcraft.payload.gui.ResetItemSorptionsPacket;
+import com.nred.nuclearcraft.payload.gui.ToggleItemOutputSettingPacket;
+import com.nred.nuclearcraft.payload.gui.ToggleItemSorptionPacket;
+import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.screen.NCGui;
+import com.nred.nuclearcraft.util.BlockHelper;
+import com.nred.nuclearcraft.util.NCUtil;
+import com.nred.nuclearcraft.util.StreamHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+
+public abstract class GuiItemSorptions<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends NCGui<ProcessorMenu<TILE, PACKET, INFO>> {
+    protected final NCGui<?> parent;
+    protected final TILE tile;
+    protected final Direction[] dirs;
+    protected final int slot;
+    protected final ItemSorption.Type sorptionType;
+    protected static ResourceLocation gui_texture;
+    protected int[] a, b;
+
+    public GuiItemSorptions(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot, ItemSorption.Type sorptionType) {
+        super((ProcessorMenu<TILE, PACKET, INFO>) parent.getMenu(), parent.getMenu().inventory, Component.empty());
+        this.parent = parent;
+        this.tile = tile;
+        Direction facing = tile.getFacingHorizontal();
+        dirs = StreamHelper.map(BlockHelper.DIR_FROM_FACING, x -> x.apply(facing), Direction[]::new);
+        this.slot = slot;
+        this.sorptionType = sorptionType;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (isEscapeKeyDown(keyCode, scanCode)) {
+            Minecraft.getInstance().setScreen(parent);
+            return true;
+        } else {
+            return super.keyPressed(keyCode, scanCode, modifiers);
+        }
+    }
+
+    @Override
+    public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        drawTooltip(guiGraphics, Component.translatable(MODID + ".tooltip.bottom_config", Component.translatable(MODID + ".tooltip." + tile.getItemSorption(dirs[0], slot).getSerializedName() + "_config")).withStyle(tile.getItemSorption(dirs[0], slot).getTextColor()), mouseX, mouseY, a[0], b[0], 18, 18);
+        drawTooltip(guiGraphics, Component.translatable(MODID + ".tooltip.top_config", Component.translatable(MODID + ".tooltip." + tile.getItemSorption(dirs[1], slot).getSerializedName() + "_config")).withStyle(tile.getItemSorption(dirs[1], slot).getTextColor()), mouseX, mouseY, a[1], b[1], 18, 18);
+        drawTooltip(guiGraphics, Component.translatable(MODID + ".tooltip.left_config", Component.translatable(MODID + ".tooltip." + tile.getItemSorption(dirs[2], slot).getSerializedName() + "_config")).withStyle(tile.getItemSorption(dirs[2], slot).getTextColor()), mouseX, mouseY, a[2], b[2], 18, 18);
+        drawTooltip(guiGraphics, Component.translatable(MODID + ".tooltip.right_config", Component.translatable(MODID + ".tooltip." + tile.getItemSorption(dirs[3], slot).getSerializedName() + "_config")).withStyle(tile.getItemSorption(dirs[3], slot).getTextColor()), mouseX, mouseY, a[3], b[3], 18, 18);
+        drawTooltip(guiGraphics, Component.translatable(MODID + ".tooltip.front_config", Component.translatable(MODID + ".tooltip." + tile.getItemSorption(dirs[4], slot).getSerializedName() + "_config")).withStyle(tile.getItemSorption(dirs[4], slot).getTextColor()), mouseX, mouseY, a[4], b[4], 18, 18);
+        drawTooltip(guiGraphics, Component.translatable(MODID + ".tooltip.back_config", Component.translatable(MODID + ".tooltip." + tile.getItemSorption(dirs[5], slot).getSerializedName() + "_config")).withStyle(tile.getItemSorption(dirs[5], slot).getTextColor()), mouseX, mouseY, a[5], b[5], 18, 18);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
+        guiGraphics.setColor(1F, 1F, 1F, 0.75F);
+        BlockState state = tile.getBlockState(tile.getTilePos());
+        for (int i = 0; i < 6; ++i) {
+            renderGuiBlock(guiGraphics, state, dirs[i], a[i] + 1, b[i] + 1, 16, 16);
+        }
+        guiGraphics.setColor(1F, 1F, 1F, 1F);
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        guiGraphics.blitSprite(gui_texture, imageWidth, imageHeight, 0, 0, leftPos, topPos, imageWidth, imageHeight);
+    }
+
+    @Override
+    public void init() {
+        super.init();
+        for (int i = 0; i < 6; ++i) {
+            addRenderableWidget(new NCEnumButton.ItemSorption(i, leftPos + a[i], topPos + b[i], tile.getItemSorption(dirs[i], slot), sorptionType, this::sorptionPressed));
+        }
+    }
+
+    protected void sorptionPressed(NCButton button, int pressed) {
+        if (tile.getTileWorld().isClientSide() && button.id < 6) {
+            if (button.id == 4 && NCUtil.isModifierKeyDown()) {
+                for (int j = 0; j < 6; ++j) {
+                    ItemSorption sorption = pressed == 1 ? tile.getInventoryConnection(dirs[j]).getDefaultItemSorption(slot) : ItemSorption.NON;
+                    tile.setItemSorption(dirs[j], slot, sorption);
+                    ((NCEnumButton.ItemSorption) children().get(j)).set(sorption);
+                }
+                new ResetItemSorptionsPacket(tile, slot, pressed == 1).sendToServer();
+                return;
+            }
+            tile.toggleItemSorption(dirs[button.id], slot, sorptionType, pressed == 1);
+            new ToggleItemSorptionPacket(tile, dirs[button.id], slot, tile.getItemSorption(dirs[button.id], slot)).sendToServer();
+        }
+    }
+
+    public static class Input<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends GuiItemSorptions<TILE, PACKET, INFO> {
+        public Input(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
+            super(parent, tile, slot, ItemSorption.Type.INPUT);
+            gui_texture = ncLoc("side_config/item_input");
+            a = new int[]{25, 25, 7, 43, 25, 43};
+            b = new int[]{43, 7, 25, 25, 25, 43};
+            imageWidth = 68;
+            imageHeight = 68;
+        }
+    }
+
+    public static class Output<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends GuiItemSorptions<TILE, PACKET, INFO> {
+        public ItemOutputSetting outputSetting;
+
+        public Output(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
+            super(parent, tile, slot, ItemSorption.Type.OUTPUT);
+            gui_texture = ncLoc("side_config/item_output");
+            a = new int[]{47, 47, 29, 65, 47, 65};
+            b = new int[]{43, 7, 25, 25, 25, 43};
+            imageWidth = 90;
+            imageHeight = 68;
+            outputSetting = tile.getItemOutputSetting(slot);
+        }
+
+        @Override
+        public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+            super.renderTooltip(guiGraphics, mouseX, mouseY);
+            drawTooltip(guiGraphics, Component.translatable(MODID + ".tooltip.slot_setting_config", Component.translatable(MODID + ".tooltip." + outputSetting.getSerializedName() + "_setting_config").withStyle(outputSetting.getTextColor())), mouseX, mouseY, 7, 25, 18, 18);
+        }
+
+        @Override
+        public void init() {
+            super.init();
+            addRenderableWidget(new NCEnumButton.ItemOutputSetting(6, leftPos + 7, topPos + 25, outputSetting, this::sorptionPressed));
+        }
+
+        @Override
+        protected void sorptionPressed(NCButton button, int pressed) {
+            super.sorptionPressed(button, pressed);
+            if (tile.getTileWorld().isClientSide()) {
+                if (button.id == 6) {
+                    outputSetting = outputSetting.next(pressed == 1);
+                }
+            }
+        }
+
+        @Override
+        public void onClose() {
+            super.onClose();
+            tile.setItemOutputSetting(slot, outputSetting);
+            new ToggleItemOutputSettingPacket(tile, slot, outputSetting).sendToServer();
+        }
+    }
+
+    public static class SpeedUpgrade<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends Input<TILE, PACKET, INFO> {
+        public SpeedUpgrade(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
+            super(parent, tile, slot);
+            gui_texture = ncLoc("side_config/speed_upgrade");
+        }
+    }
+
+    public static class EnergyUpgrade<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends Input<TILE, PACKET, INFO> {
+        public EnergyUpgrade(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
+            super(parent, tile, slot);
+            gui_texture = ncLoc("side_config/energy_upgrade");
+        }
+    }
+}

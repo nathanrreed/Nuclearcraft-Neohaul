@@ -11,18 +11,6 @@ int getBaseProcessTime()
 
 int getBaseProcessPower()
 
-Table[] getItemInputs() -> {{stackSize, itemID}, ...}
-
-Table[] getFluidInputs() -> {{fluidAmount, fluidName}, ...}
-
-Table[] getItemOutputs() -> {{stackSize, itemID}, ...}
-
-Table[] getFluidOutputs() -> {{fluidAmount, fluidName}, ...}
-
-modes are OUTPUT, AUTO_OUTPUT, DISABLED, INPUT
-void setItemSorption(String direction, int index, String mode) ex. setItemInputSorption("UP", 0, "DISABLED")
-
-void setFluidSorption(String direction, int index, String mode)
 ```
 
 #### Turbine:

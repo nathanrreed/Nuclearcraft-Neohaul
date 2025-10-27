@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.item;
 
-import com.nred.nuclearcraft.config.Config2;
+import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.block_entity.IMultitoolLogic;
 import com.nred.nuclearcraft.util.NBTHelper;
 import com.nred.nuclearcraft.util.NCMath;
@@ -118,7 +118,7 @@ public class MultitoolItem extends Item {
         MULTITOOL_RIGHT_CLICK_LOGIC.add((MultitoolItem itemMultitool, Level level, Player player, InteractionHand usedHand, ItemStack heldItem) -> {
             CompoundTag nbt = NBTHelper.getStackNBT(heldItem, "ncMultitool");
             if (nbt != null && !player.isCrouching() && nbt.getString("qComputerGateMode").equals("angle")) {
-                double angle = NCMath.roundTo(player.getYRot() + 360D, 360D / Config2.quantum_angle_precision) % 360D;
+                double angle = NCMath.roundTo(player.getYRot() + 360D, 360D / NCConfig.quantum_angle_precision) % 360D;
                 nbt.putDouble("qGateAngle", angle);
                 player.sendSystemMessage(Component.translatable(MODID + ".multitool.quantum_computer.tool_set_angle", NCMath.decimalPlaces(angle, 5)));
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, heldItem);

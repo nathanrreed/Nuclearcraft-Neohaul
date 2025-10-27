@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.block.processor.ProcessorEntity;
 import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.*;
@@ -12,7 +11,6 @@ import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoCoilEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineInletEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineOutletEntity;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
-import com.nred.nuclearcraft.config.ProcessorConfig;
 import com.nred.nuclearcraft.item.EnergyItem;
 import com.nred.nuclearcraft.util.ModCheck;
 import mekanism.api.chemical.IChemicalHandler;
@@ -29,8 +27,7 @@ import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
-import static com.nred.nuclearcraft.config.Config2.enable_mek_gas;
+import static com.nred.nuclearcraft.config.NCConfig.enable_mek_gas;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CELL;
@@ -52,13 +49,9 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, NITROGEN_COLLECTOR_DENSE_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
 
         for (String typeName : PROCESSOR_MAP.keySet()) {
-            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ProcessorEntity::getItemHandler);
-            ProcessorConfig config = PROCESSOR_CONFIG_MAP.get(typeName);
-            if (config.base_power() > 0)
-                event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ProcessorEntity::getEnergyHandler);
-
-            if (config.fluid_capacity() > 0)
-                event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ProcessorEntity::getFluidHandler);
+            event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ITileInventory::getItemSideCapability);
+            event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ITileEnergy::getEnergySideCapability);
+            event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, PROCESSOR_ENTITY_TYPE.get(typeName).get(), ITileFluid::getFluidSideCapability);
         }
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, NUCLEAR_FURNACE_ENTITY_TYPE.get(), (entity, d) -> new InvWrapper(entity));
@@ -111,7 +104,7 @@ public class CapabilityRegistration {
             RegisterPeripherals.registerPeripherals(event);
         }
 
-        if (ModCheck.mekanismLoaded()) {
+        if (ModCheck.mekanismLoaded() && enable_mek_gas) {
             // Mekanism Chemical Capabilities
             BlockCapability.getAllProxyable().stream().filter(a -> a.name().equals(ResourceLocation.parse("mekanism:chemical_handler"))).findFirst().ifPresent(c -> {
                 BlockCapability<IChemicalHandler, Direction> CHEMICAL = (BlockCapability<IChemicalHandler, Direction>) c;
@@ -133,9 +126,9 @@ public class CapabilityRegistration {
                 event.registerBlockEntity(CHEMICAL, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.tank);
 
                 // Collectors
-                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_ENTITY_TYPE.get(), enable_mek_gas ? ITileFluid::getChemicalCapability : null);
-                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_COMPACT_ENTITY_TYPE.get(), enable_mek_gas ? ITileFluid::getChemicalCapability : null);
-                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_DENSE_ENTITY_TYPE.get(), enable_mek_gas ? ITileFluid::getChemicalCapability : null);
+                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
+                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_COMPACT_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
+                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_DENSE_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
 
             });
         }

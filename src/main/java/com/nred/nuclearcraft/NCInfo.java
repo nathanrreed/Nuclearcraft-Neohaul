@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.*;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 
 public class NCInfo {
 //

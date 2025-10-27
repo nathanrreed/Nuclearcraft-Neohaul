@@ -29,8 +29,8 @@ import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.nred.nuclearcraft.config.Config2.machine_update_rate;
-import static com.nred.nuclearcraft.config.Config2.passive_push;
+import static com.nred.nuclearcraft.config.NCConfig.machine_update_rate;
+import static com.nred.nuclearcraft.config.NCConfig.passive_push;
 
 
 public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory implements ITilePassive {

@@ -15,7 +15,7 @@ import net.minecraft.world.inventory.Slot;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.FISSION_VESSEL_PORT_MENU_TYPE;
 
-public class FissionVesselPortMenu extends ContainerPort<FissionReactor, FissionReactorLogic, FissionVesselPortEntity, SaltFissionVesselEntity, FluidPortUpdatePacket, TileContainerInfo<FissionVesselPortEntity>> {
+public class FissionVesselPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionVesselPortEntity, SaltFissionVesselEntity, FluidPortUpdatePacket, TileContainerInfo<FissionVesselPortEntity>> {
     public FissionVesselPortMenu(int containerId, Inventory inventory, FissionVesselPortEntity tile) {
         super(FISSION_VESSEL_PORT_MENU_TYPE.get(), containerId, inventory, tile);
 

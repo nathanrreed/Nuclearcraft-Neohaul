@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.nred.nuclearcraft.config.Config2.fission_shield_efficiency;
-import static com.nred.nuclearcraft.config.Config2.fission_shield_heat_per_flux;
+import static com.nred.nuclearcraft.config.NCConfig.fission_shield_efficiency;
+import static com.nred.nuclearcraft.config.NCConfig.fission_shield_heat_per_flux;
 
 public enum FissionNeutronShieldType implements StringRepresentable, ITileEnum<FissionShieldEntity.Variant>, IMultiblockVariant {
     BORON_SILVER("boron_silver", () -> fission_shield_heat_per_flux[0], () -> fission_shield_efficiency[0], FissionShieldEntity.BoronSilver.class);

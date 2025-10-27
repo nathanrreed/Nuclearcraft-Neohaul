@@ -12,11 +12,11 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
-import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SaltFissionHeaterMenu;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
@@ -60,7 +60,7 @@ import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket>, ITileFilteredFluid, IFissionCoolingComponent, IFissionPortTarget<FissionHeaterPortEntity, SaltFissionHeaterEntity> {
     public FissionCoolantHeaterType heaterType;
 
-    protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> info;
+    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
     protected final @Nonnull NonNullList<ItemStack> consumedStacks;
@@ -322,7 +322,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @org.jetbrains.annotations.Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ContainerProcessorImpl.SaltFissionHeaterMenu(containerId, playerInventory, this);
+        return new SaltFissionHeaterMenu(containerId, playerInventory, this);
     }
 
     @Override
@@ -524,7 +524,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     // IProcessor
 
     @Override
-    public ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> getContainerInfo() {
+    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> getContainerInfo() {
         return info;
     }
 

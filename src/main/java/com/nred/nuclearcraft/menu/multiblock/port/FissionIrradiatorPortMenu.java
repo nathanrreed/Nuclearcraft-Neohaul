@@ -5,8 +5,8 @@ import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEnti
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
-import com.nred.nuclearcraft.menu.slot.SlotFiltered;
-import com.nred.nuclearcraft.menu.slot.SlotFurnace;
+import com.nred.nuclearcraft.menu.slot.FilteredSlot;
+import com.nred.nuclearcraft.menu.slot.ResultSlot;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;
@@ -17,12 +17,12 @@ import net.minecraft.world.inventory.Slot;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.FISSION_IRRADIATOR_PORT_MENU_TYPE;
 
-public class FissionIrradiatorPortMenu extends ContainerPort<FissionReactor, FissionReactorLogic, FissionIrradiatorPortEntity, FissionIrradiatorEntity, ItemPortUpdatePacket, TileContainerInfo<FissionIrradiatorPortEntity>> {
+public class FissionIrradiatorPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionIrradiatorPortEntity, FissionIrradiatorEntity, ItemPortUpdatePacket, TileContainerInfo<FissionIrradiatorPortEntity>> {
     public FissionIrradiatorPortMenu(int containerId, Inventory inventory, FissionIrradiatorPortEntity tile) {
         super(FISSION_IRRADIATOR_PORT_MENU_TYPE.get(), containerId, inventory, tile);
 
-        addSlot(new SlotFiltered.ProcessorInput(tile, NCRecipes.fission_irradiator, 0, 44, 35));
-        addSlot(new SlotFurnace(inventory.player, tile, 1, 116, 35));
+        addSlot(new FilteredSlot.ProcessorInput(tile, NCRecipes.fission_irradiator, 0, 44, 35));
+        addSlot(new ResultSlot(inventory.player, tile, 1, 116, 35));
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {

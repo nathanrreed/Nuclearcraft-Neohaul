@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Function;
 
-import static com.nred.nuclearcraft.config.Config2.rtg_power;
+import static com.nred.nuclearcraft.config.NCConfig.rtg_power;
 
 public enum RTGType implements StringRepresentable, IMultiblockVariant {
     URANIUM(0, "uranium", RadSources.URANIUM_238),

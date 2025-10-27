@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.block.processor.Processor.PROCESSOR_ON;
 import static com.nred.nuclearcraft.datagen.ModBlockStateProvider.Directionality.None;
 import static com.nred.nuclearcraft.datagen.ModBlockStateProvider.Directionality.RotorPart;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
@@ -447,7 +446,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         Block block = deferredBlock.get();
         ModelFile modelOn = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_on", modLoc("block/processor")).texture("front", modLoc("block/" + folder + "/" + name + "_front_on"));
         ModelFile modelOff = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_off", modLoc("block/processor")).texture("front", modLoc("block/" + folder + "/" + name + "_front_off"));
-        horizontalBlock(block, state -> state.getValue(PROCESSOR_ON) ? modelOn : modelOff);
+        horizontalBlock(block, state -> state.getValue(ACTIVE) ? modelOn : modelOff);
 
         simpleBlockItem(block, modelOff);
     }

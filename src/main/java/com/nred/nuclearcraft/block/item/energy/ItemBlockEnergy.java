@@ -4,7 +4,6 @@ import com.nred.nuclearcraft.block.item.NCItemBlock;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.item.energy.IChargableItem;
 import com.nred.nuclearcraft.util.InfoHelper;
-import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -16,20 +15,17 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 public class ItemBlockEnergy extends NCItemBlock implements IChargableItem {
 
-    private final long capacity;
-    private final int maxTransfer;
+    private final Supplier<Integer> capacity;
+    private final Supplier<Integer> maxTransfer;
     private final EnergyConnection energyConnection;
 
-    public ItemBlockEnergy(Block block, long capacity, EnergyConnection connection, Component... tooltip) {
-        this(block, capacity, NCMath.toInt(capacity), connection, tooltip);
-    }
-
-    public ItemBlockEnergy(Block block, long capacity, int maxTransfer, EnergyConnection connection, Component... tooltip) {
+    public ItemBlockEnergy(Block block, Supplier<Integer> capacity, Supplier<Integer> maxTransfer, EnergyConnection connection, Component... tooltip) {
         super(block, tooltip);
         this.capacity = capacity;
         this.maxTransfer = maxTransfer;
@@ -50,22 +46,22 @@ public class ItemBlockEnergy extends NCItemBlock implements IChargableItem {
 
     @Override
     public int getBarColor(ItemStack stack) {
-        return FastColor.ARGB32.lerp((float) getEnergyStored(stack) / capacity, ChatFormatting.RED.getColor(), ChatFormatting.GREEN.getColor());
+        return FastColor.ARGB32.lerp((float) getEnergyStored(stack) / capacity.get(), ChatFormatting.RED.getColor(), ChatFormatting.GREEN.getColor());
     }
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        return Mth.ceil(Mth.clamp((double) getEnergyStored(stack) / capacity, 0D, 1D) * 13f);
+        return Mth.ceil(Mth.clamp((double) getEnergyStored(stack) / capacity.get(), 0D, 1D) * 13f);
     }
 
     @Override
     public long getMaxEnergyStored(ItemStack stack) {
-        return capacity;
+        return capacity.get();
     }
 
     @Override
     public int getMaxTransfer(ItemStack stack) {
-        return maxTransfer;
+        return maxTransfer.get();
     }
 
     @Override

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.SALT_FISSION_CONTROLLER_MENU_TYPE;
 
-public class SaltFissionControllerMenu extends ContainerMultiblockController<FissionReactor, FissionUpdatePacket, SaltFissionControllerEntity, TileContainerInfo<SaltFissionControllerEntity>> {
+public class SaltFissionControllerMenu extends MultiblockControllerMenu<FissionReactor, FissionUpdatePacket, SaltFissionControllerEntity, TileContainerInfo<SaltFissionControllerEntity>> {
     public final SaltFissionLogic logic = (SaltFissionLogic) this.tile.getLogic();
 
     public SaltFissionControllerMenu(int containerId, Inventory inventory, final SaltFissionControllerEntity controller) {

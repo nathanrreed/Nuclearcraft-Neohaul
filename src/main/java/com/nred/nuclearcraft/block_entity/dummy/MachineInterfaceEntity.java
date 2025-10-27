@@ -11,7 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.nred.nuclearcraft.config.Config2.machine_update_rate;
+import static com.nred.nuclearcraft.config.NCConfig.machine_update_rate;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_INTERFACE_ENTITY_TYPE;
 
 public class MachineInterfaceEntity extends TileDummy<IInterfaceable> {

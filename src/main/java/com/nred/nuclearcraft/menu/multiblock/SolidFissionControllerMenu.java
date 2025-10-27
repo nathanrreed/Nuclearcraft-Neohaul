@@ -11,10 +11,10 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.SOLID_FISSION_CONTROLLER_MENU_TYPE;
 
-public class SolidFissionControllerMenu extends ContainerMultiblockController<FissionReactor, FissionUpdatePacket, SolidFissionControllerEntity, TileContainerInfo<SolidFissionControllerEntity>> {
+public class SolidFissionControllerMenu extends MultiblockControllerMenu<FissionReactor, FissionUpdatePacket, SolidFissionControllerEntity, TileContainerInfo<SolidFissionControllerEntity>> {
     public final SolidFuelFissionLogic logic = (SolidFuelFissionLogic) this.tile.getLogic();
 
-    public SolidFissionControllerMenu(int containerId, Inventory inventory, final SolidFissionControllerEntity controller) {
+    public SolidFissionControllerMenu(int containerId, Inventory inventory, SolidFissionControllerEntity controller) {
         super(SOLID_FISSION_CONTROLLER_MENU_TYPE.get(), containerId, inventory, controller);
     }
 

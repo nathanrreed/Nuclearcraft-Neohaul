@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankOutputSetting;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -44,6 +45,11 @@ public class ToggleVoidExcessFluidOutputPacket extends TileGuiPacket {
         super.toBytes(buf);
         buf.writeInt(voidExcessFluidOutput);
         buf.writeInt(tankNumber);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     public static class Handler extends TileGuiPacket.Handler<ToggleVoidExcessFluidOutputPacket> {

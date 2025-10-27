@@ -2,7 +2,10 @@ package com.nred.nuclearcraft.block_entity.internal.inventory;
 
 import com.nred.nuclearcraft.gui.IGuiButton;
 import net.minecraft.ChatFormatting;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
+
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public enum ItemOutputSetting implements StringRepresentable, IGuiButton {
     DEFAULT,
@@ -34,17 +37,8 @@ public enum ItemOutputSetting implements StringRepresentable, IGuiButton {
     }
 
     @Override
-    public int getTextureX() {
-        return switch (this) {
-            case DEFAULT -> 0;
-            case VOID_EXCESS -> 18;
-            case VOID -> 36;
-        };
-    }
-
-    @Override
-    public int getTextureY() {
-        return 18;
+    public ResourceLocation getTexture(boolean hovered) {
+        return ncLoc("button/" + this.getSerializedName() + (hovered ? "_on" : "_off"));
     }
 
     @Override

@@ -2,10 +2,9 @@ package com.nred.nuclearcraft.screen.multiblock;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionVesselEntity;
-import com.nred.nuclearcraft.gui.NCButton;
-import com.nred.nuclearcraft.menu.ContainerProcessorImpl.SaltFissionVesselMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SaltFissionVesselMenu;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionVesselUpdatePacket;
-import com.nred.nuclearcraft.screen.GuiProcessorImpl;
+import com.nred.nuclearcraft.screen.processor.GuiProcessorImpl.GuiBasicProcessor;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -18,9 +17,9 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class SaltFissionVesselScreen extends GuiProcessorImpl.GuiBasicProcessor<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket, SaltFissionVesselMenu> {
-    public SaltFissionVesselScreen(SaltFissionVesselMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title, ncLoc("screen/" + "salt_fission_vessel"));
+public class SaltFissionVesselScreen extends GuiBasicProcessor<SaltFissionVesselMenu, SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> {
+    public SaltFissionVesselScreen(SaltFissionVesselMenu menu, Inventory inventory, Component title) {
+        super(menu, inventory, title, ncLoc("screen/" + "salt_fission_vessel"));
         titleLabelY = Integer.MIN_VALUE;
         inventoryLabelY = Integer.MIN_VALUE;
     }
@@ -42,14 +41,10 @@ public class SaltFissionVesselScreen extends GuiProcessorImpl.GuiBasicProcessor<
 
         if (tile.clusterHeatCapacity >= 0L) {
             int e = NCMath.toInt(Math.round(74D * tile.clusterHeatStored / tile.clusterHeatCapacity));
-            guiGraphics.blitSprite(gui_texture, 256, 256, getGuiLeft() + 8, getGuiTop() + 6 + 74 - e, 176, 90 + 74 - e, 16, e);
+            guiGraphics.blitSprite(guiTextures, 256, 256, getGuiLeft() + 8, getGuiTop() + 6 + 74 - e, 176, 90 + 74 - e, 16, e);
         } else {
             guiGraphics.fillGradient(getGuiLeft() + 8, getGuiTop() + 6, getGuiLeft() + 8 + 16, getGuiTop() + 6 + 74, 0xFF777777, 0xFF535353);
         }
-    }
-
-    @Override
-    protected void configButtonActionPerformed(NCButton button) {
     }
 
     @Override

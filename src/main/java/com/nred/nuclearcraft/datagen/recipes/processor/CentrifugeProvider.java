@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes.processor;
 
-import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
+import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.CentrifugeRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 

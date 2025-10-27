@@ -1,10 +1,9 @@
 package com.nred.nuclearcraft.item;
 
-import static com.nred.nuclearcraft.config.Config.LITHIUM_ION_CELL_CAPACITY;
-import static com.nred.nuclearcraft.config.Config.LITHIUM_ION_CELL_TRANSFER;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 
 public class LithiumIonCell extends EnergyItem { // TODO REDO
     public LithiumIonCell(Properties properties) {
-        super(properties, () -> LITHIUM_ION_CELL_CAPACITY, () -> LITHIUM_ION_CELL_TRANSFER);
+        super(properties, () -> battery_item_capacity[0], () -> battery_item_max_transfer[0]);
     }
 }

@@ -15,7 +15,7 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.config.Config2.processor_passive_rate;
+import static com.nred.nuclearcraft.config.NCConfig.processor_passive_rate;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.COLLECTOR_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC;

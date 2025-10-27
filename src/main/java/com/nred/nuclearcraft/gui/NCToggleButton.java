@@ -12,13 +12,14 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public abstract class NCToggleButton extends NCButton {
     boolean isButtonPressed;
 
-    public NCToggleButton(int id, int x, int y, int width, int height, boolean pressed, OnPress onPress) {
+    public NCToggleButton(int id, int x, int y, int width, int height, boolean pressed, OnPressInfo onPress) {
         super(id, x, y, width, height, onPress);
         isButtonPressed = pressed;
     }
 
     @Override
-    public void onPress() {
+    public void onClick(double mouseX, double mouseY, int button) {
+        super.onClick(mouseX, mouseY, button);
         isButtonPressed = !isButtonPressed;
     }
 
@@ -28,7 +29,7 @@ public abstract class NCToggleButton extends NCButton {
         public final ResourceLocation pressedTexture;
         protected int textureWidth, textureHeight;
 
-        public Image(int id, int x, int y, ResourceLocation unpressedTexture, ResourceLocation pressedTexture, int textureWidth, int textureHeight, boolean pressed, OnPress onPress) {
+        public Image(int id, int x, int y, ResourceLocation unpressedTexture, ResourceLocation pressedTexture, int textureWidth, int textureHeight, boolean pressed, OnPressInfo onPress) {
             super(id, x, y, textureWidth, textureHeight, pressed, onPress);
             this.unpressedTexture = unpressedTexture;
             this.pressedTexture = pressedTexture;
@@ -38,15 +39,15 @@ public abstract class NCToggleButton extends NCButton {
 
         @Override
         public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-            ResourceLocation resourcelocation = this.isActive() ? pressedTexture : unpressedTexture;
+            ResourceLocation resourcelocation = this.isButtonPressed ? pressedTexture : unpressedTexture;
             guiGraphics.blitSprite(resourcelocation, this.getX(), this.getY(), this.width, this.height);
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     public static class RedstoneControl extends Image {
-        public RedstoneControl(int id, int x, int y, ITile machine, OnPress onPress) {
-            super(id, x, y, ncLoc("button/redstone_control_on"), ncLoc("button/redstone_control_off"), 18, 18, machine.getRedstoneControl(), onPress);
+        public RedstoneControl(int id, int x, int y, ITile machine, OnPressInfo onPress) {
+            super(id, x, y, ncLoc("button/redstone_control_off"), ncLoc("button/redstone_control_on"), 18, 18, machine.getRedstoneControl(), onPress);
         }
     }
 }

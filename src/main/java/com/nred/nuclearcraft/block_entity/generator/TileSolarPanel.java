@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.nred.nuclearcraft.config.Config2.solar_power;
+import static com.nred.nuclearcraft.config.NCConfig.solar_power;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.SOLAR_PANEL_ENTITY_TYPE;
 
 public class TileSolarPanel extends TilePassiveGenerator {

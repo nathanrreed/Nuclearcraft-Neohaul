@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Random;
 
-import static com.nred.nuclearcraft.config.Config2.machine_update_rate;
+import static com.nred.nuclearcraft.config.NCConfig.machine_update_rate;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.DECAY_GENERATOR_ENTITY_TYPE;
 
 public class DecayGeneratorEntity extends TileEnergy implements ITickable, IInterfaceable {

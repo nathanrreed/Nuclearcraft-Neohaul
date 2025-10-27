@@ -2,15 +2,12 @@ package com.nred.nuclearcraft.item;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.LevelReader;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
@@ -21,9 +18,8 @@ public class TooltipItem extends Item {
     private Component tooltip;
     public List<MutableComponent> shiftTooltips;
     public static final Component shiftForDetails = Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.shift_for_info").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
-    private final boolean byPassShift;
 
-    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips, boolean radiation, boolean byPassShift) {
+    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips, boolean radiation) {
         super(properties);
 
         if (tooltips.size() > 1 || hasShiftTooltips) {
@@ -31,16 +27,10 @@ public class TooltipItem extends Item {
         } else if (!tooltips.isEmpty()) {
             tooltip = tooltips.getFirst();
         }
-
-        this.byPassShift = byPassShift; // TODO
     }
 
-    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean byPassShift) {
-        this(properties, tooltips, false, false, byPassShift);
-    }
-
-    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips, boolean byPassShift) {
-        this(properties, tooltips, hasShiftTooltips, false, byPassShift);
+    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips) {
+        this(properties, tooltips, hasShiftTooltips, false);
     }
 
     public TooltipItem(Properties properties, List<String> tooltips) {
@@ -48,16 +38,7 @@ public class TooltipItem extends Item {
     }
 
     public TooltipItem(Properties properties) {
-        this(properties, List.of(), false, false, false);
-    }
-
-    public TooltipItem(Properties properties, boolean byPassShift) {
-        this(properties, List.of(), byPassShift);
-    }
-
-    @Override
-    public boolean doesSneakBypassUse(ItemStack stack, LevelReader level, BlockPos pos, Player player) {
-        return byPassShift;
+        this(properties, List.of(), false, false);
     }
 
     @Override

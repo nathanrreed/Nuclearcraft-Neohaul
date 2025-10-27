@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.config.Config2.turbine_spin_up_multiplier_global;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_spin_up_multiplier_global;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.TURBINE_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.TURBINE_RECIPE_TYPE;
 

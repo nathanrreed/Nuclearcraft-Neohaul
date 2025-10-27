@@ -3,7 +3,10 @@ package com.nred.nuclearcraft.block_entity.internal.fluid;
 
 import com.nred.nuclearcraft.gui.IGuiButton;
 import net.minecraft.ChatFormatting;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
+
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public enum TankOutputSetting implements StringRepresentable, IGuiButton {
     DEFAULT,
@@ -35,17 +38,8 @@ public enum TankOutputSetting implements StringRepresentable, IGuiButton {
     }
 
     @Override
-    public int getTextureX() {
-        return switch (this) {
-            case DEFAULT -> 54;
-            case VOID_EXCESS -> 72;
-            case VOID -> 90;
-        };
-    }
-
-    @Override
-    public int getTextureY() {
-        return 18;
+    public ResourceLocation getTexture(boolean hovered) {
+        return ncLoc("button/" + this.getSerializedName() + (hovered ? "_on" : "_off"));
     }
 
     @Override

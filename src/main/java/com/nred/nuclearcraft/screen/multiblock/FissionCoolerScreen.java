@@ -2,10 +2,9 @@ package com.nred.nuclearcraft.screen.multiblock;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.FissionCoolerEntity;
-import com.nred.nuclearcraft.gui.NCButton;
-import com.nred.nuclearcraft.menu.ContainerProcessorImpl.FissionCoolerMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.FissionCoolerMenu;
 import com.nred.nuclearcraft.payload.multiblock.FissionCoolerUpdatePacket;
-import com.nred.nuclearcraft.screen.GuiProcessorImpl;
+import com.nred.nuclearcraft.screen.processor.GuiProcessorImpl.GuiBasicProcessor;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -18,7 +17,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class FissionCoolerScreen extends GuiProcessorImpl.GuiBasicProcessor<FissionCoolerEntity, FissionCoolerUpdatePacket, FissionCoolerMenu> {
+public class FissionCoolerScreen extends GuiBasicProcessor<FissionCoolerMenu, FissionCoolerEntity, FissionCoolerUpdatePacket> {
     public FissionCoolerScreen(FissionCoolerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, ncLoc("screen/" + "fission_cooler"));
         titleLabelY = Integer.MIN_VALUE;
@@ -41,14 +40,10 @@ public class FissionCoolerScreen extends GuiProcessorImpl.GuiBasicProcessor<Fiss
 
         if (tile.clusterHeatCapacity >= 0L) {
             int e = NCMath.toInt(Math.round(74D * tile.clusterHeatStored / tile.clusterHeatCapacity));
-            guiGraphics.blitSprite(gui_texture, 256, 256, getGuiLeft() + 8, getGuiTop() + 6 + 74 - e, 176, 90 + 74 - e, 16, e);
+            guiGraphics.blitSprite(guiTextures, 256, 256, getGuiLeft() + 8, getGuiTop() + 6 + 74 - e, 176, 90 + 74 - e, 16, e);
         } else {
             guiGraphics.fillGradient(getGuiLeft() + 8, getGuiTop() + 6, getGuiLeft() + 8 + 16, getGuiTop() + 6 + 74, 0xFF777777, 0xFF535353);
         }
-    }
-
-    @Override
-    protected void configButtonActionPerformed(NCButton button) {
     }
 
     @Override

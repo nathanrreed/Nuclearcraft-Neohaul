@@ -41,7 +41,7 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
         if (!getWorld().isClientSide()) {
             long capacity = 0L;
             for (TileBattery battery : getParts(TileBattery.class)) {
-                capacity += battery.batteryType.getCapacity();
+                capacity += battery.batteryType.getCapacity().get();
                 battery.onMultiblockRefresh();
             }
             storage.setStorageCapacity(capacity);
@@ -98,7 +98,7 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
                 battery.waitingEnergy += storage.getEnergyStored();
             } else {
                 double fraction = (double) getEnergyStorage().getEnergyStoredLong() / (double) getEnergyStorage().getMaxEnergyStoredLong();
-                long energy = (long) (fraction * battery.batteryType.getCapacity());
+                long energy = (long) (fraction * battery.batteryType.getCapacity().get());
                 battery.waitingEnergy += energy;
                 storage.changeEnergyStored(-energy);
             }

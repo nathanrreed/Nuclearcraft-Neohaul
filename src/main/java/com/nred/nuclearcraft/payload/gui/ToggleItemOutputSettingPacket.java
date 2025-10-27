@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -45,6 +46,11 @@ public class ToggleItemOutputSettingPacket extends TileGuiPacket {
         super.toBytes(buf);
         buf.writeInt(slot);
         buf.writeInt(setting);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     public static class Handler extends TileGuiPacket.Handler<ToggleItemOutputSettingPacket> {

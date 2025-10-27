@@ -3,17 +3,17 @@ package com.nred.nuclearcraft.block_entity.fission;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.IFissionPortTarget;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfoImpl;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
-import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.FissionIrradiatorMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.FissionIrradiatorUpdatePacket;
@@ -52,7 +52,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class FissionIrradiatorEntity extends AbstractFissionEntity implements IBasicProcessor<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket>, ITileFilteredInventory, IFissionHeatingComponent, IFissionFluxSink, IFissionPortTarget<FissionIrradiatorPortEntity, FissionIrradiatorEntity> {
-    protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> info;
+    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
     protected final @Nonnull NonNullList<ItemStack> consumedStacks;
@@ -114,7 +114,7 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ContainerProcessorImpl.FissionIrradiatorMenu(containerId, playerInventory, this);
+        return new FissionIrradiatorMenu(containerId, playerInventory, this);
     }
 
     @Override
@@ -321,7 +321,7 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     // IProcessor
 
     @Override
-    public ProcessorContainerInfoImpl.BasicProcessorContainerInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> getContainerInfo() {
+    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> getContainerInfo() {
         return info;
     }
 

@@ -2,10 +2,9 @@ package com.nred.nuclearcraft.screen.multiblock;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.FissionIrradiatorEntity;
-import com.nred.nuclearcraft.gui.NCButton;
-import com.nred.nuclearcraft.menu.ContainerProcessorImpl.FissionIrradiatorMenu;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.FissionIrradiatorMenu;
 import com.nred.nuclearcraft.payload.multiblock.FissionIrradiatorUpdatePacket;
-import com.nred.nuclearcraft.screen.GuiProcessorImpl;
+import com.nred.nuclearcraft.screen.processor.GuiProcessorImpl.GuiBasicFilteredProcessor;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -18,7 +17,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class FissionIrradiatorScreen extends GuiProcessorImpl.GuiBasicFilteredProcessor<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket, FissionIrradiatorMenu> {
+public class FissionIrradiatorScreen extends GuiBasicFilteredProcessor<FissionIrradiatorMenu, FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> {
     public FissionIrradiatorScreen(FissionIrradiatorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, ncLoc("screen/" + "fission_irradiator"));
         inventoryLabelY = Integer.MIN_VALUE;
@@ -42,14 +41,10 @@ public class FissionIrradiatorScreen extends GuiProcessorImpl.GuiBasicFilteredPr
 
         if (tile.clusterHeatCapacity >= 0L) {
             int e = NCMath.toInt(Math.round(74D * tile.clusterHeatStored / tile.clusterHeatCapacity));
-            guiGraphics.blitSprite(gui_texture, 256, 256, getGuiLeft() + 8, getGuiTop() + 6 + 74 - e, 176, 90 + 74 - e, 16, e);
+            guiGraphics.blitSprite(guiTextures, 256, 256, getGuiLeft() + 8, getGuiTop() + 6 + 74 - e, 176, 90 + 74 - e, 16, e);
         } else {
             guiGraphics.fillGradient(getGuiLeft() + 8, getGuiTop() + 6, getGuiLeft() + 8 + 16, getGuiTop() + 6 + 74, 0xFF777777, 0xFF535353);
         }
-    }
-
-    @Override
-    protected void configButtonActionPerformed(NCButton button) {
     }
 
     @Override

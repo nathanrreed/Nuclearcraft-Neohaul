@@ -59,7 +59,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.*;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.TURBINE_MAP;
 
 public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> implements IPacketMultiblockLogic<Turbine, TurbineLogic, TurbineUpdatePacket> {

@@ -1,11 +1,17 @@
 package com.nred.nuclearcraft.recipe;
 
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.handler.NCRecipes.BasicProcessorRecipeHandler;
+import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.util.NCMath;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
-import static com.nred.nuclearcraft.config.Config2.fission_neutron_reach;
-import static com.nred.nuclearcraft.config.Config2.machine_update_rate;
+import java.util.List;
+
+import static com.nred.nuclearcraft.config.NCConfig.*;
 
 public class RecipeStats {
     private static int decay_generator_max_power;
@@ -14,50 +20,49 @@ public class RecipeStats {
     private static double block_purification_threshold;
 
     public static void init() {
-//		setBasicProcessorMaxStats(); TODO
-//		setScrubberMaxStats();
+        setBasicProcessorMaxStats();
+//		setScrubberMaxStats(); TODO
         setDecayGeneratorMaxPower();
         setFissionMaxModeratorLineFlux();
 //        setBlockMutationThreshold();
 //        setBlockPurificationThreshold();
     }
 
-//	private static void setBasicProcessorMaxStats() { TODO
-//		for (TileContainerInfo<?> info : TileInfoHandler.TILE_CONTAINER_INFO_MAP.values()) {
-//			if (info instanceof ProcessorContainerInfo<?, ?, ?> processorInfo) {
-//				if (processorInfo.getRecipeHandler() instanceof BasicProcessorRecipeHandler processorRecipeHandler) {
-//					List<BasicRecipe> recipeList = processorRecipeHandler.getRecipeList();
-//					if (recipeList.isEmpty()) {
-//						processorInfo.maxBaseProcessTime = processor_time_multiplier * processorInfo.defaultProcessTime;
-//						processorInfo.maxBaseProcessPower = processor_power_multiplier * processorInfo.defaultProcessPower;
-//					}
-//					else {
-//						double maxProcessTimeMultiplier = 1D, maxProcessPowerMultiplier = 0D;
-//						int maxFluidInputSize = 0, maxFluidOutputSize = 0;
-//
-//						for (BasicRecipe recipe : processorRecipeHandler.getRecipeList()) {
-//							maxProcessTimeMultiplier = Math.max(maxProcessTimeMultiplier, recipe.getProcessTimeMultiplier());
-//							maxProcessPowerMultiplier = Math.max(maxProcessPowerMultiplier, recipe.getProcessPowerMultiplier());
-//
-//							for (SizedFluidIngredient ingredient : recipe.getFluidIngredients()) {
-//								maxFluidInputSize = Math.max(maxFluidInputSize, ingredient.amount());
-//							}
-//
-//							for (SizedFluidIngredient ingredient : recipe.getFluidProducts()) {
-//								maxFluidOutputSize = Math.max(maxFluidOutputSize, ingredient.amount());
-//							}
-//						}
-//
-//						processorInfo.maxBaseProcessTime = maxProcessTimeMultiplier * processor_time_multiplier * processorInfo.defaultProcessTime;
-//						processorInfo.maxBaseProcessPower = maxProcessPowerMultiplier * processor_power_multiplier * processorInfo.defaultProcessPower;
-//
-//						processorInfo.inputTankCapacity = Math.max(processorInfo.inputTankCapacity, 2 * maxFluidInputSize);
-//						processorInfo.outputTankCapacity = Math.max(processorInfo.outputTankCapacity, 2 * maxFluidOutputSize);
-//					}
-//				}
-//			}
-//		}
-//	}
+    private static void setBasicProcessorMaxStats() {
+        for (TileContainerInfo<?> info : TileInfoHandler.TILE_CONTAINER_INFO_MAP.values()) {
+            if (info instanceof ProcessorMenuInfo<?, ?, ?> processorInfo) {
+                if (processorInfo.getRecipeHandler() instanceof BasicProcessorRecipeHandler processorRecipeHandler) {
+                    List<ProcessorRecipe> recipeList = processorRecipeHandler.getRecipeList();
+                    if (recipeList.isEmpty()) {
+                        processorInfo.maxBaseProcessTime = processor_time_multiplier * processorInfo.getDefaultProcessTime();
+                        processorInfo.maxBaseProcessPower = processor_power_multiplier * processorInfo.getDefaultProcessPower();
+                    } else {
+                        double maxProcessTimeMultiplier = 1D, maxProcessPowerMultiplier = 0D;
+                        int maxFluidInputSize = 0, maxFluidOutputSize = 0;
+
+                        for (ProcessorRecipe recipe : processorRecipeHandler.getRecipeList()) {
+                            maxProcessTimeMultiplier = Math.max(maxProcessTimeMultiplier, recipe.getProcessTimeMultiplier());
+                            maxProcessPowerMultiplier = Math.max(maxProcessPowerMultiplier, recipe.getProcessPowerMultiplier());
+
+                            for (SizedFluidIngredient ingredient : recipe.getFluidIngredients()) {
+                                maxFluidInputSize = Math.max(maxFluidInputSize, ingredient.amount());
+                            }
+
+                            for (SizedFluidIngredient ingredient : recipe.getFluidProducts()) {
+                                maxFluidOutputSize = Math.max(maxFluidOutputSize, ingredient.amount());
+                            }
+                        }
+
+                        processorInfo.maxBaseProcessTime = maxProcessTimeMultiplier * processor_time_multiplier * processorInfo.getDefaultProcessTime();
+                        processorInfo.maxBaseProcessPower = maxProcessPowerMultiplier * processor_power_multiplier * processorInfo.getDefaultProcessPower();
+
+                        processorInfo.inputTankCapacity = Math.max(processorInfo.inputTankCapacity, 2 * maxFluidInputSize);
+                        processorInfo.outputTankCapacity = Math.max(processorInfo.outputTankCapacity, 2 * maxFluidOutputSize);
+                    }
+                }
+            }
+        }
+    }
 //
 //	private static void setScrubberMaxStats() {
 //		ProcessorContainerInfo<?, ?, ?> info = TileInfoHandler.getProcessorContainerInfo("radiation_scrubber");

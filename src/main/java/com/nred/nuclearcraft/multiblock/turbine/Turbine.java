@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.turbine_max_size;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_max_size;
 
 public class Turbine extends Multiblock<Turbine> implements ILogicMultiblock<Turbine, TurbineLogic>, IPacketMultiblock<Turbine, TurbineUpdatePacket> {
     protected @Nonnull TurbineLogic logic = new TurbineLogic(this);

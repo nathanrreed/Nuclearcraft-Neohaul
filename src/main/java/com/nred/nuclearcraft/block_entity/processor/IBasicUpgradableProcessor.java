@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.processor;
 
 import com.nred.nuclearcraft.block_entity.ITileInstallable;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.util.PrimitiveFunction;
 import net.minecraft.core.Direction;
@@ -14,7 +14,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
-public interface IBasicUpgradableProcessor<TILE extends BlockEntity & IBasicUpgradableProcessor<TILE, PACKET>, PACKET extends ProcessorUpdatePacket> extends IProcessor<TILE, PACKET, ProcessorContainerInfoImpl.BasicUpgradableProcessorContainerInfo<TILE, PACKET>>, ITileInstallable {
+public interface IBasicUpgradableProcessor<TILE extends BlockEntity & IBasicUpgradableProcessor<TILE, PACKET>, PACKET extends ProcessorUpdatePacket> extends IProcessor<TILE, PACKET, ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo<TILE, PACKET>>, ITileInstallable {
     default boolean tryInstall(Player player, InteractionHand hand, Direction facing) {
         ItemStack held = player.getItemInHand(hand);
 
@@ -36,7 +36,7 @@ public interface IBasicUpgradableProcessor<TILE extends BlockEntity & IBasicUpgr
             return false;
         };
 
-        ProcessorContainerInfoImpl.BasicUpgradableProcessorContainerInfo<TILE, PACKET> info = getContainerInfo();
+        ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo<TILE, PACKET> info = getContainerInfo();
         return tryInstallUpgrade.applyAsBoolean(info.speedUpgradeSlot, UPGRADE_MAP.get("speed").toStack()) || tryInstallUpgrade.applyAsBoolean(info.energyUpgradeSlot, UPGRADE_MAP.get("energy").toStack());
     }
 }

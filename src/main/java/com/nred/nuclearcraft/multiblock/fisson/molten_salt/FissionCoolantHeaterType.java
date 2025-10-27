@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.nred.nuclearcraft.config.Config2.fission_heater_cooling_rate;
+import static com.nred.nuclearcraft.config.NCConfig.fission_heater_cooling_rate;
 
 public enum FissionCoolantHeaterType implements StringRepresentable, ITileEnum<SaltFissionHeaterEntity.Variant>, IMultiblockVariant, ICoolantType {
     STANDARD("standard", () -> fission_heater_cooling_rate[0], SaltFissionHeaterEntity.Standard.class),

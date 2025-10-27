@@ -15,10 +15,29 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 @OnlyIn(Dist.CLIENT)
 public abstract class NCButton extends Button {
     public final int id;
+    private final OnPressInfo onPressInfo;
 
-    protected NCButton(int id, int x, int y, int width, int height, OnPress onPress) {
-        super(x, y, width, height, CommonComponents.EMPTY, onPress, DEFAULT_NARRATION); // TODO add narration
+    protected NCButton(int id, int x, int y, int width, int height, OnPressInfo onPress) {
+        super(x, y, width, height, CommonComponents.EMPTY, (btn) -> {
+        }, DEFAULT_NARRATION); // TODO add narration
         this.id = id;
+        this.onPressInfo = onPress;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @FunctionalInterface
+    public interface OnPressInfo {
+        void onPress(NCButton button, int mouse);
+    }
+
+    @Override
+    public void onClick(double mouseX, double mouseY, int button) {
+        this.onPressInfo.onPress(this, button);
+    }
+
+    @Override
+    protected boolean isValidClickButton(int button) {
+        return button == 0 || button == 1;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -27,7 +46,7 @@ public abstract class NCButton extends Button {
         private final ResourceLocation pressedTexture;
         protected int textureWidth, textureHeight;
 
-        public Image(int id, int x, int y, ResourceLocation unpressedTexture, ResourceLocation pressedTexture, int textureWidth, int textureHeight, OnPress onPress) {
+        public Image(int id, int x, int y, ResourceLocation unpressedTexture, ResourceLocation pressedTexture, int textureWidth, int textureHeight, OnPressInfo onPress) {
             super(id, x, y, textureWidth, textureHeight, onPress);
             this.unpressedTexture = unpressedTexture;
             this.pressedTexture = pressedTexture;
@@ -47,7 +66,7 @@ public abstract class NCButton extends Button {
         @Nonnull
         private final ItemStack item;
 
-        public Item(int id, int x, int y, int width, int height, float alpha, @Nonnull ItemStack item, OnPress onPress) {
+        public Item(int id, int x, int y, int width, int height, float alpha, @Nonnull ItemStack item, OnPressInfo onPress) {
             super(id, x, y, width, height, onPress);
             this.alpha = alpha;
             this.item = item;
@@ -63,14 +82,14 @@ public abstract class NCButton extends Button {
 
     @OnlyIn(Dist.CLIENT)
     public static class ClearTank extends NCButton {
-        public ClearTank(int id, int x, int y, int width, int height, OnPress onPress) {
+        public ClearTank(int id, int x, int y, int width, int height, OnPressInfo onPress) {
             super(id, x, y, width, height, onPress);
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     public static class MachineConfig extends Image {
-        public MachineConfig(int id, int x, int y, OnPress onPress) {
+        public MachineConfig(int id, int x, int y, OnPressInfo onPress) {
             super(id, x, y, ncLoc("button/side_config_on"), ncLoc("button/side_config_off"), 18, 18, onPress);
         }
     }

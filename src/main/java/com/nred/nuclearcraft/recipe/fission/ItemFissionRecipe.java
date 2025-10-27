@@ -6,7 +6,7 @@ import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.config.Config2.*;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 
 public abstract class ItemFissionRecipe extends BasicRecipe {
     private final int time;

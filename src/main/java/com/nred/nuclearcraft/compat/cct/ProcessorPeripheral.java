@@ -1,45 +1,51 @@
 package com.nred.nuclearcraft.compat.cct;
 
-import com.nred.nuclearcraft.block.processor.ProcessorEntity;
-import com.nred.nuclearcraft.helpers.SideConfigEnums;
+import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
+import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.BasicUpgradableEnergyProcessorEntity;
 import com.nred.nuclearcraft.util.CCHelper;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.core.Direction;
 import org.jspecify.annotations.Nullable;
 
-import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public record ProcessorPeripheral(ProcessorEntity processorEntity) implements IPeripheral {
-    //    @LuaFunction(mainThread = true)
-//    public Object[] getIsProcessing() {
-//        return new Object[]{processorEntity.getIsProcessing()};
-//    }
-
+public record ProcessorPeripheral(BasicUpgradableEnergyProcessorEntity<?> processorEntity) implements IPeripheral {
     @LuaFunction(mainThread = true)
-    public int getCurrentTime() {
-        return processorEntity.progress;
+    public String getComponentName() {
+        return processorEntity.getContainerInfo().ocComponentName;
     }
 
     @LuaFunction(mainThread = true)
-    public int getBaseProcessTime() {
-        return PROCESSOR_CONFIG_MAP.get(processorEntity.typeName).base_time();
+    public boolean getIsProcessing() {
+        return processorEntity.getIsProcessing();
     }
 
     @LuaFunction(mainThread = true)
-    public int getBaseProcessPower() {
-        return PROCESSOR_CONFIG_MAP.get(processorEntity.typeName).base_power();
+    public double getCurrentTime() {
+        return processorEntity.getCurrentTime();
     }
+
+    @LuaFunction(mainThread = true)
+    public double getBaseProcessTime() {
+        return processorEntity.getBaseProcessTime();
+    }
+
+    @LuaFunction(mainThread = true)
+    public double getBaseProcessPower() {
+        return processorEntity.getBaseProcessPower();
+    }
+
 
     @LuaFunction(mainThread = true)
     public Object[] getItemInputs() {
-        return new Object[]{CCHelper.stackInfoArray(processorEntity.getItemInputs())};
+        return CCHelper.stackInfoArray(processorEntity.getItemInputs(false));
     }
 
     @LuaFunction(mainThread = true)
     public Object[] getFluidInputs() {
-        return new Object[]{CCHelper.fluidInfoArray(processorEntity.getFluidInputs())};
+        return new Object[]{CCHelper.tankInfoArray(processorEntity.getFluidInputs(false))};
     }
 
     @LuaFunction(mainThread = true)
@@ -49,34 +55,52 @@ public record ProcessorPeripheral(ProcessorEntity processorEntity) implements IP
 
     @LuaFunction(mainThread = true)
     public Object[] getFluidOutputs() {
-        return new Object[]{CCHelper.fluidInfoArray(processorEntity.getFluidOutputs())};
+        return new Object[]{CCHelper.tankInfoArray(processorEntity.getFluidOutputs())};
     }
 
     @LuaFunction(mainThread = true)
-    public void setItemSorption(String direction, int index, String mode) {
-        processorEntity.itemStackHandler.sideConfig.get(Direction.valueOf(direction)).set(index, SideConfigEnums.SideConfigSetting.valueOf(mode));
+    public Object[] setItemInputSorption(int a, int b, int c) {
+        processorEntity.setItemSorption(Direction.values()[a], processorEntity.getContainerInfo().itemInputSlots[b], ItemSorption.fromInt(ItemSorption.Type.INPUT, c));
+        processorEntity.markDirtyAndNotify(true);
+        return new Object[]{};
     }
 
     @LuaFunction(mainThread = true)
-    public void setFluidSorption(String direction, int index, String mode) {
-        processorEntity.fluidHandler.sideConfig.get(Direction.valueOf(direction)).set(index, SideConfigEnums.SideConfigSetting.valueOf(mode));
+    public Object[] setFluidInputSorption(int a, int b, int c) {
+        processorEntity.setTankSorption(Direction.values()[a], processorEntity.getContainerInfo().fluidInputTanks[b], TankSorption.fromInt(TankSorption.Type.INPUT, c));
+        processorEntity.markDirtyAndNotify(true);
+        return new Object[]{};
     }
 
-//    @LuaFunction(mainThread = true)
-//    public Object[] haltProcess() {
-//        fullHalt = true;
-//        return new Object[]{};
-//    }
-//
-//    @LuaFunction(mainThread = true)
-//    public Object[] resumeProcess() {
-//        fullHalt = false;
-//        return new Object[]{};
-//    }
+    @LuaFunction(mainThread = true)
+    public Object[] setItemOutputSorption(int a, int b, int c) {
+        processorEntity.setItemSorption(Direction.values()[a], processorEntity.getContainerInfo().itemOutputSlots[b], ItemSorption.fromInt(ItemSorption.Type.OUTPUT, c));
+        processorEntity.markDirtyAndNotify(true);
+        return new Object[]{};
+    }
+
+    @LuaFunction(mainThread = true)
+    public Object[] setFluidOutputSorption(int a, int b, int c) {
+        processorEntity.setTankSorption(Direction.values()[a], processorEntity.getContainerInfo().fluidOutputTanks[b], TankSorption.fromInt(TankSorption.Type.OUTPUT, c));
+        processorEntity.markDirtyAndNotify(true);
+        return new Object[]{};
+    }
+
+    @LuaFunction(mainThread = true)
+    public Object[] haltProcess() {
+        processorEntity.fullHalt = true;
+        return new Object[]{};
+    }
+
+    @LuaFunction(mainThread = true)
+    public Object[] resumeProcess() {
+        processorEntity.fullHalt = false;
+        return new Object[]{};
+    }
 
     @Override
     public String getType() {
-        return ncLoc(processorEntity.typeName).toString();
+        return ncLoc(processorEntity.getContainerInfo().name).toString();
     }
 
     @Override

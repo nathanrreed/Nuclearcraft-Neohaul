@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.datagen.recipes.processor;
 
 import com.google.common.collect.Sets;
-import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipeBuilder;
+import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.DecayHastenerRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.Item;

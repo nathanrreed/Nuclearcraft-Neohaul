@@ -31,7 +31,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.smart_processor_input;
+import static com.nred.nuclearcraft.config.NCConfig.smart_processor_input;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity<PORT, TARGET> & ITileFilteredFluid, TARGET extends IFissionPortTarget<PORT, TARGET> & ITileFilteredFluid> extends FissionPortEntity<PORT, TARGET> implements ITileFilteredFluid, ITileGui<PORT, FluidPortUpdatePacket, TileContainerInfo<PORT>> {

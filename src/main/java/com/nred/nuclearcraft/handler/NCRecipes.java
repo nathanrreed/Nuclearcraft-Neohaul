@@ -3,17 +3,23 @@ package com.nred.nuclearcraft.handler;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
+import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
+import com.nred.nuclearcraft.recipe.processor.ElectricFurnaceRecipe;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.material.Fluid;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import javax.annotation.Nonnull;
+import java.util.*;
 
 public class NCRecipes {
     private static boolean initialized = false;
@@ -41,7 +47,7 @@ public class NCRecipes {
         return getHandler(name).recipeList;
     }
 
-    public static List<Set<ResourceKey<Fluid>>> getValidFluids(String name) {
+    public static List<Set<ResourceLocation>> getValidFluids(String name) {
         return getHandler(name).validFluids;
     }
 
@@ -53,26 +59,26 @@ public class NCRecipes {
 
 //        RadSources.init(); TODO
 
-//        putHandler(new ManufactoryRecipes());
-//        putHandler(new SeparatorRecipes());
-//        putHandler(new DecayHastenerRecipes());
-//        putHandler(new FuelReprocessorRecipes());
-//        putHandler(new AlloyFurnaceRecipes());
-//        putHandler(new InfuserRecipes());
-//        putHandler(new MelterRecipes());
-//        putHandler(new SupercoolerRecipes());
-//        putHandler(new ElectrolyzerRecipes());
-//        putHandler(new AssemblerRecipes());
-//        putHandler(new IngotFormerRecipes());
-//        putHandler(new PressurizerRecipes());
-//        putHandler(new ChemicalReactorRecipes());
-//        putHandler(new SaltMixerRecipes());
-//        putHandler(new CrystallizerRecipes());
-//        putHandler(new EnricherRecipes());
-//        putHandler(new ExtractorRecipes());
-//        putHandler(new CentrifugeRecipes());
-//        putHandler(new RockCrusherRecipes());
-//        putHandler(new ElectricFurnaceRecipes());
+        putHandler(new ManufactoryRecipes());
+        putHandler(new SeparatorRecipes());
+        putHandler(new DecayHastenerRecipes());
+        putHandler(new FuelReprocessorRecipes());
+        putHandler(new AlloyFurnaceRecipes());
+        putHandler(new InfuserRecipes());
+        putHandler(new MelterRecipes());
+        putHandler(new SupercoolerRecipes());
+        putHandler(new ElectrolyzerRecipes());
+        putHandler(new AssemblerRecipes());
+        putHandler(new IngotFormerRecipes());
+        putHandler(new PressurizerRecipes());
+        putHandler(new ChemicalReactorRecipes());
+        putHandler(new SaltMixerRecipes());
+        putHandler(new CrystallizerRecipes());
+        putHandler(new EnricherRecipes());
+        putHandler(new ExtractorRecipes());
+        putHandler(new CentrifugeRecipes());
+        putHandler(new RockCrusherRecipes());
+        putHandler(new ElectricFurnaceRecipes());
         putHandler(new CollectorRecipes());
         putHandler(new DecayGeneratorRecipes());
 //        putHandler(new MachineDiaphragmRecipes());
@@ -111,26 +117,26 @@ public class NCRecipes {
 //        }
     }
 
-    //    public static ManufactoryRecipes manufactory;
-//    public static SeparatorRecipes separator;
-//    public static DecayHastenerRecipes decay_hastener;
-//    public static FuelReprocessorRecipes fuel_reprocessor;
-//    public static AlloyFurnaceRecipes alloy_furnace;
-//    public static InfuserRecipes infuser;
-//    public static MelterRecipes melter;
-//    public static SupercoolerRecipes supercooler;
-//    public static ElectrolyzerRecipes electrolyzer;
-//    public static AssemblerRecipes assembler;
-//    public static IngotFormerRecipes ingot_former;
-//    public static PressurizerRecipes pressurizer;
-//    public static ChemicalReactorRecipes chemical_reactor;
-//    public static SaltMixerRecipes salt_mixer;
-//    public static CrystallizerRecipes crystallizer;
-//    public static EnricherRecipes enricher;
-//    public static ExtractorRecipes extractor;
-//    public static CentrifugeRecipes centrifuge;
-//    public static RockCrusherRecipes rock_crusher;
-//    public static ElectricFurnaceRecipes electric_furnace;
+    public static ManufactoryRecipes manufactory;
+    public static SeparatorRecipes separator;
+    public static DecayHastenerRecipes decay_hastener;
+    public static FuelReprocessorRecipes fuel_reprocessor;
+    public static AlloyFurnaceRecipes alloy_furnace;
+    public static InfuserRecipes infuser;
+    public static MelterRecipes melter;
+    public static SupercoolerRecipes supercooler;
+    public static ElectrolyzerRecipes electrolyzer;
+    public static AssemblerRecipes assembler;
+    public static IngotFormerRecipes ingot_former;
+    public static PressurizerRecipes pressurizer;
+    public static ChemicalReactorRecipes chemical_reactor;
+    public static SaltMixerRecipes salt_mixer;
+    public static CrystallizerRecipes crystallizer;
+    public static EnricherRecipes enricher;
+    public static ExtractorRecipes extractor;
+    public static CentrifugeRecipes centrifuge;
+    public static RockCrusherRecipes rock_crusher;
+    public static ElectricFurnaceRecipes electric_furnace;
     public static CollectorRecipes collector;
     public static DecayGeneratorRecipes decay_generator;
     //    public static MachineDiaphragmRecipes machine_diaphragm;
@@ -159,26 +165,26 @@ public class NCRecipes {
 //    public static RadiationBlockPurification radiation_block_purification;
 
     public void registerShortcuts() {
-//        manufactory = getHandler("manufactory");
-//        separator = getHandler("separator");
-//        decay_hastener = getHandler("decay_hastener");
-//        fuel_reprocessor = getHandler("fuel_reprocessor");
-//        alloy_furnace = getHandler("alloy_furnace");
-//        infuser = getHandler("infuser");
-//        melter = getHandler("melter");
-//        supercooler = getHandler("supercooler");
-//        electrolyzer = getHandler("electrolyzer");
-//        assembler = getHandler("assembler");
-//        ingot_former = getHandler("ingot_former");
-//        pressurizer = getHandler("pressurizer");
-//        chemical_reactor = getHandler("chemical_reactor");
-//        salt_mixer = getHandler("salt_mixer");
-//        crystallizer = getHandler("crystallizer");
-//        enricher = getHandler("enricher");
-//        extractor = getHandler("extractor");
-//        centrifuge = getHandler("centrifuge");
-//        rock_crusher = getHandler("rock_crusher");
-//        electric_furnace = getHandler("electric_furnace");
+        manufactory = getHandler("manufactory");
+        separator = getHandler("separator");
+        decay_hastener = getHandler("decay_hastener");
+        fuel_reprocessor = getHandler("fuel_reprocessor");
+        alloy_furnace = getHandler("alloy_furnace");
+        infuser = getHandler("infuser");
+        melter = getHandler("melter");
+        supercooler = getHandler("supercooler");
+        electrolyzer = getHandler("electrolyzer");
+        assembler = getHandler("assembler");
+        ingot_former = getHandler("ingot_former");
+        pressurizer = getHandler("pressurizer");
+        chemical_reactor = getHandler("chemical_reactor");
+        salt_mixer = getHandler("salt_mixer");
+        crystallizer = getHandler("crystallizer");
+        enricher = getHandler("enricher");
+        extractor = getHandler("extractor");
+        centrifuge = getHandler("centrifuge");
+        rock_crusher = getHandler("rock_crusher");
+        electric_furnace = getHandler("electric_furnace");
         collector = getHandler("collector");
         decay_generator = getHandler("decay_generator");
 //        machine_diaphragm = getHandler("machine_diaphragm");
@@ -308,4 +314,153 @@ public class NCRecipes {
 //            super("machine_sieve_assembly", 1, 0, 0, 0);
 //        }
 //    }
+
+    public static class AlloyFurnaceRecipes extends BasicProcessorRecipeHandler {
+        public AlloyFurnaceRecipes() {
+            super("alloy_furnace", 2, 0, 1, 0);
+        }
+    }
+
+    public static class AssemblerRecipes extends BasicProcessorRecipeHandler {
+        public AssemblerRecipes() {
+            super("assembler", 4, 0, 1, 0);
+        }
+    }
+
+    public static class CentrifugeRecipes extends BasicProcessorRecipeHandler {
+        public CentrifugeRecipes() {
+            super("centrifuge", 0, 1, 0, 6);
+        }
+    }
+
+    public static class ChemicalReactorRecipes extends BasicProcessorRecipeHandler {
+        public ChemicalReactorRecipes() {
+            super("chemical_reactor", 0, 2, 0, 2);
+        }
+    }
+
+    public static class CrystallizerRecipes extends BasicProcessorRecipeHandler {
+        public CrystallizerRecipes() {
+            super("crystallizer", 0, 1, 1, 0);
+        }
+    }
+
+    public static class DecayHastenerRecipes extends BasicProcessorRecipeHandler {
+        public DecayHastenerRecipes() {
+            super("decay_hastener", 1, 0, 1, 0);
+        }
+    }
+
+    public static class ElectricFurnaceRecipes extends BasicProcessorRecipeHandler {
+        public ElectricFurnaceRecipes() {
+            super("electric_furnace", 1, 0, 1, 0);
+        }
+
+        public static ProcessorRecipe getVanillaFurnaceRecipe(SmeltingRecipe recipe) {
+            return new ElectricFurnaceRecipe(recipe.getIngredients().stream().map(i -> new SizedIngredient(i, 1)).toList(), Collections.singletonList(SizedIngredient.of(recipe.getResultItem(null).getItem(), recipe.getResultItem(null).getCount())), Collections.emptyList(), Collections.emptyList(), 1.0, 1.0);
+        }
+
+        @Override
+        public @NotNull List<ProcessorRecipe> getRecipes(@NotNull RecipeManager recipeManager) {
+            if (recipeList.isEmpty()) {
+                recipeList = recipeManager.getAllRecipesFor(RecipeType.SMELTING).stream().map(RecipeHolder::value).map(ElectricFurnaceRecipes::getVanillaFurnaceRecipe).toList();
+            }
+            return recipeList;
+        }
+
+        @Override
+        public @Nullable ProcessorRecipe getRecipeFromIngredients(Level level, List<SizedIngredient> itemIngredients, List<SizedFluidIngredient> fluidIngredients) {
+            Optional<ItemStack> item = itemIngredients.stream().flatMap(a -> Arrays.stream(a.getItems())).findFirst();
+            if (item.isEmpty()) {
+                return null;
+            }
+            SmeltingRecipe recipe = level.getRecipeManager().getRecipesFor(RecipeType.SMELTING, new SingleRecipeInput(item.get()), level).stream().findFirst().map(RecipeHolder::value).orElse(null);
+            return recipe == null ? null : getVanillaFurnaceRecipe(recipe);
+        }
+    }
+
+
+    public static class ElectrolyzerRecipes extends BasicProcessorRecipeHandler {
+        public ElectrolyzerRecipes() {
+            super("electrolyzer", 0, 1, 0, 4);
+        }
+    }
+
+    public static class EnricherRecipes extends BasicProcessorRecipeHandler {
+        public EnricherRecipes() {
+            super("enricher", 1, 1, 0, 1);
+        }
+    }
+
+    public static class ExtractorRecipes extends BasicProcessorRecipeHandler {
+        public ExtractorRecipes() {
+            super("extractor", 1, 0, 1, 1);
+        }
+    }
+
+    public static class FuelReprocessorRecipes extends BasicProcessorRecipeHandler {
+        public FuelReprocessorRecipes() {
+            super("fuel_reprocessor", 1, 0, 8, 0);
+        }
+    }
+
+    public static class InfuserRecipes extends BasicProcessorRecipeHandler {
+        public InfuserRecipes() {
+            super("infuser", 1, 1, 1, 0);
+        }
+    }
+
+    public static class IngotFormerRecipes extends BasicProcessorRecipeHandler {
+        public IngotFormerRecipes() {
+            super("ingot_former", 0, 1, 1, 0);
+        }
+    }
+
+    public static class ManufactoryRecipes extends BasicProcessorRecipeHandler {
+        public ManufactoryRecipes() {
+            super("manufactory", 1, 0, 1, 0);
+        }
+    }
+
+    public static class MelterRecipes extends BasicProcessorRecipeHandler {
+        public MelterRecipes() {
+            super("melter", 1, 0, 0, 1);
+        }
+    }
+
+    public static class PressurizerRecipes extends BasicProcessorRecipeHandler {
+        public PressurizerRecipes() {
+            super("pressurizer", 1, 0, 1, 0);
+        }
+    }
+
+    public static class RockCrusherRecipes extends BasicProcessorRecipeHandler {
+        public RockCrusherRecipes() {
+            super("rock_crusher", 1, 0, 3, 0);
+        }
+    }
+
+    public static class SaltMixerRecipes extends BasicProcessorRecipeHandler {
+        public SaltMixerRecipes() {
+            super("salt_mixer", 0, 2, 0, 1);
+        }
+    }
+
+    public static class SeparatorRecipes extends BasicProcessorRecipeHandler {
+        public SeparatorRecipes() {
+            super("separator", 1, 0, 2, 0);
+        }
+    }
+
+    public static class SupercoolerRecipes extends BasicProcessorRecipeHandler {
+        public SupercoolerRecipes() {
+            super("supercooler", 0, 1, 0, 1);
+        }
+    }
+
+    public abstract static class BasicProcessorRecipeHandler extends BasicRecipeHandler<ProcessorRecipe> {
+        public BasicProcessorRecipeHandler(@Nonnull String name, int itemInputSize, int fluidInputSize, int itemOutputSize, int fluidOutputSize) {
+            super(name, itemInputSize, fluidInputSize, itemOutputSize, fluidOutputSize);
+        }
+    }
 }

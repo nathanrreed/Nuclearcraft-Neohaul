@@ -15,7 +15,7 @@ import net.minecraft.world.inventory.Slot;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.FISSION_HEATER_PORT_MENU_TYPE;
 
-public class FissionHeaterPortMenu extends ContainerPort<FissionReactor, FissionReactorLogic, FissionHeaterPortEntity, SaltFissionHeaterEntity, FluidPortUpdatePacket, TileContainerInfo<FissionHeaterPortEntity>> {
+public class FissionHeaterPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionHeaterPortEntity, SaltFissionHeaterEntity, FluidPortUpdatePacket, TileContainerInfo<FissionHeaterPortEntity>> {
 
     public FissionHeaterPortMenu(int containerId, Inventory inventory, FissionHeaterPortEntity tile) {
         super(FISSION_HEATER_PORT_MENU_TYPE.get(), containerId, inventory, tile);

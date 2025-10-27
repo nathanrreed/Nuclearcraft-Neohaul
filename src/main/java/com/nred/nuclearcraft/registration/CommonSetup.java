@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
@@ -9,6 +10,7 @@ import com.nred.nuclearcraft.util.ModCheck;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -30,5 +32,7 @@ public class CommonSetup {
         PlacementRule.postInit();
         NCRecipes.init(event.getServer().getRecipeManager());
         RecipeStats.init();
+
+        NeoForge.EVENT_BUS.register(new PlayerRespawnHandler());
     }
 }

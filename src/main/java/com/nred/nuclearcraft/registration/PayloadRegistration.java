@@ -1,8 +1,5 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.payload.ButtonPressPayload;
-import com.nred.nuclearcraft.payload.ClearPayload;
-import com.nred.nuclearcraft.payload.RecipeSetPayload;
 import com.nred.nuclearcraft.payload.gui.*;
 import com.nred.nuclearcraft.payload.multiblock.*;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
@@ -20,18 +17,6 @@ public class PayloadRegistration {
     public static void registerPayloads(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar("1");
 
-        // Client to Server
-        registrar.playToServer(ButtonPressPayload.TYPE, ButtonPressPayload.STREAM_CODEC, ButtonPressPayload::handleOnServer);
-        registrar.playToServer(ClearPayload.TYPE, ClearPayload.STREAM_CODEC, ClearPayload::handleOnServer);
-
-        // Server to Client
-        registrar.playToClient(RecipeSetPayload.TYPE, RecipeSetPayload.STREAM_CODEC, RecipeSetPayload::handleOnClient);
-//   TODO REMOVE     registrar.playToClient(TurbineRenderPayload.TYPE, TurbineRenderPayload.STREAM_CODEC, TurbineRenderPayload::handleOnClient);
-//        registrar.playToClient(TurbineUpdatePayload.TYPE, TurbineUpdatePayload.STREAM_CODEC, TurbineUpdatePayload::handleOnClient);
-//        registrar.playToClient(SaltFissionPayload.TYPE, SaltFissionPayload.STREAM_CODEC, SaltFissionPayload::handleOnClient);
-//        registrar.playToClient(SolidFissionPayload.TYPE, SolidFissionPayload.STREAM_CODEC, SolidFissionPayload::handleOnClient);
-
-
         // CLIENT -> SERVER
 
         registrar.playToServer(ClearTankPacket.TYPE, ClearTankPacket.STREAM_CODEC, ClearTankPacket.Handler::handleOnServer);
@@ -43,9 +28,6 @@ public class PayloadRegistration {
         registrar.playToServer(ToggleAlternateComparatorPacket.TYPE, ToggleAlternateComparatorPacket.STREAM_CODEC, ToggleAlternateComparatorPacket.Handler::handleOnServer);
         registrar.playToServer(ToggleRedstoneControlPacket.TYPE, ToggleRedstoneControlPacket.STREAM_CODEC, ToggleRedstoneControlPacket.Handler::handleOnServer);
 
-//        registrar.playToServer(OpenGuiPacket.TYPE, OpenGuiPacket.class); TODO
-        registrar.playToServer(OpenTileGuiPacket.TYPE, OpenTileGuiPacket.STREAM_CODEC, OpenTileGuiPacket.Handler::handleOnServer);
-        registrar.playToServer(OpenSideConfigGuiPacket.TYPE, OpenSideConfigGuiPacket.STREAM_CODEC, OpenSideConfigGuiPacket.Handler::handleOnServer);
         registrar.playToServer(ToggleItemSorptionPacket.TYPE, ToggleItemSorptionPacket.STREAM_CODEC, ToggleItemSorptionPacket.Handler::handleOnServer);
         registrar.playToServer(ResetItemSorptionsPacket.TYPE, ResetItemSorptionsPacket.STREAM_CODEC, ResetItemSorptionsPacket.Handler::handleOnServer);
         registrar.playToServer(ToggleItemOutputSettingPacket.TYPE, ToggleItemOutputSettingPacket.STREAM_CODEC, ToggleItemOutputSettingPacket.Handler::handleOnServer);
@@ -94,7 +76,5 @@ public class PayloadRegistration {
 //        registrar.playToClient(QuantumComputerQubitRenderPacket.TYPE, QuantumComputerQubitRenderPacket.class);
 //
 //        registrar.playToClient(PlayerRadsUpdatePacket.TYPE, PlayerRadsUpdatePacket.class);
-
-
     }
 }

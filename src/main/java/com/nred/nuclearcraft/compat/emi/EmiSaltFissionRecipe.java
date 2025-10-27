@@ -14,7 +14,7 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.EMI_SALT_FISSION_CATEGORY;
-import static com.nred.nuclearcraft.config.Config2.fission_decay_mechanics;
+import static com.nred.nuclearcraft.config.NCConfig.fission_decay_mechanics;
 
 public class EmiSaltFissionRecipe extends RecipeViewerRecipe {
     private final SaltFissionRecipe recipe;

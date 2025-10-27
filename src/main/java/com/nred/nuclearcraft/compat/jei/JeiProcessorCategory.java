@@ -1,8 +1,9 @@
 package com.nred.nuclearcraft.compat.jei;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
-import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.processor.CentrifugeRecipe;
 import com.nred.nuclearcraft.recipe.processor.FuelReprocessorRecipe;
 import com.nred.nuclearcraft.recipe.processor.RockCrusherRecipe;
@@ -33,7 +34,7 @@ import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.common.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
-import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
+import static com.nred.nuclearcraft.handler.TileInfoHandler.TILE_CONTAINER_INFO_MAP;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.probabilityUnpacker;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
@@ -46,12 +47,15 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
     private final RecipeType<T> TYPE;
     private final ResourceLocation UID;
     private final RecipeViewerInfo recipeViewerInfo;
+    private final BasicUpgradableProcessorMenuInfo<?, ?> info;
     private static final Font font = Minecraft.getInstance().font;
+
 
     public JeiProcessorCategory(IGuiHelper helper, String type, Class<T> clazz) {
         this.helper = helper;
         this.type = type;
         this.recipeViewerInfo = RECIPE_VIEWER_MAP.get(type);
+        this.info = (BasicUpgradableProcessorMenuInfo<?, ?>) TILE_CONTAINER_INFO_MAP.get(type);
 
         UID = ncLoc(type);
         TYPE = new RecipeType<>(UID, clazz);
@@ -85,35 +89,35 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses) {
         boolean large = recipeViewerInfo.outputs().size() < 3;
-        for (int i = 0; i < recipe.itemInputs.size(); i++) {
+        for (int i = 0; i < recipe.itemIngredients.size(); i++) {
             ScreenPosition position = recipeViewerInfo.inputs().get(i);
-            builder.addInputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemInputs.get(i).ingredient());
+            builder.addInputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemIngredients.get(i).ingredient());
         }
 
-        for (int i = 0; i < recipe.fluidInputs.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.inputs().get(i + recipe.itemInputs.size());
-            builder.addInputSlot(position.x() + 1, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidInputs.get(i).ingredient().getStacks()).toList());
+        for (int i = 0; i < recipe.fluidIngredients.size(); i++) {
+            ScreenPosition position = recipeViewerInfo.inputs().get(i + recipe.itemIngredients.size());
+            builder.addInputSlot(position.x() + 1, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidIngredients.get(i).ingredient().getStacks()).toList());
         }
 
-        for (int i = 0; i < recipe.itemResults.size(); i++) {
+        for (int i = 0; i < recipe.itemProducts.size(); i++) {
             ScreenPosition position = recipeViewerInfo.outputs().get(i);
-            IRecipeSlotBuilder temp = builder.addOutputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemResults.get(i).ingredient());
+            IRecipeSlotBuilder temp = builder.addOutputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemProducts.get(i).ingredient());
             if (recipe instanceof RockCrusherRecipe) {
-                temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.itemResults.get(Integer.parseInt(recipeSlotView.getSlotName().get())).count()).first).withStyle(ChatFormatting.GOLD)));
+                temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.itemProducts.get(Integer.parseInt(recipeSlotView.getSlotName().get())).count()).first).withStyle(ChatFormatting.GOLD)));
             } else if (recipe instanceof FuelReprocessorRecipe && (i == 2 || i == 6)) {
-                temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.itemResults.get(Integer.parseInt(recipeSlotView.getSlotName().get())).count()).first).withStyle(ChatFormatting.GOLD)));
+                temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.itemProducts.get(Integer.parseInt(recipeSlotView.getSlotName().get())).count()).first).withStyle(ChatFormatting.GOLD)));
             }
         }
 
-        for (int i = 0; i < recipe.fluidResults.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.outputs().get(i + recipe.itemResults.size());
+        for (int i = 0; i < recipe.fluidProducts.size(); i++) {
+            ScreenPosition position = recipeViewerInfo.outputs().get(i + recipe.itemProducts.size());
             int x = position.x() + (large ? 1 : 0);
             if (recipe instanceof CentrifugeRecipe && (i == 2 || i == 5)) {
-                int amount = probabilityUnpacker(recipe.fluidResults.get(i).getFluids()[0].getAmount()).second;
-                builder.addOutputSlot(x, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).map(stack -> stack.copyWithAmount(amount)).toList()).setFluidRenderer(amount, false, large ? 24 : 16, large ? 24 : 16)
-                        .setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.fluidResults.get(Integer.parseInt(recipeSlotView.getSlotName().get())).amount()).first).withStyle(ChatFormatting.GOLD)));
+                int amount = probabilityUnpacker(recipe.fluidProducts.get(i).getFluids()[0].getAmount()).second;
+                builder.addOutputSlot(x, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidProducts.get(i).ingredient().getStacks()).map(stack -> stack.copyWithAmount(amount)).toList()).setFluidRenderer(amount, false, large ? 24 : 16, large ? 24 : 16)
+                        .setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.fluidProducts.get(Integer.parseInt(recipeSlotView.getSlotName().get())).amount()).first).withStyle(ChatFormatting.GOLD)));
             } else {
-                builder.addOutputSlot(x, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidResults.get(i).ingredient().getStacks()).toList()).setFluidRenderer(recipe.fluidResults.get(i).amount(), false, large ? 24 : 16, large ? 24 : 16);
+                builder.addOutputSlot(x, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidProducts.get(i).ingredient().getStacks()).toList()).setFluidRenderer(recipe.fluidProducts.get(i).amount(), false, large ? 24 : 16, large ? 24 : 16);
             }
         }
     }
@@ -121,23 +125,23 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
     @Override
     public void draw(T recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         guiGraphics.blit(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top(), recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height());
-        guiGraphics.blit(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 176, 3, (int) (((double) System.currentTimeMillis() / 100 / recipe.getTimeModifier()) % 37), 38);
-        for (int i = 0; i < recipe.itemInputs.size(); i++) {
+        guiGraphics.blit(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 176, 3, (int) (((double) System.currentTimeMillis() / 100 / recipe.getProcessTimeMultiplier()) % 37), 38);
+        for (int i = 0; i < recipe.itemIngredients.size(); i++) {
             ScreenPosition position = recipeViewerInfo.inputs().get(i);
-            guiGraphics.renderItemDecorations(font, recipe.itemInputs.get(i).getItems()[0], position.x() + 1, position.y() + 1);
+            guiGraphics.renderItemDecorations(font, recipe.itemIngredients.get(i).getItems()[0], position.x() + 1, position.y() + 1);
         }
 
-        for (int i = 0; i < recipe.itemResults.size(); i++) {
+        for (int i = 0; i < recipe.itemProducts.size(); i++) {
             ScreenPosition position = recipeViewerInfo.outputs().get(i);
             if (recipe instanceof RockCrusherRecipe) {
-                guiGraphics.renderItemDecorations(font, recipe.itemResults.get(i).getItems()[0].copyWithCount(probabilityUnpacker(recipe.itemResults.get(i).getItems()[0].getCount()).second), position.x() + 1, position.y() + 1);
+                guiGraphics.renderItemDecorations(font, recipe.itemProducts.get(i).getItems()[0].copyWithCount(probabilityUnpacker(recipe.itemProducts.get(i).getItems()[0].getCount()).second), position.x() + 1, position.y() + 1);
             } else {
-                guiGraphics.renderItemDecorations(font, recipe.itemResults.get(i).getItems()[0], position.x() + 1, position.y() + 1);
+                guiGraphics.renderItemDecorations(font, recipe.itemProducts.get(i).getItems()[0], position.x() + 1, position.y() + 1);
             }
         }
 
         if (new ScreenRectangle(recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2).containsPoint((int) mouseX, (int) mouseY)) {
-            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", getTimeString(PROCESSOR_CONFIG_MAP.get(type).base_time() * recipe.getTimeModifier())), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", getFEString(PROCESSOR_CONFIG_MAP.get(type).base_power() * recipe.getPowerModifier(), true))), Optional.empty(), (int) mouseX, (int) mouseY);
+            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", getTimeString(recipe.getBaseProcessTime(info.getDefaultProcessTime()))), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", getFEString(recipe.getBaseProcessPower(info.getDefaultProcessPower()), true))), Optional.empty(), (int) mouseX, (int) mouseY);
         }
     }
 }

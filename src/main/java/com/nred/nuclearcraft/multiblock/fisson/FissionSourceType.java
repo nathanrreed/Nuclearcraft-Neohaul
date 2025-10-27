@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.nred.nuclearcraft.config.Config2.fission_source_efficiency;
+import static com.nred.nuclearcraft.config.NCConfig.fission_source_efficiency;
 
 public enum FissionSourceType implements StringRepresentable, ITileEnum<FissionSourceEntity.Variant>, IMultiblockVariant {
     RADIUM_BERYLLIUM("radium_beryllium", () -> fission_source_efficiency[0], FissionSourceEntity.RadiumBeryllium.class),

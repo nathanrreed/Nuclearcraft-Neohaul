@@ -25,14 +25,14 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public class TurbineControllerScreen extends GuiMultiblockController<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>, TurbineControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "turbine_controller");
 
-    public TurbineControllerScreen(TurbineControllerMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
+    public TurbineControllerScreen(TurbineControllerMenu menu, Inventory inventory, Component title) {
+        super(menu, inventory, title, gui_texture);
         imageWidth = 176;
         imageHeight = 76;
     }
 
     @Override
-    protected void init() {
+    public void init() {
         super.init();
         clearAllButton = this.addRenderableWidget(new MultiblockButton.ClearAllMaterial(getGuiLeft() + 153, getGuiTop() + 5, (btn) -> {
             if (NCUtil.isModifierKeyDown()) new ClearAllMaterialPacket(tile.getTilePos()).sendToServer();

@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -20,9 +21,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.fluids.FluidUtil;
 
+import javax.annotation.Nullable;
+
 public abstract class BlockTile extends NCBlock implements EntityBlock {
     public BlockTile(BlockBehaviour.Properties properties) {
         super(properties);
+    }
+
+    @Nullable
+    protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+        BlockEntity blockentity = level.getBlockEntity(pos);
+        return blockentity instanceof MenuProvider ? (MenuProvider) blockentity : null;
     }
 
     @Override
@@ -62,17 +71,17 @@ public abstract class BlockTile extends NCBlock implements EntityBlock {
             }
         }
         if (isTileGui) {
-//            if (level.isClientSide()) { TODO
-//                onGuiOpened(world, pos);
-//                return ItemInteractionResult.CONSUME;
-//            } else {
-//                onGuiOpened(world, pos);
-//                if (tile instanceof IProcessor<?, ?, ?> processor) {
-//                    processor.refreshRecipe();
-//                    processor.refreshActivity();
-//                }
-//                ((ITileGui<?, ?, ?>) tile).openGui(world, pos, player);
-//            }
+            if (level.isClientSide()) {
+                onGuiOpened(level, pos);
+                return ItemInteractionResult.CONSUME;
+            } else {
+                onGuiOpened(level, pos);
+                if (tile instanceof IProcessor<?, ?, ?> processor) {
+                    processor.refreshRecipe();
+                    processor.refreshActivity();
+                }
+                player.openMenu(state.getMenuProvider(level, pos), buf -> buf.writeBlockPos(pos));
+            }
         } else {
             return ItemInteractionResult.FAIL;
         }
@@ -80,13 +89,13 @@ public abstract class BlockTile extends NCBlock implements EntityBlock {
         return ItemInteractionResult.CONSUME;
     }
 
-//    public void onGuiOpened(Level world, BlockPos pos) {
-//
-//    }
+    public void onGuiOpened(Level level, BlockPos pos) {
+
+    }
 
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!keepInventory) {
+        if (!state.is(newState.getBlock()) && !keepInventory) {
             BlockEntity tileentity = level.getBlockEntity(pos);
 
             Container inv = null;

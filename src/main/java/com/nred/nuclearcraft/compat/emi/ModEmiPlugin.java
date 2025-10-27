@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.compat.emi;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
-import com.nred.nuclearcraft.recipe.base_types.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
@@ -81,15 +81,15 @@ public class ModEmiPlugin implements EmiPlugin {
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, PROCESSOR_WORKSTATIONS.get("electric_furnace"));
         for (String type : EMI_PROCESSOR_CATEGORIES.keySet()) {
             registry.addCategory(EMI_PROCESSOR_CATEGORIES.get(type));
-            registry.addRecipeHandler((MenuType<ProcessorMenu>) PROCESSOR_MENU_TYPES.get(type).get(), new StandardRecipeHandler<>() {
+            registry.addRecipeHandler((MenuType<? extends ProcessorMenu<?, ?, ?>>) PROCESSOR_MENU_TYPES.get(type).get(), new StandardRecipeHandler() {
                 @Override
-                public List<Slot> getInputSources(ProcessorMenu handler) {
+                public List<Slot> getInputSources(AbstractContainerMenu handler) {
                     return handler.slots;
                 }
 
                 @Override
-                public List<Slot> getCraftingSlots(ProcessorMenu handler) {
-                    return handler.ITEM_INPUTS;
+                public List<Slot> getCraftingSlots(AbstractContainerMenu handler) {
+                    return handler.slots; //TODO
                 }
 
                 @Override
@@ -106,7 +106,7 @@ public class ModEmiPlugin implements EmiPlugin {
                 }
             } else {
                 for (RecipeHolder<? extends ProcessorRecipe> recipe : manager.getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(type).get()).stream().sorted(Comparator.comparing(other -> other.id().getPath())).toList()) {
-                    EmiProcessorRecipe temp = new EmiProcessorRecipe(type, EMI_PROCESSOR_CATEGORIES.get(type), recipe.id(), recipe.value().itemInputs.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().itemResults.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().fluidInputs.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().fluidResults.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().getTimeModifier(), recipe.value().getPowerModifier());
+                    EmiProcessorRecipe temp = new EmiProcessorRecipe(type, EMI_PROCESSOR_CATEGORIES.get(type), recipe.id(), recipe.value().itemIngredients.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().itemProducts.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().fluidIngredients.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().fluidProducts.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().getProcessTimeMultiplier(), recipe.value().getProcessPowerMultiplier());
                     if (!temp.getInputs().isEmpty()) {
                         registry.addRecipe(temp);
                     }

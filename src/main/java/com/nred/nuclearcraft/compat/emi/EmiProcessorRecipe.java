@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.compat.emi;
 
 import com.ibm.icu.impl.Pair;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.compat.common.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
-import static com.nred.nuclearcraft.config.Config.PROCESSOR_CONFIG_MAP;
+import static com.nred.nuclearcraft.handler.TileInfoHandler.TILE_CONTAINER_INFO_MAP;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.probabilityUnpacker;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.removeBarriers;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
@@ -82,9 +83,9 @@ public class EmiProcessorRecipe extends BasicEmiRecipe {
 
         this.catalysts.add(EmiIngredient.of(Ingredient.of(PROCESSOR_MAP.get(type))));
         this.recipeViewerInfo = RECIPE_VIEWER_MAP.get(type);
-
-        this.time = PROCESSOR_CONFIG_MAP.get(type).base_time() * timeModifier;
-        this.power = PROCESSOR_CONFIG_MAP.get(type).base_power() * powerModifier;
+        BasicUpgradableProcessorMenuInfo<?, ?> info = (BasicUpgradableProcessorMenuInfo<?, ?>) TILE_CONTAINER_INFO_MAP.get(type);
+        this.time = info.getDefaultProcessTime() * timeModifier;
+        this.power = info.getDefaultProcessPower() * powerModifier;
     }
 
     @Override

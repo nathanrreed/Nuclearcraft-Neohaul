@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nonnull;
 
 public abstract class TileEnergy extends NCTile implements ITileEnergy {
-
     protected @Nonnull EnergyStorage storage = null;
 
     protected @Nonnull EnergyConnection[] energyConnections = null;

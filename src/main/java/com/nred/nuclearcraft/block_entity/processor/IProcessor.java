@@ -3,15 +3,16 @@ package com.nred.nuclearcraft.block_entity.processor;
 import com.nred.nuclearcraft.block_entity.ITickable;
 import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankOutputSetting;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.AbstractRecipeHandler;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
@@ -36,9 +37,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
-import static com.nred.nuclearcraft.config.Config2.smart_processor_input;
+import static com.nred.nuclearcraft.config.NCConfig.smart_processor_input;
 
-public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorContainerInfo<TILE, PACKET, INFO>> extends ITickable, ITileInventory, ITileFluid, ITileGui<TILE, PACKET, INFO> {
+public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends ITickable, ITileInventory, ITileFluid, ITileGui<TILE, PACKET, INFO> {
 
     BasicRecipeHandler<? extends BasicRecipe> getRecipeHandler();
 
@@ -55,11 +56,11 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
     default void setRecipeStats(@Nullable BasicRecipe recipe) {
         INFO info = getContainerInfo();
         if (recipe == null) {
-            setBaseProcessTime(info.defaultProcessTime);
-            setBaseProcessPower(info.defaultProcessPower);
+            setBaseProcessTime(info.getDefaultProcessTime());
+            setBaseProcessPower(info.getDefaultProcessPower());
         } else {
-            setBaseProcessTime(recipe.getBaseProcessTime(info.defaultProcessTime));
-            setBaseProcessPower(recipe.getBaseProcessPower(info.defaultProcessPower));
+            setBaseProcessTime(((ProcessorRecipe) recipe).getBaseProcessTime(info.getDefaultProcessTime()));
+            setBaseProcessPower(((ProcessorRecipe) recipe).getBaseProcessPower(info.getDefaultProcessPower()));
         }
     }
 

@@ -13,7 +13,7 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.config.Config2.fission_heating_coolant_heat_mult;
+import static com.nred.nuclearcraft.config.NCConfig.fission_heating_coolant_heat_mult;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.FISSION_HEATING_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FISSION_HEATING_RECIPE_TYPE;
 

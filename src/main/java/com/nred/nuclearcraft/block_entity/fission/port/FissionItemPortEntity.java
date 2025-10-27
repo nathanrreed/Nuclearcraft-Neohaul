@@ -7,7 +7,7 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.ITileGui;
-import com.nred.nuclearcraft.config.Config2;
+import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
@@ -182,7 +182,7 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
             return false;
         }
 
-        if (Config2.smart_processor_input) {
+        if (NCConfig.smart_processor_input) {
             return recipeHandler.isValidItemInput(stack, slot, getInventoryStacks().subList(0, recipeHandler.itemInputSize), Collections.emptyList(), null);
         } else {
             return recipeHandler.isValidItemInput(stack);

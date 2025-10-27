@@ -7,7 +7,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.gui.screens.Screen;
 import org.slf4j.Logger;
 
-import static com.nred.nuclearcraft.config.Config2.ctrl_info;
+import static com.nred.nuclearcraft.config.NCConfig.ctrl_info;
 
 public class NCUtil {
 

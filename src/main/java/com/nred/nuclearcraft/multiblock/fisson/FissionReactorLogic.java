@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.BiPredicate;
 
-import static com.nred.nuclearcraft.config.Config2.*;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 
 public class FissionReactorLogic extends MultiblockLogic<FissionReactor, FissionReactorLogic> implements IPacketMultiblockLogic<FissionReactor, FissionReactorLogic, FissionUpdatePacket> {
     public final HeatBuffer heatBuffer = new HeatBuffer(FissionReactor.BASE_MAX_HEAT);

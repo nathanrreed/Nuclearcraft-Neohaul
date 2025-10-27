@@ -19,8 +19,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static com.nred.nuclearcraft.config.Config2.turbine_coil_rule;
-import static com.nred.nuclearcraft.config.Config2.turbine_connector_rule;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_coil_rule;
+import static com.nred.nuclearcraft.config.NCConfig.turbine_connector_rule;
 import static com.nred.nuclearcraft.registration.BlockRegistration.TURBINE_MAP;
 
 public abstract class TurbinePlacement {

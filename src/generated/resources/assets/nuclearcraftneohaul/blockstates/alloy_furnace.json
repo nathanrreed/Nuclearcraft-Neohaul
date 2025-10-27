@@ -1,62 +1,32 @@
 {
   "variants": {
-    "facing=east,nuclearcraftneohaul_processor_on=false,powered=false": {
+    "facing=east,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/alloy_furnace_off",
       "y": 90
     },
-    "facing=east,nuclearcraftneohaul_processor_on=false,powered=true": {
-      "model": "nuclearcraftneohaul:block/alloy_furnace_off",
-      "y": 90
-    },
-    "facing=east,nuclearcraftneohaul_processor_on=true,powered=false": {
+    "facing=east,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/alloy_furnace_on",
       "y": 90
     },
-    "facing=east,nuclearcraftneohaul_processor_on=true,powered=true": {
-      "model": "nuclearcraftneohaul:block/alloy_furnace_on",
-      "y": 90
-    },
-    "facing=north,nuclearcraftneohaul_processor_on=false,powered=false": {
+    "facing=north,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/alloy_furnace_off"
     },
-    "facing=north,nuclearcraftneohaul_processor_on=false,powered=true": {
-      "model": "nuclearcraftneohaul:block/alloy_furnace_off"
-    },
-    "facing=north,nuclearcraftneohaul_processor_on=true,powered=false": {
+    "facing=north,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/alloy_furnace_on"
     },
-    "facing=north,nuclearcraftneohaul_processor_on=true,powered=true": {
-      "model": "nuclearcraftneohaul:block/alloy_furnace_on"
-    },
-    "facing=south,nuclearcraftneohaul_processor_on=false,powered=false": {
+    "facing=south,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/alloy_furnace_off",
       "y": 180
     },
-    "facing=south,nuclearcraftneohaul_processor_on=false,powered=true": {
-      "model": "nuclearcraftneohaul:block/alloy_furnace_off",
-      "y": 180
-    },
-    "facing=south,nuclearcraftneohaul_processor_on=true,powered=false": {
+    "facing=south,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/alloy_furnace_on",
       "y": 180
     },
-    "facing=south,nuclearcraftneohaul_processor_on=true,powered=true": {
-      "model": "nuclearcraftneohaul:block/alloy_furnace_on",
-      "y": 180
-    },
-    "facing=west,nuclearcraftneohaul_processor_on=false,powered=false": {
+    "facing=west,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/alloy_furnace_off",
       "y": 270
     },
-    "facing=west,nuclearcraftneohaul_processor_on=false,powered=true": {
-      "model": "nuclearcraftneohaul:block/alloy_furnace_off",
-      "y": 270
-    },
-    "facing=west,nuclearcraftneohaul_processor_on=true,powered=false": {
-      "model": "nuclearcraftneohaul:block/alloy_furnace_on",
-      "y": 270
-    },
-    "facing=west,nuclearcraftneohaul_processor_on=true,powered=true": {
+    "facing=west,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/alloy_furnace_on",
       "y": 270
     }

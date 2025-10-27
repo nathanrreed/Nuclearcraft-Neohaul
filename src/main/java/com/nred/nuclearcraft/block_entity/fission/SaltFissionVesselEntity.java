@@ -1,21 +1,21 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.IFissionPortTarget;
 import com.nred.nuclearcraft.block_entity.fission.port.ITileFilteredFluid;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorContainerInfoImpl;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
+import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
-import com.nred.nuclearcraft.menu.ContainerProcessorImpl;
+import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SaltFissionVesselMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -51,14 +51,14 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.util.*;
 
-import static com.nred.nuclearcraft.config.Config2.*;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class SaltFissionVesselEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket>, ITileFilteredFluid, IFissionFuelBunchComponent, IFissionPortTarget<FissionVesselPortEntity, SaltFissionVesselEntity> {
-    protected final ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> info;
+    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
     protected final @Nonnull NonNullList<ItemStack> consumedStacks;
@@ -142,7 +142,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        return new ContainerProcessorImpl.SaltFissionVesselMenu(containerId, playerInventory, this);
+        return new SaltFissionVesselMenu(containerId, playerInventory, this);
     }
 
     @Override
@@ -678,7 +678,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     // IProcessor
 
     @Override
-    public ProcessorContainerInfoImpl.BasicProcessorContainerInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> getContainerInfo() {
+    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> getContainerInfo() {
         return info;
     }
 

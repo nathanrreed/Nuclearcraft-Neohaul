@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block.tile.info;
 
+import com.nred.nuclearcraft.menu.MenuFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;

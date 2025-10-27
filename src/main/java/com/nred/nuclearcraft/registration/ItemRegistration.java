@@ -15,8 +15,8 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NCInfo.powerAdverb;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.Config2.energy_upgrade_power_laws_fp;
-import static com.nred.nuclearcraft.config.Config2.speed_upgrade_power_laws_fp;
+import static com.nred.nuclearcraft.config.NCConfig.energy_upgrade_power_laws_fp;
+import static com.nred.nuclearcraft.config.NCConfig.speed_upgrade_power_laws_fp;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.newEffect;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.Registers.ITEMS;
@@ -80,21 +80,13 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> LITHIUM_MAP = createItems(LITHIUMS, "lithium", "");
 
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String append) {
-        return createItems(names, "", append, false);
-    }
-
-    private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String append, boolean byPassShift) {
-        return createItems(names, "", append, byPassShift);
+        return createItems(names, "", append);
     }
 
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String prepend, String append) {
-        return createItems(names, prepend, append, false);
-    }
-
-    private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String prepend, String append, boolean byPassShift) {
         HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
         for (String name : names) {
-            map.put(name, ITEMS.register((!prepend.isEmpty() ? prepend + "_" : "") + name + (!append.isEmpty() ? "_" + append : ""), () -> new TooltipItem(new Item.Properties(), byPassShift)));
+            map.put(name, ITEMS.register((!prepend.isEmpty() ? prepend + "_" : "") + name + (!append.isEmpty() ? "_" + append : ""), () -> new TooltipItem(new Item.Properties())));
         }
         return map;
     }
@@ -128,8 +120,8 @@ public class ItemRegistration {
 
     public static HashMap<String, DeferredItem<Item>> createUpgrades() {
         HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
-        map.put("speed", ITEMS.register("speed_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.speed.desc", (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")).withStyle(ChatFormatting.AQUA)), true, true)));
-        map.put("energy", ITEMS.register("energy_upgrade", () -> new TooltipItem(new Item.Properties(), List.of(Component.translatable("item." + MODID + ".upgrade.energy.desc", (Supplier<String>) () -> powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")).withStyle(ChatFormatting.AQUA)), true, true)));
+        map.put("speed", ITEMS.register("speed_upgrade", () -> new UpgradeItem(0, List.of(Component.translatable("item." + MODID + ".upgrade.speed.desc", (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")).withStyle(ChatFormatting.AQUA)), true, true)));
+        map.put("energy", ITEMS.register("energy_upgrade", () -> new UpgradeItem(1, List.of(Component.translatable("item." + MODID + ".upgrade.energy.desc", (Supplier<String>) () -> powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")).withStyle(ChatFormatting.AQUA)), true, true)));
         return map;
     }
 

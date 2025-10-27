@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class TileEnergyFluid extends TileEnergy implements ITileFluid {
-
     private @Nonnull List<Tank> tanks = null;
 
     private @Nonnull FluidConnection[] fluidConnections = null;

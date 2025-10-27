@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.nred.nuclearcraft.config.Config2.fission_sink_cooling_rate;
+import static com.nred.nuclearcraft.config.NCConfig.fission_sink_cooling_rate;
 
 public enum FissionHeatSinkType implements StringRepresentable, ITileEnum<SolidFissionHeatSinkEntity.Variant>, IMultiblockVariant {
     WATER("", () -> fission_sink_cooling_rate[0], SolidFissionHeatSinkEntity.Water.class),
