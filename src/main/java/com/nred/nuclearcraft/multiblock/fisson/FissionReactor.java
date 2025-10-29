@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block_entity.fission.FissionMonitorEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionController;
@@ -32,6 +31,8 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 import java.util.function.UnaryOperator;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+
 public class FissionReactor extends Multiblock<FissionReactor> implements ILogicMultiblock<FissionReactor, FissionReactorLogic>, IPacketMultiblock<FissionReactor, FissionUpdatePacket> {
     private static final Logger log = LoggerFactory.getLogger(FissionReactor.class);
     protected final Int2ObjectMap<FissionCluster> clusterMap = new Int2ObjectOpenHashMap<>();
@@ -59,8 +60,8 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
-    public FissionReactor(Level world) {
-        super(world);
+    public FissionReactor(Level level) {
+        super(level);
     }
 
     @Override
@@ -147,11 +148,11 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
 
     public boolean setLogic(FissionReactor multiblock) {
         if (getPartMap(IFissionController.class).isEmpty()) {
-            multiblock.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.no_controller");
+            multiblock.setLastError(MODID + ".multiblock_validation.no_controller");
             return false;
         }
         if (getPartCount(IFissionController.class) > 1) {
-            multiblock.setLastError(NuclearcraftNeohaul.MODID + ".multiblock_validation.too_many_controllers");
+            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers");
             return false;
         }
 

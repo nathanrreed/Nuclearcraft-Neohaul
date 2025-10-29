@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBearingEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
-import com.nred.nuclearcraft.menu.multiblock.TurbineControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.TurbineControllerMenu;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.payload.multiblock.ClearAllMaterialPacket;
 import com.nred.nuclearcraft.payload.multiblock.TurbineUpdatePacket;

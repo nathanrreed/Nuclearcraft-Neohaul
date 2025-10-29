@@ -1,8 +1,10 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
-import com.nred.nuclearcraft.recipe.CollectorRecipe;
+import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
+import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.Recipe;
@@ -52,7 +54,11 @@ public class RecipeTypeRegistration {
     public static final DeferredHolder<RecipeType<?>, RecipeType<SaltFissionRecipe>> SALT_FISSION_RECIPE_TYPE = register("salt_fission");
     public static final DeferredHolder<RecipeType<?>, RecipeType<PebbleFissionRecipe>> PEBBLE_FISSION_RECIPE_TYPE = register("pebble_fission");
 
+    public static final DeferredHolder<RecipeType<?>, RecipeType<HeatExchangerRecipe>> HEAT_EXCHANGER_RECIPE_TYPE = register("heat_exchanger");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CondenserRecipe>> CONDENSER_RECIPE_TYPE = register("condenser");
+
     public static final DeferredHolder<RecipeType<?>, RecipeType<DecayGeneratorRecipe>> DECAY_GENERATOR_RECIPE_TYPE = register("decay_generator");
+
     public static void init() {
     }
 }

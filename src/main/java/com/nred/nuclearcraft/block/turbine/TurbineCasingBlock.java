@@ -11,8 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FRAME;
 
 public class TurbineCasingBlock extends GenericTooltipDeviceBlock<Turbine, ITurbinePartType> {
-    public TurbineCasingBlock(@NotNull MultiblockPartProperties<ITurbinePartType> iTurbinePartTypeMultiblockPartProperties) {
-        super(iTurbinePartTypeMultiblockPartProperties);
+    public TurbineCasingBlock(@NotNull MultiblockPartProperties<ITurbinePartType> properties) {
+        super(properties);
         registerDefaultState(this.defaultBlockState().setValue(FRAME, false));
     }
 

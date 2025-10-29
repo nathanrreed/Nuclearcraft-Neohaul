@@ -3,6 +3,8 @@ package com.nred.nuclearcraft.multiblock.fisson;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.FissionSourceEntity.PrimingTargetInfo;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
+import com.nred.nuclearcraft.block_entity.fission.manager.FissionShieldManagerEntity;
+import com.nred.nuclearcraft.block_entity.fission.manager.FissionSourceManagerEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCoolerPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
@@ -148,8 +150,8 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
     }
 
     public void refreshConnections() {
-//        refreshManagers(TileFissionSourceManager.class); TODO
-//        refreshManagers(TileFissionShieldManager.class);
+        refreshManagers(FissionSourceManagerEntity.class);
+        refreshManagers(FissionShieldManagerEntity.class);
         refreshFilteredPorts(FissionIrradiatorPortEntity.class, FissionIrradiatorEntity.class);
         refreshFilteredPorts(FissionCoolerPortEntity.class, FissionCoolerEntity.class);
     }

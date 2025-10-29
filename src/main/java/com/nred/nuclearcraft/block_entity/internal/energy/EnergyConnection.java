@@ -44,10 +44,10 @@ public enum EnergyConnection implements StringRepresentable {
     @Override
     public @NotNull String getSerializedName() {
         return switch (this) {
-            case IN -> "input";
-            case OUT -> "output";
+            case IN -> "in";
+            case OUT -> "out";
             case BOTH -> "both";
-            case NON -> "disabled";
+            case NON -> "non";
         };
     }
 

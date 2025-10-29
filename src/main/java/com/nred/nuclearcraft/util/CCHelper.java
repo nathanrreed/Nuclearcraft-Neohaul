@@ -3,8 +3,8 @@ package com.nred.nuclearcraft.util;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import it.unimi.dsi.fastutil.longs.LongCollection;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.Collection;
@@ -26,12 +26,12 @@ public class CCHelper {
         return posLongCollection.stream().map(CCHelper::posInfo).toArray();
     }
 
-    public static Object[] vec3dInfo(Vec3i vec) {
-        return vec == null ? vec3dInfo(Vec3i.ZERO) : new Object[]{vec.getX(), vec.getY(), vec.getZ()};
+    public static Double[] vec3Info(Vec3 vec) {
+        return vec == null ? vec3Info(Vec3.ZERO) : new Double[]{vec.x(), vec.y(), vec.z()};
     }
 
-    public static Object[] vec3dInfoArray(Collection<Vec3i> vecCollection) {
-        return vecCollection.stream().map(CCHelper::vec3dInfo).toArray();
+    public static Object[] vec3InfoArray(Collection<Vec3> vecCollection) {
+        return vecCollection.stream().map(CCHelper::vec3Info).toArray();
     }
 
     public static Object[] stackInfo(ItemStack stack) {

@@ -4,6 +4,8 @@ import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
+import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.processor.ElectricFurnaceRecipe;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
@@ -24,22 +26,22 @@ import java.util.*;
 public class NCRecipes {
     private static boolean initialized = false;
 
-    private static final Object2ObjectMap<String, BasicRecipeHandler> RECIPE_HANDLER_MAP = new Object2ObjectOpenHashMap<>();
+    private static final Object2ObjectMap<String, BasicRecipeHandler<?>> RECIPE_HANDLER_MAP = new Object2ObjectOpenHashMap<>();
 
     public NCRecipes() {
         registerRecipes();
     }
 
-    public static void putHandler(BasicRecipeHandler handler) {
+    public static void putHandler(BasicRecipeHandler<?> handler) {
         RECIPE_HANDLER_MAP.put(handler.getName(), handler);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends BasicRecipeHandler> T getHandler(String name) {
+    public static <T extends BasicRecipeHandler<?>> T getHandler(String name) {
         return (T) RECIPE_HANDLER_MAP.get(name);
     }
 
-    public static Collection<BasicRecipeHandler> getHandlers() {
+    public static Collection<BasicRecipeHandler<?>> getHandlers() {
         return RECIPE_HANDLER_MAP.values();
     }
 
@@ -98,9 +100,8 @@ public class NCRecipes {
         putHandler(new SaltFissionRecipes());
         putHandler(new CoolantHeaterRecipes());
         putHandler(new FissionEmergencyCoolingRecipes());
-//        putHandler(new HeatExchangerRecipes());
-//        putHandler(new CondenserRecipes());
-//        putHandler(new CondenserDissipationFluidRecipes());
+        putHandler(new HeatExchangerRecipes());
+        putHandler(new CondenserRecipes());
         putHandler(new TurbineRecipes());
 //        putHandler(new RadiationScrubberRecipes());
 //        putHandler(new RadiationBlockMutation());
@@ -156,9 +157,8 @@ public class NCRecipes {
     public static SaltFissionRecipes salt_fission;
     public static CoolantHeaterRecipes coolant_heater;
     public static FissionEmergencyCoolingRecipes fission_emergency_cooling;
-    //    public static HeatExchangerRecipes heat_exchanger;
-//    public static CondenserRecipes condenser;
-//    public static CondenserDissipationFluidRecipes condenser_dissipation_fluid;
+    public static HeatExchangerRecipes heat_exchanger;
+    public static CondenserRecipes condenser;
     public static TurbineRecipes turbine;
 //    public static RadiationScrubberRecipes radiation_scrubber;
 //    public static RadiationBlockMutation radiation_block_mutation;
@@ -204,9 +204,8 @@ public class NCRecipes {
         salt_fission = getHandler("salt_fission");
         coolant_heater = getHandler("coolant_heater");
         fission_emergency_cooling = getHandler("fission_emergency_cooling");
-//        heat_exchanger = getHandler("heat_exchanger");
-//        condenser = getHandler("condenser");
-//        condenser_dissipation_fluid = getHandler("condenser_dissipation_fluid");
+        heat_exchanger = getHandler("heat_exchanger");
+        condenser = getHandler("condenser");
         turbine = getHandler("turbine");
 //        radiation_scrubber = getHandler("radiation_scrubber");
 //        radiation_block_mutation = getHandler("radiation_block_mutation");
@@ -461,6 +460,18 @@ public class NCRecipes {
     public abstract static class BasicProcessorRecipeHandler extends BasicRecipeHandler<ProcessorRecipe> {
         public BasicProcessorRecipeHandler(@Nonnull String name, int itemInputSize, int fluidInputSize, int itemOutputSize, int fluidOutputSize) {
             super(name, itemInputSize, fluidInputSize, itemOutputSize, fluidOutputSize);
+        }
+    }
+
+    public static class CondenserRecipes extends BasicRecipeHandler<CondenserRecipe> {
+        public CondenserRecipes() {
+            super("condenser", 0, 1, 0, 1);
+        }
+    }
+
+    public static class HeatExchangerRecipes extends BasicRecipeHandler<HeatExchangerRecipe> {
+        public HeatExchangerRecipes() {
+            super("heat_exchanger", 0, 1, 0, 1);
         }
     }
 }

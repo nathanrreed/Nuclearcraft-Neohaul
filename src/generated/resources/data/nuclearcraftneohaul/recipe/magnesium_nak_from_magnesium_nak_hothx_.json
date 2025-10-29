@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:heat_exchanger_recipe",
+  "flowDirectionBonus": 0.0,
+  "heatDifference": 520.0,
+  "input": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:magnesium_nak_hot"
+  },
+  "inputTemp": 800,
+  "isHeating": false,
+  "output": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:magnesium_nak"
+  },
+  "outputTemp": 400,
+  "preferredFlowDir": 0
+}

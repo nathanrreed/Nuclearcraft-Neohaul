@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:heat_exchanger_recipe",
+  "flowDirectionBonus": 0.5,
+  "heatDifference": 2.0,
+  "input": {
+    "amount": 32,
+    "fluid": "nuclearcraftneohaul:low_quality_steam"
+  },
+  "inputTemp": 350,
+  "isHeating": false,
+  "output": {
+    "amount": 1,
+    "fluid": "nuclearcraftneohaul:condensate_water"
+  },
+  "outputTemp": 350,
+  "preferredFlowDir": -1
+}

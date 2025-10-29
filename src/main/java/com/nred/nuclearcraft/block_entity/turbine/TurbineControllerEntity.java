@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.block_entity.turbine;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineLogic;
-import com.nred.nuclearcraft.menu.multiblock.TurbineControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.TurbineControllerMenu;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -107,7 +107,6 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements IT
     public void setIsRenderer(boolean isRenderer) {
         this.isRenderer = isRenderer;
     }
-
 
     @Override
     public void setActivity(boolean value) {

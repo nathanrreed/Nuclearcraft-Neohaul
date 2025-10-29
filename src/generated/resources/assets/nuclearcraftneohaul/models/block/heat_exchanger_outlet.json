@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/heat_exchanger/outlet_back",
+    "bottom": "nuclearcraftneohaul:block/heat_exchanger/outlet_top",
+    "front": "nuclearcraftneohaul:block/heat_exchanger/outlet_front",
+    "side": "nuclearcraftneohaul:block/heat_exchanger/outlet_side",
+    "top": "nuclearcraftneohaul:block/heat_exchanger/outlet_top"
+  }
+}

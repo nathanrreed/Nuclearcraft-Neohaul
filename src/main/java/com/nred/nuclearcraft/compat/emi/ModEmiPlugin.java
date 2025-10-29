@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.helpers.Concat.fluidEntries;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.info.Names.FISSION_HEAT_PARTS;
+import static com.nred.nuclearcraft.info.Names.COOLANTS;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.MenuRegistration.*;
@@ -178,7 +178,7 @@ public class ModEmiPlugin implements EmiPlugin {
         }
 
         registry.addCategory(EMI_SALT_COOLING_CATEGORY);
-        registry.addWorkstation(EMI_SALT_COOLING_CATEGORY, EmiIngredient.of(Stream.concat(FISSION_HEAT_PARTS.stream().map(part -> EmiStack.of(FISSION_REACTOR_MAP.get(part + "_fission_coolant_heater"))), Stream.of(SOLID_FISSION_WORKSTATION)).toList()));
+        registry.addWorkstation(EMI_SALT_COOLING_CATEGORY, EmiIngredient.of(Stream.concat(COOLANTS.stream().map(part -> EmiStack.of(FISSION_REACTOR_MAP.get(part + "_fission_coolant_heater"))), Stream.of(SOLID_FISSION_WORKSTATION)).toList()));
         registry.addRecipeHandler(FISSION_SALT_HEATER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_SALT_COOLING_CATEGORY));
         for (RecipeHolder<FissionCoolantHeaterRecipe> recipe : manager.getAllRecipesFor(COOLANT_HEATER_RECIPE_TYPE.get())) {
             registry.addRecipe(new EmiSaltCoolingRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));

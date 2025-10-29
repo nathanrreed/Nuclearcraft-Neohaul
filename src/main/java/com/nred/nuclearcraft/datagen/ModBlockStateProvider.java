@@ -78,6 +78,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         fluids();
         turbine();
         fission();
+        heat_exchanger();
         rtgs();
     }
 
@@ -124,6 +125,20 @@ class ModBlockStateProvider extends BlockStateProvider {
         turbineBladeWithItem("rotor_stator", TURBINE_MAP.get("standard_turbine_rotor_stator"), "turbine");
     }
 
+    private void heat_exchanger() {
+        directionalMachine("controller", HX_MAP.get("heat_exchanger_controller"), "heat_exchanger", ACTIVE);
+        directionalMachine("controller", HX_MAP.get("condenser_controller"), "heat_exchanger/condenser", ACTIVE);
+        booleanBlock("frame", "wall", HX_MAP.get("heat_exchanger_casing"), "heat_exchanger/casing", FRAME);
+        blockWithItemCutout("glass", HX_MAP.get("heat_exchanger_glass"), "heat_exchanger");
+        directionalTop("inlet", HX_MAP.get("heat_exchanger_inlet"), "heat_exchanger");
+        directionalTop("outlet", HX_MAP.get("heat_exchanger_outlet"), "heat_exchanger");
+        blockWithItem("baffle", HX_MAP.get("heat_exchanger_shell_baffle"), "heat_exchanger");
+        blockWithStateItem("redstone_port", HX_MAP.get("heat_exchanger_redstone_port"), "heat_exchanger", ACTIVE);
+        blockWithItem("computer_port", HX_MAP.get("heat_exchanger_computer_port"), "heat_exchanger");
+
+        // TODO tubes
+    }
+
     private void fission() {
         directionalMachine("controller", FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), "fission/solid", ACTIVE);
         directionalMachine("controller", FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), "fission/salt", ACTIVE);
@@ -157,7 +172,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem("standard", FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), "fission/salt/heater");
         directionalBooleanBlockOverlay("standard", "out", "in", FISSION_REACTOR_MAP.get("standard_fission_coolant_heater_port"), "fission/port", "fission/port/heater", ACTIVE);
 
-        for (String name : FISSION_HEAT_PARTS) {
+        for (String name : COOLANTS) {
             blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_fission_heat_sink"), "fission/solid/sink");
             blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_fission_coolant_heater"), "fission/salt/heater");
             directionalBooleanBlockOverlay(name, "out", "in", FISSION_REACTOR_MAP.get(name + "_fission_coolant_heater_port"), "fission/port", "fission/port/heater", ACTIVE);

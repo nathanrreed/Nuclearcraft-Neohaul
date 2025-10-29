@@ -4,6 +4,8 @@ import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.*;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
+import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity;
+import com.nred.nuclearcraft.block_entity.hx.HeatExchangerOutletEntity;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemHandler;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineCoilConnectorEntity;
@@ -97,6 +99,9 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), (entity, direction) -> ((FissionHeaterPortEntity) entity).getFluidSideCapability(direction));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get("irradiator_port").get(), (entity, direction) -> ((FissionIrradiatorPortEntity) entity).getItemSideCapability(direction));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("vessel_port").get(), (entity, direction) -> ((FissionVesselPortEntity) entity).getFluidSideCapability(direction));
+        // Heat Exchanger
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HX_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((HeatExchangerInletEntity) entity).getFluidSideCapability((direction)));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HX_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((HeatExchangerOutletEntity) entity).getFluidSideCapability(direction));
 
         items(event);
 
@@ -121,6 +126,9 @@ public class CapabilityRegistration {
                 event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("cooler_port").get(), (entity, direction) -> ((FissionCoolerPortEntity) entity).getChemicalCapability(direction));
                 event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), (entity, direction) -> ((FissionHeaterPortEntity) entity).getChemicalCapability(direction));
                 event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vessel_port").get(), (entity, direction) -> ((FissionVesselPortEntity) entity).getChemicalCapability(direction));
+                // Heat Exchanger
+                event.registerBlockEntity(CHEMICAL, HX_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((HeatExchangerInletEntity) entity).getChemicalCapability(direction));
+                event.registerBlockEntity(CHEMICAL, HX_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((HeatExchangerOutletEntity) entity).getChemicalCapability(direction));
 
                 // Universal Bin
                 event.registerBlockEntity(CHEMICAL, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.tank);

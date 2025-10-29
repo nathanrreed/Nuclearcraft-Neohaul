@@ -1,0 +1,26 @@
+{
+  "parent": "nuclearcraftneohaul:heat_exchanger_controller",
+  "criteria": {
+    "assemble_heat_exchanger_assembled": {
+      "trigger": "nuclearcraftneohaul:heat_exchanger_assembled"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.heat_exchanger_assembled.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:heat_exchanger_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.heat_exchanger_assembled.title"
+    }
+  },
+  "requirements": [
+    [
+      "assemble_heat_exchanger_assembled"
+    ]
+  ]
+}

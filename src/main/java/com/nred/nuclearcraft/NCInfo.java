@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
+import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
@@ -157,16 +158,16 @@ public class NCInfo {
         return Component.translatable(MODID + ".tooltip.reflector"); // TODO not in NCO
     }
 
-//	// HX Tube
-//
-//	public static String[] hxTubeFixedInfo(double heatTransferCoefficient, double heatRetentionMult) {
-//		return new String[] {Lang.localize("tile." + Global.MOD_ID + ".heat_exchanger_tube_heat_transfer_coefficient.fixd", UnitHelper.prefix(heatTransferCoefficient, 5, "H/t/K")), Lang.localize("tile." + Global.MOD_ID + ".heat_exchanger_tube_heat_retention_mult.fixd", NCMath.pcDecimalPlaces(heatRetentionMult, 1))};
-//	}
-//
-//	public static String[] hxTubeInfo() {
-//		return InfoHelper.formattedInfo("tile." + Global.MOD_ID + ".heat_exchanger_tube.desc");
-//	}
-//
+    // HX Tube
+
+    public static Component[] hxTubeFixedInfo(HeatExchangerTubeType type) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.heat_exchanger_tube.heat_transfer_coefficient", (Supplier<String>) () -> UnitHelper.prefix(type.getHeatTransferCoefficient(), 5, "H/t/K")), Component.translatable(MODID + ".tooltip.heat_exchanger_tube.heat_retention_mult", (Supplier<String>) () -> NCMath.pcDecimalPlaces(type.getHeatRetentionMultiplier(), 1))};
+    }
+
+    public static Component hxTubeInfo() {
+        return Component.translatable("block." + MODID + ".heat_exchanger_tube.desc");
+    }
+
     // Dynamo Coil
 
     public static Component[] dynamoCoilFixedInfo(TurbineDynamoCoilType type) {

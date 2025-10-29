@@ -20,9 +20,9 @@ import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContai
 import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilderImpl.BasicProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilderImpl.BasicUpgradableProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.menu.multiblock.SaltFissionControllerMenu;
-import com.nred.nuclearcraft.menu.multiblock.SolidFissionControllerMenu;
-import com.nred.nuclearcraft.menu.multiblock.TurbineControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.SaltFissionControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.SolidFissionControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.TurbineControllerMenu;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionCellPortMenu;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionHeaterPortMenu;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionIrradiatorPortMenu;

@@ -5,16 +5,13 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.StreamCodecsHelper;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.FISSION_IRRADIATOR_RECIPE_SERIALIZER;
@@ -36,16 +33,6 @@ public class FissionIrradiatorRecipe extends BasicRecipe {
         this.irradiatorMinFluxPerTick = irradiatorMinFluxPerTick;
         this.irradiatorMaxFluxPerTick = irradiatorMaxFluxPerTick;
         this.irradiatorBaseProcessRadiation = irradiatorBaseProcessRadiation;
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return Arrays.stream(getItemProduct().getItems()).findFirst().orElse(ItemStack.EMPTY);
     }
 
     @Override

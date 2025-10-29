@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:salt_fission_reactor_assembled",
+  "criteria": {
+    "pickup_heat_exchanger_controller": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:heat_exchanger_controller"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.heat_exchanger_controller.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:heat_exchanger_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.heat_exchanger_controller.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_heat_exchanger_controller"
+    ]
+  ]
+}

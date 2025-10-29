@@ -198,7 +198,7 @@ public class TileBattery extends TilePartAbstract<BatteryMultiblock> implements 
         EnergyConnection energyConnection = getEnergyConnection(side);
 
         setChanged();
-        player.sendSystemMessage(Component.translatable(opposite ? MODID + ".message.multitool.energy_toggle_opposite" : MODID + ".message.multitool.energy_toggle").append(Component.translatable(MODID + ".tooltip.side_config." + energyConnection.getSerializedName()).withStyle(energyConnection.getTextColor())));
+        player.sendSystemMessage(Component.translatable(opposite ? MODID + ".message.multitool.energy_toggle_opposite" : MODID + ".message.multitool.energy_toggle", Component.translatable(MODID + ".tooltip." + energyConnection.getSerializedName() + "_config")).withStyle(energyConnection.getTextColor()));
         return true;
     }
 

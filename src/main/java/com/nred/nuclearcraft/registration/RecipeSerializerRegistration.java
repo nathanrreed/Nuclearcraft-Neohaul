@@ -3,6 +3,8 @@ package com.nred.nuclearcraft.registration;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
+import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
@@ -46,6 +48,9 @@ public class RecipeSerializerRegistration {
     public static final DeferredHolder<RecipeSerializer<?>, FissionIrradiatorRecipe.Serializer> FISSION_IRRADIATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_irradiator_recipe", FissionIrradiatorRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, FissionCoolantHeaterRecipe.Serializer> FISSION_COOLANT_HEATER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_heater_recipe", FissionCoolantHeaterRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, FissionEmergencyCoolingRecipe.Serializer> FISSION_EMERGENCY_COOLING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_emergency_cooling_recipe", FissionEmergencyCoolingRecipe.Serializer::new);
+
+    public static final DeferredHolder<RecipeSerializer<?>, CondenserRecipe.Serializer> CONDENSER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("condenser_recipe", CondenserRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, HeatExchangerRecipe.Serializer> HEAT_EXCHANGER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("heat_exchanger_recipe", HeatExchangerRecipe.Serializer::new);
 
     public static final DeferredHolder<RecipeSerializer<?>, DecayGeneratorRecipe.Serializer> DECAY_GENERATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("decay_generator_recipe", DecayGeneratorRecipe.Serializer::new);
 

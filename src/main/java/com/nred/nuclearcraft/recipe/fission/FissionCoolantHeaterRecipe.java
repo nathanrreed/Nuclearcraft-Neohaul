@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -28,11 +27,6 @@ public class FissionCoolantHeaterRecipe extends BasicRecipe {
         this.heater = heater;
         this.coolantHeaterCoolingRate = coolantHeaterCoolingRate;
         this.coolantHeaterPlacementRule = coolantHeaterPlacementRule;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return ItemStack.EMPTY;
     }
 
     @Override

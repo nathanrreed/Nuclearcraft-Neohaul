@@ -95,7 +95,7 @@ public class NCConfig {
     public static double[] fission_source_efficiency;
     public static int[] fission_sink_cooling_rate;
     public static String[] fission_sink_rule;
-    public static int[] fission_heater_cooling_rate = new int[]{55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205}; // TODO FIX / REMOVE
+    public static int[] fission_heater_cooling_rate = new int[]{55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205}; // TODO FIX
     public static String[] fission_heater_rule;
     public static double[] fission_shield_heat_per_flux;
     public static double[] fission_shield_efficiency;
@@ -140,10 +140,7 @@ public class NCConfig {
     public static int heat_exchanger_max_size; // Default: 24
     public static double[] heat_exchanger_heat_transfer_coefficient;
     public static double[] heat_exchanger_heat_retention_mult;
-    public static double heat_exchanger_coolant_heat_mult;
     public static boolean heat_exchanger_lmtd;
-    public static boolean heat_exchanger_alternate_hps_recipe;
-    public static boolean heat_exchanger_alternate_exhaust_recipe;
 
     public static int turbine_min_size; // Default: 1
     public static int turbine_max_size; // Default: 24
@@ -358,7 +355,6 @@ public class NCConfig {
         fission_source_efficiency = syncDoubles(FISSION_SOURCE_EFFICIENCY, ARRAY);
         fission_sink_cooling_rate = syncInts(FISSION_SINK_COOLING_RATE, ARRAY);
         fission_sink_rule = syncStrings(FISSION_SINK_RULE, ARRAY);
-        fission_heater_cooling_rate = syncInts(FISSION_HEATER_COOLING_RATE, ARRAY);
         fission_heater_rule = syncStrings(FISSION_HEATER_RULE, ARRAY);
         fission_shield_heat_per_flux = syncDoubles(FISSION_SHIELD_HEAT_PER_FLUX, ARRAY);
         fission_shield_efficiency = syncDoubles(FISSION_SHIELD_EFFICIENCY, ARRAY);
@@ -403,10 +399,7 @@ public class NCConfig {
         heat_exchanger_max_size = HEAT_EXCHANGER_MAX_SIZE.getAsInt();
         heat_exchanger_heat_transfer_coefficient = syncDoubles(HEAT_EXCHANGER_HEAT_TRANSFER_COEFFICIENT, ARRAY);
         heat_exchanger_heat_retention_mult = syncDoubles(HEAT_EXCHANGER_HEAT_RETENTION_MULT, ARRAY);
-        heat_exchanger_coolant_heat_mult = HEAT_EXCHANGER_COOLANT_HEAT_MULT.getAsDouble();
         heat_exchanger_lmtd = HEAT_EXCHANGER_LMTD.getAsBoolean();
-        heat_exchanger_alternate_hps_recipe = HEAT_EXCHANGER_ALTERNATE_HPS_RECIPE.getAsBoolean();
-        heat_exchanger_alternate_exhaust_recipe = HEAT_EXCHANGER_ALTERNATE_EXHAUST_RECIPE.getAsBoolean();
 
         turbine_min_size = TURBINE_MIN_SIZE.getAsInt();
         turbine_max_size = TURBINE_MAX_SIZE.getAsInt();
@@ -613,7 +606,6 @@ public class NCConfig {
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SOURCE_EFFICIENCY = add(CATEGORY_FISSION, "fission_source_efficiency", List.of(0.9D, 0.95D, 1D), 0D, 255D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_SINK_COOLING_RATE = add(CATEGORY_FISSION, "fission_sink_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_SINK_RULE = addString(CATEGORY_FISSION, "fission_sink_rule", List.of("one cell", "one moderator", "one cell && one moderator", "one redstone sink", "two axial glowstone sinks", "one obsidian sink", "two moderators", "one cell && one casing", "exactly two iron sinks", "two water sinks", "exactly one water sink && two lead sinks", "one reflector", "one reflector && one iron sink", "one cell && one gold sink", "one moderator && one prismarine sink", "one water sink", "two axial lapis sinks", "one iron sink", "exactly one quartz sink && one casing", "exactly two axial lead sinks && one casing", "exactly one moderator && one casing", "two cells", "one quartz sink && one lapis sink", "two glowstone sinks && one tin sink", "one gold sink && one prismarine sink", "one redstone sink && one end_stone sink", "one end_stone sink && one copper sink", "two axial reflectors", "two copper sinks && one purpur sink", "exactly two redstone sinks", "three moderators", "three cells"), ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_HEATER_COOLING_RATE = add(CATEGORY_FISSION, "fission_heater_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_HEATER_RULE = addString(CATEGORY_FISSION, "fission_heater_rule", List.of("one vessel", "one moderator", "one vessel && one moderator", "one redstone heater", "two axial glowstone heaters", "one obsidian heater", "two moderators", "one vessel && one casing", "exactly two iron heaters", "two standard heaters", "exactly one standard heater && two lead heaters", "one reflector", "one reflector && one iron heater", "one vessel && one gold heater", "one moderator && one prismarine heater", "one standard heater", "two axial lapis heaters", "one iron heater", "exactly one quartz heater && one casing", "exactly two axial lead heaters && one casing", "exactly one moderator && one casing", "two vessels", "one quartz heater && one lapis heater", "two glowstone heaters && one tin heater", "one gold heater && one prismarine heater", "one redstone heater && one end_stone heater", "one end_stone heater && one copper heater", "two axial reflectors", "two copper heaters && one purpur heater", "exactly two redstone heaters", "three moderators", "three vessels"), ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D), 0D, 32767D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D), 0D, 255D, ARRAY);
@@ -658,10 +650,7 @@ public class NCConfig {
     private static final ModConfigSpec.IntValue HEAT_EXCHANGER_MAX_SIZE = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_max_size", 24, 2, 255);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_TRANSFER_COEFFICIENT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_transfer_coefficient", List.of(16D, 24D, 32D), 0.001D, Integer.MAX_VALUE, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_RETENTION_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_retention_mult", List.of(0.9D, 0.95D, 1D), 0.01D, 1D, ARRAY);
-    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_COOLANT_HEAT_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_coolant_heat_mult", 4D, 0.001D, Integer.MAX_VALUE);
     private static final ModConfigSpec.BooleanValue HEAT_EXCHANGER_LMTD = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_lmtd", false);
-    private static final ModConfigSpec.BooleanValue HEAT_EXCHANGER_ALTERNATE_HPS_RECIPE = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_alternate_hps_recipe", false);
-    private static final ModConfigSpec.BooleanValue HEAT_EXCHANGER_ALTERNATE_EXHAUST_RECIPE = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_alternate_exhaust_recipe", false);
 
     private static final ModConfigSpec.IntValue TURBINE_MIN_SIZE = add(CATEGORY_TURBINE, "turbine_min_size", 1, 1, 255);
     private static final ModConfigSpec.IntValue TURBINE_MAX_SIZE = add(CATEGORY_TURBINE, "turbine_max_size", 24, 3, 255);

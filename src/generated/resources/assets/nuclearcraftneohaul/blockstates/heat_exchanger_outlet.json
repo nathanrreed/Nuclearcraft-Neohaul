@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "nuclearcraftneohaul:block/heat_exchanger_outlet",
+      "x": 270
+    },
+    "facing=east": {
+      "model": "nuclearcraftneohaul:block/heat_exchanger_outlet",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "nuclearcraftneohaul:block/heat_exchanger_outlet"
+    },
+    "facing=south": {
+      "model": "nuclearcraftneohaul:block/heat_exchanger_outlet",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "nuclearcraftneohaul:block/heat_exchanger_outlet",
+      "x": 90
+    },
+    "facing=west": {
+      "model": "nuclearcraftneohaul:block/heat_exchanger_outlet",
+      "y": 270
+    }
+  }
+}

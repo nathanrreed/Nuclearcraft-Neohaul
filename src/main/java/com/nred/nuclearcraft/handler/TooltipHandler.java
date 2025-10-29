@@ -25,6 +25,7 @@ import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -36,6 +37,13 @@ public class TooltipHandler {
         List<Component> tooltip = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
+        // Fixes shift info being under advanced lines
+        List<Component> advanced = new ArrayList<>();
+        if (event.getFlags().isAdvanced()) {
+            advanced.add(tooltip.removeLast());
+            advanced.add(tooltip.removeLast());
+        }
+
         addPlacementRuleTooltip(tooltip, stack);
 
         if (event.getContext().level() != null)
@@ -46,6 +54,8 @@ public class TooltipHandler {
 //            addRadiationTooltip(tooltip, stack);
 //            addFoodRadiationTooltip(tooltip, stack);
 //        }
+
+        tooltip.addAll(advanced);
     }
 
     // Placement Rule Tooltips

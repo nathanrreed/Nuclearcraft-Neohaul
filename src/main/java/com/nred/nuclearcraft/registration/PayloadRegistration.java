@@ -34,13 +34,11 @@ public class PayloadRegistration {
         registrar.playToServer(ToggleTankSorptionPacket.TYPE, ToggleTankSorptionPacket.STREAM_CODEC, ToggleTankSorptionPacket.Handler::handleOnServer);
         registrar.playToServer(ResetTankSorptionsPacket.TYPE, ResetTankSorptionsPacket.STREAM_CODEC, ResetTankSorptionsPacket.Handler::handleOnServer);
         registrar.playToServer(ToggleTankOutputSettingPacket.TYPE, ToggleTankOutputSettingPacket.STREAM_CODEC, ToggleTankOutputSettingPacket.Handler::handleOnServer);
-//
+
         registrar.playToServer(ClearAllMaterialPacket.TYPE, ClearAllMaterialPacket.STREAM_CODEC, ClearAllMaterialPacket.Handler::handleOnServer);
 
         // SERVER -> CLIENT
 
-//        registrar.playToClient(ConfigUpdatePacket.TYPE, ConfigUpdatePacket.class);
-//
         registrar.playToClient(BlockHighlightUpdatePacket.TYPE, BlockHighlightUpdatePacket.STREAM_CODEC, BlockHighlightUpdatePacket.Handler::handleOnClient);
 
         registrar.playToClient(EnergyProcessorUpdatePacket.TYPE, EnergyProcessorUpdatePacket.STREAM_CODEC, EnergyProcessorUpdatePacket.Handler::handleOnClient);
@@ -51,7 +49,7 @@ public class PayloadRegistration {
 //        registrar.playToClient(DistillerRenderPacket.TYPE, DistillerRenderPacket.class);
 //        registrar.playToClient(InfiltratorUpdatePacket.TYPE, InfiltratorUpdatePacket.class);
 //        registrar.playToClient(InfiltratorRenderPacket.TYPE, InfiltratorRenderPacket.class);
-//
+
         registrar.playToClient(ItemPortUpdatePacket.TYPE, ItemPortUpdatePacket.STREAM_CODEC, ItemPortUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(FluidPortUpdatePacket.TYPE, FluidPortUpdatePacket.STREAM_CODEC, FluidPortUpdatePacket.Handler::handleOnClient);
 
@@ -65,14 +63,14 @@ public class PayloadRegistration {
         registrar.playToClient(SaltFissionUpdatePacket.TYPE, SaltFissionUpdatePacket.STREAM_CODEC, SaltFissionUpdatePacket.Handler::handleOnClient);
 
 
-//        registrar.playToClient(HeatExchangerUpdatePacket.TYPE, HeatExchangerUpdatePacket.class);
-//        registrar.playToClient(HeatExchangerRenderPacket.TYPE, HeatExchangerRenderPacket.class);
-//        registrar.playToClient(CondenserUpdatePacket.TYPE, CondenserUpdatePacket.class);
-//        registrar.playToClient(CondenserRenderPacket.TYPE, CondenserRenderPacket.class);
-//
+        registrar.playToClient(HeatExchangerUpdatePacket.TYPE, HeatExchangerUpdatePacket.STREAM_CODEC, HeatExchangerUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(HeatExchangerRenderPacket.TYPE, HeatExchangerRenderPacket.STREAM_CODEC, HeatExchangerRenderPacket.Handler::handleOnClient);
+        registrar.playToClient(CondenserUpdatePacket.TYPE, CondenserUpdatePacket.STREAM_CODEC, CondenserUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(CondenserRenderPacket.TYPE, CondenserRenderPacket.STREAM_CODEC, CondenserRenderPacket.Handler::handleOnClient);
+
         registrar.playToClient(TurbineUpdatePacket.TYPE, TurbineUpdatePacket.STREAM_CODEC, TurbineUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(TurbineRenderPacket.TYPE, TurbineRenderPacket.STREAM_CODEC, TurbineRenderPacket.Handler::handleOnClient);
-//
+
 //        registrar.playToClient(QuantumComputerQubitRenderPacket.TYPE, QuantumComputerQubitRenderPacket.class);
 //
 //        registrar.playToClient(PlayerRadsUpdatePacket.TYPE, PlayerRadsUpdatePacket.class);

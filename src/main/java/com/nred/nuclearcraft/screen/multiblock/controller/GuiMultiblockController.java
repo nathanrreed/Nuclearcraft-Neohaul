@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.screen.multiblock.controller;
 
 import com.nred.nuclearcraft.gui.MultiblockButton;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
-import com.nred.nuclearcraft.menu.multiblock.MultiblockControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.MultiblockControllerMenu;
 import com.nred.nuclearcraft.multiblock.IMultiblockGuiPart;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;

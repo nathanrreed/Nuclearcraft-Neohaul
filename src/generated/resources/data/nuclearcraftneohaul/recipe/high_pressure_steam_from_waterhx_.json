@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:heat_exchanger_recipe",
+  "flowDirectionBonus": 0.5,
+  "heatDifference": 64.0,
+  "input": {
+    "amount": 1,
+    "fluid": "minecraft:water"
+  },
+  "inputTemp": 300,
+  "isHeating": false,
+  "output": {
+    "amount": 4,
+    "fluid": "nuclearcraftneohaul:high_pressure_steam"
+  },
+  "outputTemp": 600,
+  "preferredFlowDir": 1
+}

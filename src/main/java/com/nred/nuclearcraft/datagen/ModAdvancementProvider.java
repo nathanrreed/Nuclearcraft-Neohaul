@@ -30,8 +30,7 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
-import static com.nred.nuclearcraft.registration.TriggerTypeRegistration.SALT_FISSION_ASSEMBLE_TRIGGER;
-import static com.nred.nuclearcraft.registration.TriggerTypeRegistration.SOLID_FISSION_ASSEMBLE_TRIGGER;
+import static com.nred.nuclearcraft.registration.TriggerTypeRegistration.*;
 import static net.minecraft.advancements.Advancement.Builder.advancement;
 import static net.minecraft.advancements.Advancement.Builder.recipeAdvancement;
 
@@ -102,6 +101,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
             // which may be stored in a variable and used as a parent by other advancement builders.
             builder.save(saver, ncLoc("root"), existingFileHelper);
 
+            // Processors
             craft(PROCESSOR_MAP.get("manufactory"), ncLoc("root"), saver, existingFileHelper);
             craft(PROCESSOR_MAP.get("alloy_furnace"), ncLoc("manufactory"), saver, existingFileHelper);
             craft(PROCESSOR_MAP.get("assembler"), ncLoc("alloy_furnace"), saver, existingFileHelper);
@@ -123,12 +123,11 @@ public class ModAdvancementProvider extends AdvancementProvider {
             craft(PROCESSOR_MAP.get("separator"), ncLoc("alloy_furnace"), saver, existingFileHelper);
             craft(PROCESSOR_MAP.get("supercooler"), ncLoc("alloy_furnace"), saver, existingFileHelper);
             craft(PROCESSOR_MAP.get("decay_hastener"), ncLoc("separator"), saver, existingFileHelper);
-
             craft(UPGRADE_MAP.get("energy"), ncLoc("manufactory"), saver, existingFileHelper);
             craft(UPGRADE_MAP.get("speed"), ncLoc("manufactory"), saver, existingFileHelper);
-            craft(MACHINE_INTERFACE, ncLoc("manufactory"), saver, existingFileHelper);
-
             craft(DECAY_GENERATOR, ncLoc("root"), saver, existingFileHelper);
+            // Devices
+            craft(MACHINE_INTERFACE, ncLoc("manufactory"), saver, existingFileHelper);
             craft(UNIVERSAL_BIN, ncLoc("root"), saver, existingFileHelper);
             craft(BATTERY_MAP.get("basic_voltaic_pile"), ncLoc("root"), saver, existingFileHelper);
             craft(BATTERY_MAP.get("basic_lithium_ion_battery"), ncLoc("basic_voltaic_pile"), saver, existingFileHelper);
@@ -145,7 +144,24 @@ public class ModAdvancementProvider extends AdvancementProvider {
             has(CURIUM_MAP, CURIUM_MAP.get("243"), "curium", ncLoc("plutonium"), saver, existingFileHelper);
             has(BERKELIUM_MAP, BERKELIUM_MAP.get("248"), "berkelium", ncLoc("curium"), saver, existingFileHelper);
             has(CALIFORNIUM_MAP, CALIFORNIUM_MAP.get("251"), "californium", ncLoc("curium"), saver, existingFileHelper);
-            // TODO RTGs
+
+            // RTG
+            craft(RTG_MAP.get("rtg_uranium"), ncLoc("decay_generator"), saver, existingFileHelper);
+            craft(RTG_MAP.get("rtg_plutonium"), ncLoc("plutonium"), saver, existingFileHelper);
+            craft(RTG_MAP.get("rtg_americium"), ncLoc("americium"), saver, existingFileHelper);
+            craft(RTG_MAP.get("rtg_californium"), ncLoc("californium"), saver, existingFileHelper);
+            // Heat Exchanger
+            craft(HX_MAP.get("heat_exchanger_controller"), ncLoc("salt_fission_reactor_assembled"), saver, existingFileHelper);
+            assembled("heat_exchanger_assembled", HX_MAP.get("heat_exchanger_controller"), ncLoc("heat_exchanger_controller"), HEAT_EXCHANGER_ASSEMBLE_TRIGGER, saver, existingFileHelper);
+            craft(HX_MAP.get("condenser_controller"), ncLoc("salt_fission_reactor_assembled"), saver, existingFileHelper);
+            assembled("condenser_assembled", HX_MAP.get("condenser_controller"), ncLoc("condenser_controller"), CONDENSER_ASSEMBLE_TRIGGER, saver, existingFileHelper);
+            // Foods
+            craft(FOOD_MAP.get("marshmallow"), ncLoc("root"), saver, existingFileHelper);
+            craft(FOOD_MAP.get("smore"), ncLoc("marshmallow"), saver, existingFileHelper);
+            craft(FOOD_MAP.get("moresmore"), ncLoc("smore"), saver, existingFileHelper);
+
+            craft(PORTABLE_ENDER_CHEST, ncLoc("root"), saver, existingFileHelper);
+
         }
 
         private void assembled(String name, ItemLike icon, ResourceLocation parent, Supplier<AssembleTrigger> trigger, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {

@@ -1,8 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.menu.multiblock.SaltFissionControllerMenu;
-import com.nred.nuclearcraft.menu.multiblock.SolidFissionControllerMenu;
-import com.nred.nuclearcraft.menu.multiblock.TurbineControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.*;
 import com.nred.nuclearcraft.menu.multiblock.port.*;
 import com.nred.nuclearcraft.menu.processor.NuclearFurnaceMenu;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
@@ -22,6 +20,8 @@ public class MenuRegistration {
     public static final DeferredHolder<MenuType<?>, MenuType<SaltFissionControllerMenu>> SALT_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("salt_fission_controller", () -> IMenuTypeExtension.create(SaltFissionControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<SolidFissionControllerMenu>> SOLID_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("solid_fission_controller", () -> IMenuTypeExtension.create(SolidFissionControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<TurbineControllerMenu>> TURBINE_CONTROLLER_MENU_TYPE = MENUS.register("turbine_controller", () -> IMenuTypeExtension.create(TurbineControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<HeatExchangerControllerMenu>> HX_CONTROLLER_MENU_TYPE = MENUS.register("hx_controller", () -> IMenuTypeExtension.create(HeatExchangerControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<CondenserControllerMenu>> CONDENSER_CONTROLLER_MENU_TYPE = MENUS.register("condenser_controller", () -> IMenuTypeExtension.create(CondenserControllerMenu::new));
 
     // Ports
     public static final DeferredHolder<MenuType<?>, MenuType<FissionCellPortMenu>> FISSION_CELL_PORT_MENU_TYPE = MENUS.register("turbine_cell", () -> IMenuTypeExtension.create(FissionCellPortMenu::new));

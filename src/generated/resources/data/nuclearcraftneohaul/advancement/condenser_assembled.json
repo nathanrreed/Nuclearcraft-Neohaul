@@ -1,0 +1,26 @@
+{
+  "parent": "nuclearcraftneohaul:condenser_controller",
+  "criteria": {
+    "assemble_condenser_assembled": {
+      "trigger": "nuclearcraftneohaul:condenser_assembled"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.condenser_assembled.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:condenser_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.condenser_assembled.title"
+    }
+  },
+  "requirements": [
+    [
+      "assemble_condenser_assembled"
+    ]
+  ]
+}

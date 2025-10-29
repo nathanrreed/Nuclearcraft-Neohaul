@@ -1,8 +1,6 @@
 package com.nred.nuclearcraft.multiblock;
 
-import com.nred.nuclearcraft.block_entity.ITileFiltered;
-import com.nred.nuclearcraft.block_entity.ITilePort;
-import com.nred.nuclearcraft.block_entity.ITilePortTarget;
+import com.nred.nuclearcraft.block_entity.*;
 import com.nred.nuclearcraft.block_entity.fission.FissionShieldEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent;
@@ -141,7 +139,7 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
     // Utility Methods
 
     public <PORT extends ITilePort<MULTIBLOCK, LOGIC, PORT, TARGET> & ITileFiltered, TARGET extends ITilePortTarget<MULTIBLOCK, LOGIC, PORT, TARGET> & ITileFiltered> void refreshFilteredPorts(Class<PORT> portClass, Class<TARGET> targetClass) {
-        Map<Long, PORT> portMap = multiblock.getPartMap(portClass); // TODO CHECK
+        Map<Long, PORT> portMap = multiblock.getPartMap(portClass);
         Map<Long, TARGET> targetMap = multiblock.getPartMap(targetClass);
 
         for (TARGET target : targetMap.values()) {
@@ -202,11 +200,11 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
         }
     }
 
-//    public <MANAGER extends ITileManager<MULTIBLOCK, LOGIC, MANAGER, LISTENER>, LISTENER extends ITileManagerListener<MULTIBLOCK, LOGIC, T, MANAGER, LISTENER>> void refreshManagers(Class<MANAGER> managerClass) {
-//        for (MANAGER manager : ((Long2ObjectMap<MANAGER>) getPartMap(managerClass.asSubclass(multiblock.tClass))).values()) {
-//            manager.refreshManager(); TODO
-//        }
-//    }
+    public <MANAGER extends ITileManager<MULTIBLOCK, LOGIC, MANAGER, LISTENER>, LISTENER extends ITileManagerListener<MULTIBLOCK, LOGIC, MANAGER, LISTENER>> void refreshManagers(Class<MANAGER> managerClass) {
+        for (MANAGER manager : getPartMap(managerClass).values()) {
+            manager.refreshManager();
+        }
+    }
 
     // NBT
     public abstract void writeToLogicTag(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason);

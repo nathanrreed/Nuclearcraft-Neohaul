@@ -257,7 +257,7 @@ public class SaltFissionLogic extends FissionReactorLogic {
     public void produceProducts() {
         Tank inputTank = tanks.get(0), outputTank = tanks.get(1);
 
-        BasicRecipe recipe = emergencyCoolingRecipeInfo.recipe;
+        FissionEmergencyCoolingRecipe recipe = emergencyCoolingRecipeInfo.recipe;
         int usedInput = NCMath.toInt(Math.min(inputTank.getFluidAmount() / recipe.getEmergencyCoolingHeatPerInputMB(), Math.min(heatBuffer.getHeatStored(), (long) FissionReactor.BASE_TANK_CAPACITY * getPartCount(FissionVentEntity.class))));
 
         inputTank.changeFluidAmount(-usedInput);

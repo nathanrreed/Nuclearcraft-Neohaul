@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.screen.multiblock.controller;
 
 import com.nred.nuclearcraft.handler.TileContainerInfo;
-import com.nred.nuclearcraft.menu.multiblock.MultiblockControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.MultiblockControllerMenu;
 import com.nred.nuclearcraft.multiblock.*;
 import com.nred.nuclearcraft.payload.multiblock.MultiblockUpdatePacket;
 import net.minecraft.network.chat.Component;

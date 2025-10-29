@@ -43,6 +43,12 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
 
     public abstract int getMaximumInteriorLength();
 
+    public boolean isInInterior(BlockPos pos) {
+        int x = pos.getX(), y = pos.getY(), z = pos.getZ();
+        BlockPos min = getMinimumCoord().get(), max = getMaximumCoord().get();
+        return x >= min.getX() + 1 && x <= max.getX() - 1 && y >= min.getY() + 1 && y <= max.getY() - 1 && z >= min.getZ() + 1 && z <= max.getZ() - 1;
+    }
+
     @Override
     protected int getMinimumNumberOfPartsForAssembledMachine() {
         return NCMath.hollowCube(getMinimumInteriorLength() + 2);

@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.block_entity.fission;
 
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
-import com.nred.nuclearcraft.menu.multiblock.SolidFissionControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.SolidFissionControllerMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;

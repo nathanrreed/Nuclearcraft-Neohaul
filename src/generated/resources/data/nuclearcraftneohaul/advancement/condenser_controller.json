@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:salt_fission_reactor_assembled",
+  "criteria": {
+    "pickup_condenser_controller": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:condenser_controller"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.condenser_controller.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:condenser_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.condenser_controller.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_condenser_controller"
+    ]
+  ]
+}

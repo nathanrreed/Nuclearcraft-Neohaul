@@ -1,12 +1,16 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.block_entity.hx.CondenserControllerEntity;
+import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
 import com.nred.nuclearcraft.info.Fluids;
-import com.nred.nuclearcraft.render.BatteryRenderer;
 import com.nred.nuclearcraft.render.BlockHighlightHandler;
-import com.nred.nuclearcraft.render.TurbineRotorRenderer;
+import com.nred.nuclearcraft.render.block_entity.BatteryRenderer;
+import com.nred.nuclearcraft.render.block_entity.RenderMultiblockCondenser;
+import com.nred.nuclearcraft.render.block_entity.RenderMultiblockHeatExchanger;
+import com.nred.nuclearcraft.render.block_entity.TurbineRotorRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -22,8 +26,7 @@ import net.neoforged.neoforge.common.NeoForge;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY_ENTITY_TYPE;
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 
 @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
@@ -51,10 +54,13 @@ public class ClientSetup {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @SubscribeEvent
     public static void blockEntityRenderer(final FMLCommonSetupEvent event) {
         BlockEntityRenderers.register(BATTERY_ENTITY_TYPE.get(), BatteryRenderer::new);
         BlockEntityRenderers.register((BlockEntityType<TurbineControllerEntity>) TURBINE_ENTITY_TYPE.get("controller").get(), TurbineRotorRenderer::new);
+        BlockEntityRenderers.register((BlockEntityType<HeatExchangerControllerEntity>) HX_ENTITY_TYPE.get("heat_exchanger_controller").get(), RenderMultiblockHeatExchanger::new);
+        BlockEntityRenderers.register((BlockEntityType<CondenserControllerEntity>) HX_ENTITY_TYPE.get("condenser_controller").get(), RenderMultiblockCondenser::new);
     }
 
     @SubscribeEvent

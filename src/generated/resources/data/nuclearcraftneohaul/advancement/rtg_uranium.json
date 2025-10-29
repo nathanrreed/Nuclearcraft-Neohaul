@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:decay_generator",
+  "criteria": {
+    "pickup_rtg_uranium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:rtg_uranium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.rtg_uranium.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:rtg_uranium"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.rtg_uranium.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_rtg_uranium"
+    ]
+  ]
+}

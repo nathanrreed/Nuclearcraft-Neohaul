@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/heat_exchanger/condenser/controller_back",
+    "bottom": "nuclearcraftneohaul:block/heat_exchanger/condenser/controller_bottom",
+    "front": "nuclearcraftneohaul:block/heat_exchanger/condenser/controller_front_on",
+    "side": "nuclearcraftneohaul:block/heat_exchanger/condenser/controller_side",
+    "top": "nuclearcraftneohaul:block/heat_exchanger/condenser/controller_top"
+  }
+}

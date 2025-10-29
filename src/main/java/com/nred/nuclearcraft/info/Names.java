@@ -55,6 +55,5 @@ public class Names {
     public static final List<String> URANIUMS = List.of("233", "233_c", "233_ni", "233_ox", "233_za", "235", "235_c", "235_ni", "235_ox", "235_za", "238", "238_c", "238_ni", "238_ox", "238_za");
     public static final List<String> FERTILE_ISOTOPES = List.of("americium", "berkelium", "californium", "curium", "neptunium", "plutonium", "uranium");
 
-
-    public static final List<String> FISSION_HEAT_PARTS = List.of("iron", "redstone", "quartz", "obsidian", "nether_brick", "glowstone", "lapis", "gold", "prismarine", "slime", "end_stone", "purpur", "diamond", "emerald", "copper", "tin", "lead", "boron", "lithium", "magnesium", "manganese", "aluminum", "silver", "fluorite", "villiaumite", "carobbiite", "arsenic", "liquid_nitrogen", "liquid_helium", "enderium", "cryotheum"); //, "standard", "water"
+    public static final List<String> COOLANTS = List.of("iron", "redstone", "quartz", "obsidian", "nether_brick", "glowstone", "lapis", "gold", "prismarine", "slime", "end_stone", "purpur", "diamond", "emerald", "copper", "tin", "lead", "boron", "lithium", "magnesium", "manganese", "aluminum", "silver", "fluorite", "villiaumite", "carobbiite", "arsenic", "liquid_nitrogen", "liquid_helium", "enderium", "cryotheum"); //, "standard", "water"
 }

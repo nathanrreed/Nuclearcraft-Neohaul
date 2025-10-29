@@ -142,7 +142,7 @@ public final class TurbinePeripheral extends MultiblockPeripheral<Turbine> imple
 
     @Override
     public String getType() {
-        return ncLoc("multiblock").toString();
+        return ncLoc("turbine").toString();
     }
 
     @Override
