@@ -1,7 +1,7 @@
 {
   "parent": "nuclearcraftneohaul:block/top_sides",
   "textures": {
-    "sides": "nuclearcraftneohaul:block/advanced_voltaic_pile/side_input",
-    "top": "nuclearcraftneohaul:block/advanced_voltaic_pile/top_input"
+    "sides": "nuclearcraftneohaul:block/advanced_voltaic_pile/side_in",
+    "top": "nuclearcraftneohaul:block/advanced_voltaic_pile/top_in"
   }
 }

@@ -1,8 +1,13 @@
 package com.nred.nuclearcraft.datagen;
 
+import com.nred.nuclearcraft.block.hx.HeatExchangerTubeBlock;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeSetting;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
+import com.nred.nuclearcraft.property.ISidedEnergy;
+import com.nred.nuclearcraft.property.SidedEnumProperty;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -16,11 +21,14 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import org.joml.Vector2i;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -34,8 +42,11 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 class ModBlockStateProvider extends BlockStateProvider {
+    private final ExistingFileHelper existingFileHelper;
+
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, MODID, existingFileHelper);
+        this.existingFileHelper = existingFileHelper;
     }
 
     @Override
@@ -66,7 +77,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         }
 
         for (String typeName : BATTERY_MAP.keySet()) {
-            blockSidesAndTop(BATTERY_MAP.get(typeName), typeName, "top_input", "side_input", None);
+            batteryWithItem(typeName, BATTERY_MAP.get(typeName));
         }
 
         for (String typeName : PROCESSOR_MAP.keySet()) {
@@ -136,7 +147,9 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithStateItem("redstone_port", HX_MAP.get("heat_exchanger_redstone_port"), "heat_exchanger", ACTIVE);
         blockWithItem("computer_port", HX_MAP.get("heat_exchanger_computer_port"), "heat_exchanger");
 
-        // TODO tubes
+        hxTubeWithItem("copper", HX_MAP.get("copper_heat_exchanger_tube"));
+        hxTubeWithItem("hard_carbon", HX_MAP.get("hard_carbon_heat_exchanger_tube"));
+        hxTubeWithItem("thermoconducting", HX_MAP.get("thermoconducting_alloy_heat_exchanger_tube"));
     }
 
     private void fission() {
@@ -455,6 +468,62 @@ class ModBlockStateProvider extends BlockStateProvider {
         ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(name.contains("stator") ? "block/turbine_rotor_stator" : "block/turbine_rotor_blade")).texture("texture", texture);
         rotorPartModel(block, $ -> model);
         simpleBlockItem(block, model);
+    }
+
+    private static final Map<SidedEnumProperty<HeatExchangerTubeSetting>, Vector2i> hxTubeMap = Map.of(
+            HeatExchangerTubeBlock.DOWN, new Vector2i(90, 0),
+            HeatExchangerTubeBlock.UP, new Vector2i(270, 0),
+            HeatExchangerTubeBlock.NORTH, new Vector2i(0, 0),
+            HeatExchangerTubeBlock.SOUTH, new Vector2i(0, 180),
+            HeatExchangerTubeBlock.WEST, new Vector2i(0, 270),
+            HeatExchangerTubeBlock.EAST, new Vector2i(0, 90)
+    );
+
+    private void hxTubeWithItem(String name, DeferredBlock<Block> deferredBlock) {
+        Block block = deferredBlock.get();
+
+        ModelFile center = models().getExistingFile(modLoc("block/heat_exchanger_tube/" + name + "_center"));
+
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block).part().modelFile(center).addModel().end();
+
+        for (HeatExchangerTubeSetting setting : HeatExchangerTubeSetting.values()) {
+            if (setting == HeatExchangerTubeSetting.CLOSED) continue;
+            for (var property : hxTubeMap.keySet()) {
+                Vector2i rot = hxTubeMap.get(property);
+                builder = builder.part().modelFile(models().getExistingFile(modLoc(setting == HeatExchangerTubeSetting.CLOSED_BAFFLE ? "block/heat_exchanger_tube_closed_baffle" : "block/heat_exchanger_tube/" + name + "_" + setting.getSerializedName()))).rotationX(rot.x).rotationY(rot.y).uvLock(true).addModel().condition(property, setting).end();
+            }
+        }
+        simpleBlockItem(block, center);
+    }
+
+    private static final Map<SidedEnumProperty<EnergyConnection>, Vector2i> batteryMap = Map.of(
+            ISidedEnergy.ENERGY_DOWN, new Vector2i(90, 0),
+            ISidedEnergy.ENERGY_UP, new Vector2i(270, 0),
+            ISidedEnergy.ENERGY_NORTH, new Vector2i(0, 0),
+            ISidedEnergy.ENERGY_SOUTH, new Vector2i(0, 180),
+            ISidedEnergy.ENERGY_WEST, new Vector2i(0, 270),
+            ISidedEnergy.ENERGY_EAST, new Vector2i(0, 90)
+    );
+
+    private void batteryWithItem(String name, DeferredBlock<Block> deferredBlock) {
+        Block block = deferredBlock.get();
+
+        String base = BLOCK_FOLDER + "/" + name + "/";
+        ModelFile allInModel = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/top_sides")).texture("top", modLoc(base + "top_in")).texture("sides", modLoc(base + "side_in"));
+
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
+
+        for (EnergyConnection setting : List.of(EnergyConnection.IN, EnergyConnection.OUT, EnergyConnection.NON)) {
+            ModelFile topModel = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_top_" + setting.getSerializedName(), modLoc("block/face")).texture("face", modLoc(base + "top_" + setting.getSerializedName()));
+            ModelFile sideModel = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_side_" + setting.getSerializedName(), modLoc("block/face")).texture("face", modLoc(base + "side_" + setting.getSerializedName()));
+
+            for (var property : batteryMap.keySet()) {
+                Vector2i rot = batteryMap.get(property);
+                builder = builder.part().modelFile(property.facing.getAxis().isVertical() ? topModel : sideModel).rotationX(rot.x).rotationY(rot.y).addModel().condition(property, setting).end();
+            }
+        }
+
+        simpleBlockItem(block, allInModel);
     }
 
     private void processorModel(String name, DeferredBlock<Block> deferredBlock, String folder) {

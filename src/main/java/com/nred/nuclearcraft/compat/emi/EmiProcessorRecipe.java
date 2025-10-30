@@ -83,7 +83,7 @@ public class EmiProcessorRecipe extends BasicEmiRecipe {
 
         this.catalysts.add(EmiIngredient.of(Ingredient.of(PROCESSOR_MAP.get(type))));
         this.recipeViewerInfo = RECIPE_VIEWER_MAP.get(type);
-        BasicUpgradableProcessorMenuInfo<?, ?> info = (BasicUpgradableProcessorMenuInfo<?, ?>) TILE_CONTAINER_INFO_MAP.get(type);
+        BasicUpgradableProcessorMenuInfo<?, ?> info = (BasicUpgradableProcessorMenuInfo<?, ?>) TILE_CONTAINER_INFO_MAP.get(type); // TODO FIX
         this.time = info.getDefaultProcessTime() * timeModifier;
         this.power = info.getDefaultProcessPower() * powerModifier;
     }

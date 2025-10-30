@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.battery;
 
-import com.nred.nuclearcraft.block_entity.battery.TileBattery;
+import com.nred.nuclearcraft.block_entity.battery.BatteryEntity;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.util.NCMath;
@@ -40,7 +40,7 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
     protected void onMultiblockFormed() {
         if (!getWorld().isClientSide()) {
             long capacity = 0L;
-            for (TileBattery battery : getParts(TileBattery.class)) {
+            for (BatteryEntity battery : getParts(BatteryEntity.class)) {
                 capacity += battery.batteryType.getCapacity().get();
                 battery.onMultiblockRefresh();
             }
@@ -92,9 +92,9 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
     @Override
     protected void onPartRemoved(IMultiblockPart<BatteryMultiblock> oldPart) {
         super.onPartRemoved(oldPart);
-        if (oldPart instanceof TileBattery battery) {
+        if (oldPart instanceof BatteryEntity battery) {
             EnergyStorage storage = this.getEnergyStorage();
-            if (this.getPartCount(TileBattery.class) < 2) {
+            if (this.getPartCount(BatteryEntity.class) < 2) {
                 battery.waitingEnergy += storage.getEnergyStored();
             } else {
                 double fraction = (double) getEnergyStorage().getEnergyStoredLong() / (double) getEnergyStorage().getMaxEnergyStoredLong();
@@ -119,7 +119,7 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
         }
         comparatorStrength = compStrength;
         if (shouldUpdate) {
-            for (TileBattery battery : getParts(TileBattery.class)) {
+            for (BatteryEntity battery : getParts(BatteryEntity.class)) {
                 battery.setChanged();
                 battery.updateComparatorOutputLevel();
             }

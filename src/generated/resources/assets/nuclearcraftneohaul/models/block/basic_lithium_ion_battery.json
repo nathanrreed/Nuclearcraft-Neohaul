@@ -1,7 +1,7 @@
 {
   "parent": "nuclearcraftneohaul:block/top_sides",
   "textures": {
-    "sides": "nuclearcraftneohaul:block/basic_lithium_ion_battery/side_input",
-    "top": "nuclearcraftneohaul:block/basic_lithium_ion_battery/top_input"
+    "sides": "nuclearcraftneohaul:block/basic_lithium_ion_battery/side_in",
+    "top": "nuclearcraftneohaul:block/basic_lithium_ion_battery/top_in"
   }
 }

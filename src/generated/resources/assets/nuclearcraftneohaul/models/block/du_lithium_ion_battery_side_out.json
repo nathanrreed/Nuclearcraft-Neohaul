@@ -1,0 +1,6 @@
+{
+  "parent": "nuclearcraftneohaul:block/face",
+  "textures": {
+    "face": "nuclearcraftneohaul:block/du_lithium_ion_battery/side_out"
+  }
+}

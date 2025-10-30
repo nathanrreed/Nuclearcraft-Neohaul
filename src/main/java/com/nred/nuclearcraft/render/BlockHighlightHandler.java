@@ -6,6 +6,7 @@ package com.nred.nuclearcraft.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block_entity.IRayTraceLogic;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.Long2LongMap;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
@@ -15,6 +16,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.neoforged.api.distmarker.Dist;
@@ -40,6 +43,17 @@ public class BlockHighlightHandler {
             getHighlightMap().remove(expired);
         }
         expiredCache.clear();
+
+        Minecraft mc = Minecraft.getInstance();
+        LocalPlayer player = mc.player;
+        if (player != null) {
+            HitResult ray = mc.hitResult;
+            if (ray != null && ray.getType() == HitResult.Type.BLOCK) {
+                if (mc.level.getBlockEntity(new BlockPos(((BlockHitResult) ray).getBlockPos())) instanceof IRayTraceLogic rayTraceTile) {
+                    rayTraceTile.onPlayerMouseOver(player, event.getPoseStack(), event.getCamera().getPosition(), ((BlockHitResult) ray).getDirection(), event.getPartialTick().getGameTimeDeltaTicks());
+                }
+            }
+        }
     }
 
     public void highlightBlock(RenderLevelStageEvent event, Long2LongMap.Entry entry) {
@@ -63,10 +77,13 @@ public class BlockHighlightHandler {
 
         final Vec3 projectedView = event.getCamera().getPosition();
 
+        event.getPoseStack().pushPose();
+
         RenderSystem.disableDepthTest();
         RenderSystem.depthMask(false);
         LevelRenderer.renderVoxelShape(event.getPoseStack(), Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.LINES), Shapes.block(), pos.getX() - projectedView.x, pos.getY() - projectedView.y, pos.getZ() - projectedView.z, r, g, b, 1f, false);
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(true);
+        event.getPoseStack().popPose();
     }
 }

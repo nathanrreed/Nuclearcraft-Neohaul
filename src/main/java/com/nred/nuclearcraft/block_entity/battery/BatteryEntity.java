@@ -9,6 +9,7 @@ import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyTileWrapper;
 import com.nred.nuclearcraft.multiblock.battery.BatteryMultiblock;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
+import com.nred.nuclearcraft.property.ISidedEnergy;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -25,13 +26,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY_ENTITY_TYPE;
 
-public class TileBattery extends TilePartAbstract<BatteryMultiblock> implements ITickable, ITileEnergy, IInterfaceable {
+public class BatteryEntity extends TilePartAbstract<BatteryMultiblock> implements ITickable, ITileEnergy, IInterfaceable {
     public final BatteryType batteryType;
 
     protected final EnergyStorage backupStorage = new EnergyStorage(0L);
@@ -45,7 +47,7 @@ public class TileBattery extends TilePartAbstract<BatteryMultiblock> implements 
 
     public long waitingEnergy = 0L;
 
-    public TileBattery(BlockPos pos, BlockState state, BatteryType batteryType) {
+    public BatteryEntity(BlockPos pos, BlockState state, BatteryType batteryType) {
         super(BATTERY_ENTITY_TYPE.get(), pos, state);
         this.energyConnections = ITileEnergy.energyConnectionAll(EnergyConnection.IN);
         this.energySides = ITileEnergy.getDefaultEnergySides(this);
@@ -163,7 +165,7 @@ public class TileBattery extends TilePartAbstract<BatteryMultiblock> implements 
 
     public void onMultiblockRefresh() {
         for (Direction side : Direction.values()) {
-            ignoreSide[side.ordinal()] = level.getBlockEntity(worldPosition.relative(side)) instanceof TileBattery;
+            ignoreSide[side.ordinal()] = level.getBlockEntity(worldPosition.relative(side)) instanceof BatteryEntity;
         }
     }
 
@@ -200,6 +202,20 @@ public class TileBattery extends TilePartAbstract<BatteryMultiblock> implements 
         setChanged();
         player.sendSystemMessage(Component.translatable(opposite ? MODID + ".message.multitool.energy_toggle_opposite" : MODID + ".message.multitool.energy_toggle", Component.translatable(MODID + ".tooltip." + energyConnection.getSerializedName() + "_config")).withStyle(energyConnection.getTextColor()));
         return true;
+    }
+
+    @Override
+    public void setEnergyConnection(@NotNull EnergyConnection energyConnection, @NotNull Direction side) {
+        ITileEnergy.super.setEnergyConnection(energyConnection, side);
+
+        getTileWorld().setBlock(getTilePos(), getTile().getBlockState().setValue(switch (side) {
+            case DOWN -> ISidedEnergy.ENERGY_DOWN;
+            case UP -> ISidedEnergy.ENERGY_UP;
+            case NORTH -> ISidedEnergy.ENERGY_NORTH;
+            case SOUTH -> ISidedEnergy.ENERGY_SOUTH;
+            case WEST -> ISidedEnergy.ENERGY_WEST;
+            case EAST -> ISidedEnergy.ENERGY_EAST;
+        }, energyConnection), 2);
     }
 
     // NBT

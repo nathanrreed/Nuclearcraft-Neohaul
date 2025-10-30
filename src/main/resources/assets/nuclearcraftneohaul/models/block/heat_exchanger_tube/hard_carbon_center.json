@@ -1,0 +1,6 @@
+{
+	"parent": "nuclearcraftneohaul:block/heat_exchanger_tube_center",
+	"textures": {
+		"all": "nuclearcraftneohaul:block/heat_exchanger/tube/hard_carbon/center"
+	}
+}

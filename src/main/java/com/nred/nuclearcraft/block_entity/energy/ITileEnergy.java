@@ -2,9 +2,9 @@ package com.nred.nuclearcraft.block_entity.energy;
 
 import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
-import com.nred.nuclearcraft.block_entity.passive.ITilePassive;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyTileWrapper;
+import com.nred.nuclearcraft.block_entity.passive.ITilePassive;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

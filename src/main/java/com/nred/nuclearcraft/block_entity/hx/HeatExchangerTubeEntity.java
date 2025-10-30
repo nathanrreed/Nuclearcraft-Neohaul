@@ -1,11 +1,18 @@
 package com.nred.nuclearcraft.block_entity.hx;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.nred.nuclearcraft.block.hx.HeatExchangerTubeBlock;
 import com.nred.nuclearcraft.block_entity.IRayTraceLogic;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeSetting;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeType;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -16,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -23,6 +31,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.block.hx.HeatExchangerTubeBlock.SIDE_BAFFLE_SHAPE;
+import static com.nred.nuclearcraft.block.hx.HeatExchangerTubeBlock.SIDE_SHAPE;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.HX_ENTITY_TYPE;
 
 public class HeatExchangerTubeEntity extends AbstractHeatExchangerEntity implements IRayTraceLogic {
@@ -77,16 +87,23 @@ public class HeatExchangerTubeEntity extends AbstractHeatExchangerEntity impleme
 
     public void setTubeSetting(@Nonnull Direction side, HeatExchangerTubeSetting setting) {
         settings[side.ordinal()] = setting;
+
+        level.setBlock(worldPosition, getBlockState().setValue(switch (side) {
+            case DOWN -> HeatExchangerTubeBlock.DOWN;
+            case UP -> HeatExchangerTubeBlock.UP;
+            case NORTH -> HeatExchangerTubeBlock.NORTH;
+            case SOUTH -> HeatExchangerTubeBlock.SOUTH;
+            case WEST -> HeatExchangerTubeBlock.WEST;
+            case EAST -> HeatExchangerTubeBlock.EAST;
+        }, setting), 2);
     }
 
     public void setTubeSettingOpen(@Nonnull Direction side, boolean open) {
-        int index = side.ordinal();
-        settings[index] = HeatExchangerTubeSetting.of(open, settings[index].isBaffle());
+        setTubeSetting(side, HeatExchangerTubeSetting.of(open, settings[side.ordinal()].isBaffle()));
     }
 
     public void setTubeSettingBaffle(@Nonnull Direction side, boolean baffle) {
-        int index = side.ordinal();
-        settings[index] = HeatExchangerTubeSetting.of(settings[index].isOpen(), baffle);
+        setTubeSetting(side, HeatExchangerTubeSetting.of(settings[side.ordinal()].isOpen(), baffle));
     }
 
     public void toggleTubeSetting(@Nonnull Direction side) {
@@ -118,7 +135,7 @@ public class HeatExchangerTubeEntity extends AbstractHeatExchangerEntity impleme
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void onPlayerMouseOver(ServerPlayer player, Direction side, float partialTicks) {
+    public void onPlayerMouseOver(LocalPlayer player, PoseStack poseStack, Vec3 projectedView, Direction side, float partialTicks) {
         if (side == null) {
             return;
         }
@@ -127,37 +144,17 @@ public class HeatExchangerTubeEntity extends AbstractHeatExchangerEntity impleme
             return;
         }
 
-//        Vec3 playerPos = NCRenderHelper.getPlayerPos(player, partialTicks); TODO add
-//
-//        float r = 1F, g = 0F, b = 0F;
-//
-//        GlStateManager.color(r, g, b);
-//        GlStateManager.glLineWidth(2);
-//
-//        GlStateManager.disableDepth();
-//        GlStateManager.disableTexture2D();
-//
-//        GlStateManager.pushMatrix();
-//        GlStateManager.translate(-playerPos.x, -playerPos.y, -playerPos.z);
-//
-//        int x = pos.getX(), y = pos.getY(), z = pos.getZ();
-//        float p = 2F * NCRenderHelper.PIXEL, q = 1F - p;
-//
-//        switch (player.isCrouching() ? side.getOpposite() : side) {
-//            case DOWN -> NCRenderHelper.renderFrame(x + p, y, z + p, q - p, p, q - p, r, g, b, 1F);
-//            case UP -> NCRenderHelper.renderFrame(x + p, y + q, z + p, q - p, p, q - p, r, g, b, 1F);
-//            case NORTH -> NCRenderHelper.renderFrame(x + p, y + p, z, q - p, q - p, p, r, g, b, 1F);
-//            case SOUTH -> NCRenderHelper.renderFrame(x + p, y + p, z + q, q - p, q - p, p, r, g, b, 1F);
-//            case WEST -> NCRenderHelper.renderFrame(x, y + p, z + p, p, q - p, q - p, r, g, b, 1F);
-//            case EAST -> NCRenderHelper.renderFrame(x + q, y + p, z + p, p, q - p, q - p, r, g, b, 1F);
-//        }
-//
-//        Tessellator.getInstance().draw();
-//
-//        GlStateManager.popMatrix();
-//
-//        GlStateManager.enableTexture2D();
-//        GlStateManager.enableDepth();
+        poseStack.pushPose();
+
+        Direction dir = (player.isCrouching() ? side.getOpposite() : side);
+        VoxelShape shape = this.getTubeSetting(dir).isBaffle() ? SIDE_BAFFLE_SHAPE.get(dir) : SIDE_SHAPE.get(dir);
+
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        LevelRenderer.renderVoxelShape(poseStack, Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.LINES), shape, worldPosition.getX() - projectedView.x, worldPosition.getY() - projectedView.y, worldPosition.getZ() - projectedView.z, 1f, 0, 0, 1f, false);
+        RenderSystem.enableDepthTest();
+        RenderSystem.depthMask(true);
+        poseStack.popPose();
     }
 
     // NBT

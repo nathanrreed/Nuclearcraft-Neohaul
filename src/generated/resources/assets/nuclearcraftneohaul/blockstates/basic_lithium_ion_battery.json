@@ -1,7 +1,163 @@
 {
-  "variants": {
-    "": {
-      "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery"
+  "multipart": [
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_top_in",
+        "x": 90
+      },
+      "when": {
+        "down": "in"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_in"
+      },
+      "when": {
+        "north": "in"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_top_in",
+        "x": 270
+      },
+      "when": {
+        "up": "in"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_in",
+        "y": 90
+      },
+      "when": {
+        "east": "in"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_in",
+        "y": 270
+      },
+      "when": {
+        "west": "in"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_in",
+        "y": 180
+      },
+      "when": {
+        "south": "in"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_top_out",
+        "x": 90
+      },
+      "when": {
+        "down": "out"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_out"
+      },
+      "when": {
+        "north": "out"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_top_out",
+        "x": 270
+      },
+      "when": {
+        "up": "out"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_out",
+        "y": 90
+      },
+      "when": {
+        "east": "out"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_out",
+        "y": 270
+      },
+      "when": {
+        "west": "out"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_out",
+        "y": 180
+      },
+      "when": {
+        "south": "out"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_top_non",
+        "x": 90
+      },
+      "when": {
+        "down": "non"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_non"
+      },
+      "when": {
+        "north": "non"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_top_non",
+        "x": 270
+      },
+      "when": {
+        "up": "non"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_non",
+        "y": 90
+      },
+      "when": {
+        "east": "non"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_non",
+        "y": 270
+      },
+      "when": {
+        "west": "non"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_lithium_ion_battery_side_non",
+        "y": 180
+      },
+      "when": {
+        "south": "non"
+      }
     }
-  }
+  ]
 }

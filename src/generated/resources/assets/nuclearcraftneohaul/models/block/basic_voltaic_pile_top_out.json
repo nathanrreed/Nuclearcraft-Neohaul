@@ -1,0 +1,6 @@
+{
+  "parent": "nuclearcraftneohaul:block/face",
+  "textures": {
+    "face": "nuclearcraftneohaul:block/basic_voltaic_pile/top_out"
+  }
+}

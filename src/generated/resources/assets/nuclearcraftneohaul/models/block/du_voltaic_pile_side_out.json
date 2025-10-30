@@ -1,0 +1,6 @@
+{
+  "parent": "nuclearcraftneohaul:block/face",
+  "textures": {
+    "face": "nuclearcraftneohaul:block/du_voltaic_pile/side_out"
+  }
+}
