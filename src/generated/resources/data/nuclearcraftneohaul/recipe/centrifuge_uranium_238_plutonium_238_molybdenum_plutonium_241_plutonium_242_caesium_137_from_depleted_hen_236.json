@@ -16,7 +16,8 @@
       "fluid": "nuclearcraftneohaul:plutonium_238"
     },
     {
-      "amount": 4915216,
+      "amount": 16,
+      "chancePercent": 75,
       "fluid": "nuclearcraftneohaul:molybdenum"
     },
     {
@@ -28,7 +29,8 @@
       "fluid": "nuclearcraftneohaul:plutonium_242"
     },
     {
-      "amount": 4915216,
+      "amount": 16,
+      "chancePercent": 75,
       "fluid": "nuclearcraftneohaul:caesium_137"
     }
   ],

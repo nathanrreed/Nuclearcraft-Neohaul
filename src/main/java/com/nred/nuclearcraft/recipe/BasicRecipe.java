@@ -1,29 +1,22 @@
 package com.nred.nuclearcraft.recipe;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC;
-import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC;
-
 public class BasicRecipe implements IRecipe, Recipe<BasicRecipeInput> {
-    public List<SizedIngredient> itemIngredients, itemProducts;
-    public List<SizedFluidIngredient> fluidIngredients, fluidProducts;
+    public List<SizedChanceItemIngredient> itemIngredients, itemProducts;
+    public List<SizedChanceFluidIngredient> fluidIngredients, fluidProducts;
 
-    public BasicRecipe(List<SizedIngredient> itemIngredients, List<SizedFluidIngredient> fluidIngredients, List<SizedIngredient> itemProducts, List<SizedFluidIngredient> fluidProducts) {
+    public BasicRecipe(List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients, List<SizedChanceItemIngredient> itemProducts, List<SizedChanceFluidIngredient> fluidProducts) {
         this.itemIngredients = itemIngredients;
         this.fluidIngredients = fluidIngredients;
         this.itemProducts = itemProducts;
@@ -31,39 +24,24 @@ public class BasicRecipe implements IRecipe, Recipe<BasicRecipeInput> {
     }
 
     @Override
-    public List<SizedIngredient> getItemIngredients() {
+    public List<SizedChanceItemIngredient> getItemIngredients() {
         return itemIngredients;
     }
 
     @Override
-    public List<SizedFluidIngredient> getFluidIngredients() {
+    public List<SizedChanceFluidIngredient> getFluidIngredients() {
         return fluidIngredients;
     }
 
     @Override
-    public List<SizedIngredient> getItemProducts() {
+    public List<SizedChanceItemIngredient> getItemProducts() {
         return itemProducts;
     }
 
     @Override
-    public List<SizedFluidIngredient> getFluidProducts() {
+    public List<SizedChanceFluidIngredient> getFluidProducts() {
         return fluidProducts;
     }
-
-    public static MapCodec<BasicRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            SizedIngredient.FLAT_CODEC.listOf().fieldOf("itemIngredients").forGetter(BasicRecipe::getItemIngredients),
-            SizedFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidIngredients").forGetter(BasicRecipe::getFluidIngredients),
-            SizedIngredient.FLAT_CODEC.listOf().fieldOf("itemProducts").forGetter(BasicRecipe::getItemProducts),
-            SizedFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidProducts").forGetter(BasicRecipe::getFluidProducts)
-    ).apply(inst, BasicRecipe::new));
-
-    public static StreamCodec<RegistryFriendlyByteBuf, BasicRecipe> STREAM_CODEC = StreamCodec.composite(
-            SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC, BasicRecipe::getItemIngredients,
-            SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC, BasicRecipe::getFluidIngredients,
-            SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC, BasicRecipe::getItemProducts,
-            SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC, BasicRecipe::getFluidProducts,
-            BasicRecipe::new
-    );
 
     @Override
     public boolean matches(BasicRecipeInput input, Level level) {

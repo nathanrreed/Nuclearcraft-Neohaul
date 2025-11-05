@@ -1,12 +1,12 @@
 package com.nred.nuclearcraft.recipe;
 
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.TagFluidIngredient;
 
 import java.util.HashMap;
@@ -41,23 +41,23 @@ public abstract class SimpleRecipeBuilder implements RecipeBuilder {
         return result.getItem();
     }
 
-    public static ResourceLocation getDefaultRecipeId(List<SizedFluidIngredient> inputs, List<SizedFluidIngredient> outputs, String append) {
+    public static ResourceLocation getDefaultRecipeId(List<SizedChanceFluidIngredient> inputs, List<SizedChanceFluidIngredient> outputs, String append) {
         return ncLoc((outputs.stream().map(SimpleRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid) + "_from_" + inputs.stream().map(SimpleRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid)).replaceAll("__", "_").replaceFirst("^_", "") + append);
     }
 
-    public static ResourceLocation getDefaultRecipeId(List<SizedFluidIngredient> inputs, List<SizedFluidIngredient> outputs) {
+    public static ResourceLocation getDefaultRecipeId(List<SizedChanceFluidIngredient> inputs, List<SizedChanceFluidIngredient> outputs) {
         return getDefaultRecipeId(inputs, outputs, "");
     }
 
-    public static ResourceLocation getDefaultRecipeId(SizedFluidIngredient input, SizedFluidIngredient output) {
+    public static ResourceLocation getDefaultRecipeId(SizedChanceFluidIngredient input, SizedChanceFluidIngredient output) {
         return getDefaultRecipeId(input, output, "");
     }
 
-    public static ResourceLocation getDefaultRecipeId(SizedFluidIngredient input, SizedFluidIngredient output, String append) {
+    public static ResourceLocation getDefaultRecipeId(SizedChanceFluidIngredient input, SizedChanceFluidIngredient output, String append) {
         return ncLoc((getKey(output) + "_from_" + getKey(input)).replaceAll("__", "_").replaceFirst("^_", "") + append);
     }
 
-    public static String getKey(SizedFluidIngredient ingredient) {
+    public static String getKey(SizedChanceFluidIngredient ingredient) {
         try {
             return BuiltInRegistries.FLUID.getKey(ingredient.getFluids()[0].getFluid()).getPath();
         } catch (ArrayIndexOutOfBoundsException e) {

@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.recipe.fission;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -10,7 +11,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class FissionCoolantHeaterRecipe extends BasicRecipe {
     private final int coolantHeaterCoolingRate;
     private final String coolantHeaterPlacementRule;
 
-    public FissionCoolantHeaterRecipe(ItemStack heater, SizedFluidIngredient input, SizedFluidIngredient product, int coolantHeaterCoolingRate, String coolantHeaterPlacementRule) {
+    public FissionCoolantHeaterRecipe(ItemStack heater, SizedChanceFluidIngredient input, SizedChanceFluidIngredient product, int coolantHeaterCoolingRate, String coolantHeaterPlacementRule) {
         super(List.of(), List.of(input), List.of(), List.of(product));
         this.heater = heater;
         this.coolantHeaterCoolingRate = coolantHeaterCoolingRate;
@@ -55,16 +55,16 @@ public class FissionCoolantHeaterRecipe extends BasicRecipe {
         private static final MapCodec<FissionCoolantHeaterRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
                         ItemStack.CODEC.fieldOf("heater").forGetter(FissionCoolantHeaterRecipe::getHeater),
-                        SizedFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(FissionCoolantHeaterRecipe::getFluidIngredient),
-                        SizedFluidIngredient.FLAT_CODEC.fieldOf("product").forGetter(FissionCoolantHeaterRecipe::getFluidProduct),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(FissionCoolantHeaterRecipe::getFluidIngredient),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("product").forGetter(FissionCoolantHeaterRecipe::getFluidProduct),
                         Codec.INT.fieldOf("irradiatorFluxRequired").forGetter(FissionCoolantHeaterRecipe::getCoolantHeaterCoolingRate),
                         Codec.STRING.fieldOf("irradiatorHeatPerFlux").forGetter(FissionCoolantHeaterRecipe::getCoolantHeaterPlacementRule)
                 ).apply(inst, FissionCoolantHeaterRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, FissionCoolantHeaterRecipe> STREAM_CODEC = StreamCodec.composite(
                 ItemStack.STREAM_CODEC, FissionCoolantHeaterRecipe::getHeater,
-                SizedFluidIngredient.STREAM_CODEC, FissionCoolantHeaterRecipe::getFluidIngredient,
-                SizedFluidIngredient.STREAM_CODEC, FissionCoolantHeaterRecipe::getFluidProduct,
+                SizedChanceFluidIngredient.STREAM_CODEC, FissionCoolantHeaterRecipe::getFluidIngredient,
+                SizedChanceFluidIngredient.STREAM_CODEC, FissionCoolantHeaterRecipe::getFluidProduct,
                 ByteBufCodecs.INT, FissionCoolantHeaterRecipe::getCoolantHeaterCoolingRate,
                 ByteBufCodecs.STRING_UTF8, FissionCoolantHeaterRecipe::getCoolantHeaterPlacementRule,
                 FissionCoolantHeaterRecipe::new

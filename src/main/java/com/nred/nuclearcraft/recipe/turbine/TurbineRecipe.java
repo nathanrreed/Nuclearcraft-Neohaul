@@ -3,13 +3,13 @@ package com.nred.nuclearcraft.recipe.turbine;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public final class TurbineRecipe extends BasicRecipe {
     private final String particle;
     private final double particle_speed_mult;
 
-    public TurbineRecipe(SizedFluidIngredient fluidIngredient, SizedFluidIngredient fluidProduct, double power_per_mb, double expansion_level, double spin_up_multiplier, String particle, double particle_speed_mult) {
+    public TurbineRecipe(SizedChanceFluidIngredient fluidIngredient, SizedChanceFluidIngredient fluidProduct, double power_per_mb, double expansion_level, double spin_up_multiplier, String particle, double particle_speed_mult) {
         super(List.of(), List.of(fluidIngredient), List.of(), List.of(fluidProduct));
         this.power_per_mb = power_per_mb;
         this.expansion_level = expansion_level;
@@ -71,8 +71,8 @@ public final class TurbineRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<TurbineRecipe> {
         private static final MapCodec<TurbineRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredients").forGetter(TurbineRecipe::getFluidIngredient),
-                        SizedFluidIngredient.FLAT_CODEC.fieldOf("fluidProducts").forGetter(TurbineRecipe::getFluidProduct),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredients").forGetter(TurbineRecipe::getFluidIngredient),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProducts").forGetter(TurbineRecipe::getFluidProduct),
                         Codec.DOUBLE.fieldOf("power_per_mb").forGetter(TurbineRecipe::getTurbinePowerPerMB),
                         Codec.DOUBLE.fieldOf("expansion_level").forGetter(TurbineRecipe::getTurbineExpansionLevel),
                         Codec.DOUBLE.fieldOf("spin_up_multiplier").forGetter(TurbineRecipe::getTurbineSpinUpMultiplierRaw),
@@ -81,8 +81,8 @@ public final class TurbineRecipe extends BasicRecipe {
                 ).apply(inst, TurbineRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, TurbineRecipe> STREAM_CODEC = NeoForgeStreamCodecs.composite(
-                SizedFluidIngredient.STREAM_CODEC, TurbineRecipe::getFluidIngredient,
-                SizedFluidIngredient.STREAM_CODEC, TurbineRecipe::getFluidProduct,
+                SizedChanceFluidIngredient.STREAM_CODEC, TurbineRecipe::getFluidIngredient,
+                SizedChanceFluidIngredient.STREAM_CODEC, TurbineRecipe::getFluidProduct,
                 ByteBufCodecs.DOUBLE, TurbineRecipe::getTurbinePowerPerMB,
                 ByteBufCodecs.DOUBLE, TurbineRecipe::getTurbineExpansionLevel,
                 ByteBufCodecs.DOUBLE, TurbineRecipe::getTurbineSpinUpMultiplierRaw,

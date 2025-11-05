@@ -4,13 +4,20 @@ import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Supplier;
 
-public record EmiBasicInfoRecipe(List<EmiIngredient> stacks, EmiRecipeCategory category, ResourceLocation id) implements EmiRecipe {
+public record EmiBasicInfoRecipe(List<EmiIngredient> stacks, EmiRecipeCategory category, ResourceLocation id, Supplier<ClientTooltipComponent> tooltip) implements EmiRecipe {
+    public EmiBasicInfoRecipe(List<EmiIngredient> stacks, EmiRecipeCategory category, ResourceLocation id) {
+        this(stacks, category, id, null);
+    }
+
     private static final int STACK_WIDTH = 6;
     private static final int MAX_STACKS = STACK_WIDTH * 3;
 
@@ -63,7 +70,10 @@ public record EmiBasicInfoRecipe(List<EmiIngredient> stacks, EmiRecipeCategory c
             if (i + 1 == stackCount && stacks.size() > stackCount) {
                 widgets.addSlot(EmiIngredient.of(stacks.subList(i, stacks.size())), x + 18, y);
             } else {
-                widgets.addSlot(stacks.get(i), x + 18, y);
+                SlotWidget slot = widgets.addSlot(stacks.get(i), x + 18, y);
+                if (tooltip != null) {
+                    slot.appendTooltip(tooltip);
+                }
             }
         }
     }

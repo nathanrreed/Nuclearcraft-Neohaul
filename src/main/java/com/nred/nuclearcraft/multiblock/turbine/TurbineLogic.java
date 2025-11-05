@@ -1,12 +1,13 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
+import com.nred.nuclearcraft.block.turbine.TurbineRotorShaftBlock;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
-import com.nred.nuclearcraft.block.turbine.*;
 import com.nred.nuclearcraft.block_entity.turbine.*;
 import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
 import com.nred.nuclearcraft.multiblock.MultiblockLogic;
@@ -48,7 +49,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Vector3f;
 
@@ -843,7 +843,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
     }
 
     protected boolean canProduceProducts() {
-        SizedFluidIngredient fluidProduct = multiblock.recipeInfo.recipe.getFluidProducts().get(0);
+        SizedChanceFluidIngredient fluidProduct = multiblock.recipeInfo.recipe.getFluidProducts().get(0);
         if (fluidProduct.amount() <= 0 || fluidProduct.ingredient().hasNoFluids()) {
             return false;
         }
@@ -870,7 +870,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             inputTank.setFluidStored(FluidStack.EMPTY);
         }
 
-        SizedFluidIngredient fluidProduct = multiblock.recipeInfo.recipe.getFluidProducts().get(0);
+        SizedChanceFluidIngredient fluidProduct = multiblock.recipeInfo.recipe.getFluidProducts().get(0);
         if (fluidProduct.amount() <= 0) {
             return;
         }

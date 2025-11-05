@@ -1,32 +1,32 @@
 package com.nred.nuclearcraft.recipe;
 
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 
 import java.util.List;
 
 public interface IRecipe {
-    List<SizedIngredient> getItemIngredients();
+    List<SizedChanceItemIngredient> getItemIngredients();
 
-    List<SizedFluidIngredient> getFluidIngredients();
+    List<SizedChanceFluidIngredient> getFluidIngredients();
 
-    List<SizedIngredient> getItemProducts();
+    List<SizedChanceItemIngredient> getItemProducts();
 
-    List<SizedFluidIngredient> getFluidProducts();
+    List<SizedChanceFluidIngredient> getFluidProducts();
 
-    default SizedIngredient getItemIngredient() {
+    default SizedChanceItemIngredient getItemIngredient() {
         return getItemIngredients().getFirst();
     }
 
-    default SizedIngredient getItemProduct() {
+    default SizedChanceItemIngredient getItemProduct() {
         return getItemProducts().getFirst();
     }
 
-    default SizedFluidIngredient getFluidIngredient() {
+    default SizedChanceFluidIngredient getFluidIngredient() {
         return getFluidIngredients().getFirst();
     }
 
-    default SizedFluidIngredient getFluidProduct() {
+    default SizedChanceFluidIngredient getFluidProduct() {
         return getFluidProducts().getFirst();
     }
 }

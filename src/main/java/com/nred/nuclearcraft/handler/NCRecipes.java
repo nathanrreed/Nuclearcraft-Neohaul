@@ -15,8 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -356,7 +354,7 @@ public class NCRecipes {
         }
 
         public static ProcessorRecipe getVanillaFurnaceRecipe(SmeltingRecipe recipe) {
-            return new ElectricFurnaceRecipe(recipe.getIngredients().stream().map(i -> new SizedIngredient(i, 1)).toList(), Collections.singletonList(SizedIngredient.of(recipe.getResultItem(null).getItem(), recipe.getResultItem(null).getCount())), Collections.emptyList(), Collections.emptyList(), 1.0, 1.0);
+            return new ElectricFurnaceRecipe(recipe.getIngredients().stream().map(i -> new SizedChanceItemIngredient(i, 1)).toList(), Collections.singletonList(SizedChanceItemIngredient.of(recipe.getResultItem(null).getItem(), recipe.getResultItem(null).getCount())), Collections.emptyList(), Collections.emptyList(), 1.0, 1.0);
         }
 
         @Override
@@ -368,7 +366,7 @@ public class NCRecipes {
         }
 
         @Override
-        public @Nullable ProcessorRecipe getRecipeFromIngredients(Level level, List<SizedIngredient> itemIngredients, List<SizedFluidIngredient> fluidIngredients) {
+        public @Nullable ProcessorRecipe getRecipeFromIngredients(Level level, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients) {
             Optional<ItemStack> item = itemIngredients.stream().flatMap(a -> Arrays.stream(a.getItems())).findFirst();
             if (item.isEmpty()) {
                 return null;
@@ -377,7 +375,6 @@ public class NCRecipes {
             return recipe == null ? null : getVanillaFurnaceRecipe(recipe);
         }
     }
-
 
     public static class ElectrolyzerRecipes extends BasicProcessorRecipeHandler {
         public ElectrolyzerRecipes() {

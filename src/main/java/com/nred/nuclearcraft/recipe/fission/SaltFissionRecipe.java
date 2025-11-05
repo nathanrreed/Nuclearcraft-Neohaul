@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.recipe.fission;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.StreamCodecsHelper;
@@ -11,7 +12,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class SaltFissionRecipe extends BasicRecipe {
     private final boolean selfPriming;
     private final double radiation;
 
-    public SaltFissionRecipe(SizedFluidIngredient ingredient, SizedFluidIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+    public SaltFissionRecipe(SizedChanceFluidIngredient ingredient, SizedChanceFluidIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
         super(List.of(), List.of(ingredient), List.of(), List.of(product));
         this.time = time;
         this.heat = heat;
@@ -95,8 +95,8 @@ public class SaltFissionRecipe extends BasicRecipe {
 
     public static class Serializer implements RecipeSerializer<SaltFissionRecipe> {
         public static MapCodec<SaltFissionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedFluidIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(SaltFissionRecipe::getFluidIngredient),
-                SizedFluidIngredient.FLAT_CODEC.fieldOf("product").forGetter(SaltFissionRecipe::getFluidProduct),
+                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(SaltFissionRecipe::getFluidIngredient),
+                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("product").forGetter(SaltFissionRecipe::getFluidProduct),
                 Codec.INT.fieldOf("time").forGetter(SaltFissionRecipe::getSaltFissionFuelTimeRaw),
                 Codec.INT.fieldOf("heat").forGetter(SaltFissionRecipe::getFissionFuelHeatRaw),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(SaltFissionRecipe::getFissionFuelEfficiencyRaw),
@@ -107,8 +107,8 @@ public class SaltFissionRecipe extends BasicRecipe {
         ).apply(inst, SaltFissionRecipe::new));
 
         public static StreamCodec<RegistryFriendlyByteBuf, SaltFissionRecipe> STREAM_CODEC = StreamCodecsHelper.composite(
-                SizedFluidIngredient.STREAM_CODEC, SaltFissionRecipe::getFluidIngredient,
-                SizedFluidIngredient.STREAM_CODEC, SaltFissionRecipe::getFluidProduct,
+                SizedChanceFluidIngredient.STREAM_CODEC, SaltFissionRecipe::getFluidIngredient,
+                SizedChanceFluidIngredient.STREAM_CODEC, SaltFissionRecipe::getFluidProduct,
                 ByteBufCodecs.INT, SaltFissionRecipe::getSaltFissionFuelTimeRaw,
                 ByteBufCodecs.INT, SaltFissionRecipe::getFissionFuelHeatRaw,
                 ByteBufCodecs.DOUBLE, SaltFissionRecipe::getFissionFuelEfficiencyRaw,

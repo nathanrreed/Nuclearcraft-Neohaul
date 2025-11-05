@@ -18,10 +18,30 @@
     {
       "apply": {
         "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "open"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open",
         "uvlock": true
       },
       "when": {
         "north": "open"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "open"
       }
     },
     {
@@ -38,30 +58,10 @@
       "apply": {
         "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open",
         "uvlock": true,
-        "y": 90
-      },
-      "when": {
-        "east": "open"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open",
-        "uvlock": true,
         "y": 270
       },
       "when": {
         "west": "open"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open",
-        "uvlock": true,
-        "y": 180
-      },
-      "when": {
-        "south": "open"
       }
     },
     {
@@ -77,10 +77,30 @@
     {
       "apply": {
         "model": "nuclearcraftneohaul:block/heat_exchanger_tube_closed_baffle",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "closed_baffle"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/heat_exchanger_tube_closed_baffle",
         "uvlock": true
       },
       "when": {
         "north": "closed_baffle"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/heat_exchanger_tube_closed_baffle",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "closed_baffle"
       }
     },
     {
@@ -97,30 +117,10 @@
       "apply": {
         "model": "nuclearcraftneohaul:block/heat_exchanger_tube_closed_baffle",
         "uvlock": true,
-        "y": 90
-      },
-      "when": {
-        "east": "closed_baffle"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/heat_exchanger_tube_closed_baffle",
-        "uvlock": true,
         "y": 270
       },
       "when": {
         "west": "closed_baffle"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/heat_exchanger_tube_closed_baffle",
-        "uvlock": true,
-        "y": 180
-      },
-      "when": {
-        "south": "closed_baffle"
       }
     },
     {
@@ -136,10 +136,30 @@
     {
       "apply": {
         "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open_baffle",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "open_baffle"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open_baffle",
         "uvlock": true
       },
       "when": {
         "north": "open_baffle"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open_baffle",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "open_baffle"
       }
     },
     {
@@ -156,30 +176,10 @@
       "apply": {
         "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open_baffle",
         "uvlock": true,
-        "y": 90
-      },
-      "when": {
-        "east": "open_baffle"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open_baffle",
-        "uvlock": true,
         "y": 270
       },
       "when": {
         "west": "open_baffle"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/heat_exchanger_tube/hard_carbon_open_baffle",
-        "uvlock": true,
-        "y": 180
-      },
-      "when": {
-        "south": "open_baffle"
       }
     }
   ]

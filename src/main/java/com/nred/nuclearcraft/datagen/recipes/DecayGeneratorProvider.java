@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes;
 
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.radiation.RadSources;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.SimpleRecipeBuilder;
@@ -11,7 +12,6 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
@@ -54,7 +54,7 @@ public class DecayGeneratorProvider {
                     .rewards(AdvancementRewards.Builder.recipe(key))
                     .requirements(AdvancementRequirements.Strategy.OR);
 
-            DecayGeneratorRecipe recipe = new DecayGeneratorRecipe(SizedIngredient.of(this.input.getItem(), 1), SizedIngredient.of(this.output.getItem(), 1), this.lifetime, this.power, this.radiation);
+            DecayGeneratorRecipe recipe = new DecayGeneratorRecipe(SizedChanceItemIngredient.of(this.input.getItem(), 1), SizedChanceItemIngredient.of(this.output.getItem(), 1), this.lifetime, this.power, this.radiation);
             output.accept(key, recipe, advancement.build(key.withPrefix("recipes/")));
         }
     }

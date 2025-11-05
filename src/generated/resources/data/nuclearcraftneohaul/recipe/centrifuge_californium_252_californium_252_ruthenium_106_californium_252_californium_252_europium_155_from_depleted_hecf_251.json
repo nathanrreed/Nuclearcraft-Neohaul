@@ -16,7 +16,8 @@
       "fluid": "nuclearcraftneohaul:californium_252"
     },
     {
-      "amount": 1310736,
+      "amount": 16,
+      "chancePercent": 20,
       "fluid": "nuclearcraftneohaul:ruthenium_106"
     },
     {
@@ -28,7 +29,8 @@
       "fluid": "nuclearcraftneohaul:californium_252"
     },
     {
-      "amount": 3932176,
+      "amount": 16,
+      "chancePercent": 60,
       "fluid": "nuclearcraftneohaul:europium_155"
     }
   ],

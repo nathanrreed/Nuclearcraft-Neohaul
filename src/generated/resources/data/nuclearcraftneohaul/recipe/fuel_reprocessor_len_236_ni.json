@@ -18,7 +18,8 @@
       "item": "nuclearcraftneohaul:neptunium_237_ni"
     },
     {
-      "count": 1638401,
+      "chancePercent": 25,
+      "count": 1,
       "item": "nuclearcraftneohaul:molybdenum_dust"
     },
     {
@@ -30,7 +31,8 @@
       "item": "nuclearcraftneohaul:plutonium_242_ni"
     },
     {
-      "count": 1638401,
+      "chancePercent": 25,
+      "count": 1,
       "item": "nuclearcraftneohaul:caesium_137_dust"
     }
   ],

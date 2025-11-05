@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_heat_exchanger_glass": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:heat_exchanger_glass"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:nuclearcraftneohaulhx_casing_from_hx_glass"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_heat_exchanger_glass"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:nuclearcraftneohaulhx_casing_from_hx_glass"
+    ]
+  }
+}

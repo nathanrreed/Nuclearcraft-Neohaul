@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes.multilock;
 
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.radiation.RadSources;
 import com.nred.nuclearcraft.recipe.SimpleRecipeBuilder;
 import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
@@ -55,8 +56,8 @@ public class SaltFissionProvider {
     }
 
     public static class RecipeBuilder extends SimpleRecipeBuilder {
-        private final SizedFluidIngredient input;
-        private final SizedFluidIngredient output;
+        private final SizedChanceFluidIngredient input;
+        private final SizedChanceFluidIngredient output;
         private final int time;
         private final int heat;
         private final double efficiency;

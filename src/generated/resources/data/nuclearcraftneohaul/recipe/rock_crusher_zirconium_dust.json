@@ -18,15 +18,18 @@
   ],
   "itemResults": [
     {
-      "count": 3276802,
+      "chancePercent": 50,
+      "count": 2,
       "item": "nuclearcraftneohaul:zirconium_dust"
     },
     {
-      "count": 2949122,
+      "chancePercent": 45,
+      "count": 2,
       "item": "nuclearcraftneohaul:fluorite_gem_dust"
     },
     {
-      "count": 2293761,
+      "chancePercent": 35,
+      "count": 1,
       "item": "nuclearcraftneohaul:carobbiite_gem_dust"
     }
   ],

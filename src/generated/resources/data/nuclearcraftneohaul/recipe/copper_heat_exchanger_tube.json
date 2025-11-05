@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    },
+    "O": {
+      "tag": "c:ingots/copper"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "SOS",
+    "OCO",
+    "SMS"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nuclearcraftneohaul:copper_heat_exchanger_tube"
+  }
+}

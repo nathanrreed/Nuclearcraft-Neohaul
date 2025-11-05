@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -24,7 +25,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -244,7 +244,7 @@ public class SaltFissionLogic extends FissionReactorLogic {
 
     public boolean canProduceProducts() {
         BasicRecipe recipe = emergencyCoolingRecipeInfo.recipe;
-        SizedFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
+        SizedChanceFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
         int productSize = fluidProduct.amount();
         if (productSize <= 0 || fluidProduct.ingredient().hasNoFluids()) {
             return false;
@@ -265,7 +265,7 @@ public class SaltFissionLogic extends FissionReactorLogic {
             inputTank.setFluidStored(FluidStack.EMPTY);
         }
 
-        SizedFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
+        SizedChanceFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
         if (fluidProduct.amount() > 0) {
             if (outputTank.isEmpty()) {
                 outputTank.setFluidStored(Arrays.stream(fluidProduct.getFluids()).findFirst().orElse(FluidStack.EMPTY));

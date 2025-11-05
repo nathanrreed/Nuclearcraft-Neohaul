@@ -69,6 +69,10 @@ public class EmiLangProvider extends LanguageProvider {
         add("emi.category." + EMI_VENT_CATEGORY.getId().toLanguageKey(), "Fission Vent Heating");
         add("emi.category." + EMI_EMERGENCY_COOLING_CATEGORY.getId().toLanguageKey(), "Fission Emergency Cooling");
         add("emi.category." + EMI_SALT_COOLING_CATEGORY.getId().toLanguageKey(), "Molten Salt Cooling");
+
+        add("emi.category." + EMI_CONDENSER_CATEGORY.getId().toLanguageKey(), "Condenser");
+        add("emi.category." + EMI_CONDENSER_DISSIPATION_CATEGORY.getId().toLanguageKey(), "Condenser Dissipation");
+        add("emi.category." + EMI_HEAT_EXCHANGER_CATEGORY.getId().toLanguageKey(), "Heat Exchanger");
     }
 
     private void simpleName(List<String> list, TagKey<?> key, String append) {

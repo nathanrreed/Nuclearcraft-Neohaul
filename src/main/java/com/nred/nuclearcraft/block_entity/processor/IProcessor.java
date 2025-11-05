@@ -10,6 +10,8 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.AbstractRecipeHandler;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
@@ -26,10 +28,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -88,19 +88,19 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
         return tanks.length == 0 ? Collections.emptyList() : getTanks().subList(tanks[0], tanks[0] + tanks.length);
     }
 
-    default List<SizedIngredient> getItemIngredients() {
+    default List<SizedChanceItemIngredient> getItemIngredients() {
         return getRecipeInfo().recipe.getItemIngredients();
     }
 
-    default List<SizedFluidIngredient> getFluidIngredients() {
+    default List<SizedChanceFluidIngredient> getFluidIngredients() {
         return getRecipeInfo().recipe.getFluidIngredients();
     }
 
-    default List<SizedIngredient> getItemProducts() {
+    default List<SizedChanceItemIngredient> getItemProducts() {
         return getRecipeInfo().recipe.getItemProducts();
     }
 
-    default List<SizedFluidIngredient> getFluidProducts() {
+    default List<SizedChanceFluidIngredient> getFluidProducts() {
         return getRecipeInfo().recipe.getFluidProducts();
     }
 
@@ -249,7 +249,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 continue;
             }
 
-            SizedIngredient product = getItemProducts().get(i);
+            SizedChanceItemIngredient product = getItemProducts().get(i);
             int productMaxStackSize = product.count();
             Optional<ItemStack> productStack = Arrays.stream(product.getItems()).findFirst();
 
@@ -282,7 +282,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 continue;
             }
 
-            SizedFluidIngredient product = getFluidProducts().get(i);
+            SizedChanceFluidIngredient product = getFluidProducts().get(i);
             int productMaxStackSize = product.amount();
             Optional<FluidStack> productStack = Arrays.stream(product.getFluids()).findFirst();
 
@@ -418,8 +418,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 continue;
             }
 
-            SizedIngredient product = getItemProducts().get(i);
-
+            SizedChanceItemIngredient product = getItemProducts().get(i);
             if (product.count() <= 0) {
                 continue;
             }
@@ -445,7 +444,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 continue;
             }
 
-            SizedFluidIngredient product = getFluidProducts().get(i);
+            SizedChanceFluidIngredient product = getFluidProducts().get(i);
 
             if (product.amount() <= 0) {
                 continue;

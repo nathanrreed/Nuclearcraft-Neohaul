@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.recipe.fission;
 
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.NCMath;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public abstract class ItemFissionRecipe extends BasicRecipe {
     private final boolean selfPriming;
     private final double radiation;
 
-    public ItemFissionRecipe(SizedIngredient ingredient, SizedIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+    public ItemFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
         super(List.of(ingredient), List.of(), List.of(product), List.of());
         this.time = time;
         this.heat = heat;

@@ -45,6 +45,9 @@ public class RecipeViewerInfoMap {
         map.put("fission_emergency_cooling", new RecipeViewerInfo("fission_emergency_cooling", new ScreenRectangle(50, 29, 88, 28), new ScreenPosition(24, 6), List.of(new ScreenPosition(5, 5)), List.of(new ScreenPosition(61, 1))));
         map.put("salt_cooling", new RecipeViewerInfo("coolant_heater", new ScreenRectangle(40, 29, 108, 28), new ScreenPosition(44, 6), List.of(new ScreenPosition(5, 5), new ScreenPosition(25, 5)), List.of(new ScreenPosition(81, 1))));
 
+        map.put("condenser", new RecipeViewerInfo("condenser", new ScreenRectangle(50, 29, 88, 28), new ScreenPosition(24, 6), List.of(new ScreenPosition(5, 5)), List.of(new ScreenPosition(61, 1))));
+        map.put("heat_exchanger", new RecipeViewerInfo("heat_exchanger", new ScreenRectangle(50, 29, 88, 28), new ScreenPosition(24, 6), List.of(new ScreenPosition(5, 5)), List.of(new ScreenPosition(61, 1))));
+
         return map;
     }
 }

@@ -11,6 +11,8 @@ import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEnti
 import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.block_entity.generator.DecayGeneratorEntity;
 import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
+import com.nred.nuclearcraft.block_entity.hx.CondenserControllerEntity;
+import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
 import com.nred.nuclearcraft.block_entity.passive.TilePassive;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
@@ -20,9 +22,7 @@ import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContai
 import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilderImpl.BasicProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilderImpl.BasicUpgradableProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.menu.multiblock.controller.SaltFissionControllerMenu;
-import com.nred.nuclearcraft.menu.multiblock.controller.SolidFissionControllerMenu;
-import com.nred.nuclearcraft.menu.multiblock.controller.TurbineControllerMenu;
+import com.nred.nuclearcraft.menu.multiblock.controller.*;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionCellPortMenu;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionHeaterPortMenu;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionIrradiatorPortMenu;
@@ -42,12 +42,11 @@ import static com.nred.nuclearcraft.util.ContainerInfoHelper.bigSlot;
 import static com.nred.nuclearcraft.util.ContainerInfoHelper.standardSlot;
 
 public class TileInfoHandler {
-
     public static final Object2ObjectMap<String, BlockTileInfo<?>> BLOCK_TILE_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
 
     public static final Object2ObjectMap<String, TileContainerInfo<?>> TILE_CONTAINER_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
 
-//	public static final Object2ObjectMap<String, JEICategoryInfo<?, ?, ?>> JEI_CATEGORY_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
+//    public static final Object2ObjectMap<String, JEICategoryInfo<?, ?, ?>> JEI_CATEGORY_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
 
     public static void preInit() {
         registerBlockTileInfo(new BlockSimpleTileInfo<>("machine_interface", MachineInterfaceEntity.class, MachineInterfaceEntity::new));
@@ -79,7 +78,7 @@ public class TileInfoHandler {
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("decay_hastener", DecayHastenerEntity.class, DecayHastenerEntity::new, DecayHastenerMenu::new).setParticles("reddust").setDefaultProcessTime(() -> processor_time[2]).setDefaultProcessPower(() -> processor_power[2]).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("fuel_reprocessor", FuelReprocessorEntity.class, FuelReprocessorEntity::new, FuelReprocessorMenu::new).setParticles("reddust", "smoke").setDefaultProcessTime(() -> processor_time[3]).setDefaultProcessPower(() -> processor_power[3]).standardExtend(0, 12).setItemInputSlots(standardSlot(30, 41)).setItemOutputSlots(standardSlot(86, 31), standardSlot(106, 31), standardSlot(126, 31), standardSlot(146, 31), standardSlot(86, 51), standardSlot(106, 51), standardSlot(126, 51), standardSlot(146, 51)).setProgressBarGuiXYWHUV(48, 30, 37, 38, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("alloy_furnace", AlloyFurnaceEntity.class, AlloyFurnaceEntity::new, AlloyFurnaceMenu::new).setParticles("reddust", "smoke").setDefaultProcessTime(() -> processor_time[4]).setDefaultProcessPower(() -> processor_power[4]).setLosesProgress(true).setItemInputSlots(standardSlot(46, 35), standardSlot(66, 35)).setItemOutputSlots(bigSlot(122, 31)).setProgressBarGuiXYWHUV(84, 35, 37, 16, 176, 3));
-        registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("infuser", InfuserEntity.class, InfuserEntity::new, InfuserMenu::new).setParticles("portal", "reddust").setDefaultProcessTime(() -> processor_time[5]).setDefaultProcessPower(() -> processor_power[5]).setLosesProgress(true).setItemInputSlots(standardSlot(46, 35)).setFluidInputSlots(standardSlot(66, 35)).setItemOutputSlots(bigSlot(122, 31)).setProgressBarGuiXYWHUV(84, 35, 37, 16, 176, 3));
+        registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("fluid_infuser", InfuserEntity.class, InfuserEntity::new, InfuserMenu::new).setParticles("portal", "reddust").setDefaultProcessTime(() -> processor_time[5]).setDefaultProcessPower(() -> processor_power[5]).setLosesProgress(true).setItemInputSlots(standardSlot(46, 35)).setFluidInputSlots(standardSlot(66, 35)).setItemOutputSlots(bigSlot(122, 31)).setProgressBarGuiXYWHUV(84, 35, 37, 16, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("melter", MelterEntity.class, MelterEntity::new, MelterMenu::new).setParticles("flame", "lava").setDefaultProcessTime(() -> processor_time[6]).setDefaultProcessPower(() -> processor_power[6]).setLosesProgress(true).setItemInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("supercooler", SupercoolerEntity.class, SupercoolerEntity::new, SupercoolerMenu::new).setParticles("smoke", "snowshovel").setDefaultProcessTime(() -> processor_time[7]).setDefaultProcessPower(() -> processor_power[7]).setLosesProgress(true).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("electrolyzer", ElectrolyzerEntity.class, ElectrolyzerEntity::new, ElectrolyzerMenu::new).setParticles("reddust", "splash").setDefaultProcessTime(() -> processor_time[8]).setDefaultProcessPower(() -> processor_power[8]).setLosesProgress(true).standardExtend(0, 12).setFluidInputSlots(standardSlot(50, 41)).setFluidOutputSlots(standardSlot(106, 31), standardSlot(126, 31), standardSlot(106, 51), standardSlot(126, 51)).setProgressBarGuiXYWHUV(68, 30, 37, 38, 176, 3));
@@ -87,10 +86,10 @@ public class TileInfoHandler {
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("ingot_former", IngotFormerEntity.class, IngotFormerEntity::new, IngotFormerMenu::new).setParticles("smoke").setDefaultProcessTime(() -> processor_time[10]).setDefaultProcessPower(() -> processor_power[10]).setFluidInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("pressurizer", PressurizerEntity.class, PressurizerEntity::new, PressurizerMenu::new).setParticles("smoke").setDefaultProcessTime(() -> processor_time[11]).setDefaultProcessPower(() -> processor_power[11]).setLosesProgress(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("chemical_reactor", ChemicalReactorEntity.class, ChemicalReactorEntity::new, ChemicalReactorMenu::new).setParticles("reddust").setDefaultProcessTime(() -> processor_time[12]).setDefaultProcessPower(() -> processor_power[12]).setLosesProgress(true).setFluidInputSlots(standardSlot(32, 35), standardSlot(52, 35)).setFluidOutputSlots(bigSlot(108, 31), bigSlot(136, 31)).setProgressBarGuiXYWHUV(70, 34, 37, 18, 176, 3));
-        registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("salt_mixer", SaltMixerEntity.class, SaltMixerEntity::new, SaltMixerMenu::new).setParticles("endRod", "reddust").setDefaultProcessTime(() -> processor_time[13]).setDefaultProcessPower(() -> processor_power[13]).setFluidInputSlots(standardSlot(46, 35), standardSlot(66, 35)).setFluidOutputSlots(bigSlot(122, 31)).setProgressBarGuiXYWHUV(84, 34, 37, 18, 176, 3));
+        registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("fluid_mixer", SaltMixerEntity.class, SaltMixerEntity::new, SaltMixerMenu::new).setParticles("endRod", "reddust").setDefaultProcessTime(() -> processor_time[13]).setDefaultProcessPower(() -> processor_power[13]).setFluidInputSlots(standardSlot(46, 35), standardSlot(66, 35)).setFluidOutputSlots(bigSlot(122, 31)).setProgressBarGuiXYWHUV(84, 34, 37, 18, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("crystallizer", CrystallizerEntity.class, CrystallizerEntity::new, CrystallizerMenu::new).setParticles("depthsuspend").setDefaultProcessTime(() -> processor_time[14]).setDefaultProcessPower(() -> processor_power[14]).setLosesProgress(true).setFluidInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
-        registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("enricher", EnricherEntity.class, EnricherEntity::new, EnricherMenu::new).setParticles("depthsuspend", "splash").setDefaultProcessTime(() -> processor_time[15]).setDefaultProcessPower(() -> processor_power[15]).setLosesProgress(true).setItemInputSlots(standardSlot(46, 35)).setFluidInputSlots(standardSlot(66, 35)).setFluidOutputSlots(bigSlot(122, 31)).setProgressBarGuiXYWHUV(84, 35, 37, 16, 176, 3));
-        registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("extractor", ExtractorEntity.class, ExtractorEntity::new, ExtractorMenu::new).setParticles("depthsuspend", "reddust").setDefaultProcessTime(() -> processor_time[16]).setDefaultProcessPower(() -> processor_power[16]).setLosesProgress(true).setItemInputSlots(standardSlot(42, 35)).setItemOutputSlots(bigSlot(98, 31)).setFluidOutputSlots(bigSlot(126, 31)).setProgressBarGuiXYWHUV(60, 34, 37, 18, 176, 3));
+        registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("fluid_enricher", EnricherEntity.class, EnricherEntity::new, EnricherMenu::new).setParticles("depthsuspend", "splash").setDefaultProcessTime(() -> processor_time[15]).setDefaultProcessPower(() -> processor_power[15]).setLosesProgress(true).setItemInputSlots(standardSlot(46, 35)).setFluidInputSlots(standardSlot(66, 35)).setFluidOutputSlots(bigSlot(122, 31)).setProgressBarGuiXYWHUV(84, 35, 37, 16, 176, 3));
+        registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("fluid_extractor", ExtractorEntity.class, ExtractorEntity::new, ExtractorMenu::new).setParticles("depthsuspend", "reddust").setDefaultProcessTime(() -> processor_time[16]).setDefaultProcessPower(() -> processor_power[16]).setLosesProgress(true).setItemInputSlots(standardSlot(42, 35)).setItemOutputSlots(bigSlot(98, 31)).setFluidOutputSlots(bigSlot(126, 31)).setProgressBarGuiXYWHUV(60, 34, 37, 18, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("centrifuge", CentrifugeEntity.class, CentrifugeEntity::new, CentrifugeMenu::new).setParticles("depthsuspend", "endRod").setDefaultProcessTime(() -> processor_time[17]).setDefaultProcessPower(() -> processor_power[17]).standardExtend(0, 12).setFluidInputSlots(standardSlot(40, 41)).setFluidOutputSlots(standardSlot(96, 31), standardSlot(116, 31), standardSlot(136, 31), standardSlot(96, 51), standardSlot(116, 51), standardSlot(136, 51)).setProgressBarGuiXYWHUV(58, 30, 37, 38, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("rock_crusher", RockCrusherEntity.class, RockCrusherEntity::new, RockCrusherMenu::new).setParticles("smoke").setDefaultProcessTime(() -> processor_time[18]).setDefaultProcessPower(() -> processor_power[18]).setItemInputSlots(standardSlot(38, 35)).setItemOutputSlots(standardSlot(94, 35), standardSlot(114, 35), standardSlot(134, 35)).setProgressBarGuiXYWHUV(56, 35, 37, 16, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("electric_furnace", ElectricFurnaceEntity.class, ElectricFurnaceEntity::new, ElectricFurnaceMenu::new).setParticles("reddust", "smoke").setDefaultProcessTime(() -> processor_time[19]).setDefaultProcessPower(() -> processor_power[19]).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
@@ -100,14 +99,12 @@ public class TileInfoHandler {
 //        registerContainerInfo(new TileContainerInfo<>(Global.MOD_ID, "electrolyzer_controller", TileElectrolyzerController.class, ContainerElectrolyzerController::new, clientGetGuiInfoTileFunction(() -> GuiElectrolyzerController::new)));
 //        registerContainerInfo(new TileContainerInfo<>(Global.MOD_ID, "distiller_controller", TileDistillerController.class, ContainerDistillerController::new, clientGetGuiInfoTileFunction(() -> GuiDistillerController::new)));
 //        registerContainerInfo(new TileContainerInfo<>(Global.MOD_ID, "infiltrator_controller", TileInfiltratorController.class, ContainerInfiltratorController::new, clientGetGuiInfoTileFunction(() -> GuiInfiltratorController::new)));
-//        registerContainerInfo(new TileContainerInfo<>(Global.MOD_ID, "heat_exchanger_controller", TileHeatExchangerController.class, ContainerHeatExchangerController::new, clientGetGuiInfoTileFunction(() -> GuiHeatExchangerController::new)));
-//        registerContainerInfo(new TileContainerInfo<>(Global.MOD_ID, "condenser_controller", TileCondenserController.class, ContainerCondenserController::new, clientGetGuiInfoTileFunction(() -> GuiCondenserController::new)));
-
+        registerContainerInfo(new TileContainerInfo<>("heat_exchanger_controller", HeatExchangerControllerEntity.class, HeatExchangerControllerMenu::new));
+        registerContainerInfo(new TileContainerInfo<>("condenser_controller", CondenserControllerEntity.class, CondenserControllerMenu::new));
 
         registerContainerInfo(new TileContainerInfo<>("solid_fission_controller", SolidFissionControllerEntity.class, SolidFissionControllerMenu::new));
         registerContainerInfo(new TileContainerInfo<>("salt_fission_controller", SaltFissionControllerEntity.class, SaltFissionControllerMenu::new));
         registerContainerInfo(new TileContainerInfo<>("turbine_controller", TurbineControllerEntity.class, TurbineControllerMenu::new));
-
 
         registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("fission_irradiator", FissionIrradiatorEntity.class, FissionIrradiatorEntity::new, FissionIrradiatorMenu::new).setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().setStandardJeiAlternateTexture().buildContainerInfo());
         registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("solid_fission_cell", SolidFissionCellEntity.class, SolidFissionCellEntity::new, SolidFissionCellMenu::new).setRecipeHandlerName("solid_fission").setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
@@ -124,26 +121,26 @@ public class TileInfoHandler {
 
     public static void init() {
         if (ModCheck.jeiLoaded()) { // TODO remove?
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("manufactory", ManufactoryRecipeWrapper.class, ManufactoryRecipeWrapper::new, Lists.newArrayList(NCBlocks.manufactory)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("separator", SeparatorRecipeWrapper.class, SeparatorRecipeWrapper::new, Lists.newArrayList(NCBlocks.separator)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("decay_hastener", DecayHastenerRecipeWrapper.class, DecayHastenerRecipeWrapper::new, Lists.newArrayList(NCBlocks.decay_hastener)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("fuel_reprocessor", FuelReprocessorRecipeWrapper.class, FuelReprocessorRecipeWrapper::new, Lists.newArrayList(NCBlocks.fuel_reprocessor)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("alloy_furnace", AlloyFurnaceRecipeWrapper.class, AlloyFurnaceRecipeWrapper::new, Lists.newArrayList(NCBlocks.alloy_furnace)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("infuser", InfuserRecipeWrapper.class, InfuserRecipeWrapper::new, Lists.newArrayList(NCBlocks.infuser)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("melter", MelterRecipeWrapper.class, MelterRecipeWrapper::new, Lists.newArrayList(NCBlocks.melter)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("supercooler", SupercoolerRecipeWrapper.class, SupercoolerRecipeWrapper::new, Lists.newArrayList(NCBlocks.supercooler)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("electrolyzer", ElectrolyzerRecipeWrapper.class, ElectrolyzerRecipeWrapper::new, Lists.newArrayList(NCBlocks.electrolyzer)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("assembler", AssemblerRecipeWrapper.class, AssemblerRecipeWrapper::new, Lists.newArrayList(NCBlocks.assembler)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("ingot_former", IngotFormerRecipeWrapper.class, IngotFormerRecipeWrapper::new, Lists.newArrayList(NCBlocks.ingot_former)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("pressurizer", PressurizerRecipeWrapper.class, PressurizerRecipeWrapper::new, Lists.newArrayList(NCBlocks.pressurizer)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("chemical_reactor", ChemicalReactorRecipeWrapper.class, ChemicalReactorRecipeWrapper::new, Lists.newArrayList(NCBlocks.chemical_reactor)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("salt_mixer", SaltMixerRecipeWrapper.class, SaltMixerRecipeWrapper::new, Lists.newArrayList(NCBlocks.salt_mixer)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("crystallizer", CrystallizerRecipeWrapper.class, CrystallizerRecipeWrapper::new, Lists.newArrayList(NCBlocks.crystallizer)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("enricher", EnricherRecipeWrapper.class, EnricherRecipeWrapper::new, Lists.newArrayList(NCBlocks.enricher)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("extractor", ExtractorRecipeWrapper.class, ExtractorRecipeWrapper::new, Lists.newArrayList(NCBlocks.extractor)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("centrifuge", CentrifugeRecipeWrapper.class, CentrifugeRecipeWrapper::new, Lists.newArrayList(NCBlocks.centrifuge)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("rock_crusher", RockCrusherRecipeWrapper.class, RockCrusherRecipeWrapper::new, Lists.newArrayList(NCBlocks.rock_crusher)));
-//			registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("electric_furnace", ElectricFurnaceRecipeWrapper.class, ElectricFurnaceRecipeWrapper::new, Lists.newArrayList(NCBlocks.electric_furnace)) {
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("manufactory", ManufactoryRecipeWrapper.class, ManufactoryRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("manufactory").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("separator", SeparatorRecipeWrapper.class, SeparatorRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("separator").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("decay_hastener", DecayHastenerRecipeWrapper.class, DecayHastenerRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("decay_hastener").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("fuel_reprocessor", FuelReprocessorRecipeWrapper.class, FuelReprocessorRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("fuel_reprocessor").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("alloy_furnace", AlloyFurnaceRecipeWrapper.class, AlloyFurnaceRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("alloy_furnace").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("infuser", InfuserRecipeWrapper.class, InfuserRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("infuser").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("melter", MelterRecipeWrapper.class, MelterRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("melter").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("supercooler", SupercoolerRecipeWrapper.class, SupercoolerRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("supercooler").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("electrolyzer", ElectrolyzerRecipeWrapper.class, ElectrolyzerRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("electrolyzer").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("assembler", AssemblerRecipeWrapper.class, AssemblerRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("assembler").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("ingot_former", IngotFormerRecipeWrapper.class, IngotFormerRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("ingot_former").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("pressurizer", PressurizerRecipeWrapper.class, PressurizerRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("pressurizer").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("chemical_reactor", ChemicalReactorRecipeWrapper.class, ChemicalReactorRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("chemical_reactor").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("salt_mixer", SaltMixerRecipeWrapper.class, SaltMixerRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("salt_mixer").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("crystallizer", CrystallizerRecipeWrapper.class, CrystallizerRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("crystallizer").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("enricher", EnricherRecipeWrapper.class, EnricherRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("enricher").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("extractor", ExtractorRecipeWrapper.class, ExtractorRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("extractor").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("centrifuge", CentrifugeRecipeWrapper.class, CentrifugeRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("centrifuge").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("rock_crusher", RockCrusherRecipeWrapper.class, RockCrusherRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("rock_crusher").get())));
+//            registerJEICategoryInfo(new JEIProcessorCategoryInfo<>("electric_furnace", ElectricFurnaceRecipeWrapper.class, ElectricFurnaceRecipeWrapper::new, Lists.newArrayList(PROCESSOR_MAP.get("electric_furnace").get())) {
 //				
 //				public List<ElectricFurnaceRecipeWrapper> getJEIRecipes(IGuiHelper guiHelper) {
 //					List<ElectricFurnaceRecipeWrapper> recipes = super.getJEIRecipes(guiHelper);
@@ -177,7 +174,7 @@ public class TileInfoHandler {
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "coolant_heater", CoolantHeaterRecipeWrapper.class, CoolantHeaterRecipeWrapper::new, NCJEI.getCoolantHeaterCrafters(), Lists.newArrayList(getProcessorJEIContainerConnection("salt_fission_heater"))).setItemInputSlots(standardSlot(46, 35)).setFluidInputSlots(standardSlot(66, 35)).setFluidOutputSlots(bigSlot(122, 31)).setProgressBarGuiXYWHUV(84, 35, 37, 16, 176, 3).setStandardJeiAlternateTitle());
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "fission_emergency_cooling", FissionEmergencyCoolingRecipeWrapper.class, FissionEmergencyCoolingRecipeWrapper::new, Lists.newArrayList(NCBlocks.fission_vent), Lists.newArrayList()).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle());
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "heat_exchanger", HeatExchangerRecipeWrapper.class, HeatExchangerRecipeWrapper::new, NCJEI.getHeatExchangerCrafters(), Lists.newArrayList()).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle());
-//			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "condenser", CondenserRecipeWrapper.class, CondenserRecipeWrapper::new, NCJEI.getCondenserCrafters(), Lists.newArrayList()).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle());
+//			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(MODID, "condenser", CondenserRecipeWrapper.class, CondenserRecipeWrapper::new, NCJEI.getCondenserCrafters(), Lists.newArrayList()).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle());
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "condenser_dissipation_fluid", CondenserDissipationFluidRecipeWrapper.class, CondenserDissipationFluidRecipeWrapper::new, Lists.newArrayList(NCBlocks.heat_exchanger_inlet), Lists.newArrayList()).setFluidInputSlots(standardSlot(86, 35)).disableProgressBar().setStandardJeiAlternateTitle());
 //			registerJEICategoryInfo(new JEISimpleCategoryInfoBuilder<>(Global.MOD_ID, "turbine", TurbineRecipeWrapper.class, TurbineRecipeWrapper::new, NCJEI.getTurbineCrafters(), Lists.newArrayList()).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle());
         }
@@ -203,14 +200,14 @@ public class TileInfoHandler {
         registerContainerInfo(builder.buildContainerInfo());
     }
 
-//	public static void registerJEICategoryInfo(JEICategoryInfo<?, ?, ?> info) {
-//		register(JEI_CATEGORY_INFO_MAP, info.getName(), info);
-//	}
+//    public static void registerJEICategoryInfo(JEICategoryInfo<?, ?, ?> info) {
+//        register(JEI_CATEGORY_INFO_MAP, info.getName(), info);
+//    }
 //
-//	public static <WRAPPER extends JEISimpleRecipeWrapper<WRAPPER>> void registerJEICategoryInfo(JEISimpleCategoryInfoBuilder<WRAPPER> builder) {
-//		JEISimpleCategoryInfo<WRAPPER> info = builder.buildCategoryInfo();
-//		registerJEICategoryInfo(info);
-//	}
+//    public static <WRAPPER extends JEISimpleRecipeWrapper<WRAPPER>> void registerJEICategoryInfo(JEISimpleCategoryInfoBuilder<WRAPPER> builder) {
+//        JEISimpleCategoryInfo<WRAPPER> info = builder.buildCategoryInfo();
+//        registerJEICategoryInfo(info);
+//    }
 
     @SuppressWarnings("unchecked")
     public static <TILE extends BlockEntity, INFO extends BlockSimpleTileInfo<TILE>> INFO getBlockSimpleTileInfo(String name) {
@@ -237,7 +234,7 @@ public class TileInfoHandler {
 //        return (CATEGORY_INFO) JEI_CATEGORY_INFO_MAP.get(name);
 //    }
 //
-//    public static void addJEICrafter(String name, Object crafter) {
+//    public static void addJEICrafter(String name, ItemStack crafter) {
 //        getJEICategoryInfo(name).jeiCrafters.add(crafter);
 //    }
 //
@@ -245,7 +242,7 @@ public class TileInfoHandler {
 //        getJEICategoryInfo(name).jeiContainerConnections.add(connection);
 //    }
 //
-//    public static <TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorContainerInfo<TILE, PACKET, INFO>> JEIContainerConnection getProcessorJEIContainerConnection(String name) {
+//    public static <TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> JEIContainerConnection getProcessorJEIContainerConnection(String name) {
 //        return getProcessorContainerInfo(name).getJEIContainerConnection();
 //    }
 //

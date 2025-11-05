@@ -3,11 +3,11 @@ package com.nred.nuclearcraft.recipe;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.NCRecipes.BasicProcessorRecipeHandler;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.util.NCMath;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
@@ -44,11 +44,11 @@ public class RecipeStats {
                             maxProcessTimeMultiplier = Math.max(maxProcessTimeMultiplier, recipe.getProcessTimeMultiplier());
                             maxProcessPowerMultiplier = Math.max(maxProcessPowerMultiplier, recipe.getProcessPowerMultiplier());
 
-                            for (SizedFluidIngredient ingredient : recipe.getFluidIngredients()) {
+                            for (SizedChanceFluidIngredient ingredient : recipe.getFluidIngredients()) {
                                 maxFluidInputSize = Math.max(maxFluidInputSize, ingredient.amount());
                             }
 
-                            for (SizedFluidIngredient ingredient : recipe.getFluidProducts()) {
+                            for (SizedChanceFluidIngredient ingredient : recipe.getFluidProducts()) {
                                 maxFluidOutputSize = Math.max(maxFluidOutputSize, ingredient.amount());
                             }
                         }

@@ -1,9 +1,13 @@
 package com.nred.nuclearcraft.compat.emi;
 
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
+import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
@@ -17,11 +21,16 @@ import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import it.unimi.dsi.fastutil.Pair;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.*;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.Comparator;
 import java.util.List;
@@ -30,9 +39,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidEntries;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.COOLANTS;
+import static com.nred.nuclearcraft.multiblock.hx.CondenserLogic.getCondenserDissipationFluids;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.MenuRegistration.*;
@@ -70,6 +81,15 @@ public class ModEmiPlugin implements EmiPlugin {
     public static final EmiRecipeCategory EMI_MODERATOR_CATEGORY = new EmiRecipeCategory(ncLoc("fission_moderator"), EmiStack.of(HEAVY_WATER_MODERATOR));
     public static final EmiRecipeCategory EMI_REFLECTOR_CATEGORY = new EmiRecipeCategory(ncLoc("fission_reflector"), EmiStack.of(FISSION_REACTOR_MAP.get("beryllium_carbon_reflector")));
 
+    private static final EmiStack HEAT_EXCHANGER_WORKSTATION = EmiStack.of(HX_MAP.get("heat_exchanger_controller"));
+    public static final EmiRecipeCategory EMI_HEAT_EXCHANGER_CATEGORY = new EmiRecipeCategory(ncLoc("heat_exchanger"), HEAT_EXCHANGER_WORKSTATION);
+
+    private static final EmiStack CONDENSER_WORKSTATION = EmiStack.of(HX_MAP.get("condenser_controller"));
+    public static final EmiRecipeCategory EMI_CONDENSER_CATEGORY = new EmiRecipeCategory(ncLoc("condenser"), CONDENSER_WORKSTATION);
+
+    private static final EmiStack CONDENSER_DISSIPATION_WORKSTATION = EmiStack.of(HX_MAP.get("heat_exchanger_inlet"));
+    public static final EmiRecipeCategory EMI_CONDENSER_DISSIPATION_CATEGORY = new EmiRecipeCategory(ncLoc("condenser_dissipation"), CONDENSER_DISSIPATION_WORKSTATION);
+
     @Override
     public void register(EmiRegistry registry) {
         RecipeManager manager = registry.getRecipeManager();
@@ -106,7 +126,7 @@ public class ModEmiPlugin implements EmiPlugin {
                 }
             } else {
                 for (RecipeHolder<? extends ProcessorRecipe> recipe : manager.getAllRecipesFor(PROCESSOR_RECIPE_TYPES.get(type).get()).stream().sorted(Comparator.comparing(other -> other.id().getPath())).toList()) {
-                    EmiProcessorRecipe temp = new EmiProcessorRecipe(type, EMI_PROCESSOR_CATEGORIES.get(type), recipe.id(), recipe.value().itemIngredients.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().itemProducts.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().fluidIngredients.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().fluidProducts.stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().getProcessTimeMultiplier(), recipe.value().getProcessPowerMultiplier());
+                    EmiProcessorRecipe temp = new EmiProcessorRecipe(type, EMI_PROCESSOR_CATEGORIES.get(type), recipe.id(), recipe.value().itemIngredients.stream().map(this::getItemIngredient).toList(), recipe.value().itemProducts.stream().map(this::getItemIngredient).toList(), recipe.value().fluidIngredients.stream().map(s -> NeoForgeEmiIngredient.of(s.sized()).setChance(s.chancePercent() / 100f)).toList(), recipe.value().fluidProducts.stream().map(s -> NeoForgeEmiIngredient.of(s.sized()).setChance(s.chancePercent() / 100f)).toList(), recipe.value().getProcessTimeMultiplier(), recipe.value().getProcessPowerMultiplier());
                     if (!temp.getInputs().isEmpty()) {
                         registry.addRecipe(temp);
                     }
@@ -120,14 +140,13 @@ public class ModEmiPlugin implements EmiPlugin {
         for (String type : COLLECTOR_WORKSTATIONS.keySet()) {
             registry.addWorkstation(EMI_COLLECTOR_CATEGORY, COLLECTOR_WORKSTATIONS.get(type));
         }
-
         List.of(
                 Pair.of(NITROGEN_COLLECTOR_RECIPE_TYPE, "nitrogen_collector"), Pair.of(NITROGEN_COLLECTOR_COMPACT_RECIPE_TYPE, "nitrogen_collector_compact"), Pair.of(NITROGEN_COLLECTOR_DENSE_RECIPE_TYPE, "nitrogen_collector_dense"),
                 Pair.of(WATER_SOURCE_RECIPE_TYPE, "water_source"), Pair.of(WATER_SOURCE_COMPACT_RECIPE_TYPE, "water_source_compact"), Pair.of(WATER_SOURCE_DENSE_RECIPE_TYPE, "water_source_dense"),
                 Pair.of(COBBLE_GENERATOR_RECIPE_TYPE, "cobblestone_generator"), Pair.of(COBBLE_GENERATOR_COMPACT_RECIPE_TYPE, "cobblestone_generator_compact"), Pair.of(COBBLE_GENERATOR_DENSE_RECIPE_TYPE, "cobblestone_generator_dense")
         ).forEach(i -> {
             for (RecipeHolder<? extends CollectorRecipe> recipe : manager.getAllRecipesFor(i.first().get())) {
-                registry.addRecipe(new EmiCollectorRecipe(recipe.id(), COLLECTOR_MAP.get(i.second()), recipe.value().getItemProducts().stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().getFluidProducts().stream().map(NeoForgeEmiIngredient::of).toList(), recipe.value().getCollectorProductionRate()));
+                registry.addRecipe(new EmiCollectorRecipe(recipe.id(), COLLECTOR_MAP.get(i.second()), recipe.value().getItemProducts().stream().map(this::getItemIngredient).toList(), recipe.value().getFluidProducts().stream().map(this::getFluidIngredient).toList(), recipe.value().getCollectorProductionRate()));
             }
         });
 
@@ -136,29 +155,29 @@ public class ModEmiPlugin implements EmiPlugin {
         registry.addWorkstation(EMI_TURBINE_CATEGORY, TURBINE_WORKSTATION);
         registry.addRecipeHandler(TURBINE_CONTROLLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_TURBINE_CATEGORY));
         for (RecipeHolder<TurbineRecipe> recipe : manager.getAllRecipesFor(TURBINE_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiTurbineRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value().getTurbinePowerPerMB(), recipe.value().getTurbineExpansionLevel(), recipe.value().getTurbineSpinUpMultiplier()));
+            registry.addRecipe(new EmiTurbineRecipe(recipe.id(), getFluidIngredient(recipe.value().getFluidIngredient()), getFluidIngredient(recipe.value().getFluidProduct()), recipe.value().getTurbinePowerPerMB(), recipe.value().getTurbineExpansionLevel(), recipe.value().getTurbineSpinUpMultiplier()));
         }
 
 
         registry.addCategory(EMI_SOLID_FISSION_CATEGORY);
-        registry.addWorkstation(EMI_SOLID_FISSION_CATEGORY, EmiIngredient.of(List.of(SOLID_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_fuel_cell")))));
+        addWorkstations(registry, EMI_SOLID_FISSION_CATEGORY, List.of(SOLID_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_fuel_cell"))));
         registry.addRecipeHandler(SOLID_FISSION_CONTROLLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_SOLID_FISSION_CATEGORY));
         for (RecipeHolder<SolidFissionRecipe> recipe : manager.getAllRecipesFor(SOLID_FISSION_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiSolidFissionRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getItemIngredient()), NeoForgeEmiIngredient.of(recipe.value().getItemProduct()), recipe.value()));
+            registry.addRecipe(new EmiSolidFissionRecipe(recipe.id(), getItemIngredient(recipe.value().getItemIngredient()), getItemIngredient(recipe.value().getItemProduct()), recipe.value()));
         }
 
         registry.addCategory(EMI_SALT_FISSION_CATEGORY);
-        registry.addWorkstation(EMI_SALT_FISSION_CATEGORY, EmiIngredient.of(List.of(SALT_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_fuel_vessel")))));
+        addWorkstations(registry, EMI_SALT_FISSION_CATEGORY, List.of(SALT_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_fuel_vessel"))));
         registry.addRecipeHandler(SALT_FISSION_CONTROLLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_SALT_FISSION_CATEGORY));
         for (RecipeHolder<SaltFissionRecipe> recipe : manager.getAllRecipesFor(SALT_FISSION_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiSaltFissionRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));
+            registry.addRecipe(new EmiSaltFissionRecipe(recipe.id(), getFluidIngredient(recipe.value().getFluidIngredient()), getFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
         registry.addCategory(EMI_IRRADIATOR_CATEGORY);
         registry.addWorkstation(EMI_IRRADIATOR_CATEGORY, IRRADIATOR_WORKSTATION);
         registry.addRecipeHandler(FISSION_IRRADIATOR_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_IRRADIATOR_CATEGORY));
         for (RecipeHolder<FissionIrradiatorRecipe> recipe : manager.getAllRecipesFor(FISSION_IRRADIATOR_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiFissionIrradiatorRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getItemIngredient()), NeoForgeEmiIngredient.of(recipe.value().getItemProduct()), recipe.value()));
+            registry.addRecipe(new EmiFissionIrradiatorRecipe(recipe.id(), getItemIngredient(recipe.value().getItemIngredient()), getItemIngredient(recipe.value().getItemProduct()), recipe.value()));
         }
 
         registry.addCategory(EMI_VENT_CATEGORY);
@@ -166,7 +185,7 @@ public class ModEmiPlugin implements EmiPlugin {
         registry.addRecipeHandler(null, new SimpleRecipeHandler<>(EMI_VENT_CATEGORY));
 
         for (RecipeHolder<FissionHeatingRecipe> recipe : manager.getAllRecipesFor(FISSION_HEATING_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiFissionVentRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));
+            registry.addRecipe(new EmiFissionVentRecipe(recipe.id(), getFluidIngredient(recipe.value().getFluidIngredient()), getFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
         registry.addCategory(EMI_EMERGENCY_COOLING_CATEGORY);
@@ -174,14 +193,14 @@ public class ModEmiPlugin implements EmiPlugin {
         registry.addRecipeHandler(null, new SimpleRecipeHandler<>(EMI_EMERGENCY_COOLING_CATEGORY));
 
         for (RecipeHolder<FissionEmergencyCoolingRecipe> recipe : manager.getAllRecipesFor(FISSION_EMERGENCY_COOLING_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiFissionEmergencyCoolingRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));
+            registry.addRecipe(new EmiFissionEmergencyCoolingRecipe(recipe.id(), getFluidIngredient(recipe.value().getFluidIngredient()), getFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
         registry.addCategory(EMI_SALT_COOLING_CATEGORY);
-        registry.addWorkstation(EMI_SALT_COOLING_CATEGORY, EmiIngredient.of(Stream.concat(COOLANTS.stream().map(part -> EmiStack.of(FISSION_REACTOR_MAP.get(part + "_fission_coolant_heater"))), Stream.of(SOLID_FISSION_WORKSTATION)).toList()));
+        addWorkstations(registry, EMI_SALT_COOLING_CATEGORY, Stream.concat(COOLANTS.stream().map(part -> EmiStack.of(FISSION_REACTOR_MAP.get(part + "_fission_coolant_heater"))), Stream.of(SOLID_FISSION_WORKSTATION)).toList());
         registry.addRecipeHandler(FISSION_SALT_HEATER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_SALT_COOLING_CATEGORY));
         for (RecipeHolder<FissionCoolantHeaterRecipe> recipe : manager.getAllRecipesFor(COOLANT_HEATER_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiSaltCoolingRecipe(recipe.id(), NeoForgeEmiIngredient.of(recipe.value().getFluidIngredient()), NeoForgeEmiIngredient.of(recipe.value().getFluidProduct()), recipe.value()));
+            registry.addRecipe(new EmiSaltCoolingRecipe(recipe.id(), getFluidIngredient(recipe.value().getFluidIngredient()), getFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
         registry.addCategory(EMI_MODERATOR_CATEGORY);
@@ -189,8 +208,40 @@ public class ModEmiPlugin implements EmiPlugin {
         registry.addCategory(EMI_REFLECTOR_CATEGORY);
         registry.addRecipe(new EmiBasicInfoRecipe(manager.getAllRecipesFor(FISSION_REFLECTOR_RECIPE_TYPE.get()).stream().map(i -> EmiIngredient.of(i.value().reflector())).toList(), EMI_REFLECTOR_CATEGORY, ncLoc("reflectors")));
 
+        registry.addCategory(EMI_HEAT_EXCHANGER_CATEGORY);
+        addWorkstations(registry, EMI_HEAT_EXCHANGER_CATEGORY, List.of(HEAT_EXCHANGER_WORKSTATION, EmiStack.of(HX_MAP.get("copper_heat_exchanger_tube")), EmiStack.of(HX_MAP.get("hard_carbon_heat_exchanger_tube")), EmiStack.of(HX_MAP.get("thermoconducting_alloy_heat_exchanger_tube"))));
+        for (RecipeHolder<HeatExchangerRecipe> recipe : manager.getAllRecipesFor(HEAT_EXCHANGER_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiHeatExchangerRecipe(recipe.id(), getFluidIngredient(recipe.value().getFluidIngredient()), getFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
+        }
+
+        registry.addCategory(EMI_CONDENSER_CATEGORY);
+        addWorkstations(registry, EMI_CONDENSER_CATEGORY, List.of(CONDENSER_WORKSTATION, EmiStack.of(HX_MAP.get("copper_heat_exchanger_tube")), EmiStack.of(HX_MAP.get("hard_carbon_heat_exchanger_tube")), EmiStack.of(HX_MAP.get("thermoconducting_alloy_heat_exchanger_tube"))));
+        for (RecipeHolder<CondenserRecipe> recipe : manager.getAllRecipesFor(CONDENSER_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiCondenserRecipe(recipe.id(), getFluidIngredient(recipe.value().getFluidIngredient()), getFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
+        }
+
+        registry.addCategory(EMI_CONDENSER_DISSIPATION_CATEGORY);
+        registry.addWorkstation(EMI_CONDENSER_DISSIPATION_CATEGORY, CONDENSER_DISSIPATION_WORKSTATION);
+        for (FluidStack fluidStack : getCondenserDissipationFluids()) {
+            registry.addRecipe(new EmiBasicInfoRecipe(List.of(NeoForgeEmiIngredient.of(SizedFluidIngredient.of(fluidStack))), EMI_CONDENSER_DISSIPATION_CATEGORY, ncLoc("condenser_dissipation"), () -> ClientTooltipComponent.create(Component.translatable(MODID + ".recipe_viewer.condenser_dissipation_fluid_temp", Component.literal(fluidStack.getFluidType().getTemperature() + "K").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA).getVisualOrderText())));
+        }
 
         //  TODO add corium registry.addRecipe(EmiWorldInteractionRecipe.builder()..build());
+    }
+
+    private EmiIngredient getFluidIngredient(SizedChanceFluidIngredient fluidIngredient) {
+        return NeoForgeEmiIngredient.of(fluidIngredient.sized()).setChance(fluidIngredient.chancePercent() / 100f);
+    }
+
+    private EmiIngredient getItemIngredient(SizedChanceItemIngredient itemIngredient) {
+        return NeoForgeEmiIngredient.of(itemIngredient.sized()).setChance(itemIngredient.chancePercent() / 100f);
+    }
+
+    private void addWorkstations(EmiRegistry registry, EmiRecipeCategory category, List<EmiStack> stacks) {
+        for (EmiStack stack : stacks) {
+            registry.addWorkstation(category, EmiIngredient.of(List.of(stack)));
+        }
+
     }
 
     private record SimpleRecipeHandler<T extends AbstractContainerMenu>(EmiRecipeCategory category) implements StandardRecipeHandler<T> {

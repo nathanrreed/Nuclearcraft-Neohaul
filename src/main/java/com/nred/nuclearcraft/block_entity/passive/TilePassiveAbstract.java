@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.IngredientSorption;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.NCMath;
@@ -22,7 +23,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 
@@ -154,7 +154,7 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
         int itemChange = NCMath.toInt(itemBuffer);
         itemBuffer -= itemChange;
 
-        if (!simulateChange && !RecipeHelper.matchIngredient(new SizedIngredient(itemType, 1), getInventoryStacks().get(0), IngredientSorption.NEUTRAL).matches()) {
+        if (!simulateChange && !RecipeHelper.matchIngredient(new SizedChanceItemIngredient(itemType, 1), getInventoryStacks().get(0), IngredientSorption.NEUTRAL).matches()) {
             getInventoryStacks().set(0, ItemStack.EMPTY);
         }
 
@@ -291,7 +291,7 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
 
     @Override
     public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction side) {
-        return itemRate < 0 && super.canPlaceItemThroughFace(slot, stack, side) && RecipeHelper.matchIngredient(new SizedIngredient(itemType, 1), stack, IngredientSorption.NEUTRAL).matches();
+        return itemRate < 0 && super.canPlaceItemThroughFace(slot, stack, side) && RecipeHelper.matchIngredient(new SizedChanceItemIngredient(itemType, 1), stack, IngredientSorption.NEUTRAL).matches();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.jei;
 
-import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
+import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import mezz.jei.api.IModPlugin;

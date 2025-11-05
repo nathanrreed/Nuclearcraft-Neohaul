@@ -16,7 +16,8 @@
       "fluid": "nuclearcraftneohaul:acetylene"
     },
     {
-      "amount": 500,
+      "amount": 100,
+      "chancePercent": 500,
       "fluid": "minecraft:water"
     }
   ],

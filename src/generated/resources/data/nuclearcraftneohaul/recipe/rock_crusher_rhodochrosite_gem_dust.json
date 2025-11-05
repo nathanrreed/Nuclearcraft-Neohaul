@@ -18,15 +18,18 @@
   ],
   "itemResults": [
     {
-      "count": 2621442,
+      "chancePercent": 40,
+      "count": 2,
       "item": "nuclearcraftneohaul:rhodochrosite_gem_dust"
     },
     {
-      "count": 1966082,
+      "chancePercent": 30,
+      "count": 2,
       "item": "nuclearcraftneohaul:sulfur_gem_dust"
     },
     {
-      "count": 2293761,
+      "chancePercent": 35,
+      "count": 1,
       "item": "nuclearcraftneohaul:villiaumite_gem_dust"
     }
   ],

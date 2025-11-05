@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class ContainerInfoBuilder<BUILDER extends ContainerInfoBuilder<BUILDER>> {
-	
 	public final String modId;
 	public final String name;
 	

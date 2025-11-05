@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.info;
 
 import com.nred.nuclearcraft.fluid.GasFluid;
 import com.nred.nuclearcraft.fluid.LitLiquidBlock;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BucketItem;
@@ -16,7 +17,6 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 import net.neoforged.neoforge.common.SoundActions;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -39,6 +39,7 @@ public class Fluids {
     public final DeferredBlock<LiquidBlock> block;
     public final DeferredHolder<FluidType, FluidType> type;
 
+    // TODO add temperature
     public static final TypeInfo GAS_TYPE = new TypeInfo(true, "gas", "gas", FluidType.Properties.create().density(-10).viscosity(40).sound(SoundActions.BUCKET_FILL, SoundEvents.FIRE_EXTINGUISH).sound(SoundActions.BUCKET_EMPTY, SoundEvents.FIRE_EXTINGUISH));
     public static final TypeInfo HOT_GAS_TYPE = new TypeInfo(true, "gas", "gas", FluidType.Properties.create().density(-10).viscosity(40).temperature(1000).sound(SoundActions.BUCKET_FILL, SoundEvents.FIRE_EXTINGUISH).sound(SoundActions.BUCKET_EMPTY, SoundEvents.FIRE_EXTINGUISH));
     public static final TypeInfo SUGAR_TYPE = new TypeInfo(false, "molten_still", "molten_flow", FluidType.Properties.create().density(1150).viscosity(8000).temperature(350).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA));
@@ -184,7 +185,11 @@ public class Fluids {
         return closest;
     }
 
-    public static SizedFluidIngredient sizedIngredient(Fluids input, int amount) {
-        return SizedFluidIngredient.of(input.still.get(), amount);
+    public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int amount) {
+        return SizedChanceFluidIngredient.of(input.still.get(), amount);
+    }
+
+    public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount) {
+        return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, 0);
     }
 }

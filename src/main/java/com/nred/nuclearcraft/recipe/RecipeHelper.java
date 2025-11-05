@@ -3,8 +3,11 @@ package com.nred.nuclearcraft.recipe;
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.util.CollectionHelper;
 import com.nred.nuclearcraft.util.StackHelper;
+import com.nred.nuclearcraft.util.StreamHelper;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -18,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
@@ -98,21 +100,21 @@ public class RecipeHelper {
 //		return null;
 //	}
 //
-//    public static List<ItemStack[]> getItemInputLists(List<SizedIngredient> itemIngredientList) {
-//        return StreamHelper.map(itemIngredientList, SizedIngredient::getItems);
-//    }
-//
-//    public static List<FluidStack[]> getFluidInputLists(List<SizedFluidIngredient> fluidIngredientList) {
-//        return StreamHelper.map(fluidIngredientList, SizedFluidIngredient::getFluids);
-//    }
-//
-//    public static List<ItemStack[]> getItemOutputLists(List<SizedIngredient> itemIngredientList) {
-//        return StreamHelper.map(itemIngredientList, SizedIngredient::getItems);
-//    }
-//
-//    public static List<FluidStack[]> getFluidOutputLists(List<SizedFluidIngredient> fluidIngredientList) {
-//        return StreamHelper.map(fluidIngredientList, SizedFluidIngredient::getFluids);
-//    }
+    public static List<ItemStack[]> getItemInputLists(List<SizedChanceItemIngredient> itemIngredientList) {
+        return StreamHelper.map(itemIngredientList, SizedChanceItemIngredient::getItems);
+    }
+
+    public static List<FluidStack[]> getFluidInputLists(List<SizedFluidIngredient> fluidIngredientList) {
+        return StreamHelper.map(fluidIngredientList, SizedFluidIngredient::getFluids);
+    }
+
+    public static List<ItemStack[]> getItemOutputLists(List<SizedChanceItemIngredient> itemIngredientList) {
+        return StreamHelper.map(itemIngredientList, SizedChanceItemIngredient::getItems);
+    }
+
+    public static List<FluidStack[]> getFluidOutputLists(List<SizedFluidIngredient> fluidIngredientList) {
+        return StreamHelper.map(fluidIngredientList, SizedFluidIngredient::getFluids);
+    }
 //
 //    @Nullable
 //    public static List<ItemStack> getItemOutputList(List<IItemIngredient> itemIngredientList) {
@@ -147,7 +149,7 @@ public class RecipeHelper {
 //    }
 //
     @Nullable
-    public static ItemStack getItemStackFromIngredientList(List<SizedIngredient> itemIngredientList, int pos) {
+    public static ItemStack getItemStackFromIngredientList(List<SizedChanceItemIngredient> itemIngredientList, int pos) {
         if (pos < itemIngredientList.size()) {
             return Arrays.stream(itemIngredientList.get(pos).getItems()).findFirst().orElse(ItemStack.EMPTY);
         }
@@ -198,19 +200,19 @@ public class RecipeHelper {
 //        return null;
 //    }
 
-    public static IngredientMatchResult matchIngredient(SizedIngredient sizedIngredient, Object object, IngredientSorption type) {
+    public static IngredientMatchResult matchIngredient(SizedChanceItemIngredient sizedIngredient, Object object, IngredientSorption type) {
         if (object instanceof ItemStack itemstack) {
             if (!sizedIngredient.test(itemstack)) {
                 return IngredientMatchResult.FAIL;
             }
             return new IngredientMatchResult(type.checkStackSize(sizedIngredient.count(), itemstack.getCount()), 0);
-        } else if (object instanceof SizedIngredient ingredient && matchIngredient(sizedIngredient, Arrays.stream(ingredient.getItems()).findFirst().orElse(ItemStack.EMPTY), type).matches()) {
+        } else if (object instanceof SizedChanceItemIngredient ingredient && matchIngredient(sizedIngredient, Arrays.stream(ingredient.getItems()).findFirst().orElse(ItemStack.EMPTY), type).matches()) {
             return new IngredientMatchResult(type.checkStackSize(sizedIngredient.count(), ingredient.count()), 0);
         }
         return IngredientMatchResult.FAIL;
     }
 
-    public static IngredientMatchResult matchFluidIngredient(SizedFluidIngredient sizedIngredient, Object object, IngredientSorption type) {
+    public static IngredientMatchResult matchFluidIngredient(SizedChanceFluidIngredient sizedIngredient, Object object, IngredientSorption type) {
         if (object instanceof Tank tank) {
             object = tank.getFluid();
         }
@@ -219,13 +221,13 @@ public class RecipeHelper {
                 return IngredientMatchResult.FAIL;
             }
             return new IngredientMatchResult(type.checkStackSize(sizedIngredient.amount(), fluidstack.getAmount()), 0);
-        } else if (object instanceof SizedFluidIngredient ingredient && matchFluidIngredient(sizedIngredient, Arrays.stream(ingredient.getFluids()).findFirst().orElse(FluidStack.EMPTY), type).matches()) {
+        } else if (object instanceof SizedChanceFluidIngredient ingredient && matchFluidIngredient(sizedIngredient, Arrays.stream(ingredient.getFluids()).findFirst().orElse(FluidStack.EMPTY), type).matches()) {
             return new IngredientMatchResult(type.checkStackSize(sizedIngredient.amount(), ingredient.amount()), 0);
         }
         return IngredientMatchResult.FAIL;
     }
 
-    public static RecipeMatchResult matchIngredients(IngredientSorption sorption, List<SizedIngredient> itemIngredients, List<SizedFluidIngredient> fluidIngredients, List<?> items, List<?> fluids) {
+    public static RecipeMatchResult matchIngredients(IngredientSorption sorption, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients, List<?> items, List<?> fluids) {
         int itemCount = items.size(), fluidCount = fluids.size();
         if (itemIngredients.size() != itemCount || fluidIngredients.size() != fluidCount) {
             return RecipeMatchResult.FAIL;
@@ -236,12 +238,12 @@ public class RecipeHelper {
         IntList itemInputOrder = CollectionHelper.increasingList(itemCount);
         IntList fluidInputOrder = CollectionHelper.increasingList(fluidCount);
 
-        List<SizedIngredient> itemIngredientsRemaining = new ArrayList<>(itemIngredients);
+        List<SizedChanceItemIngredient> itemIngredientsRemaining = new ArrayList<>(itemIngredients);
         itemInputs:
         for (int i = 0; i < itemCount; ++i) {
             Object item = items.get(i);
             for (int j = 0; j < itemCount; ++j) {
-                SizedIngredient itemIngredient = itemIngredientsRemaining.get(j);
+                SizedChanceItemIngredient itemIngredient = itemIngredientsRemaining.get(j);
                 if (itemIngredient == null) {
                     continue;
                 }
@@ -255,7 +257,7 @@ public class RecipeHelper {
             }
             return RecipeMatchResult.FAIL;
         }
-        List<SizedFluidIngredient> fluidIngredientsRemaining = new ArrayList<>(fluidIngredients);
+        List<SizedChanceFluidIngredient> fluidIngredientsRemaining = new ArrayList<>(fluidIngredients);
         fluidInputs:
         for (int i = 0; i < fluidCount; ++i) {
             Object fluid = fluids.get(i);
@@ -263,7 +265,7 @@ public class RecipeHelper {
                 fluid = tank.getFluid();
             }
             for (int j = 0; j < fluidCount; ++j) {
-                SizedFluidIngredient fluidIngredient = fluidIngredientsRemaining.get(j);
+                SizedChanceFluidIngredient fluidIngredient = fluidIngredientsRemaining.get(j);
                 if (fluidIngredient == null) {
                     continue;
                 }
@@ -363,7 +365,7 @@ public class RecipeHelper {
 //        return fluidStackList;
 //    }
 //
-//    public static RecipeMatchResult matchIngredients(IngredientSorption sorption, List<SizedIngredient> itemIngredients, List<IFluidIngredient> fluidIngredients, List<?> items, List<?> fluids, boolean shapeless) {
+//    public static RecipeMatchResult matchIngredients(IngredientSorption sorption, List<SizedChanceItemIngredient> itemIngredients, List<IFluidIngredient> fluidIngredients, List<?> items, List<?> fluids, boolean shapeless) {
 //        int itemCount = items.size(), fluidCount = fluids.size();
 //        if (itemIngredients.size() != itemCount || fluidIngredients.size() != fluidCount) {
 //            return RecipeMatchResult.FAIL;

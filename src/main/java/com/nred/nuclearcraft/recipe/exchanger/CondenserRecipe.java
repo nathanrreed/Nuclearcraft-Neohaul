@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.recipe.exchanger;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -10,7 +11,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class CondenserRecipe extends BasicRecipe {
     private final int preferredFlowDir;
     private final double flowDirectionBonus;
 
-    public CondenserRecipe(SizedFluidIngredient input, SizedFluidIngredient output, double coolingRequired, int inputTemp, int outputTemp, int preferredFlowDir, double flowDirectionBonus) {
+    public CondenserRecipe(SizedChanceFluidIngredient input, SizedChanceFluidIngredient output, double coolingRequired, int inputTemp, int outputTemp, int preferredFlowDir, double flowDirectionBonus) {
         super(List.of(), List.of(input), List.of(), List.of(output));
         this.coolingRequired = coolingRequired;
         this.inputTemp = inputTemp;
@@ -74,8 +74,8 @@ public class CondenserRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<CondenserRecipe> {
         private static final MapCodec<CondenserRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(CondenserRecipe::getFluidIngredient),
-                        SizedFluidIngredient.FLAT_CODEC.fieldOf("output").forGetter(CondenserRecipe::getFluidProduct),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(CondenserRecipe::getFluidIngredient),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("output").forGetter(CondenserRecipe::getFluidProduct),
                         Codec.DOUBLE.fieldOf("coolingRequired").forGetter(CondenserRecipe::getCondenserCoolingRequired),
                         Codec.INT.fieldOf("inputTemp").forGetter(CondenserRecipe::getCondenserInputTemperature),
                         Codec.INT.fieldOf("outputTemp").forGetter(CondenserRecipe::getCondenserOutputTemperature),
@@ -84,8 +84,8 @@ public class CondenserRecipe extends BasicRecipe {
                 ).apply(inst, CondenserRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, CondenserRecipe> STREAM_CODEC = NeoForgeStreamCodecs.composite(
-                SizedFluidIngredient.STREAM_CODEC, CondenserRecipe::getFluidIngredient,
-                SizedFluidIngredient.STREAM_CODEC, CondenserRecipe::getFluidProduct,
+                SizedChanceFluidIngredient.STREAM_CODEC, CondenserRecipe::getFluidIngredient,
+                SizedChanceFluidIngredient.STREAM_CODEC, CondenserRecipe::getFluidProduct,
                 ByteBufCodecs.DOUBLE, CondenserRecipe::getCondenserCoolingRequired,
                 ByteBufCodecs.INT, CondenserRecipe::getCondenserInputTemperature,
                 ByteBufCodecs.INT, CondenserRecipe::getCondenserOutputTemperature,

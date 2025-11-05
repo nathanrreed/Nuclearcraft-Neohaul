@@ -4,11 +4,11 @@ import com.mojang.datafixers.util.Function13;
 import com.mojang.datafixers.util.Function16;
 import com.mojang.datafixers.util.Function8;
 import com.mojang.datafixers.util.Function9;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.network.connection.ConnectionType;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,15 +17,15 @@ import java.util.List;
 import java.util.function.Function;
 
 public class StreamCodecsHelper {
-    public static final StreamCodec<RegistryFriendlyByteBuf, List<SizedFluidIngredient>> SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC = new StreamCodec<>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, List<SizedChanceFluidIngredient>> SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC = new StreamCodec<>() {
         @Override
-        public @NotNull List<SizedFluidIngredient> decode(RegistryFriendlyByteBuf buffer) {
-            return Arrays.stream(buffer.readArray(SizedFluidIngredient[]::new, buf -> SizedFluidIngredient.STREAM_CODEC.decode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE)))).toList();
+        public @NotNull List<SizedChanceFluidIngredient> decode(RegistryFriendlyByteBuf buffer) {
+            return Arrays.stream(buffer.readArray(SizedChanceFluidIngredient[]::new, buf -> SizedChanceFluidIngredient.STREAM_CODEC.decode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE)))).toList();
         }
 
         @Override
-        public void encode(RegistryFriendlyByteBuf buffer, List<SizedFluidIngredient> value) {
-            buffer.writeArray(value.toArray(), (buf, ing) -> SizedFluidIngredient.STREAM_CODEC.encode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE), ((SizedFluidIngredient) ing)));
+        public void encode(RegistryFriendlyByteBuf buffer, List<SizedChanceFluidIngredient> value) {
+            buffer.writeArray(value.toArray(), (buf, ing) -> SizedChanceFluidIngredient.STREAM_CODEC.encode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE), ((SizedChanceFluidIngredient) ing)));
         }
     };
     public static final StreamCodec<RegistryFriendlyByteBuf, List<FluidStack>> FLUID_STACK_LIST_STREAM_CODEC = new StreamCodec<>() {
@@ -40,15 +40,15 @@ public class StreamCodecsHelper {
         }
     };
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, List<SizedIngredient>> SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC = new StreamCodec<>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, List<SizedChanceItemIngredient>> SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC = new StreamCodec<>() {
         @Override
-        public @NotNull List<SizedIngredient> decode(RegistryFriendlyByteBuf buffer) {
-            return Arrays.stream(buffer.readArray(SizedIngredient[]::new, buf -> SizedIngredient.STREAM_CODEC.decode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE)))).toList();
+        public @NotNull List<SizedChanceItemIngredient> decode(RegistryFriendlyByteBuf buffer) {
+            return Arrays.stream(buffer.readArray(SizedChanceItemIngredient[]::new, buf -> SizedChanceItemIngredient.STREAM_CODEC.decode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE)))).toList();
         }
 
         @Override
-        public void encode(RegistryFriendlyByteBuf buffer, List<SizedIngredient> value) {
-            buffer.writeArray(value.toArray(), (buf, ing) -> SizedIngredient.STREAM_CODEC.encode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE), ((SizedIngredient) ing)));
+        public void encode(RegistryFriendlyByteBuf buffer, List<SizedChanceItemIngredient> value) {
+            buffer.writeArray(value.toArray(), (buf, ing) -> SizedChanceItemIngredient.STREAM_CODEC.encode(new RegistryFriendlyByteBuf(buf, buffer.registryAccess(), ConnectionType.NEOFORGE), ((SizedChanceItemIngredient) ing)));
         }
     };
 

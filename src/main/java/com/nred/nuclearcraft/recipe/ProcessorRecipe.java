@@ -3,6 +3,8 @@ package com.nred.nuclearcraft.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -10,7 +12,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public abstract class ProcessorRecipe extends BasicRecipe {
     private final double powerModifier;
     private final double radiation;
 
-    public ProcessorRecipe(List<SizedIngredient> itemInputs, List<SizedIngredient> itemResults, List<SizedFluidIngredient> fluidInputs, List<SizedFluidIngredient> fluidResults, double timeModifier, double powerModifier) {
+    public ProcessorRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier) {
         super(itemInputs, fluidInputs, itemResults, fluidResults);
         this.timeModifier = timeModifier;
         this.powerModifier = powerModifier;
@@ -67,10 +68,10 @@ public abstract class ProcessorRecipe extends BasicRecipe {
         public MapCodec<ProcessorRecipe> codec() {
             return RecordCodecBuilder.mapCodec(inst ->
                     inst.group(
-                            SizedIngredient.FLAT_CODEC.listOf().fieldOf("itemInputs").forGetter(ProcessorRecipe::getItemIngredients),
-                            SizedIngredient.FLAT_CODEC.listOf().fieldOf("itemResults").forGetter(ProcessorRecipe::getItemProducts),
-                            SizedFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidInputs").forGetter(ProcessorRecipe::getFluidIngredients),
-                            SizedFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidResults").forGetter(ProcessorRecipe::getFluidProducts),
+                            SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemInputs").forGetter(ProcessorRecipe::getItemIngredients),
+                            SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemResults").forGetter(ProcessorRecipe::getItemProducts),
+                            SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidInputs").forGetter(ProcessorRecipe::getFluidIngredients),
+                            SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidResults").forGetter(ProcessorRecipe::getFluidProducts),
                             Codec.DOUBLE.fieldOf("timeModifier").forGetter(ProcessorRecipe::getProcessTimeMultiplier),
                             Codec.DOUBLE.fieldOf("powerModifier").forGetter(ProcessorRecipe::getProcessPowerMultiplier)
                     ).apply(inst, ((itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier) -> {

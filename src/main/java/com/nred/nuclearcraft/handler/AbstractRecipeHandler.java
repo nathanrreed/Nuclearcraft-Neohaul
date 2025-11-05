@@ -13,9 +13,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,8 +35,8 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
     public abstract List<RECIPE> getRecipeList();
 
     public @Nullable RecipeInfo<RECIPE> getRecipeInfoFromInputs(Level level, List<ItemStack> itemInputs, List<Tank> fluidInputs) { // TODO readd caching
-        List<SizedIngredient> itemIngredients = itemInputs.stream().filter(itemStack -> !itemStack.isEmpty()).map(itemStack -> SizedIngredient.of(itemStack.getItem(), itemStack.getCount())).toList();
-        List<SizedFluidIngredient> fluidIngredients = fluidInputs.stream().filter(tank -> !tank.isEmpty()).map(tank -> tank.isEmpty() ? new SizedFluidIngredient(FluidIngredient.empty(), 1) : SizedFluidIngredient.of(tank.getFluid())).toList();
+        List<SizedChanceItemIngredient> itemIngredients = itemInputs.stream().filter(itemStack -> !itemStack.isEmpty()).map(itemStack -> SizedChanceItemIngredient.of(itemStack.getItem(), itemStack.getCount())).toList();
+        List<SizedChanceFluidIngredient> fluidIngredients = fluidInputs.stream().filter(tank -> !tank.isEmpty()).map(tank -> tank.isEmpty() ? new SizedChanceFluidIngredient(FluidIngredient.empty(), 1) : SizedChanceFluidIngredient.of(tank.getFluid())).toList();
         RECIPE recipe = getRecipeFromIngredients(level, itemIngredients, fluidIngredients);
         if (recipe == null)
             return null;
@@ -46,18 +44,18 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
     }
 
 
-    public static @Nullable BasicRecipe getRecipeFromIngredients(Level level, RecipeType<? extends BasicRecipe> recipeType, List<SizedIngredient> itemIngredients, List<SizedFluidIngredient> fluidIngredients) {
+    public static @Nullable BasicRecipe getRecipeFromIngredients(Level level, RecipeType<? extends BasicRecipe> recipeType, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients) {
         List<? extends RecipeHolder<? extends BasicRecipe>> recipes = level.getRecipeManager().getRecipesFor(recipeType, new BasicRecipeInput(itemIngredients, fluidIngredients), level);
         assert recipes.size() <= 1; // Make sure there is no overlapping recipes
         return recipes.stream().findFirst().map(RecipeHolder::value).orElse(null);
     }
 
     @SuppressWarnings("unchecked")
-    public @Nullable RECIPE getRecipeFromIngredients(Level level, List<SizedIngredient> itemIngredients, List<SizedFluidIngredient> fluidIngredients) {
+    public @Nullable RECIPE getRecipeFromIngredients(Level level, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients) {
         return (RECIPE) getRecipeFromIngredients(level, (RecipeType<? extends BasicRecipe>) BuiltInRegistries.RECIPE_TYPE.get(ncLoc(getName())), itemIngredients, fluidIngredients);
     }
 
-    public @Nullable RECIPE getRecipeFromProducts(List<SizedIngredient> itemProducts, List<SizedFluidIngredient> fluidProducts) {
+    public @Nullable RECIPE getRecipeFromProducts(List<SizedChanceItemIngredient> itemProducts, List<SizedChanceFluidIngredient> fluidProducts) {
         for (RECIPE recipe : recipeList) {
             if (RecipeHelper.matchIngredients(IngredientSorption.OUTPUT, recipe.getItemProducts(), recipe.getFluidProducts(), itemProducts, fluidProducts).isMatch) {
                 return recipe;

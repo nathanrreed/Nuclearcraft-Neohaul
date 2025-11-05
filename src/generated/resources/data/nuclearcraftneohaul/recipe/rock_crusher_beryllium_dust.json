@@ -18,15 +18,18 @@
   ],
   "itemResults": [
     {
-      "count": 3276802,
+      "chancePercent": 50,
+      "count": 2,
       "item": "nuclearcraftneohaul:beryllium_dust"
     },
     {
-      "count": 1966082,
+      "chancePercent": 30,
+      "count": 2,
       "item": "nuclearcraftneohaul:alugentum"
     },
     {
-      "count": 1966081,
+      "chancePercent": 30,
+      "count": 1,
       "item": "nuclearcraftneohaul:arsenic_gem_dust"
     }
   ],

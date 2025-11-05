@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.recipe;
 
 import com.google.common.base.CaseFormat;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -16,9 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,10 +31,10 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public class ProcessorRecipeBuilder implements RecipeBuilder {
     private static final Logger log = LoggerFactory.getLogger(ProcessorRecipeBuilder.class);
-    private final List<SizedIngredient> itemInputs = new ArrayList<>();
-    private final List<SizedIngredient> itemResults = new ArrayList<>();
-    private final List<SizedFluidIngredient> fluidInputs = new ArrayList<>();
-    private final List<SizedFluidIngredient> fluidResults = new ArrayList<>();
+    private final List<SizedChanceItemIngredient> itemInputs = new ArrayList<>();
+    private final List<SizedChanceItemIngredient> itemResults = new ArrayList<>();
+    private final List<SizedChanceFluidIngredient> fluidInputs = new ArrayList<>();
+    private final List<SizedChanceFluidIngredient> fluidResults = new ArrayList<>();
     private final Class<? extends ProcessorRecipe> clazz;
     private final double timeModifier;
     private final double powerModifier;
@@ -48,97 +48,87 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
     }
 
     public ProcessorRecipeBuilder addItemInput(ItemLike input, int amount) {
-        itemInputs.add(SizedIngredient.of(input, amount));
+        itemInputs.add(SizedChanceItemIngredient.of(input, amount));
         return this;
     }
 
     public ProcessorRecipeBuilder addItemInput(TagKey<Item> input, int amount) {
-        itemInputs.add(SizedIngredient.of(input, amount));
+        itemInputs.add(SizedChanceItemIngredient.of(input, amount));
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemInput(SizedIngredient input) {
+    public ProcessorRecipeBuilder addItemInput(SizedChanceItemIngredient input) {
         itemInputs.add(input);
         return this;
     }
 
     public ProcessorRecipeBuilder addItemInput(Ingredient input, int amount) {
-        itemInputs.add(new SizedIngredient(input, amount));
+        itemInputs.add(new SizedChanceItemIngredient(input, amount));
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemInput(List<SizedIngredient> input) {
+    public ProcessorRecipeBuilder addItemInput(List<SizedChanceItemIngredient> input) {
         itemInputs.addAll(input);
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemResult(SizedIngredient output) {
+    public ProcessorRecipeBuilder addItemResult(SizedChanceItemIngredient output) {
         itemResults.add(output);
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemResult(List<SizedIngredient> output) {
+    public ProcessorRecipeBuilder addItemResult(List<SizedChanceItemIngredient> output) {
         itemResults.addAll(output);
         return this;
     }
 
     public ProcessorRecipeBuilder addItemResult(ItemLike output, int count) {
-        itemResults.add(new SizedIngredient(Ingredient.of(output), count));
+        itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count));
+        return this;
+    }
+
+    public ProcessorRecipeBuilder addItemResult(ItemLike output, int chancePercent, int count) {
+        itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, 0));
         return this;
     }
 
     public ProcessorRecipeBuilder addItemResult(TagKey<Item> output, int count) {
-        itemResults.add(new SizedIngredient(Ingredient.of(output), count));
+        itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count));
         return this;
     }
 
     public ProcessorRecipeBuilder addFluidInput(Fluid input, int amount) {
-        fluidInputs.add(SizedFluidIngredient.of(input, amount));
+        fluidInputs.add(SizedChanceFluidIngredient.of(input, amount));
         return this;
     }
 
     public ProcessorRecipeBuilder addFluidInput(TagKey<Fluid> input, int amount) {
-        fluidInputs.add(SizedFluidIngredient.of(input, amount));
-        return this;
-    }
-
-    public ProcessorRecipeBuilder addFluidInput(SizedFluidIngredient input) {
-        fluidInputs.add(input);
-        return this;
-    }
-
-    public ProcessorRecipeBuilder addFluidInput(List<SizedFluidIngredient> input) {
-        fluidInputs.addAll(input);
+        fluidInputs.add(SizedChanceFluidIngredient.of(input, amount));
         return this;
     }
 
     public ProcessorRecipeBuilder addFluidInput(Fluids input, int amount) {
-        fluidInputs.add(Fluids.sizedIngredient(input, amount));
+        fluidInputs.add(Fluids.sizedIngredient(input, 100, amount));
         return this;
     }
 
     public ProcessorRecipeBuilder addFluidResult(Fluids output, int amount) {
-        fluidResults.add(Fluids.sizedIngredient(output, amount));
+        fluidResults.add(Fluids.sizedIngredient(output, 100, amount));
         return this;
     }
 
-    public ProcessorRecipeBuilder addFluidResult(SizedFluidIngredient output) {
-        fluidResults.add(output);
-        return this;
-    }
-
-    public ProcessorRecipeBuilder addFluidResult(List<SizedFluidIngredient> output) {
-        fluidResults.addAll(output);
+    public ProcessorRecipeBuilder addFluidResult(Fluids output, int chancePercent, int amount) {
+        fluidResults.add(Fluids.sizedIngredient(output, chancePercent, amount));
         return this;
     }
 
     public ProcessorRecipeBuilder addFluidResult(Fluid output, int count) {
-        fluidResults.add(new SizedFluidIngredient(FluidIngredient.of(output), count));
+        fluidResults.add(new SizedChanceFluidIngredient(FluidIngredient.of(output), 100, count, 0));
         return this;
     }
 
     public ProcessorRecipeBuilder addFluidResult(TagKey<Fluid> output, int count) {
-        fluidResults.add(new SizedFluidIngredient(FluidIngredient.tag(output), count));
+        fluidResults.add(new SizedChanceFluidIngredient(FluidIngredient.tag(output), 100, count, 0));
         return this;
     }
 
@@ -156,11 +146,11 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
 
     @Override
     public Item getResult() {
-        return itemResults.isEmpty() ? Items.AIR : itemResults.getFirst().getItems()[0].getItem();
+        return itemResults.isEmpty() ? Items.AIR : itemResults.getFirst().getItemsRaw()[0].getItem();
     }
 
     public Fluid getFluidResult() {
-        return fluidResults.getFirst().getFluids()[0].getFluid();
+        return fluidResults.getFirst().getFluidsRaw()[0].getFluid();
     }
 
     @Override

@@ -18,7 +18,8 @@
       "item": "nuclearcraftneohaul:plutonium_239_za"
     },
     {
-      "count": 1638401,
+      "chancePercent": 25,
+      "count": 1,
       "item": "nuclearcraftneohaul:molybdenum_dust"
     },
     {
@@ -30,7 +31,8 @@
       "item": "nuclearcraftneohaul:americium_243_za"
     },
     {
-      "count": 1638401,
+      "chancePercent": 25,
+      "count": 1,
       "item": "nuclearcraftneohaul:caesium_137_dust"
     },
     {

@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.recipe;
 
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -48,18 +48,18 @@ public class RecipeInfo<T extends IRecipe> {
             return RecipeUnitInfo.DEFAULT;
         }
 
-        List<SizedIngredient> itemIngredients = recipe.getItemIngredients();
-        List<SizedFluidIngredient> fluidIngredients = recipe.getFluidIngredients();
+        List<SizedChanceItemIngredient> itemIngredients = recipe.getItemIngredients();
+        List<SizedChanceFluidIngredient> fluidIngredients = recipe.getFluidIngredients();
 
-        Predicate<SizedIngredient> notEmptyItem = x -> !x.ingredient().hasNoItems();
-        Predicate<SizedFluidIngredient> notEmptyFluid = x -> !x.ingredient().hasNoFluids();
+        Predicate<SizedChanceItemIngredient> notEmptyItem = x -> !x.ingredient().hasNoItems();
+        Predicate<SizedChanceFluidIngredient> notEmptyFluid = x -> !x.ingredient().hasNoFluids();
         long itemInputCount = itemIngredients.stream().filter(notEmptyItem).count();
         long fluidInputCount = fluidIngredients.stream().filter(notEmptyFluid).count();
 
         if (itemInputCount == 1 && fluidInputCount == 0) {
             IntList itemInputOrder = getItemInputOrder();
             for (int i = 0, len = itemIngredients.size(); i < len; ++i) {
-                SizedIngredient itemIngredient = itemIngredients.get(itemInputOrder.get(i));
+                SizedChanceItemIngredient itemIngredient = itemIngredients.get(itemInputOrder.get(i));
                 if (!itemIngredient.ingredient().hasNoItems()) {
                     return new RecipeUnitInfo("I/t", 0, baseRateMultiplier * itemIngredient.count());
                 }
@@ -67,7 +67,7 @@ public class RecipeInfo<T extends IRecipe> {
         } else if (itemInputCount == 0 && fluidInputCount == 1) {
             IntList fluidInputOrder = getFluidInputOrder();
             for (int i = 0, len = fluidIngredients.size(); i < len; ++i) {
-                SizedFluidIngredient fluidIngredient = fluidIngredients.get(fluidInputOrder.get(i));
+                SizedChanceFluidIngredient fluidIngredient = fluidIngredients.get(fluidInputOrder.get(i));
                 if (!fluidIngredient.ingredient().hasNoFluids()) {
                     return new RecipeUnitInfo("B/t", -1, baseRateMultiplier * fluidIngredient.amount());
                 }

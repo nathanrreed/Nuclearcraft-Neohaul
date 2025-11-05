@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:condenser_controller"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:heat_exchanger_controller"
+  }
+}

@@ -187,14 +187,14 @@ public class BlockRegistration {
         map.put("electrolyzer", registerBlockItemWithTooltip("electrolyzer", () -> new BlockProcessor<>("electrolyzer"), false));
         map.put("fluid_enricher", registerBlockItemWithTooltip("fluid_enricher", () -> new BlockProcessor<>("fluid_enricher"), false));
         map.put("fluid_extractor", registerBlockItemWithTooltip("fluid_extractor", () -> new BlockProcessor<>("fluid_extractor"), false));
-        map.put("fuel_reprocessor", registerBlockItemWithTooltip("fuel_reprocessor", () -> new BlockProcessor<>("fuel_reprocessor"), false));
         map.put("fluid_infuser", registerBlockItemWithTooltip("fluid_infuser", () -> new BlockProcessor<>("fluid_infuser"), false));
+        map.put("fluid_mixer", registerBlockItemWithTooltip("fluid_mixer", () -> new BlockProcessor<>("fluid_mixer"), false));
+        map.put("fuel_reprocessor", registerBlockItemWithTooltip("fuel_reprocessor", () -> new BlockProcessor<>("fuel_reprocessor"), false));
         map.put("ingot_former", registerBlockItemWithTooltip("ingot_former", () -> new BlockProcessor<>("ingot_former"), false));
         map.put("manufactory", registerBlockItemWithTooltip("manufactory", () -> new BlockProcessor<>("manufactory"), false));
         map.put("melter", registerBlockItemWithTooltip("melter", () -> new BlockProcessor<>("melter"), false));
         map.put("pressurizer", registerBlockItemWithTooltip("pressurizer", () -> new BlockProcessor<>("pressurizer"), false));
         map.put("rock_crusher", registerBlockItemWithTooltip("rock_crusher", () -> new BlockProcessor<>("rock_crusher"), false));
-        map.put("fluid_mixer", registerBlockItemWithTooltip("fluid_mixer", () -> new BlockProcessor<>("fluid_mixer"), false));
         map.put("separator", registerBlockItemWithTooltip("separator", () -> new BlockProcessor<>("separator"), false));
         map.put("supercooler", registerBlockItemWithTooltip("supercooler", () -> new BlockProcessor<>("supercooler"), false));
         return map;

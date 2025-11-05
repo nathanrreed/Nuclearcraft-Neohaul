@@ -82,6 +82,7 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
 
         UnaryOperator<HeatExchangerLogic> constructor = switch (logicID) {
             case "heat_exchanger" -> HeatExchangerLogic::new;
+            case "condenser" -> CondenserLogic::new;
             default -> throw new IllegalStateException("Unexpected logicID: " + logicID);
         };
 

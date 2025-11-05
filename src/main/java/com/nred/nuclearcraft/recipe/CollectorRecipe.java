@@ -3,6 +3,8 @@ package com.nred.nuclearcraft.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -10,8 +12,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_ITEM_INGREDIEN
 public class CollectorRecipe extends BasicRecipe {
     private final String typeName;
 
-    public CollectorRecipe(String typeName, List<SizedIngredient> itemProduct, List<SizedFluidIngredient> fluidProduct) {
+    public CollectorRecipe(String typeName, List<SizedChanceItemIngredient> itemProduct, List<SizedChanceFluidIngredient> fluidProduct) {
         super(List.of(), List.of(), itemProduct, fluidProduct);
         this.typeName = typeName;
     }
@@ -82,8 +82,8 @@ public class CollectorRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<CollectorRecipe> {
         public static MapCodec<CollectorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 Codec.STRING.fieldOf("typeName").forGetter(CollectorRecipe::getTypeName),
-                SizedIngredient.FLAT_CODEC.listOf().fieldOf("itemProduct").forGetter(CollectorRecipe::getItemProducts),
-                SizedFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidProduct").forGetter(CollectorRecipe::getFluidProducts)
+                SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemProduct").forGetter(CollectorRecipe::getItemProducts),
+                SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidProduct").forGetter(CollectorRecipe::getFluidProducts)
         ).apply(inst, CollectorRecipe::new));
 
         public static StreamCodec<RegistryFriendlyByteBuf, CollectorRecipe> STREAM_CODEC = StreamCodec.composite(

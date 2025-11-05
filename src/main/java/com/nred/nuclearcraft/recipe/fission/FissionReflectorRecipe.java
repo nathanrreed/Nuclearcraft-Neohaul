@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.recipe.fission;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -12,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class FissionReflectorRecipe extends BasicRecipe {
     private final double reflectivity;
 
     public FissionReflectorRecipe(Ingredient reflector, double efficiency, double reflectivity) {
-        super(List.of(new SizedIngredient(reflector, 1)), List.of(), List.of(), List.of());
+        super(List.of(new SizedChanceItemIngredient(reflector, 1)), List.of(), List.of(), List.of());
         this.reflector = reflector;
         this.efficiency = efficiency;
         this.reflectivity = reflectivity;

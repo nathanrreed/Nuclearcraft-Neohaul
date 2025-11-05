@@ -2,10 +2,11 @@ package com.nred.nuclearcraft.multiblock.fisson.solid;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
@@ -22,7 +23,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -202,7 +202,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 
     public boolean canProduceProducts() {
         FissionHeatingRecipe recipe = heatingRecipeInfo.recipe;
-        SizedFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
+        SizedChanceFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
         int productSize = fluidProduct.amount();
         if (productSize <= 0 || fluidProduct.ingredient().hasNoFluids()) {
             return false;
@@ -238,7 +238,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
             inputTank.setFluidStored(FluidStack.EMPTY);
         }
 
-        SizedFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
+        SizedChanceFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
         if (fluidProduct.amount() > 0) {
             int stackSize = 0;
             if (outputTank.isEmpty()) {

@@ -3,7 +3,8 @@
   "fluidInputs": [],
   "fluidResults": [
     {
-      "amount": 1000,
+      "amount": 100,
+      "chancePercent": 1000,
       "fluid": "minecraft:water"
     }
   ],

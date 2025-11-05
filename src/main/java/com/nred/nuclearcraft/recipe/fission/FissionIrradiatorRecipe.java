@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.recipe.fission;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.StreamCodecsHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -10,7 +11,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class FissionIrradiatorRecipe extends BasicRecipe {
     private final long irradiatorMaxFluxPerTick;
     private final double irradiatorBaseProcessRadiation;
 
-    public FissionIrradiatorRecipe(SizedIngredient input, SizedIngredient product, long irradiatorFluxRequired, double irradiatorHeatPerFlux, double irradiatorProcessEfficiency, long irradiatorMinFluxPerTick, long irradiatorMaxFluxPerTick, double irradiatorBaseProcessRadiation) {
+    public FissionIrradiatorRecipe(SizedChanceItemIngredient input, SizedChanceItemIngredient product, long irradiatorFluxRequired, double irradiatorHeatPerFlux, double irradiatorProcessEfficiency, long irradiatorMinFluxPerTick, long irradiatorMaxFluxPerTick, double irradiatorBaseProcessRadiation) {
         super(List.of(input), List.of(), List.of(product), List.of());
         this.irradiatorFluxRequired = irradiatorFluxRequired;
         this.irradiatorHeatPerFlux = irradiatorHeatPerFlux;
@@ -72,8 +72,8 @@ public class FissionIrradiatorRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<FissionIrradiatorRecipe> {
         private static final MapCodec<FissionIrradiatorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedIngredient.FLAT_CODEC.fieldOf("input").forGetter(FissionIrradiatorRecipe::getItemIngredient),
-                        SizedIngredient.FLAT_CODEC.fieldOf("product").forGetter(FissionIrradiatorRecipe::getItemProduct),
+                        SizedChanceItemIngredient.FLAT_CODEC.fieldOf("input").forGetter(FissionIrradiatorRecipe::getItemIngredient),
+                        SizedChanceItemIngredient.FLAT_CODEC.fieldOf("product").forGetter(FissionIrradiatorRecipe::getItemProduct),
                         Codec.LONG.fieldOf("irradiatorFluxRequired").forGetter(FissionIrradiatorRecipe::getIrradiatorFluxRequired),
                         Codec.DOUBLE.fieldOf("irradiatorHeatPerFlux").forGetter(FissionIrradiatorRecipe::getIrradiatorHeatPerFlux),
                         Codec.DOUBLE.fieldOf("irradiatorProcessEfficiency").forGetter(FissionIrradiatorRecipe::getIrradiatorProcessEfficiency),
@@ -83,8 +83,8 @@ public class FissionIrradiatorRecipe extends BasicRecipe {
                 ).apply(inst, FissionIrradiatorRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, FissionIrradiatorRecipe> STREAM_CODEC = StreamCodecsHelper.composite(
-                SizedIngredient.STREAM_CODEC, FissionIrradiatorRecipe::getItemIngredient,
-                SizedIngredient.STREAM_CODEC, FissionIrradiatorRecipe::getItemProduct,
+                SizedChanceItemIngredient.STREAM_CODEC, FissionIrradiatorRecipe::getItemIngredient,
+                SizedChanceItemIngredient.STREAM_CODEC, FissionIrradiatorRecipe::getItemProduct,
                 ByteBufCodecs.VAR_LONG, FissionIrradiatorRecipe::getIrradiatorFluxRequired,
                 ByteBufCodecs.DOUBLE, FissionIrradiatorRecipe::getIrradiatorHeatPerFlux,
                 ByteBufCodecs.DOUBLE, FissionIrradiatorRecipe::getIrradiatorProcessEfficiency,

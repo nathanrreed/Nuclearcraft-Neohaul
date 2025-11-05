@@ -296,6 +296,24 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".recipe_viewer.turbine_expansion", "Fluid Expansion: %s");
         add(MODID + ".recipe_viewer.turbine_spin_up_multiplier", "Spin-up Multiplier: %s");
 
+        add(MODID + ".recipe_viewer.condenser_fluid_temp_in", "Input Temperature: %s");
+        add(MODID + ".recipe_viewer.condenser_fluid_temp_out", "Output Temperature: %s");
+        add(MODID + ".recipe_viewer.condenser_cooling_required", "Cooling Required: %s");
+        add(MODID + ".recipe_viewer.condenser_horizontal_bonus", "Horizontal Flow Bonus: %s");
+        add(MODID + ".recipe_viewer.condenser_upward_bonus", "Upward Flow Bonus: %s");
+        add(MODID + ".recipe_viewer.condenser_downward_bonus", "Downward Flow Bonus: %s");
+
+
+        add(MODID + ".recipe_viewer.exchanger_fluid_temp_in", "Input Temperature: %s");
+        add(MODID + ".recipe_viewer.exchanger_fluid_temp_out", "Output Temperature: %s");
+        add(MODID + ".recipe_viewer.exchanger_heating_required", "Heating Required: %s");
+        add(MODID + ".recipe_viewer.exchanger_cooling_required", "Cooling Required: %s");
+        add(MODID + ".recipe_viewer.exchanger_horizontal_bonus", "Horizontal Flow Bonus: %s");
+        add(MODID + ".recipe_viewer.exchanger_upward_bonus", "Upward Flow Bonus: %s");
+        add(MODID + ".recipe_viewer.exchanger_downward_bonus", "Downward Flow Bonus: %s");
+
+        add(MODID + ".recipe_viewer.condenser_dissipation_fluid_temp", "Temperature: %s");
+
         add(MODID + ".multiblock_validation.turbine.need_bearings", "There must be two sets of rotor bearings in opposing walls of the multiblock for it to form");
         add(MODID + ".multiblock_validation.turbine.bearings_side_square", "The walls housing the rotor bearings must be square for the multiblock to form");
         add(MODID + ".multiblock_validation.turbine.valve_wrong_wall", "Inlets and outlets must be installed opposite each other on the walls housing the rotor bearings for the multiblock to form");

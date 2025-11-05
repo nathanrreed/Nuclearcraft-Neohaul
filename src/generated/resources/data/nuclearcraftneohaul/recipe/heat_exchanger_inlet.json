@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "STS",
+    "MCM",
+    "STS"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:heat_exchanger_inlet"
+  }
+}

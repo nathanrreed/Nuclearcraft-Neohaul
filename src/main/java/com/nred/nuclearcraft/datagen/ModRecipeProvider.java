@@ -94,6 +94,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         turbine(recipeOutput);
         fission(recipeOutput);
         rtg(recipeOutput);
+        hx(recipeOutput);
 
         new AlloyFurnaceRecipeProvider(recipeOutput);
         new CentrifugeProvider(recipeOutput);
@@ -724,6 +725,48 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_computer_port"), 1).pattern("PRP").pattern("CSC").pattern("PWP")
                 .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+    }
+
+    private void hx(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("heat_exchanger_controller"), 1).pattern("SES").pattern("TCT").pattern("SES")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('E', ALLOY_MAP.get("extreme")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('T', ALLOY_MAP.get("thermoconducting"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, HX_MAP.get("heat_exchanger_controller"), 1).requires(HX_MAP.get("condenser_controller"))
+                .unlockedBy(getHasName(HX_MAP.get("condenser_controller")), has(HX_MAP.get("condenser_controller"))).save(recipeOutput, MODID + ":hx_controller_from_condenser");
+        ShapelessRecipeBuilder.shapeless(MISC, HX_MAP.get("condenser_controller"), 1).requires(HX_MAP.get("heat_exchanger_controller"))
+                .unlockedBy(getHasName(HX_MAP.get("heat_exchanger_controller")), has(HX_MAP.get("heat_exchanger_controller"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("heat_exchanger_casing"), 1).pattern(" S ").pattern("SCS").pattern(" S ")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, HX_MAP.get("heat_exchanger_casing"), 1).requires(HX_MAP.get("heat_exchanger_glass"))
+                .unlockedBy(getHasName(HX_MAP.get("heat_exchanger_glass")), has(HX_MAP.get("heat_exchanger_glass"))).save(recipeOutput, MODID + "hx_casing_from_hx_glass");
+        ShapelessRecipeBuilder.shapeless(MISC, HX_MAP.get("heat_exchanger_casing"), 1).requires(HX_MAP.get("heat_exchanger_shell_baffle"))
+                .unlockedBy(getHasName(HX_MAP.get("heat_exchanger_shell_baffle")), has(HX_MAP.get("heat_exchanger_shell_baffle"))).save(recipeOutput, MODID + ":hx_casing_from_hx_baffle");
+        ShapelessRecipeBuilder.shapeless(MISC, HX_MAP.get("heat_exchanger_glass"), 1).requires(HX_MAP.get("heat_exchanger_casing")).requires(Tags.Items.GLASS_BLOCKS)
+                .unlockedBy(getHasName(HX_MAP.get("heat_exchanger_casing")), has(HX_MAP.get("heat_exchanger_casing"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("heat_exchanger_inlet"), 4).pattern("STS").pattern("MCM").pattern("STS")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('T', ALLOY_MAP.get("tough")).define('M', PART_MAP.get("servomechanism"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("heat_exchanger_outlet"), 4).pattern("SSS").pattern("MCM").pattern("SSS")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('M', PART_MAP.get("servomechanism"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("copper_heat_exchanger_tube"), 8).pattern("SOS").pattern("OCO").pattern("SMS")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('O', tag(Tags.Items.INGOTS, "copper")).define('M', PART_MAP.get("servomechanism"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("hard_carbon_heat_exchanger_tube"), 8).pattern("SHS").pattern("HCH").pattern("SMS")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('H', ALLOY_MAP.get("hard_carbon")).define('M', PART_MAP.get("servomechanism"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("thermoconducting_alloy_heat_exchanger_tube"), 8).pattern("STS").pattern("TCT").pattern("SMS")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('T', ALLOY_MAP.get("thermoconducting")).define('M', PART_MAP.get("servomechanism"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, HX_MAP.get("heat_exchanger_shell_baffle"), 1).requires(HX_MAP.get("heat_exchanger_casing"))
+                .unlockedBy(getHasName(HX_MAP.get("heat_exchanger_casing")), has(HX_MAP.get("heat_exchanger_casing"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("heat_exchanger_redstone_port"), 1).pattern("SRS").pattern("TCT").pattern("SRS")
+                .define('T', Items.REDSTONE_TORCH).define('R', Items.REDSTONE).define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("heat_exchanger_computer_port"), 1).pattern("SRS").pattern("CTC").pattern("SWS")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('T', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
     }
 

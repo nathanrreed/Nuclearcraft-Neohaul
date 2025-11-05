@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -26,6 +27,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import org.joml.Vector2i;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -488,7 +490,7 @@ class ModBlockStateProvider extends BlockStateProvider {
 
         for (HeatExchangerTubeSetting setting : HeatExchangerTubeSetting.values()) {
             if (setting == HeatExchangerTubeSetting.CLOSED) continue;
-            for (var property : hxTubeMap.keySet()) {
+            for (var property : hxTubeMap.keySet().stream().sorted(Comparator.comparing(Property::getName)).toList()) {
                 Vector2i rot = hxTubeMap.get(property);
                 builder = builder.part().modelFile(models().getExistingFile(modLoc(setting == HeatExchangerTubeSetting.CLOSED_BAFFLE ? "block/heat_exchanger_tube_closed_baffle" : "block/heat_exchanger_tube/" + name + "_" + setting.getSerializedName()))).rotationX(rot.x).rotationY(rot.y).uvLock(true).addModel().condition(property, setting).end();
             }
@@ -517,7 +519,7 @@ class ModBlockStateProvider extends BlockStateProvider {
             ModelFile topModel = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_top_" + setting.getSerializedName(), modLoc("block/face")).texture("face", modLoc(base + "top_" + setting.getSerializedName()));
             ModelFile sideModel = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_side_" + setting.getSerializedName(), modLoc("block/face")).texture("face", modLoc(base + "side_" + setting.getSerializedName()));
 
-            for (var property : batteryMap.keySet()) {
+            for (var property : batteryMap.keySet().stream().sorted(Comparator.comparing(Property::getName)).toList()) {
                 Vector2i rot = batteryMap.get(property);
                 builder = builder.part().modelFile(property.facing.getAxis().isVertical() ? topModel : sideModel).rotationX(rot.x).rotationY(rot.y).addModel().condition(property, setting).end();
             }

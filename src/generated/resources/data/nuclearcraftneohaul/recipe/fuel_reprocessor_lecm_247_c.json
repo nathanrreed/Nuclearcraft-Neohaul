@@ -18,7 +18,8 @@
       "item": "nuclearcraftneohaul:berkelium_247_c"
     },
     {
-      "count": 1966081,
+      "chancePercent": 30,
+      "count": 1,
       "item": "nuclearcraftneohaul:molybdenum_dust"
     },
     {
@@ -30,7 +31,8 @@
       "item": "nuclearcraftneohaul:californium_249_c"
     },
     {
-      "count": 1310721,
+      "chancePercent": 20,
+      "count": 1,
       "item": "nuclearcraftneohaul:europium_155_dust"
     },
     {

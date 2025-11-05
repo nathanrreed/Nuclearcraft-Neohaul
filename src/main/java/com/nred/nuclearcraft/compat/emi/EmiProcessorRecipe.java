@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.compat.emi;
 
-import com.ibm.icu.impl.Pair;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
@@ -16,11 +15,9 @@ import net.minecraft.world.level.material.Fluid;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.compat.common.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
 import static com.nred.nuclearcraft.handler.TileInfoHandler.TILE_CONTAINER_INFO_MAP;
-import static com.nred.nuclearcraft.helpers.RecipeHelpers.probabilityUnpacker;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.removeBarriers;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getTimeString;
@@ -35,55 +32,12 @@ public class EmiProcessorRecipe extends BasicEmiRecipe {
         super(category, id, 0, 0);
         this.inputs.addAll(removeBarriers(itemInputs));
         this.inputs.addAll(fluidInputs);
-
-        if (type.equals("rock_crusher")) {
-            this.outputs.addAll(itemResults.stream().map(ingredient -> {
-                Pair<Short, Short> info = probabilityUnpacker((int) ingredient.getAmount());
-                return ingredient.setChance((float) info.first / 100).setAmount(info.second);
-            }).map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-        } else if (type.equals("fuel_reprocessor")) {
-            this.outputs.addAll(itemResults.subList(0, 2).stream().map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-
-            this.outputs.addAll(Stream.of(itemResults.get(2)).map(ingredient -> {
-                Pair<Short, Short> info = probabilityUnpacker((int) ingredient.getAmount());
-                return ingredient.setChance((float) info.first / 100).setAmount(info.second);
-            }).map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-
-            this.outputs.addAll(itemResults.subList(3, 5).stream().map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-
-            this.outputs.addAll(Stream.of(itemResults.get(5)).map(ingredient -> {
-                Pair<Short, Short> info = probabilityUnpacker((int) ingredient.getAmount());
-                return ingredient.setChance((float) info.first / 100).setAmount(info.second);
-            }).map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-
-            if (itemResults.size() > 6) {
-                this.outputs.addAll(itemResults.get(6).getEmiStacks());
-            }
-            if (itemResults.size() > 7) {
-                this.outputs.addAll(itemResults.getLast().getEmiStacks());
-            }
-        } else {
-            this.outputs.addAll(itemResults.stream().map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-        }
-
-        if (type.equals("centrifuge") && fluidResults.size() == 6) {
-            this.outputs.addAll(fluidResults.subList(0, 2).stream().map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-            this.outputs.addAll(Stream.of(fluidResults.get(2)).map(ingredient -> {
-                Pair<Short, Short> info = probabilityUnpacker((int) ingredient.getAmount());
-                return ingredient.setChance((float) info.first / 100).setAmount(info.second);
-            }).map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-            this.outputs.addAll(fluidResults.subList(3, 5).stream().map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-            this.outputs.addAll(Stream.of(fluidResults.getLast()).map(ingredient -> {
-                Pair<Short, Short> info = probabilityUnpacker((int) ingredient.getAmount());
-                return ingredient.setChance((float) info.first / 100).setAmount(info.second);
-            }).map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-        } else {
-            this.outputs.addAll(fluidResults.stream().map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
-        }
+        this.outputs.addAll(itemResults.stream().map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
+        this.outputs.addAll(fluidResults.stream().map(EmiIngredient::getEmiStacks).flatMap(Collection::stream).toList());
 
         this.catalysts.add(EmiIngredient.of(Ingredient.of(PROCESSOR_MAP.get(type))));
         this.recipeViewerInfo = RECIPE_VIEWER_MAP.get(type);
-        BasicUpgradableProcessorMenuInfo<?, ?> info = (BasicUpgradableProcessorMenuInfo<?, ?>) TILE_CONTAINER_INFO_MAP.get(type); // TODO FIX
+        BasicUpgradableProcessorMenuInfo<?, ?> info = (BasicUpgradableProcessorMenuInfo<?, ?>) TILE_CONTAINER_INFO_MAP.get(type);
         this.time = info.getDefaultProcessTime() * timeModifier;
         this.power = info.getDefaultProcessPower() * powerModifier;
     }

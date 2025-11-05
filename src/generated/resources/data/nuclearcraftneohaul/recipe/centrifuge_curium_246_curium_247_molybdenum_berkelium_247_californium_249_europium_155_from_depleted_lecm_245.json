@@ -16,7 +16,8 @@
       "fluid": "nuclearcraftneohaul:curium_247"
     },
     {
-      "amount": 1966096,
+      "amount": 16,
+      "chancePercent": 30,
       "fluid": "nuclearcraftneohaul:molybdenum"
     },
     {
@@ -28,7 +29,8 @@
       "fluid": "nuclearcraftneohaul:californium_249"
     },
     {
-      "amount": 1310736,
+      "amount": 16,
+      "chancePercent": 20,
       "fluid": "nuclearcraftneohaul:europium_155"
     }
   ],

@@ -16,7 +16,8 @@
       "fluid": "nuclearcraftneohaul:fluorobenzene"
     },
     {
-      "amount": 250,
+      "amount": 100,
+      "chancePercent": 250,
       "fluid": "minecraft:water"
     }
   ],

@@ -1,5 +1,7 @@
 package com.nred.nuclearcraft.datagen.recipes;
 
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.SimpleRecipeBuilder;
 import net.minecraft.advancements.Advancement;
@@ -12,9 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class CollectorProvider {
                     .rewards(AdvancementRewards.Builder.recipe(key))
                     .requirements(AdvancementRequirements.Strategy.OR);
 
-            CollectorRecipe recipe = new CollectorRecipe(this.type, this.itemProduct.isEmpty() ? List.of() : List.of(new SizedIngredient(this.itemProduct, 1)),this.fluidProduct.isEmpty() ? List.of() : List.of(new SizedFluidIngredient(this.fluidProduct, 1)));
+            CollectorRecipe recipe = new CollectorRecipe(this.type, this.itemProduct.isEmpty() ? List.of() : List.of(new SizedChanceItemIngredient(this.itemProduct, 1)),this.fluidProduct.isEmpty() ? List.of() : List.of(new SizedChanceFluidIngredient(this.fluidProduct, 1)));
 
             output.accept(key, recipe, advancement.build(key.withPrefix("recipes/")));
         }

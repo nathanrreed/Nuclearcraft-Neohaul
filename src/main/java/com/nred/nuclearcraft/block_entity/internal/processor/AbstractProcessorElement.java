@@ -5,6 +5,8 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.TankOutputSetting;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.handler.AbstractRecipeHandler;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.util.NBTHelper;
@@ -16,9 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -132,19 +132,19 @@ public abstract class AbstractProcessorElement {
         }
     }
 
-    public List<SizedIngredient> getItemIngredients() {
+    public List<SizedChanceItemIngredient> getItemIngredients() {
         return recipeInfo.recipe.getItemIngredients();
     }
 
-    public List<SizedFluidIngredient> getFluidIngredients() {
+    public List<SizedChanceFluidIngredient> getFluidIngredients() {
         return recipeInfo.recipe.getFluidIngredients();
     }
 
-    public List<SizedIngredient> getItemProducts() {
+    public List<SizedChanceItemIngredient> getItemProducts() {
         return recipeInfo.recipe.getItemProducts();
     }
 
-    public List<SizedFluidIngredient> getFluidProducts() {
+    public List<SizedChanceFluidIngredient> getFluidProducts() {
         return recipeInfo.recipe.getFluidProducts();
     }
 
@@ -246,7 +246,7 @@ public abstract class AbstractProcessorElement {
                 continue;
             }
 
-            SizedIngredient product = getItemProducts().get(i);
+            SizedChanceItemIngredient product = getItemProducts().get(i);
             int productMaxStackSize = product.count();
             ItemStack productStack = Arrays.stream(product.getItems()).findFirst().orElse(ItemStack.EMPTY);
 
@@ -280,7 +280,7 @@ public abstract class AbstractProcessorElement {
                 continue;
             }
 
-            SizedFluidIngredient product = getFluidProducts().get(i);
+            SizedChanceFluidIngredient product = getFluidProducts().get(i);
             int productMaxStackSize = product.amount();
             FluidStack productStack = Arrays.stream(product.getFluids()).findFirst().orElse(FluidStack.EMPTY);
 
@@ -404,8 +404,7 @@ public abstract class AbstractProcessorElement {
                 continue;
             }
 
-            SizedIngredient product = getItemProducts().get(i);
-
+            SizedChanceItemIngredient product = getItemProducts().get(i);
             if (product.count() <= 0) {
                 continue;
             }
@@ -433,7 +432,7 @@ public abstract class AbstractProcessorElement {
                 continue;
             }
 
-            SizedFluidIngredient product = getFluidProducts().get(i);
+            SizedChanceFluidIngredient product = getFluidProducts().get(i);
 
             if (product.amount() <= 0) {
                 continue;

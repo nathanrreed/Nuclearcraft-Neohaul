@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes.multilock;
 
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.radiation.RadSources;
 import com.nred.nuclearcraft.recipe.SimpleRecipeBuilder;
 import com.nred.nuclearcraft.recipe.fission.PebbleFissionRecipe;
@@ -11,7 +12,6 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
@@ -104,7 +104,7 @@ public class PebbleFissionProvider {
                     .rewards(AdvancementRewards.Builder.recipe(key))
                     .requirements(AdvancementRequirements.Strategy.OR);
 
-            PebbleFissionRecipe recipe = new PebbleFissionRecipe(SizedIngredient.of(this.input.getItem(), 1), SizedIngredient.of(this.output.getItem(), 1), this.time, this.heat, this.efficiency, this.criticality, this.decayFactor, this.selfPriming, this.radiation);
+            PebbleFissionRecipe recipe = new PebbleFissionRecipe(SizedChanceItemIngredient.of(this.input.getItem(), 1), SizedChanceItemIngredient.of(this.output.getItem(), 1), this.time, this.heat, this.efficiency, this.criticality, this.decayFactor, this.selfPriming, this.radiation);
             output.accept(key, recipe, advancement.build(key.withPrefix("recipes/")));
         }
     }

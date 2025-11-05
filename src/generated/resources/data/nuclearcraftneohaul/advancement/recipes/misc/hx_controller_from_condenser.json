@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_condenser_controller": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:condenser_controller"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:hx_controller_from_condenser"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_condenser_controller"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:hx_controller_from_condenser"
+    ]
+  }
+}

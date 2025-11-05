@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.recipe.exchanger;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.StreamCodecsHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -11,7 +12,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class HeatExchangerRecipe extends BasicRecipe {
     private final int preferredFlowDir;
     private final double flowDirectionBonus;
 
-    public HeatExchangerRecipe(SizedFluidIngredient input, SizedFluidIngredient output, double heatDifference, int inputTemp, int outputTemp, boolean isHeating, int preferredFlowDir, double flowDirectionBonus) {
+    public HeatExchangerRecipe(SizedChanceFluidIngredient input, SizedChanceFluidIngredient output, double heatDifference, int inputTemp, int outputTemp, boolean isHeating, int preferredFlowDir, double flowDirectionBonus) {
         super(List.of(), List.of(input), List.of(), List.of(output));
         this.heatDifference = heatDifference;
         this.inputTemp = inputTemp;
@@ -100,8 +100,8 @@ public class HeatExchangerRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<HeatExchangerRecipe> {
         private static final MapCodec<HeatExchangerRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(HeatExchangerRecipe::getFluidIngredient),
-                        SizedFluidIngredient.FLAT_CODEC.fieldOf("output").forGetter(HeatExchangerRecipe::getFluidProduct),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(HeatExchangerRecipe::getFluidIngredient),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("output").forGetter(HeatExchangerRecipe::getFluidProduct),
                         Codec.DOUBLE.fieldOf("heatDifference").forGetter(HeatExchangerRecipe::getHeatExchangerHeatDifference),
                         Codec.INT.fieldOf("inputTemp").forGetter(HeatExchangerRecipe::getHeatExchangerInputTemperature),
                         Codec.INT.fieldOf("outputTemp").forGetter(HeatExchangerRecipe::getHeatExchangerOutputTemperature),
@@ -111,8 +111,8 @@ public class HeatExchangerRecipe extends BasicRecipe {
                 ).apply(inst, HeatExchangerRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, HeatExchangerRecipe> STREAM_CODEC = StreamCodecsHelper.composite(
-                SizedFluidIngredient.STREAM_CODEC, HeatExchangerRecipe::getFluidIngredient,
-                SizedFluidIngredient.STREAM_CODEC, HeatExchangerRecipe::getFluidProduct,
+                SizedChanceFluidIngredient.STREAM_CODEC, HeatExchangerRecipe::getFluidIngredient,
+                SizedChanceFluidIngredient.STREAM_CODEC, HeatExchangerRecipe::getFluidProduct,
                 ByteBufCodecs.DOUBLE, HeatExchangerRecipe::getHeatExchangerHeatDifference,
                 ByteBufCodecs.INT, HeatExchangerRecipe::getHeatExchangerInputTemperature,
                 ByteBufCodecs.INT, HeatExchangerRecipe::getHeatExchangerOutputTemperature,

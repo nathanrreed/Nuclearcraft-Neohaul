@@ -11,10 +11,28 @@
     },
     {
       "apply": {
+        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_in",
+        "y": 90
+      },
+      "when": {
+        "east": "in"
+      }
+    },
+    {
+      "apply": {
         "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_in"
       },
       "when": {
         "north": "in"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_in",
+        "y": 180
+      },
+      "when": {
+        "south": "in"
       }
     },
     {
@@ -29,28 +47,10 @@
     {
       "apply": {
         "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_in",
-        "y": 90
-      },
-      "when": {
-        "east": "in"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_in",
         "y": 270
       },
       "when": {
         "west": "in"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_in",
-        "y": 180
-      },
-      "when": {
-        "south": "in"
       }
     },
     {
@@ -64,10 +64,28 @@
     },
     {
       "apply": {
+        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_out",
+        "y": 90
+      },
+      "when": {
+        "east": "out"
+      }
+    },
+    {
+      "apply": {
         "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_out"
       },
       "when": {
         "north": "out"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_out",
+        "y": 180
+      },
+      "when": {
+        "south": "out"
       }
     },
     {
@@ -82,28 +100,10 @@
     {
       "apply": {
         "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_out",
-        "y": 90
-      },
-      "when": {
-        "east": "out"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_out",
         "y": 270
       },
       "when": {
         "west": "out"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_out",
-        "y": 180
-      },
-      "when": {
-        "south": "out"
       }
     },
     {
@@ -117,10 +117,28 @@
     },
     {
       "apply": {
+        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_non",
+        "y": 90
+      },
+      "when": {
+        "east": "non"
+      }
+    },
+    {
+      "apply": {
         "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_non"
       },
       "when": {
         "north": "non"
+      }
+    },
+    {
+      "apply": {
+        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_non",
+        "y": 180
+      },
+      "when": {
+        "south": "non"
       }
     },
     {
@@ -135,28 +153,10 @@
     {
       "apply": {
         "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_non",
-        "y": 90
-      },
-      "when": {
-        "east": "non"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_non",
         "y": 270
       },
       "when": {
         "west": "non"
-      }
-    },
-    {
-      "apply": {
-        "model": "nuclearcraftneohaul:block/basic_voltaic_pile_side_non",
-        "y": 180
-      },
-      "when": {
-        "south": "non"
       }
     }
   ]

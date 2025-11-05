@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "E": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:thermoconducting_alloy"
+    }
+  },
+  "pattern": [
+    "SES",
+    "TCT",
+    "SES"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:heat_exchanger_controller"
+  }
+}

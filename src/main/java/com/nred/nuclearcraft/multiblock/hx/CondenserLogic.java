@@ -1,9 +1,9 @@
 package com.nred.nuclearcraft.multiblock.hx;
 
-import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerOutletEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerTubeEntity;
+import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.payload.multiblock.CondenserRenderPacket;
@@ -18,16 +18,18 @@ import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.LongSupplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
@@ -62,8 +64,26 @@ public class CondenserLogic extends HeatExchangerLogic {
         return BASE_MAX_OUTPUT;
     }
 
+    @Override
     protected Set<ResourceLocation> getShellValidFluids() {
-        return BuiltInRegistries.FLUID.entrySet().stream().filter(x -> x.getValue().getFluidType().getTemperature() <= 300).map(x -> x.getKey().location()).collect(Collectors.toSet());
+        return getCondenserDissipationStream().map(x -> x.getKey().location()).collect(Collectors.toSet());
+    }
+
+    private static Stream<Map.Entry<ResourceKey<Fluid>, Fluid>> getCondenserDissipationStream() {
+        List<Map.Entry<ResourceKey<Fluid>, Fluid>> fluids = BuiltInRegistries.FLUID.entrySet().stream().filter(x -> x.getValue().getFluidType().getTemperature() <= 300).toList();
+        Set<FluidType> set = new HashSet<>(fluids.size());
+        Stream.Builder<Map.Entry<ResourceKey<Fluid>, Fluid>> stream = Stream.builder();
+        for (var i : fluids) { // Removes dupes
+            if (!set.contains(i.getValue().getFluidType())) {
+                set.add(i.getValue().getFluidType());
+                stream.add(i);
+            }
+        }
+        return stream.build();
+    }
+
+    public static List<FluidStack> getCondenserDissipationFluids() {
+        return getCondenserDissipationStream().map(x -> new FluidStack(x.getValue(), 1000)).filter(y -> !y.isEmpty()).sorted(Comparator.comparingInt(z -> z.getFluidType().getTemperature())).toList();
     }
 
     protected Set<ResourceLocation> getTubeValidFluids() {

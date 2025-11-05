@@ -3,19 +3,19 @@ package com.nred.nuclearcraft.recipe.fission;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.util.StreamCodecsHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SOLID_FISSION_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SOLID_FISSION_RECIPE_TYPE;
 
 public class SolidFissionRecipe extends ItemFissionRecipe {
-    public SolidFissionRecipe(SizedIngredient ingredient, SizedIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+    public SolidFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
         super(ingredient, product, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
     }
 
@@ -31,8 +31,8 @@ public class SolidFissionRecipe extends ItemFissionRecipe {
 
     public static class Serializer implements RecipeSerializer<SolidFissionRecipe> {
         public static MapCodec<SolidFissionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(SolidFissionRecipe::getItemIngredient),
-                SizedIngredient.FLAT_CODEC.fieldOf("product").forGetter(SolidFissionRecipe::getItemProduct),
+                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(SolidFissionRecipe::getItemIngredient),
+                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("product").forGetter(SolidFissionRecipe::getItemProduct),
                 Codec.INT.fieldOf("time").forGetter(SolidFissionRecipe::getFissionFuelTimeRaw),
                 Codec.INT.fieldOf("heat").forGetter(SolidFissionRecipe::getFissionFuelHeatRaw),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(SolidFissionRecipe::getFissionFuelEfficiencyRaw),
@@ -43,8 +43,8 @@ public class SolidFissionRecipe extends ItemFissionRecipe {
         ).apply(inst, SolidFissionRecipe::new));
 
         public static StreamCodec<RegistryFriendlyByteBuf, SolidFissionRecipe> STREAM_CODEC = StreamCodecsHelper.composite(
-                SizedIngredient.STREAM_CODEC, SolidFissionRecipe::getItemIngredient,
-                SizedIngredient.STREAM_CODEC, SolidFissionRecipe::getItemProduct,
+                SizedChanceItemIngredient.STREAM_CODEC, SolidFissionRecipe::getItemIngredient,
+                SizedChanceItemIngredient.STREAM_CODEC, SolidFissionRecipe::getItemProduct,
                 ByteBufCodecs.INT, SolidFissionRecipe::getFissionFuelTimeRaw,
                 ByteBufCodecs.INT, SolidFissionRecipe::getFissionFuelHeatRaw,
                 ByteBufCodecs.DOUBLE, SolidFissionRecipe::getFissionFuelEfficiencyRaw,
