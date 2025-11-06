@@ -1,14 +1,13 @@
 package com.nred.nuclearcraft.render.block_entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine.PlaneDir;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import com.nred.nuclearcraft.util.NCMath;
-import it.zerono.mods.zerocore.lib.client.render.FluidTankRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -29,6 +28,7 @@ import org.joml.Vector3f;
 
 import static com.nred.nuclearcraft.config.NCConfig.turbine_render_blade_width;
 import static com.nred.nuclearcraft.config.NCConfig.turbine_render_rotor_expansion;
+import static com.nred.nuclearcraft.render.RenderHelper.renderFluid;
 import static it.zerono.mods.zerocore.lib.CodeHelper.getSystemTime;
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.bindBlocksTexture;
 
@@ -112,8 +112,8 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
         poseStack.translate(posOffset.getX(), posOffset.getY(), posOffset.getZ());
         int xSize = turbine.getInteriorLengthX() - 1, ySize = turbine.getInteriorLengthY() - 1, zSize = turbine.getInteriorLengthZ() - 1;
         Tank outputTank = turbine.tanks.get(1);
-        FluidTankRenderer.Single renderer = new FluidTankRenderer.Single(outputTank.getCapacity(), 0 , 0, 0, xSize, ySize, zSize);
-        renderer.render(poseStack, bufferSource, brightness, outputTank.getFluid());
+
+        renderFluid(poseStack, bufferSource, packedLight, outputTank.getFluid(), outputTank.getCapacity(), xSize, ySize, zSize, x -> true, x -> 4D * x - 3D * outputTank.getCapacity());
 
         poseStack.popPose();
     }

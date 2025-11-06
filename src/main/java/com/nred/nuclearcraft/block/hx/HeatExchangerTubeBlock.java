@@ -12,6 +12,8 @@ import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -29,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.Map;
 
-import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.ONE_PIXEL;
+import static com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeSetting.CLOSED;
 
 public class HeatExchangerTubeBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericTooltipDeviceBlock<Controller, PartType> implements IDynamicState, INeverCauseRenderingSkip {
     private static boolean placementSneaking = false;
@@ -65,7 +67,7 @@ public class HeatExchangerTubeBlock<Controller extends IMultiblockController<Con
     }
 
     @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (level.getBlockEntity(pos) instanceof HeatExchangerTubeEntity tube) {
             boolean update = false;
 
@@ -107,15 +109,10 @@ public class HeatExchangerTubeBlock<Controller extends IMultiblockController<Con
 
     @Override
     public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
-        if (level.getBlockEntity(pos) instanceof HeatExchangerTubeEntity tube) {
-            for (Direction side : Direction.values()) {
-                HeatExchangerTubeSetting setting = tube.getTubeSetting(side);
-                if (setting.isOpen()) {
-                    if (level.getBlockEntity(pos.relative(side)) instanceof HeatExchangerTubeEntity other) {
-                        other.setTubeSettingOpen(side.getOpposite(), false);
-                        other.markDirtyAndNotify(true);
-                    }
-                }
+        for (Direction side : Direction.values()) {
+            if (level.getBlockEntity(pos.relative(side)) instanceof HeatExchangerTubeEntity other && other.getTubeSetting(side.getOpposite()).isOpen()) {
+                other.setTubeSettingOpen(side.getOpposite(), false);
+                other.markDirtyAndNotify(true);
             }
         }
 
@@ -129,44 +126,58 @@ public class HeatExchangerTubeBlock<Controller extends IMultiblockController<Con
         return false;
     }
 
+    @Override
+    protected boolean isOcclusionShapeFullBlock(BlockState state, BlockGetter level, BlockPos pos) {
+        return false;
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return getShape(level, pos, true);
+    }
+
     // Bounding Box
 
-    private static final VoxelShape CENTER_SHAPE = Shapes.box(ONE_PIXEL * 2D, ONE_PIXEL * 2D, ONE_PIXEL * 2D, ONE_PIXEL * 14D, ONE_PIXEL * 14D, ONE_PIXEL * 14D);
+    private static final VoxelShape CENTER_SHAPE = Block.box(2, 2, 2, 14, 14, 14);
 
     public static final Map<Direction, VoxelShape> SIDE_SHAPE = Map.of(
-            Direction.DOWN, Shapes.box(ONE_PIXEL * 2D, 0D, ONE_PIXEL * 2D, ONE_PIXEL * 14D, ONE_PIXEL * 2D, ONE_PIXEL * 14D),
-            Direction.UP, Shapes.box(ONE_PIXEL * 2D, ONE_PIXEL * 14D, ONE_PIXEL * 2D, ONE_PIXEL * 14D, 1D, ONE_PIXEL * 14D),
-            Direction.NORTH, Shapes.box(ONE_PIXEL * 2D, ONE_PIXEL * 2D, 0D, ONE_PIXEL * 14D, ONE_PIXEL * 14D, ONE_PIXEL * 2D),
-            Direction.SOUTH, Shapes.box(ONE_PIXEL * 2D, ONE_PIXEL * 2D, ONE_PIXEL * 14D, ONE_PIXEL * 14D, ONE_PIXEL * 14D, 1D),
-            Direction.WEST, Shapes.box(0D, ONE_PIXEL * 2D, ONE_PIXEL * 2D, ONE_PIXEL * 2D, ONE_PIXEL * 14D, ONE_PIXEL * 14D),
-            Direction.EAST, Shapes.box(ONE_PIXEL * 14D, ONE_PIXEL * 2D, ONE_PIXEL * 2D, 1D, ONE_PIXEL * 14D, ONE_PIXEL * 14D)
+            Direction.DOWN, Block.box(2, 0, 2, 14, 2, 14),
+            Direction.UP, Block.box(2, 14, 2, 14, 16, 14),
+            Direction.NORTH, Block.box(2, 2, 0, 14, 14, 2),
+            Direction.SOUTH, Block.box(2, 2, 14, 14, 14, 16),
+            Direction.WEST, Block.box(0, 2, 2, 2, 14, 14),
+            Direction.EAST, Block.box(14, 2, 2, 16, 14, 14)
     );
 
     public static final Map<Direction, VoxelShape> SIDE_BAFFLE_SHAPE = Map.of(
-            Direction.DOWN, Shapes.box(0, 0, 0, 1, ONE_PIXEL * 2D, 1),
-            Direction.UP, Shapes.box(0, ONE_PIXEL * 14D, 0, 1, 1, 1),
-            Direction.NORTH, Shapes.box(0, 0, 0, 1, 1, ONE_PIXEL * 2D),
-            Direction.SOUTH, Shapes.box(0, 0, ONE_PIXEL * 14D, 1, 1, 1),
-            Direction.WEST, Shapes.box(0, 0, 0, ONE_PIXEL * 2D, 1, 1),
-            Direction.EAST, Shapes.box(ONE_PIXEL * 14D, 0, 0, 1, 1, 1)
+            Direction.DOWN, Block.box(0, 0, 0, 16, 2, 16),
+            Direction.UP, Block.box(0, 14, 0, 16, 16, 16),
+            Direction.NORTH, Block.box(0, 0, 0, 16, 16, 2D),
+            Direction.SOUTH, Block.box(0, 0, 14, 16, 16, 16),
+            Direction.WEST, Block.box(0, 0, 0, 2, 16, 16),
+            Direction.EAST, Block.box(14, 0, 0, 16, 16, 16)
     );
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { // TODO add caching
         if (state.getBlock() != this) {
             return super.getShape(state, level, pos, context);
         }
 
-        VoxelShape boundingBox = CENTER_SHAPE;
+        return getShape(level, pos, false);
+    }
+
+    private VoxelShape getShape(BlockGetter level, BlockPos pos, boolean collision) {
+        VoxelShape boundingBox = collision ? Shapes.create(CENTER_SHAPE.bounds().inflate(0.08)) : CENTER_SHAPE; // Shape was clipping for collision
         if (level.getBlockEntity(pos) instanceof HeatExchangerTubeEntity tube) {
             for (Direction dir : Direction.values()) {
                 HeatExchangerTubeSetting setting = tube.getTubeSetting(dir);
-                if (setting != HeatExchangerTubeSetting.CLOSED) {
-                    boundingBox = Shapes.join(boundingBox, setting.isBaffle() ? SIDE_BAFFLE_SHAPE.get(dir) : SIDE_SHAPE.get(dir), BooleanOp.OR);
+                if (setting != CLOSED) {
+                    boundingBox = Shapes.joinUnoptimized(boundingBox, setting.isBaffle() ? SIDE_BAFFLE_SHAPE.get(dir) : SIDE_SHAPE.get(dir), BooleanOp.OR);
                 }
             }
         }
 
-        return boundingBox;
+        return boundingBox.optimize();
     }
 }

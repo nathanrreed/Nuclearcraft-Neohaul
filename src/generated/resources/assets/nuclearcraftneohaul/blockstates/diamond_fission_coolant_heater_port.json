@@ -2,11 +2,11 @@
   "variants": {
     "facing=down,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/diamond_fission_coolant_heater_port_false",
-      "x": 270
+      "x": 90
     },
     "facing=down,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/diamond_fission_coolant_heater_port_true",
-      "x": 270
+      "x": 90
     },
     "facing=east,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/diamond_fission_coolant_heater_port_false",
@@ -32,11 +32,11 @@
     },
     "facing=up,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/diamond_fission_coolant_heater_port_false",
-      "x": 90
+      "x": 270
     },
     "facing=up,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/diamond_fission_coolant_heater_port_true",
-      "x": 90
+      "x": 270
     },
     "facing=west,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/diamond_fission_coolant_heater_port_false",

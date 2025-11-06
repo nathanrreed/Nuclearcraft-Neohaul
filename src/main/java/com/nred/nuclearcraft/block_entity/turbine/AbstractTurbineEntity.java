@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.block_entity.turbine;
 
-import com.nred.nuclearcraft.multiblock.turbine.ITurbinePartType;
-import com.nred.nuclearcraft.multiblock.turbine.ITurbinePart;
 import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.multiblock.turbine.ITurbinePart;
+import com.nred.nuclearcraft.multiblock.turbine.ITurbinePartType;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartTypeProvider;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -28,6 +28,7 @@ public class AbstractTurbineEntity extends TilePartAbstract<Turbine> implements 
 
         return new Turbine(this.getLevel());
     }
+
     public boolean isTransparent() {
         return false;
     }

@@ -38,7 +38,7 @@ public class EmiHeatExchangerRecipe extends RecipeViewerRecipe {
         double flowDirectionBonus = recipe.getHeatExchangerFlowDirectionBonus();
         if (flowDirectionBonus != 0D) {
             int preferredFlowDirection = recipe.getHeatExchangerPreferredFlowDirection();
-            list.add(Component.translatable(MODID + ".recipe_viewer." + (preferredFlowDirection == 0 ? "exchanger_horizontal_bonus" : (preferredFlowDirection > 0 ? "exchanger_upward_bonus" : "exchanger_downward_bonus")), Component.literal(NCMath.pcDecimalPlaces(flowDirectionBonus, 1)).withStyle(ChatFormatting.WHITE)).withStyle((heating ? ChatFormatting.RED : ChatFormatting.LIGHT_PURPLE)));
+            list.add(Component.translatable(MODID + ".recipe_viewer." + (preferredFlowDirection == 0 ? "exchanger_horizontal_bonus" : (preferredFlowDirection > 0 ? "exchanger_upward_bonus" : "exchanger_downward_bonus")), Component.literal(NCMath.pcDecimalPlaces(flowDirectionBonus, 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
         }
         return list;
     }

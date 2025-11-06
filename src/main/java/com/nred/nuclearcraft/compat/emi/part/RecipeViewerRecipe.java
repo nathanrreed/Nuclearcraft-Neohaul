@@ -37,7 +37,11 @@ public abstract class RecipeViewerRecipe extends BasicEmiRecipe {
 
         for (int i = 0; i < inputs.size(); i++) {
             ScreenPosition position = recipeViewerInfo.inputs().get(i);
-            widgets.addSlot(inputs.get(i), position.x(), position.y()).drawBack(false);
+            if (outputs.get(i).getKey() instanceof Fluid) {
+                widgets.add(new TankWithAmount(inputs.get(i), position.x(), position.y())).drawBack(false);
+            } else {
+                widgets.addSlot(inputs.get(i), position.x(), position.y()).drawBack(false);
+            }
         }
 
         for (int i = 0; i < outputs.size(); i++) {

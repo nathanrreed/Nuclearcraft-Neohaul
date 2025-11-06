@@ -59,7 +59,7 @@ public abstract class SimpleRecipeBuilder implements RecipeBuilder {
 
     public static String getKey(SizedChanceFluidIngredient ingredient) {
         try {
-            return BuiltInRegistries.FLUID.getKey(ingredient.getFluids()[0].getFluid()).getPath();
+            return BuiltInRegistries.FLUID.getKey(ingredient.getFluidsRaw()[0].getFluid()).getPath();
         } catch (ArrayIndexOutOfBoundsException e) {
             if (ingredient.ingredient() instanceof TagFluidIngredient tagged)
                 return tagged.tag().location().getPath();

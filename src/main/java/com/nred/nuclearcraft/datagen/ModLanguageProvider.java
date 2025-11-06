@@ -386,6 +386,17 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".multiblock_validation.condenser.invalid_network", "Tube networks must have at least one inlet and one outlet for the condenser to form");
         add(MODID + ".multiblock_validation.condenser.blocked_shell", "Shell interior must be completely connected for the condenser to form");
 
+        add(MODID + ".tooltip.heat_exchanger_controller", "Heat Exchanger");
+        add(MODID + ".tooltip.condenser_controller", "Condenser");
+
+        add(MODID + ".tooltip.heat_exchanger_controller.active_tube_count", "Tube Count: %s");
+        add(MODID + ".tooltip.heat_exchanger_controller.active_network_count", "Network Count: %s");
+        add(MODID + ".tooltip.heat_exchanger_controller.tube_input", "Tube Input: %s");
+        add(MODID + ".tooltip.heat_exchanger_controller.shell_input", "Shell Input: %s");
+        add(MODID + ".tooltip.heat_exchanger_controller.heat_dissipation_rate", "Heat Dissipation: %s");
+        add(MODID + ".tooltip.heat_exchanger_controller.heat_transfer_rate", "Heat Transfer: %s");
+        add(MODID + ".tooltip.heat_exchanger_controller.mean_temp_diff", "Mean Temp Diff: %s");
+
         add(MODID + ".tooltip.heat_exchanger_tube.heat_transfer_coefficient", "Heat Transfer Coefficient: %s");
         add(MODID + ".tooltip.heat_exchanger_tube.heat_retention_mult", "Heat Retention Multiplier: %s");
         add("block." + MODID + ".heat_exchanger_tube.desc", "Transfers heat between fluids.");

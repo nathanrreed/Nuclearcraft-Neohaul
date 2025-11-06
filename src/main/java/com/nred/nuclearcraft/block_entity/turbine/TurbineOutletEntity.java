@@ -112,7 +112,7 @@ public class TurbineOutletEntity extends AbstractTurbineEntity implements ITicka
             return;
         }
 
-        IFluidHandler adjStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, worldPosition, side.getOpposite());
+        IFluidHandler adjStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, tile.getBlockPos(), side.getOpposite());
         if (adjStorage == null) {
             return;
         }

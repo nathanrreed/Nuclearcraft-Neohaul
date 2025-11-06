@@ -2,11 +2,11 @@
   "variants": {
     "facing=down,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/heat_exchanger_controller_off",
-      "x": 270
+      "x": 90
     },
     "facing=down,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/heat_exchanger_controller_on",
-      "x": 270
+      "x": 90
     },
     "facing=east,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/heat_exchanger_controller_off",
@@ -32,11 +32,11 @@
     },
     "facing=up,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/heat_exchanger_controller_off",
-      "x": 90
+      "x": 270
     },
     "facing=up,nuclearcraftneohaul_active=true": {
       "model": "nuclearcraftneohaul:block/heat_exchanger_controller_on",
-      "x": 90
+      "x": 270
     },
     "facing=west,nuclearcraftneohaul_active=false": {
       "model": "nuclearcraftneohaul:block/heat_exchanger_controller_off",

@@ -12,6 +12,10 @@ public class TankWithAmount extends TankWidget {
         super(stack, x, y, w, h, stack.getAmount());
     }
 
+    public TankWithAmount(EmiIngredient stack, int x, int y) {
+        super(stack, x, y, 18, 18, stack.getAmount());
+    }
+
     @Override
     protected void addSlotTooltip(List<ClientTooltipComponent> list) {
         if (stack.getAmount() == 1) {

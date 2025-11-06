@@ -2,7 +2,7 @@
   "variants": {
     "facing=down": {
       "model": "nuclearcraftneohaul:block/turbine_inlet",
-      "x": 270
+      "x": 90
     },
     "facing=east": {
       "model": "nuclearcraftneohaul:block/turbine_inlet",
@@ -17,7 +17,7 @@
     },
     "facing=up": {
       "model": "nuclearcraftneohaul:block/turbine_inlet",
-      "x": 90
+      "x": 270
     },
     "facing=west": {
       "model": "nuclearcraftneohaul:block/turbine_inlet",

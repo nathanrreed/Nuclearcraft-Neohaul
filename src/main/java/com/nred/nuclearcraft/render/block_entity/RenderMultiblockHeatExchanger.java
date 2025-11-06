@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchanger;
-import it.zerono.mods.zerocore.lib.client.render.FluidTankRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -13,6 +12,8 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+
+import static com.nred.nuclearcraft.render.RenderHelper.renderFluid;
 
 @OnlyIn(Dist.CLIENT)
 public record RenderMultiblockHeatExchanger(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<HeatExchangerControllerEntity> {
@@ -28,16 +29,18 @@ public record RenderMultiblockHeatExchanger(BlockEntityRendererProvider.Context 
             return;
         }
 
+        int xSize = hx.getInteriorLengthX() - 1, ySize = hx.getInteriorLengthY() - 1, zSize = hx.getInteriorLengthZ() - 1;
+        if (xSize < 1 || zSize < 1) {
+            return;
+        }
+
         poseStack.pushPose();
 
         BlockPos posOffset = hx.getExtremeInteriorCoord(false, false, false).subtract(controller.getBlockPos());
         poseStack.translate(posOffset.getX(), posOffset.getY(), posOffset.getZ());
 
-        int xSize = hx.getInteriorLengthX(), ySize = hx.getInteriorLengthY(), zSize = hx.getInteriorLengthZ();
-
-        for (Tank tank : hx.shellTanks) { // TODO check how this looks vs original
-            FluidTankRenderer.Single renderer = new FluidTankRenderer.Single(tank.getCapacity(), 0, 0, 0, xSize, ySize, zSize);
-            renderer.render(poseStack, bufferSource, packedLight, tank.getFluid());
+        for (Tank tank : hx.shellTanks) {
+            renderFluid(poseStack, bufferSource, packedLight, tank.getFluid(), tank.getCapacity(), xSize, ySize, zSize, x -> true);
         }
 
         poseStack.popPose();
@@ -47,8 +50,8 @@ public record RenderMultiblockHeatExchanger(BlockEntityRendererProvider.Context 
     @OnlyIn(Dist.CLIENT)
     public @NotNull AABB getRenderBoundingBox(HeatExchangerControllerEntity blockEntity) {
         if (blockEntity.getMultiblockController().isPresent()) {
-            HeatExchanger turbine = blockEntity.getMultiblockController().get();
-            return turbine.getBoundingBox().getAABB().inflate(turbine.getInteriorLengthX(), turbine.getInteriorLengthY(), turbine.getInteriorLengthZ());
+            HeatExchanger hx = blockEntity.getMultiblockController().get();
+            return hx.getBoundingBox().getAABB().inflate(hx.getInteriorLengthX(), hx.getInteriorLengthY(), hx.getInteriorLengthZ());
         }
         return BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
     }

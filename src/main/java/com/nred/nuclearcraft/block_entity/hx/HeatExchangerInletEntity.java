@@ -262,12 +262,12 @@ public class HeatExchangerInletEntity extends AbstractHeatExchangerEntity implem
 
         @Override
         public void onResumeProcessingState() {
-            getMultiblockController().get().packetFlag |= 1;
+            getMultiblockController().ifPresent(hx -> hx.packetFlag |= 1);
         }
 
         @Override
         public void onChangeProcessingState() {
-            getMultiblockController().get().packetFlag |= isMasterShellInlet() ? 2 : 1;
+            getMultiblockController().ifPresent(hx -> hx.packetFlag |= isMasterShellInlet() ? 2 : 1);
         }
 
         @Override

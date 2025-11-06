@@ -32,7 +32,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -55,7 +54,7 @@ public class Turbine extends Multiblock<Turbine> implements ILogicMultiblock<Tur
     public static final int BASE_MAX_ENERGY = 16000, BASE_MAX_INPUT = 1000, BASE_MAX_OUTPUT = 4000;
 
     public final EnergyStorage energyStorage = new EnergyStorage(BASE_MAX_ENERGY);
-    public final List<Tank> tanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, (Set<ResourceLocation>) NCRecipes.turbine.validFluids.get(0)), new Tank(BASE_MAX_OUTPUT, null));
+    public final List<Tank> tanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, NCRecipes.turbine.validFluids.get(0)), new Tank(BASE_MAX_OUTPUT, null));
 
     public RecipeInfo<TurbineRecipe> recipeInfo;
 

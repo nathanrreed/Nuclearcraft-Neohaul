@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.block_entity;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import it.zerono.mods.zerocore.lib.data.nbt.INestedSyncableEntity;
+import it.zerono.mods.zerocore.lib.data.nbt.ISyncableEntity;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -15,7 +17,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblockController<MULTIBLOCK>> extends AbstractCuboidMultiblockPart<MULTIBLOCK> implements ITile {
+import java.util.Optional;
+
+public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblockController<MULTIBLOCK>> extends AbstractCuboidMultiblockPart<MULTIBLOCK> implements ITile, INestedSyncableEntity {
     private boolean isRedstonePowered = false, alternateComparator = false, redstoneControl = false;
 
 //	private final IRadiationSource radiation; TODO
@@ -161,8 +165,8 @@ public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblo
 
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        readAll(tag, registries);
         super.loadAdditional(tag, registries);
+        readAll(tag, registries);
     }
 
     public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
@@ -188,8 +192,7 @@ public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblo
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag data, HolderLookup.Provider registries) {
-        super.handleUpdateTag(data, registries);
-        loadAdditional(data, registries);
+    public Optional<ISyncableEntity> getNestedSyncableEntity() {
+        return this.getMultiblockController().map(c -> c);
     }
 }

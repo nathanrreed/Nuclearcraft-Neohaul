@@ -1,8 +1,5 @@
 {
-	"format_version": "1.21.6",
 	"parent": "block/block",
-	"render_type": "cutout",
-    "ambientocclusion": false,
 	"textures": {
 		"side": "nuclearcraftneohaul:block/heat_exchanger/tube/open_baffle_side"
 	},

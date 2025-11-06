@@ -409,7 +409,7 @@ class ModBlockStateProvider extends BlockStateProvider {
                     Direction dir = state.getValue(BlockStateProperties.FACING);
                     return ConfiguredModel.builder()
                             .modelFile(modelFunc.apply(state))
-                            .rotationX(dir == Direction.DOWN ? 270 : dir.getAxis().isHorizontal() ? 0 : 90)
+                            .rotationX(dir == Direction.DOWN ? 90 : dir.getAxis().isHorizontal() ? 0 : 270)
                             .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
                             .build();
                 });

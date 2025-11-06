@@ -2,9 +2,7 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.*;
 import com.nred.nuclearcraft.screen.multiblock.*;
-import com.nred.nuclearcraft.screen.multiblock.controller.SaltFissionControllerScreen;
-import com.nred.nuclearcraft.screen.multiblock.controller.SolidFissionControllerScreen;
-import com.nred.nuclearcraft.screen.multiblock.controller.TurbineControllerScreen;
+import com.nred.nuclearcraft.screen.multiblock.controller.*;
 import com.nred.nuclearcraft.screen.multiblock.port.*;
 import com.nred.nuclearcraft.screen.processor.GuiProcessorImpl.*;
 import com.nred.nuclearcraft.screen.processor.NuclearFurnaceScreen;
@@ -60,5 +58,8 @@ public class ScreenRegistration {
         event.register(FISSION_SALT_HEATER_MENU_TYPE.get(), SaltFissionHeaterScreen::new);
         event.register(FISSION_IRRADIATOR_MENU_TYPE.get(), FissionIrradiatorScreen::new);
         event.register(FISSION_SALT_VESSEL_MENU_TYPE.get(), SaltFissionVesselScreen::new);
+
+        event.register(HX_CONTROLLER_MENU_TYPE.get(), HeatExchangerControllerScreen::new);
+        event.register(CONDENSER_CONTROLLER_MENU_TYPE.get(), CondenserControllerScreen::new);
     }
 }

@@ -1,7 +1,5 @@
 {
-	"format_version": "1.21.6",
 	"parent": "block/block",
-	"render_type": "cutout",
 	"textures": {
 		"particle": "#all"
 	},

@@ -14,10 +14,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class BlockSimpleTile<TILE extends BlockEntity> extends BlockTile {
     protected final BlockSimpleTileInfo<TILE> tileInfo;
+    private final boolean hasTicker;
 
-    public BlockSimpleTile(String name) {
+    public BlockSimpleTile(String name, boolean hasTicker) {
         super(Properties.ofFullCopy(Blocks.IRON_BLOCK));
         tileInfo = TileInfoHandler.getBlockSimpleTileInfo(name);
+        this.hasTicker = hasTicker;
+    }
+
+    public BlockSimpleTile(String name) {
+        this(name, true);
     }
 
     @Override
@@ -27,7 +33,7 @@ public class BlockSimpleTile<TILE extends BlockEntity> extends BlockTile {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        if (level.isClientSide) return null;
+        if (level.isClientSide || !hasTicker) return null;
         return (level1, pos, state1, blockEntity) -> ((ITickable) blockEntity).update();
     }
 }

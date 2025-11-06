@@ -94,7 +94,7 @@ public class BlockRegistration {
 
     public static final DeferredBlock<Block> HEAVY_WATER_MODERATOR = registerBlockItem("heavy_water_moderator", () -> new Block(BlockBehaviour.Properties.of()));
     public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCorium::new);
-    public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItemWithTooltip("universal_bin", () -> new BlockSimpleTile<>("bin"), false);
+    public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItemWithTooltip("universal_bin", () -> new BlockSimpleTile<>("bin", false), false);
     public static final DeferredBlock<Block> MACHINE_INTERFACE = registerBlockItemWithTooltip("machine_interface", () -> new BlockMachineInterface("machine_interface"), false);
     public static final DeferredBlock<Block> NUCLEAR_FURNACE = registerBlockItemWithTooltip("nuclear_furnace", () -> new NuclearFurnaceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FURNACE)), false);
 

@@ -175,6 +175,7 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
 
     @Override
     protected boolean updateServer() {
+        super.updateServer();
         return logic.onUpdateServer();
     }
 

@@ -119,10 +119,6 @@ public class Tank extends FluidTank {
         other.setFluidStored(FluidStack.EMPTY);
     }
 
-//    public IFluidTankProperties getFluidTankProperties() {
-//        return new FluidTankPropertiesWrapper(this);
-//    }
-
     public ResourceLocation getFluidId() {
         return BuiltInRegistries.FLUID.getKey(fluid.getFluid());
     }

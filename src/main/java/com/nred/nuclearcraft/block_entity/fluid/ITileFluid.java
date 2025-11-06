@@ -3,11 +3,11 @@ package com.nred.nuclearcraft.block_entity.fluid;
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.block_entity.ITilePort;
+import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerPart;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.passive.ITilePassive;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor.HandlerPair;
-import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.util.BlockHelper;
 import mekanism.api.Action;
 import mekanism.api.chemical.ChemicalStack;
@@ -184,10 +184,11 @@ public interface ITileFluid extends ITile {
 //            else if (this instanceof IMachinePart part) { TODO
 //                part.refreshMachineRecipe();
 //                part.refreshMachineActivity();
-//            } else if (this instanceof IHeatExchangerPart part) {
-//                part.refreshHeatExchangerRecipe();
-//                part.refreshHeatExchangerActivity();
 //            }
+            else if (this instanceof IHeatExchangerPart part) {
+                part.refreshHeatExchangerRecipe();
+                part.refreshHeatExchangerActivity();
+            }
 
             if (this instanceof ITilePort<?, ?, ?, ?> port) {
                 port.setRefreshTargetsFlag(true);
@@ -202,9 +203,10 @@ public interface ITileFluid extends ITile {
             }
 //            else if (this instanceof IMachinePart part) { TODO
 //                part.refreshMachineActivity();
-//            } else if (this instanceof IHeatExchangerPart part) {
-//                part.refreshHeatExchangerActivity();
 //            }
+            else if (this instanceof IHeatExchangerPart part) {
+                part.refreshHeatExchangerActivity();
+            }
 
             if (this instanceof ITilePort<?, ?, ?, ?> port) {
                 port.setRefreshTargetsFlag(true);
@@ -221,10 +223,11 @@ public interface ITileFluid extends ITile {
 //            else if (this instanceof IMachinePart part) { TODO
 //                part.refreshMachineRecipe();
 //                part.refreshMachineActivity();
-//            } else if (this instanceof IHeatExchangerPart part) {
-//                part.refreshHeatExchangerRecipe();
-//                part.refreshHeatExchangerActivity();
 //            }
+            else if (this instanceof IHeatExchangerPart part) {
+                part.refreshHeatExchangerRecipe();
+                part.refreshHeatExchangerActivity();
+            }
 
             if (this instanceof ITilePort<?, ?, ?, ?> port) {
                 port.setRefreshTargetsFlag(true);
@@ -239,9 +242,10 @@ public interface ITileFluid extends ITile {
             }
 //            else if (this instanceof IMachinePart part) { TODO
 //                part.refreshMachineActivity();
-//            } else if (this instanceof IHeatExchangerPart part) {
-//                part.refreshHeatExchangerActivity();
 //            }
+            else if (this instanceof IHeatExchangerPart part) {
+                part.refreshHeatExchangerActivity();
+            }
 
             if (this instanceof ITilePort<?, ?, ?, ?> port) {
                 port.setRefreshTargetsFlag(true);
@@ -284,7 +288,7 @@ public interface ITileFluid extends ITile {
             return;
         }
 
-        IFluidHandler adjStorage = getTileWorld().getCapability(Capabilities.FluidHandler.BLOCK, getTilePos(), side.getOpposite());
+        IFluidHandler adjStorage = getTileWorld().getCapability(Capabilities.FluidHandler.BLOCK, tile.getBlockPos(), side.getOpposite());
 
         if (adjStorage == null) {
             return;
@@ -304,9 +308,10 @@ public interface ITileFluid extends ITile {
             }
 //            else if (this instanceof IMachinePart part) { TODO
 //                part.refreshMachineActivity();
-//            } else if (this instanceof IHeatExchangerPart part) {
-//                part.refreshHeatExchangerActivity();
 //            }
+            else if (this instanceof IHeatExchangerPart part) {
+                part.refreshHeatExchangerActivity();
+            }
 
             if (this instanceof ITilePort<?, ?, ?, ?> port) {
                 port.setRefreshTargetsFlag(true);
@@ -426,6 +431,7 @@ public interface ITileFluid extends ITile {
         }
         return null;
     }
+
     default ChemicalTileWrapper getChemicalCapability(@Nullable Direction side) {
         if (hasFluidSideCapability(side)) {
             return getChemicalSide(side);
