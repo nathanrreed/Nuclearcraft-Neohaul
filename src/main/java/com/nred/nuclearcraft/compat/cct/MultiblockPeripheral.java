@@ -16,6 +16,11 @@ public class MultiblockPeripheral<MULTIBLOCK extends Multiblock<MULTIBLOCK>> {
     }
 
     @LuaFunction(mainThread = true)
+    public boolean isComplete() {
+        return computerPort.isMachineAssembled();
+    }
+
+    @LuaFunction(mainThread = true)
     public int getLengthX() {
         if (!test()) return 0;
         return computerPort.getMultiblockController().get().getInteriorLengthX();

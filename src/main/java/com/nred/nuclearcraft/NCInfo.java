@@ -12,6 +12,10 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.ItemFissionRecipe;
+import com.nred.nuclearcraft.recipe.machine.ElectrolyzerAnodeRecipe;
+import com.nred.nuclearcraft.recipe.machine.ElectrolyzerCathodeRecipe;
+import com.nred.nuclearcraft.recipe.machine.MachineDiaphragmRecipe;
+import com.nred.nuclearcraft.recipe.machine.MachineSieveAssemblyRecipe;
 import com.nred.nuclearcraft.util.Lang;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -24,55 +28,45 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.*;
 
 public class NCInfo {
-//
-//	// Diaphragm
-//
-//	public static String[] machineDiaphragmFixedInfo(BasicRecipe recipe) {
-//		return new String[] {Lang.localize("info." + Global.MOD_ID + ".diaphragm.fixd"), Lang.localize("info." + Global.MOD_ID + ".diaphragm.efficiency.fixd", NCMath.pcDecimalPlaces(recipe.getMachineDiaphragmEfficiency(), 1)), Lang.localize("info." + Global.MOD_ID + ".diaphragm.contact.fixd", NCMath.pcDecimalPlaces(recipe.getMachineDiaphragmContactFactor(), 1))};
-//	}
-//
-//	public static String[] machineDiaphragmInfo() {
-//		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".diaphragm.desc"));
-//	}
-//
-//	// Sieve Assembly
-//
-//	public static String[] machineSieveAssemblyFixedInfo(BasicRecipe recipe) {
-//		return new String[] {Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.fixd"), Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.efficiency.fixd", NCMath.pcDecimalPlaces(recipe.getMachineSieveAssemblyEfficiency(), 1))};
-//	}
-//
-//	public static String[] machineSieveAssemblyInfo() {
-//		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".sieve_assembly.desc"));
-//	}
-//
-//	// Electrolyzer Electrode
-//
-//	public static String[] electrodeFixedInfo(BasicRecipe cathodeRecipe, BasicRecipe anodeRecipe) {
-//		boolean anyElectrode = cathodeRecipe != null && anodeRecipe != null;
-//		List<String> list = Lists.newArrayList(Lang.localize("info." + Global.MOD_ID + ".electrode." + (anyElectrode ? "fixd" : cathodeRecipe != null ? "cathode.fixd" : "anode.fixd")));
-//		if (cathodeRecipe != null) {
-//			list.add(Lang.localize("info." + Global.MOD_ID + ".electrode.efficiency." + (anyElectrode ? "cathode.fixd" : "fixd"), NCMath.pcDecimalPlaces(cathodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
-//		}
-//		if (anodeRecipe != null) {
-//			list.add(Lang.localize("info." + Global.MOD_ID + ".electrode.efficiency." + (anyElectrode ? "anode.fixd" : "fixd"), NCMath.pcDecimalPlaces(anodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
-//		}
-//		return list.toArray(new String[0]);
-//	}
-//
-//	public static String[] electrodeInfo() {
-//		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".electrode.desc"));
-//	}
-//
-//	// Infiltrator Pressure Fluid
-//
-//	public static String[] infiltratorPressureFluidFixedInfo(BasicRecipe recipe) {
-//		return new String[] {Lang.localize("info." + Global.MOD_ID + ".infiltrator_pressure_fluid.fixd"), Lang.localize("info." + Global.MOD_ID + ".infiltrator_pressure_fluid.efficiency.fixd", NCMath.pcDecimalPlaces(recipe.getInfiltratorPressureFluidEfficiency(), 1))};
-//	}
-//
-//	public static String[] infiltratorPressureFluidInfo() {
-//		return InfoHelper.formattedInfo(Lang.localize("info." + Global.MOD_ID + ".infiltrator_pressure_fluid.desc"));
-//	}
-//
+
+    // Diaphragm
+
+    public static Component[] machineDiaphragmFixedInfo(MachineDiaphragmRecipe recipe) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.diaphragm"), Component.translatable(MODID + ".tooltip.diaphragm.efficiency", NCMath.pcDecimalPlaces(recipe.getMachineDiaphragmEfficiency(), 1)), Component.translatable(MODID + ".tooltip.diaphragm.contact", NCMath.pcDecimalPlaces(recipe.getMachineDiaphragmContactFactor(), 1))};
+    }
+
+    public static Component machineDiaphragmInfo() {
+        return Component.translatable(MODID + ".tooltip.diaphragm.desc"); // TODO not in NCO
+    }
+
+    // Sieve Assembly
+
+    public static Component[] machineSieveAssemblyFixedInfo(MachineSieveAssemblyRecipe recipe) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.sieve_assembly"), Component.translatable(MODID + ".tooltip.sieve_assembly.efficiency", NCMath.pcDecimalPlaces(recipe.getMachineSieveAssemblyEfficiency(), 1))};
+    }
+
+    public static Component machineSieveAssemblyInfo() {
+        return Component.translatable(MODID + ".tooltip.sieve_assembly.desc"); // TODO not in NCO
+    }
+
+    // Electrolyzer Electrode
+
+    public static Component[] electrodeFixedInfo(ElectrolyzerCathodeRecipe cathodeRecipe, ElectrolyzerAnodeRecipe anodeRecipe) {
+        boolean anyElectrode = cathodeRecipe != null && anodeRecipe != null;
+        List<Component> list = Lists.newArrayList(Component.translatable(MODID + ".tooltip.electrode." + (anyElectrode ? "" : cathodeRecipe != null ? "cathode" : "anode")));
+        if (cathodeRecipe != null) {
+            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency." + (anyElectrode ? "cathode" : ""), NCMath.pcDecimalPlaces(cathodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
+        }
+        if (anodeRecipe != null) {
+            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency." + (anyElectrode ? "anode" : ""), NCMath.pcDecimalPlaces(anodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
+        }
+        return list.toArray(new Component[0]);
+    }
+
+    public static Component electrodeInfo() {
+        return Component.translatable(MODID + ".tooltip.electrodedesc"); // TODO not in NCO
+    }
+
     // RTG
 
     public static Component rtgInfo(Supplier<Integer> power) {
@@ -208,7 +202,7 @@ public class NCInfo {
         return Lang.canLocalize(preposition) ? Lang.localize("nc.sf.power_adverb_preposition", Lang.localize("nc.sf.power_adverb" + p, verb), Lang.localize(preposition)) : Lang.localize("nc.sf.power_adverb" + p, verb);
     }
 
-    // Rad Shielding
+    // Rad Shielding TODO
 //
 //	public static String[][] radShieldingInfo() {
 //		String[][] info = new String[MetaEnums.RadShieldingType.values().length][];

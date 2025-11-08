@@ -110,6 +110,7 @@
     "nuclearcraftneohaul:fission_cooler_port",
     "nuclearcraftneohaul:fission_shield_manager",
     "nuclearcraftneohaul:fission_source_manager",
+    "nuclearcraftneohaul:fission_power_port",
     "nuclearcraftneohaul:solid_fuel_fission_controller",
     "nuclearcraftneohaul:fission_fuel_cell",
     "nuclearcraftneohaul:fission_fuel_cell_port",

@@ -239,14 +239,14 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
                         setTankSorption(side, 1, TankSorption.NON);
                     }
                     setActivity(false);
-                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.side_config.input").withStyle(ChatFormatting.DARK_AQUA)));
+                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.in_config").withStyle(ChatFormatting.DARK_AQUA)));
                 } else {
                     for (Direction side : Direction.values()) {
                         setTankSorption(side, 0, TankSorption.NON);
                         setTankSorption(side, 1, TankSorption.OUT);
                     }
                     setActivity(true);
-                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.side_config.output").withStyle(ChatFormatting.RED)));
+                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.out_config").withStyle(ChatFormatting.RED)));
                 }
                 markDirtyAndNotify(true);
                 return true;

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.cct;
 
-import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoEntityPart;
 import com.nred.nuclearcraft.block_entity.fission.*;
+import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoEntityPart;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.util.CCHelper;
@@ -17,11 +17,6 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public final class FissionPeripheral extends MultiblockPeripheral<FissionReactor> implements IPeripheral {
     public FissionPeripheral(FissionComputerPortEntity turbineComputerPort) {
         super(turbineComputerPort);
-    }
-
-    @LuaFunction(mainThread = true)
-    public boolean isComplete() {
-        return computerPort.isMachineAssembled();
     }
 
     @LuaFunction(mainThread = true)

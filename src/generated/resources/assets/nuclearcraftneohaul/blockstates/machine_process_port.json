@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "axis=x,machine_port_sorption=fluid_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in"
+    },
+    "axis=x,machine_port_sorption=fluid_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out"
+    },
+    "axis=x,machine_port_sorption=item_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_in"
+    },
+    "axis=x,machine_port_sorption=item_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_out"
+    },
+    "axis=y,machine_port_sorption=fluid_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in"
+    },
+    "axis=y,machine_port_sorption=fluid_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out"
+    },
+    "axis=y,machine_port_sorption=item_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_in"
+    },
+    "axis=y,machine_port_sorption=item_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_out"
+    },
+    "axis=z,machine_port_sorption=fluid_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in"
+    },
+    "axis=z,machine_port_sorption=fluid_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out"
+    },
+    "axis=z,machine_port_sorption=item_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_in"
+    },
+    "axis=z,machine_port_sorption=item_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_out"
+    }
+  }
+}

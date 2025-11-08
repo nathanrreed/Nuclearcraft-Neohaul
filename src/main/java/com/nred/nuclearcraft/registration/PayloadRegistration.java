@@ -43,12 +43,12 @@ public class PayloadRegistration {
 
         registrar.playToClient(EnergyProcessorUpdatePacket.TYPE, EnergyProcessorUpdatePacket.STREAM_CODEC, EnergyProcessorUpdatePacket.Handler::handleOnClient);
 
-//        registrar.playToClient(ElectrolyzerUpdatePacket.TYPE, ElectrolyzerUpdatePacket.class);
-//        registrar.playToClient(ElectrolyzerRenderPacket.TYPE, ElectrolyzerRenderPacket.class);
-//        registrar.playToClient(DistillerUpdatePacket.TYPE, DistillerUpdatePacket.class);
-//        registrar.playToClient(DistillerRenderPacket.TYPE, DistillerRenderPacket.class);
-//        registrar.playToClient(InfiltratorUpdatePacket.TYPE, InfiltratorUpdatePacket.class);
-//        registrar.playToClient(InfiltratorRenderPacket.TYPE, InfiltratorRenderPacket.class);
+        registrar.playToClient(ElectrolyzerUpdatePacket.TYPE, ElectrolyzerUpdatePacket.STREAM_CODEC, ElectrolyzerUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(ElectrolyzerRenderPacket.TYPE, ElectrolyzerRenderPacket.STREAM_CODEC, ElectrolyzerRenderPacket.Handler::handleOnClient);
+        registrar.playToClient(DistillerUpdatePacket.TYPE, DistillerUpdatePacket.STREAM_CODEC, DistillerUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(DistillerRenderPacket.TYPE, DistillerRenderPacket.STREAM_CODEC, DistillerRenderPacket.Handler::handleOnClient);
+        registrar.playToClient(InfiltratorUpdatePacket.TYPE, InfiltratorUpdatePacket.STREAM_CODEC, InfiltratorUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(InfiltratorRenderPacket.TYPE, InfiltratorRenderPacket.STREAM_CODEC, InfiltratorRenderPacket.Handler::handleOnClient);
 
         registrar.playToClient(ItemPortUpdatePacket.TYPE, ItemPortUpdatePacket.STREAM_CODEC, ItemPortUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(FluidPortUpdatePacket.TYPE, FluidPortUpdatePacket.STREAM_CODEC, FluidPortUpdatePacket.Handler::handleOnClient);
@@ -61,7 +61,6 @@ public class PayloadRegistration {
 
         registrar.playToClient(SolidFissionUpdatePacket.TYPE, SolidFissionUpdatePacket.STREAM_CODEC, SolidFissionUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(SaltFissionUpdatePacket.TYPE, SaltFissionUpdatePacket.STREAM_CODEC, SaltFissionUpdatePacket.Handler::handleOnClient);
-
 
         registrar.playToClient(HeatExchangerUpdatePacket.TYPE, HeatExchangerUpdatePacket.STREAM_CODEC, HeatExchangerUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(HeatExchangerRenderPacket.TYPE, HeatExchangerRenderPacket.STREAM_CODEC, HeatExchangerRenderPacket.Handler::handleOnClient);

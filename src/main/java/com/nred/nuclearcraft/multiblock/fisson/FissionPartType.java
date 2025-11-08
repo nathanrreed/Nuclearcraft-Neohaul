@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
+import com.nred.nuclearcraft.block.GenericActiveAxisTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericActiveDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.fission.*;
@@ -29,29 +30,27 @@ public enum FissionPartType implements IFissionPartType {
     Source(() -> FISSION_ENTITY_TYPE.get("source")::get, FissionSourceBlock::new),
 
     Cell(() -> FISSION_ENTITY_TYPE.get("cell")::get, GenericTooltipDeviceBlock::new),
-    CellPort(() -> FISSION_ENTITY_TYPE.get("cell_port")::get, GenericActiveDirectionalTooltipDeviceBlock::new),
+    CellPort(() -> FISSION_ENTITY_TYPE.get("cell_port")::get, GenericActiveAxisTooltipDeviceBlock::new),
 
     Cooler(() -> FISSION_ENTITY_TYPE.get("cooler")::get, GenericTooltipDeviceBlock::new),
-    CoolerPort(() -> FISSION_ENTITY_TYPE.get("cooler")::get, GenericActiveDirectionalTooltipDeviceBlock::new),
+    CoolerPort(() -> FISSION_ENTITY_TYPE.get("cooler")::get, GenericActiveAxisTooltipDeviceBlock::new),
 
     Irradiator(() -> FISSION_ENTITY_TYPE.get("irradiator")::get, GenericTooltipDeviceBlock::new),
-    IrradiatorPort(() -> FISSION_ENTITY_TYPE.get("irradiator_port")::get, GenericActiveDirectionalTooltipDeviceBlock::new),
+    IrradiatorPort(() -> FISSION_ENTITY_TYPE.get("irradiator_port")::get, GenericActiveAxisTooltipDeviceBlock::new),
 
     Vessel(() -> FISSION_ENTITY_TYPE.get("vessel")::get, GenericTooltipDeviceBlock::new),
-    VesselPort(() -> FISSION_ENTITY_TYPE.get("vessel_port")::get, GenericActiveDirectionalTooltipDeviceBlock::new),
+    VesselPort(() -> FISSION_ENTITY_TYPE.get("vessel_port")::get, GenericActiveAxisTooltipDeviceBlock::new),
 
     HeatSink(() -> FISSION_ENTITY_TYPE.get("heat_sink")::get, GenericTooltipDeviceBlock::new),
     Heater(() -> FISSION_ENTITY_TYPE.get("coolant_heater")::get, GenericTooltipDeviceBlock::new),
-    HeaterPort(() -> FISSION_ENTITY_TYPE.get("coolant_heater_port")::get, GenericActiveDirectionalTooltipDeviceBlock::new),
+    HeaterPort(() -> FISSION_ENTITY_TYPE.get("coolant_heater_port")::get, GenericActiveAxisTooltipDeviceBlock::new),
 
     ComputerPort(() -> FISSION_ENTITY_TYPE.get("computer_port")::get, GenericTooltipDeviceBlock::new),
 
     Monitor(() -> FISSION_ENTITY_TYPE.get("monitor")::get, FissionMonitorBlock::new),
     ShieldManager(() -> FISSION_ENTITY_TYPE.get("shield_manager")::get, FissionShieldManagerBlock::new),
     SourceManager(() -> FISSION_ENTITY_TYPE.get("source_manager")::get, FissionSourceManagerBlock::new),
-
-    // TODO
-//    PowerPort(() -> FISSION_ENTITY_TYPE.get("power_port")::get, GenericTooltipDeviceBlock::new),
+    PowerPort(() -> FISSION_ENTITY_TYPE.get("power_port")::get, GenericActiveDirectionalTooltipDeviceBlock::new),
     ;
 
     private final MultiblockPartTypeProperties<FissionReactor, IFissionPartType> _properties;

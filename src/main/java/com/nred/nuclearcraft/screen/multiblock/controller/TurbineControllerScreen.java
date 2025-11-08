@@ -22,7 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class TurbineControllerScreen extends GuiMultiblockController<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>, TurbineControllerMenu> {
+public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>, TurbineControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "turbine_controller");
 
     public TurbineControllerScreen(TurbineControllerMenu menu, Inventory inventory, Component title) {

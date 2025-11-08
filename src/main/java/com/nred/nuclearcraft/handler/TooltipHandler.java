@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.handler;
 
+import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NCInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
@@ -12,6 +13,10 @@ import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.ItemFissionRecipe;
+import com.nred.nuclearcraft.recipe.machine.ElectrolyzerAnodeRecipe;
+import com.nred.nuclearcraft.recipe.machine.ElectrolyzerCathodeRecipe;
+import com.nred.nuclearcraft.recipe.machine.MachineDiaphragmRecipe;
+import com.nred.nuclearcraft.recipe.machine.MachineSieveAssemblyRecipe;
 import com.nred.nuclearcraft.util.InfoHelper;
 import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
 import net.minecraft.ChatFormatting;
@@ -89,27 +94,27 @@ public class TooltipHandler {
             return recipeInfo == null ? null : recipeInfo.recipe;
         };
 
-//        recipe = itemRecipe.apply(NCRecipes.machine_diaphragm); TODO
-//        if (recipe != null) {
-//            InfoHelper.infoFull(tooltip, new ChatFormatting[] {ChatFormatting.UNDERLINE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED}, NCInfo.machineDiaphragmFixedInfo(recipe), ChatFormatting.AQUA, NCInfo.machineDiaphragmInfo());
-//        }
-//
-//        recipe = itemRecipe.apply(NCRecipes.machine_sieve_assembly);
-//        if (recipe != null) {
-//            InfoHelper.infoFull(tooltip, new ChatFormatting[] {ChatFormatting.UNDERLINE, ChatFormatting.LIGHT_PURPLE}, NCInfo.machineSieveAssemblyFixedInfo(recipe), ChatFormatting.AQUA, NCInfo.machineSieveAssemblyInfo());
-//        }
-//
-//        BasicRecipe cathodeRecipe = itemRecipe.apply(NCRecipes.electrolyzer_cathode), anodeRecipe = itemRecipe.apply(NCRecipes.electrolyzer_anode);
-//        if (cathodeRecipe != null || anodeRecipe != null) {
-//            List<ChatFormatting> fixedColors = Lists.newArrayList(ChatFormatting.UNDERLINE);
-//            if (cathodeRecipe != null) {
-//                fixedColors.add(ChatFormatting.LIGHT_PURPLE);
-//            }
-//            if (anodeRecipe != null) {
-//                fixedColors.add(ChatFormatting.BLUE);
-//            }
-//            InfoHelper.infoFull(tooltip, fixedColors.toArray(new ChatFormatting[0]), NCInfo.electrodeFixedInfo(cathodeRecipe, anodeRecipe), ChatFormatting.AQUA, NCInfo.electrodeInfo());
-//        }
+        recipe = itemRecipe.apply(NCRecipes.machine_diaphragm);
+        if (recipe != null) {
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED}, NCInfo.machineDiaphragmFixedInfo((MachineDiaphragmRecipe) recipe), ChatFormatting.AQUA, NCInfo.machineDiaphragmInfo());
+        }
+
+        recipe = itemRecipe.apply(NCRecipes.machine_sieve_assembly);
+        if (recipe != null) {
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.LIGHT_PURPLE}, NCInfo.machineSieveAssemblyFixedInfo((MachineSieveAssemblyRecipe) recipe), ChatFormatting.AQUA, NCInfo.machineSieveAssemblyInfo());
+        }
+
+        BasicRecipe cathodeRecipe = itemRecipe.apply(NCRecipes.electrolyzer_cathode), anodeRecipe = itemRecipe.apply(NCRecipes.electrolyzer_anode);
+        if (cathodeRecipe != null || anodeRecipe != null) {
+            List<ChatFormatting> fixedColors = Lists.newArrayList(ChatFormatting.UNDERLINE);
+            if (cathodeRecipe != null) {
+                fixedColors.add(ChatFormatting.LIGHT_PURPLE);
+            }
+            if (anodeRecipe != null) {
+                fixedColors.add(ChatFormatting.BLUE);
+            }
+            InfoHelper.infoFull(tooltips, fixedColors.toArray(new ChatFormatting[0]), NCInfo.electrodeFixedInfo((ElectrolyzerCathodeRecipe)cathodeRecipe, (ElectrolyzerAnodeRecipe)anodeRecipe), ChatFormatting.AQUA, NCInfo.electrodeInfo());
+        }
 
         recipe = itemRecipe.apply(NCRecipes.fission_moderator);
         if (recipe != null) {

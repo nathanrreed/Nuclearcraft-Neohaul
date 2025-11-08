@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.block_entity.fission.manager.FissionShieldManagerEn
 import com.nred.nuclearcraft.block_entity.fission.manager.FissionSourceManagerEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCoolerPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
@@ -30,7 +31,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
-import net.neoforged.neoforge.energy.EnergyStorage;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;

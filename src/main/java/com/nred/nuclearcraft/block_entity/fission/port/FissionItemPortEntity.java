@@ -257,14 +257,14 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
                         setItemSorption(side, 1, ItemSorption.NON);
                     }
                     setActivity(false);
-                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.side_config.input").withStyle(ChatFormatting.BLUE)));
+                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.in_config").withStyle(ChatFormatting.BLUE)));
                 } else {
                     for (Direction side : Direction.values()) {
                         setItemSorption(side, 0, ItemSorption.NON);
                         setItemSorption(side, 1, ItemSorption.OUT);
                     }
                     setActivity(true);
-                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.side_config.output").withStyle(ChatFormatting.GOLD)));
+                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.out_config").withStyle(ChatFormatting.GOLD)));
                 }
                 markDirtyAndNotify(true);
                 return true;

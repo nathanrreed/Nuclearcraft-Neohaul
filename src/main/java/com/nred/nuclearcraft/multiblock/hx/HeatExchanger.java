@@ -63,6 +63,8 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
     public double heatTransferRate = 0D, heatTransferRateFP = 0D;
     public double totalTempDiff = 0D;
 
+    public boolean shouldSpecialRender = false;
+
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
     public HeatExchanger(Level level) {
@@ -138,6 +140,8 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
 
     @Override
     protected boolean isMachineWhole(IMultiblockValidator validatorCallback) {
+        shouldSpecialRender = false;
+
         return setLogic(this) && super.isMachineWhole(validatorCallback) && logic.isMachineWhole();
     }
 

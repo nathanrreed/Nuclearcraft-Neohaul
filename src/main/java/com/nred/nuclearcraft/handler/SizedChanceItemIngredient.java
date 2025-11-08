@@ -128,6 +128,10 @@ public class SizedChanceItemIngredient {
         return cachedStacks;
     }
 
+    public ItemStack getStack() {
+        return Arrays.stream(getItems()).findFirst().orElse(ItemStack.EMPTY);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

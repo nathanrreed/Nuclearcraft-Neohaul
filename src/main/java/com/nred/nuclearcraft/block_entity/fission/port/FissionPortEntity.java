@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
-import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
+import static com.nred.nuclearcraft.registration.BlockRegistration.AXIS_ALL;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public abstract class FissionPortEntity<PORT extends FissionPortEntity<PORT, TARGET>, TARGET extends IFissionPortTarget<PORT, TARGET>> extends AbstractFissionEntity implements ITickable, IFissionPort<PORT, TARGET> {
@@ -45,7 +45,7 @@ public abstract class FissionPortEntity<PORT extends FissionPortEntity<PORT, TAR
         super.onPostMachineAssembled(controller);
         if (!level.isClientSide) {
             Optional<Direction> posFacing = getPartPosition().getDirection();
-            posFacing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_ALL, direction), 2)); // TODO was AXIS_ALL
+            posFacing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(AXIS_ALL, direction.getAxis()), 2));
         }
     }
 

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "nuclearcraftneohaul:polyethersulfone"
+    },
+    "Q": {
+      "tag": "c:dusts/quartz"
+    }
+  },
+  "pattern": [
+    "QAQ",
+    "AQA",
+    "QAQ"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:polyethersulfone_diaphragm"
+  }
+}

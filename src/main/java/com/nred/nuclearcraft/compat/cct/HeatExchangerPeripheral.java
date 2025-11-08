@@ -22,11 +22,6 @@ public final class HeatExchangerPeripheral extends MultiblockPeripheral<HeatExch
     }
 
     @LuaFunction(mainThread = true)
-    public boolean isComplete() {
-        return computerPort.isMachineAssembled();
-    }
-
-    @LuaFunction(mainThread = true)
     public boolean isExchangerOn() {
         if (!test()) return false;
         return getMultiblock().isExchangerOn;
@@ -97,7 +92,7 @@ public final class HeatExchangerPeripheral extends MultiblockPeripheral<HeatExch
             List<Object[]> stats = new ArrayList<>();
             for (HeatExchangerTubeEntity tube : getMultiblock().getParts(HeatExchangerTubeEntity.class)) {
                 BlockPos pos = tube.getBlockPos();
-                stats.add(new Object[] {CCHelper.posInfo(pos), tube.tubeType.getHeatTransferCoefficient(), tube.tubeType.getHeatRetentionMultiplier(), StreamHelper.map(tube.settings, Object::toString, Object[]::new), CCHelper.vec3Info(tube.tubeFlow), CCHelper.vec3Info(tube.shellFlow)});
+                stats.add(new Object[]{CCHelper.posInfo(pos), tube.tubeType.getHeatTransferCoefficient(), tube.tubeType.getHeatRetentionMultiplier(), StreamHelper.map(tube.settings, Object::toString, Object[]::new), CCHelper.vec3Info(tube.tubeFlow), CCHelper.vec3Info(tube.shellFlow)});
             }
             return new Object[]{stats.toArray()};
         } else {

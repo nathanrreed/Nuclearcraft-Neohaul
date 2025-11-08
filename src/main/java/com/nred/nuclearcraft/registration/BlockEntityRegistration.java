@@ -10,6 +10,7 @@ import com.nred.nuclearcraft.block_entity.fission.port.*;
 import com.nred.nuclearcraft.block_entity.generator.DecayGeneratorEntity;
 import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
 import com.nred.nuclearcraft.block_entity.hx.*;
+import com.nred.nuclearcraft.block_entity.machine.*;
 import com.nred.nuclearcraft.block_entity.passive.TilePassive;
 import com.nred.nuclearcraft.block_entity.processor.NuclearFurnaceEntity;
 import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
@@ -46,6 +47,11 @@ public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractTurbineEntity>>> TURBINE_ENTITY_TYPE = createTurbine();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractFissionEntity>>> FISSION_ENTITY_TYPE = createFission();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractHeatExchangerEntity>>> HX_ENTITY_TYPE = createHeatExchanger();
+
+    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> MACHINE_ENTITY_TYPE = createMachine();
+    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> DISTILLER_ENTITY_TYPE = createHeatDistiller();
+    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> ELECTROLYZER_ENTITY_TYPE = createElectrolyzer();
+    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> INFILTRATOR_ENTITY_TYPE = createInfiltrator();
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(UniversalBinEntity::new, UNIVERSAL_BIN.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends MachineInterfaceEntity>> MACHINE_INTERFACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("machine_interface", () -> BlockEntityType.Builder.of(MachineInterfaceEntity::new, MACHINE_INTERFACE.get()).build(null));
@@ -168,6 +174,37 @@ public class BlockEntityRegistration {
         map.put("source_manager", BLOCK_ENTITY_TYPES.register("fission_source_manager", () -> BlockEntityType.Builder.of(FissionSourceManagerEntity::new, FISSION_REACTOR_MAP.get("fission_source_manager").get()).build(null)));
 
         map.put("computer_port", BLOCK_ENTITY_TYPES.register("fission_computer_port", () -> BlockEntityType.Builder.of(FissionComputerPortEntity::new, FISSION_REACTOR_MAP.get("fission_computer_port").get()).build(null)));
+        map.put("power_port", BLOCK_ENTITY_TYPES.register("fission_power_port", () -> BlockEntityType.Builder.of(FissionPowerPortEntity::new, FISSION_REACTOR_MAP.get("fission_power_port").get()).build(null)));
+
+        return map;
+    }
+
+    private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> createMachine() {
+        Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> map = new HashMap<>();
+        map.put("computer_port", BLOCK_ENTITY_TYPES.register("machine_computer_port", () -> BlockEntityType.Builder.of(MachineComputerPortEntity::new, MACHINE_MAP.get("large_machine_computer_port").get()).build(null)));
+        map.put("frame", BLOCK_ENTITY_TYPES.register("machine_frame", () -> BlockEntityType.Builder.of(MachineFrameEntity::new, MACHINE_MAP.get("large_machine_frame").get()).build(null)));
+        map.put("glass", BLOCK_ENTITY_TYPES.register("machine_glass", () -> BlockEntityType.Builder.of(MachineGlassEntity::new, MACHINE_MAP.get("large_machine_glass").get()).build(null)));
+        map.put("power_port", BLOCK_ENTITY_TYPES.register("machine_power_port", () -> BlockEntityType.Builder.of(MachinePowerPortEntity::new, MACHINE_MAP.get("large_machine_power_port").get()).build(null)));
+        map.put("redstone_port", BLOCK_ENTITY_TYPES.register("machine_redstone_port", () -> BlockEntityType.Builder.of(MachineRedstonePortEntity::new, MACHINE_MAP.get("large_machine_redstone_port").get()).build(null)));
+        map.put("process_port", BLOCK_ENTITY_TYPES.register("machine_process_port", () -> BlockEntityType.Builder.of(MachineProcessPortEntity::new, MACHINE_MAP.get("large_machine_process_port").get()).build(null)));
+        map.put("reservoir_port", BLOCK_ENTITY_TYPES.register("machine_reservoir_port", () -> BlockEntityType.Builder.of(MachineReservoirPortEntity::new, MACHINE_MAP.get("large_machine_reservoir_port").get()).build(null)));
+        return map;
+    }
+
+    private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> createHeatDistiller() {
+        Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> map = new HashMap<>();
+
+        return map;
+    }
+
+    private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> createElectrolyzer() {
+        Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> map = new HashMap<>();
+
+        return map;
+    }
+
+    private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> createInfiltrator() {
+        Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> map = new HashMap<>();
 
         return map;
     }

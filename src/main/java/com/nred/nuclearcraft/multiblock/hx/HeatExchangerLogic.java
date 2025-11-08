@@ -389,7 +389,9 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
             controller.setIsRenderer(false);
         }
         for (IHeatExchangerController<?> controller : getParts(IHeatExchangerController.class)) {
-            controller.setIsRenderer(true);
+            if (multiblock.shouldSpecialRender) {
+                controller.setIsRenderer(true);
+            }
             break;
         }
 

@@ -22,6 +22,9 @@ public class MenuRegistration {
     public static final DeferredHolder<MenuType<?>, MenuType<TurbineControllerMenu>> TURBINE_CONTROLLER_MENU_TYPE = MENUS.register("turbine_controller", () -> IMenuTypeExtension.create(TurbineControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<HeatExchangerControllerMenu>> HX_CONTROLLER_MENU_TYPE = MENUS.register("hx_controller", () -> IMenuTypeExtension.create(HeatExchangerControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<CondenserControllerMenu>> CONDENSER_CONTROLLER_MENU_TYPE = MENUS.register("condenser_controller", () -> IMenuTypeExtension.create(CondenserControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<DistillerControllerMenu>> DISTILLER_CONTROLLER_MENU_TYPE = MENUS.register("distiller_controller", () -> IMenuTypeExtension.create(DistillerControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<ElectrolyzerControllerMenu>> ELECTROLYZER_CONTROLLER_MENU_TYPE = MENUS.register("electrolyzer_controller", () -> IMenuTypeExtension.create(ElectrolyzerControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<InfiltratorControllerMenu>> INFILTRATOR_CONTROLLER_MENU_TYPE = MENUS.register("infiltrator_controller", () -> IMenuTypeExtension.create(InfiltratorControllerMenu::new));
 
     // Ports
     public static final DeferredHolder<MenuType<?>, MenuType<FissionCellPortMenu>> FISSION_CELL_PORT_MENU_TYPE = MENUS.register("turbine_cell", () -> IMenuTypeExtension.create(FissionCellPortMenu::new));

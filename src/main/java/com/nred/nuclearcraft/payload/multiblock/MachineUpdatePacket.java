@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
-import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
+import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
@@ -32,8 +32,8 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
         this.recipeUnitInfo = recipeUnitInfo;
     }
 
-    public MachineUpdatePacket(MultiblockUpdatePacket multiblockUpdatePacket, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<TankInfo> tankInfos, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo) {
-        super(multiblockUpdatePacket);
+    public MachineUpdatePacket(MultiblockUpdatePacket machineUpdatePacket, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<TankInfo> tankInfos, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo) {
+        super(machineUpdatePacket);
         this.isMachineOn = isMachineOn;
         this.isProcessing = isProcessing;
         this.time = time;
@@ -43,6 +43,19 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
         this.baseSpeedMultiplier = baseSpeedMultiplier;
         this.basePowerMultiplier = basePowerMultiplier;
         this.recipeUnitInfo = recipeUnitInfo;
+    }
+
+    public MachineUpdatePacket(MachineUpdatePacket packet) {
+        super(packet);
+        this.isMachineOn = packet.isMachineOn;
+        this.isProcessing = packet.isProcessing;
+        this.time = packet.time;
+        this.baseProcessTime = packet.baseProcessTime;
+        this.baseProcessPower = packet.baseProcessPower;
+        this.tankInfos = packet.tankInfos;
+        this.baseSpeedMultiplier = packet.baseSpeedMultiplier;
+        this.basePowerMultiplier = packet.basePowerMultiplier;
+        this.recipeUnitInfo = packet.recipeUnitInfo;
     }
 
     public static MachineUpdatePacket fromBytes(RegistryFriendlyByteBuf buf) {

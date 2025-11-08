@@ -18,6 +18,6 @@ public class TurbineComputerPortEntity extends AbstractTurbineEntity {
 
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
-        return position.isFace() || super.isGoodForPosition(position, validatorCallback);
+        return position.isFace();
     }
 }

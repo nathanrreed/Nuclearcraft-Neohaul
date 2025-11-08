@@ -47,6 +47,7 @@ public class ModLanguageProvider extends LanguageProvider {
         turbine();
         fission_reactor();
         heat_exchanger();
+        machine();
 
         add(MODID + ".multiblock.validation.reactor.invalid_frame_block", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's frame");
         add(MODID + ".multiblock.validation.invalid_part_for_interior", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's interior");
@@ -403,6 +404,36 @@ public class ModLanguageProvider extends LanguageProvider {
         add("block." + MODID + ".heat_exchanger_computer_port.desc", "Used to access the exchanger via CC: Tweaked.");
     }
 
+    private void machine() {
+        add(MODID + ".multiblock_validation.electrolyzer.invalid_cathode_terminal", "Cathode terminals must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form");
+        add(MODID + ".multiblock_validation.electrolyzer.invalid_anode_terminal", "Anode terminals must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form");
+        add(MODID + ".multiblock_validation.electrolyzer.invalid_cathode_recipe", "Opposing cathode terminals must be connected by valid cathode blocks for the electrolyzer to form");
+        add(MODID + ".multiblock_validation.electrolyzer.invalid_anode_recipe", "Opposing anode terminals must be connected by valid anode blocks for the electrolyzer to form");
+        add(MODID + ".multiblock_validation.electrolyzer.short_circuit", "Cathodes and anodes must be installed in different diaphragm-separated regions of the electrolyzer for it to form");
+
+        add(MODID + ".multiblock_validation.distiller.invalid_sieve_recipe", "Sieve trays must have valid sieve assembly blocks above them for the distiller to form");
+        add(MODID + ".multiblock_validation.distiller.invalid_reflux_unit", "Reflux units must be installed in the top layer of the distiller for it to form");
+        add(MODID + ".multiblock_validation.distiller.invalid_reboiling_unit", "Reboiling units must be installed in the bottom layer of the distiller for it to form");
+        add(MODID + ".multiblock_validation.distiller.invalid_liquid_distributor", "Liquid Distributors must be installed in the top layer of the distiller for it to form");
+
+        add(MODID + ".tooltip.machine_controller.rate", "Process Rate: %s");
+        add(MODID + ".tooltip.machine_controller.power", "Power Use: %s");
+
+        add(MODID + ".tooltip.electrolyzer_controller", "Electrolyzer");
+        add(MODID + ".tooltip.electrolyzer_controller.electrode_efficiency", "Electrode Efficiency: %s");
+        add(MODID + ".tooltip.electrolyzer_controller.electrolyte_efficiency", "Electrolyte Efficiency: %s");
+
+        add(MODID + ".tooltip.distiller_controller", "Distiller");
+        add(MODID + ".tooltip.distiller_controller.reflux_bonus", "Reflux Bonus: %s");
+        add(MODID + ".tooltip.distiller_controller.reboiling_bonus", "Reboiling Bonus: %s");
+        add(MODID + ".tooltip.distiller_controller.distribution_bonus", "Distribution Bonus: %s");
+
+        add(MODID + ".tooltip.infiltrator_controller", "Infiltrator");
+        add(MODID + ".tooltip.infiltrator_controller.pressure_chamber_efficiency", "Chamber Efficiency: %s");
+        add(MODID + ".tooltip.infiltrator_controller.pressure_fluid_efficiency", "Fluid Efficiency: %s");
+
+    }
+
     private void string_formatting() {
         add("nc.sf.plural_rule", "1,1:0");
 
@@ -660,6 +691,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("nc.sf.ordinal14", "fourteenth");
         add("nc.sf.ordinal15", "fifteenth");
         add("nc.sf.ordinal16", "sixteenth");
+
+        add("nc.sf.two_args", "%s %s");
     }
 
     private void items() {
@@ -766,6 +799,10 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleBlocks(FISSION_REACTOR_MAP, Map.of("boron_silver_shield", "Boron-Silver Fission Neutron Shield", "radium_beryllium_source", "Ra-Be Fission Neutron Source", "polonium_beryllium_source", "Po-Be Fission Neutron Source", "californium_source", "Cf-252 Fission Neutron Source", "beryllium_carbon_reflector", "Beryllium-Carbon Neutron Reflector", "lead_steel_reflector", "Lead-Steel Neutron Reflector"));
         simpleBlocks(BATTERY_MAP, Map.of("du_voltaic_pile", "DU Voltaic Pile", "du_lithium_ion_battery", "DU Lithium Ion Battery"));
         simpleBlocks(HX_MAP);
+        simpleBlocks(MACHINE_MAP);
+        simpleBlocks(DISTILLER_MAP);
+        simpleBlocks(ELECTROLYZER_MAP);
+        simpleBlocks(INFILTRATOR_MAP);
     }
 
     private void buckets() {
@@ -964,6 +1001,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.both_config", "BOTH");
         add(MODID + ".tooltip.non_config", "DISABLED");
 
+        add(MODID + ".tooltip.item_in_config", "ITEM INPUT");
+        add(MODID + ".tooltip.item_out_config", "ITEM OUTPUT");
+        add(MODID + ".tooltip.fluid_in_config", "FLUID INPUT");
+        add(MODID + ".tooltip.fluid_out_config", "FLUID OUTPUT");
+
         add(MODID + ".tooltip.exchanger_tube_fluid_side.closed", "CLOSED");
         add(MODID + ".tooltip.exchanger_tube_fluid_side.open", "OPEN");
         add(MODID + ".tooltip.exchanger_tube_fluid_side.closed_baffle", "CLOSED BAFFLE");
@@ -994,6 +1036,19 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.moderator.underline", "Fission Reactor Moderator");
         add(MODID + ".tooltip.moderator.flux_factor", "Flux Factor: %s");
         add(MODID + ".tooltip.moderator.efficiency", "Efficiency Multiplier: %s");
+
+        add(MODID + ".tooltip.sieve_assembly", "Sieve Assembly");
+        add(MODID + ".tooltip.sieve_assembly.efficiency", "Efficiency Multiplier: %s");
+        add(MODID + ".tooltip.diaphragm", "Diaphragm");
+        add(MODID + ".tooltip.diaphragm.efficiency", "Efficiency Multiplier: %s");
+        add(MODID + ".tooltip.diaphragm.contact", "Contact Factor: %s");
+
+        add(MODID + ".tooltip.electrode.cathode", "Electrolyzer Cathode");
+        add(MODID + ".tooltip.electrode.anode", "Electrolyzer Anode");
+        add(MODID + ".tooltip.electrode.efficiency", "Efficiency Multiplier: %s");
+        add(MODID + ".tooltip.electrode", "Electrolyzer Electrode");
+        add(MODID + ".tooltip.electrode.efficiency.cathode", "Cathode Efficiency Multiplier: %s");
+        add(MODID + ".tooltip.electrode.efficiency.anode", "Anode Efficiency Multiplier: %s");
     }
 
     private void addTooltip(DeferredBlock<Block> block, String string) {
@@ -1051,6 +1106,10 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".multiblock_validation.invalid_block", "%4$s is not a valid block at [%1$d, %2$d, %3$d]");
         add(MODID + ".multiblock_validation.no_controller", "There must be a controller for the multiblock to form");
         add(MODID + ".multiblock_validation.too_many_controllers", "There must only be one controller for the multiblock to form");
+
+        add(MODID + ".multiblock_validation.invalid_axial_symmetry", "Block at %1$d, %2$d, %3$d breaks the multiblock's internal %4$s-axis symmetry");
+        add(MODID + ".multiblock_validation.invalid_planar_symmetry", "Block at %1$d, %2$d, %3$d breaks the multiblock's internal %4$s-plane symmetry");
+
         add(MODID + ".menu.fission.no_cluster", "No cluster!");
 
         add(MODID + ".menu.fission_heater.title", "Fission Coolant Heater");
@@ -1162,21 +1221,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.machine_min_size.tooltip", "Minimum side length of large machines.");
         add(MODID + ".configuration.machine_max_size", "Maximum Structure Length");
         add(MODID + ".configuration.machine_max_size.tooltip", "Maximum side length of large machines.");
-        add(MODID + ".configuration.machine_diaphragm_efficiency", "Diaphragm Efficiency Multipliers");
-        add(MODID + ".configuration.machine_diaphragm_efficiency.tooltip", "Efficiency multipliers for diaphragms of this type. Order: sintered steel, polyethersulfone, zirfon.");
-        add(MODID + ".configuration.machine_diaphragm_contact_factor", "Diaphragm Contact Factors");
-        add(MODID + ".configuration.machine_diaphragm_contact_factor.tooltip", "Contact factors for diaphragms of this type. Order: sintered steel, polyethersulfone, zirfon.");
-        add(MODID + ".configuration.machine_sieve_assembly_efficiency", "Sieve Assembly Efficiency Multipliers");
-        add(MODID + ".configuration.machine_sieve_assembly_efficiency.tooltip", "Efficiency multipliers for sieve assemblies of this type. Order: steel, polytetrafluoroethene, hastelloy.");
 
         add(MODID + ".configuration.machine_electrolyzer_time", "Electrolyzer Process Time");
         add(MODID + ".configuration.machine_electrolyzer_time.tooltip", "Base ticks per electrolyzer process.");
         add(MODID + ".configuration.machine_electrolyzer_power", "Electrolyzer Process Power Use");
         add(MODID + ".configuration.machine_electrolyzer_power.tooltip", "Base RF/t use during electrolysis.");
-        add(MODID + ".configuration.machine_cathode_efficiency", "Cathode Efficiency Multipliers");
-        add(MODID + ".configuration.machine_cathode_efficiency.tooltip", "List of cathode materials and their efficiencies. Format: 'materialSuffix@efficiency'.");
-        add(MODID + ".configuration.machine_anode_efficiency", "Anode Efficiency Multipliers");
-        add(MODID + ".configuration.machine_anode_efficiency.tooltip", "List of anode materials and their efficiencies. Format: 'materialSuffix@efficiency'.");
         add(MODID + ".configuration.machine_electrolyzer_sound_volume", "Electrolyzer Sound Volume");
         add(MODID + ".configuration.machine_electrolyzer_sound_volume.tooltip", "Modifier for the volume of electrolyzer sound effects.");
 
@@ -1191,8 +1240,6 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.machine_infiltrator_time.tooltip", "Base ticks per infiltrator process.");
         add(MODID + ".configuration.machine_infiltrator_power", "Infiltrator Process Power Use");
         add(MODID + ".configuration.machine_infiltrator_power.tooltip", "Base RF/t use during infiltrating.");
-        add(MODID + ".configuration.machine_infiltrator_pressure_fluid_efficiency", "Infiltrator Fluid Efficiency Multipliers");
-        add(MODID + ".configuration.machine_infiltrator_pressure_fluid_efficiency.tooltip", "List of infiltrator pressure fluids and their efficiencies. Format: 'fluidName@efficiency'.");
         add(MODID + ".configuration.machine_infiltrator_sound_volume", "Infiltrator Sound Volume");
         add(MODID + ".configuration.machine_infiltrator_sound_volume.tooltip", "Modifier for the volume of infiltrator sound effects.");
 

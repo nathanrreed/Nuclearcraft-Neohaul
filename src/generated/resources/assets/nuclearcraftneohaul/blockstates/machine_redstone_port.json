@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/machine_redstone_port_off"
+    },
+    "nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/machine_redstone_port_on"
+    }
+  }
+}

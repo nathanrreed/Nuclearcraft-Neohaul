@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/machine/process_port_fluid_in",
+    "bottom": "nuclearcraftneohaul:block/machine/process_port_top",
+    "front": "nuclearcraftneohaul:block/machine/process_port_fluid_in",
+    "side": "nuclearcraftneohaul:block/machine/process_port_side",
+    "top": "nuclearcraftneohaul:block/machine/process_port_top"
+  }
+}

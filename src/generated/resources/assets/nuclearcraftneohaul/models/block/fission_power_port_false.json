@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/fission/power_port_back",
+    "bottom": "nuclearcraftneohaul:block/fission/power_port_side",
+    "front": "nuclearcraftneohaul:block/fission/power_port_front_input",
+    "side": "nuclearcraftneohaul:block/fission/power_port_side",
+    "top": "nuclearcraftneohaul:block/fission/power_port_side"
+  }
+}

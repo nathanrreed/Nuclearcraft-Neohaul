@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -56,6 +57,16 @@ public class RecipeTypeRegistration {
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<HeatExchangerRecipe>> HEAT_EXCHANGER_RECIPE_TYPE = register("heat_exchanger");
     public static final DeferredHolder<RecipeType<?>, RecipeType<CondenserRecipe>> CONDENSER_RECIPE_TYPE = register("condenser");
+
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ElectrolyzerCathodeRecipe>> ELECTROLYZER_CATHODE_RECIPE_TYPE = register("electrolyzer_cathode");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ElectrolyzerAnodeRecipe>> ELECTROLYZER_ANODE_RECIPE_TYPE = register("electrolyzer_anode");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<MachineDiaphragmRecipe>> MACHINE_DIAPHRAGM_RECIPE_TYPE = register("machine_diaphragm");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<MachineSieveAssemblyRecipe>> MACHINE_SIEVE_ASSEMBLY_RECIPE_TYPE = register("machine_sieve_assembly");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<InfiltratorPressureFluidRecipe>> INFILTRATOR_PRESSURE_FLUID_RECIPE_TYPE = register("infiltrator_pressure_fluid");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<MultiblockInfiltratorRecipe>> MULTIBLOCK_INFILTRATOR_RECIPE_TYPE = register("multiblock_infiltrator");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<MultiblockDistillerRecipe>> MULTIBLOCK_DISTILLER_RECIPE_TYPE = register("multiblock_distiller");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<MultiblockElectrolyzerRecipe>> MULTIBLOCK_ELECTROLYZER_RECIPE_TYPE = register("multiblock_electrolyzer");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ElectrolyzerElectrolyteRecipe>> ELECTROLYZER_ELECTROLYTE_RECIPE_TYPE = register("electrolyzer_electrolyte");
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<DecayGeneratorRecipe>> DECAY_GENERATOR_RECIPE_TYPE = register("decay_generator");
 

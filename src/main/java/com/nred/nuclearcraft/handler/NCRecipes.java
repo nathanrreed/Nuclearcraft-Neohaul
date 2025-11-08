@@ -1,12 +1,11 @@
 package com.nred.nuclearcraft.handler;
 
-import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.CollectorRecipe;
-import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
-import com.nred.nuclearcraft.recipe.ProcessorRecipe;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.ElectricFurnaceRecipe;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -15,11 +14,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.ELECTROLYZER_ELECTROLYTE_RECIPE_TYPE;
 
 public class NCRecipes {
     private static boolean initialized = false;
@@ -81,14 +83,15 @@ public class NCRecipes {
         putHandler(new ElectricFurnaceRecipes());
         putHandler(new CollectorRecipes());
         putHandler(new DecayGeneratorRecipes());
-//        putHandler(new MachineDiaphragmRecipes());
-//        putHandler(new MachineSieveAssemblyRecipes());
-//        putHandler(new MultiblockElectrolyzerRecipes());
-//        putHandler(new ElectrolyzerCathodeRecipes());
-//        putHandler(new ElectrolyzerAnodeRecipes());
-//        putHandler(new MultiblockDistillerRecipes());
-//        putHandler(new MultiblockInfiltratorRecipes());
-//        putHandler(new InfiltratorPressureFluidRecipes());
+        putHandler(new MachineDiaphragmRecipes());
+        putHandler(new MachineSieveAssemblyRecipes());
+        putHandler(new MultiblockElectrolyzerRecipes());
+        putHandler(new ElectrolyzerElectrolyteRecipes());
+        putHandler(new ElectrolyzerCathodeRecipes());
+        putHandler(new ElectrolyzerAnodeRecipes());
+        putHandler(new MultiblockDistillerRecipes());
+        putHandler(new MultiblockInfiltratorRecipes());
+        putHandler(new InfiltratorPressureFluidRecipes());
         putHandler(new FissionModeratorRecipes());
         putHandler(new FissionReflectorRecipes());
         putHandler(new FissionIrradiatorRecipes());
@@ -138,14 +141,15 @@ public class NCRecipes {
     public static ElectricFurnaceRecipes electric_furnace;
     public static CollectorRecipes collector;
     public static DecayGeneratorRecipes decay_generator;
-    //    public static MachineDiaphragmRecipes machine_diaphragm;
-//    public static MachineSieveAssemblyRecipes machine_sieve_assembly;
-//    public static MultiblockElectrolyzerRecipes multiblock_electrolyzer;
-//    public static ElectrolyzerCathodeRecipes electrolyzer_cathode;
-//    public static ElectrolyzerAnodeRecipes electrolyzer_anode;
-//    public static MultiblockDistillerRecipes multiblock_distiller;
-//    public static MultiblockInfiltratorRecipes multiblock_infiltrator;
-//    public static InfiltratorPressureFluidRecipes infiltrator_pressure_fluid;
+    public static MachineDiaphragmRecipes machine_diaphragm;
+    public static MachineSieveAssemblyRecipes machine_sieve_assembly;
+    public static MultiblockElectrolyzerRecipes multiblock_electrolyzer;
+    public static ElectrolyzerElectrolyteRecipes electrolyzer_electrolyte;
+    public static ElectrolyzerCathodeRecipes electrolyzer_cathode;
+    public static ElectrolyzerAnodeRecipes electrolyzer_anode;
+    public static MultiblockDistillerRecipes multiblock_distiller;
+    public static MultiblockInfiltratorRecipes multiblock_infiltrator;
+    public static InfiltratorPressureFluidRecipes infiltrator_pressure_fluid;
     public static FissionModeratorRecipes fission_moderator;
     public static FissionReflectorRecipes fission_reflector;
     public static FissionIrradiatorRecipes fission_irradiator;
@@ -185,14 +189,15 @@ public class NCRecipes {
         electric_furnace = getHandler("electric_furnace");
         collector = getHandler("collector");
         decay_generator = getHandler("decay_generator");
-//        machine_diaphragm = getHandler("machine_diaphragm");
-//        machine_sieve_assembly = getHandler("machine_sieve_assembly");
-//        multiblock_electrolyzer = getHandler("multiblock_electrolyzer");
-//        electrolyzer_cathode = getHandler("electrolyzer_cathode");
-//        electrolyzer_anode = getHandler("electrolyzer_anode");
-//        multiblock_distiller = getHandler("multiblock_distiller");
-//        multiblock_infiltrator = getHandler("multiblock_infiltrator");
-//        infiltrator_pressure_fluid = getHandler("infiltrator_pressure_fluid");
+        machine_diaphragm = getHandler("machine_diaphragm");
+        machine_sieve_assembly = getHandler("machine_sieve_assembly");
+        multiblock_electrolyzer = getHandler("multiblock_electrolyzer");
+        electrolyzer_electrolyte = getHandler("electrolyzer_electrolyte");
+        electrolyzer_cathode = getHandler("electrolyzer_cathode");
+        electrolyzer_anode = getHandler("electrolyzer_anode");
+        multiblock_distiller = getHandler("multiblock_distiller");
+        multiblock_infiltrator = getHandler("multiblock_infiltrator");
+        infiltrator_pressure_fluid = getHandler("infiltrator_pressure_fluid");
         fission_moderator = getHandler("fission_moderator");
         fission_reflector = getHandler("fission_reflector");
         fission_irradiator = getHandler("fission_irradiator");
@@ -294,23 +299,71 @@ public class NCRecipes {
         }
     }
 
-//    public class ElectrolyzerCathodeRecipes extends BasicRecipeHandler<ElectrolyzerCathodeRecipe> { TODO
-//        public ElectrolyzerCathodeRecipes() {
-//            super("electrolyzer_cathode", 1, 0, 0, 0);
-//        }
-//    }
-//
-//    public class MachineDiaphragmRecipes extends BasicRecipeHandler<MachineDiaphragmRecipe> {
-//        public MachineDiaphragmRecipes() {
-//            super("machine_diaphragm", 1, 0, 0, 0);
-//        }
-//    }
-//
-//    public class MachineSieveAssemblyRecipes extends BasicRecipeHandler<MachineSieveAssemblyRecipe> {
-//        public MachineSieveAssemblyRecipes() {
-//            super("machine_sieve_assembly", 1, 0, 0, 0);
-//        }
-//    }
+    public static class ElectrolyzerCathodeRecipes extends BasicRecipeHandler<ElectrolyzerCathodeRecipe> {
+        public ElectrolyzerCathodeRecipes() {
+            super("electrolyzer_cathode", 1, 0, 0, 0);
+        }
+    }
+
+    public static class ElectrolyzerAnodeRecipes extends BasicRecipeHandler<ElectrolyzerAnodeRecipe> {
+        public ElectrolyzerAnodeRecipes() {
+            super("electrolyzer_anode", 1, 0, 0, 0);
+        }
+    }
+
+    public static class MultiblockDistillerRecipes extends BasicRecipeHandler<MultiblockDistillerRecipe> {
+        public MultiblockDistillerRecipes() {
+            super("multiblock_distiller", 0, 2, 0, 8);
+        }
+    }
+
+    public static class MachineDiaphragmRecipes extends BasicRecipeHandler<MachineDiaphragmRecipe> {
+        public MachineDiaphragmRecipes() {
+            super("machine_diaphragm", 1, 0, 0, 0);
+        }
+    }
+
+    public static class MachineSieveAssemblyRecipes extends BasicRecipeHandler<MachineSieveAssemblyRecipe> {
+        public MachineSieveAssemblyRecipes() {
+            super("machine_sieve_assembly", 1, 0, 0, 0);
+        }
+    }
+
+    public static class InfiltratorPressureFluidRecipes extends BasicRecipeHandler<InfiltratorPressureFluidRecipe> {
+        public InfiltratorPressureFluidRecipes() {
+            super("infiltrator_pressure_fluid", 0, 1, 0, 0);
+        }
+    }
+
+    public static class MultiblockInfiltratorRecipes extends BasicRecipeHandler<MultiblockInfiltratorRecipe> {
+        public MultiblockInfiltratorRecipes() {
+            super("multiblock_infiltrator", 2, 2, 1, 0);
+        }
+    }
+
+    public static class MultiblockElectrolyzerRecipes extends BasicRecipeHandler<MultiblockElectrolyzerRecipe> {
+        public MultiblockElectrolyzerRecipes() {
+            super("multiblock_electrolyzer", 2, 2, 4, 4);
+        }
+    }
+
+    public static class ElectrolyzerElectrolyteRecipes extends BasicRecipeHandler<ElectrolyzerElectrolyteRecipe> {
+        public ElectrolyzerElectrolyteRecipes() {
+            super("electrolyzer_electrolyte", 0, 1, 0, 0);
+        }
+
+        public @Nullable RecipeInfo<ElectrolyzerElectrolyteRecipe> getRecipeInfoFromInputs(Level level, String electrolyte_group, List<Tank> fluidInputs) { // TODO readd caching
+            List<SizedChanceFluidIngredient> fluidIngredients = fluidInputs.stream().filter(tank -> !tank.isEmpty()).map(tank -> tank.isEmpty() ? new SizedChanceFluidIngredient(FluidIngredient.empty(), 1) : SizedChanceFluidIngredient.of(tank.getFluid())).toList();
+
+            List<RecipeHolder<ElectrolyzerElectrolyteRecipe>> recipes = level.getRecipeManager().getRecipesFor(ELECTROLYZER_ELECTROLYTE_RECIPE_TYPE.get(), new BasicRecipeInput(List.of(), fluidIngredients), level);
+            recipes = recipes.stream().filter(r -> r.value().getGroup().equals(electrolyte_group)).toList();
+            assert recipes.size() <= 1; // Make sure there is no overlapping recipes
+            ElectrolyzerElectrolyteRecipe recipe = recipes.stream().findFirst().map(RecipeHolder::value).orElse(null);
+            if (recipe == null)
+                return null;
+            return new RecipeInfo<>(recipe, RecipeHelper.matchIngredients(IngredientSorption.INPUT, List.of(), fluidIngredients, List.of(), fluidInputs));
+        }
+    }
 
     public static class AlloyFurnaceRecipes extends BasicProcessorRecipeHandler {
         public AlloyFurnaceRecipes() {

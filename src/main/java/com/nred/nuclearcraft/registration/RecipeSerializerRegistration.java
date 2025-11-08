@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -51,6 +52,16 @@ public class RecipeSerializerRegistration {
 
     public static final DeferredHolder<RecipeSerializer<?>, CondenserRecipe.Serializer> CONDENSER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("condenser_recipe", CondenserRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, HeatExchangerRecipe.Serializer> HEAT_EXCHANGER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("heat_exchanger_recipe", HeatExchangerRecipe.Serializer::new);
+
+    public static final DeferredHolder<RecipeSerializer<?>, ElectrolyzerCathodeRecipe.Serializer> ELECTROLYZER_CATHODE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("electrolyzer_cathode_recipe", ElectrolyzerCathodeRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, ElectrolyzerAnodeRecipe.Serializer> ELECTROLYZER_ANODE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("electrolyzer_anode_recipe", ElectrolyzerAnodeRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, MachineDiaphragmRecipe.Serializer> MACHINE_DIAPHRAGM_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("machine_diaphragm_recipe", MachineDiaphragmRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, MachineSieveAssemblyRecipe.Serializer> MACHINE_SIEVE_ASSEMBLY_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("machine_sieve_assembly_recipe", MachineSieveAssemblyRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, InfiltratorPressureFluidRecipe.Serializer> INFILTRATOR_PRESSURE_FLUID_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("infiltrator_pressure_fluid_recipe", InfiltratorPressureFluidRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, MultiblockInfiltratorRecipe.Serializer> MULTIBLOCK_INFILTRATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("multiblock_infiltrator_recipe", MultiblockInfiltratorRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, MultiblockDistillerRecipe.Serializer> MULTIBLOCK_DISTILLER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("multiblock_distiller_recipe", MultiblockDistillerRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, MultiblockElectrolyzerRecipe.Serializer> MULTIBLOCK_ELECTROLYZER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("multiblock_electrolyzer_recipe", MultiblockElectrolyzerRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, ElectrolyzerElectrolyteRecipe.Serializer> ELECTROLYZER_ELECTROLYTE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("electrolyzer_electrolyte_recipe", ElectrolyzerElectrolyteRecipe.Serializer::new);
 
     public static final DeferredHolder<RecipeSerializer<?>, DecayGeneratorRecipe.Serializer> DECAY_GENERATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("decay_generator_recipe", DecayGeneratorRecipe.Serializer::new);
 

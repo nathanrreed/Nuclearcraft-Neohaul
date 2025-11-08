@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.block_entity.ITilePort;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerPart;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
+import com.nred.nuclearcraft.block_entity.machine.IMachinePart;
 import com.nred.nuclearcraft.block_entity.passive.ITilePassive;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor.HandlerPair;
@@ -180,12 +181,10 @@ public interface ITileFluid extends ITile {
             if (this instanceof IProcessor<?, ?, ?> processor) {
                 processor.refreshRecipe();
                 processor.refreshActivity();
-            }
-//            else if (this instanceof IMachinePart part) { TODO
-//                part.refreshMachineRecipe();
-//                part.refreshMachineActivity();
-//            }
-            else if (this instanceof IHeatExchangerPart part) {
+            } else if (this instanceof IMachinePart part) {
+                part.refreshMachineRecipe();
+                part.refreshMachineActivity();
+            } else if (this instanceof IHeatExchangerPart part) {
                 part.refreshHeatExchangerRecipe();
                 part.refreshHeatExchangerActivity();
             }
@@ -200,11 +199,9 @@ public interface ITileFluid extends ITile {
         if (doDrain == FluidAction.EXECUTE && drainStack != null && drainStack.getAmount() != 0) {
             if (this instanceof IProcessor<?, ?, ?> processor) {
                 processor.refreshActivity();
-            }
-//            else if (this instanceof IMachinePart part) { TODO
-//                part.refreshMachineActivity();
-//            }
-            else if (this instanceof IHeatExchangerPart part) {
+            } else if (this instanceof IMachinePart part) {
+                part.refreshMachineActivity();
+            } else if (this instanceof IHeatExchangerPart part) {
                 part.refreshHeatExchangerActivity();
             }
 
@@ -219,12 +216,10 @@ public interface ITileFluid extends ITile {
             if (this instanceof IProcessor<?, ?, ?> processor) {
                 processor.refreshRecipe();
                 processor.refreshActivity();
-            }
-//            else if (this instanceof IMachinePart part) { TODO
-//                part.refreshMachineRecipe();
-//                part.refreshMachineActivity();
-//            }
-            else if (this instanceof IHeatExchangerPart part) {
+            } else if (this instanceof IMachinePart part) {
+                part.refreshMachineRecipe();
+                part.refreshMachineActivity();
+            } else if (this instanceof IHeatExchangerPart part) {
                 part.refreshHeatExchangerRecipe();
                 part.refreshHeatExchangerActivity();
             }
@@ -239,11 +234,9 @@ public interface ITileFluid extends ITile {
         if (doTransfer.execute() && drawStack != null && drawStack.getAmount() != 0) {
             if (this instanceof IProcessor<?, ?, ?> processor) {
                 processor.refreshActivity();
-            }
-//            else if (this instanceof IMachinePart part) { TODO
-//                part.refreshMachineActivity();
-//            }
-            else if (this instanceof IHeatExchangerPart part) {
+            } else if (this instanceof IMachinePart part) {
+                part.refreshMachineActivity();
+            } else if (this instanceof IHeatExchangerPart part) {
                 part.refreshHeatExchangerActivity();
             }
 
@@ -305,11 +298,9 @@ public interface ITileFluid extends ITile {
         if (drained) {
             if (this instanceof IProcessor<?, ?, ?> processor) {
                 processor.refreshActivity();
-            }
-//            else if (this instanceof IMachinePart part) { TODO
-//                part.refreshMachineActivity();
-//            }
-            else if (this instanceof IHeatExchangerPart part) {
+            } else if (this instanceof IMachinePart part) {
+                part.refreshMachineActivity();
+            } else if (this instanceof IHeatExchangerPart part) {
                 part.refreshHeatExchangerActivity();
             }
 

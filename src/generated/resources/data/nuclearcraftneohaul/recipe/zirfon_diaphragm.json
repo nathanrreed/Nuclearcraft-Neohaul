@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "nuclearcraftneohaul:zirfon"
+    },
+    "Q": {
+      "tag": "c:dusts/quartz"
+    }
+  },
+  "pattern": [
+    "AQA",
+    "QAQ",
+    "AQA"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:zirfon_diaphragm"
+  }
+}

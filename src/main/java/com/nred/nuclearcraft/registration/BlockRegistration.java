@@ -19,11 +19,13 @@ import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterT
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerPartType;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeType;
+import com.nred.nuclearcraft.multiblock.machine.MachinePartType;
 import com.nred.nuclearcraft.multiblock.rtg.RTGPartType;
 import com.nred.nuclearcraft.multiblock.rtg.RTGType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
+import com.nred.nuclearcraft.property.MachinePortSorption;
 import com.nred.nuclearcraft.util.InfoHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.PrimitiveFunction.ObjEnumFunction;
@@ -70,8 +72,9 @@ public class BlockRegistration {
     public static final BooleanProperty ACTIVE = BooleanProperty.create(MODID + "_active");
     public static final DirectionProperty FACING_HORIZONTAL = BlockStateProperties.HORIZONTAL_FACING;
     public static final DirectionProperty FACING_ALL = BlockStateProperties.FACING;
-    public static final EnumProperty<Direction.Axis> AXIS_ALL = EnumProperty.create("axis", Direction.Axis.class);
-//    public static final EnumProperty<MachinePortSorption> MACHINE_PORT_SORPTION = EnumProperty.create("machine_port_sorption", MachinePortSorption.class);
+    public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
+    public static final EnumProperty<Direction.Axis> AXIS_ALL = BlockStateProperties.AXIS;
+    public static final EnumProperty<MachinePortSorption> MACHINE_PORT_SORPTION = EnumProperty.create("machine_port_sorption", MachinePortSorption.class);
 
     public static final HashMap<String, DeferredBlock<Block>> ORE_MAP = createOres();
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
@@ -85,8 +88,11 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> FISSION_REACTOR_MAP = createFissionParts();
     public static final HashMap<String, DeferredBlock<Block>> BATTERY_MAP = createBatteries();
     public static final HashMap<String, DeferredBlock<Block>> RTG_MAP = createRTGs();
+    public static final HashMap<String, DeferredBlock<Block>> MACHINE_MAP = createMachines();
+    public static final HashMap<String, DeferredBlock<Block>> DISTILLER_MAP = createHeatDistillers();
+    public static final HashMap<String, DeferredBlock<Block>> ELECTROLYZER_MAP = createElectrolyzers();
+    public static final HashMap<String, DeferredBlock<Block>> INFILTRATOR_MAP = createInfiltrators();
 
-    private static final BlockBehaviour.Properties BASE_PROPERTIES = BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0F, 1200.0F).isValidSpawn(Blocks::never).isRedstoneConductor((a, b, c) -> false);
     public static final HashMap<String, DeferredBlock<Block>> PROCESSOR_MAP = createProcessors();
 
     public static final DeferredBlock<Block> TRITIUM_LAMP = registerBlockItem("tritium_lamp", () -> new Block(BlockBehaviour.Properties.of().lightLevel(blockState -> 15)));
@@ -275,6 +281,7 @@ public class BlockRegistration {
         map.put("fission_cooler_port", registerBlockItem("fission_cooler_port", FissionPartType.CoolerPort::createBlock));
         map.put("fission_shield_manager", registerBlockItem("fission_shield_manager", FissionPartType.ShieldManager::createBlock));
         map.put("fission_source_manager", registerBlockItem("fission_source_manager", FissionPartType.SourceManager::createBlock));
+        map.put("fission_power_port", registerBlockItem("fission_power_port", FissionPartType.PowerPort::createBlock));
         // Solid
         map.put("solid_fuel_fission_controller", registerBlockItem("solid_fuel_fission_controller", FissionPartType.SolidFuelController::createBlock));
         map.put("fission_fuel_cell", registerBlockItem("fission_fuel_cell", FissionPartType.Cell::createBlock));
@@ -319,6 +326,39 @@ public class BlockRegistration {
         map.put("rtg_plutonium", registerBlockItemWithTooltip("rtg_plutonium", () -> RTGPartType.RTG.createBlock((RTGType.PLUTONIUM)), false, NCInfo.rtgInfo(() -> rtg_power[1])));
         map.put("rtg_americium", registerBlockItemWithTooltip("rtg_americium", () -> RTGPartType.RTG.createBlock((RTGType.AMERICIUM)), false, NCInfo.rtgInfo(() -> rtg_power[2])));
         map.put("rtg_californium", registerBlockItemWithTooltip("rtg_californium", () -> RTGPartType.RTG.createBlock((RTGType.CALIFORNIUM)), false, NCInfo.rtgInfo(() -> rtg_power[3])));
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createMachines() {
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        map.put("large_machine_frame", registerBlockItem("machine_casing", MachinePartType.Frame::createBlock));
+        map.put("large_machine_glass", registerBlockItem("machine_glass", MachinePartType.Glass::createBlock));
+        map.put("large_machine_power_port", registerBlockItem("machine_power_port", MachinePartType.PowerPort::createBlock));
+        map.put("large_machine_process_port", registerBlockItem("machine_process_port", MachinePartType.ProcessPort::createBlock));
+        map.put("large_machine_reservoir_port", registerBlockItem("machine_reservoir_port", MachinePartType.ReservoirPort::createBlock));
+        map.put("large_machine_redstone_port", registerBlockItem("machine_redstone_port", MachinePartType.RedstonePort::createBlock));
+        map.put("large_machine_computer_port", registerBlockItem("machine_computer_port", MachinePartType.ComputerPort::createBlock));
+        map.put("sintered_steel_diaphragm", registerBlockItem("sintered_steel_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE))));
+        map.put("polyethersulfone_diaphragm", registerBlockItem("polyethersulfone_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE))));
+        map.put("zirfon_diaphragm", registerBlockItem("zirfon_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE))));
+        map.put("steel_sieve_assembly", registerBlockItem("steel_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
+        map.put("polytetrafluoroethene_sieve_assembly", registerBlockItem("polytetrafluoroethene_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
+        map.put("hastelloy_sieve_assembly", registerBlockItem("hastelloy_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createElectrolyzers() {
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createHeatDistillers() {
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createInfiltrators() {
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         return map;
     }
 

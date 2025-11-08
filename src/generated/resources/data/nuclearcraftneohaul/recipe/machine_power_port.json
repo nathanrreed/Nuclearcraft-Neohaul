@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "BCB",
+    "RMR",
+    "BCB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:machine_power_port"
+  }
+}

@@ -1,13 +1,15 @@
 package com.nred.nuclearcraft.block_entity.inventory;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.block_entity.ITilePort;
+import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerPart;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemHandler;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
+import com.nred.nuclearcraft.block_entity.machine.IMachinePart;
+import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.util.BlockHelper;
 import com.nred.nuclearcraft.util.NCInventoryHelper;
 import net.minecraft.core.Direction;
@@ -220,13 +222,13 @@ public interface ITileInventory extends ITile, WorldlyContainer {
         }
 
         if (pushed) {
-//            if (this instanceof IProcessor<?, ?, ?> processor) { TODO
-//                processor.refreshActivity();
-//            } else if (this instanceof IMachinePart part) {
-//                part.refreshMachineActivity();
-//            } else if (this instanceof IHeatExchangerPart part) {
-//                part.refreshHeatExchangerActivity();
-//            }
+            if (this instanceof IProcessor<?, ?, ?> processor) {
+                processor.refreshActivity();
+            } else if (this instanceof IMachinePart part) {
+                part.refreshMachineActivity();
+            } else if (this instanceof IHeatExchangerPart part) {
+                part.refreshHeatExchangerActivity();
+            }
 
             if (this instanceof ITilePort<?, ?, ?, ?> port) {
                 port.setRefreshTargetsFlag(true);

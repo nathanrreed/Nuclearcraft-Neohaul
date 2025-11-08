@@ -26,7 +26,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -242,7 +241,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
         if (fluidProduct.amount() > 0) {
             int stackSize = 0;
             if (outputTank.isEmpty()) {
-                outputTank.setFluidStored(Arrays.stream(fluidProduct.getFluids()).findFirst().orElse(FluidStack.EMPTY));
+                outputTank.setFluidStored(fluidProduct.getStack());
                 stackSize = outputTank.getFluidAmount();
                 heatingOutputRate = heatingRecipeRateInt * stackSize;
                 outputTank.setFluidAmount(heatingOutputRate);

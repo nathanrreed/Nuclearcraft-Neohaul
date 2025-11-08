@@ -8,6 +8,9 @@ import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerOutletEntity;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemHandler;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
+import com.nred.nuclearcraft.block_entity.machine.MachinePowerPortEntity;
+import com.nred.nuclearcraft.block_entity.machine.MachineProcessPortEntity;
+import com.nred.nuclearcraft.block_entity.machine.MachineReservoirPortEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineCoilConnectorEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoCoilEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineInletEntity;
@@ -99,9 +102,16 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), (entity, direction) -> ((FissionHeaterPortEntity) entity).getFluidSideCapability(direction));
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, FISSION_ENTITY_TYPE.get("irradiator_port").get(), (entity, direction) -> ((FissionIrradiatorPortEntity) entity).getItemSideCapability(direction));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, FISSION_ENTITY_TYPE.get("vessel_port").get(), (entity, direction) -> ((FissionVesselPortEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, FISSION_ENTITY_TYPE.get("power_port").get(), (entity, direction) -> ((FissionPowerPortEntity) entity).getEnergySideCapability(direction));
         // Heat Exchanger
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HX_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((HeatExchangerInletEntity) entity).getFluidSideCapability((direction)));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HX_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((HeatExchangerOutletEntity) entity).getFluidSideCapability(direction));
+        // Machine
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MACHINE_ENTITY_TYPE.get("process_port").get(), (entity, direction) -> ((MachineProcessPortEntity) entity).getItemSideCapability(direction));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_ENTITY_TYPE.get("process_port").get(), (entity, direction) -> ((MachineProcessPortEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_ENTITY_TYPE.get("reservoir_port").get(), (entity, direction) -> ((MachineReservoirPortEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_ENTITY_TYPE.get("power_port").get(), (entity, direction) -> ((MachinePowerPortEntity) entity).getEnergySideCapability(direction));
+
 
         items(event);
 
@@ -129,14 +139,15 @@ public class CapabilityRegistration {
                 // Heat Exchanger
                 event.registerBlockEntity(CHEMICAL, HX_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((HeatExchangerInletEntity) entity).getChemicalCapability(direction));
                 event.registerBlockEntity(CHEMICAL, HX_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((HeatExchangerOutletEntity) entity).getChemicalCapability(direction));
-
                 // Universal Bin
                 event.registerBlockEntity(CHEMICAL, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.tank);
-
                 // Collectors
                 event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
                 event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_COMPACT_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
                 event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_DENSE_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
+                // Machine
+                event.registerBlockEntity(CHEMICAL, MACHINE_ENTITY_TYPE.get("process_port").get(), (entity, direction) -> ((MachineProcessPortEntity) entity).getChemicalCapability(direction));
+                event.registerBlockEntity(CHEMICAL, MACHINE_ENTITY_TYPE.get("reservoir_port").get(), (entity, direction) -> ((MachineReservoirPortEntity) entity).getChemicalCapability(direction));
 
             });
         }

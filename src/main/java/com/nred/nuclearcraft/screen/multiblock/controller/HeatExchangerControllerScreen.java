@@ -22,7 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class HeatExchangerControllerScreen extends GuiLogicMultiblockController<HeatExchanger, HeatExchangerLogic, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, TileContainerInfo<HeatExchangerControllerEntity>, HeatExchangerLogic, HeatExchangerControllerMenu> {
+public class HeatExchangerControllerScreen extends LogicMultiblockControllerScreen<HeatExchanger, HeatExchangerLogic, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, TileContainerInfo<HeatExchangerControllerEntity>, HeatExchangerLogic, HeatExchangerControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "heat_exchanger_controller");
 
     public HeatExchangerControllerScreen(HeatExchangerControllerMenu menu, Inventory playerInventory, Component title) {

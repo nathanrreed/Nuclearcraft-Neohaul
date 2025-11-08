@@ -22,7 +22,7 @@ public class FissionCasingEntity extends AbstractFissionEntity {
     @Override
     public void onPreMachineAssembled(FissionReactor controller) {
         super.onPreMachineAssembled(controller);
-        if (!level.isClientSide && getPartPosition().isFrame()) { // TODO
+        if (!level.isClientSide && getPartPosition().isFrame()) {
             level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 2);
         }
     }

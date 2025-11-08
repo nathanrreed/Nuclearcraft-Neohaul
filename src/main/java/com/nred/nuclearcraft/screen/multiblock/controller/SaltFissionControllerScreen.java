@@ -23,7 +23,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class SaltFissionControllerScreen extends GuiLogicMultiblockController<FissionReactor, FissionReactorLogic, FissionUpdatePacket, SaltFissionControllerEntity, TileContainerInfo<SaltFissionControllerEntity>, SaltFissionLogic, SaltFissionControllerMenu> {
+public class SaltFissionControllerScreen extends LogicMultiblockControllerScreen<FissionReactor, FissionReactorLogic, FissionUpdatePacket, SaltFissionControllerEntity, TileContainerInfo<SaltFissionControllerEntity>, SaltFissionLogic, SaltFissionControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "salt_fission_controller");
 
     public SaltFissionControllerScreen(SaltFissionControllerMenu menu, Inventory playerInventory, Component title) {
@@ -36,7 +36,7 @@ public class SaltFissionControllerScreen extends GuiLogicMultiblockController<Fi
     public void init() {
         super.init();
         clearAllButton = this.addRenderableWidget(new MultiblockButton.ClearAllMaterial(getGuiLeft() + 153, getGuiTop() + 81, (btn) -> {
-            if (NCUtil.isModifierKeyDown()) new ClearAllMaterialPacket(tile.getTilePos()).sendToServer();
+            if (NCUtil.isModifierKeyDown()) new ClearAllMaterialPacket(tile.getBlockPos()).sendToServer();
         }));
     }
 

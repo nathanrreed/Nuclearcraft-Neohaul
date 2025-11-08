@@ -61,5 +61,9 @@ public class ScreenRegistration {
 
         event.register(HX_CONTROLLER_MENU_TYPE.get(), HeatExchangerControllerScreen::new);
         event.register(CONDENSER_CONTROLLER_MENU_TYPE.get(), CondenserControllerScreen::new);
+
+        event.register(DISTILLER_CONTROLLER_MENU_TYPE.get(), DistillerControllerScreen::new);
+        event.register(ELECTROLYZER_CONTROLLER_MENU_TYPE.get(), ElectrolyzerControllerScreen::new);
+        event.register(INFILTRATOR_CONTROLLER_MENU_TYPE.get(), InfiltratorControllerScreen::new);
     }
 }

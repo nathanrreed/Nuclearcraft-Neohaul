@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "C": {
+      "item": "computercraft:cable"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "computercraft:wired_modem"
+    }
+  },
+  "pattern": [
+    "BRB",
+    "CMC",
+    "BWB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:machine_computer_port"
+  }
+}

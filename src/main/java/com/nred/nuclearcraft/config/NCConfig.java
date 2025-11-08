@@ -67,14 +67,9 @@ public class NCConfig {
 
     public static int machine_min_size; // Default: 1
     public static int machine_max_size; // Default: 24
-    public static double[] machine_diaphragm_efficiency;
-    public static double[] machine_diaphragm_contact_factor;
-    public static double[] machine_sieve_assembly_efficiency;
 
     public static int machine_electrolyzer_time;
     public static int machine_electrolyzer_power;
-    public static String[] machine_cathode_efficiency;
-    public static String[] machine_anode_efficiency;
     public static double machine_electrolyzer_sound_volume;
 
     public static int machine_distiller_time;
@@ -83,7 +78,6 @@ public class NCConfig {
 
     public static int machine_infiltrator_time;
     public static int machine_infiltrator_power;
-    public static String[] machine_infiltrator_pressure_fluid_efficiency;
     public static double machine_infiltrator_sound_volume;
 
     public static int fission_min_size; // Default: 1
@@ -329,8 +323,6 @@ public class NCConfig {
 
         machine_electrolyzer_time = MACHINE_ELECTROLYZER_TIME.getAsInt();
         machine_electrolyzer_power = MACHINE_ELECTROLYZER_POWER.getAsInt();
-        machine_cathode_efficiency = syncStrings(MACHINE_CATHODE_EFFICIENCY, LIST);
-        machine_anode_efficiency = syncStrings(MACHINE_ANODE_EFFICIENCY, LIST);
         machine_electrolyzer_sound_volume = MACHINE_ELECTROLYZER_SOUND_VOLUME.getAsDouble();
 
         machine_distiller_time = MACHINE_DISTILLER_TIME.getAsInt();
@@ -339,12 +331,7 @@ public class NCConfig {
 
         machine_infiltrator_time = MACHINE_INFILTRATOR_TIME.getAsInt();
         machine_infiltrator_power = MACHINE_INFILTRATOR_POWER.getAsInt();
-        machine_infiltrator_pressure_fluid_efficiency = syncStrings(MACHINE_INFILTRATOR_PRESSURE_FLUID_EFFICIENCY, LIST);
         machine_infiltrator_sound_volume = MACHINE_INFILTRATOR_SOUND_VOLUME.getAsDouble();
-
-        machine_diaphragm_efficiency = syncDoubles(MACHINE_DIAPHRAGM_EFFICIENCY, ARRAY);
-        machine_diaphragm_contact_factor = syncDoubles(MACHINE_DIAPHRAGM_CONTACT_FACTOR, ARRAY);
-        machine_sieve_assembly_efficiency = syncDoubles(MACHINE_SIEVE_ASSEMBLY_EFFICIENCY, ARRAY);
 
         fission_min_size = FISSION_MIN_SIZE.getAsInt();
         fission_max_size = FISSION_MAX_SIZE.getAsInt();
@@ -580,8 +567,6 @@ public class NCConfig {
 
     private static final ModConfigSpec.IntValue MACHINE_ELECTROLYZER_TIME = add(CATEGORY_MACHINE, "machine_electrolyzer_time", 20, 1, 128000);
     private static final ModConfigSpec.IntValue MACHINE_ELECTROLYZER_POWER = add(CATEGORY_MACHINE, "machine_electrolyzer_power", 320, 1, 128000);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> MACHINE_CATHODE_EFFICIENCY = addString(CATEGORY_MACHINE, "machine_cathode_efficiency", List.of("Iron@0.6", "Nickel@0.7", "Molybdenum@0.8", "Cobalt@0.9", "Platinum@1.0", "Palladium@1.0"), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> MACHINE_ANODE_EFFICIENCY = addString(CATEGORY_MACHINE, "machine_anode_efficiency", List.of("CopperOxide@0.6", "TinOxide@0.6", "NickelOxide@0.7", "CobaltOxide@0.8", "RutheniumOxide@0.9", "IridiumOxide@1.0"), LIST);
     private static final ModConfigSpec.DoubleValue MACHINE_ELECTROLYZER_SOUND_VOLUME = add(CATEGORY_MACHINE, "machine_electrolyzer_sound_volume", 1D, 0D, 15D);
 
     private static final ModConfigSpec.IntValue MACHINE_DISTILLER_TIME = add(CATEGORY_MACHINE, "machine_distiller_time", 800, 1, 128000);
@@ -590,12 +575,7 @@ public class NCConfig {
 
     private static final ModConfigSpec.IntValue MACHINE_INFILTRATOR_TIME = add(CATEGORY_MACHINE, "machine_infiltrator_time", 1600, 1, 128000);
     private static final ModConfigSpec.IntValue MACHINE_INFILTRATOR_POWER = add(CATEGORY_MACHINE, "machine_infiltrator_power", 320, 1, 128000);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> MACHINE_INFILTRATOR_PRESSURE_FLUID_EFFICIENCY = addString(CATEGORY_MACHINE, "machine_infiltrator_pressure_fluid_efficiency", List.of("nitrogen@0.8", "argon@0.9", "neon@0.9", "helium@1.0"), LIST);
     private static final ModConfigSpec.DoubleValue MACHINE_INFILTRATOR_SOUND_VOLUME = add(CATEGORY_MACHINE, "machine_infiltrator_sound_volume", 1D, 0D, 15D);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> MACHINE_DIAPHRAGM_EFFICIENCY = add(CATEGORY_FISSION, "machine_diaphragm_efficiency", List.of(0.8D, 0.9D, 1D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> MACHINE_DIAPHRAGM_CONTACT_FACTOR = add(CATEGORY_FISSION, "machine_diaphragm_contact_factor", List.of(1D, 1.5D, 2D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> MACHINE_SIEVE_ASSEMBLY_EFFICIENCY = add(CATEGORY_FISSION, "machine_sieve_assembly_efficiency", List.of(0.8D, 0.9D, 1D), 0D, 255D, ARRAY);
 
     private static final ModConfigSpec.IntValue FISSION_MIN_SIZE = add(CATEGORY_FISSION, "fission_min_size", 1, 1, 255);
     private static final ModConfigSpec.IntValue FISSION_MAX_SIZE = add(CATEGORY_FISSION, "fission_max_size", 24, 3, 255);

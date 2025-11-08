@@ -2,7 +2,6 @@ package com.nred.nuclearcraft.payload.multiblock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
 public class MachineRenderPacket extends MultiblockUpdatePacket {
     public boolean isMachineOn;
@@ -15,6 +14,11 @@ public class MachineRenderPacket extends MultiblockUpdatePacket {
     public MachineRenderPacket(MultiblockUpdatePacket multiblockUpdatePacket, boolean isMachineOn) {
         super(multiblockUpdatePacket);
         this.isMachineOn = isMachineOn;
+    }
+
+    public MachineRenderPacket(MachineRenderPacket machineRenderPacket) {
+        super(machineRenderPacket);
+        this.isMachineOn = machineRenderPacket.isMachineOn;
     }
 
     public static MachineRenderPacket fromBytes(RegistryFriendlyByteBuf buf) {

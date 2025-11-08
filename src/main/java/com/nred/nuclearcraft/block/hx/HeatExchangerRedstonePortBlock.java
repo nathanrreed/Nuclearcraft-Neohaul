@@ -13,8 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.Nullable;
 
-import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
-
 public class HeatExchangerRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> implements IActivatable {
     public HeatExchangerRedstonePortBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
@@ -23,11 +21,11 @@ public class HeatExchangerRedstonePortBlock<Controller extends IMultiblockContro
 
     @Override
     public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
-        return direction == state.getValue(FACING_HORIZONTAL).getOpposite();
+        return direction != null;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(BlockRegistration.ACTIVE, FACING_HORIZONTAL);
+        builder.add(BlockRegistration.ACTIVE);
     }
 }

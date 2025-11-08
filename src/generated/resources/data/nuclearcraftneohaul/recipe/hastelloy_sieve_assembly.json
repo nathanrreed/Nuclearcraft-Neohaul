@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "nuclearcraftneohaul:hastelloy_alloy"
+    },
+    "O": {
+      "tag": "c:dusts/obsidian"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "OAO",
+    "AAA"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:hastelloy_sieve_assembly"
+  }
+}

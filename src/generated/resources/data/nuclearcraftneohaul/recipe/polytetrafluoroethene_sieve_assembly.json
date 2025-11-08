@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "nuclearcraftneohaul:polytetrafluoroethene"
+    },
+    "O": {
+      "tag": "c:dusts/obsidian"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "OAO",
+    "AAA"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:polytetrafluoroethene_sieve_assembly"
+  }
+}

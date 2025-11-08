@@ -30,7 +30,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class TurbineControllerEntity extends AbstractTurbineEntity implements ITurbineController<TurbineControllerEntity>, MenuProvider {
-    protected final TileContainerInfo<TurbineControllerEntity> info = TileInfoHandler.getTileContainerInfo("turbine_controller"); // TODO look at use of this
+    protected final TileContainerInfo<TurbineControllerEntity> info = TileInfoHandler.getTileContainerInfo("turbine_controller");
 
     protected boolean isRenderer = false;
 
@@ -78,7 +78,7 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements IT
     @Override
     public void onPreMachineAssembled(Turbine controller) {
         super.onPreMachineAssembled(controller);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             Optional<Direction> facing = getPartPosition().getDirection();
             facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_ALL, direction), 2));
         }

@@ -28,7 +28,6 @@ public abstract class NCTile extends BlockEntity implements ITile {
     public void onLoad() {
         if (level.isClientSide) {
             ClientLevel l;
-//            level.markBlockRangeForRenderUpdate(worldPosition, worldPosition); TODO
             refreshIsRedstonePowered(level, worldPosition);
             setChanged();
             updateComparatorOutputLevel();

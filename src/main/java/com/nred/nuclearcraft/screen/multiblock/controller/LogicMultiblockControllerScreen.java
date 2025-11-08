@@ -9,10 +9,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public abstract class GuiLogicMultiblockController<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC> & IPacketMultiblock<MULTIBLOCK, PACKET>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>, PACKET extends MultiblockUpdatePacket, CONTROLLER extends BlockEntity & IMultiblockGuiPart<MULTIBLOCK, PACKET, CONTROLLER, INFO>, INFO extends TileContainerInfo<CONTROLLER>, L extends LOGIC, MENU extends MultiblockControllerMenu<MULTIBLOCK, PACKET, CONTROLLER, INFO>> extends GuiMultiblockController<MULTIBLOCK, PACKET, CONTROLLER, INFO, MENU> {
+public abstract class LogicMultiblockControllerScreen<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC> & IPacketMultiblock<MULTIBLOCK, PACKET>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>, PACKET extends MultiblockUpdatePacket, CONTROLLER extends BlockEntity & IMultiblockGuiPart<MULTIBLOCK, PACKET, CONTROLLER, INFO>, INFO extends TileContainerInfo<CONTROLLER>, L extends LOGIC, MENU extends MultiblockControllerMenu<MULTIBLOCK, PACKET, CONTROLLER, INFO>> extends MultiblockControllerScreen<MULTIBLOCK, PACKET, CONTROLLER, INFO, MENU> {
     protected final LOGIC logic;
 
-    public GuiLogicMultiblockController(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
+    public LogicMultiblockControllerScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
         super(menu, inventory, title, textureLocation);
 
         logic = multiblock.getLogic();

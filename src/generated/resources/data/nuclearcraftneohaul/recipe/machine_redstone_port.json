@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "T": {
+      "item": "minecraft:torch"
+    }
+  },
+  "pattern": [
+    "BRB",
+    "TMT",
+    "BRB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:machine_redstone_port"
+  }
+}

@@ -2,9 +2,9 @@
   "parent": "nuclearcraftneohaul:block/machine",
   "textures": {
     "back": "nuclearcraftneohaul:block/fission/port/vessel_out",
-    "bottom": "nuclearcraftneohaul:block/fission/port/top",
+    "bottom": "nuclearcraftneohaul:block/fission/port/side",
     "front": "nuclearcraftneohaul:block/fission/port/vessel_out",
     "side": "nuclearcraftneohaul:block/fission/port/side",
-    "top": "nuclearcraftneohaul:block/fission/port/top"
+    "top": "nuclearcraftneohaul:block/fission/port/side"
   }
 }

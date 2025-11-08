@@ -23,7 +23,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -248,7 +247,7 @@ public abstract class AbstractProcessorElement {
 
             SizedChanceItemIngredient product = getItemProducts().get(i);
             int productMaxStackSize = product.count();
-            ItemStack productStack = Arrays.stream(product.getItems()).findFirst().orElse(ItemStack.EMPTY);
+            ItemStack productStack = product.getStack();
 
             if (productMaxStackSize <= 0) {
                 continue;
@@ -282,7 +281,7 @@ public abstract class AbstractProcessorElement {
 
             SizedChanceFluidIngredient product = getFluidProducts().get(i);
             int productMaxStackSize = product.amount();
-            FluidStack productStack = Arrays.stream(product.getFluids()).findFirst().orElse(FluidStack.EMPTY);
+            FluidStack productStack = product.getStack();
 
             if (productMaxStackSize <= 0) {
                 continue;

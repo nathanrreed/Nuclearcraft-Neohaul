@@ -13,11 +13,12 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - [ZenCore 2](https://github.com/ZeroNoRyouki/ZeroCore2)
 #### Recommended:
 - [ConnectedTexturesMod](https://github.com/Chisel-Team/ConnectedTexturesMod)
-#### Optional:
 - [EMI](https://github.com/emilyploszaj/emi)
+#### Optional:
 - [JEI](https://github.com/mezz/JustEnoughItems)
 - [CC: Tweaked](https://github.com/cc-tweaked/CC-Tweaked)
 - [Patchouli](https://github.com/VazkiiMods/Patchouli)
+- [Mekanism](https://github.com/mekanism/Mekanism)
 
 ### Current Status:
 
@@ -33,13 +34,13 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Fission Reactors (SFR and MSR)
 - Multitool
 - Machine Interface
+- Heat exchanger
+- Multiblock Machines
 
 #### Continual:
 - Integrations with JEI, EMI, CC: T, Mekanism
 
 #### In progress:
-- Heat exchanger
-- Multiblock Machines
 
 #### Future Additions:
 - Quantum Computer

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    }
+  },
+  "pattern": [
+    "BHB",
+    "SMS",
+    "BHB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:machine_process_port"
+  }
+}

@@ -9,7 +9,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class BasicRecipe implements IRecipe, Recipe<BasicRecipeInput> {
@@ -50,7 +49,7 @@ public class BasicRecipe implements IRecipe, Recipe<BasicRecipeInput> {
 
     @Override
     public ItemStack assemble(BasicRecipeInput input, HolderLookup.Provider registries) {
-        return itemProducts.isEmpty() ? ItemStack.EMPTY : Arrays.stream(itemProducts.getFirst().getItems()).findFirst().orElse(ItemStack.EMPTY).copy();
+        return itemProducts.isEmpty() ? ItemStack.EMPTY : itemProducts.getFirst().getStack().copy();
     }
 
     @Override
@@ -60,7 +59,7 @@ public class BasicRecipe implements IRecipe, Recipe<BasicRecipeInput> {
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return itemProducts.isEmpty() ? ItemStack.EMPTY : Arrays.stream(itemProducts.getFirst().getItems()).findFirst().orElse(ItemStack.EMPTY).copy();
+        return itemProducts.isEmpty() ? ItemStack.EMPTY : itemProducts.getFirst().getStack().copy();
     }
 
     @Override

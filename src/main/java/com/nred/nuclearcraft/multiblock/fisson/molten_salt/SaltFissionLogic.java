@@ -28,7 +28,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -268,7 +267,7 @@ public class SaltFissionLogic extends FissionReactorLogic {
         SizedChanceFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
         if (fluidProduct.amount() > 0) {
             if (outputTank.isEmpty()) {
-                outputTank.setFluidStored(Arrays.stream(fluidProduct.getFluids()).findFirst().orElse(FluidStack.EMPTY));
+                outputTank.setFluidStored(fluidProduct.getStack());
                 outputTank.setFluidAmount(usedInput);
             } else if (fluidProduct.test(outputTank.getFluid())) {
                 outputTank.changeFluidAmount(usedInput);

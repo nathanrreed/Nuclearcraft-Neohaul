@@ -126,6 +126,10 @@ public class SizedChanceFluidIngredient {
         return cachedStacks;
     }
 
+    public FluidStack getStack() {
+        return Arrays.stream(getFluids()).findFirst().orElse(FluidStack.EMPTY);
+    }
+
     public FluidStack[] getFluidsRaw() {
         if (cachedStacks == null) {
             cachedStacks = Stream.of(ingredient.getStacks())

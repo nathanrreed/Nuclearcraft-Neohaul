@@ -15,11 +15,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public abstract class GuiMultiblockController<MULTIBLOCK extends Multiblock<MULTIBLOCK> & IPacketMultiblock<MULTIBLOCK, PACKET>, PACKET extends MultiblockUpdatePacket, CONTROLLER extends BlockEntity & IMultiblockGuiPart<MULTIBLOCK, PACKET, CONTROLLER, INFO>, INFO extends TileContainerInfo<CONTROLLER>, MENU extends MultiblockControllerMenu<MULTIBLOCK, PACKET, CONTROLLER, INFO>> extends GuiInfoTile<MENU, CONTROLLER, PACKET, INFO> {
+public abstract class MultiblockControllerScreen<MULTIBLOCK extends Multiblock<MULTIBLOCK> & IPacketMultiblock<MULTIBLOCK, PACKET>, PACKET extends MultiblockUpdatePacket, CONTROLLER extends BlockEntity & IMultiblockGuiPart<MULTIBLOCK, PACKET, CONTROLLER, INFO>, INFO extends TileContainerInfo<CONTROLLER>, MENU extends MultiblockControllerMenu<MULTIBLOCK, PACKET, CONTROLLER, INFO>> extends GuiInfoTile<MENU, CONTROLLER, PACKET, INFO> {
     protected final MULTIBLOCK multiblock;
     protected MultiblockButton.ClearAllMaterial clearAllButton;
 
-    public GuiMultiblockController(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
+    public MultiblockControllerScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
         super(menu, inventory, title, textureLocation);
 
         this.multiblock = menu.tile.getMultiblockController().orElseThrow();

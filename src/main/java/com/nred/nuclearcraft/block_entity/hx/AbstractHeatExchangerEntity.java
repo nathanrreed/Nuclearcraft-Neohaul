@@ -34,11 +34,11 @@ public abstract class AbstractHeatExchangerEntity extends TilePartAbstract<HeatE
 
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
-//        if (position.isFace()) { TODO add or remove
-//            if (isTransparent() && getMultiblockController().isPresent()) {
-//                getMultiblockController().get().shouldSpecialRender = true;
-//            }
-//        }
+        if (position.isFace()) {
+            if (isTransparent() && getMultiblockController().isPresent()) {
+                getMultiblockController().get().shouldSpecialRender = true;
+            }
+        }
         return super.isGoodForPosition(position, validatorCallback);
     }
 

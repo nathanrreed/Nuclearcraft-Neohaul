@@ -23,7 +23,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class SolidFissionControllerScreen extends GuiLogicMultiblockController<FissionReactor, FissionReactorLogic, FissionUpdatePacket, SolidFissionControllerEntity, TileContainerInfo<SolidFissionControllerEntity>, SolidFuelFissionLogic, SolidFissionControllerMenu> {
+public class SolidFissionControllerScreen extends LogicMultiblockControllerScreen<FissionReactor, FissionReactorLogic, FissionUpdatePacket, SolidFissionControllerEntity, TileContainerInfo<SolidFissionControllerEntity>, SolidFuelFissionLogic, SolidFissionControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "solid_fission_controller");
 
     public SolidFissionControllerScreen(SolidFissionControllerMenu menu, Inventory playerInventory, Component title) {

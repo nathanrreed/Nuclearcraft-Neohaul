@@ -424,7 +424,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
             }
 
             ItemStack currentStack = stacks.get(slot);
-            ItemStack nextStack = Arrays.stream(product.getItems()).findFirst().orElse(ItemStack.EMPTY);
+            ItemStack nextStack = product.getStack();
 
             if (currentStack.isEmpty()) {
                 stacks.set(slot, nextStack);
@@ -451,7 +451,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
             }
 
             Tank tank = tanks.get(tankIndex);
-            FluidStack nextStack = Arrays.stream(product.getFluids()).findFirst().orElse(FluidStack.EMPTY);
+            FluidStack nextStack = product.getStack();
 
             if (tank.isEmpty()) {
                 tank.setFluidStored(nextStack);

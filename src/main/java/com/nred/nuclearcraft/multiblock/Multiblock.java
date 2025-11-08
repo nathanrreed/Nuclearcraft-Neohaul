@@ -6,6 +6,8 @@ import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.util.NCMath;
+import com.nred.nuclearcraft.util.PosHelper;
+import com.nred.nuclearcraft.util.StackHelper;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectLists;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
@@ -13,6 +15,7 @@ import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -22,6 +25,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3f;
 
 import java.util.Iterator;
@@ -155,6 +159,75 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
     @Override
     protected int getMaximumZSize() {
         return getMaximumInteriorLength() + 2;
+    }
+
+    public boolean hasAxialSymmetry(Direction.Axis axis) {
+        if (axis == null) {
+            return true;
+        }
+
+        Direction normal = PosHelper.getAxisDirectionDir(axis, Direction.AxisDirection.NEGATIVE);
+        int interiorLength = getInteriorLength(normal);
+
+        if (interiorLength <= 1) {
+            return true;
+        }
+
+        Iterable<BlockPos> plane = getInteriorPlane(normal, 0, 0, 0, 0, 0);
+
+        for (BlockPos planePos : plane) {
+            MutableBlockPos columnPos = new MutableBlockPos(planePos.getX(), planePos.getY(), planePos.getZ());
+            ItemStack stack = StackHelper.blockStateToStack(getWorld().getBlockState(columnPos));
+
+            for (int i = 1; i < interiorLength; ++i) {
+                switch (axis) {
+                    case X -> columnPos.setX(columnPos.getX() + 1);
+                    case Y -> columnPos.setY(columnPos.getY() + 1);
+                    case Z -> columnPos.setZ(columnPos.getZ() + 1);
+                }
+
+                BlockState state = getWorld().getBlockState(columnPos);
+                if ((!stack.isEmpty() || !state.isAir()) && !ItemStack.isSameItem(stack, StackHelper.blockStateToStack(state))) {
+                    if (getLastError().isEmpty()) {
+                        setLastError(MODID + ".multiblock_validation.invalid_axial_symmetry", columnPos, columnPos.getX(), columnPos.getY(), columnPos.getZ(), axis.getName());
+                    }
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean hasPlanarSymmetry(Direction.Axis axis) {
+        if (axis == null) {
+            return true;
+        }
+
+        Direction normal = PosHelper.getAxisDirectionDir(axis, Direction.AxisDirection.NEGATIVE);
+        int interiorLength = getInteriorLength(normal);
+
+        for (int i = 0; i < interiorLength; ++i) {
+            ItemStack stack = null;
+            for (BlockPos pos : getInteriorPlane(normal, i, 0, 0, 0, 0)) {
+                BlockState state = getWorld().getBlockState(pos);
+                if (stack == null) {
+                    stack = StackHelper.blockStateToStack(state);
+                } else if ((!stack.isEmpty() || !state.isAir()) && !ItemStack.isSameItem(stack, StackHelper.blockStateToStack(state))) {
+                    if (getLastError().isEmpty()) {
+                        String planeName = switch (axis) {
+                            case X -> "YZ";
+                            case Y -> "XZ";
+                            case Z -> "XY";
+                        };
+                        setLastError(MODID + ".multiblock_validation.invalid_planar_symmetry", pos, pos.getX(), pos.getY(), pos.getZ(), planeName);
+                    }
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public int getMinInteriorX() {

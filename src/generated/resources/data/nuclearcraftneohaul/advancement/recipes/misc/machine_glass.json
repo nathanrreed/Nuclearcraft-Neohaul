@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_machine_casing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:machine_casing"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:machine_glass"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_machine_casing"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:machine_glass"
+    ]
+  }
+}

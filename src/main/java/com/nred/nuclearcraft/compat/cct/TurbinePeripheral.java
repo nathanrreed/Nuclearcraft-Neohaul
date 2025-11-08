@@ -22,11 +22,6 @@ public final class TurbinePeripheral extends MultiblockPeripheral<Turbine> imple
     }
 
     @LuaFunction(mainThread = true)
-    public boolean isComplete() {
-        return computerPort.isMachineAssembled();
-    }
-
-    @LuaFunction(mainThread = true)
     public boolean isTurbineOn() {
         if (!test()) return false;
         return getMultiblock().isTurbineOn;

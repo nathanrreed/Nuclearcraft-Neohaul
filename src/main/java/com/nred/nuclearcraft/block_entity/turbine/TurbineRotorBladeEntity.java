@@ -18,8 +18,6 @@ import java.util.Iterator;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.TURBINE_ENTITY_TYPE;
 
 public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements TurbineRotorBladeUtil.ITurbineRotorBlade<TurbineRotorBladeEntity> {
-//    public static final Object2ObjectMap<String, TurbineRotorBladeUtil.IRotorBladeType> DYN_BLADE_TYPE_MAP = new Object2ObjectOpenHashMap<>(); TODO
-
     public TurbineRotorBladeUtil.IRotorBladeType bladeType;
     protected TurbineRotorBladeUtil.TurbinePartDir dir = TurbineRotorBladeUtil.TurbinePartDir.Y;
 
@@ -46,12 +44,6 @@ public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements Tu
     public void onMachineDeactivated() {
     }
 
-    @Override
-    public void onAssimilated(Turbine multiblock) {
-//        doStandardNullControllerResponse(multiblock); TODO
-        super.onAssimilated(multiblock);
-    }
-
     public static class Variant extends TurbineRotorBladeEntity {
         protected Variant(final BlockPos position, final BlockState blockState, TurbineRotorBladeType bladeType) {
             super(position, blockState, bladeType);
@@ -75,12 +67,6 @@ public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements Tu
             super(position, blockState, TurbineRotorBladeType.SIC_SIC_CMC);
         }
     }
-
-//    @Override TODO REMOVE
-//    public void onMachineAssembled(Turbine multiblock) {
-//        doStandardNullControllerResponse(multiblock);
-//        super.onMachineAssembled(multiblock);
-//    }
 
     @Override
     public BlockPos bladePos() {
@@ -126,24 +112,12 @@ public class TurbineRotorBladeEntity extends AbstractTurbineEntity implements Tu
     @Override
     protected void saveAdditional(CompoundTag data, HolderLookup.Provider registries) {
         super.saveAdditional(data, registries);
-//        if (bladeType != null) {
-//            data.putString("bladeName", bladeType.getSerializedName());
-//        }
-
         data.putInt("bladeDir", dir.ordinal());
     }
 
     @Override
     public void loadAdditional(CompoundTag data, HolderLookup.Provider registries) {
         super.loadAdditional(data, registries);
-
-//        if (data.contains("bladeName")) {
-//            String bladeName = data.getString("bladeName");
-//            if (DYN_BLADE_TYPE_MAP.containsKey(bladeName)) {
-//                bladeType = DYN_BLADE_TYPE_MAP.get(bladeName);
-//            }
-//        }
-
         dir = TurbineRotorBladeUtil.TurbinePartDir.values()[data.getInt("bladeDir")];
     }
 }

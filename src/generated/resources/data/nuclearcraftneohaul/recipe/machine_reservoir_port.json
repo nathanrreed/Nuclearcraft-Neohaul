@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    },
+    "T": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "BSB",
+    "TMT",
+    "BSB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:machine_reservoir_port"
+  }
+}

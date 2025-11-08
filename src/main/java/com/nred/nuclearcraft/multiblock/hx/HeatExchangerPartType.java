@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.multiblock.hx;
 
 import com.nred.nuclearcraft.block.GenericDirectionalTooltipDeviceBlock;
+import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.hx.*;
 import it.zerono.mods.zerocore.base.multiblock.part.GlassBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
@@ -24,7 +25,7 @@ public enum HeatExchangerPartType implements IHeatExchangerPartType {
     Inlet(() -> HX_ENTITY_TYPE.get("inlet")::get, GenericDirectionalTooltipDeviceBlock::new),
     Outlet(() -> HX_ENTITY_TYPE.get("outlet")::get, GenericDirectionalTooltipDeviceBlock::new),
     RedstonePort(() -> HX_ENTITY_TYPE.get("redstone_port")::get, HeatExchangerRedstonePortBlock::new),
-    ComputerPort(() -> HX_ENTITY_TYPE.get("computer_port")::get, GenericDirectionalTooltipDeviceBlock::new),
+    ComputerPort(() -> HX_ENTITY_TYPE.get("computer_port")::get, GenericTooltipDeviceBlock::new),
     ;
 
     private final MultiblockPartTypeProperties<HeatExchanger, IHeatExchangerPartType> _properties;

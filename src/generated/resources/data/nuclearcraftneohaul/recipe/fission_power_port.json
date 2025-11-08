@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    }
+  },
+  "pattern": [
+    "PCP",
+    "RSR",
+    "PCP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:fission_power_port"
+  }
+}

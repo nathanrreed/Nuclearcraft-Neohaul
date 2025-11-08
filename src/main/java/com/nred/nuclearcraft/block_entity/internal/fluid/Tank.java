@@ -15,10 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 public class Tank extends FluidTank {
-    protected Set<ResourceLocation> allowedFluids; // TODO replace with FluidTank validator
-
     public Tank(int capacity, Set<ResourceLocation> allowedFluids) {
-        super(capacity);
+        super(capacity, e -> allowedFluids.contains(BuiltInRegistries.FLUID.getKey(e.getFluid())));
         setAllowedFluids(allowedFluids);
     }
 
@@ -28,16 +26,8 @@ public class Tank extends FluidTank {
 
     // FluidTank
 
-    public boolean isFluidValid(FluidStack fluidIn) {
-        return !fluidIn.isEmpty() && isFluidValid(fluidIn.getFluid());
-    }
-
-    public boolean isFluidValid(Fluid fluidIn) {
-        return fluidIn != null && (allowedFluids == null || allowedFluids.contains(BuiltInRegistries.FLUID.getKey(fluidIn)));
-    }
-
     public void setAllowedFluids(Set<ResourceLocation> allowedFluids) {
-        this.allowedFluids = allowedFluids;
+        setValidator(e -> allowedFluids.contains(BuiltInRegistries.FLUID.getKey(e.getFluid())));
     }
 
     // Tank Methods

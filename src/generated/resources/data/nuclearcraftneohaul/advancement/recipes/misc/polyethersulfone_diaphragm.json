@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polyethersulfone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:polyethersulfone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:polyethersulfone_diaphragm"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_polyethersulfone"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:polyethersulfone_diaphragm"
+    ]
+  }
+}

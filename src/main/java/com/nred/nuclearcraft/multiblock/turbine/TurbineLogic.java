@@ -52,7 +52,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 import org.joml.Vector3f;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -875,7 +874,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             return;
         }
         if (outputTank.isEmpty()) {
-            outputTank.setFluidStored(Arrays.stream(fluidProduct.getFluids()).findFirst().orElse(FluidStack.EMPTY));
+            outputTank.setFluidStored(fluidProduct.getStack());
             outputTank.setFluidAmount(outputTank.getFluidAmount() * multiblock.recipeInputRate);
         } else if (fluidProduct.test(outputTank.getFluid())) {
             outputTank.changeFluidAmount(fluidProduct.amount() * multiblock.recipeInputRate);

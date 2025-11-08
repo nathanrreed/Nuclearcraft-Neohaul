@@ -6,17 +6,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-import java.util.Arrays;
 import java.util.List;
 
 public record BasicRecipeInput(List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients) implements RecipeInput {
     @Override
     public ItemStack getItem(int index) {
-        return Arrays.stream(itemIngredients.get(index).getItems()).findFirst().orElse(ItemStack.EMPTY);
+        return itemIngredients.get(index).getStack();
     }
 
     public FluidStack getFluid(int index) {
-        return Arrays.stream(fluidIngredients.get(index).getFluids()).findFirst().orElse(FluidStack.EMPTY);
+        return fluidIngredients.get(index).getStack();
     }
 
     @Override
