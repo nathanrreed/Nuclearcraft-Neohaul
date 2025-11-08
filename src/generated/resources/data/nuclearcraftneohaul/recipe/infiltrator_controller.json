@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "E": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:thermoconducting_alloy"
+    }
+  },
+  "pattern": [
+    "BEB",
+    "TMT",
+    "BEB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:infiltrator_controller"
+  }
+}

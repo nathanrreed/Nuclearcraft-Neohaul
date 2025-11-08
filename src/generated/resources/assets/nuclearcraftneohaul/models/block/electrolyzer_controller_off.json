@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/machine/electrolyzer/controller_back",
+    "bottom": "nuclearcraftneohaul:block/machine/electrolyzer/controller_bottom",
+    "front": "nuclearcraftneohaul:block/machine/electrolyzer/controller_front_off",
+    "side": "nuclearcraftneohaul:block/machine/electrolyzer/controller_side",
+    "top": "nuclearcraftneohaul:block/machine/electrolyzer/controller_top"
+  }
+}

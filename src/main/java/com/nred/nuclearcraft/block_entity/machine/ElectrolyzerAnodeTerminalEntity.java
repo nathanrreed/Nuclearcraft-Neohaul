@@ -9,12 +9,12 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Optional;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.ELECTROLYZER_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
-public class TileElectrolyzerAnodeTerminal extends AbstractMachineEntity {
-    public TileElectrolyzerAnodeTerminal(BlockPos pos, BlockState blockState) {
-        super(ELECTROLYZER_ENTITY_TYPE.get("anode_terminal").get(), pos, blockState);
+public class ElectrolyzerAnodeTerminalEntity extends AbstractMachineEntity {
+    public ElectrolyzerAnodeTerminalEntity(BlockPos pos, BlockState blockState) {
+        super(MACHINE_ENTITY_TYPE.get("anode_terminal").get(), pos, blockState);
     }
 
     @Override

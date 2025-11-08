@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/machine/distiller/controller_back",
+    "bottom": "nuclearcraftneohaul:block/machine/distiller/controller_bottom",
+    "front": "nuclearcraftneohaul:block/machine/distiller/controller_front_on",
+    "side": "nuclearcraftneohaul:block/machine/distiller/controller_side",
+    "top": "nuclearcraftneohaul:block/machine/distiller/controller_top"
+  }
+}

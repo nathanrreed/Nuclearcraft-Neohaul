@@ -800,9 +800,6 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleBlocks(BATTERY_MAP, Map.of("du_voltaic_pile", "DU Voltaic Pile", "du_lithium_ion_battery", "DU Lithium Ion Battery"));
         simpleBlocks(HX_MAP);
         simpleBlocks(MACHINE_MAP);
-        simpleBlocks(DISTILLER_MAP);
-        simpleBlocks(ELECTROLYZER_MAP);
-        simpleBlocks(INFILTRATOR_MAP);
     }
 
     private void buckets() {

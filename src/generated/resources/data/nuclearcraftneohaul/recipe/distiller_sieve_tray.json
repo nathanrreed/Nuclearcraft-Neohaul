@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "O": {
+      "tag": "c:ingots/boron"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "BSB",
+    "OMO",
+    "BSB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:distiller_sieve_tray"
+  }
+}

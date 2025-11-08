@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.multiblock.machine;
 
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
-import com.nred.nuclearcraft.block_entity.machine.TileInfiltratorHeatingUnit;
-import com.nred.nuclearcraft.block_entity.machine.TileInfiltratorPressureChamber;
+import com.nred.nuclearcraft.block_entity.machine.InfiltratorHeatingUnitEntity;
+import com.nred.nuclearcraft.block_entity.machine.InfiltratorPressureChamberEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
@@ -101,10 +101,10 @@ public class InfiltratorLogic extends MachineLogic {
 
         heatingCount = 0L;
 
-        Map<Long, TileInfiltratorPressureChamber> pressureChamberMap = getPartMap(TileInfiltratorPressureChamber.class);
-        Map<Long, TileInfiltratorHeatingUnit> heatingUnitMap = getPartMap(TileInfiltratorHeatingUnit.class);
+        Map<Long, InfiltratorPressureChamberEntity> pressureChamberMap = getPartMap(InfiltratorPressureChamberEntity.class);
+        Map<Long, InfiltratorHeatingUnitEntity> heatingUnitMap = getPartMap(InfiltratorHeatingUnitEntity.class);
 
-        for (TileInfiltratorPressureChamber pressureChamber : pressureChamberMap.values()) {
+        for (InfiltratorPressureChamberEntity pressureChamber : pressureChamberMap.values()) {
             BlockPos pos = pressureChamber.getBlockPos();
             for (Direction dir : Direction.values()) {
                 if (heatingUnitMap.containsKey(pos.relative(dir).asLong())) {
@@ -134,7 +134,7 @@ public class InfiltratorLogic extends MachineLogic {
     @Override
     public void setActivity(boolean isMachineOn) {
         super.setActivity(isMachineOn);
-        for (TileInfiltratorHeatingUnit heatingUnit : getParts(TileInfiltratorHeatingUnit.class)) {
+        for (InfiltratorHeatingUnitEntity heatingUnit : getParts(InfiltratorHeatingUnitEntity.class)) {
             heatingUnit.setActivity(isMachineOn);
         }
     }
@@ -142,7 +142,7 @@ public class InfiltratorLogic extends MachineLogic {
     @Override
     protected void setRecipeStats(@Nullable BasicRecipe recipe) {
         super.setRecipeStats(recipe);
-        heatingBonus = recipe == null ? 0D : heatingCount * ((MultiblockInfiltratorRecipe) recipe).getInfiltratorHeatingFactor() / getPartCount(TileInfiltratorPressureChamber.class);
+        heatingBonus = recipe == null ? 0D : heatingCount * ((MultiblockInfiltratorRecipe) recipe).getInfiltratorHeatingFactor() / getPartCount(InfiltratorPressureChamberEntity.class);
     }
 
     protected double getReservoirLevelFraction() {

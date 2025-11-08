@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "C": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:thermoconducting_alloy"
+    }
+  },
+  "pattern": [
+    "BCB",
+    "TMT",
+    "BCB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:infiltrator_heating_unit"
+  }
+}

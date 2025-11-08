@@ -1,10 +1,10 @@
 package com.nred.nuclearcraft.multiblock.machine;
 
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
-import com.nred.nuclearcraft.block_entity.machine.TileDistillerLiquidDistributor;
-import com.nred.nuclearcraft.block_entity.machine.TileDistillerReboilingUnit;
-import com.nred.nuclearcraft.block_entity.machine.TileDistillerRefluxUnit;
-import com.nred.nuclearcraft.block_entity.machine.TileDistillerSieveTray;
+import com.nred.nuclearcraft.block_entity.machine.DistillerLiquidDistributorEntity;
+import com.nred.nuclearcraft.block_entity.machine.DistillerReboilingUnitEntity;
+import com.nred.nuclearcraft.block_entity.machine.DistillerRefluxUnitEntity;
+import com.nred.nuclearcraft.block_entity.machine.DistillerSieveTrayEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
@@ -107,8 +107,8 @@ public class DistillerLogic extends MachineLogic {
 
         int minY = multiblock.getMinY(), maxY = multiblock.getMaxY();
 
-        Collection<TileDistillerRefluxUnit> refluxUnits = getParts(TileDistillerRefluxUnit.class);
-        for (TileDistillerRefluxUnit refluxUnit : refluxUnits) {
+        Collection<DistillerRefluxUnitEntity> refluxUnits = getParts(DistillerRefluxUnitEntity.class);
+        for (DistillerRefluxUnitEntity refluxUnit : refluxUnits) {
             BlockPos pos = refluxUnit.getBlockPos();
             if (pos.getY() != maxY) {
                 multiblock.setLastError(pos, MODID + ".multiblock_validation.distiller.invalid_reflux_unit");
@@ -116,8 +116,8 @@ public class DistillerLogic extends MachineLogic {
             }
         }
 
-        Collection<TileDistillerReboilingUnit> reboilingUnits = getParts(TileDistillerReboilingUnit.class);
-        for (TileDistillerReboilingUnit reboilingUnit : reboilingUnits) {
+        Collection<DistillerReboilingUnitEntity> reboilingUnits = getParts(DistillerReboilingUnitEntity.class);
+        for (DistillerReboilingUnitEntity reboilingUnit : reboilingUnits) {
             BlockPos pos = reboilingUnit.getBlockPos();
             if (pos.getY() != minY) {
                 multiblock.setLastError(pos, MODID + ".multiblock_validation.distiller.invalid_reboiling_unit");
@@ -125,8 +125,8 @@ public class DistillerLogic extends MachineLogic {
             }
         }
 
-        Collection<TileDistillerLiquidDistributor> liquidDistributors = getParts(TileDistillerLiquidDistributor.class);
-        for (TileDistillerLiquidDistributor liquidDistributor : liquidDistributors) {
+        Collection<DistillerLiquidDistributorEntity> liquidDistributors = getParts(DistillerLiquidDistributorEntity.class);
+        for (DistillerLiquidDistributorEntity liquidDistributor : liquidDistributors) {
             BlockPos pos = liquidDistributor.getBlockPos();
             if (pos.getY() != maxY) {
                 multiblock.setLastError(pos, MODID + ".multiblock_validation.distiller.invalid_liquid_distributor");
@@ -143,7 +143,7 @@ public class DistillerLogic extends MachineLogic {
         for (int i = 0, len = multiblock.getInteriorLengthY(); i < len; ++i) {
             BlockPos pos = corner.above(i);
             BasicRecipe blockRecipe;
-            if (getWorld().getBlockEntity(pos) instanceof TileDistillerSieveTray) {
+            if (getWorld().getBlockEntity(pos) instanceof DistillerSieveTrayEntity) {
                 blockRecipe = RecipeHelper.blockRecipe(NCRecipes.machine_sieve_assembly, getWorld(), getWorld().getBlockState(pos.above()));
                 if (blockRecipe == null) {
                     multiblock.setLastError(pos, MODID + ".multiblock_validation.distiller.invalid_sieve_recipe");
@@ -184,7 +184,7 @@ public class DistillerLogic extends MachineLogic {
     @Override
     public void setActivity(boolean isMachineOn) {
         super.setActivity(isMachineOn);
-        for (TileDistillerReboilingUnit reboilingUnit : getParts(TileDistillerReboilingUnit.class)) {
+        for (DistillerReboilingUnitEntity reboilingUnit : getParts(DistillerReboilingUnitEntity.class)) {
             reboilingUnit.setActivity(isMachineOn);
         }
     }

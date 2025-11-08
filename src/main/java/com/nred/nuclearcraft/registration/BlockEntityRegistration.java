@@ -49,9 +49,6 @@ public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractHeatExchangerEntity>>> HX_ENTITY_TYPE = createHeatExchanger();
 
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> MACHINE_ENTITY_TYPE = createMachine();
-    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> DISTILLER_ENTITY_TYPE = createHeatDistiller();
-    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> ELECTROLYZER_ENTITY_TYPE = createElectrolyzer();
-    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> INFILTRATOR_ENTITY_TYPE = createInfiltrator();
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(UniversalBinEntity::new, UNIVERSAL_BIN.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends MachineInterfaceEntity>> MACHINE_INTERFACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("machine_interface", () -> BlockEntityType.Builder.of(MachineInterfaceEntity::new, MACHINE_INTERFACE.get()).build(null));
@@ -188,6 +185,24 @@ public class BlockEntityRegistration {
         map.put("redstone_port", BLOCK_ENTITY_TYPES.register("machine_redstone_port", () -> BlockEntityType.Builder.of(MachineRedstonePortEntity::new, MACHINE_MAP.get("large_machine_redstone_port").get()).build(null)));
         map.put("process_port", BLOCK_ENTITY_TYPES.register("machine_process_port", () -> BlockEntityType.Builder.of(MachineProcessPortEntity::new, MACHINE_MAP.get("large_machine_process_port").get()).build(null)));
         map.put("reservoir_port", BLOCK_ENTITY_TYPES.register("machine_reservoir_port", () -> BlockEntityType.Builder.of(MachineReservoirPortEntity::new, MACHINE_MAP.get("large_machine_reservoir_port").get()).build(null)));
+
+        // Electrolyzer
+        map.put("electrolyzer_controller", BLOCK_ENTITY_TYPES.register("electrolyzer_controller", () -> BlockEntityType.Builder.of(ElectrolyzerControllerEntity::new, MACHINE_MAP.get("electrolyzer_controller").get()).build(null)));
+        map.put("electrolyzer_cathode_terminal", BLOCK_ENTITY_TYPES.register("electrolyzer_cathode_terminal", () -> BlockEntityType.Builder.of(ElectrolyzerCathodeTerminalEntity::new, MACHINE_MAP.get("electrolyzer_cathode_terminal").get()).build(null)));
+        map.put("electrolyzer_anode_terminal", BLOCK_ENTITY_TYPES.register("electrolyzer_anode_terminal", () -> BlockEntityType.Builder.of(ElectrolyzerAnodeTerminalEntity::new, MACHINE_MAP.get("electrolyzer_anode_terminal").get()).build(null)));
+
+        // Distiller
+        map.put("distiller_controller", BLOCK_ENTITY_TYPES.register("distiller_controller", () -> BlockEntityType.Builder.of(DistillerControllerEntity::new, MACHINE_MAP.get("distiller_controller").get()).build(null)));
+        map.put("distiller_sieve_tray", BLOCK_ENTITY_TYPES.register("distiller_sieve_tray", () -> BlockEntityType.Builder.of(DistillerSieveTrayEntity::new, MACHINE_MAP.get("distiller_sieve_tray").get()).build(null)));
+        map.put("distiller_reflux_unit", BLOCK_ENTITY_TYPES.register("distiller_reflux_unit", () -> BlockEntityType.Builder.of(DistillerRefluxUnitEntity::new, MACHINE_MAP.get("distiller_reflux_unit").get()).build(null)));
+        map.put("distiller_reboiling_unit", BLOCK_ENTITY_TYPES.register("distiller_reboiling_unit", () -> BlockEntityType.Builder.of(DistillerReboilingUnitEntity::new, MACHINE_MAP.get("distiller_reboiling_unit").get()).build(null)));
+        map.put("distiller_liquid_distributor", BLOCK_ENTITY_TYPES.register("distiller_liquid_distributor", () -> BlockEntityType.Builder.of(DistillerLiquidDistributorEntity::new, MACHINE_MAP.get("distiller_liquid_distributor").get()).build(null)));
+
+        // Infiltrator
+        map.put("infiltrator_controller", BLOCK_ENTITY_TYPES.register("infiltrator_controller", () -> BlockEntityType.Builder.of(InfiltratorControllerEntity::new, MACHINE_MAP.get("infiltrator_controller").get()).build(null)));
+        map.put("infiltrator_pressure_chamber", BLOCK_ENTITY_TYPES.register("infiltrator_pressure_chamber", () -> BlockEntityType.Builder.of(InfiltratorPressureChamberEntity::new, MACHINE_MAP.get("infiltrator_pressure_chamber").get()).build(null)));
+        map.put("infiltrator_heating_unit", BLOCK_ENTITY_TYPES.register("infiltrator_heating_unit", () -> BlockEntityType.Builder.of(InfiltratorHeatingUnitEntity::new, MACHINE_MAP.get("infiltrator_heating_unit").get()).build(null)));
+
         return map;
     }
 

@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.DISTILLER_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class DistillerControllerEntity extends AbstractMachineEntity implements IMachineController<DistillerControllerEntity> {
@@ -34,7 +34,7 @@ public class DistillerControllerEntity extends AbstractMachineEntity implements 
     protected int brightnessIndex = 0;
 
     public DistillerControllerEntity(BlockPos pos, BlockState blockState) {
-        super(DISTILLER_ENTITY_TYPE.get("controller").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("controller").get(), pos, blockState);
     }
 
     @Override

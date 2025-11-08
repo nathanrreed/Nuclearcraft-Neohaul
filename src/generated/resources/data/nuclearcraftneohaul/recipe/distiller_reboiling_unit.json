@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "C": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "O": {
+      "tag": "c:ingots/copper"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:sintered_steel"
+    }
+  },
+  "pattern": [
+    "BSB",
+    "OMO",
+    "BCB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:distiller_reboiling_unit"
+  }
+}

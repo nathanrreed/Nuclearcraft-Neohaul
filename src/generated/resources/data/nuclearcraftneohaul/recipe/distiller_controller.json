@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "F": {
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "BFB",
+    "TMT",
+    "BFB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:distiller_controller"
+  }
+}

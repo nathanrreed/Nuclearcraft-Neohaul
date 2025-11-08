@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/machine/electrolyzer/cathode_terminal_back",
+    "bottom": "nuclearcraftneohaul:block/machine/electrolyzer/cathode_terminal_top",
+    "front": "nuclearcraftneohaul:block/machine/electrolyzer/cathode_terminal_front",
+    "side": "nuclearcraftneohaul:block/machine/electrolyzer/cathode_terminal_side",
+    "top": "nuclearcraftneohaul:block/machine/electrolyzer/cathode_terminal_top"
+  }
+}

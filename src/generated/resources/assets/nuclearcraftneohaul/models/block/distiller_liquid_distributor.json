@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/machine/distiller/liquid_distributor_side",
+    "bottom": "nuclearcraftneohaul:block/machine/distiller/liquid_distributor_bottom",
+    "front": "nuclearcraftneohaul:block/machine/distiller/liquid_distributor_side",
+    "side": "nuclearcraftneohaul:block/machine/distiller/liquid_distributor_side",
+    "top": "nuclearcraftneohaul:block/machine/distiller/liquid_distributor_top"
+  }
+}

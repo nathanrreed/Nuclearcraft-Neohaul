@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.ELECTROLYZER_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class ElectrolyzerControllerEntity extends AbstractMachineEntity implements IMachineController<ElectrolyzerControllerEntity> {
@@ -27,7 +27,7 @@ public class ElectrolyzerControllerEntity extends AbstractMachineEntity implemen
     protected boolean isRenderer = false;
 
     public ElectrolyzerControllerEntity(BlockPos pos, BlockState blockState) {
-        super(ELECTROLYZER_ENTITY_TYPE.get("controller").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("controller").get(), pos, blockState);
     }
 
     @Override

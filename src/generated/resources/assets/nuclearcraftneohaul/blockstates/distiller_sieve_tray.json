@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "invisible=false": {
+      "model": "nuclearcraftneohaul:block/distiller_sieve_tray",
+      "x": 90
+    },
+    "invisible=true": {
+      "model": "nuclearcraftneohaul:block/block_invisible"
+    }
+  }
+}

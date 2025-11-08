@@ -2,8 +2,8 @@ package com.nred.nuclearcraft.multiblock.machine;
 
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.machine.AbstractMachineEntity;
-import com.nred.nuclearcraft.block_entity.machine.TileElectrolyzerAnodeTerminal;
-import com.nred.nuclearcraft.block_entity.machine.TileElectrolyzerCathodeTerminal;
+import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerAnodeTerminalEntity;
+import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerCathodeTerminalEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.NCRecipes;
@@ -131,8 +131,8 @@ public class ElectrolyzerLogic extends MachineLogic {
         multiblock.baseSpeedMultiplier = 0D;
         multiblock.basePowerMultiplier = 0D;
 
-        Map<Long, TileElectrolyzerCathodeTerminal> cathodeMap = getPartMap(TileElectrolyzerCathodeTerminal.class);
-        Map<Long, TileElectrolyzerAnodeTerminal> anodeMap = getPartMap(TileElectrolyzerAnodeTerminal.class);
+        Map<Long, ElectrolyzerCathodeTerminalEntity> cathodeMap = getPartMap(ElectrolyzerCathodeTerminalEntity.class);
+        Map<Long, ElectrolyzerAnodeTerminalEntity> anodeMap = getPartMap(ElectrolyzerAnodeTerminalEntity.class);
 
         if (!checkElectrodeTerminals(cathodeMap, "cathode") || !checkElectrodeTerminals(anodeMap, "anode")) {
             return false;
@@ -373,8 +373,8 @@ public class ElectrolyzerLogic extends MachineLogic {
 
             clearSounds();
 
-            Map<Long, TileElectrolyzerCathodeTerminal> cathodeMap = getPartMap(TileElectrolyzerCathodeTerminal.class);
-            Map<Long, TileElectrolyzerAnodeTerminal> anodeMap = getPartMap(TileElectrolyzerAnodeTerminal.class);
+            Map<Long, ElectrolyzerCathodeTerminalEntity> cathodeMap = getPartMap(ElectrolyzerCathodeTerminalEntity.class);
+            Map<Long, ElectrolyzerAnodeTerminalEntity> anodeMap = getPartMap(ElectrolyzerAnodeTerminalEntity.class);
             int electrodeCount = cathodeMap.size() + anodeMap.size();
             if (electrodeCount <= 0) {
                 return;

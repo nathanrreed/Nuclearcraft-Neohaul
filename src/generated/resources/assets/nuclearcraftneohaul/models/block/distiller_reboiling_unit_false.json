@@ -1,0 +1,10 @@
+{
+  "parent": "nuclearcraftneohaul:block/machine",
+  "textures": {
+    "back": "nuclearcraftneohaul:block/machine/distiller/reboiling_unit_side",
+    "bottom": "nuclearcraftneohaul:block/machine/distiller/reboiling_unit_bottom",
+    "front": "nuclearcraftneohaul:block/machine/distiller/reboiling_unit_side",
+    "side": "nuclearcraftneohaul:block/machine/distiller/reboiling_unit_side",
+    "top": "nuclearcraftneohaul:block/machine/distiller/reboiling_unit_top_off"
+  }
+}

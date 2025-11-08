@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "F": {
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:sintered_steel"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "BFB",
+    "TMT",
+    "BSB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:distiller_reflux_unit"
+  }
+}

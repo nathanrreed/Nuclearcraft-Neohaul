@@ -224,6 +224,20 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem("steel", MACHINE_MAP.get("steel_sieve_assembly"), "machine/sieve_assembly");
         blockWithItem("polytetrafluoroethene", MACHINE_MAP.get("polytetrafluoroethene_sieve_assembly"), "machine/sieve_assembly");
         blockWithItem("hastelloy", MACHINE_MAP.get("hastelloy_sieve_assembly"), "machine/sieve_assembly");
+
+        directionalMachine("controller", MACHINE_MAP.get("electrolyzer_controller"), "machine/electrolyzer", ACTIVE);
+        directionalTop("cathode_terminal", MACHINE_MAP.get("electrolyzer_cathode_terminal"), "machine/electrolyzer");
+        directionalTop("anode_terminal", MACHINE_MAP.get("electrolyzer_anode_terminal"), "machine/electrolyzer");
+
+        directionalMachine("controller", MACHINE_MAP.get("distiller_controller"), "machine/distiller", ACTIVE);
+        invisibleBlock("sieve_tray", MACHINE_MAP.get("distiller_sieve_tray"), "machine/distiller");
+        topBottomSideBlock("reflux_unit", MACHINE_MAP.get("distiller_reflux_unit"), "machine/distiller");
+        reboiling_unit(MACHINE_MAP.get("distiller_reboiling_unit"));
+        topBottomSideBlock("liquid_distributor", MACHINE_MAP.get("distiller_liquid_distributor"), "machine/distiller");
+
+        directionalMachine("controller", MACHINE_MAP.get("infiltrator_controller"), "machine/infiltrator", ACTIVE);
+        booleanBlock("heating_unit_on", "heating_unit_off", MACHINE_MAP.get("infiltrator_heating_unit"), "machine/infiltrator", ACTIVE);
+        blockWithItem("pressure_chamber", MACHINE_MAP.get("infiltrator_pressure_chamber"), "machine/infiltrator");
     }
 
     // TODO rename all these functions and merge similar
@@ -251,6 +265,17 @@ class ModBlockStateProvider extends BlockStateProvider {
         }).build());
 
         simpleBlockItem(block, fluid_in);
+    }
+
+    private void reboiling_unit(DeferredBlock<Block> deferredBlock) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/machine/distiller/";
+
+        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc("block/machine")).texture("top", modLoc(base + "reboiling_unit_top_on")).texture("bottom", modLoc(base + "reboiling_unit_bottom")).texture("side", modLoc(base + "reboiling_unit_side")).texture("back", modLoc(base + "reboiling_unit_side")).texture("front", modLoc(base + "reboiling_unit_side"));
+        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc("block/machine")).texture("top", modLoc(base + "reboiling_unit_top_off")).texture("bottom", modLoc(base + "reboiling_unit_bottom")).texture("side", modLoc(base + "reboiling_unit_side")).texture("back", modLoc(base + "reboiling_unit_side")).texture("front", modLoc(base + "reboiling_unit_side"));
+
+        propertyBlock(block, state -> state.getValue(ACTIVE) ? modelTrue : modelFalse);
+        simpleBlockItem(block, modelFalse);
     }
 
     private void simpleBlocks(HashMap<String, DeferredBlock<Block>> map, String folder) {
@@ -346,6 +371,15 @@ class ModBlockStateProvider extends BlockStateProvider {
         ModelFile modelOff = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_off", modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_bottom")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_back")).texture("front", modLoc(base + "_front_off"));
 
         directionalBlock(block, state -> state.getValue(property) ? modelOn : modelOff);
+        simpleBlockItem(block, modelOff);
+    }
+
+    private void topBottomSideBlock(String name, DeferredBlock<Block> deferredBlock, String folder) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/" + name;
+        ModelFile modelOff = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/machine")).texture("top", modLoc(base + "_top")).texture("bottom", modLoc(base + "_bottom")).texture("side", modLoc(base + "_side")).texture("back", modLoc(base + "_side")).texture("front", modLoc(base + "_side"));
+
+        simpleBlock(block, modelOff);
         simpleBlockItem(block, modelOff);
     }
 
@@ -607,5 +641,22 @@ class ModBlockStateProvider extends BlockStateProvider {
                         case Z -> ConfiguredModel.builder().modelFile(modelFunc.apply(state)).rotationX(90).build();
                     };
                 });
+    }
+
+    private void invisibleBlock(String name, DeferredBlock<Block> deferredBlock, String folder) {
+        Block block = deferredBlock.get();
+        String base = BLOCK_FOLDER + "/" + folder + "/" + name;
+
+        ModelFile model = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc("block/top_sides")).texture("top", modLoc(base + "_top")).texture("sides", modLoc(base + "_side"));
+
+        getVariantBuilder(block)
+                .forAllStates(state -> {
+                    if (state.getValue(INVISIBLE)) {
+                        return ConfiguredModel.builder().modelFile(models().getExistingFile(modLoc("block_invisible"))).build();
+                    } else {
+                        return ConfiguredModel.builder().modelFile(model).rotationX(90).build();
+                    }
+                });
+        simpleBlockItem(block, model);
     }
 }

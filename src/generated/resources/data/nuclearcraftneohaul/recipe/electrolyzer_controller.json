@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:hard_carbon_alloy"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:sintered_steel"
+    }
+  },
+  "pattern": [
+    "BSB",
+    "HMH",
+    "BSB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:electrolyzer_controller"
+  }
+}

@@ -6,12 +6,12 @@ import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.DISTILLER_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.INVISIBLE;
 
-public class TileDistillerSieveTray extends AbstractMachineEntity {
-    public TileDistillerSieveTray(BlockPos pos, BlockState blockState) {
-        super(DISTILLER_ENTITY_TYPE.get("sieve_tray").get(), pos, blockState);
+public class DistillerSieveTrayEntity extends AbstractMachineEntity {
+    public DistillerSieveTrayEntity(BlockPos pos, BlockState blockState) {
+        super(MACHINE_ENTITY_TYPE.get("sieve_tray").get(), pos, blockState);
     }
 
     @Override

@@ -5,15 +5,15 @@ import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.DISTILLER_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_ENTITY_TYPE;
 
-public class TileDistillerRefluxUnit extends AbstractMachineEntity {
-    public TileDistillerRefluxUnit(BlockPos pos, BlockState blockState) {
-        super(DISTILLER_ENTITY_TYPE.get("reflux_unit").get(), pos, blockState);
+public class InfiltratorPressureChamberEntity extends AbstractMachineEntity {
+    public InfiltratorPressureChamberEntity(BlockPos pos, BlockState blockState) {
+        super(MACHINE_ENTITY_TYPE.get("pressure_chamber").get(), pos, blockState);
     }
 
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
-        return position.isFace();
+        return position == PartPosition.Interior;
     }
 }

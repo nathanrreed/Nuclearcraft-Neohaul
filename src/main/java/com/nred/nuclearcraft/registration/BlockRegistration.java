@@ -89,9 +89,6 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> BATTERY_MAP = createBatteries();
     public static final HashMap<String, DeferredBlock<Block>> RTG_MAP = createRTGs();
     public static final HashMap<String, DeferredBlock<Block>> MACHINE_MAP = createMachines();
-    public static final HashMap<String, DeferredBlock<Block>> DISTILLER_MAP = createHeatDistillers();
-    public static final HashMap<String, DeferredBlock<Block>> ELECTROLYZER_MAP = createElectrolyzers();
-    public static final HashMap<String, DeferredBlock<Block>> INFILTRATOR_MAP = createInfiltrators();
 
     public static final HashMap<String, DeferredBlock<Block>> PROCESSOR_MAP = createProcessors();
 
@@ -344,21 +341,24 @@ public class BlockRegistration {
         map.put("steel_sieve_assembly", registerBlockItem("steel_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
         map.put("polytetrafluoroethene_sieve_assembly", registerBlockItem("polytetrafluoroethene_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
         map.put("hastelloy_sieve_assembly", registerBlockItem("hastelloy_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
-        return map;
-    }
 
-    private static HashMap<String, DeferredBlock<Block>> createElectrolyzers() {
-        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
-        return map;
-    }
+        // Electrolyzer
+        map.put("electrolyzer_controller", registerBlockItem("electrolyzer_controller", MachinePartType.ElectrolyzerController::createBlock));
+        map.put("electrolyzer_cathode_terminal", registerBlockItem("electrolyzer_cathode_terminal", MachinePartType.CathodeTerminal::createBlock));
+        map.put("electrolyzer_anode_terminal", registerBlockItem("electrolyzer_anode_terminal", MachinePartType.AnodeTerminal::createBlock));
 
-    private static HashMap<String, DeferredBlock<Block>> createHeatDistillers() {
-        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
-        return map;
-    }
+        // Distiller
+        map.put("distiller_controller", registerBlockItem("distiller_controller", MachinePartType.DistillerController::createBlock));
+        map.put("distiller_sieve_tray", registerBlockItem("distiller_sieve_tray", MachinePartType.DistillerSieveTray::createBlock));
+        map.put("distiller_reflux_unit", registerBlockItem("distiller_reflux_unit", MachinePartType.DistillerRefluxUnit::createBlock));
+        map.put("distiller_reboiling_unit", registerBlockItem("distiller_reboiling_unit", MachinePartType.DistillerReboilingUnit::createBlock));
+        map.put("distiller_liquid_distributor", registerBlockItem("distiller_liquid_distributor", MachinePartType.DistillerLiquidDistributor::createBlock));
 
-    private static HashMap<String, DeferredBlock<Block>> createInfiltrators() {
-        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        // Infiltrator
+        map.put("infiltrator_controller", registerBlockItem("infiltrator_controller", MachinePartType.InfiltratorController::createBlock));
+        map.put("infiltrator_pressure_chamber", registerBlockItem("infiltrator_pressure_chamber", MachinePartType.InfiltratorPressureChamber::createBlock));
+        map.put("infiltrator_heating_unit", registerBlockItem("infiltrator_heating_unit", MachinePartType.InfiltratorHeatingUnit::createBlock));
+
         return map;
     }
 

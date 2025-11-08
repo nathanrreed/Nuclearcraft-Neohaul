@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-import static com.nred.nuclearcraft.registration.BlockEntityRegistration.INFILTRATOR_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class InfiltratorControllerEntity extends AbstractMachineEntity implements IMachineController<InfiltratorControllerEntity> {
@@ -27,7 +27,7 @@ public class InfiltratorControllerEntity extends AbstractMachineEntity implement
     protected boolean isRenderer = false;
 
     public InfiltratorControllerEntity(BlockPos pos, BlockState blockState) {
-        super(INFILTRATOR_ENTITY_TYPE.get("controller").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("controller").get(), pos, blockState);
     }
 
     @Override

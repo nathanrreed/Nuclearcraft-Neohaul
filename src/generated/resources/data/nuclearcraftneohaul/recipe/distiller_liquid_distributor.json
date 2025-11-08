@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "E": {
+      "item": "nuclearcraftneohaul:electric_motor"
+    },
+    "F": {
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "T": {
+      "tag": "c:ingots/tin"
+    }
+  },
+  "pattern": [
+    "BFB",
+    "TMT",
+    "BEB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:distiller_liquid_distributor"
+  }
+}
