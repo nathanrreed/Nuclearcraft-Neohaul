@@ -38,7 +38,7 @@ public record EmiBasicInfoRecipe(List<EmiIngredient> stacks, EmiRecipeCategory c
 
     @Override
     public List<EmiStack> getOutputs() {
-        return stacks.stream().flatMap(ing -> ing.getEmiStacks().stream()).toList();
+        return List.of();
     }
 
     @Override

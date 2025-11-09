@@ -59,7 +59,8 @@ public class MelterProvider {
             createSet(recipeOutput, alloy);
         }
 
-        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(PART_MAP.get("silicon_carbide_fiber"), 1).addFluidResult(MOLTEN_MAP.get("silicon"), 144).save(recipeOutput);
+        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(ALLOY_MAP.get("silicon_carbide"), 1).addFluidResult(HOT_GAS_MAP.get("sic_vapor"), 144).save(recipeOutput);
+        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(PART_MAP.get("silicon_carbide_fiber"), 1).addFluidResult(HOT_GAS_MAP.get("sic_vapor"), 144).save(recipeOutput, "sic_vapor_brick_from_silicon_carbide_fiber");
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(PART_MAP.get("polydimethylsilylene"), 1).addFluidResult(MOLTEN_MAP.get("polydimethylsilylene"), 144).save(recipeOutput);
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(PART_MAP.get("polyethersulfone"), 1).addFluidResult(MOLTEN_MAP.get("polyethersulfone"), 144).save(recipeOutput);
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(PART_MAP.get("polytetrafluoroethene"), 1).addFluidResult(MOLTEN_MAP.get("polytetrafluoroethene"), 144).save(recipeOutput);

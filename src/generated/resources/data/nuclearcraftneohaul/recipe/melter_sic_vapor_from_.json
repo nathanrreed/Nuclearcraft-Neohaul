@@ -4,13 +4,13 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:silicon"
+      "fluid": "nuclearcraftneohaul:sic_vapor"
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:silicon_carbide_fiber"
+      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
     }
   ],
   "itemResults": [],

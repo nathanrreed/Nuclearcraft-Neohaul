@@ -3,10 +3,13 @@ package com.nred.nuclearcraft.compat.emi;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
+import com.nred.nuclearcraft.compat.emi.part.TankWithAmount;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiIngredient;
+import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -56,21 +59,30 @@ public class EmiProcessorRecipe extends BasicEmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height(), recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top());
 
-        for (int i = 0; i < inputs.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.inputs().get(i);
-            widgets.addSlot(inputs.get(i), position.x(), position.y()).drawBack(false);
-        }
-
-        boolean large = recipeViewerInfo.outputs().size() < 3;
-        for (int i = 0; i < outputs.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.outputs().get(i);
-            if (outputs.get(i).getKey() instanceof Fluid) {
-                widgets.addTank(outputs.get(i), position.x(), position.y(), large ? 26 : 18, large ? 26 : 18, (int) outputs.get(i).getAmount()).drawBack(false).recipeContext(this);
+        int i = 0, f = 0;
+        for (EmiIngredient input : inputs) {
+            if (input.getEmiStacks().getFirst().getKey() instanceof Fluid) {
+                ScreenPosition position = recipeViewerInfo.fluid_inputs().get(f++);
+                widgets.add(new TankWithAmount(input, position.x(), position.y())).drawBack(false);
             } else {
-                widgets.addSlot(outputs.get(i), position.x(), position.y()).drawBack(false).recipeContext(this);
+                ScreenPosition position = recipeViewerInfo.item_inputs().get(i++);
+                widgets.addSlot(input, position.x(), position.y()).drawBack(false);
             }
         }
 
-        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 3, (int) (time * 10.0), true, false, false).tooltipText(List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", getTimeString(time)), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", getFEString(power, true))));
+        i = 0;
+        f = 0;
+        int size = recipeViewerInfo.fluid_outputs().size() < 3 ? 26 : 18;
+        for (EmiStack output : outputs) {
+            if (output.getKey() instanceof Fluid) {
+                ScreenPosition position = recipeViewerInfo.fluid_outputs().get(f++);
+                widgets.add(new TankWithAmount(output, position.x(), position.y(), size, size)).drawBack(false).recipeContext(this);
+            } else {
+                ScreenPosition position = recipeViewerInfo.item_outputs().get(i++);
+                widgets.addSlot(output, position.x(), position.y()).drawBack(false).recipeContext(this);
+            }
+        }
+
+        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 3, (int) (time * 10.0), true, false, false).tooltipText(List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", Component.literal(getTimeString(time)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", Component.literal(getFEString(power, true)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE)));
     }
 }

@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:machine_diaphragm_recipe",
+  "block": {
+    "item": "nuclearcraftneohaul:zirfon_diaphragm"
+  },
+  "contact_factor": 2.0,
+  "efficiency": 1.0
+}

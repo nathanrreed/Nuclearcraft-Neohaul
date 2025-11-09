@@ -67,11 +67,6 @@ public class RTGEntity extends TilePartAbstract<RTGMultiblock> implements ITicka
     }
 
     @Override
-    public BlockPos getTilePos() {
-        return worldPosition;
-    }
-
-    @Override
     public Block getTileBlockType() {
         return getBlockType();
     }

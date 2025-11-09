@@ -72,10 +72,10 @@ public class JeiTurbineCategory implements IRecipeCategory<TurbineRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, TurbineRecipe recipe, IFocusGroup focuses) {
-        ScreenPosition position = recipeViewerInfo.inputs().getFirst();
+        ScreenPosition position = recipeViewerInfo.fluid_inputs().getFirst();
         builder.addOutputSlot(position.x(), position.y()).addFluidStack(recipe.getFluidIngredient().getFluids()[0].getFluid(), recipe.getFluidIngredient().amount()).setFluidRenderer(recipe.getFluidIngredient().amount(), false, 18, 18);
 
-        position = recipeViewerInfo.outputs().getFirst();
+        position = recipeViewerInfo.fluid_outputs().getFirst();
         builder.addOutputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.getFluidIngredient().getFluids()[0].getFluid(), recipe.getFluidIngredient().amount()).setFluidRenderer(recipe.getFluidIngredient().amount(), false, 24, 24);
     }
 

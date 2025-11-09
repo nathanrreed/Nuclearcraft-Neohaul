@@ -12,6 +12,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 
 import java.util.List;
 
@@ -19,11 +20,13 @@ import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.EL
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.ELECTROLYZER_ELECTROLYTE_RECIPE_TYPE;
 
 public class ElectrolyzerElectrolyteRecipe extends BasicRecipe {
+    private final FluidIngredient electrolyte;
     private final double efficiency;
     private final String group;
 
-    public ElectrolyzerElectrolyteRecipe(SizedChanceFluidIngredient electrolyte, double efficiency, String group) {
-        super(List.of(), List.of(electrolyte), List.of(), List.of());
+    public ElectrolyzerElectrolyteRecipe(FluidIngredient electrolyte, double efficiency, String group) {
+        super(List.of(), List.of(new SizedChanceFluidIngredient(electrolyte, 1)), List.of(), List.of());
+        this.electrolyte = electrolyte;
         this.efficiency = efficiency;
         this.group = group;
     }
@@ -51,16 +54,20 @@ public class ElectrolyzerElectrolyteRecipe extends BasicRecipe {
         return group;
     }
 
+    public FluidIngredient electrolyte() {
+        return electrolyte;
+    }
+
     public static class Serializer implements RecipeSerializer<ElectrolyzerElectrolyteRecipe> {
         private static final MapCodec<ElectrolyzerElectrolyteRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("electrolyte").forGetter(ElectrolyzerElectrolyteRecipe::getFluidIngredient),
+                        FluidIngredient.CODEC.fieldOf("electrolyte").forGetter(ElectrolyzerElectrolyteRecipe::electrolyte),
                         Codec.DOUBLE.fieldOf("efficiency").forGetter(ElectrolyzerElectrolyteRecipe::getElectrolyzerElectrolyteEfficiency),
                         Codec.STRING.fieldOf("group").forGetter(ElectrolyzerElectrolyteRecipe::getElectrolyteGroup)
                 ).apply(inst, ElectrolyzerElectrolyteRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, ElectrolyzerElectrolyteRecipe> STREAM_CODEC = StreamCodec.composite(
-                SizedChanceFluidIngredient.STREAM_CODEC, ElectrolyzerElectrolyteRecipe::getFluidIngredient,
+                FluidIngredient.STREAM_CODEC, ElectrolyzerElectrolyteRecipe::electrolyte,
                 ByteBufCodecs.DOUBLE, ElectrolyzerElectrolyteRecipe::getElectrolyzerElectrolyteEfficiency,
                 ByteBufCodecs.STRING_UTF8, ElectrolyzerElectrolyteRecipe::getElectrolyteGroup,
                 ElectrolyzerElectrolyteRecipe::new

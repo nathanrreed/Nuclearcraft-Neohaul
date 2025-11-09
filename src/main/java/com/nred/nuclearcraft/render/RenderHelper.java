@@ -6,23 +6,33 @@ import it.zerono.mods.zerocore.lib.client.render.FluidTankRenderer;
 import it.zerono.mods.zerocore.lib.client.render.buffer.VertexBuilderWrapper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.joml.Quaternionf;
 
 import java.util.Objects;
 import java.util.function.IntToDoubleFunction;
 import java.util.function.Predicate;
 
 public class RenderHelper {
-    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, int xSize, int ySize, int zSize) {
-        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, x -> x.getFluid().getFluidType().isLighterThanAir(), x -> x);
+    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, float xSize, float ySize, float zSize) {
+        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, x -> x.getFluid().getFluidType().isLighterThanAir(), x -> x, Direction.UP);
     }
 
-    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, int xSize, int ySize, int zSize, Predicate<FluidStack> isGaseous) {
-        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, isGaseous, x -> x);
+    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, float xSize, float ySize, float zSize, Direction fillDir) {
+        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, x -> x.getFluid().getFluidType().isLighterThanAir(), x -> x, fillDir);
     }
 
-    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, int xSize, int ySize, int zSize, Predicate<FluidStack> isGaseous, IntToDoubleFunction getAmount) {
+    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, float xSize, float ySize, float zSize, Predicate<FluidStack> isGaseous) {
+        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, isGaseous, x -> x, Direction.UP);
+    }
+
+    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, float xSize, float ySize, float zSize, Predicate<FluidStack> isGaseous, IntToDoubleFunction getAmount) {
+        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, Direction.UP);
+    }
+
+    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, float xSize, float ySize, float zSize, Predicate<FluidStack> isGaseous, IntToDoubleFunction getAmount, Direction fillDir) {
         FluidTankRenderer.Single renderer = new FluidTankRenderer.Single(capacity, 0, 0, 0, xSize, ySize, zSize);
 
         boolean gaseous = isGaseous.test(stack);
@@ -36,6 +46,15 @@ public class RenderHelper {
             double fraction = Math.min(1D, amount / capacity);
             renderer.render(poseStack, new TintingRenderTypeBufferWrapper(bufferSource, (float) fraction, 1f, 1f, 1f), packedLight, stack.copyWithAmount(capacity));
         } else {
+            poseStack.rotateAround(switch (fillDir) { // TODO check if these are right way around
+                case UP -> new Quaternionf();
+                case DOWN -> new Quaternionf().setAngleAxis(Math.toRadians(180), 0, 0, 1);
+                case SOUTH -> new Quaternionf().setAngleAxis(Math.toRadians(270), 0, 0, 1);
+                case NORTH -> new Quaternionf().setAngleAxis(Math.toRadians(90), 0, 0, 1);
+                case WEST -> new Quaternionf().setAngleAxis(Math.toRadians(270), 1, 0, 0);
+                case EAST -> new Quaternionf().setAngleAxis(Math.toRadians(90), 1, 0, 0);
+
+            }, (xSize + 1) / 2f, (ySize + 1) / 2f, (zSize + 1) / 2f);
             renderer.render(poseStack, bufferSource, packedLight, stack.copyWithAmount((int) amount));
         }
     }

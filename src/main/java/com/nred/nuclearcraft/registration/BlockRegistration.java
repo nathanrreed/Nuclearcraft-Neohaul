@@ -334,10 +334,12 @@ public class BlockRegistration {
         map.put("large_machine_process_port", registerBlockItem("machine_process_port", MachinePartType.ProcessPort::createBlock));
         map.put("large_machine_reservoir_port", registerBlockItem("machine_reservoir_port", MachinePartType.ReservoirPort::createBlock));
         map.put("large_machine_redstone_port", registerBlockItem("machine_redstone_port", MachinePartType.RedstonePort::createBlock));
-        map.put("large_machine_computer_port", registerBlockItem("machine_computer_port", MachinePartType.ComputerPort::createBlock));
+        map.put("large_machine_computer_port", registerBlockItemWithTooltip("machine_computer_port", MachinePartType.ComputerPort::createBlock, false));
+
         map.put("sintered_steel_diaphragm", registerBlockItem("sintered_steel_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE))));
         map.put("polyethersulfone_diaphragm", registerBlockItem("polyethersulfone_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE))));
         map.put("zirfon_diaphragm", registerBlockItem("zirfon_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE))));
+
         map.put("steel_sieve_assembly", registerBlockItem("steel_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
         map.put("polytetrafluoroethene_sieve_assembly", registerBlockItem("polytetrafluoroethene_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
         map.put("hastelloy_sieve_assembly", registerBlockItem("hastelloy_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));

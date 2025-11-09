@@ -20,7 +20,7 @@ public class EmiSolidFissionRecipe extends RecipeViewerRecipe {
     private final SolidFissionRecipe recipe;
 
     public EmiSolidFissionRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, SolidFissionRecipe recipe) {
-        super(EMI_SOLID_FISSION_CATEGORY, id, 0, 0);
+        super(EMI_SOLID_FISSION_CATEGORY, id);
         this.recipe = recipe;
 
         this.inputs.add(fluidInput);

@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.datagen.recipes.multilock;
 
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
-import com.nred.nuclearcraft.recipe.fission.BasicRecipeBuilder;
+import com.nred.nuclearcraft.recipe.BasicRecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;

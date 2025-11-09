@@ -13,6 +13,9 @@ import com.nred.nuclearcraft.block_entity.generator.DecayGeneratorEntity;
 import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
 import com.nred.nuclearcraft.block_entity.hx.CondenserControllerEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
+import com.nred.nuclearcraft.block_entity.machine.DistillerControllerEntity;
+import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerControllerEntity;
+import com.nred.nuclearcraft.block_entity.machine.InfiltratorControllerEntity;
 import com.nred.nuclearcraft.block_entity.passive.TilePassive;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
@@ -96,9 +99,9 @@ public class TileInfoHandler {
 //		
 //		registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>(Global.MOD_ID, "radiation_scrubber", TileRadiationScrubber.class, TileRadiationScrubber::new, ContainerRadiationScrubber.class, ContainerRadiationScrubber::new, proxy.clientGet(() -> GuiRadiationScrubber.class), proxy.clientGet(() -> GuiRadiationScrubber::new)).setCreativeTab(NCTabs.radiation).setDefaultProcessPower(1).setConsumesInputs(true).setItemInputSlots(standardSlot(32, 35)).setFluidInputSlots(standardSlot(52, 35)).setItemOutputSlots(bigSlot(108, 31)).setFluidOutputSlots(bigSlot(136, 31)).setProgressBarGuiXYWHUV(70, 35, 37, 16, 176, 3).setMachineConfigGuiXY(-1, -1).setRedstoneControlGuiXY(27, 63));
 //		
-//        registerContainerInfo(new TileContainerInfo<>(Global.MOD_ID, "electrolyzer_controller", TileElectrolyzerController.class, ContainerElectrolyzerController::new, clientGetGuiInfoTileFunction(() -> GuiElectrolyzerController::new)));
-//        registerContainerInfo(new TileContainerInfo<>(Global.MOD_ID, "distiller_controller", TileDistillerController.class, ContainerDistillerController::new, clientGetGuiInfoTileFunction(() -> GuiDistillerController::new)));
-//        registerContainerInfo(new TileContainerInfo<>(Global.MOD_ID, "infiltrator_controller", TileInfiltratorController.class, ContainerInfiltratorController::new, clientGetGuiInfoTileFunction(() -> GuiInfiltratorController::new)));
+        registerContainerInfo(new TileContainerInfo<>("electrolyzer_controller", ElectrolyzerControllerEntity.class, ElectrolyzerControllerMenu::new));
+        registerContainerInfo(new TileContainerInfo<>("distiller_controller", DistillerControllerEntity.class, DistillerControllerMenu::new));
+        registerContainerInfo(new TileContainerInfo<>("infiltrator_controller", InfiltratorControllerEntity.class, InfiltratorControllerMenu::new));
         registerContainerInfo(new TileContainerInfo<>("heat_exchanger_controller", HeatExchangerControllerEntity.class, HeatExchangerControllerMenu::new));
         registerContainerInfo(new TileContainerInfo<>("condenser_controller", CondenserControllerEntity.class, CondenserControllerMenu::new));
 

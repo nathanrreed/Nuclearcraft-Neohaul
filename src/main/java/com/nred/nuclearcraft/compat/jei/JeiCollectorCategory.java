@@ -65,11 +65,11 @@ public class JeiCollectorCategory implements IRecipeCategory<CollectorRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CollectorRecipe recipe, IFocusGroup focuses) {
-        ScreenPosition position = recipeViewerInfo.inputs().getFirst();
+        ScreenPosition position = recipeViewerInfo.item_inputs().getFirst();
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY).setPosition(position.x() + 1, position.y() + 1).addItemStack(recipe.getToastSymbol());
 
-        position = recipeViewerInfo.outputs().getFirst();
+//        position = recipeViewerInfo.outputs().getFirst();
 //        if (!recipe.itemResult().isEmpty()) { TODO
 //            this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("collector_item");
 //            builder.addOutputSlot(position.x() + 1, position.y() + 1).addItemStack(recipe.itemResult());

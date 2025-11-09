@@ -25,7 +25,7 @@ public class MultiblockElectrolyzerRecipe extends MultiblockMachine {
     private final String group;
 
     public MultiblockElectrolyzerRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier, String group) {
-        super(itemInputs, fluidInputs, itemResults, fluidInputs, timeModifier, powerModifier);
+        super(itemInputs, fluidInputs, itemResults, fluidResults, timeModifier, powerModifier);
         this.group = group;
     }
 

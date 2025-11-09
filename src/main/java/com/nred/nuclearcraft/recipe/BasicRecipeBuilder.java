@@ -1,7 +1,5 @@
-package com.nred.nuclearcraft.recipe.fission;
+package com.nred.nuclearcraft.recipe;
 
-import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.SimpleRecipeBuilder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;

@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:multiblock_infiltrator_recipe",
+  "fluidInputs": [
+    {
+      "amount": 144,
+      "fluid": "nuclearcraftneohaul:polymethylsilylene_methylene"
+    }
+  ],
+  "heatingFactor": 1.0,
+  "itemInputs": [
+    {
+      "count": 2,
+      "item": "nuclearcraftneohaul:silicon_carbide_fiber"
+    }
+  ],
+  "itemResult": {
+    "count": 1,
+    "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+  },
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

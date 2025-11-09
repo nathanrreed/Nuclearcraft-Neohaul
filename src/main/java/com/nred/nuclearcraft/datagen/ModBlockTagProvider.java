@@ -39,6 +39,7 @@ class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ORE_MAP.get("tin").get(), ORE_MAP.get("lead").get());
 
         simpleTag(INGOTS, INGOT_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS);
+        simpleTag(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS);
         simpleTag(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, Tags.Blocks.STORAGE_BLOCKS);
         simpleTag(RAWS, RAW_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS, "raw_");
     }

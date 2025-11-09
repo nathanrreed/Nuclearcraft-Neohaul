@@ -1,0 +1,7 @@
+{
+  "type": "nuclearcraftneohaul:infiltrator_pressure_fluid_recipe",
+  "efficiency": 0.9,
+  "gas": {
+    "tag": "c:gaseous/neon"
+  }
+}

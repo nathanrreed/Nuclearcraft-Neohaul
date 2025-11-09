@@ -53,18 +53,18 @@ public class NCInfo {
 
     public static Component[] electrodeFixedInfo(ElectrolyzerCathodeRecipe cathodeRecipe, ElectrolyzerAnodeRecipe anodeRecipe) {
         boolean anyElectrode = cathodeRecipe != null && anodeRecipe != null;
-        List<Component> list = Lists.newArrayList(Component.translatable(MODID + ".tooltip.electrode." + (anyElectrode ? "" : cathodeRecipe != null ? "cathode" : "anode")));
+        List<Component> list = Lists.newArrayList(Component.translatable(MODID + ".tooltip.electrode" + (anyElectrode ? "" : cathodeRecipe != null ? ".cathode" : ".anode")));
         if (cathodeRecipe != null) {
-            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency." + (anyElectrode ? "cathode" : ""), NCMath.pcDecimalPlaces(cathodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
+            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency" + (anyElectrode ? ".cathode" : ""), NCMath.pcDecimalPlaces(cathodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
         }
         if (anodeRecipe != null) {
-            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency." + (anyElectrode ? "anode" : ""), NCMath.pcDecimalPlaces(anodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
+            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency" + (anyElectrode ? ".anode" : ""), NCMath.pcDecimalPlaces(anodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
         }
         return list.toArray(new Component[0]);
     }
 
     public static Component electrodeInfo() {
-        return Component.translatable(MODID + ".tooltip.electrodedesc"); // TODO not in NCO
+        return Component.translatable(MODID + ".tooltip.electrode.desc"); // TODO not in NCO
     }
 
     // RTG

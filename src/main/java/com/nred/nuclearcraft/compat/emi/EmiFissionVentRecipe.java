@@ -19,7 +19,7 @@ public class EmiFissionVentRecipe extends RecipeViewerRecipe {
     private final FissionHeatingRecipe recipe;
 
     public EmiFissionVentRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, FissionHeatingRecipe recipe) {
-        super(EMI_VENT_CATEGORY, id, 0, 0);
+        super(EMI_VENT_CATEGORY, id);
         this.recipe = recipe;
 
         this.inputs.add(fluidInput);

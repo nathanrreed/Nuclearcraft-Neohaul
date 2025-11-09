@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.datagen.recipes.multilock;
 
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.radiation.RadSources;
-import com.nred.nuclearcraft.recipe.fission.BasicRecipeBuilder;
+import com.nred.nuclearcraft.recipe.BasicRecipeBuilder;
 import com.nred.nuclearcraft.recipe.fission.FissionIrradiatorRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.crafting.Ingredient;

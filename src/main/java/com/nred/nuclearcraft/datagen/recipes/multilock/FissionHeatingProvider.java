@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.datagen.recipes.multilock;
 
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.recipe.fission.BasicRecipeBuilder;
+import com.nred.nuclearcraft.recipe.BasicRecipeBuilder;
 import com.nred.nuclearcraft.recipe.fission.FissionHeatingRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.level.material.Fluids;

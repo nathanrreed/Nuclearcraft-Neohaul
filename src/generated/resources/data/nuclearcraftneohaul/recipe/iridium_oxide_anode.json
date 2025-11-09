@@ -1,0 +1,7 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_anode_recipe",
+  "block": {
+    "item": "nuclearcraftneohaul:iridium_oxide_block"
+  },
+  "efficiency": 1.0
+}

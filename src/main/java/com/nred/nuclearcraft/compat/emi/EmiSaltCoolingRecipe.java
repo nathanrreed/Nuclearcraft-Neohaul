@@ -20,7 +20,7 @@ public class EmiSaltCoolingRecipe extends RecipeViewerRecipe {
     private final FissionCoolantHeaterRecipe recipe;
 
     public EmiSaltCoolingRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, FissionCoolantHeaterRecipe recipe) {
-        super(EMI_SALT_COOLING_CATEGORY, id, 0, 0);
+        super(EMI_SALT_COOLING_CATEGORY, id);
         this.recipe = recipe;
 
         this.inputs.add(EmiStack.of(recipe.getHeater()));

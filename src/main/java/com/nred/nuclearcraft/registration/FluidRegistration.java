@@ -59,10 +59,7 @@ public class FluidRegistration {
         map.put("ferroboron", new Fluids("ferroboron", 0xFF4A4A4A, Fluids.MOLTEN_TYPE));
         map.put("tough", new Fluids("tough", 0xFF150F21, Fluids.MOLTEN_TYPE));
         map.put("hard_carbon", new Fluids("hard_carbon", 0xFF202020, Fluids.MOLTEN_TYPE));
-
-//        if (registerCoFHAlt()) { //TODO add
         map.put("coal", new Fluids("coal", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
-//        }
         map.put("beryllium", new Fluids("beryllium", 0xFFD4DBC2, Fluids.MOLTEN_TYPE));
         map.put("zirconium", new Fluids("zirconium", 0xFFE0E0B8, Fluids.MOLTEN_TYPE));
         map.put("manganese_dioxide", new Fluids("manganese_dioxide", 0xFF28211E, Fluids.MOLTEN_TYPE));
@@ -82,17 +79,12 @@ public class FluidRegistration {
         map.put("bas", new Fluids("bas", 0xFF9B9B89, Fluids.MOLTEN_TYPE));
         map.put("alugentum", new Fluids("alugentum", 0xFFB5C9CB, Fluids.MOLTEN_TYPE));
         map.put("alumina", new Fluids("alumina", 0xFF919880, Fluids.MOLTEN_TYPE));
-
         map.put("iron", new Fluids("iron", 0xFF8D1515, Fluids.MOLTEN_TYPE));
-//        if (registerCoFHAlt()) {
         map.put("redstone", new Fluids("redstone", 0xFFAB1C09, Fluids.MOLTEN_TYPE));
-//        }
         map.put("quartz", new Fluids("quartz", 0xFFECE9E2, Fluids.MOLTEN_TYPE));
         map.put("obsidian", new Fluids("obsidian", 0xFF1C1828, Fluids.MOLTEN_TYPE));
         map.put("nether_brick", new Fluids("nether_brick", 0xFF271317, Fluids.MOLTEN_TYPE));
-//        if (registerCoFHAlt()) {
         map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.MOLTEN_TYPE));
-//        }
         map.put("lapis", new Fluids("lapis", 0xFF27438A, Fluids.MOLTEN_TYPE));
         map.put("gold", new Fluids("gold", 0xFFE6DA3C, Fluids.MOLTEN_TYPE));
         map.put("prismarine", new Fluids("prismarine", 0xFF70A695, Fluids.MOLTEN_TYPE));
@@ -132,10 +124,8 @@ public class FluidRegistration {
         map.put("heavy_water", new Fluids("heavy_water", false, -1));
         map.put("hydrogen_peroxide", new Fluids("hydrogen_peroxide", false, -1));
         map.put("liquid_nitrogen", new Fluids("liquid_nitrogen", "liquid", false, false, 0xFF31C23A, 810, 70, 170, 0));
-        //if (registerCoFHAlt()) { TODO
         map.put("ender", new Fluids("ender", "liquid_still", true, false, 0xFF14584D, 4000, 300, 2500, 3));
         map.put("cryotheum", new Fluids("cryotheum", "liquid", 0xFF0099C1, false, false));
-        //}
         map.put("plasma", new Fluids("plasma", true, false, -1, 50, 1000000, 100, 0));
         map.put("radaway", new Fluids("radaway", false, -1));
         map.put("radaway_slow", new Fluids("radaway_slow", false, -1));

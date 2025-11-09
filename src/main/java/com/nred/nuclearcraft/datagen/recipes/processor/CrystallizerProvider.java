@@ -4,9 +4,9 @@ import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.CrystallizerRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 
+import static com.nred.nuclearcraft.registration.FluidRegistration.HOT_GAS_MAP;
 import static com.nred.nuclearcraft.registration.FluidRegistration.SALT_SOLUTION_MAP;
-import static com.nred.nuclearcraft.registration.ItemRegistration.COMPOUND_MAP;
-import static com.nred.nuclearcraft.registration.ItemRegistration.GEM_DUST_MAP;
+import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 public class CrystallizerProvider {
     public CrystallizerProvider(RecipeOutput recipeOutput) {
@@ -25,5 +25,6 @@ public class CrystallizerProvider {
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("hydroquinone_solution"), 666).addItemResult(COMPOUND_MAP.get("hydroquinone"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("sodium_hydroquinone_solution"), 666).addItemResult(COMPOUND_MAP.get("sodium_hydroquinone"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("potassium_hydroquinone_solution"), 666).addItemResult(COMPOUND_MAP.get("potassium_hydroquinone"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(CrystallizerRecipe.class, 2, 2).addFluidInput(HOT_GAS_MAP.get("sic_vapor"), 144).addItemResult(PART_MAP.get("silicon_carbide_fiber"), 1).save(recipeOutput);
     }
 }

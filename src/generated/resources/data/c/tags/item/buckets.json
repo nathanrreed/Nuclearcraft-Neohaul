@@ -2,6 +2,7 @@
   "values": [
     "nuclearcraftneohaul:tritium_bucket",
     "nuclearcraftneohaul:nitrogen_bucket",
+    "nuclearcraftneohaul:acetylene_bucket",
     "nuclearcraftneohaul:ammonia_bucket",
     "nuclearcraftneohaul:diborane_bucket",
     "nuclearcraftneohaul:sulfur_dioxide_bucket",
@@ -17,7 +18,6 @@
     "nuclearcraftneohaul:carbon_dioxide_bucket",
     "nuclearcraftneohaul:fluoromethane_bucket",
     "nuclearcraftneohaul:oxygen_bucket",
-    "nuclearcraftneohaul:acetylene_bucket",
     "nuclearcraftneohaul:helium_3_bucket",
     "nuclearcraftneohaul:fluorine_bucket",
     "nuclearcraftneohaul:carbon_monoxide_bucket",

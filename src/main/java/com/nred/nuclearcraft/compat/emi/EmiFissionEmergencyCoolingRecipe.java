@@ -19,7 +19,7 @@ public class EmiFissionEmergencyCoolingRecipe extends RecipeViewerRecipe {
     private final FissionEmergencyCoolingRecipe recipe;
 
     public EmiFissionEmergencyCoolingRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, FissionEmergencyCoolingRecipe recipe) {
-        super(EMI_EMERGENCY_COOLING_CATEGORY, id, 0, 0);
+        super(EMI_EMERGENCY_COOLING_CATEGORY, id);
         this.recipe = recipe;
 
         this.inputs.add(fluidInput);

@@ -3,11 +3,13 @@ package com.nred.nuclearcraft.helpers;
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,6 +35,10 @@ public class RecipeHelpers {
 
     public static TagKey<Item> tag(TagKey<Item> tag, String name) {
         return ItemTags.create(tag.location().withSuffix("/" + name));
+    }
+
+    public static TagKey<Fluid> fluidTag(TagKey<Fluid> tag, String name) {
+        return FluidTags.create(tag.location().withSuffix("/" + name));
     }
 
     public static List<EmiIngredient> removeBarriers(List<EmiIngredient> itemInputs) {

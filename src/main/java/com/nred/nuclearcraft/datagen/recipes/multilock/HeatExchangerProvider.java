@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.datagen.recipes.multilock;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
-import com.nred.nuclearcraft.recipe.fission.BasicRecipeBuilder;
+import com.nred.nuclearcraft.recipe.BasicRecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 
 import static com.nred.nuclearcraft.config.NCConfig.fission_heater_cooling_rate;

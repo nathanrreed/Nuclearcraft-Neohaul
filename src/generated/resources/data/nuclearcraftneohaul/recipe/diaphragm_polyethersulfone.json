@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:machine_diaphragm_recipe",
+  "block": {
+    "item": "nuclearcraftneohaul:polyethersulfone_diaphragm"
+  },
+  "contact_factor": 1.5,
+  "efficiency": 0.9
+}

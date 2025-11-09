@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_electrolyte_recipe",
+  "efficiency": 1.0,
+  "electrolyte": {
+    "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+  },
+  "group": "fluoride_solution"
+}

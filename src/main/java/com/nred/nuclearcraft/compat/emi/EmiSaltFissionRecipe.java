@@ -20,7 +20,7 @@ public class EmiSaltFissionRecipe extends RecipeViewerRecipe {
     private final SaltFissionRecipe recipe;
 
     public EmiSaltFissionRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, SaltFissionRecipe recipe) {
-        super(EMI_SALT_FISSION_CATEGORY, id, 0, 0);
+        super(EMI_SALT_FISSION_CATEGORY, id);
         this.recipe = recipe;
 
         this.inputs.add(fluidInput);

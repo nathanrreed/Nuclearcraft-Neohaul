@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
+import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.navigation.ScreenPosition;
@@ -52,16 +53,18 @@ public class EmiCollectorRecipe extends BasicEmiRecipe {
         widgets.addTexture(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height(), recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top());
 
         for (int i = 0; i < catalysts.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.inputs().get(i);
+            ScreenPosition position = recipeViewerInfo.item_inputs().get(i);
             widgets.addSlot(catalysts.get(i), position.x(), position.y()).drawBack(false);
         }
 
-        for (int i = 0; i < outputs.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.outputs().get(i);
-            if (outputs.get(i).getKey() instanceof Fluid) {
-                widgets.addTank(outputs.get(i), position.x(), position.y(), 26, 26, (int) outputs.get(i).getAmount()).drawBack(false).recipeContext(this);
+        int i = 0, f = 0;
+        for (EmiStack output : outputs) {
+            if (output.getKey() instanceof Fluid) {
+                ScreenPosition position = recipeViewerInfo.fluid_outputs().get(f++);
+                widgets.addTank(output, position.x(), position.y(), 26, 26, (int) output.getAmount()).drawBack(false).recipeContext(this);
             } else {
-                widgets.addSlot(outputs.get(i), position.x(), position.y()).drawBack(false).recipeContext(this);
+                ScreenPosition position = recipeViewerInfo.item_outputs().get(i++);
+                widgets.addSlot(output, position.x(), position.y()).drawBack(false).recipeContext(this);
             }
         }
 

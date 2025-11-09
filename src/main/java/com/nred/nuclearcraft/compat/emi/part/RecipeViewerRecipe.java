@@ -3,6 +3,8 @@ package com.nred.nuclearcraft.compat.emi.part;
 import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.stack.EmiIngredient;
+import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.network.chat.Component;
@@ -16,8 +18,8 @@ import static com.nred.nuclearcraft.compat.common.RecipeViewerInfoMap.RECIPE_VIE
 public abstract class RecipeViewerRecipe extends BasicEmiRecipe {
     private final RecipeViewerInfo recipeViewerInfo;
 
-    public RecipeViewerRecipe(EmiRecipeCategory category, ResourceLocation id, int width, int height) {
-        super(category, id, width, height);
+    public RecipeViewerRecipe(EmiRecipeCategory category, ResourceLocation id) {
+        super(category, id, 0, 0);
         this.recipeViewerInfo = RECIPE_VIEWER_MAP.get(category.getId().getPath());
     }
 
@@ -35,21 +37,27 @@ public abstract class RecipeViewerRecipe extends BasicEmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height(), recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top());
 
-        for (int i = 0; i < inputs.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.inputs().get(i);
-            if (outputs.get(i).getKey() instanceof Fluid) {
-                widgets.add(new TankWithAmount(inputs.get(i), position.x(), position.y())).drawBack(false);
+        int i = 0, f = 0;
+        for (EmiIngredient input : inputs) {
+            if (input.getEmiStacks().getFirst().getKey() instanceof Fluid) {
+                ScreenPosition position = recipeViewerInfo.fluid_inputs().get(f++);
+                widgets.add(new TankWithAmount(input, position.x(), position.y())).drawBack(false);
             } else {
-                widgets.addSlot(inputs.get(i), position.x(), position.y()).drawBack(false);
+                ScreenPosition position = recipeViewerInfo.item_inputs().get(i++);
+                widgets.addSlot(input, position.x(), position.y()).drawBack(false);
             }
         }
 
-        for (int i = 0; i < outputs.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.outputs().get(i);
-            if (outputs.get(i).getKey() instanceof Fluid) {
-                widgets.add(new TankWithAmount(outputs.get(i), position.x(), position.y(), 26, 26)).drawBack(false).recipeContext(this);
+        i = 0;
+        f = 0;
+        int size = recipeViewerInfo.fluid_outputs().size() < 3 ? 26 : 18;
+        for (EmiStack output : outputs) {
+            if (output.getKey() instanceof Fluid) {
+                ScreenPosition position = recipeViewerInfo.fluid_outputs().get(f++);
+                widgets.add(new TankWithAmount(output, position.x(), position.y(), size, size)).drawBack(false).recipeContext(this);
             } else {
-                widgets.addSlot(outputs.get(i), position.x(), position.y()).drawBack(false).recipeContext(this);
+                ScreenPosition position = recipeViewerInfo.item_outputs().get(i++);
+                widgets.addSlot(output, position.x(), position.y()).drawBack(false).recipeContext(this);
             }
         }
 

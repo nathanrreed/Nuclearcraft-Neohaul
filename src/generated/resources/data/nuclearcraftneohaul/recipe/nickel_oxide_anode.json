@@ -1,0 +1,7 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_anode_recipe",
+  "block": {
+    "item": "nuclearcraftneohaul:nickel_oxide_block"
+  },
+  "efficiency": 0.7
+}

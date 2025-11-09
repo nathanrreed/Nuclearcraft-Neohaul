@@ -1,0 +1,7 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_cathode_recipe",
+  "block": {
+    "tag": "c:storage_blocks/cobalt"
+  },
+  "efficiency": 0.9
+}

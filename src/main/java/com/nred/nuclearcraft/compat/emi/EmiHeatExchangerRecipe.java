@@ -19,7 +19,7 @@ public class EmiHeatExchangerRecipe extends RecipeViewerRecipe {
     private final HeatExchangerRecipe recipe;
 
     public EmiHeatExchangerRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, HeatExchangerRecipe recipe) {
-        super(EMI_HEAT_EXCHANGER_CATEGORY, id, 0, 0);
+        super(EMI_HEAT_EXCHANGER_CATEGORY, id);
         this.recipe = recipe;
 
         this.inputs.add(fluidInput);

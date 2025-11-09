@@ -19,7 +19,7 @@ public class EmiFissionIrradiatorRecipe extends RecipeViewerRecipe {
     private final FissionIrradiatorRecipe recipe;
 
     public EmiFissionIrradiatorRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, FissionIrradiatorRecipe recipe) {
-        super(EMI_IRRADIATOR_CATEGORY, id, 0, 0);
+        super(EMI_IRRADIATOR_CATEGORY, id);
         this.recipe = recipe;
 
         this.inputs.add(fluidInput);

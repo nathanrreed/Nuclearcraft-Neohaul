@@ -1,0 +1,24 @@
+{
+  "type": "nuclearcraftneohaul:multiblock_electrolyzer_recipe",
+  "fluidInputs": [
+    {
+      "amount": 500,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 500,
+      "fluid": "nuclearcraftneohaul:hydrogen"
+    },
+    {
+      "amount": 250,
+      "fluid": "nuclearcraftneohaul:oxygen"
+    }
+  ],
+  "itemInputs": [],
+  "itemProducts": [],
+  "name": "hydroxide_solution",
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

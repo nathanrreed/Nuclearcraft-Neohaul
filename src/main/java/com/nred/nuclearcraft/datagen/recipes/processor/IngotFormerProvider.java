@@ -17,7 +17,7 @@ public class IngotFormerProvider {
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("tough"), 144).addItemResult(ALLOY_MAP.get("tough"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("hard_carbon"), 144).addItemResult(ALLOY_MAP.get("hard_carbon"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("lead_platinum"), 144).addItemResult(ALLOY_MAP.get("lead_platinum"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("silicon"), 144).addItemResult(ALLOY_MAP.get("silicon_carbide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(HOT_GAS_MAP.get("sic_vapor"), 144).addItemResult(ALLOY_MAP.get("silicon_carbide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("coal"), 100).addItemResult(INGOT_MAP.get("graphite"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("manganese_dioxide"), 144).addItemResult(INGOT_MAP.get("manganese_dioxide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("beryllium"), 144).addItemResult(INGOT_MAP.get("beryllium"), 1).save(recipeOutput);

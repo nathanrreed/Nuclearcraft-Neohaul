@@ -3,7 +3,7 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:silicon"
+      "fluid": "nuclearcraftneohaul:sic_vapor"
     }
   ],
   "fluidResults": [],

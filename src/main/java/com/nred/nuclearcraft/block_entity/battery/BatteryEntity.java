@@ -69,11 +69,6 @@ public class BatteryEntity extends TilePartAbstract<BatteryMultiblock> implement
     }
 
     @Override
-    public BlockPos getTilePos() {
-        return worldPosition;
-    }
-
-    @Override
     public Block getTileBlockType() {
         return getBlockType();
     }

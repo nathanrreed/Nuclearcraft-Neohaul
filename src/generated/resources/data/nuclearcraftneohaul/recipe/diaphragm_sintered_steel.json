@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:machine_diaphragm_recipe",
+  "block": {
+    "item": "nuclearcraftneohaul:sintered_steel_diaphragm"
+  },
+  "contact_factor": 1.0,
+  "efficiency": 0.8
+}

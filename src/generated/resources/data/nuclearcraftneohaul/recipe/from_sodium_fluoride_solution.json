@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_electrolyte_recipe",
+  "efficiency": 0.9,
+  "electrolyte": {
+    "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+  },
+  "group": "fluoride_solution"
+}

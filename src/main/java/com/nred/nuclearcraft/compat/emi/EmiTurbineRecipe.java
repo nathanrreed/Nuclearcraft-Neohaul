@@ -19,7 +19,7 @@ public class EmiTurbineRecipe extends RecipeViewerRecipe {
     private final double spin_up_multiplier;
 
     public EmiTurbineRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, double power_per_mb, double expansion_level, double spin_up_multiplier) {
-        super(EMI_TURBINE_CATEGORY, id, 0, 0);
+        super(EMI_TURBINE_CATEGORY, id);
         this.expansion_level = expansion_level;
         this.power_per_mb = power_per_mb;
         this.spin_up_multiplier = spin_up_multiplier;

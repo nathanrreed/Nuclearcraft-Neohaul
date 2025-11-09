@@ -1,0 +1,7 @@
+{
+  "type": "nuclearcraftneohaul:machine_sieve_assembly_recipe",
+  "block": {
+    "item": "nuclearcraftneohaul:steel_sieve_assembly"
+  },
+  "efficiency": 0.8
+}

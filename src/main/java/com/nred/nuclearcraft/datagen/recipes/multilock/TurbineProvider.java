@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.datagen.recipes.multilock;
 
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.info.Fluids;
-import com.nred.nuclearcraft.recipe.fission.BasicRecipeBuilder;
+import com.nred.nuclearcraft.recipe.BasicRecipeBuilder;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 

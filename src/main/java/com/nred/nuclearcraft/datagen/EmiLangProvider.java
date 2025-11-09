@@ -58,6 +58,7 @@ public class EmiLangProvider extends LanguageProvider {
         add("emi.category." + EMI_PROCESSOR_CATEGORIES.get("supercooler").getId().toLanguageKey(), "Supercooler");
 
         add("emi.category." + EMI_COLLECTOR_CATEGORY.getId().toLanguageKey(), "Collector");
+        add("emi.category." + EMI_DECAY_GENERATOR_CATEGORY.getId().toLanguageKey(), "Decay Generator");
 
         add("emi.category." + EMI_TURBINE_CATEGORY.getId().toLanguageKey(), "Turbine");
 
@@ -73,6 +74,15 @@ public class EmiLangProvider extends LanguageProvider {
         add("emi.category." + EMI_CONDENSER_CATEGORY.getId().toLanguageKey(), "Condenser");
         add("emi.category." + EMI_CONDENSER_DISSIPATION_CATEGORY.getId().toLanguageKey(), "Condenser Dissipation");
         add("emi.category." + EMI_HEAT_EXCHANGER_CATEGORY.getId().toLanguageKey(), "Heat Exchanger");
+
+        add("emi.category." + EMI_MULTIBLOCK_DISTILLER_CATEGORY.getId().toLanguageKey(), "Multiblock Distiller");
+        add("emi.category." + EMI_MULTIBLOCK_ELECTROLYZER_CATEGORY.getId().toLanguageKey(), "Multiblock Electrolyzer");
+        add("emi.category." + EMI_MULTIBLOCK_INFILTRATOR_CATEGORY.getId().toLanguageKey(), "Multiblock Infiltrator");
+        add("emi.category." + EMI_DIAPHRAGM_CATEGORY.getId().toLanguageKey(), "Diaphragm");
+        add("emi.category." + EMI_SIEVE_ASSEMBLY_CATEGORY.getId().toLanguageKey(), "Sieve Assembly");
+        add("emi.category." + EMI_ELECTROLYZER_CATHODE_CATEGORY.getId().toLanguageKey(), "Electrolyzer Cathode");
+        add("emi.category." + EMI_ELECTROLYZER_ANODE_CATEGORY.getId().toLanguageKey(), "Electrolyzer Anode");
+        add("emi.category." + EMI_INFILTRATOR_PRESSURE_CATEGORY.getId().toLanguageKey(), "Infiltrator Pressure Fluid");
     }
 
     private void simpleName(List<String> list, TagKey<?> key, String append) {

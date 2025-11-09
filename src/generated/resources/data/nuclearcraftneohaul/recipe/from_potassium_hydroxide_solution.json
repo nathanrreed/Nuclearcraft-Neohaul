@@ -1,0 +1,8 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_electrolyte_recipe",
+  "efficiency": 1.0,
+  "electrolyte": {
+    "fluid": "nuclearcraftneohaul:potassium_hydroxide_solution"
+  },
+  "group": "hydroxide_solution"
+}

@@ -19,7 +19,7 @@ public class EmiCondenserRecipe extends RecipeViewerRecipe {
     private final CondenserRecipe recipe;
 
     public EmiCondenserRecipe(ResourceLocation id, EmiIngredient fluidInput, EmiIngredient fluidResult, CondenserRecipe recipe) {
-        super(EMI_CONDENSER_CATEGORY, id, 0, 0);
+        super(EMI_CONDENSER_CATEGORY, id);
         this.recipe = recipe;
 
         this.inputs.add(fluidInput);

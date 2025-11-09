@@ -1,0 +1,7 @@
+{
+  "type": "nuclearcraftneohaul:infiltrator_pressure_fluid_recipe",
+  "efficiency": 0.8,
+  "gas": {
+    "fluid": "nuclearcraftneohaul:nitrogen"
+  }
+}

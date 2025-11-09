@@ -30,7 +30,7 @@ public class DistillerControllerEntity extends AbstractMachineEntity implements 
 
     protected boolean isRenderer = false;
 
-    protected final float[] brightnessArray = new float[]{1F, 1F, 1F, 1F, 1F, 1F, 1F, 1F};
+    protected final int[] brightnessArray = new int[]{15728880, 15728880, 15728880, 15728880, 15728880, 15728880, 15728880, 15728880};
     protected int brightnessIndex = 0;
 
     public DistillerControllerEntity(BlockPos pos, BlockState blockState) {
@@ -94,15 +94,15 @@ public class DistillerControllerEntity extends AbstractMachineEntity implements 
     }
 
     @OnlyIn(Dist.CLIENT)
-    public float nextRenderBrightness() {
+    public int nextRenderBrightness() {
         Machine machine = getMultiblockController().orElse(null);
         if (machine == null) {
-            return 1F;
+            return 15728880;
         }
 
         brightnessArray[brightnessIndex] = LevelRenderer.getLightColor(level, (machine.getExtremeInteriorCoord(NCMath.getBit(brightnessIndex, 0) == 1, NCMath.getBit(brightnessIndex, 1) == 1, NCMath.getBit(brightnessIndex, 2) == 1)));
         brightnessIndex = (brightnessIndex + 1) % 8;
 
-        return (brightnessArray[0] + brightnessArray[1] + brightnessArray[2] + brightnessArray[3] + brightnessArray[4] + brightnessArray[5] + brightnessArray[6] + brightnessArray[7]) / 8F;
+        return (brightnessArray[0] + brightnessArray[1] + brightnessArray[2] + brightnessArray[3] + brightnessArray[4] + brightnessArray[5] + brightnessArray[6] + brightnessArray[7]) / 8;
     }
 }

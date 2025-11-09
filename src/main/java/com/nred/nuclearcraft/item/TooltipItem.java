@@ -4,15 +4,12 @@ import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
-
-import static com.nred.nuclearcraft.info.Radiation.RAD_MAP;
 
 public class TooltipItem extends Item {
     private Component tooltip;
@@ -43,13 +40,6 @@ public class TooltipItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        if (RAD_MAP.containsKey(ResourceLocation.parse(stack.getItem().toString()).getPath())) {
-            double radiation = RAD_MAP.get(ResourceLocation.parse(stack.getItem().toString()).getPath());
-
-            Triple<Integer, String, Integer> info = radiationColour(radiation);
-            tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.radiation", info.getLeft(), info.getMiddle()).withColor(info.getRight()));
-        }
-
         if (shiftTooltips != null) {
             if (tooltipFlag.hasShiftDown()) {
                 tooltipComponents.addAll(shiftTooltips);

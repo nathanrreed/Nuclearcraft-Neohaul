@@ -84,26 +84,26 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses) {
-        boolean large = recipeViewerInfo.outputs().size() < 3;
+        boolean large = recipeViewerInfo.item_inputs().size() < 3;
         for (int i = 0; i < recipe.itemIngredients.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.inputs().get(i);
+            ScreenPosition position = recipeViewerInfo.item_inputs().get(i);
             builder.addInputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemIngredients.get(i).ingredient());
         }
 
         for (int i = 0; i < recipe.fluidIngredients.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.inputs().get(i + recipe.itemIngredients.size());
+            ScreenPosition position = recipeViewerInfo.fluid_inputs().get(i);
             builder.addInputSlot(position.x() + 1, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.fluidIngredients.get(i).ingredient().getStacks()).toList());
         }
 
         for (int i = 0; i < recipe.itemProducts.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.outputs().get(i);
+            ScreenPosition position = recipeViewerInfo.item_outputs().get(i);
             IRecipeSlotBuilder temp = builder.addOutputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemProducts.get(i).ingredient());
 
 //      TODO      temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable("jei.probability", probabilityUnpacker(recipe.itemProducts.get(Integer.parseInt(recipeSlotView.getSlotName().get())).count()).first).withStyle(ChatFormatting.GOLD)));
         }
 
         for (int i = 0; i < recipe.fluidProducts.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.outputs().get(i + recipe.itemProducts.size());
+            ScreenPosition position = recipeViewerInfo.fluid_outputs().get(i);
             int x = position.x() + (large ? 1 : 0);
             int amount = recipe.fluidProducts.get(i).amount();
             int chance = recipe.fluidProducts.get(i).chancePercent();
@@ -121,12 +121,12 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
         guiGraphics.blit(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top(), recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height());
         guiGraphics.blit(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 176, 3, (int) (((double) System.currentTimeMillis() / 100 / recipe.getProcessTimeMultiplier()) % 37), 38);
         for (int i = 0; i < recipe.itemIngredients.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.inputs().get(i);
+            ScreenPosition position = recipeViewerInfo.item_inputs().get(i);
             guiGraphics.renderItemDecorations(font, recipe.itemIngredients.get(i).getItems()[0], position.x() + 1, position.y() + 1);
         }
 
         for (int i = 0; i < recipe.itemProducts.size(); i++) {
-            ScreenPosition position = recipeViewerInfo.outputs().get(i);
+            ScreenPosition position = recipeViewerInfo.item_outputs().get(i);
             guiGraphics.renderItemDecorations(font, recipe.itemProducts.get(i).getItems()[0], position.x() + 1, position.y() + 1);
         }
 

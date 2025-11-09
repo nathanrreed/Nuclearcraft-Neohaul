@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.HashMap;
@@ -19,8 +20,7 @@ import java.util.concurrent.CompletableFuture;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.info.Names.*;
-import static com.nred.nuclearcraft.registration.BlockRegistration.GLOWING_MUSHROOM;
-import static com.nred.nuclearcraft.registration.BlockRegistration.ORE_MAP;
+import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
@@ -48,6 +48,11 @@ class ModItemTagProvider extends ItemTagsProvider {
         simpleTag(MUSIC_DISC_MAP, Tags.Items.MUSIC_DISCS);
         simpleTag(FOOD_MAP, Tags.Items.FOODS);
 
+        simpleBlockTag(INGOTS, INGOT_BLOCK_MAP, Tags.Items.STORAGE_BLOCKS);
+        simpleBlockTag(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, Tags.Items.STORAGE_BLOCKS);
+        simpleBlockTag(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, Tags.Items.STORAGE_BLOCKS);
+        simpleBlockTag(RAWS, RAW_BLOCK_MAP, Tags.Items.STORAGE_BLOCKS, "raw_");
+
         tag(Tags.Items.MUSHROOMS).add(GLOWING_MUSHROOM.asItem());
 
         buckets();
@@ -63,6 +68,20 @@ class ModItemTagProvider extends ItemTagsProvider {
         for (String name : list) {
             tag(tag).add(map.get(name).asItem());
             tag(ItemTags.create(tag.location().withSuffix("/" + name))).add(map.get(name).asItem());
+        }
+    }
+
+    private void simpleBlockTag(List<String> list, HashMap<String, DeferredBlock<Block>> map, TagKey<Item> tag) {
+        for (String name : list) {
+            tag(tag).add(map.get(name).asItem());
+            tag(ItemTags.create(tag.location().withSuffix("/" + name))).add(map.get(name).asItem());
+        }
+    }
+
+    private void simpleBlockTag(List<String> list, HashMap<String, DeferredBlock<Block>> map, TagKey<Item> tag, String prefix) {
+        for (String name : list) {
+            tag(tag).add(map.get(name).asItem());
+            tag(ItemTags.create(tag.location().withSuffix("/" + prefix + name))).add(map.get(name).asItem());
         }
     }
 

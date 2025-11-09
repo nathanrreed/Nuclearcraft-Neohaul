@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:melter_silicon_from_"
+        "recipe": "nuclearcraftneohaul:from_potassium_fluoride_solution"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:melter_silicon_from_"
+      "nuclearcraftneohaul:from_potassium_fluoride_solution"
     ]
   }
 }
