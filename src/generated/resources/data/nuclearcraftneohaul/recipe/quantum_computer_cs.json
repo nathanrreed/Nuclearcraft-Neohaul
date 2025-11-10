@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:quantum_computer_s"
+    },
+    {
+      "item": "nuclearcraftneohaul:energetic_blend"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:quantum_computer_cs"
+  }
+}

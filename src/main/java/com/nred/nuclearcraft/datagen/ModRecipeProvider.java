@@ -916,6 +916,48 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("quantum_computer_code_generator_qiskit"), 1).requires(QUANTUM_MAP.get("quantum_computer_code_generator_qasm"))
                 .unlockedBy(getHasName(QUANTUM_MAP.get("quantum_computer_code_generator_qasm")), has(QUANTUM_MAP.get("quantum_computer_code_generator_qasm"))).save(recipeOutput);
 
+        quantum_gate("x", "SXS", "XEX", "SXS", recipeOutput, false, true);
+        quantum_gate("y", "SXS", "XEX", "XSX", recipeOutput, false, true);
+        quantum_gate("z", "SSS", "XEX", "SSS", recipeOutput, false, true);
+        quantum_gate("h", "SXS", "SES", "SXS", recipeOutput, false);
+        quantum_gate("s", "XSS", "XEX", "SSX", recipeOutput, true);
+        quantum_gate("t", "SSS", "XEX", "XSX", recipeOutput, true);
+        quantum_gate("p", "SSS", "SES", "SXX", recipeOutput, false);
+        quantum_gate("swap", "XXS", "XEX", "SXX", recipeOutput, false);
+    }
+
+    private void quantum_gate(String name, String pattern_1, String pattern_2, String pattern_3, RecipeOutput recipeOutput, boolean hasInvert) {
+        quantum_gate(name, pattern_1, pattern_2, pattern_3, recipeOutput, hasInvert, false);
+    }
+
+    private void quantum_gate(String name, String pattern_1, String pattern_2, String pattern_3, RecipeOutput recipeOutput, boolean hasInvert, boolean hasRotation) {
+        ShapedRecipeBuilder.shaped(MISC, QUANTUM_MAP.get(name), 1).pattern(pattern_1).pattern(pattern_2).pattern(pattern_3)
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('E', Items.ENDER_PEARL).define('X', ALLOY_MAP.get("extreme"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("extreme")), has(ALLOY_MAP.get("extreme"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get(name), 1).requires(QUANTUM_MAP.get("c" + name))
+                .unlockedBy(getHasName(QUANTUM_MAP.get("c" + name)), has(QUANTUM_MAP.get("c" + name))).save(recipeOutput, MODID + ":quantum_gate_" + name + "_from_control");
+        ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("c" + name), 1).requires(QUANTUM_MAP.get(name)).requires(COMPOUND_MAP.get("energetic_blend"))
+                .unlockedBy(getHasName(QUANTUM_MAP.get(name)), has(QUANTUM_MAP.get(name))).save(recipeOutput);
+        if (hasInvert) {
+            ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get(name), 1).requires(QUANTUM_MAP.get(name + "dg"))
+                    .unlockedBy(getHasName(QUANTUM_MAP.get(name + "dg")), has(QUANTUM_MAP.get(name + "dg"))).save(recipeOutput, MODID + ":quantum_gate_" + name + "_from_invert");
+            ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get(name + "dg"), 1).requires(QUANTUM_MAP.get(name))
+                    .unlockedBy(getHasName(QUANTUM_MAP.get(name)), has(QUANTUM_MAP.get(name))).save(recipeOutput);
+            ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("c" + name + "dg"), 1).requires(QUANTUM_MAP.get(name + "dg")).requires(COMPOUND_MAP.get("energetic_blend"))
+                    .unlockedBy(getHasName(QUANTUM_MAP.get(name + "dg")), has(QUANTUM_MAP.get(name + "dg"))).save(recipeOutput);
+            ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("c" + name), 1).requires(QUANTUM_MAP.get("c" + name + "dg"))
+                    .unlockedBy(getHasName(QUANTUM_MAP.get("c" + name)), has(QUANTUM_MAP.get("c" + name + "dg"))).save(recipeOutput, MODID + ":quantum_gate_c" + name + "_from_invert");
+        }
+        if (hasRotation) {
+            ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("r" + name), 1).requires(QUANTUM_MAP.get(name)).requires(Items.REDSTONE_TORCH)
+                    .unlockedBy(getHasName(QUANTUM_MAP.get(name)), has(QUANTUM_MAP.get(name))).save(recipeOutput);
+            ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("r" + name), 1).requires(QUANTUM_MAP.get("cr" + name))
+                    .unlockedBy(getHasName(QUANTUM_MAP.get("cr" + name)), has(QUANTUM_MAP.get("cr" + name))).save(recipeOutput, MODID + ":quantum_gate_r" + name + "_from_control");
+            ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("cr" + name), 1).requires(QUANTUM_MAP.get("r" + name)).requires(COMPOUND_MAP.get("energetic_blend"))
+                    .unlockedBy(getHasName(QUANTUM_MAP.get("r" + name)), has(QUANTUM_MAP.get("r" + name))).save(recipeOutput);
+            ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("cr" + name), 1).requires(QUANTUM_MAP.get("c" + name)).requires(Items.REDSTONE_TORCH)
+                    .unlockedBy(getHasName(QUANTUM_MAP.get("c" + name)), has(QUANTUM_MAP.get("c" + name))).save(recipeOutput, MODID + ":quantum_gate_cr" + name + "_from_control");
+        }
     }
 
     private void foods(RecipeOutput recipeOutput) {

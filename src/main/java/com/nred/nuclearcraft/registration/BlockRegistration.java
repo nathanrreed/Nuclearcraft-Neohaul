@@ -361,9 +361,9 @@ public class BlockRegistration {
         map.put("cswap", registerBlockItemWithTooltip("quantum_computer_cswap", QuantumPartType.CSWAP::createBlock, false));
 
         map.put("quantum_computer_connector", registerBlockItem("quantum_computer_connector", QuantumPartType.Quantum_Computer_Connector::createBlock));
+        map.put("quantum_computer_port", registerBlockItemWithTooltip("quantum_computer_port", QuantumPartType.Quantum_Computer_Port::createBlock, false));
         map.put("quantum_computer_code_generator_qasm", registerBlockItemWithTooltip("quantum_computer_code_generator_qasm", QuantumPartType.Quantum_Computer_Code_Generator_QASM::createBlock, false));
         map.put("quantum_computer_code_generator_qiskit", registerBlockItemWithTooltip("quantum_computer_code_generator_qiskit", QuantumPartType.Quantum_Computer_Code_Generator_QISKIT::createBlock, false));
-        map.put("quantum_computer_port", registerBlockItemWithTooltip("quantum_computer_port", QuantumPartType.Quantum_Computer_Port::createBlock, false));
 
         return map;
     }
