@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "computercraft:cable"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "W": {
+      "item": "computercraft:wired_modem"
+    },
+    "X": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    }
+  },
+  "pattern": [
+    "XRX",
+    "CEC",
+    "XWX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:quantum_computer_port"
+  }
+}

@@ -1,7 +1,5 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block_entity.fission.FissionShieldEntity;
-import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
 import net.minecraft.util.StringRepresentable;
@@ -14,21 +12,19 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.config.NCConfig.fission_shield_efficiency;
 import static com.nred.nuclearcraft.config.NCConfig.fission_shield_heat_per_flux;
 
-public enum FissionNeutronShieldType implements StringRepresentable, ITileEnum<FissionShieldEntity.Variant>, IMultiblockVariant {
-    BORON_SILVER("boron_silver", () -> fission_shield_heat_per_flux[0], () -> fission_shield_efficiency[0], FissionShieldEntity.BoronSilver.class);
+public enum FissionNeutronShieldType implements StringRepresentable, IMultiblockVariant {
+    BORON_SILVER("boron_silver", () -> fission_shield_heat_per_flux[0], () -> fission_shield_efficiency[0]);
 
     private final String name;
     private final Supplier<Double> heatPerFlux;
     private final Supplier<Double> efficiency;
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
-    private final Class<? extends FissionShieldEntity.Variant> tileClass;
 
-    FissionNeutronShieldType(String name, Supplier<Double> heatPerFlux, Supplier<Double> efficiency, Class<? extends FissionShieldEntity.Variant> tileClass) {
+    FissionNeutronShieldType(String name, Supplier<Double> heatPerFlux, Supplier<Double> efficiency) {
         this.name = name;
         this.heatPerFlux = heatPerFlux;
         this.efficiency = efficiency;
-        this.tileClass = tileClass;
 
         this._translationKey = ""; // TODO ADD
         this._blockPropertiesFixer = null;
@@ -50,11 +46,6 @@ public enum FissionNeutronShieldType implements StringRepresentable, ITileEnum<F
     @Override
     public String getSerializedName() {
         return name;
-    }
-
-    @Override
-    public Class<? extends FissionShieldEntity.Variant> getTileClass() {
-        return this.tileClass;
     }
 
     @Override

@@ -27,6 +27,8 @@ import net.neoforged.neoforge.fluids.FluidUtil;
 import java.util.Optional;
 
 public class GenericTooltipDeviceBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericDeviceBlock<Controller, PartType> {
+    protected static boolean keepInventory;
+
     public GenericTooltipDeviceBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
     }

@@ -20,6 +20,7 @@ import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerPartType;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeType;
 import com.nred.nuclearcraft.multiblock.machine.MachinePartType;
+import com.nred.nuclearcraft.multiblock.quantum.QuantumPartType;
 import com.nred.nuclearcraft.multiblock.rtg.RTGPartType;
 import com.nred.nuclearcraft.multiblock.rtg.RTGType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
@@ -89,6 +90,7 @@ public class BlockRegistration {
     public static final HashMap<String, DeferredBlock<Block>> BATTERY_MAP = createBatteries();
     public static final HashMap<String, DeferredBlock<Block>> RTG_MAP = createRTGs();
     public static final HashMap<String, DeferredBlock<Block>> MACHINE_MAP = createMachines();
+    public static final HashMap<String, DeferredBlock<Block>> QUANTUM_MAP = createQuantum();
 
     public static final HashMap<String, DeferredBlock<Block>> PROCESSOR_MAP = createProcessors();
 
@@ -323,6 +325,46 @@ public class BlockRegistration {
         map.put("rtg_plutonium", registerBlockItemWithTooltip("rtg_plutonium", () -> RTGPartType.RTG.createBlock((RTGType.PLUTONIUM)), false, NCInfo.rtgInfo(() -> rtg_power[1])));
         map.put("rtg_americium", registerBlockItemWithTooltip("rtg_americium", () -> RTGPartType.RTG.createBlock((RTGType.AMERICIUM)), false, NCInfo.rtgInfo(() -> rtg_power[2])));
         map.put("rtg_californium", registerBlockItemWithTooltip("rtg_californium", () -> RTGPartType.RTG.createBlock((RTGType.CALIFORNIUM)), false, NCInfo.rtgInfo(() -> rtg_power[3])));
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createQuantum() {
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        map.put("quantum_computer_controller", registerBlockItem("quantum_computer_controller", QuantumPartType.Quantum_Computer_Controller::createBlock));
+        map.put("quantum_computer_qubit", registerBlockItem("quantum_computer_qubit", QuantumPartType.Quantum_Computer_Qubit::createBlock));
+
+        map.put("x", registerBlockItemWithTooltip("quantum_computer_x", QuantumPartType.X::createBlock, false));
+        map.put("y", registerBlockItemWithTooltip("quantum_computer_y", QuantumPartType.Y::createBlock, false));
+        map.put("z", registerBlockItemWithTooltip("quantum_computer_z", QuantumPartType.Z::createBlock, false));
+        map.put("h", registerBlockItemWithTooltip("quantum_computer_h", QuantumPartType.H::createBlock, false));
+        map.put("s", registerBlockItemWithTooltip("quantum_computer_s", QuantumPartType.S::createBlock, false));
+        map.put("sdg", registerBlockItemWithTooltip("quantum_computer_sdg", QuantumPartType.SDG::createBlock, false));
+        map.put("t", registerBlockItemWithTooltip("quantum_computer_t", QuantumPartType.T::createBlock, false));
+        map.put("tdg", registerBlockItemWithTooltip("quantum_computer_tdg", QuantumPartType.TDG::createBlock, false));
+        map.put("p", registerBlockItemWithTooltip("quantum_computer_p", QuantumPartType.P::createBlock, false));
+        map.put("rx", registerBlockItemWithTooltip("quantum_computer_rx", QuantumPartType.RX::createBlock, false));
+        map.put("ry", registerBlockItemWithTooltip("quantum_computer_ry", QuantumPartType.RY::createBlock, false));
+        map.put("rz", registerBlockItemWithTooltip("quantum_computer_rz", QuantumPartType.RZ::createBlock, false));
+        map.put("cx", registerBlockItemWithTooltip("quantum_computer_cx", QuantumPartType.CX::createBlock, false));
+        map.put("cy", registerBlockItemWithTooltip("quantum_computer_cy", QuantumPartType.CY::createBlock, false));
+        map.put("cz", registerBlockItemWithTooltip("quantum_computer_cz", QuantumPartType.CZ::createBlock, false));
+        map.put("ch", registerBlockItemWithTooltip("quantum_computer_ch", QuantumPartType.CH::createBlock, false));
+        map.put("cs", registerBlockItemWithTooltip("quantum_computer_cs", QuantumPartType.CS::createBlock, false));
+        map.put("csdg", registerBlockItemWithTooltip("quantum_computer_csdg", QuantumPartType.CSDG::createBlock, false));
+        map.put("ct", registerBlockItemWithTooltip("quantum_computer_ct", QuantumPartType.CT::createBlock, false));
+        map.put("ctdg", registerBlockItemWithTooltip("quantum_computer_ctdg", QuantumPartType.CTDG::createBlock, false));
+        map.put("cp", registerBlockItemWithTooltip("quantum_computer_cp", QuantumPartType.CP::createBlock, false));
+        map.put("crx", registerBlockItemWithTooltip("quantum_computer_crx", QuantumPartType.CRX::createBlock, false));
+        map.put("cry", registerBlockItemWithTooltip("quantum_computer_cry", QuantumPartType.CRY::createBlock, false));
+        map.put("crz", registerBlockItemWithTooltip("quantum_computer_crz", QuantumPartType.CRZ::createBlock, false));
+        map.put("swap", registerBlockItemWithTooltip("quantum_computer_swap", QuantumPartType.SWAP::createBlock, false));
+        map.put("cswap", registerBlockItemWithTooltip("quantum_computer_cswap", QuantumPartType.CSWAP::createBlock, false));
+
+        map.put("quantum_computer_connector", registerBlockItem("quantum_computer_connector", QuantumPartType.Quantum_Computer_Connector::createBlock));
+        map.put("quantum_computer_code_generator_qasm", registerBlockItemWithTooltip("quantum_computer_code_generator_qasm", QuantumPartType.Quantum_Computer_Code_Generator_QASM::createBlock, false));
+        map.put("quantum_computer_code_generator_qiskit", registerBlockItemWithTooltip("quantum_computer_code_generator_qiskit", QuantumPartType.Quantum_Computer_Code_Generator_QISKIT::createBlock, false));
+        map.put("quantum_computer_port", registerBlockItemWithTooltip("quantum_computer_port", QuantumPartType.Quantum_Computer_Port::createBlock, false));
+
         return map;
     }
 

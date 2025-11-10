@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.DistillerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorControllerEntity;
+import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerQubitEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
@@ -63,6 +64,7 @@ public class ClientSetup {
         BlockEntityRenderers.register((BlockEntityType<ElectrolyzerControllerEntity>) MACHINE_ENTITY_TYPE.get("electrolyzer_controller").get(), RenderMultiblockElectrolyzer::new);
         BlockEntityRenderers.register((BlockEntityType<DistillerControllerEntity>) MACHINE_ENTITY_TYPE.get("distiller_controller").get(), RenderMultiblockDistiller::new);
         BlockEntityRenderers.register((BlockEntityType<InfiltratorControllerEntity>) MACHINE_ENTITY_TYPE.get("infiltrator_controller").get(), RenderMultiblockInfiltrator::new);
+        BlockEntityRenderers.register((BlockEntityType<QuantumComputerQubitEntity>) QUANTUM_ENTITY_TYPE.get("quantum_computer_qubit").get(), RenderQuantumComputerQubit::new);
     }
 
     @SubscribeEvent

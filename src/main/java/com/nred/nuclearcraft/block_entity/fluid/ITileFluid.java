@@ -10,7 +10,6 @@ import com.nred.nuclearcraft.block_entity.passive.ITilePassive;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor.HandlerPair;
 import com.nred.nuclearcraft.util.BlockHelper;
-import com.nred.nuclearcraft.util.ModCheck;
 import mekanism.api.Action;
 import mekanism.api.chemical.ChemicalStack;
 import net.minecraft.core.Direction;
@@ -257,8 +256,7 @@ public interface ITileFluid extends ITile {
         return getChemicalSides()[side.ordinal()];
     }
 
-    static ChemicalTileWrapper[] getDefaultChemicalSides(@Nonnull ITileFluid tile) {
-        if (!ModCheck.mekanismLoaded()) return null;
+    static @Nonnull ChemicalTileWrapper[] getDefaultChemicalSides(@Nonnull ITileFluid tile) {
         return new ChemicalTileWrapper[]{new ChemicalTileWrapper(tile, Direction.DOWN), new ChemicalTileWrapper(tile, Direction.UP), new ChemicalTileWrapper(tile, Direction.NORTH), new ChemicalTileWrapper(tile, Direction.SOUTH), new ChemicalTileWrapper(tile, Direction.WEST), new ChemicalTileWrapper(tile, Direction.EAST)};
     }
 

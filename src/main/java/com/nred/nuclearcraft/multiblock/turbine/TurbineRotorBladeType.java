@@ -1,7 +1,5 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
-import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBladeEntity;
-import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
 import net.minecraft.world.level.block.Block;
@@ -12,23 +10,21 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.config.NCConfig.turbine_blade_efficiency;
 import static com.nred.nuclearcraft.config.NCConfig.turbine_blade_expansion;
 
-public enum TurbineRotorBladeType implements TurbineRotorBladeUtil.IRotorBladeType, ITileEnum<TurbineRotorBladeEntity.Variant>, IMultiblockVariant {
-    STEEL("steel", () -> turbine_blade_efficiency[0], () -> turbine_blade_expansion[0], TurbineRotorBladeEntity.Steel.class),
-    EXTREME("extreme", () -> turbine_blade_efficiency[1], () -> turbine_blade_expansion[1], TurbineRotorBladeEntity.Extreme.class),
-    SIC_SIC_CMC("sic_sic_cmc", () -> turbine_blade_efficiency[2], () -> turbine_blade_expansion[2], TurbineRotorBladeEntity.SicSicCMC.class);
+public enum TurbineRotorBladeType implements TurbineRotorBladeUtil.IRotorBladeType, IMultiblockVariant {
+    STEEL("steel", () -> turbine_blade_efficiency[0], () -> turbine_blade_expansion[0]),
+    EXTREME("extreme", () -> turbine_blade_efficiency[1], () -> turbine_blade_expansion[1]),
+    SIC_SIC_CMC("sic_sic_cmc", () -> turbine_blade_efficiency[2], () -> turbine_blade_expansion[2]);
 
     private final String name;
     private final Supplier<Double> efficiency;
     private final Supplier<Double> expansion;
-    private final Class<? extends TurbineRotorBladeEntity.Variant> tileClass;
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
 
-    TurbineRotorBladeType(String name, Supplier<Double> efficiency, Supplier<Double> expansion, Class<? extends TurbineRotorBladeEntity.Variant> tileClass) {
+    TurbineRotorBladeType(String name, Supplier<Double> efficiency, Supplier<Double> expansion) {
         this.name = name;
         this.efficiency = efficiency;
         this.expansion = expansion;
-        this.tileClass = tileClass;
 
         this._translationKey = ""; // TODO ADD
         this._blockPropertiesFixer = null;
@@ -47,11 +43,6 @@ public enum TurbineRotorBladeType implements TurbineRotorBladeUtil.IRotorBladeTy
     @Override
     public double getExpansionCoefficient() {
         return expansion.get();
-    }
-
-    @Override
-    public Class<? extends TurbineRotorBladeEntity.Variant> getTileClass() {
-        return tileClass;
     }
 
     @Override

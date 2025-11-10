@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_quantum_computer_code_generator_qasm": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:quantum_computer_code_generator_qasm"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:quantum_computer_code_generator_qiskit"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_quantum_computer_code_generator_qasm"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:quantum_computer_code_generator_qiskit"
+    ]
+  }
+}

@@ -1,12 +1,12 @@
 package com.nred.nuclearcraft.block_entity.fission.port;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
-import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
@@ -49,11 +49,11 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
 
     public int inventoryStackLimit = 64;
 
-    protected final BasicRecipeHandler recipeHandler;
+    protected final BasicRecipeHandler<?> recipeHandler;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
-    public FissionItemPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, BasicRecipeHandler recipeHandler) {
+    public FissionItemPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, BasicRecipeHandler<?> recipeHandler) {
         super(type, pos, blockState, portClass);
         info = TileInfoHandler.getTileContainerInfo(name);
         this.recipeHandler = recipeHandler;

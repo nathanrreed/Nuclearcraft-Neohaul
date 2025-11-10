@@ -36,15 +36,15 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Machine Interface
 - Heat exchanger
 - Multiblock Machines
+- Quantum Computer
 
 #### Continual:
 - Integrations with JEI, EMI, CC: T, Mekanism
 
 #### In progress:
+- Wasteland
 
 #### Future Additions:
-- Quantum Computer
 - Tools and Armour
-- Wasteland
 - Radiation
 - Integrations with other mods (CubeJS / CraftTweaker, Jade / TOP)

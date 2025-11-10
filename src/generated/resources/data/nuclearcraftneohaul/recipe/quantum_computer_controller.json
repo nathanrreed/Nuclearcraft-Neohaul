@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "X": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    }
+  },
+  "pattern": [
+    "XEX",
+    "ESE",
+    "XEX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:quantum_computer_controller"
+  }
+}

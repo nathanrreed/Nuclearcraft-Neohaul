@@ -93,6 +93,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         heat_exchanger();
         rtgs();
         machines();
+        quantum();
     }
 
     private void crossBlock(DeferredBlock<Block> deferredBlock) {
@@ -210,6 +211,24 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockSidesAndTop(RTG_MAP.get("rtg_californium"), "rtg", "rtg_californium_top", "rtg_californium_side", None);
     }
 
+    private void quantum() {
+        blockWithItem("connector", QUANTUM_MAP.get("quantum_computer_connector"), "quantum_computer");
+        blockWithItem("port", QUANTUM_MAP.get("quantum_computer_port"), "quantum_computer");
+
+        blockWithItem("qasm", QUANTUM_MAP.get("quantum_computer_code_generator_qasm"), "quantum_computer/code_generator");
+        blockWithItem("qiskit", QUANTUM_MAP.get("quantum_computer_code_generator_qiskit"), "quantum_computer/code_generator");
+
+        for (String name : List.of("h", "p", "rx", "ry", "rz", "s", "sdg", "t", "tdg", "x", "y", "z"))
+            blockWithItem(name, QUANTUM_MAP.get(name), "quantum_computer/gate/single");
+        for (String name : List.of("ch", "cp", "crx", "cry", "crz", "cs", "csdg", "ct", "ctdg", "cx", "cy", "cz"))
+            blockWithItem(name, QUANTUM_MAP.get(name), "quantum_computer/gate/control");
+        for (String name : List.of("swap", "cswap"))
+            blockWithItem(name, QUANTUM_MAP.get(name), "quantum_computer/gate/swap");
+
+        modelBlockWithItem("quantum_computer_controller", QUANTUM_MAP.get("quantum_computer_controller"));
+        modelBlockWithItem("quantum_computer_qubit", QUANTUM_MAP.get("quantum_computer_qubit"));
+    }
+
     private void machines() {
         booleanBlock("frame", "wall", MACHINE_MAP.get("large_machine_frame"), "machine/frame", FRAME);
         blockWithItemCutout("glass", MACHINE_MAP.get("large_machine_glass"), "machine");
@@ -240,7 +259,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem("pressure_chamber", MACHINE_MAP.get("infiltrator_pressure_chamber"), "machine/infiltrator");
     }
 
-    // TODO rename all these functions and merge similar
+// TODO rename all these functions and merge similar
 
     private void simpleBlocks(List<String> list, HashMap<String, DeferredBlock<Block>> map, String folder) {
         for (String name : list) {
@@ -540,6 +559,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         Block block = deferredBlock.get();
         String texture = BLOCK_FOLDER + "/" + folder + "/" + name;
         ModelFile model = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture));
+        simpleBlock(block, model);
+        simpleBlockItem(block, model);
+    }
+
+    private void modelBlockWithItem(String name, DeferredBlock<Block> deferredBlock) {
+        Block block = deferredBlock.get();
+        ModelFile model = models().getExistingFile(modLoc(name));
         simpleBlock(block, model);
         simpleBlockItem(block, model);
     }

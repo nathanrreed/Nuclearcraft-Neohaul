@@ -1,7 +1,5 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block_entity.fission.FissionSourceEntity;
-import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
 import net.minecraft.util.StringRepresentable;
@@ -13,21 +11,19 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.config.NCConfig.fission_source_efficiency;
 
-public enum FissionSourceType implements StringRepresentable, ITileEnum<FissionSourceEntity.Variant>, IMultiblockVariant {
-    RADIUM_BERYLLIUM("radium_beryllium", () -> fission_source_efficiency[0], FissionSourceEntity.RadiumBeryllium.class),
-    POLONIUM_BERYLLIUM("polonium_beryllium", () -> fission_source_efficiency[1], FissionSourceEntity.PoloniumBeryllium.class),
-    CALIFORNIUM("californium", () -> fission_source_efficiency[2], FissionSourceEntity.Californium.class);
+public enum FissionSourceType implements StringRepresentable, IMultiblockVariant {
+    RADIUM_BERYLLIUM("radium_beryllium", () -> fission_source_efficiency[0]),
+    POLONIUM_BERYLLIUM("polonium_beryllium", () -> fission_source_efficiency[1]),
+    CALIFORNIUM("californium", () -> fission_source_efficiency[2]);
 
     private final String name;
     private final Supplier<Double> efficiency;
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
-    private final Class<? extends FissionSourceEntity.Variant> tileClass;
 
-    FissionSourceType(String name, Supplier<Double> efficiency, Class<? extends FissionSourceEntity.Variant> tileClass) {
+    FissionSourceType(String name, Supplier<Double> efficiency) {
         this.name = name;
         this.efficiency = efficiency;
-        this.tileClass = tileClass;
 
         this._translationKey = ""; // TODO ADD
         this._blockPropertiesFixer = null;
@@ -45,11 +41,6 @@ public enum FissionSourceType implements StringRepresentable, ITileEnum<FissionS
     @Override
     public String getSerializedName() {
         return name;
-    }
-
-    @Override
-    public Class<? extends FissionSourceEntity.Variant> getTileClass() {
-        return this.tileClass;
     }
 
     @Override

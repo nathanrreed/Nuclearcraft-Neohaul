@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "X": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    }
+  },
+  "pattern": [
+    "XSX",
+    "S S",
+    "XSX"
+  ],
+  "result": {
+    "count": 8,
+    "id": "nuclearcraftneohaul:quantum_computer_connector"
+  }
+}

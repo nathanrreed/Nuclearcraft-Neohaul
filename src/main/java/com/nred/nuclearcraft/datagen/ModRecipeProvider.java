@@ -96,6 +96,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         machine(recipeOutput);
         hx(recipeOutput);
         rtg(recipeOutput);
+        quantum(recipeOutput);
 
         new AlloyFurnaceRecipeProvider(recipeOutput);
         new CentrifugeProvider(recipeOutput);
@@ -892,6 +893,29 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, RTG_MAP.get("rtg_californium"), 1).pattern("PGP").pattern("GCG").pattern("PGP")
                 .define('P', PART_MAP.get("advanced_plating")).define('G', tag(Tags.Items.INGOTS, "graphite")).define('C', ingredient(CALIFORNIUM_MAP, List.of("250", "250_c", "250_ni", "250_ox", "250_za")))
                 .unlockedBy(getHasName(FERTILE_ISOTOPE_MAP.get("uranium")), has(FERTILE_ISOTOPE_MAP.get("uranium"))).save(recipeOutput);
+    }
+
+    private void quantum(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(MISC, QUANTUM_MAP.get("quantum_computer_controller"), 1).pattern("XEX").pattern("ESE").pattern("XEX")
+                .define('S', PART_BLOCK_MAP.get("steel_chassis")).define('E', Items.ENDER_PEARL).define('X', ALLOY_MAP.get("extreme"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, QUANTUM_MAP.get("quantum_computer_qubit"), 1).pattern("XSX").pattern("ERE").pattern("XSX")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('E', Items.ENDER_PEARL).define('R', Items.REDSTONE_BLOCK).define('X', ALLOY_MAP.get("extreme"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("extreme")), has(ALLOY_MAP.get("extreme"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, QUANTUM_MAP.get("quantum_computer_port"), 1).pattern("XRX").pattern("CEC").pattern("XWX")
+                .define('X', ALLOY_MAP.get("extreme")).define('E', Items.ENDER_PEARL).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
+                .unlockedBy(getHasName(Items.ENDER_PEARL), has(Items.ENDER_PEARL)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, QUANTUM_MAP.get("quantum_computer_connector"), 8).pattern("XSX").pattern("S S").pattern("XSX")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('X', ALLOY_MAP.get("extreme"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("extreme")), has(ALLOY_MAP.get("extreme"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, QUANTUM_MAP.get("quantum_computer_code_generator_qasm"), 1).pattern("XSX").pattern("EBE").pattern("XSX")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('E', Items.ENDER_PEARL).define('B', Items.WRITABLE_BOOK).define('X', ALLOY_MAP.get("extreme"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("extreme")), has(ALLOY_MAP.get("extreme"))).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("quantum_computer_code_generator_qasm"), 1).requires(QUANTUM_MAP.get("quantum_computer_code_generator_qiskit"))
+                .unlockedBy(getHasName(QUANTUM_MAP.get("quantum_computer_code_generator_qiskit")), has(QUANTUM_MAP.get("quantum_computer_code_generator_qiskit"))).save(recipeOutput, MODID + ":quantum_computer_qasm_from_qiskit");
+        ShapelessRecipeBuilder.shapeless(MISC, QUANTUM_MAP.get("quantum_computer_code_generator_qiskit"), 1).requires(QUANTUM_MAP.get("quantum_computer_code_generator_qasm"))
+                .unlockedBy(getHasName(QUANTUM_MAP.get("quantum_computer_code_generator_qasm")), has(QUANTUM_MAP.get("quantum_computer_code_generator_qasm"))).save(recipeOutput);
+
     }
 
     private void foods(RecipeOutput recipeOutput) {

@@ -1,7 +1,5 @@
 package com.nred.nuclearcraft.multiblock.hx;
 
-import com.nred.nuclearcraft.block_entity.hx.HeatExchangerTubeEntity;
-import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
 import net.minecraft.util.StringRepresentable;
@@ -15,23 +13,21 @@ import static com.nred.nuclearcraft.config.NCConfig.heat_exchanger_heat_retentio
 import static com.nred.nuclearcraft.config.NCConfig.heat_exchanger_heat_transfer_coefficient;
 
 
-public enum HeatExchangerTubeType implements StringRepresentable, ITileEnum<HeatExchangerTubeEntity.Variant>, IMultiblockVariant {
-    COPPER("copper", () -> heat_exchanger_heat_transfer_coefficient[0], () -> heat_exchanger_heat_retention_mult[0], HeatExchangerTubeEntity.Copper.class),
-    HARD_CARBON("hard_carbon", () -> heat_exchanger_heat_transfer_coefficient[1], () -> heat_exchanger_heat_retention_mult[1], HeatExchangerTubeEntity.HardCarbon.class),
-    THERMOCONDUCTING("thermoconducting", () -> heat_exchanger_heat_transfer_coefficient[2], () -> heat_exchanger_heat_retention_mult[2], HeatExchangerTubeEntity.Thermoconducting.class);
+public enum HeatExchangerTubeType implements StringRepresentable, IMultiblockVariant {
+    COPPER("copper", () -> heat_exchanger_heat_transfer_coefficient[0], () -> heat_exchanger_heat_retention_mult[0]),
+    HARD_CARBON("hard_carbon", () -> heat_exchanger_heat_transfer_coefficient[1], () -> heat_exchanger_heat_retention_mult[1]),
+    THERMOCONDUCTING("thermoconducting", () -> heat_exchanger_heat_transfer_coefficient[2], () -> heat_exchanger_heat_retention_mult[2]);
 
     private final String name;
     private final Supplier<Double> heatTransferCoefficient;
     private final Supplier<Double> heatRetentionMult;
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
-    private final Class<? extends HeatExchangerTubeEntity.Variant> tileClass;
 
-    HeatExchangerTubeType(String name, Supplier<Double> heatTransferCoefficient, Supplier<Double> heatRetentionMult, Class<? extends HeatExchangerTubeEntity.Variant> tileClass) {
+    HeatExchangerTubeType(String name, Supplier<Double> heatTransferCoefficient, Supplier<Double> heatRetentionMult) {
         this.name = name;
         this.heatTransferCoefficient = heatTransferCoefficient;
         this.heatRetentionMult = heatRetentionMult;
-        this.tileClass = tileClass;
 
         this._translationKey = ""; // TODO ADD
         this._blockPropertiesFixer = null;
@@ -53,11 +49,6 @@ public enum HeatExchangerTubeType implements StringRepresentable, ITileEnum<Heat
 
     public double getHeatRetentionMultiplier() {
         return heatRetentionMult.get();
-    }
-
-    @Override
-    public Class<? extends HeatExchangerTubeEntity.Variant> getTileClass() {
-        return tileClass;
     }
 
     @Override

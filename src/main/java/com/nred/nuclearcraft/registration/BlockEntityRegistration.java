@@ -14,6 +14,7 @@ import com.nred.nuclearcraft.block_entity.machine.*;
 import com.nred.nuclearcraft.block_entity.passive.TilePassive;
 import com.nred.nuclearcraft.block_entity.processor.NuclearFurnaceEntity;
 import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
+import com.nred.nuclearcraft.block_entity.quantum.*;
 import com.nred.nuclearcraft.block_entity.rtg.RTGEntity;
 import com.nred.nuclearcraft.block_entity.turbine.*;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
@@ -47,8 +48,8 @@ public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractTurbineEntity>>> TURBINE_ENTITY_TYPE = createTurbine();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractFissionEntity>>> FISSION_ENTITY_TYPE = createFission();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractHeatExchangerEntity>>> HX_ENTITY_TYPE = createHeatExchanger();
-
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> MACHINE_ENTITY_TYPE = createMachine();
+    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractQuantumComputerEntity>>> QUANTUM_ENTITY_TYPE = createQuantum();
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(UniversalBinEntity::new, UNIVERSAL_BIN.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends MachineInterfaceEntity>> MACHINE_INTERFACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("machine_interface", () -> BlockEntityType.Builder.of(MachineInterfaceEntity::new, MACHINE_INTERFACE.get()).build(null));
@@ -202,6 +203,50 @@ public class BlockEntityRegistration {
         map.put("infiltrator_controller", BLOCK_ENTITY_TYPES.register("infiltrator_controller", () -> BlockEntityType.Builder.of(InfiltratorControllerEntity::new, MACHINE_MAP.get("infiltrator_controller").get()).build(null)));
         map.put("infiltrator_pressure_chamber", BLOCK_ENTITY_TYPES.register("infiltrator_pressure_chamber", () -> BlockEntityType.Builder.of(InfiltratorPressureChamberEntity::new, MACHINE_MAP.get("infiltrator_pressure_chamber").get()).build(null)));
         map.put("infiltrator_heating_unit", BLOCK_ENTITY_TYPES.register("infiltrator_heating_unit", () -> BlockEntityType.Builder.of(InfiltratorHeatingUnitEntity::new, MACHINE_MAP.get("infiltrator_heating_unit").get()).build(null)));
+
+        return map;
+    }
+
+    private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractQuantumComputerEntity>>> createQuantum() {
+        Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractQuantumComputerEntity>>> map = new HashMap<>();
+        // Basic
+        map.put("x", BLOCK_ENTITY_TYPES.register("x", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.X::new, QUANTUM_MAP.get("x").get()).build(null)));
+        map.put("y", BLOCK_ENTITY_TYPES.register("y", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.Y::new, QUANTUM_MAP.get("y").get()).build(null)));
+        map.put("z", BLOCK_ENTITY_TYPES.register("z", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.Z::new, QUANTUM_MAP.get("z").get()).build(null)));
+        map.put("h", BLOCK_ENTITY_TYPES.register("h", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.H::new, QUANTUM_MAP.get("h").get()).build(null)));
+        map.put("s", BLOCK_ENTITY_TYPES.register("s", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.S::new, QUANTUM_MAP.get("s").get()).build(null)));
+        map.put("sdg", BLOCK_ENTITY_TYPES.register("sdg", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.Sdg::new, QUANTUM_MAP.get("sdg").get()).build(null)));
+        map.put("t", BLOCK_ENTITY_TYPES.register("t", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.T::new, QUANTUM_MAP.get("t").get()).build(null)));
+        map.put("tdg", BLOCK_ENTITY_TYPES.register("tdg", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.Tdg::new, QUANTUM_MAP.get("tdg").get()).build(null)));
+        map.put("p", BLOCK_ENTITY_TYPES.register("p", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.P::new, QUANTUM_MAP.get("p").get()).build(null)));
+        map.put("rx", BLOCK_ENTITY_TYPES.register("rx", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.RX::new, QUANTUM_MAP.get("rx").get()).build(null)));
+        map.put("ry", BLOCK_ENTITY_TYPES.register("ry", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.RY::new, QUANTUM_MAP.get("ry").get()).build(null)));
+        map.put("rz", BLOCK_ENTITY_TYPES.register("rz", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.RZ::new, QUANTUM_MAP.get("rz").get()).build(null)));
+
+        // Control
+        map.put("cx", BLOCK_ENTITY_TYPES.register("cx", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CX::new, QUANTUM_MAP.get("cx").get()).build(null)));
+        map.put("cy", BLOCK_ENTITY_TYPES.register("cy", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CY::new, QUANTUM_MAP.get("cy").get()).build(null)));
+        map.put("cz", BLOCK_ENTITY_TYPES.register("cz", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CZ::new, QUANTUM_MAP.get("cz").get()).build(null)));
+        map.put("ch", BLOCK_ENTITY_TYPES.register("ch", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CH::new, QUANTUM_MAP.get("ch").get()).build(null)));
+        map.put("cs", BLOCK_ENTITY_TYPES.register("cs", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CS::new, QUANTUM_MAP.get("cs").get()).build(null)));
+        map.put("csdg", BLOCK_ENTITY_TYPES.register("csdg", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CSdg::new, QUANTUM_MAP.get("csdg").get()).build(null)));
+        map.put("ct", BLOCK_ENTITY_TYPES.register("ct", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CT::new, QUANTUM_MAP.get("ct").get()).build(null)));
+        map.put("ctdg", BLOCK_ENTITY_TYPES.register("ctdg", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CTdg::new, QUANTUM_MAP.get("ctdg").get()).build(null)));
+        map.put("cp", BLOCK_ENTITY_TYPES.register("cp", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CP::new, QUANTUM_MAP.get("cp").get()).build(null)));
+        map.put("crx", BLOCK_ENTITY_TYPES.register("crx", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CRX::new, QUANTUM_MAP.get("crx").get()).build(null)));
+        map.put("cry", BLOCK_ENTITY_TYPES.register("cry", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CRY::new, QUANTUM_MAP.get("cry").get()).build(null)));
+        map.put("crz", BLOCK_ENTITY_TYPES.register("crz", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.CRZ::new, QUANTUM_MAP.get("crz").get()).build(null)));
+
+        // Swap
+        map.put("swap", BLOCK_ENTITY_TYPES.register("swap", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.Swap::new, QUANTUM_MAP.get("swap").get()).build(null)));
+        map.put("cswap", BLOCK_ENTITY_TYPES.register("cswap", () -> BlockEntityType.Builder.of(QuantumComputerGateEntity.ControlSwap::new, QUANTUM_MAP.get("cswap").get()).build(null)));
+
+        map.put("quantum_computer_controller", BLOCK_ENTITY_TYPES.register("quantum_computer_controller", () -> BlockEntityType.Builder.of(QuantumComputerControllerEntity::new, QUANTUM_MAP.get("quantum_computer_controller").get()).build(null)));
+        map.put("quantum_computer_qubit", BLOCK_ENTITY_TYPES.register("quantum_computer_qubit", () -> BlockEntityType.Builder.of(QuantumComputerQubitEntity::new, QUANTUM_MAP.get("quantum_computer_qubit").get()).build(null)));
+        map.put("quantum_computer_connector", BLOCK_ENTITY_TYPES.register("quantum_computer_connector", () -> BlockEntityType.Builder.of(QuantumComputerConnectorEntity::new, QUANTUM_MAP.get("quantum_computer_connector").get()).build(null)));
+        map.put("quantum_computer_port", BLOCK_ENTITY_TYPES.register("quantum_computer_port", () -> BlockEntityType.Builder.of(QuantumComputerPortEntity::new, QUANTUM_MAP.get("quantum_computer_port").get()).build(null)));
+        map.put("quantum_computer_code_generator_qasm", BLOCK_ENTITY_TYPES.register("quantum_computer_code_generator_qasm", () -> BlockEntityType.Builder.of(QuantumComputerCodeGeneratorEntity.Qasm::new, QUANTUM_MAP.get("quantum_computer_code_generator_qasm").get()).build(null)));
+        map.put("quantum_computer_code_generator_qiskit", BLOCK_ENTITY_TYPES.register("quantum_computer_code_generator_qiskit", () -> BlockEntityType.Builder.of(QuantumComputerCodeGeneratorEntity.Qiskit::new, QUANTUM_MAP.get("quantum_computer_code_generator_qiskit").get()).build(null)));
 
         return map;
     }

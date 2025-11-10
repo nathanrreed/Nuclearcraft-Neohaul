@@ -45,7 +45,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     }
 
     private void multiblocks() {
-        for (Block block : blockValues(TURBINE_MAP, FISSION_REACTOR_MAP, HX_MAP)) {
+        for (Block block : blockValues(MACHINE_MAP, RTG_MAP, BATTERY_MAP, FISSION_REACTOR_MAP, HX_MAP, TURBINE_MAP, QUANTUM_MAP)) {
             dropSelf(block);
         }
     }
@@ -101,7 +101,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         all.addAll(blockValues(ORE_MAP, INGOT_BLOCK_MAP, MATERIAL_BLOCK_MAP, RAW_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
         all.addAll(blockValues(COLLECTOR_MAP, SOLAR_MAP, BATTERY_MAP, RTG_MAP));
         all.addAll(blockValues(PROCESSOR_MAP));
-        all.addAll(blockValues(TURBINE_MAP, FISSION_REACTOR_MAP, HX_MAP));
+        all.addAll(blockValues(MACHINE_MAP, RTG_MAP, BATTERY_MAP, FISSION_REACTOR_MAP, HX_MAP, TURBINE_MAP, QUANTUM_MAP));
         all.addAll(blockValues(GLOWING_MUSHROOM, TRITIUM_LAMP, HEAVY_WATER_MODERATOR, SUPERCOLD_ICE, SOLIDIFIED_CORIUM, UNIVERSAL_BIN, MACHINE_INTERFACE, NUCLEAR_FURNACE, DECAY_GENERATOR));
         return all;
     }

@@ -1,7 +1,5 @@
 package com.nred.nuclearcraft.multiblock.turbine;
 
-import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorStatorEntity;
-import com.nred.nuclearcraft.enumm.ITileEnum;
 import it.zerono.mods.zerocore.lib.CodeHelper;
 import it.zerono.mods.zerocore.lib.multiblock.variant.IMultiblockVariant;
 import net.minecraft.world.level.block.Block;
@@ -11,19 +9,17 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.config.NCConfig.turbine_stator_expansion;
 
-public enum TurbineRotorStatorType implements TurbineRotorBladeUtil.IRotorStatorType, ITileEnum<TurbineRotorStatorEntity.Variant>, IMultiblockVariant {
-    STANDARD("standard", () -> turbine_stator_expansion, TurbineRotorStatorEntity.Standard.class);
+public enum TurbineRotorStatorType implements TurbineRotorBladeUtil.IRotorStatorType, IMultiblockVariant {
+    STANDARD("standard", () -> turbine_stator_expansion);
 
     private final String name;
     private final Supplier<Double> expansion;
-    private final Class<? extends TurbineRotorStatorEntity.Variant> tileClass;
     private final String _translationKey;
     private final Function<Block.Properties, Block.Properties> _blockPropertiesFixer;
 
-    TurbineRotorStatorType(String name, Supplier<Double> expansion, Class<? extends TurbineRotorStatorEntity.Variant> tileClass) {
+    TurbineRotorStatorType(String name, Supplier<Double> expansion) {
         this.name = name;
         this.expansion = expansion;
-        this.tileClass = tileClass;
 
         this._translationKey = ""; // TODO ADD
         this._blockPropertiesFixer = null;
@@ -37,11 +33,6 @@ public enum TurbineRotorStatorType implements TurbineRotorBladeUtil.IRotorStator
     @Override
     public double getExpansionCoefficient() {
         return expansion.get();
-    }
-
-    @Override
-    public Class<? extends TurbineRotorStatorEntity.Variant> getTileClass() {
-        return tileClass;
     }
 
     @Override
