@@ -26,8 +26,8 @@ import static com.nred.nuclearcraft.info.Names.ORES;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.RAW_MAP;
 
-public class ModBlockLootTableProvider extends BlockLootSubProvider {
-    public ModBlockLootTableProvider(HolderLookup.Provider registries) {
+public class ModBlockLootTableSubProvider extends BlockLootSubProvider {
+    public ModBlockLootTableSubProvider(HolderLookup.Provider registries) {
         super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags(), registries);
     }
 
@@ -93,6 +93,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(NUCLEAR_FURNACE.get());
         dropSelf(GLOWING_MUSHROOM.get());
         dropSelf(DECAY_GENERATOR.get());
+        dropSelf(WASTELAND_EARTH.get());
+        dropWhenSilkTouch(GLOWING_MUSHROOM_BLOCK.get());
+        dropWhenSilkTouch(GLOWING_MUSHROOM_STEM_BLOCK.get());
     }
 
     @Override
@@ -102,7 +105,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         all.addAll(blockValues(COLLECTOR_MAP, SOLAR_MAP, BATTERY_MAP, RTG_MAP));
         all.addAll(blockValues(PROCESSOR_MAP));
         all.addAll(blockValues(MACHINE_MAP, RTG_MAP, BATTERY_MAP, FISSION_REACTOR_MAP, HX_MAP, TURBINE_MAP, QUANTUM_MAP));
-        all.addAll(blockValues(GLOWING_MUSHROOM, TRITIUM_LAMP, HEAVY_WATER_MODERATOR, SUPERCOLD_ICE, SOLIDIFIED_CORIUM, UNIVERSAL_BIN, MACHINE_INTERFACE, NUCLEAR_FURNACE, DECAY_GENERATOR));
+        all.addAll(blockValues(GLOWING_MUSHROOM, GLOWING_MUSHROOM_BLOCK, WASTELAND_PORTAL, GLOWING_MUSHROOM_STEM_BLOCK, TRITIUM_LAMP, WASTELAND_EARTH, HEAVY_WATER_MODERATOR, SUPERCOLD_ICE, SOLIDIFIED_CORIUM, UNIVERSAL_BIN, MACHINE_INTERFACE, NUCLEAR_FURNACE, DECAY_GENERATOR));
         return all;
     }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/mushroom_stem",
+  "textures": {
+    "texture": "nuclearcraftneohaul:block/glowing_mushroom_block_inside"
+  }
+}

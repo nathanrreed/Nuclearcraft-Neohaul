@@ -98,6 +98,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         rtg(recipeOutput);
         quantum(recipeOutput);
 
+        ShapelessRecipeBuilder.shapeless(MISC, Items.BROWN_MUSHROOM, 1).requires(GLOWING_MUSHROOM, 1).unlockedBy(getHasName(GLOWING_MUSHROOM), has(GLOWING_MUSHROOM)).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, GLOWING_MUSHROOM, 1).requires(Items.BROWN_MUSHROOM, 1).requires(Items.GLOWSTONE_DUST, 1).unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM)).save(recipeOutput);
+
         new AlloyFurnaceRecipeProvider(recipeOutput);
         new CentrifugeProvider(recipeOutput);
         new ChemicalReactorProvider(recipeOutput);

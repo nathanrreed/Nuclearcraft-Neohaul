@@ -1,0 +1,11 @@
+{
+  "type": "nuclearcraftneohaul:nuclear_wasteland_type",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "nuclearcraftneohaul:nuclear_wasteland"
+    },
+    "settings": "nuclearcraftneohaul:nuclear_wasteland"
+  }
+}

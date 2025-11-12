@@ -15,6 +15,14 @@
 		"subtitle": "nuclearcraftneohaul.music_disc.hyperspace",
 		"sounds": [ { "name": "nuclearcraftneohaul:music_disc/hyperspace", "stream": true } ]
 	},
+	"entity.feral_ghoul_death": {
+		"subtitle": "nuclearcraftneohaul.sound.entity.feral_ghoul_death",
+		"sounds": [ { "name": "nuclearcraftneohaul:entity/feral_ghoul_death", "stream": false } ]
+	},
+	"entity.feral_ghoul_charge": {
+		"subtitle": "nuclearcraftneohaul.sound.entity.feral_ghoul_charge",
+		"sounds": [ { "name": "nuclearcraftneohaul:entity/feral_ghoul_charge", "stream": false } ]
+	},
 	"player.chems_wear_off": {
 		"subtitle": "nuclearcraftneohaul.sound.player.chems_wear_off",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/chems_wear_off", "stream": false } ]

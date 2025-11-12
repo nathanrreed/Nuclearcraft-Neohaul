@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.nred.nuclearcraft.render.RenderHelper.renderFluid;
 
 @OnlyIn(Dist.CLIENT)
-public record RenderMultiblockElectrolyzer(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<ElectrolyzerControllerEntity> {
+public record MultiblockElectrolyzerRender(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<ElectrolyzerControllerEntity> {
 
     @Override
     public void render(ElectrolyzerControllerEntity controller, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {

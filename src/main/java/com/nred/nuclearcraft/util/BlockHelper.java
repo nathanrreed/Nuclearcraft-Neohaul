@@ -14,6 +14,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidActionResult;
 import net.neoforged.neoforge.fluids.FluidUtil;
@@ -131,7 +133,7 @@ public class BlockHelper {
         return false;
     }
 
-    public static final AABB REDUCED_BLOCK_AABB = new AABB(0.002D, 0.002D, 0.002D, 0.998D, 0.998D, 0.998D);
+    public static final VoxelShape REDUCED_BLOCK_BOUNDS = Shapes.create(new AABB(0.002D, 0.002D, 0.002D, 0.998D, 0.998D, 0.998D));
 
     // Taken from cofh.core.util.helpers.BlockHelper. Good idea Lemming!
 

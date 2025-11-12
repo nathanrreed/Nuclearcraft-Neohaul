@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.nred.nuclearcraft.render.RenderHelper.renderFluid;
 
 @OnlyIn(Dist.CLIENT)
-public record RenderMultiblockHeatExchanger(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<HeatExchangerControllerEntity> {
+public record MultiblockHeatExchangerRender(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<HeatExchangerControllerEntity> {
 
     @Override
     public void render(HeatExchangerControllerEntity controller, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {

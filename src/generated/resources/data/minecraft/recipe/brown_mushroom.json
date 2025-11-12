@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:glowing_mushroom"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:brown_mushroom"
+  }
+}

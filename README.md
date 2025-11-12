@@ -11,6 +11,7 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 ### Dependencies:
 #### Required:
 - [ZenCore 2](https://github.com/ZeroNoRyouki/ZeroCore2)
+- [TerraBlender](https://github.com/Glitchfiend/TerraBlender)
 #### Recommended:
 - [ConnectedTexturesMod](https://github.com/Chisel-Team/ConnectedTexturesMod)
 - [EMI](https://github.com/emilyploszaj/emi)
@@ -37,13 +38,12 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Heat exchanger
 - Multiblock Machines
 - Quantum Computer
+- Wasteland
+- CC: T Integration
 
 #### Continual:
-- Integrations with JEI, EMI, CC: T, Mekanism
-
-#### In progress:
-- Wasteland
-
+- Integrations with JEI, EMI, Mekanism
+- 
 #### Future Additions:
 - Tools and Armour
 - Radiation

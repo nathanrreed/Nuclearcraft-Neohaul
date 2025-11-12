@@ -34,7 +34,7 @@ import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.ONE_PIXE
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.bindBlocksTexture;
 
 @OnlyIn(Dist.CLIENT)
-public record RenderMultiblockDistiller(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<DistillerControllerEntity> {
+public record MultiblockDistillerRender(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<DistillerControllerEntity> {
 
     @Override
     public void render(DistillerControllerEntity controller, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {

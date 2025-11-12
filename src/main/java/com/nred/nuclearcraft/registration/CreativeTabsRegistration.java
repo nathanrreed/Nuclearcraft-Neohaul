@@ -57,6 +57,10 @@ public class CreativeTabsRegistration {
             .icon(() -> GLOWING_MUSHROOM.asItem().getDefaultInstance()) // TODO change to geiger counter
             .displayItems((parameters, output) -> {
                 output.accept(GLOWING_MUSHROOM);
+                output.accept(GLOWING_MUSHROOM_BLOCK);
+                output.accept(GLOWING_MUSHROOM_STEM_BLOCK);
+                output.accept(WASTELAND_EARTH);
+                output.accept(WASTELAND_PORTAL);
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MISC_TAB = CREATIVE_MODE_TABS.register("misc_tab", () -> CreativeModeTab.builder()
@@ -71,6 +75,7 @@ public class CreativeTabsRegistration {
                 output.acceptAll(itemStackValues(FOOD_MAP));
                 output.accept(FOURSMORE);
                 output.acceptAll(itemStackValues(MUSIC_DISC_MAP));
+                output.accept(FERAL_GHOUL_SPAWN_EGG);
             }).build());
 
     public static void init() {

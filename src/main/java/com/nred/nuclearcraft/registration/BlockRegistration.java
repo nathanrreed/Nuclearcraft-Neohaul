@@ -1,8 +1,10 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.NCInfo;
+import com.nred.nuclearcraft.block.GlowingMushroomBlock;
 import com.nred.nuclearcraft.block.SolidifiedCorium;
 import com.nred.nuclearcraft.block.SupercoldIceBlock;
+import com.nred.nuclearcraft.block.WastelandPortal;
 import com.nred.nuclearcraft.block.battery.BlockBattery;
 import com.nred.nuclearcraft.block.item.NCItemBlock;
 import com.nred.nuclearcraft.block.item.energy.ItemBlockBattery;
@@ -33,23 +35,14 @@ import com.nred.nuclearcraft.util.PrimitiveFunction.ObjEnumFunction;
 import com.nred.nuclearcraft.util.PrimitiveFunction.ObjIntFunction;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.HashMap;
@@ -96,15 +89,18 @@ public class BlockRegistration {
 
     public static final DeferredBlock<Block> TRITIUM_LAMP = registerBlockItem("tritium_lamp", () -> new Block(BlockBehaviour.Properties.of().lightLevel(blockState -> 15)));
     public static final DeferredBlock<Block> SUPERCOLD_ICE = registerBlockItem("supercold_ice", SupercoldIceBlock::new);
-
     public static final DeferredBlock<Block> HEAVY_WATER_MODERATOR = registerBlockItem("heavy_water_moderator", () -> new Block(BlockBehaviour.Properties.of()));
     public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCorium::new);
     public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItemWithTooltip("universal_bin", () -> new BlockSimpleTile<>("bin", false), false);
     public static final DeferredBlock<Block> MACHINE_INTERFACE = registerBlockItemWithTooltip("machine_interface", () -> new BlockMachineInterface("machine_interface"), false);
     public static final DeferredBlock<Block> NUCLEAR_FURNACE = registerBlockItemWithTooltip("nuclear_furnace", () -> new NuclearFurnaceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FURNACE)), false);
-
     public static final DeferredBlock<Block> DECAY_GENERATOR = registerBlockItem("decay_generator", () -> new BlockSimpleTile<>("decay_generator"));
 
+    public static final DeferredBlock<Block> WASTELAND_EARTH = registerBlockItem("wasteland_earth", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)));
+    public static final DeferredBlock<Block> WASTELAND_PORTAL = registerBlockItem("wasteland_portal", WastelandPortal::new);
+    public static final DeferredBlock<Block> GLOWING_MUSHROOM_BLOCK = registerBlockItem("glowing_mushroom_block", () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).mapColor(MapColor.COLOR_YELLOW).lightLevel(blockState -> 2)));
+    public static final DeferredBlock<Block> GLOWING_MUSHROOM_STEM_BLOCK = registerBlockItem("glowing_mushroom_stem_block", () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUSHROOM_STEM).lightLevel(blockState -> 2)));
+    public static final DeferredBlock<Block> GLOWING_MUSHROOM = registerBlockItem("glowing_mushroom", () -> new GlowingMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).mapColor(MapColor.COLOR_YELLOW)));
 
     public static <T extends Block> DeferredBlock<Block> registerBlockItemWithTooltip(String name, Supplier<T> block, boolean hasFixed, Component... tooltip) {
         DeferredBlock<Block> toReturn = BLOCKS.register(name, block);
@@ -123,16 +119,6 @@ public class BlockRegistration {
         ITEMS.registerSimpleBlockItem(name, toReturn);
         return toReturn;
     }
-
-
-    // TODO make real mushroom
-    public static final DeferredBlock<Block> GLOWING_MUSHROOM = registerBlockItem("glowing_mushroom", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)
-            .lightLevel(blockState -> 10).hasPostProcess((state, level, pos) -> true).pushReaction(PushReaction.DESTROY)) {
-        @Override
-        protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-            return Block.box(5.0, 0.0, 5.0, 11.0, 6.0, 11.0);
-        }
-    });
 
     private static HashMap<String, DeferredBlock<Block>> createOres() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();

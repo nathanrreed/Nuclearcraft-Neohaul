@@ -38,6 +38,9 @@ class ModBlockTagProvider extends BlockTagsProvider {
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(ORE_MAP.get("tin").get(), ORE_MAP.get("lead").get());
 
+        tag(BlockTags.MUSHROOM_GROW_BLOCK).add(WASTELAND_EARTH.get());
+        tag(BlockTags.PORTALS).add(WASTELAND_PORTAL.get());
+
         simpleTag(INGOTS, INGOT_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS);
         simpleTag(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS);
         simpleTag(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, Tags.Blocks.STORAGE_BLOCKS);

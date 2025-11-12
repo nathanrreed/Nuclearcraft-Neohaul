@@ -43,6 +43,13 @@ description='''${mod_description}'''
     side="BOTH"
 
 [[dependencies.${mod_id}]]
+    modId="terrablender"
+    type="required"
+    versionRange="${terrablender_version}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
     modId="zerocore"
     type="required"
     versionRange="${zerocore_version_range}"
@@ -50,9 +57,9 @@ description='''${mod_description}'''
     side="BOTH"
 
 [[dependencies.${mod_id}]]
-    modId="jei"
+    modId="computercraft"
     type="optional"
-    versionRange="${jei_version}"
+    versionRange="${cct_version}"
     ordering="NONE"
     side="BOTH"
 
@@ -64,8 +71,22 @@ description='''${mod_description}'''
     side="BOTH"
 
 [[dependencies.${mod_id}]]
+    modId="jei"
+    type="optional"
+    versionRange="${jei_version}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
     modId="mekanism"
     type="optional"
     versionRange="${mekanism_version}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="patchouli"
+    type="optional"
+    versionRange="${patchouli_version}"
     ordering="NONE"
     side="BOTH"

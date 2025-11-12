@@ -44,6 +44,9 @@ public class SoundRegistration {
     public static final Supplier<SoundEvent> chems_wear_off = SOUND_EVENTS.register("player.chems_wear_off", SoundEvent::createVariableRangeEvent);
     public static final Supplier<SoundEvent> rad_poisoning = SOUND_EVENTS.register("player.rad_poisoning", SoundEvent::createVariableRangeEvent);
 
+    public static final Supplier<SoundEvent> feral_ghoul_death = SOUND_EVENTS.register("entity.feral_ghoul_death", SoundEvent::createVariableRangeEvent);
+    public static final Supplier<SoundEvent> feral_ghoul_charge = SOUND_EVENTS.register("entity.feral_ghoul_charge", SoundEvent::createVariableRangeEvent);
+
     public static ResourceKey<JukeboxSong> createSong(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(MODID, name));
     }

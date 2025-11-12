@@ -12,6 +12,7 @@ public class Registration {
         BlockRegistration.init();
         ItemRegistration.init();
         FluidRegistration.init();
+        EntityRegistration.init();
 
         PlacementRule.preInit();
         TileInfoHandler.preInit();
@@ -38,5 +39,6 @@ public class Registration {
         CREATIVE_MODE_TABS.register(modEventBus);
         SOUND_EVENTS.register(modEventBus);
         TRIGGER_TYPES.register(modEventBus);
+        ENTITY_TYPES.register(modEventBus);
     }
 }

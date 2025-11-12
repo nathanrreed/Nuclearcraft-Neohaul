@@ -22,7 +22,7 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static net.minecraft.client.renderer.RenderStateShard.*;
 
 @OnlyIn(Dist.CLIENT)
-public record RenderQuantumComputerQubit(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<QuantumComputerQubitEntity> {
+public record QuantumComputerQubitRender(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<QuantumComputerQubitEntity> {
     static AABB bounds = Block.box(4, 4, 4, 12, 12, 12).bounds();
     static List<Vec3> vertexes = List.of(
             new Vec3(bounds.minX, bounds.maxY, bounds.minZ),
@@ -70,7 +70,7 @@ public record RenderQuantumComputerQubit(BlockEntityRendererProvider.Context con
         poseStack.pushPose();
 
         PoseStack.Pose posestack$pose = poseStack.last();
-        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderQuantumComputerQubit.qubitRender);
+        VertexConsumer vertexConsumer = bufferSource.getBuffer(QuantumComputerQubitRender.qubitRender);
 
         aad(posestack$pose, vertexConsumer, vertexes.get(0), vertexes.get(1), vertexes.get(2), vertexes.get(3), r, g, b);
         aad(posestack$pose, vertexConsumer, vertexes.get(3), vertexes.get(2), vertexes.get(5), vertexes.get(4), r, g, b);

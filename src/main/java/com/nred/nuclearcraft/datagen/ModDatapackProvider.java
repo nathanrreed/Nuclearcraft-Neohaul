@@ -3,6 +3,8 @@ package com.nred.nuclearcraft.datagen;
 import com.nred.nuclearcraft.worldgen.ModBiomeModifiers;
 import com.nred.nuclearcraft.worldgen.ModConfiguredFeatures;
 import com.nred.nuclearcraft.worldgen.ModPlacedFeatures;
+import com.nred.nuclearcraft.worldgen.biome.NCBiomes;
+import com.nred.nuclearcraft.worldgen.dimension.NCDimensions;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -38,7 +40,13 @@ public class ModDatapackProvider extends DatapackBuiltinEntriesProvider {
                 bootstrap.register(HYPOTHERMIA, new DamageType("hypothermia", DamageScaling.NEVER, 0.1f, DamageEffects.FREEZING, DeathMessageType.DEFAULT));
                 bootstrap.register(FISSION_BURN, new DamageType("fission_burn", DamageScaling.NEVER, 0.1f, DamageEffects.BURNING, DeathMessageType.DEFAULT));
                 bootstrap.register(FATAL_RADS, new DamageType("fatal_rads", DamageScaling.NEVER, 0.1f, DamageEffects.valueOf("NUCLEARCRAFTNEOHAUL_RADIATION"), DeathMessageType.DEFAULT));
-            });
+            })
+            .add(Registries.BIOME, NCBiomes::bootstrap)
+            .add(Registries.DIMENSION_TYPE, NCDimensions::bootstrapType)
+            .add(Registries.LEVEL_STEM, NCDimensions::bootstrapStem)
+            .add(Registries.NOISE_SETTINGS, NCDimensions::bootstrapNoise)
+//            .add(Registries.BIOME, NCDimensions::bootstrap)
+            ;
 
     public ModDatapackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> event) {
         super(output, event, BUILDER, Set.of(MODID));

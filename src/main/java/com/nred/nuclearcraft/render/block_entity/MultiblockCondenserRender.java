@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.nred.nuclearcraft.render.RenderHelper.renderFluid;
 
 @OnlyIn(Dist.CLIENT)
-public record RenderMultiblockCondenser(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<CondenserControllerEntity> {
+public record MultiblockCondenserRender(BlockEntityRendererProvider.Context context) implements BlockEntityRenderer<CondenserControllerEntity> {
 
     @Override
     public void render(CondenserControllerEntity controller, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {

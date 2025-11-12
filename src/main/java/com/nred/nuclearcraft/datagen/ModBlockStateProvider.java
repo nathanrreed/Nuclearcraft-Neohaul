@@ -40,6 +40,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
+import static net.minecraft.world.level.block.PipeBlock.PROPERTY_BY_DIRECTION;
 import static net.neoforged.neoforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 class ModBlockStateProvider extends BlockStateProvider {
@@ -66,6 +67,10 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(MACHINE_INTERFACE);
         blockWithItem(DECAY_GENERATOR);
         blockWithItem(TRITIUM_LAMP);
+        blockWithItem(WASTELAND_EARTH);
+        blockWithItem(WASTELAND_PORTAL);
+        mushroomBlock(GLOWING_MUSHROOM_BLOCK, "glowing_mushroom_block_skin", "glowing_mushroom_block_inside", "block/mushroom_stem");
+        mushroomBlock(GLOWING_MUSHROOM_STEM_BLOCK, "glowing_mushroom_block_stem", "glowing_mushroom_block_inside", "block/template_single_face");
         blockWithItem(HEAVY_WATER_MODERATOR, "fission");
         crossBlock(GLOWING_MUSHROOM);
 
@@ -100,6 +105,24 @@ class ModBlockStateProvider extends BlockStateProvider {
         String location = BuiltInRegistries.BLOCK.getKey(deferredBlock.get()).getPath();
         simpleBlock(deferredBlock.get(), models().cross(location, blockTexture(deferredBlock.get())).renderType("cutout"));
         itemModels().getBuilder("item/" + location).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", ncLoc("block/" + location));
+    }
+
+    private void mushroomBlock(DeferredBlock<Block> deferredBlock, String outside, String inside, String model) {
+        Block block = deferredBlock.get();
+        MultiPartBlockStateBuilder builder = getMultipartBuilder(block);
+
+        ModelFile inventoryModel = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(BLOCK_FOLDER + "/" + outside));
+
+        for (boolean state : List.of(true, false)) {
+            for (Direction dir : Direction.values()) {
+                builder = builder.part().modelFile(models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + (state ? "outside" : "inside"), mcLoc(model)).texture("texture", BLOCK_FOLDER + "/" + (state ? outside : inside)))
+                        .rotationX(dir == Direction.DOWN ? 90 : dir.getAxis().isHorizontal() ? 0 : 270)
+                        .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + 180) % 360)
+                        .uvLock(true).addModel().condition(PROPERTY_BY_DIRECTION.get(dir), state).end();
+            }
+        }
+
+        simpleBlockItem(block, inventoryModel);
     }
 
     private void fluids() {
@@ -259,7 +282,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem("pressure_chamber", MACHINE_MAP.get("infiltrator_pressure_chamber"), "machine/infiltrator");
     }
 
-// TODO rename all these functions and merge similar
+    // TODO rename all these functions and merge similar
 
     private void simpleBlocks(List<String> list, HashMap<String, DeferredBlock<Block>> map, String folder) {
         for (String name : list) {

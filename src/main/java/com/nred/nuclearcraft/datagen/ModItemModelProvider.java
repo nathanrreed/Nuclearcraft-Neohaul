@@ -86,6 +86,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(LITHIUM_ION_CELL.get());
         basicItem(MULTITOOL.get());
 
+        withExistingParent(FERAL_GHOUL_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
+
         buckets();
     }
 

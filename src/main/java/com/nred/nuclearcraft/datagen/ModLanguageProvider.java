@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
+import static com.nred.nuclearcraft.registration.EntityRegistration.FERAL_GHOUL;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
@@ -61,6 +62,9 @@ public class ModLanguageProvider extends LanguageProvider {
         add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
         add(LITHIUM_ION_CELL.asItem(), capitalize(LITHIUM_ION_CELL.getId().getPath()));
         add("jei.probability", "Production chance: %s%%");
+
+        add("biome." + MODID + ".nuclear_wasteland", "Nuclear Wasteland");
+        add("dimension." + MODID + ".nuclear_wasteland", "Nuclear Wasteland");
     }
 
     private void advancements() {
@@ -720,6 +724,12 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleItems(UPGRADES, UPGRADE_MAP, " Upgrade");
 
         add(GLOWING_MUSHROOM.get(), "Glowing Mushroom");
+        add(GLOWING_MUSHROOM_BLOCK.get(), "Glowing Mushroom Block");
+        add(GLOWING_MUSHROOM_STEM_BLOCK.get(), "Glowing Mushroom Stem Block");
+        add(WASTELAND_EARTH.get(), "Wasteland Earth");
+        add(WASTELAND_PORTAL.get(), "Wasteland Portal");
+        add(FERAL_GHOUL_SPAWN_EGG.get(), "Feral Ghoul Spawn Egg");
+        add(FERAL_GHOUL.get(), "Feral Ghoul");
 
         fuelTypeItems(AMERICIUM_MAP, "Americium-");
         fuelTypeItems(BERKELIUM_MAP, "Berkelium-");
@@ -1267,6 +1277,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".sound.player.chems_wear_off", "Chems Wear Off");
         add(MODID + ".sound.player.rad_poisoning", "Rad Poisoning");
 
+        add(MODID + ".sound.entity.feral_ghoul_death", "Feral Ghoul Death");
+        add(MODID + ".sound.entity.feral_ghoul_charge", "Feral Ghoul Charge");
     }
 
     private void config() {

@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import static com.nred.nuclearcraft.config.NCConfig.energy_upgrade_power_laws_fp
 import static com.nred.nuclearcraft.config.NCConfig.speed_upgrade_power_laws_fp;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.newEffect;
 import static com.nred.nuclearcraft.info.Names.*;
+import static com.nred.nuclearcraft.registration.EntityRegistration.FERAL_GHOUL;
 import static com.nred.nuclearcraft.registration.Registers.ITEMS;
 import static com.nred.nuclearcraft.registration.SoundRegistration.*;
 
@@ -41,6 +43,8 @@ public class ItemRegistration {
     public static final DeferredItem<Item> FOURSMORE = ITEMS.register("foursmore", () -> new FoodItem(48, 8.6F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 1200), newEffect(MobEffects.DIG_SPEED, 2, 1200), newEffect(MobEffects.ABSORPTION, 2, 1200))));
     public static final DeferredItem<Item> LITHIUM_ION_CELL = ITEMS.register("lithium_ion_cell", () -> new LithiumIonCell(new Item.Properties()));
     public static final DeferredItem<Item> MULTITOOL = ITEMS.register("multitool", () -> new MultitoolItem(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<Item> FERAL_GHOUL_SPAWN_EGG = ITEMS.register("feral_ghoul_spawn_egg", () -> new DeferredSpawnEggItem(FERAL_GHOUL, 0xaf9890, 0x192124, new Item.Properties()));
 
     public static final HashMap<String, DeferredItem<Item>> AMERICIUM_MAP = createItems(AMERICIUMS, "americium", "");
     public static final HashMap<String, DeferredItem<Item>> BERKELIUM_MAP = createItems(BERKELIUMS, "berkelium", "");

@@ -35,6 +35,9 @@ repositories {
     maven {// Mekanism
         url = "https://modmaven.dev/"
     }
+    maven {// TerraBlender
+        url = "https://maven.minecraftforge.net/"
+    }
     maven {// CC: T
         url = "https://maven.squiddev.cc"
         content {
@@ -121,27 +124,32 @@ dependencies {
 
     implementation "curse.maven:zerocore-247921:${zerocore_version}"
 
-    compileOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge-api:${cctVersion}")
-    runtimeOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cctVersion}")
+    compileOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge-api:${cct_version}")
+    runtimeOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cct_version}")
+
+    implementation("com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}")
 }
 
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            neo_version_range      : neo_version_range,
-            loader_version_range   : loader_version_range,
-            zerocore_version_range : zerocore_version_range,
-            jei_version            : jei_version,
-            emi_version            : emi_version,
-            mekanism_version       : mekanism_version,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description
+            minecraft_version       : minecraft_version,
+            minecraft_version_range : minecraft_version_range,
+            neo_version             : neo_version,
+            neo_version_range       : neo_version_range,
+            loader_version_range    : loader_version_range,
+            zerocore_version_range  : zerocore_version_range,
+            jei_version             : jei_version,
+            emi_version             : emi_version,
+            mekanism_version        : mekanism_version,
+            terrablender_version    : terrablender_version,
+            cct_version             : cct_version,
+            patchouli_version       : patchouli_version,
+            mod_id                  : mod_id,
+            mod_name                : mod_name,
+            mod_license             : mod_license,
+            mod_version             : mod_version,
+            mod_authors             : mod_authors,
+            mod_description         : mod_description
     ]
     inputs.properties replaceProperties
 
