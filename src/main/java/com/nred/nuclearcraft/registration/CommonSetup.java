@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.registration;
 import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.recipe.RecipeStats;
@@ -17,15 +18,19 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
+import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.EntityRegistration.FERAL_GHOUL;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.FERAL_GHOUL_SPAWN_EGG;
 
 @EventBusSubscriber(modid = MODID)
@@ -43,6 +48,20 @@ public class CommonSetup {
         Regions.register(new NuclearWastelandRegion(ncLoc("nuclear_wasteland"), 2));
         SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, NuclearWastelandBiome.makeRules());
         SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, NuclearWastelandBiome.makeRules());
+
+        // Add Fluid Mixing
+        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, CUSTOM_FLUID_MAP, FISSION_FUEL_MAP)) {
+            if (fluid.block.get().getSourceMixingState() != null && fluid.block.get().getFlowingMixingState() != null) {
+                FluidInteractionRegistry.addInteraction(fluid.type.value(), new FluidInteractionRegistry.InteractionInformation(
+                        NeoForgeMod.WATER_TYPE.value(),
+                        fluidState -> fluidState.isSource() ? fluid.block.get().getSourceMixingState() : fluid.block.get().getFlowingMixingState()));
+            }
+            if (fluid.block.get().getFlowingIntoWaterState() != null) {
+                FluidInteractionRegistry.addInteraction(NeoForgeMod.WATER_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                        fluid.type.value(),
+                        fluidState -> fluid.block.get().getFlowingIntoWaterState()));
+            }
+        }
     }
 
     @SubscribeEvent

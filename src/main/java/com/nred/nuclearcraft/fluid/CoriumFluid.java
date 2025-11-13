@@ -9,7 +9,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -17,18 +16,12 @@ import java.util.stream.Collectors;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.SOLIDIFIED_CORIUM;
 
-public abstract class CoriumFluid extends BaseFlowingFluid { //TODO
+public abstract class CoriumFluid extends NCSourceFluid {
     protected static Set<ResourceLocation> solidification_dim_set;
 
-    protected CoriumFluid(Properties properties) {
-        super(properties.tickRate(60));
+    protected CoriumFluid(Properties properties, int level) {
+        super(properties.tickRate(60), level);
     }
-
-//    @Override TODO added entityInside in 1.21.
-//    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-//        entityIn.attackEntityFrom(DamageSources.CORIUM_BURN, 4F);
-//        super.onEntityCollision(worldIn, pos, state, entityIn);
-//    }
 
     @Override
     protected void randomTick(Level level, BlockPos pos, FluidState state, RandomSource random) {
@@ -66,7 +59,7 @@ public abstract class CoriumFluid extends BaseFlowingFluid { //TODO
 
     public static class Flowing extends CoriumFluid {
         public Flowing(Properties properties) {
-            super(properties);
+            super(properties, 0);
         }
 
         @Override
@@ -87,8 +80,8 @@ public abstract class CoriumFluid extends BaseFlowingFluid { //TODO
     }
 
     public static class Source extends CoriumFluid {
-        public Source(Properties properties) {
-            super(properties);
+        public Source(Properties properties, int level) {
+            super(properties, level);
         }
 
         @Override

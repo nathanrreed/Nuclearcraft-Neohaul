@@ -1,6 +1,10 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.block.fluid.CoriumFluidBlock;
+import com.nred.nuclearcraft.block.fluid.LiquidFluidBlock;
+import com.nred.nuclearcraft.block.fluid.SuperFluidBlock;
 import com.nred.nuclearcraft.fluid.CoriumFluid;
+import com.nred.nuclearcraft.fluid.PlasmaFluid;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.util.FastColor;
 
@@ -84,7 +88,7 @@ public class FluidRegistration {
         map.put("quartz", new Fluids("quartz", 0xFFECE9E2, Fluids.MOLTEN_TYPE));
         map.put("obsidian", new Fluids("obsidian", 0xFF1C1828, Fluids.MOLTEN_TYPE));
         map.put("nether_brick", new Fluids("nether_brick", 0xFF271317, Fluids.MOLTEN_TYPE));
-        map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.MOLTEN_TYPE));
+        map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.GLOWSTONE_TYPE));
         map.put("lapis", new Fluids("lapis", 0xFF27438A, Fluids.MOLTEN_TYPE));
         map.put("gold", new Fluids("gold", 0xFFE6DA3C, Fluids.MOLTEN_TYPE));
         map.put("prismarine", new Fluids("prismarine", 0xFF70A695, Fluids.MOLTEN_TYPE));
@@ -118,24 +122,24 @@ public class FluidRegistration {
 
     private static Map<String, Fluids> createCustomFluid() {
         Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("liquid_helium", new Fluids("liquid_helium", true, -1, 150, 4, 1, 0));
-        map.put("le_water", new Fluids("le_water", false, -1));
-        map.put("he_water", new Fluids("he_water", false, -1));
-        map.put("heavy_water", new Fluids("heavy_water", false, -1));
-        map.put("hydrogen_peroxide", new Fluids("hydrogen_peroxide", false, -1));
-        map.put("liquid_nitrogen", new Fluids("liquid_nitrogen", "liquid", false, false, 0xFF31C23A, 810, 70, 170, 0));
-        map.put("ender", new Fluids("ender", "liquid_still", true, false, 0xFF14584D, 4000, 300, 2500, 3));
-        map.put("cryotheum", new Fluids("cryotheum", "liquid", 0xFF0099C1, false, false));
-        map.put("plasma", new Fluids("plasma", true, false, -1, 50, 1000000, 100, 0));
-        map.put("radaway", new Fluids("radaway", false, -1));
-        map.put("radaway_slow", new Fluids("radaway_slow", false, -1));
-        map.put("corium", new Fluids("corium", 0xFF7C7C6F, Fluids.MOLTEN_TYPE, CoriumFluid.Source::new, CoriumFluid.Flowing::new));
-        map.put("ice", new Fluids("ice", "liquid", false, false, 0xFFAFF1FF, 1000, 250, 2000, 0));
-        map.put("slurry_ice", new Fluids("slurry_ice", "liquid", false, false, 0xFF7EAEB7, 950, 270, 4000, 0));
-        map.put("emergency_coolant", new Fluids("emergency_coolant", "liquid", false, false, 0xFF6DD0E7, 2000, 100, 2000, 3));
-        map.put("emergency_coolant_heated", new Fluids("emergency_coolant_heated", "liquid", false, false, 0xFFCDBEE7, 2000, 300, 1500, 9));
-        map.put("preheated_water", new Fluids("preheated_water", "liquid", false, false, 0xFF2F43F4, 1000, 400, 250, 0));
-        map.put("condensate_water", new Fluids("condensate_water", "liquid", false, false, 0xFF2F43F4, 1000, 300, 850, 0));
+        map.put("liquid_helium", new Fluids("liquid_helium", true, -1, 150, 4, 1, 0, SuperFluidBlock::new));
+        map.put("le_water", new Fluids("le_water", false, -1, LiquidFluidBlock::new));
+        map.put("he_water", new Fluids("he_water", false, -1, LiquidFluidBlock::new));
+        map.put("heavy_water", new Fluids("heavy_water", false, -1, LiquidFluidBlock::new));
+        map.put("hydrogen_peroxide", new Fluids("hydrogen_peroxide", false, -1, LiquidFluidBlock::new));
+        map.put("liquid_nitrogen", new Fluids("liquid_nitrogen", "liquid", false, false, 0xFF31C23A, 810, 70, 170, 0, LiquidFluidBlock::new));
+        map.put("ender", new Fluids("ender", "liquid_still", true, false, 0xFF14584D, 4000, 300, 2500, 3, LiquidFluidBlock::new));
+        map.put("cryotheum", new Fluids("cryotheum", 0xFF0099C1, Fluids.CRYOTHEUM_TYPE));
+        map.put("plasma", new Fluids("plasma", -1, Fluids.PLASMA_TYPE, PlasmaFluid.Source::new, PlasmaFluid.Flowing::new));
+        map.put("radaway", new Fluids("radaway", false, -1, LiquidFluidBlock::new));
+        map.put("radaway_slow", new Fluids("radaway_slow", false, -1, LiquidFluidBlock::new));
+        map.put("corium", new Fluids("corium", 0xFF7C7C6F, new Fluids.TypeInfo(Fluids.MOLTEN_TYPE,CoriumFluidBlock::new), CoriumFluid.Source::new, CoriumFluid.Flowing::new));
+        map.put("ice", new Fluids("ice", "liquid", false, false, 0xFFAFF1FF, 1000, 250, 2000, 0, LiquidFluidBlock::new));
+        map.put("slurry_ice", new Fluids("slurry_ice", "liquid", false, false, 0xFF7EAEB7, 950, 270, 4000, 0, LiquidFluidBlock::new));
+        map.put("emergency_coolant", new Fluids("emergency_coolant", "liquid", false, false, 0xFF6DD0E7, 2000, 100, 2000, 0, LiquidFluidBlock::new));
+        map.put("emergency_coolant_heated", new Fluids("emergency_coolant_heated", "liquid", false, false, 0xFFCDBEE7, 2000, 400, 1500, 7, LiquidFluidBlock::new));
+        map.put("preheated_water", new Fluids("preheated_water", "liquid", false, false, 0xFF2F43F4, 1000, 400, 250, 0, LiquidFluidBlock::new));
+        map.put("condensate_water", new Fluids("condensate_water", "liquid", false, false, 0xFF2F43F4, 1000, 350, 850, 0, LiquidFluidBlock::new));
         return map;
     }
 
@@ -148,7 +152,7 @@ public class FluidRegistration {
         map.put("fluorobenzene", new Fluids("fluorobenzene", 0xFFBAB58B, Fluids.FLAMMABLE_TYPE));
         map.put("difluorobenzene", new Fluids("difluorobenzene", 0xFF8CB57B, Fluids.FLAMMABLE_TYPE));
         map.put("dimethyldifluorosilane", new Fluids("dimethyldifluorosilane", 0xFFAEAF80, Fluids.FLAMMABLE_TYPE));
-        map.put("redstone_ethanol", new Fluids("redstone_ethanol", false, -1));
+        map.put("redstone_ethanol", new Fluids("redstone_ethanol", false, -1, LiquidFluidBlock::new));
         return map;
     }
 
@@ -201,9 +205,7 @@ public class FluidRegistration {
 
     private static Map<String, Fluids> createSteam() {
         Map<String, Fluids> map = new java.util.HashMap<>();
-//        TODO if (registerCoFHAlt()) {
         map.put("steam", new Fluids("steam", 0xFF929292, Fluids.STEAM_TYPE, 800));
-//        }
         map.put("high_pressure_steam", new Fluids("high_pressure_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 1200));
         map.put("exhaust_steam", new Fluids("exhaust_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 500));
         map.put("low_pressure_steam", new Fluids("low_pressure_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 800));

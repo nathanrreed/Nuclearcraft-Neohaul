@@ -119,13 +119,11 @@ public class ModConfiguredFeatures {
 
         register(context, HUGE_GLOWING_MUSHROOM_CURVE_KEY, Feature.HUGE_RED_MUSHROOM, new HugeMushroomFeatureConfiguration(
                 BlockStateProvider.simple(GLOWING_MUSHROOM_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, Boolean.FALSE)),
-                BlockStateProvider.simple(GLOWING_MUSHROOM_STEM_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.UP, Boolean.FALSE).setValue(HugeMushroomBlock.DOWN, Boolean.valueOf(false)))
-                , 2));
+                BlockStateProvider.simple(GLOWING_MUSHROOM_STEM_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.UP, Boolean.FALSE).setValue(HugeMushroomBlock.DOWN, Boolean.FALSE)), 2));
 
         register(context, HUGE_GLOWING_MUSHROOM_FLAT_KEY, Feature.HUGE_BROWN_MUSHROOM, new HugeMushroomFeatureConfiguration(
                 BlockStateProvider.simple(GLOWING_MUSHROOM_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.DOWN, Boolean.FALSE)),
-                BlockStateProvider.simple(GLOWING_MUSHROOM_STEM_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.UP, Boolean.FALSE).setValue(HugeMushroomBlock.DOWN, Boolean.valueOf(false)))
-                , 2));
+                BlockStateProvider.simple(GLOWING_MUSHROOM_STEM_BLOCK.get().defaultBlockState().setValue(HugeMushroomBlock.UP, Boolean.FALSE).setValue(HugeMushroomBlock.DOWN, Boolean.FALSE)), 2));
 
         register(context, LAKE_WASTELAND_PORTAL_KEY, Feature.LAKE, new LakeFeature.Configuration(
                 BlockStateProvider.simple(WASTELAND_PORTAL.get().defaultBlockState()), BlockStateProvider.simple(WASTELAND_EARTH.get().defaultBlockState()))
