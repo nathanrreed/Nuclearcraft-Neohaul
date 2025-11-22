@@ -4,13 +4,17 @@
   "heatDifference": 720.0,
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
+    }
   },
   "inputTemp": 800,
   "isHeating": false,
   "output": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:villiaumite_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:villiaumite_nak"
+    }
   },
   "outputTemp": 400,
   "preferredFlowDir": 0

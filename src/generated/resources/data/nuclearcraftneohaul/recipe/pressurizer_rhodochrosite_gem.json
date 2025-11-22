@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:rhodochrosite_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:rhodochrosite_gem_dust"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:rhodochrosite_gem"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:rhodochrosite_gem"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

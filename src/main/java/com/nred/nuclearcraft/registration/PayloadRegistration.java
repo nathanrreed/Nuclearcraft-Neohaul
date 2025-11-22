@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.payload.multiblock.*;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;
 import com.nred.nuclearcraft.payload.processor.EnergyProcessorUpdatePacket;
+import com.nred.nuclearcraft.payload.radiation.PlayerRadsUpdatePacket;
 import com.nred.nuclearcraft.payload.render.BlockHighlightUpdatePacket;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -70,8 +71,8 @@ public class PayloadRegistration {
         registrar.playToClient(TurbineUpdatePacket.TYPE, TurbineUpdatePacket.STREAM_CODEC, TurbineUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(TurbineRenderPacket.TYPE, TurbineRenderPacket.STREAM_CODEC, TurbineRenderPacket.Handler::handleOnClient);
 
-//        registrar.playToClient(QuantumComputerQubitRenderPacket.TYPE, QuantumComputerQubitRenderPacket.class);
-//
-//        registrar.playToClient(PlayerRadsUpdatePacket.TYPE, PlayerRadsUpdatePacket.class);
+        registrar.playToClient(QuantumComputerQubitRenderPacket.TYPE, QuantumComputerQubitRenderPacket.STREAM_CODEC, QuantumComputerQubitRenderPacket.Handler::handleOnClient);
+
+        registrar.playToClient(PlayerRadsUpdatePacket.TYPE, PlayerRadsUpdatePacket.STREAM_CODEC, PlayerRadsUpdatePacket.Handler::handleOnClient);
     }
 }

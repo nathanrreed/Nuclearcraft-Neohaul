@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:carobbiite"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:carobbiite"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:gems/carobbiite"
+      "ingredient": {
+        "tag": "c:gems/carobbiite"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

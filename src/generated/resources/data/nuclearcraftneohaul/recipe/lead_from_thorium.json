@@ -4,11 +4,15 @@
   "efficiency": 16000.0,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:thorium_block"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:thorium_block"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:lead_block"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:lead_block"
+    }
   },
   "radiation": 7.15E-11
 }

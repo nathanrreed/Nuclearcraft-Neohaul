@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:tough"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:tough"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:nuggets/tough"
+      "ingredient": {
+        "tag": "c:nuggets/tough"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.25,
+  "radiation": 0.0,
   "timeModifier": 0.1111111111111111
 }

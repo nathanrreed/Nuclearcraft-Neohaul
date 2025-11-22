@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearcraftneohaul:bioplastic"
+    },
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "F": {
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "SFF",
+    "CRR",
+    "BFF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:geiger_counter"
+  }
+}

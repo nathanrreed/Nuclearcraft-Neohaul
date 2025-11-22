@@ -15,30 +15,47 @@ import com.nred.nuclearcraft.block_entity.turbine.TurbineCoilConnectorEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoCoilEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineInletEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineOutletEntity;
+import com.nred.nuclearcraft.capability.radiation.entity.EntityRadsCap;
+import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
+import com.nred.nuclearcraft.capability.radiation.entity.PlayerRadsCap;
+import com.nred.nuclearcraft.capability.radiation.resistance.IRadiationResistance;
+import com.nred.nuclearcraft.capability.radiation.sink.IRadiationSink;
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
+import com.nred.nuclearcraft.compat.curios.RegisterCurios;
 import com.nred.nuclearcraft.item.EnergyItem;
 import com.nred.nuclearcraft.util.ModCheck;
 import mekanism.api.chemical.IChemicalHandler;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.capabilities.BlockCapability;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.capabilities.*;
 import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.enable_mek_gas;
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CELL;
 
 @EventBusSubscriber(modid = MODID)
 public class CapabilityRegistration {
+    public static final EntityCapability<IEntityRads, Void> CAPABILITY_ENTITY_RADS = EntityCapability.createVoid(ncLoc("capability_entity_rads"), IEntityRads.class);
+    public static final BlockCapability<IRadiationResistance, Direction> CAPABILITY_RADIATION_RESISTANCE = BlockCapability.createSided(ncLoc("capability_default_radiation_resistance"), IRadiationResistance.class);
+    public static final ItemCapability<IRadiationResistance, Void> ITEM_CAPABILITY_RADIATION_RESISTANCE = ItemCapability.createVoid(ncLoc("item_capability_radiation_resistance"), IRadiationResistance.class);
+    public static final EntityCapability<IRadiationSink, Void> CAPABILITY_RADIATION_SINK = EntityCapability.createVoid(ncLoc("capability_radiation_sink"), IRadiationSink.class);
+    public static final ItemCapability<IRadiationSink, Void> ITEM_CAPABILITY_RADIATION_SINK = ItemCapability.createVoid(ncLoc("item_capability_radiation_sink"), IRadiationSink.class);
+    public static final ItemCapability<IRadiationSource, Void> ITEM_CAPABILITY_RADIATION_SOURCE = ItemCapability.createVoid(ncLoc("item_capability_radiation_source"), IRadiationSource.class);
+
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, COBBLESTONE_GENERATOR_ENTITY_TYPE.get(), ItemHandler::new);
@@ -81,6 +98,11 @@ public class CapabilityRegistration {
         // Decay Generator
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, DECAY_GENERATOR_ENTITY_TYPE.get(), ITileEnergy::getEnergySideCapability);
 
+        // Radiation Scrubber
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, RADIATION_SCRUBBER_ENTITY_TYPE.get(), ITileEnergy::getEnergySideCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, RADIATION_SCRUBBER_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, RADIATION_SCRUBBER_ENTITY_TYPE.get(), ITileInventory::getItemSideCapability);
+
         // RTG
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, RTG_ENTITY_TYPE.get(), (entity, side) -> !entity.ignoreSide(side) ? entity.getEnergySideCapability(side) : null);
 
@@ -112,11 +134,41 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_ENTITY_TYPE.get("reservoir_port").get(), (entity, direction) -> ((MachineReservoirPortEntity) entity).getFluidSideCapability(direction));
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_ENTITY_TYPE.get("power_port").get(), (entity, direction) -> ((MachinePowerPortEntity) entity).getEnergySideCapability(direction));
 
+        radiation_capabilities(event);
+
+//        event.registerItem(CAPABILITY_RADIATION_SINK, new RadiationSinkProvider(0D), RADIATION_BADGE); TODO
+//
+//        @SubscribeEvent
+//        public void attachStackRadiationCapability (AttachCapabilitiesEvent < ItemStack > event) {
+//            ItemStack stack = event.getObject();
+//
+//            if (stack.getItem() == NCItems.radiation_badge) {
+//                addCapability(event, IRadiationSink.CAPABILITY_RADIATION_SINK_NAME, new RadiationSinkProvider(0D));
+//            }
+//
+//            int packed = RecipeItemHelper.pack(stack);
+//            if (RadSources.STACK_MAP.containsKey(packed)) {
+//                addCapability(event, IRadiationSource.CAPABILITY_RADIATION_SOURCE_NAME, new RadiationSourceStackProvider(stack));
+//            }
+//            if (RadArmor.ARMOR_RAD_RESISTANCE_MAP.containsKey(packed)) {
+//                addCapability(event, IRadiationResistance.CAPABILITY_RADIATION_RESISTANCE_NAME, new RadiationResistanceStackProvider(stack));
+//            }
+//        }
+//
+//        public static <T > void addCapability (AttachCapabilitiesEvent < T > event, ResourceLocation key, ICapabilityProvider capabilityProvider){
+//            if (!event.getCapabilities().containsKey(key)) {
+//                event.addCapability(key, capabilityProvider);
+//            }
+//        }
 
         items(event);
 
         if (ModCheck.ccLoaded()) {
             RegisterPeripherals.registerPeripherals(event);
+        }
+
+        if (ModCheck.curiosLoaded()) {
+            RegisterCurios.registerCurios(event);
         }
 
         if (ModCheck.mekanismLoaded() && enable_mek_gas) {
@@ -150,6 +202,14 @@ public class CapabilityRegistration {
                 event.registerBlockEntity(CHEMICAL, MACHINE_ENTITY_TYPE.get("reservoir_port").get(), (entity, direction) -> ((MachineReservoirPortEntity) entity).getChemicalCapability(direction));
 
             });
+        }
+    }
+
+    private static void radiation_capabilities(RegisterCapabilitiesEvent event) {
+        event.registerEntity(CAPABILITY_ENTITY_RADS, EntityType.PLAYER, (entity, _void) -> new PlayerRadsCap(entity));
+
+        for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
+            event.registerEntity(CAPABILITY_ENTITY_RADS, entityType, (entity, _void) -> (entity instanceof LivingEntity living && !(entity instanceof Player)) ? new EntityRadsCap(living) : null);
         }
     }
 

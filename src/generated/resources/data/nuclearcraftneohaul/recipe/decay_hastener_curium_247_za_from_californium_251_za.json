@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:californium_251_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_251_za"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:curium_247_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_247_za"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

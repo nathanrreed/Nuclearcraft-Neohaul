@@ -20,27 +20,6 @@ public abstract class NCContainer extends AbstractContainerMenu {
         this.tile = tile;
     }
 
-    //	@Override
-//	public void addListener(IContainerListener listener) {
-//		super.addListener(listener);
-//		if (inv != null) {
-//			listener.sendAllWindowProperties(this, inv);
-//		}
-//	}
-
-    //	@Override
-//	@SideOnly(Side.CLIENT)
-//	public void updateProgressBar(int id, int data) {
-//		if (inv != null) {
-//			inv.setField(id, data);
-//		}
-//	}
-//
-//	@Override
-//	public boolean canInteractWith(EntityPlayer player) {
-//		return inv != null && inv.isUsableByPlayer(player);
-//	}
-
     @Override
     public boolean stillValid(Player player) {
         return stillValid(ContainerLevelAccess.create(Objects.requireNonNull(this.tile.getLevel()), this.tile.getBlockPos()), player, this.tile.getBlockState().getBlock());

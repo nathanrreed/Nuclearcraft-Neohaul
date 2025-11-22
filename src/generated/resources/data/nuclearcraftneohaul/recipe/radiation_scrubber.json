@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearcraftneohaul:borax"
+    },
+    "E": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:elite_plating"
+    }
+  },
+  "pattern": [
+    "PBP",
+    "BEB",
+    "PBP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:radiation_scrubber"
+  }
+}

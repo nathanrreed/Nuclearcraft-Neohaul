@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      }
     },
     {
       "amount": 500,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:sodium_hydroquinone_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_hydroquinone_solution"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

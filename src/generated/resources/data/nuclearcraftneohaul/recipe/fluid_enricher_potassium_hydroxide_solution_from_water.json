@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:potassium_hydroxide_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium_hydroxide_solution"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:potassium_hydroxide"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:potassium_hydroxide"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

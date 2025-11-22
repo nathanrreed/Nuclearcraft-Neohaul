@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:thorium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:thorium"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:nuggets/thorium"
+      "ingredient": {
+        "tag": "c:nuggets/thorium"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.25,
+  "radiation": 0.0,
   "timeModifier": 0.1111111111111111
 }

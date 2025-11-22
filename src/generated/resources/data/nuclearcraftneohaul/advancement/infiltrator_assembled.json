@@ -1,0 +1,26 @@
+{
+  "parent": "nuclearcraftneohaul:alloy_furnace",
+  "criteria": {
+    "assemble_infiltrator_assembled": {
+      "trigger": "nuclearcraftneohaul:infiltrator_assembled"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.infiltrator_assembled.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:distiller_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.infiltrator_assembled.title"
+    }
+  },
+  "requirements": [
+    [
+      "assemble_infiltrator_assembled"
+    ]
+  ]
+}

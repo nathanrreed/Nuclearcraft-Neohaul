@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:slurry_ice"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:slurry_ice"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:cryotheum"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:cryotheum"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:emergency_coolant"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:emergency_coolant"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

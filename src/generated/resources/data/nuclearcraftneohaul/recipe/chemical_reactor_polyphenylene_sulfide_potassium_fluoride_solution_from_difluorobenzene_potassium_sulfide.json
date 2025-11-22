@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:difluorobenzene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:difluorobenzene"
+      }
     },
     {
       "amount": 36,
-      "fluid": "nuclearcraftneohaul:potassium_sulfide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium_sulfide"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 36,
-      "fluid": "nuclearcraftneohaul:polyphenylene_sulfide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:polyphenylene_sulfide"
+      }
     },
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 4.0
 }

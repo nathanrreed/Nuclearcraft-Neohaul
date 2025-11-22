@@ -4,36 +4,37 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/lithium"
         },
         {
           "tag": "c:ingots/lithium"
         }
-      ],
-      "count": 1
+      ]
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/manganese_dioxide"
         },
         {
           "tag": "c:ingots/manganese_dioxide"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:lithium_manganese_dioxide_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lithium_manganese_dioxide_alloy"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.5
 }

@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:hea_242"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hea_242"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:fluorine"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorine"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:hea_242_fluoride"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hea_242_fluoride"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -15,6 +15,8 @@ import com.nred.nuclearcraft.block_entity.passive.TilePassive;
 import com.nred.nuclearcraft.block_entity.processor.NuclearFurnaceEntity;
 import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
 import com.nred.nuclearcraft.block_entity.quantum.*;
+import com.nred.nuclearcraft.block_entity.radiation.GeigerCounterEntity;
+import com.nred.nuclearcraft.block_entity.radiation.RadiationScrubberEntity;
 import com.nred.nuclearcraft.block_entity.rtg.RTGEntity;
 import com.nred.nuclearcraft.block_entity.turbine.*;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
@@ -55,6 +57,9 @@ public class BlockEntityRegistration {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends MachineInterfaceEntity>> MACHINE_INTERFACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("machine_interface", () -> BlockEntityType.Builder.of(MachineInterfaceEntity::new, MACHINE_INTERFACE.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends DecayGeneratorEntity>> DECAY_GENERATOR_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("decay_generator", () -> BlockEntityType.Builder.of(DecayGeneratorEntity::new, DECAY_GENERATOR.get()).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends RadiationScrubberEntity>> RADIATION_SCRUBBER_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("radiation_scrubber", () -> BlockEntityType.Builder.of(RadiationScrubberEntity::new, RADIATION_SCRUBBER.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends GeigerCounterEntity>> GEIGER_COUNTER_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("geiger_counter", () -> BlockEntityType.Builder.of(GeigerCounterEntity::new, GEIGER_COUNTER_BLOCK.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TilePassive.CobblestoneGenerator>> COBBLESTONE_GENERATOR_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("cobblestone_generator", () -> BlockEntityType.Builder.of(TilePassive.CobblestoneGenerator::new, COLLECTOR_MAP.get("cobblestone_generator").get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TilePassive.CobblestoneGeneratorCompact>> COBBLESTONE_GENERATOR_COMPACT_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("cobblestone_generator_compact", () -> BlockEntityType.Builder.of(TilePassive.CobblestoneGeneratorCompact::new, COLLECTOR_MAP.get("cobblestone_generator_compact").get()).build(null));

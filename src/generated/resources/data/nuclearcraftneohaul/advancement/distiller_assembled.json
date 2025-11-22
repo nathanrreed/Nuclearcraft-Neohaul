@@ -1,0 +1,26 @@
+{
+  "parent": "nuclearcraftneohaul:alloy_furnace",
+  "criteria": {
+    "assemble_distiller_assembled": {
+      "trigger": "nuclearcraftneohaul:distiller_assembled"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.distiller_assembled.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:distiller_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.distiller_assembled.title"
+    }
+  },
+  "requirements": [
+    [
+      "assemble_distiller_assembled"
+    ]
+  ]
+}

@@ -5,37 +5,52 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:depleted_mix_241_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:depleted_mix_241_ox"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 3,
-      "item": "nuclearcraftneohaul:uranium_238_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_238_ox"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:plutonium_241_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_241_ox"
+      }
     },
     {
       "chancePercent": 25,
       "count": 1,
-      "item": "nuclearcraftneohaul:strontium_90_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:strontium_90_dust"
+      }
     },
     {
       "count": 3,
-      "item": "nuclearcraftneohaul:plutonium_242_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_242_ox"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:americium_243_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_243_ox"
+      }
     },
     {
       "chancePercent": 25,
       "count": 1,
-      "item": "nuclearcraftneohaul:promethium_147_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:promethium_147_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

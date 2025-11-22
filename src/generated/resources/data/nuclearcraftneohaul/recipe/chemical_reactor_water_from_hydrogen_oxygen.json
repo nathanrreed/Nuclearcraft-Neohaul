@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:hydrogen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:oxygen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 100,
       "chancePercent": 500,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

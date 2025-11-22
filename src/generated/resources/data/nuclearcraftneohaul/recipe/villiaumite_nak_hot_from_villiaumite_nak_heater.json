@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:villiaumite_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:villiaumite_nak"
+    }
   },
   "irradiatorFluxRequired": 180,
   "irradiatorHeatPerFlux": "villiaumite_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
+    }
   }
 }

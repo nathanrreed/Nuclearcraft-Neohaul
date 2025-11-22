@@ -3,30 +3,34 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:ender"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ender"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:sands"
         },
         {
           "tag": "c:sandstone/blocks"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:end_stone"
+      "ingredient": {
+        "item": "minecraft:end_stone"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

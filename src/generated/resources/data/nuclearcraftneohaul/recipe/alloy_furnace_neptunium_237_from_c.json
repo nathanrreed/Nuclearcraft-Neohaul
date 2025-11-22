@@ -5,27 +5,31 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:neptunium_237"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:neptunium_237"
+      }
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/graphite"
         },
         {
           "tag": "c:ingots/graphite"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:neptunium_237_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:neptunium_237_za"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

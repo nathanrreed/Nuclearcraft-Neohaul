@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:caesium_137"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:caesium_137"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:caesium_137_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:caesium_137_dust"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

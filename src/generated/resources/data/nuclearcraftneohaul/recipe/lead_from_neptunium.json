@@ -4,11 +4,15 @@
   "efficiency": 5454.545454545454,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:fertile_isotope_neptunium_block"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:fertile_isotope_neptunium_block"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:lead_block"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:lead_block"
+    }
   },
   "radiation": 4.7E-7
 }

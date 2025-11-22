@@ -6,11 +6,15 @@
   "heat": 40,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:tbu_tr"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:tbu_tr"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:depleted_tbu_tr"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:depleted_tbu_tr"
+    }
   },
   "radiation": 5.44950384952691E-4,
   "selfPriming": false,

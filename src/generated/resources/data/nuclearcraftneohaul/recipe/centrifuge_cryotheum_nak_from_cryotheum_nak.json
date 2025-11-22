@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:cryotheum_nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:cryotheum_nak"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:cryotheum"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:cryotheum"
+      }
     },
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nak"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

@@ -4,13 +4,17 @@
   "heatDifference": 1.0,
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:exhaust_steam"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:exhaust_steam"
+    }
   },
   "inputTemp": 400,
   "isHeating": false,
   "output": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:low_pressure_steam"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:low_pressure_steam"
+    }
   },
   "outputTemp": 550,
   "preferredFlowDir": 0

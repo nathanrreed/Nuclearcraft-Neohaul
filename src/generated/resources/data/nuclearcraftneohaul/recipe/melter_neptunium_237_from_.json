@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:neptunium_237"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:neptunium_237"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:neptunium_237"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:neptunium_237"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -7,7 +7,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 
 public class ProcessorSlot extends Slot {
-
     public ProcessorSlot(Container tile, int index, int xPosition, int yPosition) {
         super(tile, index, xPosition, yPosition);
     }

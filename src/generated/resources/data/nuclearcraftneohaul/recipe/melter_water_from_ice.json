@@ -5,16 +5,21 @@
     {
       "amount": 100,
       "chancePercent": 1000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:ice"
+      "ingredient": {
+        "item": "minecraft:ice"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.25
 }

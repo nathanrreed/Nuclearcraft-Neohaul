@@ -3,23 +3,31 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:polyphenylene_sulfide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:polyphenylene_sulfide"
+      }
     }
   ],
   "heatingFactor": 0.0,
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:sintered_zirconia"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sintered_zirconia"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:zirconia_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconia_dust"
+      }
     }
   ],
   "itemResult": {
     "count": 1,
-    "item": "nuclearcraftneohaul:zirfon"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:zirfon"
+    }
   },
   "powerModifier": 1.0,
   "timeModifier": 1.0

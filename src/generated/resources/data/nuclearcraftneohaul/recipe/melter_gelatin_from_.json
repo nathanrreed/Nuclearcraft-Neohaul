@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:gelatin"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:gelatin"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:gelatin"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:gelatin"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

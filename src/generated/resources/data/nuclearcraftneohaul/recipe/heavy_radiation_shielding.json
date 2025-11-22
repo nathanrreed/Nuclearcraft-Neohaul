@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/beryllium"
+    },
+    "F": {
+      "item": "nuclearcraftneohaul:hard_carbon_alloy"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:du_plating"
+    },
+    "R": {
+      "item": "nuclearcraftneohaul:medium_radiation_shielding"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "RFR",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:heavy_radiation_shielding"
+  }
+}

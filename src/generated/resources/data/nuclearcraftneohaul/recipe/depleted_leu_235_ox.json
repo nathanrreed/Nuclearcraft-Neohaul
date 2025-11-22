@@ -6,11 +6,15 @@
   "heat": 120,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:leu_235_ox"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:leu_235_ox"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:depleted_leu_235_ox"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:depleted_leu_235_ox"
+    }
   },
   "radiation": 1.4647403038194445E-5,
   "selfPriming": false,

@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:ammonium_persulfate_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ammonium_persulfate_solution"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:ammonium_persulfate"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:ammonium_persulfate"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:marshmallow"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:marshmallow"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:marshmallow"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:marshmallow"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

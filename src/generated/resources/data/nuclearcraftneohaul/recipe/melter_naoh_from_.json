@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:naoh"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:naoh"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:sodium_hydroxide"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sodium_hydroxide"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

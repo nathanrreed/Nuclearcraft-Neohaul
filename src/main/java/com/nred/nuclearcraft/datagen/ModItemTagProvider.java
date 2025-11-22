@@ -12,6 +12,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
+import top.theillusivec4.curios.api.CuriosTags;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +55,9 @@ class ModItemTagProvider extends ItemTagsProvider {
         simpleBlockTag(RAWS, RAW_BLOCK_MAP, Tags.Items.STORAGE_BLOCKS, "raw_");
 
         tag(Tags.Items.MUSHROOMS).add(GLOWING_MUSHROOM.asItem());
+
+        // Add Curios Info
+        tag(CuriosTags.CURIO).add(GEIGER_COUNTER.asItem(), RADIATION_BADGE.asItem());
 
         buckets();
     }

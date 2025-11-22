@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "tag": "minecraft:acacia_logs"
+      "ingredient": {
+        "tag": "minecraft:acacia_logs"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 6,
-      "item": "minecraft:acacia_planks"
+      "ingredient": {
+        "item": "minecraft:acacia_planks"
+      }
     }
   ],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

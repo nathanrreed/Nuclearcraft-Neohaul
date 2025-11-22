@@ -4,36 +4,37 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/graphite"
         },
         {
           "tag": "c:ingots/graphite"
         }
-      ],
-      "count": 1
+      ]
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/diamond"
         },
         {
           "tag": "c:gems/diamond"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:hard_carbon_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hard_carbon_alloy"
+      }
     }
   ],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

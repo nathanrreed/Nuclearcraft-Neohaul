@@ -5,41 +5,58 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:depleted_hen_236_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:depleted_hen_236_za"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 4,
-      "item": "nuclearcraftneohaul:uranium_238_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_238_za"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:plutonium_238_za"
-    },
-    {
-      "chancePercent": 75,
-      "count": 1,
-      "item": "nuclearcraftneohaul:molybdenum_dust"
-    },
-    {
-      "count": 1,
-      "item": "nuclearcraftneohaul:plutonium_241_za"
-    },
-    {
-      "count": 1,
-      "item": "nuclearcraftneohaul:plutonium_242_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_238_za"
+      }
     },
     {
       "chancePercent": 75,
       "count": 1,
-      "item": "nuclearcraftneohaul:caesium_137_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:molybdenum_dust"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_241_za"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_242_za"
+      }
+    },
+    {
+      "chancePercent": 75,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:caesium_137_dust"
+      }
     },
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:zirconium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

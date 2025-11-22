@@ -99,6 +99,9 @@ class ModBlockStateProvider extends BlockStateProvider {
         rtgs();
         machines();
         quantum();
+
+        blockSidesAndTop("geiger_counter_block", GEIGER_COUNTER_BLOCK, "radiation", None);
+        blockSidesAndTop("radiation_scrubber", RADIATION_SCRUBBER, "radiation", None);
     }
 
     private void crossBlock(DeferredBlock<Block> deferredBlock) {

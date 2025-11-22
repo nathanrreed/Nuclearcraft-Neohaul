@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.handler;
 
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
 import net.minecraft.world.level.Level;

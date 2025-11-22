@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:lithium_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:lithium_nak"
+    }
   },
   "irradiatorFluxRequired": 130,
   "irradiatorHeatPerFlux": "lithium_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:lithium_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:lithium_nak_hot"
+    }
   }
 }

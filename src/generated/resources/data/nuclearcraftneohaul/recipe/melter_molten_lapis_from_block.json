@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 5994,
-      "fluid": "nuclearcraftneohaul:lapis"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lapis"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:storage_blocks/lapis"
+      "ingredient": {
+        "tag": "c:storage_blocks/lapis"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 9.0
 }

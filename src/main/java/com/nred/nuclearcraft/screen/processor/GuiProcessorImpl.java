@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.block_entity.processor.IBasicUpgradableProcessor;
 import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicProcessorMenuInfo;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo;
+import com.nred.nuclearcraft.block_entity.radiation.RadiationScrubberEntity;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.*;
 import com.nred.nuclearcraft.payload.processor.EnergyProcessorUpdatePacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
@@ -181,9 +182,9 @@ public class GuiProcessorImpl {
         }
     }
 
-//    public static class GuiRadiationScrubber extends GuiBasicEnergyProcessor<RadiationScrubberMenu, RadiationScrubberEntity> { TODO
-//        public GuiRadiationScrubber(RadiationScrubberMenu menu, Inventory inventory, Component title) {
-//            super(menu, inventory, title, ncLoc("screen/" + "radiation_scrubber"));
-//        }
-//    }
+    public static class GuiRadiationScrubber extends GuiBasicEnergyProcessor<RadiationScrubberMenu, RadiationScrubberEntity> {
+        public GuiRadiationScrubber(RadiationScrubberMenu menu, Inventory inventory, Component title) {
+            super(menu, inventory, title, ncLoc("screen/" + "radiation_scrubber"));
+        }
+    }
 }

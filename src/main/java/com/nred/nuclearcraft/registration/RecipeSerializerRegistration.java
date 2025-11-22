@@ -1,8 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.recipe.CollectorRecipe;
-import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
-import com.nred.nuclearcraft.recipe.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
@@ -64,6 +62,9 @@ public class RecipeSerializerRegistration {
     public static final DeferredHolder<RecipeSerializer<?>, ElectrolyzerElectrolyteRecipe.Serializer> ELECTROLYZER_ELECTROLYTE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("electrolyzer_electrolyte_recipe", ElectrolyzerElectrolyteRecipe.Serializer::new);
 
     public static final DeferredHolder<RecipeSerializer<?>, DecayGeneratorRecipe.Serializer> DECAY_GENERATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("decay_generator_recipe", DecayGeneratorRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, RadiationScrubberRecipe.Serializer> RADIATION_SCRUBBER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("radiation_scrubber_recipe", RadiationScrubberRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, RadiationBlockMutationRecipe.Serializer> RADIATION_BLOCK_MUTATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("radiation_block_mutation_recipe", RadiationBlockMutationRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, RadiationBlockPurificationRecipe.Serializer> RADIATION_BLOCK_PURIFICATION_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("radiation_block_purification_recipe", RadiationBlockPurificationRecipe.Serializer::new);
 
     public static void init() {
     }

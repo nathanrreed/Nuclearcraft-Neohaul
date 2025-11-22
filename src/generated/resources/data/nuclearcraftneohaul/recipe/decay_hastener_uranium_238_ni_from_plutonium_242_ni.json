@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:plutonium_242_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_242_ni"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:uranium_238_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_238_ni"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

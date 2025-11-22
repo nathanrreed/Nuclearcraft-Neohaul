@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:lapis_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:lapis_nak"
+    }
   },
   "irradiatorFluxRequired": 100,
   "irradiatorHeatPerFlux": "lapis_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:lapis_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:lapis_nak_hot"
+    }
   }
 }

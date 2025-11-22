@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:oxygen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tin_ingot"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tin_ingot"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tin_oxide_ingot"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tin_oxide_ingot"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

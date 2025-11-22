@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:lecm_247"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lecm_247"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lecm_247"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lecm_247"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

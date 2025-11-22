@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:tin_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:tin_nak"
+    }
   },
   "irradiatorFluxRequired": 120,
   "irradiatorHeatPerFlux": "tin_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:tin_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:tin_nak_hot"
+    }
   }
 }

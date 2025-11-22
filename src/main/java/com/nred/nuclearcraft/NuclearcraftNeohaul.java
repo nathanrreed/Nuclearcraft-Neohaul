@@ -2,7 +2,7 @@ package com.nred.nuclearcraft;
 
 import com.mojang.logging.LogUtils;
 import com.nred.nuclearcraft.config.NCConfig;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.registration.Registration;
 import com.nred.nuclearcraft.render.BlockHighlightTracker;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -51,7 +51,7 @@ public class NuclearcraftNeohaul {
         setRecipeCacheManager(new ReloadListener());
     }
 
-    public class ReloadListener implements ResourceManagerReloadListener {
+    public static class ReloadListener implements ResourceManagerReloadListener {
         @Override
         public void onResourceManagerReload(ResourceManager resourceManager) {
             LOGGER.debug("Recipes changed"); // TODO clear cache

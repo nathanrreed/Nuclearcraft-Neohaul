@@ -22,8 +22,8 @@ import java.util.stream.Stream;
 
 public class SizedChanceFluidIngredient {
     public static final Codec<SizedChanceFluidIngredient> FLAT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    FluidIngredient.MAP_CODEC_NONEMPTY.forGetter(SizedChanceFluidIngredient::ingredient),
-                    NeoForgeExtraCodecs.optionalFieldAlwaysWrite(ExtraCodecs.POSITIVE_INT, "amount", FluidType.BUCKET_VOLUME).forGetter(SizedChanceFluidIngredient::amount),
+                    FluidIngredient.CODEC.fieldOf("ingredient").forGetter(SizedChanceFluidIngredient::ingredient),
+                    NeoForgeExtraCodecs.optionalFieldAlwaysWrite(ExtraCodecs.NON_NEGATIVE_INT, "amount", FluidType.BUCKET_VOLUME).forGetter(SizedChanceFluidIngredient::amount),
                     ExtraCodecs.POSITIVE_INT.optionalFieldOf("chancePercent", 100).forGetter(SizedChanceFluidIngredient::chancePercent),
                     ExtraCodecs.POSITIVE_INT.optionalFieldOf("minStackSize", 0).forGetter(SizedChanceFluidIngredient::minStackSize))
             .apply(instance, SizedChanceFluidIngredient::new));
@@ -40,13 +40,12 @@ public class SizedChanceFluidIngredient {
     private final int chancePercent;
     private final int minStackSize;
 
+    public static final SizedChanceFluidIngredient EMPTY = new SizedChanceFluidIngredient(FluidIngredient.empty(), 0);
+
     @Nullable
     private FluidStack[] cachedStacks;
 
     public SizedChanceFluidIngredient(FluidIngredient ingredient, int amount, int chancePercent, int minStackSize) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Size must be positive");
-        }
         if (chancePercent <= 0) {
             throw new IllegalArgumentException("Chance must be positive");
         }
@@ -61,9 +60,6 @@ public class SizedChanceFluidIngredient {
     }
 
     public SizedChanceFluidIngredient(FluidIngredient ingredient, int amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Size must be positive");
-        }
         this.ingredient = ingredient;
         this.amount = amount;
         this.chancePercent = 100;
@@ -104,6 +100,10 @@ public class SizedChanceFluidIngredient {
 
     public int amount() {
         return amount;
+    }
+
+    public boolean isEmpty() {
+        return ingredient == FluidIngredient.empty();
     }
 
     public int chancePercent() {

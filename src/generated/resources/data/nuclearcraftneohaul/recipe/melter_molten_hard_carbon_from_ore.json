@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:hard_carbon"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hard_carbon"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:ores/hard_carbon"
+      "ingredient": {
+        "tag": "c:ores/hard_carbon"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 1.25
 }

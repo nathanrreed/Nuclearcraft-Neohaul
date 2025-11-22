@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:europium_155"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:europium_155"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:europium_155_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:europium_155_dust"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

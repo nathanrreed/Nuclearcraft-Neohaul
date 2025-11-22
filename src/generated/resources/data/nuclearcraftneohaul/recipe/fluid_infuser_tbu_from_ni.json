@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:nitrogen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nitrogen"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tbu"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tbu"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tbu_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tbu_ni"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

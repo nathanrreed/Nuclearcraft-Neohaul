@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:ruthenium_106"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ruthenium_106"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:ruthenium_106_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:ruthenium_106_dust"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

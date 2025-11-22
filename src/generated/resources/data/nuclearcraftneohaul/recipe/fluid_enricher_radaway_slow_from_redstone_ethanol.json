@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:redstone_ethanol"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:redstone_ethanol"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:radaway_slow"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:radaway_slow"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 3,
-      "item": "nuclearcraftneohaul:glowing_mushroom"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:glowing_mushroom"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tough_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tough_alloy"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:hard_carbon_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hard_carbon_alloy"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:extreme_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:extreme_alloy"
+      }
     }
   ],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

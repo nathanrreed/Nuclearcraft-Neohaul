@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:hydroquinone_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydroquinone_solution"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:hydroquinone"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hydroquinone"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

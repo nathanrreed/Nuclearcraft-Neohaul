@@ -3,7 +3,9 @@
   "fluidProduct": [
     {
       "amount": 1,
-      "fluid": "nuclearcraftneohaul:nitrogen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nitrogen"
+      }
     }
   ],
   "itemProduct": [],

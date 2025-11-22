@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lecm_245_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lecm_245_za"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lecm_245"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lecm_245"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:zirconium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

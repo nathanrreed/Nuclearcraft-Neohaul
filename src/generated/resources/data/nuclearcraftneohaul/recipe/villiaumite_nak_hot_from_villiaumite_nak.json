@@ -2,11 +2,15 @@
   "type": "nuclearcraftneohaul:fission_heating_recipe",
   "fluidIngredients": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:villiaumite_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:villiaumite_nak"
+    }
   },
   "fluidProducts": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
+    }
   },
   "heatPerInputMB": 180,
   "isCoolant": true

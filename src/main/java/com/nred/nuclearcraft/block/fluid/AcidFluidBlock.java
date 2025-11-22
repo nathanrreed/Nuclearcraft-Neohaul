@@ -22,7 +22,7 @@ public class AcidFluidBlock extends NCFluidBlock {
         entity.hurt(level.damageSources().source(ACID_BURN), 3F);
         if (entity instanceof LivingEntity livingEntity) {
             livingEntity.addEffect(SimpleHelper.newEffect(MobEffects.POISON, 2, 100));
-            livingEntity.addEffect(SimpleHelper.newEffect(MobEffects.WITHER, 2, 100));
+            livingEntity.addEffect(SimpleHelper.newEffect(MobEffects.WEAKNESS, 2, 100));
         }
     }
 

@@ -4,24 +4,26 @@
   "fluidResults": [
     {
       "amount": 1296,
-      "fluid": "nuclearcraftneohaul:uranium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:uranium"
+      }
     }
   ],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:storage_blocks/uranium"
         },
         {
           "tag": "c:storage_blocks/raw_uranium"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 9.0
 }

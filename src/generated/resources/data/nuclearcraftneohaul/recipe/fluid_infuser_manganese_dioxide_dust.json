@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:oxygen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:manganese_oxide_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:manganese_oxide_dust"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:manganese_dioxide_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:manganese_dioxide_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

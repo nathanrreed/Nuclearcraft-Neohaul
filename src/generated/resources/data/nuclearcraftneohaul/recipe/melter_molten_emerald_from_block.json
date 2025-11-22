@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 5994,
-      "fluid": "nuclearcraftneohaul:emerald"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:emerald"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:storage_blocks/emerald"
+      "ingredient": {
+        "tag": "c:storage_blocks/emerald"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 9.0
 }

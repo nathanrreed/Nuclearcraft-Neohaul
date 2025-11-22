@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:zirconium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:zirconium"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:nuggets/zirconium"
+      "ingredient": {
+        "tag": "c:nuggets/zirconium"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.25,
+  "radiation": 0.0,
   "timeModifier": 0.1111111111111111
 }

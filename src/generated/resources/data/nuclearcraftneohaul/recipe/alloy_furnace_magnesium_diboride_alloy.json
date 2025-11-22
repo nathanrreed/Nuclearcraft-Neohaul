@@ -4,36 +4,37 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/magnesium"
         },
         {
           "tag": "c:ingots/magnesium"
         }
-      ],
-      "count": 1
+      ]
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 2,
+      "ingredient": [
         {
           "tag": "c:dusts/boron"
         },
         {
           "tag": "c:ingots/boron"
         }
-      ],
-      "count": 2
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 3,
-      "item": "nuclearcraftneohaul:magnesium_diboride_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:magnesium_diboride_alloy"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

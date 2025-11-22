@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:benzene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:benzene"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:oxygen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:phenol"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:phenol"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

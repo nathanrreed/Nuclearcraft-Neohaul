@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:americium_243"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:americium_243"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:americium_243"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_243"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

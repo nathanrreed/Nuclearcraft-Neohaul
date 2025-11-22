@@ -6,11 +6,15 @@
   "heat": 798,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:heb_248_tr"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:heb_248_tr"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:depleted_heb_248_tr"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:depleted_heb_248_tr"
+    }
   },
   "radiation": 0.003945312500000001,
   "selfPriming": false,

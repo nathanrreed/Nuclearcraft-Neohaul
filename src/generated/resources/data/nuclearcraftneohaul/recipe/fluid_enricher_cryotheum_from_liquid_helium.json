@@ -3,23 +3,30 @@
   "fluidInputs": [
     {
       "amount": 25,
-      "fluid": "nuclearcraftneohaul:liquid_helium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:liquid_helium"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 100,
       "chancePercent": 25,
-      "tag": "nuclearcraftneohaul:cryotheum"
+      "ingredient": {
+        "tag": "nuclearcraftneohaul:cryotheum"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 4,
-      "item": "minecraft:snowball"
+      "ingredient": {
+        "item": "minecraft:snowball"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

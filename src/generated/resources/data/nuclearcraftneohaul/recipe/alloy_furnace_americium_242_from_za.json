@@ -5,27 +5,31 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:americium_242"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_242"
+      }
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/zirconium"
         },
         {
           "tag": "c:ingots/zirconium"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:americium_242_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_242_c"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

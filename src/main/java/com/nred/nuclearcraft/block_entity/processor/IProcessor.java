@@ -237,8 +237,8 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
 
     default boolean canProduceProducts() {
         INFO info = getContainerInfo();
-        int itemOutputSize = info.itemOutputSize;
 
+        int itemOutputSize = info.itemOutputSize;
         List<ItemStack> stacks = getInventoryStacks();
         for (int i = 0; i < itemOutputSize; ++i) {
             int slot = info.itemOutputSlots[i];
@@ -271,7 +271,6 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
         }
 
         int fluidOutputSize = info.fluidOutputSize;
-
         List<Tank> tanks = getTanks();
         for (int i = 0; i < fluidOutputSize; ++i) {
             int tankIndex = info.fluidOutputTanks[i];
@@ -491,7 +490,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
     }
 
     default boolean onIdle(boolean wasProcessing) {
-//        getRadiationSource().setRadiationLevel(0D);
+//        getRadiationSource().setRadiationLevel(0D); TODO
 
         if (getCurrentTime() > 0D) {
             if (getContainerInfo().losesProgress && !isHalted()) {
@@ -616,7 +615,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
     @Override
     default @NotNull ItemStack removeItem(int slot, int amount) {
         ItemStack stack = ITileInventory.super.removeItem(slot, amount);
-        if (!getTileWorld().isClientSide) {
+        if (!getTileWorld().isClientSide()) {
             INFO info = getContainerInfo();
             if (slot < info.itemInputSize) {
                 refreshRecipe();
@@ -631,7 +630,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
     @Override
     default void setItem(int slot, ItemStack stack) {
         ITileInventory.super.setItem(slot, stack);
-        if (!getTileWorld().isClientSide) {
+        if (!getTileWorld().isClientSide()) {
             INFO info = getContainerInfo();
             if (slot < info.itemInputSize) {
                 refreshRecipe();

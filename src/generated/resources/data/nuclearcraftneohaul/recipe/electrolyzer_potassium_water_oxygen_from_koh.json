@@ -3,26 +3,35 @@
   "fluidInputs": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:koh"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:koh"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:potassium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium"
+      }
     },
     {
       "amount": 100,
       "chancePercent": 250,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     },
     {
       "amount": 125,
-      "fluid": "nuclearcraftneohaul:oxygen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

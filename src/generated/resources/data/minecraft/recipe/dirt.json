@@ -1,0 +1,16 @@
+{
+  "type": "nuclearcraftneohaul:radiation_block_purification_recipe",
+  "itemIngredient": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:wasteland_earth"
+    }
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:dirt"
+    }
+  },
+  "purificationThreshold": 0.0
+}

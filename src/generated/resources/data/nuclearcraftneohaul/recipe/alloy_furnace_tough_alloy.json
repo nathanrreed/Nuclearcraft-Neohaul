@@ -5,27 +5,31 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:ferroboron_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:ferroboron_alloy"
+      }
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/lithium"
         },
         {
           "tag": "c:ingots/lithium"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:tough_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tough_alloy"
+      }
     }
   ],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 1.5
 }

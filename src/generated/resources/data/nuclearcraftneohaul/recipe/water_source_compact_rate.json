@@ -3,7 +3,9 @@
   "fluidProduct": [
     {
       "amount": 1,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "itemProduct": [],

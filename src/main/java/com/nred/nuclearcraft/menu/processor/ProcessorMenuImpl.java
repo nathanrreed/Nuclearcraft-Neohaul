@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.processor.IBasicUpgradableProcessor;
 import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
+import com.nred.nuclearcraft.block_entity.radiation.RadiationScrubberEntity;
 import com.nred.nuclearcraft.payload.multiblock.*;
 import com.nred.nuclearcraft.payload.processor.EnergyProcessorUpdatePacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
@@ -281,15 +282,16 @@ public class ProcessorMenuImpl {
         }
     }
 
-//	public static class RadiationScrubberMenu extends ContainerBasicEnergyProcessor<RadiationScrubberEntity> { TODO
-//		public ContainerRadiationScrubberMenu (int containerId, Inventory inventory, RadiationScrubberEntity tile) {
-//			super(RADIATION_SCRUBBER_MENU_TYPE.get(),  containerId,inventory, tile);
-//		}
-//        // Client Constructor
-//       public RadiationScrubberMenu (int containerId, Inventory inventory, FriendlyByteBuf extraData) {
-//            this(containerId, inventory, (ManufactoryEntity) WorldHelper.getClientTile(extraData.readBlockPos()).orElseThrow(NullPointerException::new));
-//        }
-//	}
+    public static class RadiationScrubberMenu extends BasicEnergyProcessorMenu<RadiationScrubberEntity> {
+        public RadiationScrubberMenu(int containerId, Inventory inventory, RadiationScrubberEntity tile) {
+            super(RADIATION_SCRUBBER_MENU_TYPE.get(), containerId, inventory, tile);
+        }
+
+        // Client Constructor
+        public RadiationScrubberMenu(int containerId, Inventory inventory, FriendlyByteBuf extraData) {
+            this(containerId, inventory, (RadiationScrubberEntity) WorldHelper.getClientTile(extraData.readBlockPos()).orElseThrow(NullPointerException::new));
+        }
+    }
 
     public static class FissionIrradiatorMenu extends BasicFilteredProcessorMenu<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> {
         public FissionIrradiatorMenu(int containerId, Inventory inventory, FissionIrradiatorEntity irradiator) {

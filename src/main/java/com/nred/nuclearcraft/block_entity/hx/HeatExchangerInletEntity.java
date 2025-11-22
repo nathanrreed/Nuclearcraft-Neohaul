@@ -6,7 +6,7 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.internal.processor.AbstractProcessorElement;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchanger;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerLogic;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeNetwork;

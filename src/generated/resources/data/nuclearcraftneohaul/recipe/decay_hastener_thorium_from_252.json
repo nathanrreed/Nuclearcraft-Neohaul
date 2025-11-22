@@ -4,8 +4,8 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "item": "nuclearcraftneohaul:californium_252"
         },
@@ -15,16 +15,18 @@
         {
           "item": "nuclearcraftneohaul:californium_252_ni"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:thorium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:thorium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.menu.multiblock.port;
 import com.nred.nuclearcraft.block_entity.fission.FissionCoolerEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCoolerPortEntity;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;

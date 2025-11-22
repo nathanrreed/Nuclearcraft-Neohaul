@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:copper_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:copper_nak"
+    }
   },
   "irradiatorFluxRequired": 75,
   "irradiatorHeatPerFlux": "copper_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:copper_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:copper_nak_hot"
+    }
   }
 }

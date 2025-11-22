@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:sodium_hydroquinone_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_hydroquinone_solution"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:sodium_hydroquinone"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sodium_hydroquinone"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

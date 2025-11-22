@@ -3,39 +3,54 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:depleted_heu_233"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:depleted_heu_233"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:uranium_235"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:uranium_235"
+      }
     },
     {
       "amount": 32,
-      "fluid": "nuclearcraftneohaul:uranium_238"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:uranium_238"
+      }
     },
     {
       "amount": 16,
       "chancePercent": 75,
-      "fluid": "nuclearcraftneohaul:strontium_90"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:strontium_90"
+      }
     },
     {
       "amount": 48,
-      "fluid": "nuclearcraftneohaul:plutonium_242"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:plutonium_242"
+      }
     },
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:americium_243"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:americium_243"
+      }
     },
     {
       "amount": 16,
       "chancePercent": 76,
-      "fluid": "nuclearcraftneohaul:caesium_137"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:caesium_137"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

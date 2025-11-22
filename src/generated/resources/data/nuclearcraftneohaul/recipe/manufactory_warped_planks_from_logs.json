@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "tag": "minecraft:warped_stems"
+      "ingredient": {
+        "tag": "minecraft:warped_stems"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 6,
-      "item": "minecraft:warped_planks"
+      "ingredient": {
+        "item": "minecraft:warped_planks"
+      }
     }
   ],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

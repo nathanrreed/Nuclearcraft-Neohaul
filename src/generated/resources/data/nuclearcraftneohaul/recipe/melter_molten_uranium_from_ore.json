@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:uranium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:uranium"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:ores/uranium"
+      "ingredient": {
+        "tag": "c:ores/uranium"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 1.25
 }

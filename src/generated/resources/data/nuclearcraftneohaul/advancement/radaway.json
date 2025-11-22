@@ -1,0 +1,37 @@
+{
+  "parent": "nuclearcraftneohaul:geiger_counter",
+  "criteria": {
+    "pickup_radaway": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:radaway"
+          },
+          {
+            "items": "nuclearcraftneohaul:radaway_slow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.radaway.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:radaway"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.radaway.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_radaway"
+    ]
+  ]
+}

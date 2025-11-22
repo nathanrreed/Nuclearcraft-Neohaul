@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:fluoromethane"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluoromethane"
+      }
     },
     {
       "amount": 36,
-      "fluid": "nuclearcraftneohaul:silicon"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:silicon"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:dimethyldifluorosilane"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:dimethyldifluorosilane"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

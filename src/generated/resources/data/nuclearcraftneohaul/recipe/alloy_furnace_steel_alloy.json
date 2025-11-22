@@ -4,20 +4,19 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/iron"
         },
         {
           "tag": "c:ingots/iron"
         }
-      ],
-      "count": 1
+      ]
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 2,
+      "ingredient": [
         {
           "tag": "c:dusts/coal"
         },
@@ -30,16 +29,18 @@
         {
           "item": "minecraft:coal"
         }
-      ],
-      "count": 2
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:steel_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:steel_alloy"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

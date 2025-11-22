@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:sic_vapor"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sic_vapor"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:silicon_carbide_fiber"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:silicon_carbide_fiber"
+      }
     }
   ],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

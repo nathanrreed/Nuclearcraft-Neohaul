@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:sodium_fluoride"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sodium_fluoride"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

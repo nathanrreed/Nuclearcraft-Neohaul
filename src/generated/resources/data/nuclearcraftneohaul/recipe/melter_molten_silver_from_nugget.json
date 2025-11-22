@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:silver"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:silver"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:nuggets/silver"
+      "ingredient": {
+        "tag": "c:nuggets/silver"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.25,
+  "radiation": 0.0,
   "timeModifier": 0.1111111111111111
 }

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "nuclearcraftneohaul:block/geiger_counter_block"
+    }
+  }
+}

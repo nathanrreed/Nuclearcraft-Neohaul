@@ -4,36 +4,37 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/steel"
         },
         {
           "tag": "c:ingots/steel"
         }
-      ],
-      "count": 1
+      ]
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/boron"
         },
         {
           "tag": "c:ingots/boron"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:ferroboron_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:ferroboron_alloy"
+      }
     }
   ],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

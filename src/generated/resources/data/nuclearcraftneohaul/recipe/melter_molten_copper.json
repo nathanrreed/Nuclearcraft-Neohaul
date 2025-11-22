@@ -4,13 +4,15 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:copper"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:copper"
+      }
     }
   ],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:ingots/copper"
         },
@@ -20,11 +22,11 @@
         {
           "tag": "c:dusts/copper"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

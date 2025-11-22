@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 48,
-      "fluid": "nuclearcraftneohaul:leu_233"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:leu_233"
+      }
     },
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:uranium_233"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:uranium_233"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 64,
-      "fluid": "nuclearcraftneohaul:heu_233"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:heu_233"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

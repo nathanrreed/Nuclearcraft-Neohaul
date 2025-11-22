@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:californium_250"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_250"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:californium_250"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_250"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

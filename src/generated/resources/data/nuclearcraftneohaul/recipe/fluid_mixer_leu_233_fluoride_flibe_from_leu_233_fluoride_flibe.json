@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:leu_233_fluoride"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:leu_233_fluoride"
+      }
     },
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:flibe"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:flibe"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:leu_233_fluoride_flibe"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:leu_233_fluoride_flibe"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

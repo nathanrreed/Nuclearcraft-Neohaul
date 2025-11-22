@@ -55,10 +55,6 @@ public class StringHelper {
 		return new String(charArray);
 	}
 	
-	public static boolean isGlob(String s) {
-		return s.contains("*") || s.contains("?") || s.contains(".") || s.contains("\\");
-	}
-	
 	/**
 	 * Converts wildcards to a regular expressions
 	 */

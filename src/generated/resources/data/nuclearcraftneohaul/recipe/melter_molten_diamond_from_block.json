@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 5994,
-      "fluid": "nuclearcraftneohaul:diamond"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:diamond"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:storage_blocks/diamond"
+      "ingredient": {
+        "tag": "c:storage_blocks/diamond"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 9.0
 }

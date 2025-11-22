@@ -1,0 +1,7 @@
+{
+  "parent": "nuclearcraftneohaul:block/top_sides",
+  "textures": {
+    "sides": "nuclearcraftneohaul:block/radiation/radiation_scrubber_side",
+    "top": "nuclearcraftneohaul:block/radiation/radiation_scrubber_top"
+  }
+}

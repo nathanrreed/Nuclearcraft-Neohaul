@@ -19,8 +19,8 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -36,69 +36,26 @@ import static net.minecraft.advancements.Advancement.Builder.recipeAdvancement;
 
 public class ModAdvancementProvider extends AdvancementProvider {
     public ModAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-        // Add an instance of our generator to the list parameter. This can be done as many times as you want.
-        // Having multiple generators is purely for organization, all functionality can be achieved with a single generator.
         super(output, lookupProvider, existingFileHelper, List.of(new ModAdvancementGenerator()));
     }
 
     private static final class ModAdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
         @Override
         public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
-            // All methods follow the builder pattern, meaning that chaining is possible and encouraged.
-            // For better readability of the explanations, chaining will not be done here.
-
-            // Create an advancement builder using the static #advancement() method.
-            // Using #advancement() automatically enables telemetry events. If you do not want this,
-            // #recipeAdvancement() can be used instead, there are no other functional differences.
             Advancement.Builder builder = advancement();
 
-            // Sets the parent of the advancement. You can use another advancement you have already generated,
-            // or create a placeholder advancement using the static AdvancementSubProvider#createPlaceholder method.
-//            builder.parent(AdvancementSubProvider.createPlaceholder(MODID + ":root")); //AdvancementSubProvider.createPlaceholder("minecraft:story/root")
-
-            // Sets the display properties of the advancement. This can either be a DisplayInfo object,
-            // or pass in the values directly. If values are passed in directly, a DisplayInfo object will be created for you.
             builder.display(
-                    // The advancement icon. Can be an ItemStack or an ItemLike.
                     PELLET_URANIUM_MAP.get("leu_233"),
-                    // The advancement title and description. Don't forget to add translations for these!
                     Component.translatable("advancement." + MODID + ".root.title"),
                     Component.translatable("advancement." + MODID + ".root.description"),
-                    // The background texture. Use null if you don't want a background texture (for non-root advancements).
                     ncLoc("textures/block/wasteland_earth.png"),
-                    // The frame type. Valid values are AdvancementType.TASK, CHALLENGE, or GOAL.
                     AdvancementType.GOAL,
-                    // Whether to show the advancement toast or not.
                     false,
-                    // Whether to announce the advancement into chat or not.
                     false,
-                    // Whether the advancement should be hidden or not.
                     false
             );
 
-            // An advancement reward builder. Can be created with any of the four reward types, and further rewards
-            // can be added using the methods prefixed with add. This can also be built beforehand,
-            // and the resulting AdvancementRewards can then be reused across multiple advancement builders.
-//            builder.rewards(
-//                    // Alternatively, use addExperience() to add to an existing builder.
-//                    AdvancementRewards.Builder.experience(100)
-//                            // Alternatively, use loot() to create a new builder.
-//                            .addLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo")))
-//                            // Alternatively, use recipe() to create a new builder.
-//                            .addRecipe(ResourceLocation.fromNamespaceAndPath("minecraft", "iron_ingot"))
-//                            // Alternatively, use function() to create a new builder.
-//                            .runs(ncLoc("example_function"))
-//            );
-
-            // Adds a criterion with the given name to the advancement. Use the corresponding trigger instance's static method.
             builder.addCriterion("unlocked", PlayerTrigger.TriggerInstance.tick());
-
-            // Adds a requirements handler. Minecraft natively provides allOf() and anyOf(), more complex requirements
-            // must be implemented manually. Only has an effect with two or more criteria.
-//            builder.requirements(AdvancementRequirements.allOf(List.of("pickup_dirt")));
-
-            // Save the advancement to disk, using the given resource location. This returns an AdvancementHolder,
-            // which may be stored in a variable and used as a parent by other advancement builders.
             builder.save(saver, ncLoc("root"), existingFileHelper);
 
             // Processors
@@ -126,6 +83,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
             craft(UPGRADE_MAP.get("energy"), ncLoc("manufactory"), saver, existingFileHelper);
             craft(UPGRADE_MAP.get("speed"), ncLoc("manufactory"), saver, existingFileHelper);
             craft(DECAY_GENERATOR, ncLoc("root"), saver, existingFileHelper);
+
             // Devices
             craft(MACHINE_INTERFACE, ncLoc("manufactory"), saver, existingFileHelper);
             craft(UNIVERSAL_BIN, ncLoc("root"), saver, existingFileHelper);
@@ -133,6 +91,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
             craft(BATTERY_MAP.get("basic_lithium_ion_battery"), ncLoc("basic_voltaic_pile"), saver, existingFileHelper);
             craft(SOLAR_MAP.get("solar_panel_basic"), ncLoc("decay_generator"), saver, existingFileHelper);
 
+            // Fission
             craft(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), ncLoc("separator"), saver, existingFileHelper);
             assembled("solid_fission_reactor_assembled", FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), ncLoc("solid_fuel_fission_controller"), SOLID_FISSION_ASSEMBLE_TRIGGER, saver, existingFileHelper);
             craft(FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), ncLoc("solid_fission_reactor_assembled"), saver, existingFileHelper);
@@ -150,18 +109,35 @@ public class ModAdvancementProvider extends AdvancementProvider {
             craft(RTG_MAP.get("rtg_plutonium"), ncLoc("plutonium"), saver, existingFileHelper);
             craft(RTG_MAP.get("rtg_americium"), ncLoc("americium"), saver, existingFileHelper);
             craft(RTG_MAP.get("rtg_californium"), ncLoc("californium"), saver, existingFileHelper);
+
             // Heat Exchanger
             craft(HX_MAP.get("heat_exchanger_controller"), ncLoc("salt_fission_reactor_assembled"), saver, existingFileHelper);
             assembled("heat_exchanger_assembled", HX_MAP.get("heat_exchanger_controller"), ncLoc("heat_exchanger_controller"), HEAT_EXCHANGER_ASSEMBLE_TRIGGER, saver, existingFileHelper);
             craft(HX_MAP.get("condenser_controller"), ncLoc("salt_fission_reactor_assembled"), saver, existingFileHelper);
             assembled("condenser_assembled", HX_MAP.get("condenser_controller"), ncLoc("condenser_controller"), CONDENSER_ASSEMBLE_TRIGGER, saver, existingFileHelper);
+
+            // Turbine
+            craft(TURBINE_MAP.get("turbine_controller"), ncLoc("solid_fission_reactor_assembled"), saver, existingFileHelper);
+            assembled("turbine_assembled", TURBINE_MAP.get("turbine_controller"), ncLoc("turbine_controller"), TURBINE_ASSEMBLE_TRIGGER, saver, existingFileHelper);
+
+            // Large Machines
+            assembled("distiller_assembled", MACHINE_MAP.get("distiller_controller"), ncLoc("alloy_furnace"), DISTILLER_ASSEMBLE_TRIGGER, saver, existingFileHelper);
+            assembled("electrolyzer_assembled", MACHINE_MAP.get("distiller_controller"), ncLoc("alloy_furnace"), ELECTROLYZER_ASSEMBLE_TRIGGER, saver, existingFileHelper);
+            assembled("infiltrator_assembled", MACHINE_MAP.get("distiller_controller"), ncLoc("alloy_furnace"), INFILTRATOR_ASSEMBLE_TRIGGER, saver, existingFileHelper);
+
+            // Radiation
+            craft(List.of(GEIGER_COUNTER, GEIGER_COUNTER_BLOCK), "geiger_counter", ncLoc("root"), saver, existingFileHelper);
+            craft(RADIATION_SCRUBBER, ncLoc("geiger_counter"), saver, existingFileHelper);
+            craft(List.of(LIGHT_RADIATION_SHIELDING, MEDIUM_RADIATION_SHIELDING, HEAVY_RADIATION_SHIELDING), "rad_shielding", ncLoc("geiger_counter"), saver, existingFileHelper);
+            craft(List.of(RADAWAY, RADAWAY_SLOW), "radaway", ncLoc("geiger_counter"), saver, existingFileHelper);
+            craft(RAD_X, ncLoc("radaway"), saver, existingFileHelper);
+
             // Foods
             craft(FOOD_MAP.get("marshmallow"), ncLoc("root"), saver, existingFileHelper);
             craft(FOOD_MAP.get("smore"), ncLoc("marshmallow"), saver, existingFileHelper);
             craft(FOOD_MAP.get("moresmore"), ncLoc("smore"), saver, existingFileHelper);
 
             craft(PORTABLE_ENDER_CHEST, ncLoc("root"), saver, existingFileHelper);
-
         }
 
         private void assembled(String name, ItemLike icon, ResourceLocation parent, Supplier<AssembleTrigger> trigger, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
@@ -199,7 +175,24 @@ public class ModAdvancementProvider extends AdvancementProvider {
             builder.save(saver, ncLoc(name), existingFileHelper);
         }
 
-        private void has(HashMap<String, DeferredItem<Item>> items, ItemLike icon, String name, ResourceLocation parent, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
+        private void craft(List<ItemLike> items, String name, ResourceLocation parent, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
+            Advancement.Builder builder = recipeAdvancement().parent(AdvancementSubProvider.createPlaceholder(parent.toString()));
+            builder.display(
+                    items.getFirst(),
+                    Component.translatable("advancement." + MODID + "." + name + ".title"),
+                    Component.translatable("advancement." + MODID + "." + name + ".description"),
+                    null,
+                    AdvancementType.TASK,
+                    false,
+                    false,
+                    false
+            );
+            builder.addCriterion("pickup_" + name, InventoryChangeTrigger.TriggerInstance.hasItems(items.toArray(ItemLike[]::new)));
+            builder.requirements(AdvancementRequirements.allOf(List.of("pickup_" + name)));
+            builder.save(saver, ncLoc(name), existingFileHelper);
+        }
+
+        private void has(Map<String, DeferredItem<Item>> items, ItemLike icon, String name, ResourceLocation parent, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
             Advancement.Builder builder = recipeAdvancement().parent(AdvancementSubProvider.createPlaceholder(parent.toString()));
             builder.display(
                     icon,

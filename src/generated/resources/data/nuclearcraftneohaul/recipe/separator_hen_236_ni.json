@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:hen_236_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hen_236_ni"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 6,
-      "item": "nuclearcraftneohaul:neptunium_237_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:neptunium_237_ni"
+      }
     },
     {
       "count": 3,
-      "item": "nuclearcraftneohaul:neptunium_236_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:neptunium_236_ni"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

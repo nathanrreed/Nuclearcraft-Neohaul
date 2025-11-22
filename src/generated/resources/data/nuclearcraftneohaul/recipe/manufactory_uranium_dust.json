@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:uranium_ore"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_ore"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:uranium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.25
 }

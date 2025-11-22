@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:tin"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:tin"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:nuggets/tin"
+      "ingredient": {
+        "tag": "c:nuggets/tin"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.25,
+  "radiation": 0.0,
   "timeModifier": 0.1111111111111111
 }

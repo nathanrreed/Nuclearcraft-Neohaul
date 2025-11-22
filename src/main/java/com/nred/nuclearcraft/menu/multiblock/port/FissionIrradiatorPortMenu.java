@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.menu.multiblock.port;
 import com.nred.nuclearcraft.block_entity.fission.FissionIrradiatorEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.slot.FilteredSlot;
 import com.nred.nuclearcraft.menu.slot.ResultSlot;

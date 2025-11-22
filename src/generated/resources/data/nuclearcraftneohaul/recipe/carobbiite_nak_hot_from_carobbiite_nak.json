@@ -2,11 +2,15 @@
   "type": "nuclearcraftneohaul:fission_heating_recipe",
   "fluidIngredients": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:carobbiite_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:carobbiite_nak"
+    }
   },
   "fluidProducts": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:carobbiite_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:carobbiite_nak_hot"
+    }
   },
   "heatPerInputMB": 140,
   "isCoolant": true

@@ -6,7 +6,7 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.turbine.ITurbineController;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBladeEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorStatorEntity;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;

@@ -24,6 +24,9 @@ public class Registration {
         MenuRegistration.init();
         CreativeTabsRegistration.init();
         SoundRegistration.init();
+        AttachmentRegistration.init();
+        ArmorMaterialRegistration.init();
+        DataComponentRegistration.init();
     }
 
     public static void register(IEventBus modEventBus) {
@@ -40,5 +43,8 @@ public class Registration {
         SOUND_EVENTS.register(modEventBus);
         TRIGGER_TYPES.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
+        ATTACHMENT_TYPES.register(modEventBus);
+        ARMOR_MATERIALS.register(modEventBus);
+        DATA_COMPONENT_TYPES.register(modEventBus);
     }
 }

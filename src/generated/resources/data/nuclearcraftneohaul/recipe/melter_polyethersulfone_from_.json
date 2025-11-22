@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:polyethersulfone"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:polyethersulfone"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:polyethersulfone"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:polyethersulfone"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

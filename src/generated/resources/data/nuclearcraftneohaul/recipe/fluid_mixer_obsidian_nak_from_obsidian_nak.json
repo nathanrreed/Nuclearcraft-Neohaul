@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 360,
-      "fluid": "nuclearcraftneohaul:obsidian"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:obsidian"
+      }
     },
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nak"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:obsidian_nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:obsidian_nak"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

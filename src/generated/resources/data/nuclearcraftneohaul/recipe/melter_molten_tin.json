@@ -4,13 +4,15 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:tin"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:tin"
+      }
     }
   ],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:ingots/tin"
         },
@@ -20,11 +22,11 @@
         {
           "tag": "c:dusts/tin"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

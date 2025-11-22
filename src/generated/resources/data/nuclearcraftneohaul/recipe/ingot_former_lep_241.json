@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:lep_241"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lep_241"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lep_241"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lep_241"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

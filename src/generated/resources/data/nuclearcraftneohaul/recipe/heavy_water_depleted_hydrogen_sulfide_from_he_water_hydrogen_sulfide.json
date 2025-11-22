@@ -3,21 +3,29 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:heavy_water"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:heavy_water"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:depleted_hydrogen_sulfide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:depleted_hydrogen_sulfide"
+      }
     }
   ],
   "itemInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:he_water"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:he_water"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:hydrogen_sulfide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen_sulfide"
+      }
     }
   ],
   "powerModifier": 0.5,

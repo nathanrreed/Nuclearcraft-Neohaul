@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:purpur"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:purpur"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:popped_chorus_fruit"
+      "ingredient": {
+        "item": "minecraft:popped_chorus_fruit"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

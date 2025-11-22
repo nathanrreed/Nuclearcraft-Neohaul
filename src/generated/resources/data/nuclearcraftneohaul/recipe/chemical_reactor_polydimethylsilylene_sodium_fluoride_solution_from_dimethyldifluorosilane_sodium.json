@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:dimethyldifluorosilane"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:dimethyldifluorosilane"
+      }
     },
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:sodium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 36,
-      "fluid": "nuclearcraftneohaul:polydimethylsilylene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:polydimethylsilylene"
+      }
     },
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 4.0
 }

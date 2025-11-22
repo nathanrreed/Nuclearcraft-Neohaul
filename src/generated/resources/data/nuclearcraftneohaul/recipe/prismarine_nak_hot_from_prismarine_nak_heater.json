@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:prismarine_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:prismarine_nak"
+    }
   },
   "irradiatorFluxRequired": 115,
   "irradiatorHeatPerFlux": "prismarine_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:prismarine_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:prismarine_nak_hot"
+    }
   }
 }

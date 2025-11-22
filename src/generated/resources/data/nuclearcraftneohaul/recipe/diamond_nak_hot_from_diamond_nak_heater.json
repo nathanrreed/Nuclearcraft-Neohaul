@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:diamond_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:diamond_nak"
+    }
   },
   "irradiatorFluxRequired": 200,
   "irradiatorHeatPerFlux": "diamond_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:diamond_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:diamond_nak_hot"
+    }
   }
 }

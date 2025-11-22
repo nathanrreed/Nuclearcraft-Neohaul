@@ -1,8 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.recipe.CollectorRecipe;
-import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
-import com.nred.nuclearcraft.recipe.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
@@ -69,6 +67,9 @@ public class RecipeTypeRegistration {
     public static final DeferredHolder<RecipeType<?>, RecipeType<ElectrolyzerElectrolyteRecipe>> ELECTROLYZER_ELECTROLYTE_RECIPE_TYPE = register("electrolyzer_electrolyte");
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<DecayGeneratorRecipe>> DECAY_GENERATOR_RECIPE_TYPE = register("decay_generator");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<RadiationScrubberRecipe>> RADIATION_SCRUBBER_RECIPE_TYPE = register("radiation_scrubber");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<RadiationBlockMutationRecipe>> RADIATION_BLOCK_MUTATION_RECIPE_TYPE = register("radiation_block_mutation");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<RadiationBlockPurificationRecipe>> RADIATION_BLOCK_PURIFICATION_RECIPE_TYPE = register("radiation_block_purification");
 
     public static void init() {
     }

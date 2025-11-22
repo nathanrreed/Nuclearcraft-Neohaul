@@ -4,8 +4,17 @@ import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerQubitEntity;
 import com.nred.nuclearcraft.payload.TileUpdatePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public class QuantumComputerQubitRenderPacket extends TileUpdatePacket {
+    public static final Type<QuantumComputerQubitRenderPacket> TYPE = new Type<>(ncLoc("quantum_computer_qubit_render_packet"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, QuantumComputerQubitRenderPacket> STREAM_CODEC = StreamCodec.ofMember(
+            QuantumComputerQubitRenderPacket::toBytes, QuantumComputerQubitRenderPacket::fromBytes
+    );
+
     public float measureColor;
 
     public QuantumComputerQubitRenderPacket(BlockPos pos, float measureColor) {
@@ -22,6 +31,11 @@ public class QuantumComputerQubitRenderPacket extends TileUpdatePacket {
         TileUpdatePacket tileUpdatePacket = TileUpdatePacket.fromBytes(buf);
         float measureColor = buf.readFloat();
         return new QuantumComputerQubitRenderPacket(tileUpdatePacket, measureColor);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     @Override

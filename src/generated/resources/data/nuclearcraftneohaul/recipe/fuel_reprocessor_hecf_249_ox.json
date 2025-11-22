@@ -5,37 +5,52 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:depleted_hecf_249_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:depleted_hecf_249_ox"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:californium_250_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_250_ox"
+      }
     },
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:californium_252_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_252_ox"
+      }
     },
     {
       "chancePercent": 90,
       "count": 1,
-      "item": "nuclearcraftneohaul:ruthenium_106_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:ruthenium_106_dust"
+      }
     },
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:californium_252_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_252_ox"
+      }
     },
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:californium_252_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_252_ox"
+      }
     },
     {
       "chancePercent": 60,
       "count": 1,
-      "item": "nuclearcraftneohaul:promethium_147_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:promethium_147_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

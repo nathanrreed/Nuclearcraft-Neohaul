@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:silver"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:silver"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:silver_ingot"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:silver_ingot"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

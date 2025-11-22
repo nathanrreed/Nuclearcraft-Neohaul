@@ -1,0 +1,37 @@
+{
+  "parent": "nuclearcraftneohaul:root",
+  "criteria": {
+    "pickup_geiger_counter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:geiger_counter"
+          },
+          {
+            "items": "nuclearcraftneohaul:geiger_counter_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.geiger_counter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:geiger_counter"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.geiger_counter.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_geiger_counter"
+    ]
+  ]
+}

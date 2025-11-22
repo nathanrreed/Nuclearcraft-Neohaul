@@ -6,7 +6,7 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.MenuFunction;
 import com.nred.nuclearcraft.menu.slot.ProcessorSlot;

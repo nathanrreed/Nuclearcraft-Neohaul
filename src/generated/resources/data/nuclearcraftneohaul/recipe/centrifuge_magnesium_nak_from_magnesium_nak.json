@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:magnesium_nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:magnesium_nak"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:magnesium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:magnesium"
+      }
     },
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nak"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

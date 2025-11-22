@@ -4,28 +4,32 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 15,
+      "ingredient": [
         {
           "tag": "c:dusts/iron"
         },
         {
           "tag": "c:ingots/iron"
         }
-      ],
-      "count": 15
+      ]
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:c_mn_blend"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:c_mn_blend"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 16,
-      "item": "nuclearcraftneohaul:hsla_steel_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hsla_steel_alloy"
+      }
     }
   ],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 8.0
 }

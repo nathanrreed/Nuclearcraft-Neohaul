@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:lead_platinum"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lead_platinum"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:ores/lead_platinum"
+      "ingredient": {
+        "tag": "c:ores/lead_platinum"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 1.25
 }

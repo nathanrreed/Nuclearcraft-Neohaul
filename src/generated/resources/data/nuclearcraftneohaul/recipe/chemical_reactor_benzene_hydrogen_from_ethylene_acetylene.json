@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:ethylene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethylene"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:acetylene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:acetylene"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:benzene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:benzene"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:hydrogen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 4.0,
+  "radiation": 0.0,
   "timeModifier": 3.0
 }

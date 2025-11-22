@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:curium_247_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_247_za"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:curium_247"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_247"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:zirconium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

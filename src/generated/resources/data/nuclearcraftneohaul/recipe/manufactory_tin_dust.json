@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tin_ore"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tin_ore"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:tin_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tin_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.25
 }

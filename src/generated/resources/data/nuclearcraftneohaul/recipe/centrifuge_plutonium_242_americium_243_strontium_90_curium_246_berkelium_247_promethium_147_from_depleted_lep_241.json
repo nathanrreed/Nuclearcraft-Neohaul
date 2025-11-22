@@ -3,39 +3,54 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:depleted_lep_241"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:depleted_lep_241"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 80,
-      "fluid": "nuclearcraftneohaul:plutonium_242"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:plutonium_242"
+      }
     },
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:americium_243"
-    },
-    {
-      "amount": 16,
-      "chancePercent": 25,
-      "fluid": "nuclearcraftneohaul:strontium_90"
-    },
-    {
-      "amount": 16,
-      "fluid": "nuclearcraftneohaul:curium_246"
-    },
-    {
-      "amount": 16,
-      "fluid": "nuclearcraftneohaul:berkelium_247"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:americium_243"
+      }
     },
     {
       "amount": 16,
       "chancePercent": 25,
-      "fluid": "nuclearcraftneohaul:promethium_147"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:strontium_90"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:curium_246"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:berkelium_247"
+      }
+    },
+    {
+      "amount": 16,
+      "chancePercent": 25,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:promethium_147"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

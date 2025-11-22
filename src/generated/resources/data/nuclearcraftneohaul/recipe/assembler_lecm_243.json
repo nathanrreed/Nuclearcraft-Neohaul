@@ -5,27 +5,38 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:lecm_243_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lecm_243_c"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:graphite_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:graphite_dust"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:pyrolytic_carbon"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:pyrolytic_carbon"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:lecm_243_tr"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lecm_243_tr"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

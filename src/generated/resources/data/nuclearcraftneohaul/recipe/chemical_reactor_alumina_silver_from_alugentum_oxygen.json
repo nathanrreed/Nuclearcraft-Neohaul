@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:alugentum"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:alugentum"
+      }
     },
     {
       "amount": 3000,
-      "fluid": "nuclearcraftneohaul:oxygen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:alumina"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:alumina"
+      }
     },
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:silver"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:silver"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

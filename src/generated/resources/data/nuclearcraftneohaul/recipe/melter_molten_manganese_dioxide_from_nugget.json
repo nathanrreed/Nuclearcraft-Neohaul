@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:manganese_dioxide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:manganese_dioxide"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:nuggets/manganese_dioxide"
+      "ingredient": {
+        "tag": "c:nuggets/manganese_dioxide"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.25,
+  "radiation": 0.0,
   "timeModifier": 0.1111111111111111
 }

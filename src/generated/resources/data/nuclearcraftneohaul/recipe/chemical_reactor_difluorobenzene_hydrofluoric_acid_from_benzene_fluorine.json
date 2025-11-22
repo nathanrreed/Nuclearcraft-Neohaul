@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:benzene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:benzene"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:fluorine"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorine"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:difluorobenzene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:difluorobenzene"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

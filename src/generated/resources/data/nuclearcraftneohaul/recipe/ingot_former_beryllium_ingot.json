@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:beryllium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:beryllium"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:beryllium_ingot"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:beryllium_ingot"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:magnesium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:magnesium"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:ores/magnesium"
+      "ingredient": {
+        "tag": "c:ores/magnesium"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 1.25
 }

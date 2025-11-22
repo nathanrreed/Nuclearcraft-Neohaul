@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:berkelium_248_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_248_c"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:berkelium_248"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_248"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:graphite_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:graphite_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

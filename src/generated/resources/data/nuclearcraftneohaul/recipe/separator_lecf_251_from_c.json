@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lecf_251_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lecf_251_c"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lecf_251"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lecf_251"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:graphite_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:graphite_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

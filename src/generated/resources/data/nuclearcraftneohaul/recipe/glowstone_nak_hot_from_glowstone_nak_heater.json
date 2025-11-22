@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:glowstone_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:glowstone_nak"
+    }
   },
   "irradiatorFluxRequired": 90,
   "irradiatorHeatPerFlux": "glowstone_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:glowstone_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:glowstone_nak_hot"
+    }
   }
 }

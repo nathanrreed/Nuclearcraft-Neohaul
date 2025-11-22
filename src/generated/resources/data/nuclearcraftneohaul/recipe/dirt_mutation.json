@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:radiation_block_mutation_recipe",
+  "itemIngredient": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:dirt"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:grass_block"
+      }
+    }
+  ],
+  "itemProduct": {
+    "item": "nuclearcraftneohaul:wasteland_earth"
+  },
+  "mutationThreshold": 10.0
+}

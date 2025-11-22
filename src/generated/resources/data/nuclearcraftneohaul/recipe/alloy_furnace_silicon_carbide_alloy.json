@@ -5,27 +5,31 @@
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:gems/silicon"
+      "ingredient": {
+        "tag": "c:gems/silicon"
+      }
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/graphite"
         },
         {
           "tag": "c:ingots/graphite"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+      }
     }
   ],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:fluorite_water"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorite_water"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      }
     },
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:calcium_sulfate_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:calcium_sulfate_solution"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

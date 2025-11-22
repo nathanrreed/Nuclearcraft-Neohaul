@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:koh"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:koh"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:potassium_hydroxide"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:potassium_hydroxide"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

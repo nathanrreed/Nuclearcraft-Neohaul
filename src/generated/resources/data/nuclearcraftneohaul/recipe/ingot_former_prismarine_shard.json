@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:prismarine"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:prismarine"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:prismarine_shard"
+      "ingredient": {
+        "item": "minecraft:prismarine_shard"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:magnesium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:magnesium"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:magnesium_ingot"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:magnesium_ingot"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

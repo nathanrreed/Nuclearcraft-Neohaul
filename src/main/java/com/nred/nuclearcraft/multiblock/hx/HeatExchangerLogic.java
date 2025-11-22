@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.multiblock.hx;
 import com.nred.nuclearcraft.block_entity.hx.*;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
 import com.nred.nuclearcraft.multiblock.MultiblockLogic;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerRenderPacket;

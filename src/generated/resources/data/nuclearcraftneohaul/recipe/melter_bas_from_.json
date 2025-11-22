@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:bas"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:bas"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:gems/boron_arsenide"
+      "ingredient": {
+        "tag": "c:gems/boron_arsenide"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

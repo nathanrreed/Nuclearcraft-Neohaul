@@ -12,6 +12,7 @@ import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.model.FeralGhoulModel;
+import com.nred.nuclearcraft.radiation.RadiationRenders;
 import com.nred.nuclearcraft.render.BlockHighlightHandler;
 import com.nred.nuclearcraft.render.block_entity.*;
 import com.nred.nuclearcraft.render.entity.FeralGhoulRender;
@@ -45,6 +46,7 @@ public class ClientSetup {
         NeoForge.EVENT_BUS.register(new SoundHandler());
         NeoForge.EVENT_BUS.register(new TooltipHandler());
         NeoForge.EVENT_BUS.register(new BlockHighlightHandler());
+        NeoForge.EVENT_BUS.register(new RadiationRenders());
     }
 
     @SubscribeEvent

@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:chocolate_liquor"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:chocolate_liquor"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:ground_cocoa_nibs"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:ground_cocoa_nibs"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:dark_chocolate"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:dark_chocolate"
+      }
     },
     {
       "amount": 250,
-      "fluid": "minecraft:milk"
+      "ingredient": {
+        "fluid": "minecraft:milk"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:milk_chocolate"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:milk_chocolate"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

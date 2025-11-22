@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:lif"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lif"
+      }
     },
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:bef2"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:bef2"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:flibe"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:flibe"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

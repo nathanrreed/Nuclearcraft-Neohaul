@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:mix_241_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:mix_241_ox"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 8,
-      "item": "nuclearcraftneohaul:uranium_238_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_238_ox"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:plutonium_241_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_241_ox"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

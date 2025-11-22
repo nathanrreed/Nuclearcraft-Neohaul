@@ -1,0 +1,7 @@
+{
+  "parent": "nuclearcraftneohaul:block/top_sides",
+  "textures": {
+    "sides": "nuclearcraftneohaul:block/radiation/geiger_counter_block_side",
+    "top": "nuclearcraftneohaul:block/radiation/geiger_counter_block_top"
+  }
+}

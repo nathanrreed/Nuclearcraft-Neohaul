@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:curium_247"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:curium_247"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:curium_247"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_247"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

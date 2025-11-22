@@ -1,7 +1,10 @@
-package com.nred.nuclearcraft.handler;
+package com.nred.nuclearcraft.recipe;
 
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.recipe.*;
+import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.handler.CoolantHeaterRecipes;
+import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
@@ -46,7 +49,7 @@ public class NCRecipes {
     }
 
     public static List<? extends BasicRecipe> getRecipeList(String name) {
-        return getHandler(name).recipeList;
+        return getHandler(name).getRecipeList();
     }
 
     public static List<Set<ResourceLocation>> getValidFluids(String name) {
@@ -104,9 +107,9 @@ public class NCRecipes {
         putHandler(new HeatExchangerRecipes());
         putHandler(new CondenserRecipes());
         putHandler(new TurbineRecipes());
-//        putHandler(new RadiationScrubberRecipes());
-//        putHandler(new RadiationBlockMutation());
-//        putHandler(new RadiationBlockPurification());
+        putHandler(new RadiationScrubberRecipes());
+        putHandler(new RadiationBlockMutation());
+        putHandler(new RadiationBlockPurification());
 
         registerShortcuts();
 //
@@ -162,9 +165,9 @@ public class NCRecipes {
     public static HeatExchangerRecipes heat_exchanger;
     public static CondenserRecipes condenser;
     public static TurbineRecipes turbine;
-//    public static RadiationScrubberRecipes radiation_scrubber;
-//    public static RadiationBlockMutation radiation_block_mutation;
-//    public static RadiationBlockPurification radiation_block_purification;
+    public static RadiationScrubberRecipes radiation_scrubber;
+    public static RadiationBlockMutation radiation_block_mutation;
+    public static RadiationBlockPurification radiation_block_purification;
 
     public void registerShortcuts() {
         manufactory = getHandler("manufactory");
@@ -210,9 +213,9 @@ public class NCRecipes {
         heat_exchanger = getHandler("heat_exchanger");
         condenser = getHandler("condenser");
         turbine = getHandler("turbine");
-//        radiation_scrubber = getHandler("radiation_scrubber");
-//        radiation_block_mutation = getHandler("radiation_block_mutation");
-//        radiation_block_purification = getHandler("radiation_block_purification");
+        radiation_scrubber = getHandler("radiation_scrubber");
+        radiation_block_mutation = getHandler("radiation_block_mutation");
+        radiation_block_purification = getHandler("radiation_block_purification");
     }
 
     public static void init(RecipeManager recipeManager) {
@@ -522,6 +525,24 @@ public class NCRecipes {
     public static class HeatExchangerRecipes extends BasicRecipeHandler<HeatExchangerRecipe> {
         public HeatExchangerRecipes() {
             super("heat_exchanger", 0, 1, 0, 1);
+        }
+    }
+
+    public static class RadiationScrubberRecipes extends BasicRecipeHandler<RadiationScrubberRecipe> {
+        public RadiationScrubberRecipes() {
+            super("radiation_scrubber", 1, 1, 1, 1);
+        }
+    }
+
+    public static class RadiationBlockMutation extends BasicRecipeHandler<RadiationBlockMutationRecipe> {
+        public RadiationBlockMutation() {
+            super("radiation_block_mutation", 1, 0, 1, 0);
+        }
+    }
+
+    public static class RadiationBlockPurification extends BasicRecipeHandler<RadiationBlockPurificationRecipe> {
+        public RadiationBlockPurification() {
+            super("radiation_block_purification", 1, 0, 1, 0);
         }
     }
 }

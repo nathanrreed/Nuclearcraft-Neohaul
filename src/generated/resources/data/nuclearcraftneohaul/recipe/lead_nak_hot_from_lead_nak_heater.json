@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:lead_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:lead_nak"
+    }
   },
   "irradiatorFluxRequired": 60,
   "irradiatorHeatPerFlux": "lead_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:lead_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:lead_nak_hot"
+    }
   }
 }

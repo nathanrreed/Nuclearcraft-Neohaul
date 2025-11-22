@@ -2,11 +2,15 @@
   "type": "nuclearcraftneohaul:fission_heating_recipe",
   "fluidIngredients": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:boron_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:boron_nak"
+    }
   },
   "fluidProducts": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:boron_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:boron_nak_hot"
+    }
   },
   "heatPerInputMB": 160,
   "isCoolant": true

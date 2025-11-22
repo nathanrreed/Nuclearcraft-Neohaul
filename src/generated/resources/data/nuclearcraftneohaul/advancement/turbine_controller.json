@@ -1,0 +1,34 @@
+{
+  "parent": "nuclearcraftneohaul:solid_fission_reactor_assembled",
+  "criteria": {
+    "pickup_turbine_controller": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:turbine_controller"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.turbine_controller.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:turbine_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.turbine_controller.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_turbine_controller"
+    ]
+  ]
+}

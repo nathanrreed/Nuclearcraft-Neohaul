@@ -1,37 +1,51 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistanceItem;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
+import com.nred.nuclearcraft.radiation.RadArmor;
+import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.util.ModCheck;
 import com.nred.nuclearcraft.worldgen.biome.NuclearWastelandBiome;
 import com.nred.nuclearcraft.worldgen.region.NuclearWastelandRegion;
+import mekanism.api.radiation.IRadiationManager;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 
+import java.util.List;
+
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+import static com.nred.nuclearcraft.radiation.RadArmor.addArmorShieldingRecipes;
+import static com.nred.nuclearcraft.registration.DamageTypeRegistration.*;
+import static com.nred.nuclearcraft.registration.DataComponentRegistration.RADIATION_RESISTANCE_ITEM;
 import static com.nred.nuclearcraft.registration.EntityRegistration.FERAL_GHOUL;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
-import static com.nred.nuclearcraft.registration.ItemRegistration.FERAL_GHOUL_SPAWN_EGG;
+import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 @EventBusSubscriber(modid = MODID)
 public class CommonSetup {
@@ -43,6 +57,7 @@ public class CommonSetup {
         MultitoolItem.registerRightClickLogic();
 
         TileInfoHandler.init();
+        RadArmor.init();
 
         // TerraBlender
         Regions.register(new NuclearWastelandRegion(ncLoc("nuclear_wasteland"), 2));
@@ -70,7 +85,21 @@ public class CommonSetup {
         NCRecipes.init(event.getServer().getRecipeManager());
         RecipeStats.init();
 
+        // TODO ADD
+
+        addArmorShieldingRecipes(event);
+
         NeoForge.EVENT_BUS.register(new PlayerRespawnHandler());
+    }
+
+    @SubscribeEvent
+    public static void modifyComponents(ModifyDefaultComponentsEvent event) {
+        RadArmor.postInit(); // TODO maybe not a good place for this
+        for (Item item : List.of(HAZMAT_HELMET.asItem(), HAZMAT_CHESTPLATE.asItem(), HAZMAT_LEGGINGS.asItem(), HAZMAT_BOOTS.asItem())) {
+            event.modify(item, builder ->
+                    builder.set(RADIATION_RESISTANCE_ITEM.get(), new RadiationResistanceItem(RadArmor.ARMOR_RAD_RESISTANCE_MAP.get(RecipeHelper.pack(item))))
+            );
+        }
     }
 
     @SubscribeEvent
@@ -83,5 +112,16 @@ public class CommonSetup {
     @SubscribeEvent
     public static void addSpawnPlacement(RegisterSpawnPlacementsEvent event) {
         event.register(FERAL_GHOUL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+    }
+
+    @SubscribeEvent
+    public static void onLivingDamagePre(LivingDamageEvent.Pre event) {
+        if (event.getSource().is(IRadiationManager.INSTANCE.getRadiationDamageTypeKey()) || event.getSource().is(ACID_BURN) || event.getSource().is(CORIUM_BURN) || event.getSource().is(HOT_COOLANT_BURN)) {
+            for (ItemStack stack : event.getEntity().getArmorSlots()) {
+                RadiationResistanceItem rad_resistance = stack.get(RADIATION_RESISTANCE_ITEM.get());
+                if (rad_resistance != null)
+                    event.getContainer().addModifier(DamageContainer.Reduction.ARMOR, (container, reductionIn) -> (float) (reductionIn + rad_resistance.getTotalRadResistance())); // TODO check if this is the right way to do this
+            }
+        }
     }
 }

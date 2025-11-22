@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:arsenic_nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:arsenic_nak"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 1332,
-      "fluid": "nuclearcraftneohaul:arsenic"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:arsenic"
+      }
     },
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nak"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

@@ -5,7 +5,7 @@ import com.nred.nuclearcraft.block_entity.hx.HeatExchangerOutletEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerTubeEntity;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.payload.multiblock.CondenserRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.CondenserUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerRenderPacket;

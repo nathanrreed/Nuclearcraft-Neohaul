@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:potassium_fluoride"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:potassium_fluoride"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

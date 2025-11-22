@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:fluorite_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:fluorite_gem_dust"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:fluorite_gem"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:fluorite_gem"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

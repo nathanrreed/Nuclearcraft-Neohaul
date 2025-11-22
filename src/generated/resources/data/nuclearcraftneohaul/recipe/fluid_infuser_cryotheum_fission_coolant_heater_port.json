@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:cryotheum"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:cryotheum"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:standard_fission_coolant_heater"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:standard_fission_coolant_heater"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:cryotheum_fission_coolant_heater_port"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:cryotheum_fission_coolant_heater_port"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

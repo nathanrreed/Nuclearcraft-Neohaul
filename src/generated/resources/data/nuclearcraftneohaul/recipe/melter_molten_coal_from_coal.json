@@ -4,24 +4,26 @@
   "fluidResults": [
     {
       "amount": 100,
-      "fluid": "nuclearcraftneohaul:coal"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:coal"
+      }
     }
   ],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "item": "minecraft:coal"
         },
         {
           "item": "nuclearcraftneohaul:coal_gem_dust"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

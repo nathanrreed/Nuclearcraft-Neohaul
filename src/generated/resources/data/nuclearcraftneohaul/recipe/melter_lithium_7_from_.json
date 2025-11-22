@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:lithium_7"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lithium_7"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lithium_7"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lithium_7"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

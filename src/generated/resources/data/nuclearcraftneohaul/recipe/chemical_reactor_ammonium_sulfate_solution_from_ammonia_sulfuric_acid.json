@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:ammonia"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ammonia"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:ammonium_sulfate_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ammonium_sulfate_solution"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

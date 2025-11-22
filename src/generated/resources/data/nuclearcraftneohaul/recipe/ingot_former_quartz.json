@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:quartz"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:quartz"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:quartz"
+      "ingredient": {
+        "item": "minecraft:quartz"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:sodium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium"
+      }
     },
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:sulfur"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:sodium_sulfide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_sulfide"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

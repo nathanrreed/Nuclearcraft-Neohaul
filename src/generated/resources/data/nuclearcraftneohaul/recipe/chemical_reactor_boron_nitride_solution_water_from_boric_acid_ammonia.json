@@ -3,26 +3,35 @@
   "fluidInputs": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:boric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boric_acid"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:ammonia"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ammonia"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:boron_nitride_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boron_nitride_solution"
+      }
     },
     {
       "amount": 100,
       "chancePercent": 1000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

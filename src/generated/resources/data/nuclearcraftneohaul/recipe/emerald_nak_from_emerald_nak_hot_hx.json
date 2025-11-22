@@ -4,13 +4,17 @@
   "heatDifference": 780.0,
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:emerald_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:emerald_nak_hot"
+    }
   },
   "inputTemp": 800,
   "isHeating": false,
   "output": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:emerald_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:emerald_nak"
+    }
   },
   "outputTemp": 400,
   "preferredFlowDir": 0

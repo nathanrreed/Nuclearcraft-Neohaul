@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:arsenic_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:arsenic_nak"
+    }
   },
   "irradiatorFluxRequired": 135,
   "irradiatorHeatPerFlux": "arsenic_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:arsenic_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:arsenic_nak_hot"
+    }
   }
 }

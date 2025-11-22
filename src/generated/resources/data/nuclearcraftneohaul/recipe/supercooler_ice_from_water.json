@@ -3,17 +3,22 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:ice"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ice"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.25
 }

@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:ethylene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethylene"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:ethanol"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethanol"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:sulfur_trioxide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur_trioxide"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

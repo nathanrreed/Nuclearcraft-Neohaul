@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "nuclearcraftneohaul:geiger_counter"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PGP",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:geiger_counter_block"
+  }
+}

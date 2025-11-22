@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
@@ -120,6 +121,9 @@ public class ModEmiPlugin implements EmiPlugin {
     private static final EmiStack SIEVE_ASSEMBLY_WORKSTATION = EmiStack.of(MACHINE_MAP.get("steel_sieve_assembly"));
     public static final EmiRecipeCategory EMI_SIEVE_ASSEMBLY_CATEGORY = new EmiRecipeCategory(ncLoc("sieve_assembly"), SIEVE_ASSEMBLY_WORKSTATION);
 
+    private static final EmiStack RADIATION_SCRUBBER_WORKSTATION = EmiStack.of(RADIATION_SCRUBBER);
+    public static final EmiRecipeCategory EMI_RADIATION_SCRUBBER_CATEGORY = new EmiRecipeCategory(ncLoc("radiation_scrubber"), RADIATION_SCRUBBER_WORKSTATION);
+
     @Override
     public void register(EmiRegistry registry) {
         RecipeManager manager = registry.getRecipeManager();
@@ -162,6 +166,12 @@ public class ModEmiPlugin implements EmiPlugin {
                     }
                 }
             }
+        }
+
+        registry.addCategory(EMI_RADIATION_SCRUBBER_CATEGORY);
+        registry.addWorkstation(EMI_RADIATION_SCRUBBER_CATEGORY, RADIATION_SCRUBBER_WORKSTATION);
+        for (RecipeHolder<RadiationScrubberRecipe> recipe : manager.getAllRecipesFor(RADIATION_SCRUBBER_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiRadiationScrubberRecipe(recipe.id(), recipe.value()));
         }
 
         registry.addCategory(EMI_COLLECTOR_CATEGORY);

@@ -7,7 +7,7 @@ import com.nred.nuclearcraft.block_entity.machine.DistillerRefluxUnitEntity;
 import com.nred.nuclearcraft.block_entity.machine.DistillerSieveTrayEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.payload.multiblock.DistillerRenderPacket;

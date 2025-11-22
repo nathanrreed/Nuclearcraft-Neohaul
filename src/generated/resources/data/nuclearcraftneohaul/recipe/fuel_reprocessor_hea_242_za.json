@@ -5,41 +5,58 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:depleted_hea_242_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:depleted_hea_242_za"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 3,
-      "item": "nuclearcraftneohaul:americium_243_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_243_za"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:curium_243_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_243_za"
+      }
     },
     {
       "chancePercent": 75,
       "count": 1,
-      "item": "nuclearcraftneohaul:molybdenum_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:molybdenum_dust"
+      }
     },
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:curium_246_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_246_za"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:berkelium_247_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_247_za"
+      }
     },
     {
       "chancePercent": 75,
       "count": 1,
-      "item": "nuclearcraftneohaul:promethium_147_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:promethium_147_dust"
+      }
     },
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:zirconium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

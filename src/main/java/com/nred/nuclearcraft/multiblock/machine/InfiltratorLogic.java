@@ -5,7 +5,7 @@ import com.nred.nuclearcraft.block_entity.machine.InfiltratorHeatingUnitEntity;
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorPressureChamberEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.payload.multiblock.InfiltratorRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.InfiltratorUpdatePacket;

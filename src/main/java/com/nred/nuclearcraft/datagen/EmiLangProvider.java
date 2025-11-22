@@ -59,6 +59,7 @@ public class EmiLangProvider extends LanguageProvider {
 
         add("emi.category." + EMI_COLLECTOR_CATEGORY.getId().toLanguageKey(), "Collector");
         add("emi.category." + EMI_DECAY_GENERATOR_CATEGORY.getId().toLanguageKey(), "Decay Generator");
+        add("emi.category." + EMI_RADIATION_SCRUBBER_CATEGORY.getId().toLanguageKey(), "Radiation Scrubber");
 
         add("emi.category." + EMI_TURBINE_CATEGORY.getId().toLanguageKey(), "Turbine");
 

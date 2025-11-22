@@ -3,17 +3,22 @@
   "fluidInputs": [
     {
       "amount": 8000,
-      "fluid": "nuclearcraftneohaul:helium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:helium"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 25,
-      "fluid": "nuclearcraftneohaul:liquid_helium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:liquid_helium"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

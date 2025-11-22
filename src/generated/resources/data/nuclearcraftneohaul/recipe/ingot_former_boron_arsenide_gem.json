@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:bas"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:bas"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:boron_arsenide_gem"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:boron_arsenide_gem"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

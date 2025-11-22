@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:manganese_dioxide_ingot"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:manganese_dioxide_ingot"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:manganese_dioxide_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:manganese_dioxide_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

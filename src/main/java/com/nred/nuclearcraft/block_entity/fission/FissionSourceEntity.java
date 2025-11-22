@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.block_entity.fission;
 
 import com.nred.nuclearcraft.block_entity.fission.manager.IFissionManagerListener;
 import com.nred.nuclearcraft.block_entity.fission.manager.FissionSourceManagerEntity;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.recipe.RecipeHelper;

@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:nether_brick"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nether_brick"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:netherrack"
+      "ingredient": {
+        "item": "minecraft:netherrack"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

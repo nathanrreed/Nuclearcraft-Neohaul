@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:aluminum_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:aluminum_nak"
+    }
   },
   "irradiatorFluxRequired": 175,
   "irradiatorHeatPerFlux": "aluminum_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:aluminum_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:aluminum_nak_hot"
+    }
   }
 }

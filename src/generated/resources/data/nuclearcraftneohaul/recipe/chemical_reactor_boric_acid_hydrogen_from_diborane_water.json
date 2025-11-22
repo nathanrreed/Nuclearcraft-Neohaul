@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:diborane"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:diborane"
+      }
     },
     {
       "amount": 1500,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:boric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boric_acid"
+      }
     },
     {
       "amount": 1500,
-      "fluid": "nuclearcraftneohaul:hydrogen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:sulfur_trioxide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur_trioxide"
+      }
     },
     {
       "amount": 250,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

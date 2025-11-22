@@ -3,26 +3,35 @@
   "fluidInputs": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:hydroquinone_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydroquinone_solution"
+      }
     },
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:potassium_hydroxide_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium_hydroxide_solution"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:potassium_hydroquinone_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium_hydroquinone_solution"
+      }
     },
     {
       "amount": 100,
       "chancePercent": 1000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

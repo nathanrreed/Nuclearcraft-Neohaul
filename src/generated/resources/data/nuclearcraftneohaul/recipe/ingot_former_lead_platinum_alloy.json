@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:lead_platinum"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lead_platinum"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lead_platinum_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lead_platinum_alloy"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.gui;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -84,6 +85,11 @@ public abstract class NCButton extends Button {
     public static class ClearTank extends NCButton {
         public ClearTank(int id, int x, int y, int width, int height, OnPressInfo onPress) {
             super(id, x, y, width, height, onPress);
+        }
+
+        @Override
+        protected boolean clicked(double mouseX, double mouseY) {
+            return super.clicked(mouseX, mouseY) && Screen.hasShiftDown();
         }
     }
 

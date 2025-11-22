@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:radiation_block_mutation_recipe",
+  "itemIngredient": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "minecraft:saplings"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:crops"
+      }
+    }
+  ],
+  "itemProduct": [],
+  "mutationThreshold": 4.0
+}

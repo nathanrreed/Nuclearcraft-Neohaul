@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:dark_chocolate"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:dark_chocolate"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:dark_chocolate"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:dark_chocolate"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

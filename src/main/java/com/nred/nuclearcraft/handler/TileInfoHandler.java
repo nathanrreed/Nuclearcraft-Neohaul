@@ -24,6 +24,8 @@ import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorBlockI
 import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilderImpl.BasicProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilderImpl.BasicUpgradableProcessorContainerInfoBuilder;
+import com.nred.nuclearcraft.block_entity.radiation.GeigerCounterEntity;
+import com.nred.nuclearcraft.block_entity.radiation.RadiationScrubberEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.menu.multiblock.controller.*;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionCellPortMenu;
@@ -73,7 +75,7 @@ public class TileInfoHandler {
         registerBlockTileInfo(new BlockSimpleTileInfo<>("nitrogen_collector_compact", TilePassive.NitrogenCollectorCompact.class, TilePassive.NitrogenCollectorCompact::new));
         registerBlockTileInfo(new BlockSimpleTileInfo<>("nitrogen_collector_dense", TilePassive.NitrogenCollectorDense.class, TilePassive.NitrogenCollectorDense::new));
 
-//        registerBlockTileInfo(new BlockSimpleTileInfo<>("geiger_block", TileGeigerCounter.class, TileGeigerCounter::new,)); TODO
+        registerBlockTileInfo(new BlockSimpleTileInfo<>("geiger_block", GeigerCounterEntity.class, GeigerCounterEntity::new));
 
 //		registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>("nuclear_furnace", NuclearFurnaceTest.class, NuclearFurnaceTest::new)); TODO REMOVE
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("manufactory", ManufactoryEntity.class, ManufactoryEntity::new, ManufactoryMenu::new).setParticles("crit", "reddust").setDefaultProcessTime(() -> processor_time[0]).setDefaultProcessPower(() -> processor_power[0]).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
@@ -96,9 +98,9 @@ public class TileInfoHandler {
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("centrifuge", CentrifugeEntity.class, CentrifugeEntity::new, CentrifugeMenu::new).setParticles("depthsuspend", "endRod").setDefaultProcessTime(() -> processor_time[17]).setDefaultProcessPower(() -> processor_power[17]).standardExtend(0, 12).setFluidInputSlots(standardSlot(40, 41)).setFluidOutputSlots(standardSlot(96, 31), standardSlot(116, 31), standardSlot(136, 31), standardSlot(96, 51), standardSlot(116, 51), standardSlot(136, 51)).setProgressBarGuiXYWHUV(58, 30, 37, 38, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("rock_crusher", RockCrusherEntity.class, RockCrusherEntity::new, RockCrusherMenu::new).setParticles("smoke").setDefaultProcessTime(() -> processor_time[18]).setDefaultProcessPower(() -> processor_power[18]).setItemInputSlots(standardSlot(38, 35)).setItemOutputSlots(standardSlot(94, 35), standardSlot(114, 35), standardSlot(134, 35)).setProgressBarGuiXYWHUV(56, 35, 37, 16, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("electric_furnace", ElectricFurnaceEntity.class, ElectricFurnaceEntity::new, ElectricFurnaceMenu::new).setParticles("reddust", "smoke").setDefaultProcessTime(() -> processor_time[19]).setDefaultProcessPower(() -> processor_power[19]).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
-//		
-//		registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>(Global.MOD_ID, "radiation_scrubber", TileRadiationScrubber.class, TileRadiationScrubber::new, ContainerRadiationScrubber.class, ContainerRadiationScrubber::new, proxy.clientGet(() -> GuiRadiationScrubber.class), proxy.clientGet(() -> GuiRadiationScrubber::new)).setCreativeTab(NCTabs.radiation).setDefaultProcessPower(1).setConsumesInputs(true).setItemInputSlots(standardSlot(32, 35)).setFluidInputSlots(standardSlot(52, 35)).setItemOutputSlots(bigSlot(108, 31)).setFluidOutputSlots(bigSlot(136, 31)).setProgressBarGuiXYWHUV(70, 35, 37, 16, 176, 3).setMachineConfigGuiXY(-1, -1).setRedstoneControlGuiXY(27, 63));
-//		
+
+        registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>("radiation_scrubber", RadiationScrubberEntity.class, RadiationScrubberEntity::new, RadiationScrubberMenu::new).setDefaultProcessPower(() -> 1).setConsumesInputs(true).setItemInputSlots(standardSlot(32, 35)).setFluidInputSlots(standardSlot(52, 35)).setItemOutputSlots(bigSlot(108, 31)).setFluidOutputSlots(bigSlot(136, 31)).setProgressBarGuiXYWHUV(70, 35, 37, 16, 176, 3).setMachineConfigGuiXY(-1, -1).setRedstoneControlGuiXY(27, 63));
+
         registerContainerInfo(new TileContainerInfo<>("electrolyzer_controller", ElectrolyzerControllerEntity.class, ElectrolyzerControllerMenu::new));
         registerContainerInfo(new TileContainerInfo<>("distiller_controller", DistillerControllerEntity.class, DistillerControllerMenu::new));
         registerContainerInfo(new TileContainerInfo<>("infiltrator_controller", InfiltratorControllerEntity.class, InfiltratorControllerMenu::new));

@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:fluorite_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:fluorite_nak"
+    }
   },
   "irradiatorFluxRequired": 165,
   "irradiatorHeatPerFlux": "fluorite_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:fluorite_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:fluorite_nak_hot"
+    }
   }
 }

@@ -19,6 +19,9 @@ public class RegisterPeripherals {
         event.registerBlockEntity(PeripheralCapability.get(), MACHINE_ENTITY_TYPE.get("computer_port").get(), (blockEntity, context) -> new MachinePeripheral((MachineComputerPortEntity) blockEntity));
         event.registerBlockEntity(PeripheralCapability.get(), QUANTUM_ENTITY_TYPE.get("quantum_computer_port").get(), (blockEntity, context) -> new QuantumPeripheral((QuantumComputerPortEntity) blockEntity));
 
+        event.registerBlockEntity(PeripheralCapability.get(), RADIATION_SCRUBBER_ENTITY_TYPE.get(), (blockEntity, context) -> new RadiationScrubberPeripheral(blockEntity));
+        event.registerBlockEntity(PeripheralCapability.get(), GEIGER_COUNTER_ENTITY_TYPE.get(), (blockEntity, context) -> new GeigerCounterPeripheral(blockEntity));
+
         for (String typeName : PROCESSOR_MAP.keySet()) {
             event.registerBlockEntity(PeripheralCapability.get(), PROCESSOR_ENTITY_TYPE.get(typeName).get(), (blockEntity, context) -> new ProcessorPeripheral(blockEntity));
         }

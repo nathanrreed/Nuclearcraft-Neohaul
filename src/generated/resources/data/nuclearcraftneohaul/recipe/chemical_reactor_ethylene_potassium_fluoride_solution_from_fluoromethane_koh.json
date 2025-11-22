@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:fluoromethane"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluoromethane"
+      }
     },
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:koh"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:koh"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:ethylene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethylene"
+      }
     },
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium_fluoride_solution"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

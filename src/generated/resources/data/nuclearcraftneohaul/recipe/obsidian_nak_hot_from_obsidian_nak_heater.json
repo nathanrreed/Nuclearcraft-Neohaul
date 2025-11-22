@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:obsidian_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:obsidian_nak"
+    }
   },
   "irradiatorFluxRequired": 70,
   "irradiatorHeatPerFlux": "obsidian_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:obsidian_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:obsidian_nak_hot"
+    }
   }
 }

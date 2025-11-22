@@ -1,0 +1,26 @@
+{
+  "type": "nuclearcraftneohaul:radiation_scrubber_recipe",
+  "efficiency": 0.25,
+  "fluidIngredient": {
+    "amount": 250,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:radaway_slow"
+    }
+  },
+  "fluidProduct": {
+    "amount": 250,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:redstone_ethanol"
+    }
+  },
+  "itemIngredient": {
+    "count": 0,
+    "ingredient": []
+  },
+  "itemProduct": {
+    "count": 0,
+    "ingredient": []
+  },
+  "power": 20,
+  "time": 96000
+}

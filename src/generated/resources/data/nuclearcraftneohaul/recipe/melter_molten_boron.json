@@ -4,13 +4,15 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:boron"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boron"
+      }
     }
   ],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:ingots/boron"
         },
@@ -20,11 +22,11 @@
         {
           "tag": "c:dusts/boron"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

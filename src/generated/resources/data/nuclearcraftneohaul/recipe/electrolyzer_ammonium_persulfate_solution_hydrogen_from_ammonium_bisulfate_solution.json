@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:ammonium_bisulfate_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ammonium_bisulfate_solution"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:ammonium_persulfate_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ammonium_persulfate_solution"
+      }
     },
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:hydrogen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

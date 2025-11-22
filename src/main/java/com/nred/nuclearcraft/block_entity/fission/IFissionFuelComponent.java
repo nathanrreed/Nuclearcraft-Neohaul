@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;

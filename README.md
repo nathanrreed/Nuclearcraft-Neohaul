@@ -43,8 +43,10 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 
 #### Continual:
 - Integrations with JEI, EMI, Mekanism
-- 
+
+#### Currently Working on:
+- Radiation
+
 #### Future Additions:
 - Tools and Armour
-- Radiation
 - Integrations with other mods (CubeJS / CraftTweaker, Jade / TOP)

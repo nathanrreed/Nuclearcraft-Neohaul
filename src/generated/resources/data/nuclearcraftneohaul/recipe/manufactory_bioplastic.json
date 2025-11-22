@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 2,
-      "item": "minecraft:sugar_cane"
+      "ingredient": {
+        "item": "minecraft:sugar_cane"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:bioplastic"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:bioplastic"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

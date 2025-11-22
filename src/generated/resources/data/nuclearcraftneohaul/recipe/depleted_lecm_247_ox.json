@@ -6,11 +6,15 @@
   "heat": 268,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:lecm_247_ox"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:lecm_247_ox"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:depleted_lecm_247_ox"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:depleted_lecm_247_ox"
+    }
   },
   "radiation": 8.961816753472223E-5,
   "selfPriming": false,

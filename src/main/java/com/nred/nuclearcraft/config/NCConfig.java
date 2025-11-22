@@ -30,7 +30,7 @@ public class NCConfig {
     public static final String CATEGORY_TURBINE = "multiblock";
     public static final String CATEGORY_QUANTUM = "quantum";
     public static final String CATEGORY_TOOL = "tool";
-    public static final String CATEGORY_ARMOR = "armor";
+    public static final String CATEGORY_ARMOR = "armour";
     public static final String CATEGORY_ENTITY = "entity";
     public static final String CATEGORY_RADIATION = "radiation";
     public static final String CATEGORY_MISC = "misc";
@@ -161,34 +161,18 @@ public class NCConfig {
     public static int quantum_max_qubits;
     public static int quantum_angle_precision;
 
-    public static int[] tool_mining_level;
-    public static int[] tool_durability;
-    public static double[] tool_speed;
-    public static double[] tool_attack_damage;
-    public static int[] tool_enchantability;
-    public static double[] tool_handle_modifier;
-
-    public static int[] armor_durability;
-    public static double[] armor_toughness;
-    public static int[] armor_enchantability;
-    public static int[] armor_boron;
-    public static int[] armor_tough;
-    public static int[] armor_hard_carbon;
-    public static int[] armor_boron_nitride;
-    public static int[] armor_hazmat;
-
     public static int entity_tracking_range;
 
-    private static boolean radiation_enabled;
+    private static boolean radiation_enabled; // TODO fix
     public static boolean radiation_enabled_public;
 
     public static String[] radiation_immune_players;
-    public static int radiation_world_chunks_per_tick;
+    public static int radiation_level_chunks_per_tick;
     public static int radiation_player_tick_rate;
-    public static String[] radiation_worlds;
+    public static String[] radiation_dims;
     public static String[] radiation_biomes;
     public static String[] radiation_structures; // Mineshaft, Village, Fortress, Stronghold, Temple, Monument, EndCity, Mansion
-    public static String[] radiation_world_limits;
+    public static String[] radiation_dim_limits;
     public static String[] radiation_biome_limits;
     public static int[] radiation_from_biomes_dims_blacklist;
 
@@ -235,9 +219,6 @@ public class NCConfig {
     public static int radiation_scrubber_radius;
     public static boolean radiation_scrubber_non_linear;
     public static double[] radiation_scrubber_param;
-    public static int[] radiation_scrubber_time;
-    public static int[] radiation_scrubber_power;
-    public static double[] radiation_scrubber_efficiency;
     public static double radiation_geiger_block_redstone;
 
     public static boolean radiation_shielding_default_recipes;
@@ -413,33 +394,17 @@ public class NCConfig {
         quantum_max_qubits = QUANTUM_MAX_QUBITS.getAsInt();
         quantum_angle_precision = QUANTUM_ANGLE_PRECISION.getAsInt();
 
-        tool_mining_level = syncInts(TOOL_MINING_LEVEL, ARRAY);
-        tool_durability = syncInts(TOOL_DURABILITY, ARRAY);
-        tool_speed = syncDoubles(TOOL_SPEED, ARRAY);
-        tool_attack_damage = syncDoubles(TOOL_ATTACK_DAMAGE, ARRAY);
-        tool_enchantability = syncInts(TOOL_ENCHANTABILITY, ARRAY);
-        tool_handle_modifier = syncDoubles(TOOL_HANDLE_MODIFIER, ARRAY);
-
-        armor_durability = syncInts(ARMOR_DURABILITY, ARRAY);
-        armor_toughness = syncDoubles(ARMOR_TOUGHNESS, ARRAY);
-        armor_enchantability = syncInts(ARMOR_ENCHANTABILITY, ARRAY);
-        armor_boron = syncInts(ARMOR_BORON, ARRAY);
-        armor_tough = syncInts(ARMOR_TOUGH, ARRAY);
-        armor_hard_carbon = syncInts(ARMOR_HARD_CARBON, ARRAY);
-        armor_boron_nitride = syncInts(ARMOR_BORON_NITRIDE, ARRAY);
-        armor_hazmat = syncInts(ARMOR_HAZMAT, ARRAY);
-
         entity_tracking_range = ENTITY_TRACKING_RANGE.getAsInt();
 
         radiation_enabled = RADIATION_ENABLED.getAsBoolean();
 
         radiation_immune_players = syncStrings(RADIATION_IMMUNE_PLAYERS, LIST);
-        radiation_world_chunks_per_tick = RADIATION_WORLD_CHUNKS_PER_TICK.getAsInt();
+        radiation_level_chunks_per_tick = RADIATION_LEVEL_CHUNKS_PER_TICK.getAsInt();
         radiation_player_tick_rate = RADIATION_PLAYER_TICK_RATE.getAsInt();
-        radiation_worlds = syncStrings(RADIATION_WORLDS, LIST);
+        radiation_dims = syncStrings(RADIATION_DIMS, LIST);
         radiation_biomes = syncStrings(RADIATION_BIOMES, LIST);
         radiation_structures = syncStrings(RADIATION_STRUCTURES, LIST);
-        radiation_world_limits = syncStrings(RADIATION_WORLD_LIMITS, LIST);
+        radiation_dim_limits = syncStrings(RADIATION_DIM_LIMITS, LIST);
         radiation_biome_limits = syncStrings(RADIATION_BIOME_LIMITS, LIST);
         radiation_from_biomes_dims_blacklist = syncInts(RADIATION_FROM_BIOMES_DIMS_BLACKLIST, LIST);
 
@@ -486,9 +451,6 @@ public class NCConfig {
         radiation_scrubber_radius = RADIATION_SCRUBBER_RADIUS.getAsInt();
         radiation_scrubber_non_linear = RADIATION_SCRUBBER_NON_LINEAR.getAsBoolean();
         radiation_scrubber_param = syncDoubles(RADIATION_SCRUBBER_PARAM, ARRAY);
-        radiation_scrubber_time = syncInts(RADIATION_SCRUBBER_TIME, ARRAY);
-        radiation_scrubber_power = syncInts(RADIATION_SCRUBBER_POWER, ARRAY);
-        radiation_scrubber_efficiency = syncDoubles(RADIATION_SCRUBBER_EFFICIENCY, ARRAY);
         radiation_geiger_block_redstone = RADIATION_GEIGER_BLOCK_REDSTONE.getAsDouble();
 
         radiation_shielding_default_recipes = RADIATION_SHIELDING_DEFAULT_RECIPES.getAsBoolean();
@@ -657,33 +619,17 @@ public class NCConfig {
     private static final ModConfigSpec.IntValue QUANTUM_MAX_QUBITS = add(CATEGORY_QUANTUM, "quantum_max_qubits", 16, 1, 24);
     private static final ModConfigSpec.IntValue QUANTUM_ANGLE_PRECISION = add(CATEGORY_QUANTUM, "quantum_angle_precision", 16, 4, 1024);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> TOOL_MINING_LEVEL = add(CATEGORY_TOOL, "tool_mining_level", List.of(2, 2, 3, 3, 3, 3, 4, 4), 0, 15, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> TOOL_DURABILITY = add(CATEGORY_TOOL, "tool_durability", List.of(547, 547 * 5, 929, 929 * 5, 1245, 1245 * 5, 1928, 1928 * 5), 1, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TOOL_SPEED = add(CATEGORY_TOOL, "tool_speed", List.of(8D, 8D, 10D, 10D, 11D, 11D, 12D, 12D), 1D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TOOL_ATTACK_DAMAGE = add(CATEGORY_TOOL, "tool_attack_damage", List.of(2.5D, 2.5D, 3D, 3D, 3D, 3D, 3.5D, 3.5D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> TOOL_ENCHANTABILITY = add(CATEGORY_TOOL, "tool_enchantability", List.of(6, 6, 15, 15, 12, 12, 20, 20), 1, 255, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TOOL_HANDLE_MODIFIER = add(CATEGORY_TOOL, "tool_handle_modifier", List.of(0.85D, 1.1D, 1D, 0.75D), 0.01D, 10D, ARRAY);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ARMOR_DURABILITY = add(CATEGORY_ARMOR, "armor_durability", List.of(22, 30, 34, 42, 0), 1, 127, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> ARMOR_TOUGHNESS = add(CATEGORY_ARMOR, "armor_toughness", List.of(1D, 2D, 1D, 2D, 0D), 0D, 8D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ARMOR_ENCHANTABILITY = add(CATEGORY_ARMOR, "armor_enchantability", List.of(6, 15, 12, 20, 5), 1, 255, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ARMOR_BORON = add(CATEGORY_ARMOR, "armor_boron", List.of(2, 5, 7, 3), 1, 25, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ARMOR_TOUGH = add(CATEGORY_ARMOR, "armor_tough", List.of(3, 6, 7, 3), 1, 25, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ARMOR_HARD_CARBON = add(CATEGORY_ARMOR, "armor_hard_carbon", List.of(3, 5, 7, 3), 1, 25, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ARMOR_BORON_NITRIDE = add(CATEGORY_ARMOR, "armor_boron_nitride", List.of(3, 6, 8, 3), 1, 25, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> ARMOR_HAZMAT = add(CATEGORY_ARMOR, "armor_hazmat", List.of(3, 6, 7, 3), 1, 25, ARRAY);
-
     private static final ModConfigSpec.IntValue ENTITY_TRACKING_RANGE = add(CATEGORY_ENTITY, "entity_tracking_range", 64, 1, 255);
 
     private static final ModConfigSpec.BooleanValue RADIATION_ENABLED = add(CATEGORY_RADIATION, "radiation_enabled", true);
 
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_IMMUNE_PLAYERS = addString(CATEGORY_RADIATION, "radiation_immune_players", List.of(), LIST);
-    private static final ModConfigSpec.IntValue RADIATION_WORLD_CHUNKS_PER_TICK = add(CATEGORY_RADIATION, "radiation_world_chunks_per_tick", 5, 1, 400);
+    private static final ModConfigSpec.IntValue RADIATION_LEVEL_CHUNKS_PER_TICK = add(CATEGORY_RADIATION, "radiation_level_chunks_per_tick", 5, 1, 400);
     private static final ModConfigSpec.IntValue RADIATION_PLAYER_TICK_RATE = add(CATEGORY_RADIATION, "radiation_player_tick_rate", 5, 1, 400);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_WORLDS = addString(CATEGORY_RADIATION, "radiation_worlds", List.of("4598_2.25"), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOMES = addString(CATEGORY_RADIATION, "radiation_biomes", List.of("nuclearcraft:nuclear_wasteland_0.25"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIMS = addString(CATEGORY_RADIATION, "radiation_worlds", List.of("nuclearcraftneohaul:nuclear_wasteland_2.25"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOMES = addString(CATEGORY_RADIATION, "radiation_biomes", List.of("nuclearcraftneohaul:nuclear_wasteland_0.25"), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_STRUCTURES = addString(CATEGORY_RADIATION, "radiation_structures", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_WORLD_LIMITS = addString(CATEGORY_RADIATION, "radiation_world_limits", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIM_LIMITS = addString(CATEGORY_RADIATION, "radiation_level_limits", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOME_LIMITS = addString(CATEGORY_RADIATION, "radiation_biome_limits", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RADIATION_FROM_BIOMES_DIMS_BLACKLIST = add(CATEGORY_RADIATION, "radiation_from_biomes_dims_blacklist", List.of(144), Integer.MIN_VALUE, Integer.MAX_VALUE, LIST);
 
@@ -730,15 +676,12 @@ public class NCConfig {
     private static final ModConfigSpec.IntValue RADIATION_SCRUBBER_RADIUS = add(CATEGORY_RADIATION, "radiation_scrubber_radius", 4, 1, 10);
     private static final ModConfigSpec.BooleanValue RADIATION_SCRUBBER_NON_LINEAR = add(CATEGORY_RADIATION, "radiation_scrubber_non_linear", true);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SCRUBBER_PARAM = add(CATEGORY_RADIATION, "radiation_scrubber_param", List.of(2.14280951676725D, 3D, 4D, 2D), 1D, 15D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RADIATION_SCRUBBER_TIME = add(CATEGORY_RADIATION, "radiation_scrubber_time", List.of(12000, 2400, 96000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RADIATION_SCRUBBER_POWER = add(CATEGORY_RADIATION, "radiation_scrubber_power", List.of(200, 40, 20), 0, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SCRUBBER_EFFICIENCY = add(CATEGORY_RADIATION, "radiation_scrubber_efficiency", List.of(1D, 5D, 0.25D), 0D, 255D, ARRAY);
     private static final ModConfigSpec.DoubleValue RADIATION_GEIGER_BLOCK_REDSTONE = add(CATEGORY_RADIATION, "radiation_geiger_block_redstone", 3D, -127D, 127D);
 
     private static final ModConfigSpec.BooleanValue RADIATION_SHIELDING_DEFAULT_RECIPES = add(CATEGORY_RADIATION, "radiation_shielding_default_recipes", true);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_ITEM_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_shielding_item_blacklist", List.of("nuclearcraft:helm_hazmat", "nuclearcraft:chest_hazmat", "nuclearcraft:legs_hazmat", "nuclearcraft:boots_hazmat", "extraplanets:tier1_space_suit_helmet", "extraplanets:tier1_space_suit_chest", "extraplanets:tier1_space_suit_jetpack_chest", "extraplanets:tier1_space_suit_leggings", "extraplanets:tier1_space_suit_boots", "extraplanets:tier1_space_suit_gravity_boots", "extraplanets:tier2_space_suit_helmet", "extraplanets:tier2_space_suit_chest", "extraplanets:tier2_space_suit_jetpack_chest", "extraplanets:tier2_space_suit_leggings", "extraplanets:tier2_space_suit_boots", "extraplanets:tier2_space_suit_gravity_boots", "extraplanets:tier3_space_suit_helmet", "extraplanets:tier3_space_suit_chest", "extraplanets:tier3_space_suit_jetpack_chest", "extraplanets:tier3_space_suit_leggings", "extraplanets:tier3_space_suit_boots", "extraplanets:tier3_space_suit_gravity_boots", "extraplanets:tier4_space_suit_helmet", "extraplanets:tier4_space_suit_chest", "extraplanets:tier4_space_suit_jetpack_chest", "extraplanets:tier4_space_suit_leggings", "extraplanets:tier4_space_suit_boots", "extraplanets:tier4_space_suit_gravity_boots"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_ITEM_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_shielding_item_blacklist", List.of("nuclearcraftneohaul:hazmat_helmet", "nuclearcraftneohaul:hazmat_chestplate", "nuclearcraftneohaul:hazmat_leggings", "nuclearcraftneohaul:hazmat_boots", "extraplanets:tier1_space_suit_helmet", "extraplanets:tier1_space_suit_chest", "extraplanets:tier1_space_suit_jetpack_chest", "extraplanets:tier1_space_suit_leggings", "extraplanets:tier1_space_suit_boots", "extraplanets:tier1_space_suit_gravity_boots", "extraplanets:tier2_space_suit_helmet", "extraplanets:tier2_space_suit_chest", "extraplanets:tier2_space_suit_jetpack_chest", "extraplanets:tier2_space_suit_leggings", "extraplanets:tier2_space_suit_boots", "extraplanets:tier2_space_suit_gravity_boots", "extraplanets:tier3_space_suit_helmet", "extraplanets:tier3_space_suit_chest", "extraplanets:tier3_space_suit_jetpack_chest", "extraplanets:tier3_space_suit_leggings", "extraplanets:tier3_space_suit_boots", "extraplanets:tier3_space_suit_gravity_boots", "extraplanets:tier4_space_suit_helmet", "extraplanets:tier4_space_suit_chest", "extraplanets:tier4_space_suit_jetpack_chest", "extraplanets:tier4_space_suit_leggings", "extraplanets:tier4_space_suit_boots", "extraplanets:tier4_space_suit_gravity_boots"), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_CUSTOM_STACKS = addString(CATEGORY_RADIATION, "radiation_shielding_custom_stacks", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_DEFAULT_LEVELS = addString(CATEGORY_RADIATION, "radiation_shielding_default_levels", List.of("nuclearcraft:helm_hazmat_2.0", "nuclearcraft:chest_hazmat_3.0", "nuclearcraft:legs_hazmat_2.0", "nuclearcraft:boots_hazmat_2.0", "gravisuite:gravichestplate_3.0", "gravisuit:gravisuit_3.0", "gravisuit:nucleargravisuit_3.0", "extraplanets:tier1_space_suit_helmet_1.0", "extraplanets:tier1_space_suit_chest_1.5", "extraplanets:tier1_space_suit_jetpack_chest_1.5", "extraplanets:tier1_space_suit_leggings_1.0", "extraplanets:tier1_space_suit_boots_1.0", "extraplanets:tier1_space_suit_gravity_boots_1.0", "extraplanets:tier2_space_suit_helmet_1.3", "extraplanets:tier2_space_suit_chest_1.95", "extraplanets:tier2_space_suit_jetpack_chest_1.95", "extraplanets:tier2_space_suit_leggings_1.3", "extraplanets:tier2_space_suit_boots_1.3", "extraplanets:tier2_space_suit_gravity_boots_1.3", "extraplanets:tier3_space_suit_helmet_1.6", "extraplanets:tier3_space_suit_chest_2.4", "extraplanets:tier3_space_suit_jetpack_chest_2.4", "extraplanets:tier3_space_suit_leggings_1.6", "extraplanets:tier3_space_suit_boots_1.6", "extraplanets:tier3_space_suit_gravity_boots_1.6", "extraplanets:tier4_space_suit_helmet_2.0", "extraplanets:tier4_space_suit_chest_3.0", "extraplanets:tier4_space_suit_jetpack_chest_3.0", "extraplanets:tier4_space_suit_leggings_2.0", "extraplanets:tier4_space_suit_boots_2.0", "extraplanets:tier4_space_suit_gravity_boots_2.0"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_DEFAULT_LEVELS = addString(CATEGORY_RADIATION, "radiation_shielding_default_levels", List.of("nuclearcraftneohaul:hazmat_helmet_2.0", "nuclearcraftneohaul:hazmat_chestplate_3.0", "nuclearcraftneohaul:hazmat_leggings_2.0", "nuclearcraftneohaul:hazmat_boots_2.0", "gravisuite:gravichestplate_3.0", "gravisuit:gravisuit_3.0", "gravisuit:nucleargravisuit_3.0", "extraplanets:tier1_space_suit_helmet_1.0", "extraplanets:tier1_space_suit_chest_1.5", "extraplanets:tier1_space_suit_jetpack_chest_1.5", "extraplanets:tier1_space_suit_leggings_1.0", "extraplanets:tier1_space_suit_boots_1.0", "extraplanets:tier1_space_suit_gravity_boots_1.0", "extraplanets:tier2_space_suit_helmet_1.3", "extraplanets:tier2_space_suit_chest_1.95", "extraplanets:tier2_space_suit_jetpack_chest_1.95", "extraplanets:tier2_space_suit_leggings_1.3", "extraplanets:tier2_space_suit_boots_1.3", "extraplanets:tier2_space_suit_gravity_boots_1.3", "extraplanets:tier3_space_suit_helmet_1.6", "extraplanets:tier3_space_suit_chest_2.4", "extraplanets:tier3_space_suit_jetpack_chest_2.4", "extraplanets:tier3_space_suit_leggings_1.6", "extraplanets:tier3_space_suit_boots_1.6", "extraplanets:tier3_space_suit_gravity_boots_1.6", "extraplanets:tier4_space_suit_helmet_2.0", "extraplanets:tier4_space_suit_chest_3.0", "extraplanets:tier4_space_suit_jetpack_chest_3.0", "extraplanets:tier4_space_suit_leggings_2.0", "extraplanets:tier4_space_suit_boots_2.0", "extraplanets:tier4_space_suit_gravity_boots_2.0"), LIST);
 
     private static final ModConfigSpec.BooleanValue RADIATION_TILE_ENTITIES = add(CATEGORY_RADIATION, "radiation_tile_entities", true);
     private static final ModConfigSpec.BooleanValue RADIATION_HARDCORE_STACKS = add(CATEGORY_RADIATION, "radiation_hardcore_stacks", true);

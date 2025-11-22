@@ -11,6 +11,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import java.util.List;
 
@@ -23,11 +24,15 @@ public abstract class ProcessorRecipe extends BasicRecipe {
     private final double powerModifier;
     private final double radiation;
 
-    public ProcessorRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier) {
+    public ProcessorRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier, double radiation) {
         super(itemInputs, fluidInputs, itemResults, fluidResults);
         this.timeModifier = timeModifier;
         this.powerModifier = powerModifier;
-        this.radiation = 0; // TODO
+        this.radiation = radiation;
+    }
+
+    public ProcessorRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier) {
+        this(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier, 0);
     }
 
     public double getProcessTimeMultiplier() {
@@ -72,10 +77,11 @@ public abstract class ProcessorRecipe extends BasicRecipe {
                             SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidInputs").forGetter(ProcessorRecipe::getFluidIngredients),
                             SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidResults").forGetter(ProcessorRecipe::getFluidProducts),
                             Codec.DOUBLE.fieldOf("timeModifier").forGetter(ProcessorRecipe::getProcessTimeMultiplier),
-                            Codec.DOUBLE.fieldOf("powerModifier").forGetter(ProcessorRecipe::getProcessPowerMultiplier)
-                    ).apply(inst, ((itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier) -> {
+                            Codec.DOUBLE.fieldOf("powerModifier").forGetter(ProcessorRecipe::getProcessPowerMultiplier),
+                            Codec.DOUBLE.fieldOf("radiation").forGetter(ProcessorRecipe::getBaseProcessRadiation)
+                    ).apply(inst, ((itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier, radiation) -> {
                         try {
-                            return clazz.getDeclaredConstructor(List.class, List.class, List.class, List.class, double.class, double.class).newInstance(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier);
+                            return clazz.getDeclaredConstructor(List.class, List.class, List.class, List.class, double.class, double.class, double.class).newInstance(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier, radiation);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }
@@ -84,16 +90,17 @@ public abstract class ProcessorRecipe extends BasicRecipe {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, ProcessorRecipe> streamCodec() {
-            return StreamCodec.composite(
+            return NeoForgeStreamCodecs.composite(
                     SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getItemIngredients,
                     SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getItemProducts,
                     SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getFluidIngredients,
                     SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC, ProcessorRecipe::getFluidProducts,
                     ByteBufCodecs.DOUBLE, ProcessorRecipe::getProcessTimeMultiplier,
                     ByteBufCodecs.DOUBLE, ProcessorRecipe::getProcessPowerMultiplier,
-                    ((itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier) -> {
+                    ByteBufCodecs.DOUBLE, ProcessorRecipe::getBaseProcessRadiation,
+                    ((itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier, radiation) -> {
                         try {
-                            return clazz.getDeclaredConstructor(List.class, List.class, List.class, List.class, double.class, double.class).newInstance(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier);
+                            return clazz.getDeclaredConstructor(List.class, List.class, List.class, List.class, double.class, double.class, double.class).newInstance(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier, radiation);
                         } catch (Exception e) {
                             throw new RuntimeException(e);
                         }

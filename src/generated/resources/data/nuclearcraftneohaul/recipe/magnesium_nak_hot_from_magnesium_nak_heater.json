@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:magnesium_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:magnesium_nak"
+    }
   },
   "irradiatorFluxRequired": 125,
   "irradiatorHeatPerFlux": "magnesium_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:magnesium_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:magnesium_nak_hot"
+    }
   }
 }

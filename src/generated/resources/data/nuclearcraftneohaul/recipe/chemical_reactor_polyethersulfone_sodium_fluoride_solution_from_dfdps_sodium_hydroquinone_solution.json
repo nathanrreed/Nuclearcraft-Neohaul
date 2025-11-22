@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:dfdps"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:dfdps"
+      }
     },
     {
       "amount": 333,
-      "fluid": "nuclearcraftneohaul:sodium_hydroquinone_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_hydroquinone_solution"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:polyethersulfone"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:polyethersulfone"
+      }
     },
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

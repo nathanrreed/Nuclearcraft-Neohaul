@@ -6,7 +6,7 @@ import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerAnodeTerminalEntit
 import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerCathodeTerminalEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.payload.multiblock.ElectrolyzerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.ElectrolyzerUpdatePacket;

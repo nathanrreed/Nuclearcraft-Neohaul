@@ -4,7 +4,9 @@
   "itemProduct": [
     {
       "count": 1,
-      "item": "minecraft:cobblestone"
+      "ingredient": {
+        "item": "minecraft:cobblestone"
+      }
     }
   ],
   "typeName": "cobblestone_generator"

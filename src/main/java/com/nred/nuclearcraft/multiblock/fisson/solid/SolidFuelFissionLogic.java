@@ -5,7 +5,7 @@ import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;

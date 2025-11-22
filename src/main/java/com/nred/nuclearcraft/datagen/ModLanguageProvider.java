@@ -65,6 +65,26 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add("biome." + MODID + ".nuclear_wasteland", "Nuclear Wasteland");
         add("dimension." + MODID + ".nuclear_wasteland", "Nuclear Wasteland");
+
+        add("hud." + MODID + ".rad_immune_for", "Immune for: %s");
+        add("hud." + MODID + ".rad_immune", "Immune!");
+        addTooltip(GEIGER_COUNTER_BLOCK, "Reads the radiation level of the chunk it is placed in.");
+        add(MODID + ".tooltip.radiation_scrubber", "Reduces the radiation level of the chunk it is placed in. Its effectiveness depends on the amount of free space around it, removing a maximum of %s of the radiation in its chunk at %s efficiency. The collective contribution from all scrubbers in the chunk will stack linearly. The efficiency and required power depends on the rad-clearing agent being used.");
+        add(MODID + ".tooltip.radiation_scrubber_non_linear", "Reduces the radiation level of the chunk it is placed in. Its effectiveness depends on the amount of free space around it. Alone, it will remove a maximum of %s of the radiation in its chunk at %s efficiency, though the collective contribution from all scrubbers in the chunk will stack non-linearly. The radiation level will fall approximately linearly at first, but eventually doubly exponentially in the limit of many scrubbers. The efficiency and required power depends on the rad-clearing agent being used.");
+
+        add(MODID + ".tooltip.rad_shielding.install_fail", "Failed to install shielding. The container already has a resistance level of %s");
+        add(MODID + ".tooltip.rad_shielding.install_success", "Successfully installed shielding! The container now has a resistance level of %s");
+
+        add(MODID + ".tooltip.rad_shielding.desc", "Can be applied to armor to give the player %s rad resistance while worn.");
+        add(MODID + ".tooltip.rad_shielding.desc_hardcore", "Can be applied to armor to give the player %s rad resistance while worn. Can also be applied to containers to shield against irradiation from its contents.");
+
+        add(MODID + ".tooltip.radaway", "Removes %s [%s] at a rate of %s.");
+        add(MODID + ".tooltip.radaway_slow", "Removes %s [%s] at a rate of %s.");
+        add(MODID + ".tooltip.rad_x", "Increases rad resistance by %s for %s. The effect can be stacked, but higher levels of resistance will wear off more quickly.");
+
+        add(MODID + ".tooltip.rads", "Radiation: %s");
+        add(MODID + ".tooltip.rad_resist", "Rad Resistance: %s");
+        add(MODID + ".tooltip.food_rads", "Food Effects:");
     }
 
     private void advancements() {
@@ -278,9 +298,17 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".info.fission_fuel.decay_factor", "Decay Factor: %s");
         add(MODID + ".info.fission_fuel.self_priming", "Self-priming!");
 
+        add(MODID + ".radiation_badge.exposure", "Your Radiation Badge has been exposed to");
+        add(MODID + ".radiation_badge.broken", "Your Radiation Badge disintegrated...");
+        add(MODID + ".radiation_badge", "Informs the player of how irradiated they have been while being worn on every %s of radiation detected, up to a maximum of %s.");
+
         add(MODID + ".recipe_viewer.decay_gen_lifetime", "Mean Lifetime: %s");
         add(MODID + ".recipe_viewer.decay_gen_power", "Power Gen: %s");
         add(MODID + ".recipe_viewer.decay_gen_radiation", "Decay Radiation: %s");
+
+        add(MODID + ".recipe_viewer.scrubber_process_time", "Scrubbing Lifetime: %s");
+        add(MODID + ".recipe_viewer.scrubber_process_power", "Required Power: %s");
+        add(MODID + ".recipe_viewer.scrubber_process_efficiency", "Efficiency Multiplier: %s");
     }
 
     private void guide_book() {
@@ -707,6 +735,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add("nc.sf.ordinal16", "sixteenth");
 
         add("nc.sf.two_args", "%s %s");
+        add("nc.sf.one_hundred_percent", "100%");
     }
 
     private void items() {
@@ -730,6 +759,22 @@ public class ModLanguageProvider extends LanguageProvider {
         add(WASTELAND_PORTAL.get(), "Wasteland Portal");
         add(FERAL_GHOUL_SPAWN_EGG.get(), "Feral Ghoul Spawn Egg");
         add(FERAL_GHOUL.get(), "Feral Ghoul");
+
+        add(GEIGER_COUNTER.get(), "Geiger Counter");
+        add(RADIATION_BADGE.get(), "Radiation Badge");
+
+        add(RADAWAY.get(), "Radaway");
+        add(RADAWAY_SLOW.get(), "Slow-Acting RadAway");
+        add(RAD_X.get(), "Rad-X");
+
+        add(LIGHT_RADIATION_SHIELDING.get(), "Light Radiation Shielding");
+        add(MEDIUM_RADIATION_SHIELDING.get(), "Medium Radiation Shielding");
+        add(HEAVY_RADIATION_SHIELDING.get(), "Heavy Radiation Shielding");
+
+        add(HAZMAT_HELMET.get(), "Hazmat Suit Headwears");
+        add(HAZMAT_CHESTPLATE.get(), "Hazmat Suit Chestpiece");
+        add(HAZMAT_LEGGINGS.get(), "Hazmat Suit Leggings");
+        add(HAZMAT_BOOTS.get(), "Hazmat Suit Boots");
 
         fuelTypeItems(AMERICIUM_MAP, "Americium-");
         fuelTypeItems(BERKELIUM_MAP, "Berkelium-");
@@ -805,6 +850,9 @@ public class ModLanguageProvider extends LanguageProvider {
         add(FERTILE_ISOTOPE_MAP.get("neptunium").get(), "Neptunium-237 Block");
         add(FERTILE_ISOTOPE_MAP.get("plutonium").get(), "Plutonium-242 Block");
         add(FERTILE_ISOTOPE_MAP.get("uranium").get(), "Uranium-238 Block");
+
+        add(GEIGER_COUNTER_BLOCK.get(), "Geiger Counter Block");
+        add(RADIATION_SCRUBBER.get(), "Radiation Scrubber");
 
         for (String collector : COLLECTOR_MAP.keySet()) {
             add(COLLECTOR_MAP.get(collector).asItem(), capitalize(collector));
@@ -1009,6 +1057,12 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".message.filter", "Set filter to: %s");
 
+        add(MODID + ".message.rad_x_wore_off", "Your Rad-X wore off...");
+        add(MODID + ".message.rad_warning", "A nasty metallic taste develops in the mouth and a painful headache begins to build... you are suffering from radiation poisoning! It would be wise to get hold of a Geiger counter to discern the severity of the situation...");
+        add(MODID + ".message.radaway_cooling_down", "Your RadAway cooldown is at %s");
+        add(MODID + ".message.rad_x_cooling_down", "Your Rad-X cooldown is at %s");
+        add(MODID + ".message.scrubber_removal_rate", "Active radiation removal rate: %s");
+
         add(MODID + ".multitool.quantum_computer.qubit_id", "Qubit ID: %s");
         add(MODID + ".multitool.quantum_computer.start_qubit_set", "Created new qubit ID set starting with %s");
         add(MODID + ".multitool.quantum_computer.start_qubit_list", "Created new qubit ID list starting with %s");
@@ -1055,7 +1109,7 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void tooltips() {
-        add(MODID + ".tooltip.radiation", "Radiation: %s %sRad/t"); // TODO remove
+        add(MODID + ".tooltip.geiger_counter.rads", "Radiation: %s");
         add(MODID + ".tooltip.cobblestone_generator_no_req_power", "Produces %s constantly.");
         add(MODID + ".tooltip.cobblestone_generator_req_power", "Produces %s constantly if supplied %s.");
         add(MODID + ".tooltip.water_source", "Produces %s of water constantly.");
@@ -1141,6 +1195,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.portable.ender_chest", "Access your Ender Chest on the move.");
         add(MODID + ".tooltip.marshmallow", "Many civilizations would not have fallen if they had these on their side.");
         add(MODID + ".tooltip.dominos", "Paul's favourite - restore 16 hunger points with this beauty.");
+        add(MODID + ".tooltip.geiger_counter", "Detects radiation and informs the player of their rad count. Can be used to read the irradiation of entities. Will be muted if off the hotbar.");
 
         add(MODID + ".tooltip.solidified_corium", "The solidified form of a poisonous mixture of fuel and components produced in fission reactor meltdowns.");
 
@@ -1216,6 +1271,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".menu.title.fluid_mixer", "Fluid Mixer");
         add(MODID + ".menu.title.separator", "Separator");
         add(MODID + ".menu.title.supercooler", "Supercooler");
+
+        add(MODID + ".menu.title.radiation_scrubber", "Radiation Scrubber");
 
         // Turbine
         add(MODID + ".menu.turbine_controller.title", "%s*%s*%s Turbine");
@@ -1543,186 +1600,180 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.radiation", "Radiation Configs");
         add(MODID + ".configuration.radiation.tooltip", "Configure aspects of nuclear radiation.");
 
-//add(MODID + ".configuration.radiation_enabled", "Enable Radiation");
-//add(MODID + ".configuration.radiation_enabled.tooltip", "Will nuclear radiation exist in the world? Note that the game will require a restart for radiation-related items to be shown in JEI after enabling this feature.");
+        add(MODID + ".configuration.radiation_enabled", "Enable Radiation");
+        add(MODID + ".configuration.radiation_enabled.tooltip", "Will nuclear radiation exist in the world? Note that the game will require a restart for radiation-related items to be shown in JEI after enabling this feature.");
 
-//add(MODID + ".configuration.radiation_immune_players", "Player Radiation Immunity");
-//add(MODID + ".configuration.radiation_immune_players.tooltip", "List of UUIDs for players who will be given permanent radiation immunity.");
+        add(MODID + ".configuration.radiation_immune_players", "Player Radiation Immunity");
+        add(MODID + ".configuration.radiation_immune_players.tooltip", "List of UUIDs for players who will be given permanent radiation immunity.");
 
-//add(MODID + ".configuration.radiation_world_chunks_per_tick", "Radiation World Chunks Per Tick");
-//add(MODID + ".configuration.radiation_world_chunks_per_tick.tooltip", "The maximum number of chunks in which radiation will be updated per tick.");
-//add(MODID + ".configuration.radiation_player_tick_rate", "Radiation Player Tick Rate");
-//add(MODID + ".configuration.radiation_player_tick_rate.tooltip", "The number of ticks between each player radiation update.");
+        add(MODID + ".configuration.radiation_level_chunks_per_tick", "Radiation Level Chunks Per Tick");
+        add(MODID + ".configuration.radiation_level_chunks_per_tick.tooltip", "The maximum number of chunks in which radiation will be updated per tick.");
+        add(MODID + ".configuration.radiation_player_tick_rate", "Radiation Player Tick Rate");
+        add(MODID + ".configuration.radiation_player_tick_rate.tooltip", "The number of ticks between each player radiation update.");
 
-//add(MODID + ".configuration.radiation_worlds", "World Background Radiation");
-//add(MODID + ".configuration.radiation_worlds.tooltip", "List of dimensions and their background radiation levels. Format: 'dimID_radiationLevel'.");
-//add(MODID + ".configuration.radiation_biomes", "Biome Background Radiation");
-//add(MODID + ".configuration.radiation_biomes.tooltip", "List of biomes and their background radiation levels. These values stack with the underlying world's background radiation. Format: 'modid:biomeName_radiationLevel'.");
-//add(MODID + ".configuration.radiation_structures", "Structure Background Radiation");
-//add(MODID + ".configuration.radiation_structures.tooltip", "List of structures and their background radiation levels. These values stack with the underlying world or biome's background radiation. Format: 'structureName_radiationLevel'.");
-//add(MODID + ".configuration.radiation_world_limits", "World Radiation Limit");
-//add(MODID + ".configuration.radiation_world_limits.tooltip", "List of dimensions and their radiation level limits. Format: 'dimID_radiationLimit'.");
-//add(MODID + ".configuration.radiation_biome_limits", "Biome Radiation Limit");
-//add(MODID + ".configuration.radiation_biome_limits.tooltip", "List of biomes and their radiation level limits. These values stack with the underlying world's background radiation. Format: 'modid:biomeName_radiationLimit'.");
-//add(MODID + ".configuration.radiation_from_biomes_dims_blacklist", "Biome Radiation Dimension Blacklist");
-//add(MODID + ".configuration.radiation_from_biomes_dims_blacklist.tooltip", "List of IDs of dimensions to blacklist for biome background radiation.");
+        add(MODID + ".configuration.radiation_dims", "Dimension Background Radiation");
+        add(MODID + ".configuration.radiation_dims.tooltip", "List of dimensions and their background radiation levels. Format: 'dimID_radiationLevel'.");
+        add(MODID + ".configuration.radiation_biomes", "Biome Background Radiation");
+        add(MODID + ".configuration.radiation_biomes.tooltip", "List of biomes and their background radiation levels. These values stack with the underlying world's background radiation. Format: 'modid:biomeName_radiationLevel'.");
+        add(MODID + ".configuration.radiation_structures", "Structure Background Radiation");
+        add(MODID + ".configuration.radiation_structures.tooltip", "List of structures and their background radiation levels. These values stack with the underlying world or biome's background radiation. Format: 'structureName_radiationLevel'.");
+        add(MODID + ".configuration.radiation_dim_limits", "Dimension Radiation Limit");
+        add(MODID + ".configuration.radiation_dim_limits.tooltip", "List of dimensions and their radiation level limits. Format: 'dimID_radiationLimit'.");
+        add(MODID + ".configuration.radiation_biome_limits", "Biome Radiation Limit");
+        add(MODID + ".configuration.radiation_biome_limits.tooltip", "List of biomes and their radiation level limits. These values stack with the underlying world's background radiation. Format: 'modid:biomeName_radiationLimit'.");
+        add(MODID + ".configuration.radiation_from_biomes_dims_blacklist", "Biome Radiation Dimension Blacklist");
+        add(MODID + ".configuration.radiation_from_biomes_dims_blacklist.tooltip", "List of IDs of dimensions to blacklist for biome background radiation.");
 
-//add(MODID + ".configuration.radiation_ores", "Ore Stack Radiation");
-//add(MODID + ".configuration.radiation_ores.tooltip", "List of ore dict entries and their stack radiation levels. Can be used to overwrite default values. Can use Unix-style wildcards for the ore name. Format: 'oreName_radiationLevel'.");
-//add(MODID + ".configuration.radiation_items", "Item Stack Radiation");
-//add(MODID + ".configuration.radiation_items.tooltip", "List of items and their stack radiation levels. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel'.");
-//add(MODID + ".configuration.radiation_blocks", "Block Stack Radiation");
-//add(MODID + ".configuration.radiation_blocks.tooltip", "List of blocks and their radiation levels. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel'.");
-//add(MODID + ".configuration.radiation_fluids", "Fluid Stack Radiation");
-//add(MODID + ".configuration.radiation_fluids.tooltip", "List of fluids and their radiation levels. Can be used to overwrite default values. If the fluid has a corresponding block, then it will also be given a radiation level. Format: 'fluidName_radiationLevel'.");
-//add(MODID + ".configuration.radiation_foods", "Food Radiation and Resistance");
-//add(MODID + ".configuration.radiation_foods.tooltip", "List of foods and the rads and rad resistance gained on consumption. Negative values mean rads and rad resistance will be lost. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel_radiationResistance'.");
+        add(MODID + ".configuration.radiation_ores", "Ore Stack Radiation");
+        add(MODID + ".configuration.radiation_ores.tooltip", "List of ore dict entries and their stack radiation levels. Can be used to overwrite default values. Can use Unix-style wildcards for the ore name. Format: 'oreName_radiationLevel'.");
+        add(MODID + ".configuration.radiation_items", "Item Stack Radiation");
+        add(MODID + ".configuration.radiation_items.tooltip", "List of items and their stack radiation levels. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel'.");
+        add(MODID + ".configuration.radiation_blocks", "Block Stack Radiation");
+        add(MODID + ".configuration.radiation_blocks.tooltip", "List of blocks and their radiation levels. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel'.");
+        add(MODID + ".configuration.radiation_fluids", "Fluid Stack Radiation");
+        add(MODID + ".configuration.radiation_fluids.tooltip", "List of fluids and their radiation levels. Can be used to overwrite default values. If the fluid has a corresponding block, then it will also be given a radiation level. Format: 'fluidName_radiationLevel'.");
+        add(MODID + ".configuration.radiation_foods", "Food Radiation and Resistance");
+        add(MODID + ".configuration.radiation_foods.tooltip", "List of foods and the rads and rad resistance gained on consumption. Negative values mean rads and rad resistance will be lost. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel_radiationResistance'.");
 
-//add(MODID + ".configuration.radiation_ores_blacklist", "Ore Stack Radiation Blacklist");
-//add(MODID + ".configuration.radiation_ores_blacklist.tooltip", "List of ore dict entries that will be forced not have a radiation level. Can use Unix-style wildcards for the ore name. Format: 'oreName'.");
-//add(MODID + ".configuration.radiation_items_blacklist", "Item Stack Radiation Blacklist");
-//add(MODID + ".configuration.radiation_items_blacklist.tooltip", "List of items that will be forced not have a radiation level. Format: 'modid:name:meta'.");
-//add(MODID + ".configuration.radiation_blocks_blacklist", "Block Stack Radiation Blacklist");
-//add(MODID + ".configuration.radiation_blocks_blacklist.tooltip", "List of blocks that will be forced not have a radiation level. Format: 'modid:name:meta'.");
-//add(MODID + ".configuration.radiation_fluids_blacklist", "Fluid Radiation Blacklist");
-//add(MODID + ".configuration.radiation_fluids_blacklist.tooltip", "List of fluids that will be forced not have a radiation level. Format: 'fluidName'.");
+        add(MODID + ".configuration.radiation_ores_blacklist", "Ore Stack Radiation Blacklist");
+        add(MODID + ".configuration.radiation_ores_blacklist.tooltip", "List of ore dict entries that will be forced not have a radiation level. Can use Unix-style wildcards for the ore name. Format: 'oreName'.");
+        add(MODID + ".configuration.radiation_items_blacklist", "Item Stack Radiation Blacklist");
+        add(MODID + ".configuration.radiation_items_blacklist.tooltip", "List of items that will be forced not have a radiation level. Format: 'modid:name:meta'.");
+        add(MODID + ".configuration.radiation_blocks_blacklist", "Block Stack Radiation Blacklist");
+        add(MODID + ".configuration.radiation_blocks_blacklist.tooltip", "List of blocks that will be forced not have a radiation level. Format: 'modid:name:meta'.");
+        add(MODID + ".configuration.radiation_fluids_blacklist", "Fluid Radiation Blacklist");
+        add(MODID + ".configuration.radiation_fluids_blacklist.tooltip", "List of fluids that will be forced not have a radiation level. Format: 'fluidName'.");
 
-//add(MODID + ".configuration.max_player_rads", "Max Player Rads");
-//add(MODID + ".configuration.max_player_rads.tooltip", "The maximum number of rads a player can have before the radiation is fatal.");
-//add(MODID + ".configuration.radiation_player_decay_rate", "Player Radiation Decay Rate");
-//add(MODID + ".configuration.radiation_player_decay_rate.tooltip", "The rate at which player radiation decreases over time, as a fraction of the player's current radiation level per tick.");
-//add(MODID + ".configuration.max_entity_rads", "Max Entity Rads");
-//add(MODID + ".configuration.max_entity_rads.tooltip", "List of entities and their maximum rad counts. Used to overwrite default values (100 Rad per heart of health). Format: 'modid:name_maxRads'.");
-//add(MODID + ".configuration.radiation_entity_decay_rate", "Entity Radiation Decay Rate");
-//add(MODID + ".configuration.radiation_entity_decay_rate.tooltip", "The rate at which entity radiation decreases over time, as a fraction of the entity's current radiation level per tick.");
-//add(MODID + ".configuration.radiation_spread_rate", "Chunk Radiation Spread Rate");
-//add(MODID + ".configuration.radiation_spread_rate.tooltip", "Controls the rate at which radiation will spread from chunk to chunk.");
-//add(MODID + ".configuration.radiation_spread_gradient", "Chunk Radiation Spread Gradient");
-//add(MODID + ".configuration.radiation_spread_gradient.tooltip", "Controls how high the ratio of radiation levels between chunks must be for radiation to spread between them.");
-//add(MODID + ".configuration.radiation_decay_rate", "Chunk Radiation Decay Rate");
-//add(MODID + ".configuration.radiation_decay_rate.tooltip", "Controls the rate at which radiation decreases in a chunk over time.");
-//add(MODID + ".configuration.radiation_lowest_rate", "Lowest Radiation Rate");
-//add(MODID + ".configuration.radiation_lowest_rate.tooltip", "The lowest rate of player and chunk irradiation possible in Rad/t - amounts below this are ignored.");
-//add(MODID + ".configuration.radiation_chunk_limit", "Chunk Radiation Limit");
-//add(MODID + ".configuration.radiation_chunk_limit.tooltip", "The maximum chunk radiation level possible in Rad/t. A negative value means there is no limit.");
+        add(MODID + ".configuration.max_player_rads", "Max Player Rads");
+        add(MODID + ".configuration.max_player_rads.tooltip", "The maximum number of rads a player can have before the radiation is fatal.");
+        add(MODID + ".configuration.radiation_player_decay_rate", "Player Radiation Decay Rate");
+        add(MODID + ".configuration.radiation_player_decay_rate.tooltip", "The rate at which player radiation decreases over time, as a fraction of the player's current radiation level per tick.");
+        add(MODID + ".configuration.max_entity_rads", "Max Entity Rads");
+        add(MODID + ".configuration.max_entity_rads.tooltip", "List of entities and their maximum rad counts. Used to overwrite default values (100 Rad per heart of health). Format: 'modid:name_maxRads'.");
+        add(MODID + ".configuration.radiation_entity_decay_rate", "Entity Radiation Decay Rate");
+        add(MODID + ".configuration.radiation_entity_decay_rate.tooltip", "The rate at which entity radiation decreases over time, as a fraction of the entity's current radiation level per tick.");
+        add(MODID + ".configuration.radiation_spread_rate", "Chunk Radiation Spread Rate");
+        add(MODID + ".configuration.radiation_spread_rate.tooltip", "Controls the rate at which radiation will spread from chunk to chunk.");
+        add(MODID + ".configuration.radiation_spread_gradient", "Chunk Radiation Spread Gradient");
+        add(MODID + ".configuration.radiation_spread_gradient.tooltip", "Controls how high the ratio of radiation levels between chunks must be for radiation to spread between them.");
+        add(MODID + ".configuration.radiation_decay_rate", "Chunk Radiation Decay Rate");
+        add(MODID + ".configuration.radiation_decay_rate.tooltip", "Controls the rate at which radiation decreases in a chunk over time.");
+        add(MODID + ".configuration.radiation_lowest_rate", "Lowest Radiation Rate");
+        add(MODID + ".configuration.radiation_lowest_rate.tooltip", "The lowest rate of player and chunk irradiation possible in Rad/t - amounts below this are ignored.");
+        add(MODID + ".configuration.radiation_chunk_limit", "Chunk Radiation Limit");
+        add(MODID + ".configuration.radiation_chunk_limit.tooltip", "The maximum chunk radiation level possible in Rad/t. A negative value means there is no limit.");
 
-//add(MODID + ".configuration.radiation_sound_volumes", "Radiation Sound Volumes");
-//add(MODID + ".configuration.radiation_sound_volumes.tooltip", "Modifiers for the volumes of radiation sound effects. Order: Geiger counter ticking, RadAway use, Rad-X use, food effects, chems wearing off, radiation badge breaking, radiation level warning, feral ghoul attack.");
-//add(MODID + ".configuration.radiation_check_blocks", "Block Radiation Contribution");
-//add(MODID + ".configuration.radiation_check_blocks.tooltip", "Should non-tile entity blocks contribute to chunk radiation?");
-//add(MODID + ".configuration.radiation_block_effect_max_rate", "Radiation Block Mutation Max Rate");
-//add(MODID + ".configuration.radiation_block_effect_max_rate.tooltip", "The maximum number of attempts per chunk radiation update to mutate blocks.");
-//add(MODID + ".configuration.radiation_rain_mult", "Radiation Rain Multiplier");
-//add(MODID + ".configuration.radiation_rain_mult.tooltip", "Multiplies the rate of irradiation while in rain.");
-//add(MODID + ".configuration.radiation_swim_mult", "Radiation Swimming Multiplier");
-//add(MODID + ".configuration.radiation_swim_mult.tooltip", "Multiplies the rate of irradiation while swimming.");
-//add(MODID + ".configuration.radiation_ic2_reactor_mult", "Radiation IC2 Reactor Multiplier");
-//add(MODID + ".configuration.radiation_ic2_reactor_mult.tooltip", "Multiplier for the radiation level of an IC2 reactor based on its EU/t output.");
+        add(MODID + ".configuration.radiation_sound_volumes", "Radiation Sound Volumes");
+        add(MODID + ".configuration.radiation_sound_volumes.tooltip", "Modifiers for the volumes of radiation sound effects. Order: Geiger counter ticking, RadAway use, Rad-X use, food effects, chems wearing off, radiation badge breaking, radiation level warning, feral ghoul attack.");
+        add(MODID + ".configuration.radiation_check_blocks", "Block Radiation Contribution");
+        add(MODID + ".configuration.radiation_check_blocks.tooltip", "Should non-tile entity blocks contribute to chunk radiation?");
+        add(MODID + ".configuration.radiation_block_effect_max_rate", "Radiation Block Mutation Max Rate");
+        add(MODID + ".configuration.radiation_block_effect_max_rate.tooltip", "The maximum number of attempts per chunk radiation update to mutate blocks.");
+        add(MODID + ".configuration.radiation_rain_mult", "Radiation Rain Multiplier");
+        add(MODID + ".configuration.radiation_rain_mult.tooltip", "Multiplies the rate of irradiation while in rain.");
+        add(MODID + ".configuration.radiation_swim_mult", "Radiation Swimming Multiplier");
+        add(MODID + ".configuration.radiation_swim_mult.tooltip", "Multiplies the rate of irradiation while swimming.");
+        add(MODID + ".configuration.radiation_ic2_reactor_mult", "Radiation IC2 Reactor Multiplier");
+        add(MODID + ".configuration.radiation_ic2_reactor_mult.tooltip", "Multiplier for the radiation level of an IC2 reactor based on its EU/t output.");
 
-//add(MODID + ".configuration.radiation_feral_ghoul_attack", "Feral Ghoul Attack Radiation");
-//add(MODID + ".configuration.radiation_feral_ghoul_attack.tooltip", "The amount of radiation received from an attack by a feral ghoul.");
+        add(MODID + ".configuration.radiation_feral_ghoul_attack", "Feral Ghoul Attack Radiation");
+        add(MODID + ".configuration.radiation_feral_ghoul_attack.tooltip", "The amount of radiation received from an attack by a feral ghoul.");
 
-//add(MODID + ".configuration.radiation_radaway_amount", "RadAway Rads Removed");
-//add(MODID + ".configuration.radiation_radaway_amount.tooltip", "The total number of rads removed when using RadAway.");
-//add(MODID + ".configuration.radiation_radaway_slow_amount", "Slow-Acting RadAway Rads Removed");
-//add(MODID + ".configuration.radiation_radaway_slow_amount.tooltip", "The total number of rads removed when using Slow-Acting RadAway.");
-//add(MODID + ".configuration.radiation_radaway_rate", "RadAway Rad Removal Rate");
-//add(MODID + ".configuration.radiation_radaway_rate.tooltip", "The rate at which rads is removed when using RadAway in Rad/t.");
-//add(MODID + ".configuration.radiation_radaway_slow_rate", "Slow-Acting RadAway Rad Removal Rate");
-//add(MODID + ".configuration.radiation_radaway_slow_rate.tooltip", "The rate at which rads is removed when using Slow-Acting RadAway in Rad/t.");
-//add(MODID + ".configuration.radiation_poison_time", "Rad Poisoning Time");
-//add(MODID + ".configuration.radiation_poison_time.tooltip", "The time taken for a dose of radiation poisoning to be added to the player's rad count in ticks.");
-//add(MODID + ".configuration.radiation_radaway_cooldown", "RadAway Cooldown Time");
-//add(MODID + ".configuration.radiation_radaway_cooldown.tooltip", "The time that must be waited between doses of RadAway in ticks.");
-//add(MODID + ".configuration.radiation_rad_x_amount", "Rad-X Rad Resistance");
-//add(MODID + ".configuration.radiation_rad_x_amount.tooltip", "Controls the amount of rad resistance gained when consuming Rad-X.");
-//add(MODID + ".configuration.radiation_rad_x_lifetime", "Rad-X Lifetime");
-//add(MODID + ".configuration.radiation_rad_x_lifetime.tooltip", "The time taken for one dose of Rad-X to wear off in ticks.");
-//add(MODID + ".configuration.radiation_rad_x_cooldown", "Rad-X Cooldown Time");
-//add(MODID + ".configuration.radiation_rad_x_cooldown.tooltip", "The time that must be waited between doses of Rad-X in ticks.");
-//add(MODID + ".configuration.radiation_shielding_level", "Radiation Shielding Levels");
-//add(MODID + ".configuration.radiation_shielding_level.tooltip", "The rad resistance levels provided by the three levels of shielding. Order: light, medium, heavy.");
-//add(MODID + ".configuration.radiation_tile_shielding", "Radiation Container Shielding");
-//add(MODID + ".configuration.radiation_tile_shielding.tooltip", "If enabled along with hardcore containers, radiation shielding can be applied to tile entities.");
-//add(MODID + ".configuration.radiation_hazmat_shielding", "Radiation Hazmat Shielding");
-//add(MODID + ".configuration.radiation_hazmat_shielding.tooltip", "The rad resistance levels provided by each piece of the hazmat suit. Order: headwear, chestpiece, leggings, boots.");
-//add(MODID + ".configuration.radiation_scrubber_fraction", "Scrubber Max Removal Rate");
-//add(MODID + ".configuration.radiation_scrubber_fraction.tooltip", "The maximum rate at which a 100% efficiency scrubber will remove radiation as a fraction of the radiation level of the chunk it is in. Only applies when using linear scrubbing mechanics.");
-//add(MODID + ".configuration.radiation_scrubber_radius", "Scrubber Search Radius");
-//add(MODID + ".configuration.radiation_scrubber_radius.tooltip", "The range of scrubbers' search for occluding blocks.");
-//add(MODID + ".configuration.radiation_scrubber_non_linear", "Non-linear Scrubber Mechanics");
-//add(MODID + ".configuration.radiation_scrubber_non_linear.tooltip", "Use a non-linear scrubbing rate equation instead of the linear behaviour?");
-//add(MODID + ".configuration.radiation_scrubber_param", "Non-linear Scrubber Parameters");
-//add(MODID + ".configuration.radiation_scrubber_param.tooltip", "The four parameters a,b,c,d in the non-linear scrubbing rate equation 'F = a^[-(S/b)^(1 + S/c)^(1/d)]', where 'F' is the remaining fraction of radiation left in the chunk's update buffer after scrubbing and 'S' is the effective number of scrubbers in the chunk after accounting for their efficiencies. It is recommended that you only modify these if you know what you are doing.");
-//add(MODID + ".configuration.radiation_scrubber_time", "Scrubber Recipe Lifetime");
-//add(MODID + ".configuration.radiation_scrubber_time.tooltip", "The lifetime in ticks of one item or 250 mB of fluid in an active scrubber. Order: borax dust, RadAway, Slow-Acting RadAway");
-//add(MODID + ".configuration.radiation_scrubber_power", "Scrubber Recipe Power Use");
-//add(MODID + ".configuration.radiation_scrubber_power.tooltip", "The power in RF/t scrubbers need to be supplied to run with these ingredients. Order: borax dust, RadAway, Slow-Acting RadAway");
-//add(MODID + ".configuration.radiation_scrubber_efficiency", "Scrubber Recipe Efficiency");
-//add(MODID + ".configuration.radiation_scrubber_efficiency.tooltip", "The efficiency multiplier of an active scrubber using these ingredients. Order: borax dust, RadAway, Slow-Acting RadAway");
-//add(MODID + ".configuration.radiation_geiger_block_redstone", "Geiger Block Comparator Scale");
-//add(MODID + ".configuration.radiation_geiger_block_redstone.tooltip", "The radiation level, as a power of ten, at which the Geiger counter block will emit a full-strength comparator signal.");
+        add(MODID + ".configuration.radiation_radaway_amount", "RadAway Rads Removed");
+        add(MODID + ".configuration.radiation_radaway_amount.tooltip", "The total number of rads removed when using RadAway.");
+        add(MODID + ".configuration.radiation_radaway_slow_amount", "Slow-Acting RadAway Rads Removed");
+        add(MODID + ".configuration.radiation_radaway_slow_amount.tooltip", "The total number of rads removed when using Slow-Acting RadAway.");
+        add(MODID + ".configuration.radiation_radaway_rate", "RadAway Rad Removal Rate");
+        add(MODID + ".configuration.radiation_radaway_rate.tooltip", "The rate at which rads is removed when using RadAway in Rad/t.");
+        add(MODID + ".configuration.radiation_radaway_slow_rate", "Slow-Acting RadAway Rad Removal Rate");
+        add(MODID + ".configuration.radiation_radaway_slow_rate.tooltip", "The rate at which rads is removed when using Slow-Acting RadAway in Rad/t.");
+        add(MODID + ".configuration.radiation_poison_time", "Rad Poisoning Time");
+        add(MODID + ".configuration.radiation_poison_time.tooltip", "The time taken for a dose of radiation poisoning to be added to the player's rad count in ticks.");
+        add(MODID + ".configuration.radiation_radaway_cooldown", "RadAway Cooldown Time");
+        add(MODID + ".configuration.radiation_radaway_cooldown.tooltip", "The time that must be waited between doses of RadAway in ticks.");
+        add(MODID + ".configuration.radiation_rad_x_amount", "Rad-X Rad Resistance");
+        add(MODID + ".configuration.radiation_rad_x_amount.tooltip", "Controls the amount of rad resistance gained when consuming Rad-X.");
+        add(MODID + ".configuration.radiation_rad_x_lifetime", "Rad-X Lifetime");
+        add(MODID + ".configuration.radiation_rad_x_lifetime.tooltip", "The time taken for one dose of Rad-X to wear off in ticks.");
+        add(MODID + ".configuration.radiation_rad_x_cooldown", "Rad-X Cooldown Time");
+        add(MODID + ".configuration.radiation_rad_x_cooldown.tooltip", "The time that must be waited between doses of Rad-X in ticks.");
+        add(MODID + ".configuration.radiation_shielding_level", "Radiation Shielding Levels");
+        add(MODID + ".configuration.radiation_shielding_level.tooltip", "The rad resistance levels provided by the three levels of shielding. Order: light, medium, heavy.");
+        add(MODID + ".configuration.radiation_tile_shielding", "Radiation Container Shielding");
+        add(MODID + ".configuration.radiation_tile_shielding.tooltip", "If enabled along with hardcore containers, radiation shielding can be applied to tile entities.");
+        add(MODID + ".configuration.radiation_hazmat_shielding", "Radiation Hazmat Shielding");
+        add(MODID + ".configuration.radiation_hazmat_shielding.tooltip", "The rad resistance levels provided by each piece of the hazmat suit. Order: headwear, chestpiece, leggings, boots.");
+        add(MODID + ".configuration.radiation_scrubber_fraction", "Scrubber Max Removal Rate");
+        add(MODID + ".configuration.radiation_scrubber_fraction.tooltip", "The maximum rate at which a 100% efficiency scrubber will remove radiation as a fraction of the radiation level of the chunk it is in. Only applies when using linear scrubbing mechanics.");
+        add(MODID + ".configuration.radiation_scrubber_radius", "Scrubber Search Radius");
+        add(MODID + ".configuration.radiation_scrubber_radius.tooltip", "The range of scrubbers' search for occluding blocks.");
+        add(MODID + ".configuration.radiation_scrubber_non_linear", "Non-linear Scrubber Mechanics");
+        add(MODID + ".configuration.radiation_scrubber_non_linear.tooltip", "Use a non-linear scrubbing rate equation instead of the linear behaviour?");
+        add(MODID + ".configuration.radiation_scrubber_param", "Non-linear Scrubber Parameters");
+        add(MODID + ".configuration.radiation_scrubber_param.tooltip", "The four parameters a,b,c,d in the non-linear scrubbing rate equation 'F = a^[-(S/b)^(1 + S/c)^(1/d)]', where 'F' is the remaining fraction of radiation left in the chunk's update buffer after scrubbing and 'S' is the effective number of scrubbers in the chunk after accounting for their efficiencies. It is recommended that you only modify these if you know what you are doing.");
+        add(MODID + ".configuration.radiation_geiger_block_redstone", "Geiger Block Comparator Scale");
+        add(MODID + ".configuration.radiation_geiger_block_redstone.tooltip", "The radiation level, as a power of ten, at which the Geiger counter block will emit a full-strength comparator signal.");
 
-//add(MODID + ".configuration.radiation_shielding_default_recipes", "Radiation Shielding Default Recipes");
-//add(MODID + ".configuration.radiation_shielding_default_recipes.tooltip", "If enabled, radiation shielding attachment recipes will be added for all registered armor pieces.");
-//add(MODID + ".configuration.radiation_shielding_item_blacklist", "Radiation Shielding ItemStack Blacklist");
-//add(MODID + ".configuration.radiation_shielding_item_blacklist.tooltip", "List of armor item stacks for which shielding recipes will not be added by default. Format: 'modid:armorName:meta'.");
-//add(MODID + ".configuration.radiation_shielding_custom_stacks", "Radiation Shielding ItemStack Whitelist");
-//add(MODID + ".configuration.radiation_shielding_custom_stacks.tooltip", "List of armor item stacks for which shielding recipes will be added. Mostly used when the automated shielding recipes are disabled. Format: 'modid:armorName:meta'.");
-//add(MODID + ".configuration.radiation_shielding_default_levels", "Radiation Default Armor Shielding");
-//add(MODID + ".configuration.radiation_shielding_default_levels.tooltip", "List of armor item stacks and their default radiation shielding levels. Format: 'modid:armorName:meta_resistance'. Note: this is not the only way to add these values if you have CraftTweaker installed. Rad resistance can also be given to armor by changing their recipe such that an NBT tag called "ncRadiationResistance" with the double value equal to the resistance level is attached to it.");
+        add(MODID + ".configuration.radiation_shielding_default_recipes", "Radiation Shielding Default Recipes");
+        add(MODID + ".configuration.radiation_shielding_default_recipes.tooltip", "If enabled, radiation shielding attachment recipes will be added for all registered armour pieces.");
+        add(MODID + ".configuration.radiation_shielding_item_blacklist", "Radiation Shielding ItemStack Blacklist");
+        add(MODID + ".configuration.radiation_shielding_item_blacklist.tooltip", "List of armour item stacks for which shielding recipes will not be added by default. Format: 'modid:armorName:meta'.");
+        add(MODID + ".configuration.radiation_shielding_custom_stacks", "Radiation Shielding ItemStack Whitelist");
+        add(MODID + ".configuration.radiation_shielding_custom_stacks.tooltip", "List of armour item stacks for which shielding recipes will be added. Mostly used when the automated shielding recipes are disabled. Format: 'modid:armorName:meta'.");
+        add(MODID + ".configuration.radiation_shielding_default_levels", "Radiation Default Armor Shielding");
+        add(MODID + ".configuration.radiation_shielding_default_levels.tooltip", "List of armour item stacks and their default radiation shielding levels. Format: 'modid:armorName:meta_resistance'. Note: this is not the only way to add these values if you have CraftTweaker installed. Rad resistance can also be given to armour by changing their recipe such that an NBT tag called \"ncRadiationResistance\" with the double value equal to the resistance level is attached to it.");
 
-//add(MODID + ".configuration.radiation_hud_size", "Radiation HUD Size");
-//add(MODID + ".configuration.radiation_hud_size.tooltip", "Modifier for the size of radiation info on the HUD.");
-//add(MODID + ".configuration.radiation_hud_position", "Radiation HUD Position");
-//add(MODID + ".configuration.radiation_hud_position.tooltip", "Angle from the center of the screen at which radiation info appears on the HUD. 0 degrees is the top of the screen, 45 is top-right, etc.");
-//add(MODID + ".configuration.radiation_hud_position_cartesian", "HUD Cartesian Position");
-//add(MODID + ".configuration.radiation_hud_position_cartesian.tooltip", "Optional config to specify where the rads overlay should appear on the screen if not wanted on a side or at a corner - if used, this config will be used in place of the angle-based one. Two doubles are required [x, y] which specify how far right (x) and how far down (y) from the top-left corner of the screen the overlay is drawn at.");
-//add(MODID + ".configuration.radiation_hud_text_outline", "HUD Text Outline");
-//add(MODID + ".configuration.radiation_hud_text_outline.tooltip", "If enabled, a black outline will surround the radiation counter text underneath the rad bar.");
+        add(MODID + ".configuration.radiation_hud_size", "Radiation HUD Size");
+        add(MODID + ".configuration.radiation_hud_size.tooltip", "Modifier for the size of radiation info on the HUD.");
+        add(MODID + ".configuration.radiation_hud_position", "Radiation HUD Position");
+        add(MODID + ".configuration.radiation_hud_position.tooltip", "Angle from the center of the screen at which radiation info appears on the HUD. 0 degrees is the top of the screen, 45 is top-right, etc.");
+        add(MODID + ".configuration.radiation_hud_position_cartesian", "HUD Cartesian Position");
+        add(MODID + ".configuration.radiation_hud_position_cartesian.tooltip", "Optional config to specify where the rads overlay should appear on the screen if not wanted on a side or at a corner - if used, this config will be used in place of the angle-based one. Two doubles are required [x, y] which specify how far right (x) and how far down (y) from the top-left corner of the screen the overlay is drawn at.");
+        add(MODID + ".configuration.radiation_hud_text_outline", "HUD Text Outline");
+        add(MODID + ".configuration.radiation_hud_text_outline.tooltip", "If enabled, a black outline will surround the radiation counter text underneath the rad bar.");
 
-//add(MODID + ".configuration.radiation_require_counter", "Counter Required For Info");
-//add(MODID + ".configuration.radiation_require_counter.tooltip", "If disabled, the rads overlay will show and the ticking will be heard even when a Geiger counter is not being held.");
-//add(MODID + ".configuration.radiation_chunk_boundaries", "Counter/Scrubber Chunk Boundaries");
-//add(MODID + ".configuration.radiation_chunk_boundaries.tooltip", "If enabled, chunk boundaries will be shown while holding or looking at a Geiger counter block or radiation scrubber.");
-//add(MODID + ".configuration.radiation_unit_prefixes", "Radiation Unit Prefixes");
-//add(MODID + ".configuration.radiation_unit_prefixes.tooltip", "If set to a positive integer, radiation levels will be shown without unit prefixes to this number of significant figures.");
+        add(MODID + ".configuration.radiation_require_counter", "Counter Required For Info");
+        add(MODID + ".configuration.radiation_require_counter.tooltip", "If disabled, the rads overlay will show and the ticking will be heard even when a Geiger counter is not being held.");
+        add(MODID + ".configuration.radiation_chunk_boundaries", "Counter/Scrubber Chunk Boundaries");
+        add(MODID + ".configuration.radiation_chunk_boundaries.tooltip", "If enabled, chunk boundaries will be shown while holding or looking at a Geiger counter block or radiation scrubber.");
+        add(MODID + ".configuration.radiation_unit_prefixes", "Radiation Unit Prefixes");
+        add(MODID + ".configuration.radiation_unit_prefixes.tooltip", "If set to a positive integer, radiation levels will be shown without unit prefixes to this number of significant figures.");
 
-//add(MODID + ".configuration.radiation_badge_durability", "Radiation Badge Durability");
-//add(MODID + ".configuration.radiation_badge_durability.tooltip", "Determines the total radiation that a Radiation Badge can be exposed to before disintegrating.");
-//add(MODID + ".configuration.radiation_badge_info_rate", "Radiation Badge Info Rate");
-//add(MODID + ".configuration.radiation_badge_info_rate.tooltip", "Determines the amount of exposed radiation after which the Radiation Badge will inform the player of its total exposure level as a fraction of the durability.");
+        add(MODID + ".configuration.radiation_badge_durability", "Radiation Badge Durability");
+        add(MODID + ".configuration.radiation_badge_durability.tooltip", "Determines the total radiation that a Radiation Badge can be exposed to before disintegrating.");
+        add(MODID + ".configuration.radiation_badge_info_rate", "Radiation Badge Info Rate");
+        add(MODID + ".configuration.radiation_badge_info_rate.tooltip", "Determines the amount of exposed radiation after which the Radiation Badge will inform the player of its total exposure level as a fraction of the durability.");
 
-//add(MODID + ".configuration.radiation_tile_entities", "Tile Entity Radiation");
-//add(MODID + ".configuration.radiation_tile_entities.tooltip", "If enabled, tile entities can irradiate the chunk they are in.");
-//add(MODID + ".configuration.radiation_hardcore_stacks", "Hardcore Stacks");
-//add(MODID + ".configuration.radiation_hardcore_stacks.tooltip", "If enabled, the radioactive stacks in a player's inventory will irradiate the chunk the player is in as well as the player directly, and will also irradiate the chunk if left to despawn as an entity.");
-//add(MODID + ".configuration.radiation_hardcore_containers", "Hardcore Containers");
-//add(MODID + ".configuration.radiation_hardcore_containers.tooltip", "The radioactive stacks in container blocks will irradiate the chunk the tile entity is in at a rate of this fraction of their base radiation level.");
-//add(MODID + ".configuration.radiation_dropped_items", "Radiation From Dropped Items");
-//add(MODID + ".configuration.radiation_dropped_items.tooltip", "Radioactive items dropped on the ground will irradiate the chunk they are in.");
-//add(MODID + ".configuration.radiation_death_persist", "Radiation Death Persistence");
-//add(MODID + ".configuration.radiation_death_persist.tooltip", "If enabled, players' radiation levels will persist on death.");
-//add(MODID + ".configuration.radiation_death_persist_fraction", "Death Persistence Fraction");
-//add(MODID + ".configuration.radiation_death_persist_fraction.tooltip", "Specifies the fraction of the player's radiation level that persists if Radiation Death Persistence is enabled.");
-//add(MODID + ".configuration.radiation_death_immunity_time", "Post-Death Immunity Time");
-//add(MODID + ".configuration.radiation_death_immunity_time.tooltip", "Number of seconds players will have radiation immunity after death due to radiation.");
+        add(MODID + ".configuration.radiation_tile_entities", "Tile Entity Radiation");
+        add(MODID + ".configuration.radiation_tile_entities.tooltip", "If enabled, tile entities can irradiate the chunk they are in.");
+        add(MODID + ".configuration.radiation_hardcore_stacks", "Hardcore Stacks");
+        add(MODID + ".configuration.radiation_hardcore_stacks.tooltip", "If enabled, the radioactive stacks in a player's inventory will irradiate the chunk the player is in as well as the player directly, and will also irradiate the chunk if left to despawn as an entity.");
+        add(MODID + ".configuration.radiation_hardcore_containers", "Hardcore Containers");
+        add(MODID + ".configuration.radiation_hardcore_containers.tooltip", "The radioactive stacks in container blocks will irradiate the chunk the tile entity is in at a rate of this fraction of their base radiation level.");
+        add(MODID + ".configuration.radiation_dropped_items", "Radiation From Dropped Items");
+        add(MODID + ".configuration.radiation_dropped_items.tooltip", "Radioactive items dropped on the ground will irradiate the chunk they are in.");
+        add(MODID + ".configuration.radiation_death_persist", "Radiation Death Persistence");
+        add(MODID + ".configuration.radiation_death_persist.tooltip", "If enabled, players' radiation levels will persist on death.");
+        add(MODID + ".configuration.radiation_death_persist_fraction", "Death Persistence Fraction");
+        add(MODID + ".configuration.radiation_death_persist_fraction.tooltip", "Specifies the fraction of the player's radiation level that persists if Radiation Death Persistence is enabled.");
+        add(MODID + ".configuration.radiation_death_immunity_time", "Post-Death Immunity Time");
+        add(MODID + ".configuration.radiation_death_immunity_time.tooltip", "Number of seconds players will have radiation immunity after death due to radiation.");
 
-//add(MODID + ".configuration.radiation_player_debuff_lists", "Player Radiation Effects");
-//add(MODID + ".configuration.radiation_player_debuff_lists.tooltip", "Lists of effects experienced at various percentages of radiation level by players. Format: 'radPercent_effect,effect,...,effect', where 'effect' is a potion effect 'potionName@amplifier' or an attribute modifier 'attributeName@amount@operation'.");
-//add(MODID + ".configuration.radiation_passive_debuff_lists", "Passive Entity Radiation Effects");
-//add(MODID + ".configuration.radiation_passive_debuff_lists.tooltip", "Lists of effects experienced at various percentages of radiation level by passive entities. Format: 'radPercent_effect,effect,...,effect', where 'effect' is a potion effect 'potionName@amplifier' or an attribute modifier 'attributeName@amount@operation'.");
-//add(MODID + ".configuration.radiation_mob_buff_lists", "Mob Radiation Effects");
-//add(MODID + ".configuration.radiation_mob_buff_lists.tooltip", "Lists of effects experienced at various percentages of radiation level by mobs. Format: 'radPercent_effect,effect,...,effect', where 'effect' is a potion effect 'potionName@amplifier' or an attribute modifier 'attributeName@amount@operation'.");
-//add(MODID + ".configuration.radiation_player_rads_fatal", "Player Max Radiation Fatality");
-//add(MODID + ".configuration.radiation_player_rads_fatal.tooltip", "If enabled, players will be killed when they reach their maximum rad count.");
-//add(MODID + ".configuration.radiation_passive_rads_fatal", "Passive Entity Max Radiation Fatality");
-//add(MODID + ".configuration.radiation_passive_rads_fatal.tooltip", "If enabled, passive entities will be killed when they reach their maximum rad count.");
-//add(MODID + ".configuration.radiation_mob_rads_fatal", "Mob Max Radiation Fatality");
-//add(MODID + ".configuration.radiation_mob_rads_fatal.tooltip", "If enabled, mobs will be killed when they reach their maximum rad count.");
+        add(MODID + ".configuration.radiation_player_debuff_lists", "Player Radiation Effects");
+        add(MODID + ".configuration.radiation_player_debuff_lists.tooltip", "Lists of effects experienced at various percentages of radiation level by players. Format: 'radPercent_effect,effect,...,effect', where 'effect' is a potion effect 'potionName@amplifier' or an attribute modifier 'attributeName@amount@operation'.");
+        add(MODID + ".configuration.radiation_passive_debuff_lists", "Passive Entity Radiation Effects");
+        add(MODID + ".configuration.radiation_passive_debuff_lists.tooltip", "Lists of effects experienced at various percentages of radiation level by passive entities. Format: 'radPercent_effect,effect,...,effect', where 'effect' is a potion effect 'potionName@amplifier' or an attribute modifier 'attributeName@amount@operation'.");
+        add(MODID + ".configuration.radiation_mob_buff_lists", "Mob Radiation Effects");
+        add(MODID + ".configuration.radiation_mob_buff_lists.tooltip", "Lists of effects experienced at various percentages of radiation level by mobs. Format: 'radPercent_effect,effect,...,effect', where 'effect' is a potion effect 'potionName@amplifier' or an attribute modifier 'attributeName@amount@operation'.");
+        add(MODID + ".configuration.radiation_player_rads_fatal", "Player Max Radiation Fatality");
+        add(MODID + ".configuration.radiation_player_rads_fatal.tooltip", "If enabled, players will be killed when they reach their maximum rad count.");
+        add(MODID + ".configuration.radiation_passive_rads_fatal", "Passive Entity Max Radiation Fatality");
+        add(MODID + ".configuration.radiation_passive_rads_fatal.tooltip", "If enabled, passive entities will be killed when they reach their maximum rad count.");
+        add(MODID + ".configuration.radiation_mob_rads_fatal", "Mob Max Radiation Fatality");
+        add(MODID + ".configuration.radiation_mob_rads_fatal.tooltip", "If enabled, mobs will be killed when they reach their maximum rad count.");
 
-//add(MODID + ".configuration.radiation_horse_armor", "Horse Armor
-//add(MODID + ".configuration.radiation_horse_armor.tooltip", "If enabled, horses can be equipped with radiation-protective armor.
+        add(MODID + ".configuration.radiation_horse_armor", "Horse Armor");
+        add(MODID + ".configuration.radiation_horse_armor.tooltip", "If enabled, horses can be equipped with radiation-protective armour.");
 
         add(MODID + ".configuration.misc", "Misc Configs");
         add(MODID + ".configuration.misc.tooltip", "Miscellaneous configurations.");

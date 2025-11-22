@@ -42,6 +42,8 @@ public class MenuRegistration {
 
     public static final DeferredHolder<MenuType<?>, MenuType<NuclearFurnaceMenu>> NUCLEAR_FURNACE_MENU_TYPE = MENUS.register("nuclear_furnace", () -> IMenuTypeExtension.create(NuclearFurnaceMenu::new));
 
+    public static final DeferredHolder<MenuType<?>, MenuType<RadiationScrubberMenu>> RADIATION_SCRUBBER_MENU_TYPE = MENUS.register("radiation_scrubber", () -> IMenuTypeExtension.create(RadiationScrubberMenu::new));
+
     private static HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?>>>> createProcessors() {
         HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?>>>> map = new HashMap<>();
         map.put("alloy_furnace", MENUS.register("alloy_furnace", () -> IMenuTypeExtension.create(AlloyFurnaceMenu::new)));

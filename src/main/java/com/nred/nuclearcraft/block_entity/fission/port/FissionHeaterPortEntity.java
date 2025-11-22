@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.fission.port;
 
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionHeaterEntity;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionHeaterPortMenu;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterPortType;
 import net.minecraft.core.BlockPos;

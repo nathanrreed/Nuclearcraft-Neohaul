@@ -85,6 +85,21 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(PORTABLE_ENDER_CHEST.get());
         basicItem(LITHIUM_ION_CELL.get());
         basicItem(MULTITOOL.get());
+        basicItem(GEIGER_COUNTER.get());
+        basicItem(RADIATION_BADGE.get());
+
+        basicItem(RADAWAY.get());
+        basicItem(RADAWAY_SLOW.get());
+        basicItem(RAD_X.get());
+
+        simpleItem(LIGHT_RADIATION_SHIELDING, "rad_shielding/light");
+        simpleItem(MEDIUM_RADIATION_SHIELDING, "rad_shielding/medium");
+        simpleItem(HEAVY_RADIATION_SHIELDING, "rad_shielding/heavy");
+
+        simpleItem(HAZMAT_HELMET, "armour/hazmat_helmet");
+        simpleItem(HAZMAT_CHESTPLATE, "armour/hazmat_chestplate");
+        simpleItem(HAZMAT_LEGGINGS, "armour/hazmat_leggings");
+        simpleItem(HAZMAT_BOOTS, "armour/hazmat_boots");
 
         withExistingParent(FERAL_GHOUL_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
 
@@ -104,6 +119,13 @@ public class ModItemModelProvider extends ItemModelProvider {
                     .parent(new ModelFile.UncheckedModelFile("item/generated"))
                     .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + folder + "/" + name));
         }
+    }
+
+    private void simpleItem(DeferredItem<Item> deferredItem, String name) {
+        ResourceLocation item = BuiltInRegistries.ITEM.getKey(deferredItem.asItem());
+        getBuilder(item.toString())
+                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + name));
     }
 
     private void simpleItems(HashMap<String, DeferredItem<Item>> map, String folder) {

@@ -1,0 +1,26 @@
+{
+  "parent": "nuclearcraftneohaul:alloy_furnace",
+  "criteria": {
+    "assemble_electrolyzer_assembled": {
+      "trigger": "nuclearcraftneohaul:electrolyzer_assembled"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.electrolyzer_assembled.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:distiller_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.electrolyzer_assembled.title"
+    }
+  },
+  "requirements": [
+    [
+      "assemble_electrolyzer_assembled"
+    ]
+  ]
+}

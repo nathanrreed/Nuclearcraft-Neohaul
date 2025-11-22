@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:purpur"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:purpur"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:purpur_block"
+      "ingredient": {
+        "item": "minecraft:purpur_block"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

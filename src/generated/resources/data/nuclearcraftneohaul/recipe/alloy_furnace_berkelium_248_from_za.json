@@ -5,27 +5,31 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:berkelium_248"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_248"
+      }
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/zirconium"
         },
         {
           "tag": "c:ingots/zirconium"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:berkelium_248_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_248_c"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

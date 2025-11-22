@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:cryotheum_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:cryotheum_nak"
+    }
   },
   "irradiatorFluxRequired": 205,
   "irradiatorHeatPerFlux": "cryotheum_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:cryotheum_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:cryotheum_nak_hot"
+    }
   }
 }

@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:liquid_nitrogen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:liquid_nitrogen"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:standard_fission_coolant_heater"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:standard_fission_coolant_heater"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:liquid_nitrogen_fission_coolant_heater_port"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:liquid_nitrogen_fission_coolant_heater_port"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

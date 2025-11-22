@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearcraftneohaul:bioplastic"
+    },
+    "F": {
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "R": {
+      "item": "nuclearcraftneohaul:light_radiation_shielding"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "RFR",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:medium_radiation_shielding"
+  }
+}

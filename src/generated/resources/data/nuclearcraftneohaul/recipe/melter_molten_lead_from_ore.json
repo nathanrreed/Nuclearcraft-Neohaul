@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:lead"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lead"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:ores/lead"
+      "ingredient": {
+        "tag": "c:ores/lead"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 1.25
 }

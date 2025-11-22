@@ -1,7 +1,6 @@
 package com.nred.nuclearcraft.datagen;
 
-import com.nred.nuclearcraft.datagen.recipes.CollectorProvider;
-import com.nred.nuclearcraft.datagen.recipes.DecayGeneratorProvider;
+import com.nred.nuclearcraft.datagen.recipes.*;
 import com.nred.nuclearcraft.datagen.recipes.multilock.*;
 import com.nred.nuclearcraft.datagen.recipes.processor.*;
 import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
@@ -97,6 +96,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         hx(recipeOutput);
         rtg(recipeOutput);
         quantum(recipeOutput);
+        radiation(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(MISC, Items.BROWN_MUSHROOM, 1).requires(GLOWING_MUSHROOM, 1).unlockedBy(getHasName(GLOWING_MUSHROOM), has(GLOWING_MUSHROOM)).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(MISC, GLOWING_MUSHROOM, 1).requires(Items.BROWN_MUSHROOM, 1).requires(Items.GLOWSTONE_DUST, 1).unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM)).save(recipeOutput);
@@ -142,6 +142,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new MultiblockDistillerProvider(recipeOutput);
         new MultiblockElectrolyzerProvider(recipeOutput);
         new MultiblockInfiltratorProvider(recipeOutput);
+        new RadiationScrubberProvider(recipeOutput);
+        new RadiationBlockMutationProvider(recipeOutput);
+        new RadiationBlockPurificationProvider(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))
@@ -896,6 +899,45 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, RTG_MAP.get("rtg_californium"), 1).pattern("PGP").pattern("GCG").pattern("PGP")
                 .define('P', PART_MAP.get("advanced_plating")).define('G', tag(Tags.Items.INGOTS, "graphite")).define('C', ingredient(CALIFORNIUM_MAP, List.of("250", "250_c", "250_ni", "250_ox", "250_za")))
                 .unlockedBy(getHasName(FERTILE_ISOTOPE_MAP.get("uranium")), has(FERTILE_ISOTOPE_MAP.get("uranium"))).save(recipeOutput);
+    }
+
+    private void radiation(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(MISC, GEIGER_COUNTER, 1).pattern("SFF").pattern("CRR").pattern("BFF")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', tag(Tags.Items.INGOTS, "copper")).define('R', Items.REDSTONE).define('F', ALLOY_MAP.get("ferroboron")).define('B', PART_MAP.get("bioplastic"))
+                .unlockedBy(getHasName(PART_MAP.get("bioplastic")), has(PART_MAP.get("bioplastic"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, GEIGER_COUNTER_BLOCK, 1).pattern(" P ").pattern("PGP").pattern(" P ")
+                .define('P', PART_MAP.get("basic_plating")).define('G', GEIGER_COUNTER)
+                .unlockedBy(getHasName(GEIGER_COUNTER), has(GEIGER_COUNTER)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, RADIATION_SCRUBBER, 1).pattern("PBP").pattern("BEB").pattern("PBP")
+                .define('P', PART_MAP.get("elite_plating")).define('B', COMPOUND_MAP.get("borax")).define('E', ALLOY_MAP.get("extreme"))
+                .unlockedBy(getHasName(PART_MAP.get("elite_plating")), has(PART_MAP.get("elite_plating"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, RAD_X, 1).pattern("EBE").pattern("BRB").pattern("BZB")
+                .define('E', COMPOUND_MAP.get("energetic_blend")).define('B', PART_MAP.get("bioplastic")).define('Z', Items.BLAZE_POWDER).define('R', RADAWAY)
+                .unlockedBy(getHasName(RADAWAY), has(RADAWAY)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, LIGHT_RADIATION_SHIELDING, 1).pattern("III").pattern("CCC").pattern("LLL")
+                .define('I', Items.IRON_INGOT).define('C', Items.COAL).define('L', tag(Tags.Items.INGOTS, "lead"))
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, MEDIUM_RADIATION_SHIELDING, 1).pattern("BBB").pattern("RFR").pattern("PPP")
+                .define('B', PART_MAP.get("bioplastic")).define('R', LIGHT_RADIATION_SHIELDING).define('P', PART_MAP.get("basic_plating")).define('F', ALLOY_MAP.get("ferroboron"))
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HEAVY_RADIATION_SHIELDING, 1).pattern("BBB").pattern("RFR").pattern("PPP")
+                .define('B', tag(Tags.Items.INGOTS, "beryllium")).define('R', MEDIUM_RADIATION_SHIELDING).define('P', PART_MAP.get("du_plating")).define('F', ALLOY_MAP.get("hard_carbon"))
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, HAZMAT_HELMET, 1).pattern("YWY").pattern("HLH").pattern("BSB")
+                .define('L', Items.LEATHER_HELMET).define('Y', Tags.Items.DYES_YELLOW).define('H', HEAVY_RADIATION_SHIELDING).define('W', ItemTags.WOOL).define('B', PART_MAP.get("bioplastic")).define('S', tag(Tags.Items.INGOTS, "steel"))
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HAZMAT_CHESTPLATE, 1).pattern("WHW").pattern("YLY").pattern("HWH")
+                .define('L', Items.LEATHER_CHESTPLATE).define('Y', Tags.Items.DYES_YELLOW).define('H', HEAVY_RADIATION_SHIELDING).define('W', ItemTags.WOOL)
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HAZMAT_LEGGINGS, 1).pattern("YBY").pattern("HLH").pattern("W W")
+                .define('L', Items.LEATHER_LEGGINGS).define('Y', Tags.Items.DYES_YELLOW).define('H', HEAVY_RADIATION_SHIELDING).define('W', ItemTags.WOOL).define('B', PART_MAP.get("bioplastic"))
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT)).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, HAZMAT_BOOTS, 1).pattern("HIH").pattern("BLB")
+                .define('L', Items.LEATHER_BOOTS).define('H', HEAVY_RADIATION_SHIELDING).define('I', Tags.Items.DYES_BLACK).define('B', PART_MAP.get("bioplastic"))
+                .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT)).save(recipeOutput);
     }
 
     private void quantum(RecipeOutput recipeOutput) {

@@ -6,11 +6,15 @@
   "heat": 360,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:heu_235_ox"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:heu_235_ox"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:depleted_heu_235_ox"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:depleted_heu_235_ox"
+    }
   },
   "radiation": 4.3232476345486116E-5,
   "selfPriming": false,

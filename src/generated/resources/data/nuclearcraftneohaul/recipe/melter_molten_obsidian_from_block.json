@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:obsidian"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:obsidian"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:obsidian"
+      "ingredient": {
+        "item": "minecraft:obsidian"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

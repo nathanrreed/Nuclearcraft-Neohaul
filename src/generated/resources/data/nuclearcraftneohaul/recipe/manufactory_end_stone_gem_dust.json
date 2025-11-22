@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:end_stone"
+      "ingredient": {
+        "item": "minecraft:end_stone"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:end_stone_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:end_stone_gem_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:hecf_249_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hecf_249_c"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:hecf_249"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hecf_249"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:graphite_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:graphite_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

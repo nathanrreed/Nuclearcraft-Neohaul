@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:carobbiite_nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:carobbiite_nak"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 1332,
-      "fluid": "nuclearcraftneohaul:carobbiite"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:carobbiite"
+      }
     },
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nak"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

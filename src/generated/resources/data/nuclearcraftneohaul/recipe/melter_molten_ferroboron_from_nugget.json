@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:ferroboron"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ferroboron"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:nuggets/ferroboron"
+      "ingredient": {
+        "tag": "c:nuggets/ferroboron"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 0.25,
+  "radiation": 0.0,
   "timeModifier": 0.1111111111111111
 }

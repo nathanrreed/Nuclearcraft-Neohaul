@@ -44,6 +44,10 @@ repositories {
             includeGroup("cc.tweaked")
         }
     }
+    maven { // Curios
+        name = "Illusive Soulworks maven"
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 base {
@@ -128,6 +132,9 @@ dependencies {
     runtimeOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cct_version}")
 
     implementation("com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}")
+
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 }
 
 tasks.withType(ProcessResources).configureEach {

@@ -4,11 +4,15 @@
   "efficiency": 10000.0,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:uranium_block"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:uranium_block"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:fertile_isotope_uranium_block"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:fertile_isotope_uranium_block"
+    }
   },
   "radiation": 3.85E-10
 }

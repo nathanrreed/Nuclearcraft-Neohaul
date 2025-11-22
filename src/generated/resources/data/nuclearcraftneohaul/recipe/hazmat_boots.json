@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearcraftneohaul:bioplastic"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:heavy_radiation_shielding"
+    },
+    "I": {
+      "tag": "c:dyes/black"
+    },
+    "L": {
+      "item": "minecraft:leather_boots"
+    }
+  },
+  "pattern": [
+    "HIH",
+    "BLB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:hazmat_boots"
+  }
+}

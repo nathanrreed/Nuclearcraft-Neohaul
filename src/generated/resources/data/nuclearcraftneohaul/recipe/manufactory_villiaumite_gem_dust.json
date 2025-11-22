@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:villiaumite_gem"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:villiaumite_gem"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:villiaumite_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:villiaumite_gem_dust"
+      }
     }
   ],
   "powerModifier": 1.5,
+  "radiation": 0.0,
   "timeModifier": 1.5
 }

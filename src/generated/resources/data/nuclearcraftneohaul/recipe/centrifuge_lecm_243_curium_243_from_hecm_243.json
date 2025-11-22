@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 64,
-      "fluid": "nuclearcraftneohaul:hecm_243"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hecm_243"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 96,
-      "fluid": "nuclearcraftneohaul:lecm_243"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lecm_243"
+      }
     },
     {
       "amount": 48,
-      "fluid": "nuclearcraftneohaul:curium_243"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:curium_243"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

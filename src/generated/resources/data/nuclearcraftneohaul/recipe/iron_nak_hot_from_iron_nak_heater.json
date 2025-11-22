@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:iron_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:iron_nak"
+    }
   },
   "irradiatorFluxRequired": 50,
   "irradiatorHeatPerFlux": "iron_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:iron_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:iron_nak_hot"
+    }
   }
 }

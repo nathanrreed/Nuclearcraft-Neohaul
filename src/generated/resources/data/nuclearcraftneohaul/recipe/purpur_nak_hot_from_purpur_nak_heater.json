@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:purpur_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:purpur_nak"
+    }
   },
   "irradiatorFluxRequired": 95,
   "irradiatorHeatPerFlux": "purpur_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:purpur_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:purpur_nak_hot"
+    }
   }
 }

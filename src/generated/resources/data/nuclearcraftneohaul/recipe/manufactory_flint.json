@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:gravel"
+      "ingredient": {
+        "item": "minecraft:gravel"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:flint"
+      "ingredient": {
+        "item": "minecraft:flint"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

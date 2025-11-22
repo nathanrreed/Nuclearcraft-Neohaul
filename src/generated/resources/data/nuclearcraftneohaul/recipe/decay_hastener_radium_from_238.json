@@ -4,8 +4,8 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "item": "nuclearcraftneohaul:uranium_238"
         },
@@ -15,16 +15,18 @@
         {
           "item": "nuclearcraftneohaul:uranium_238_ni"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:radium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:radium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

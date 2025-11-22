@@ -6,11 +6,15 @@
   "heat": 642,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:hecm_247_ni"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:hecm_247_ni"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:depleted_hecm_247_ni"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:depleted_hecm_247_ni"
+    }
   },
   "radiation": 2.3861144704861108E-4,
   "selfPriming": false,

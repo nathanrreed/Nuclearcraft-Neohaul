@@ -54,13 +54,27 @@ public class CreativeTabsRegistration {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RADIATION_TAB = CREATIVE_MODE_TABS.register("radiation_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable(NuclearcraftNeohaul.MODID + ".creative_tab.title.radiation"))
             .withTabsBefore(MULTIBLOCKS_TAB.getId())
-            .icon(() -> GLOWING_MUSHROOM.asItem().getDefaultInstance()) // TODO change to geiger counter
+            .icon(() -> GEIGER_COUNTER.asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
+                output.accept(RADIATION_SCRUBBER);
+                output.accept(GEIGER_COUNTER_BLOCK);
                 output.accept(GLOWING_MUSHROOM);
                 output.accept(GLOWING_MUSHROOM_BLOCK);
                 output.accept(GLOWING_MUSHROOM_STEM_BLOCK);
                 output.accept(WASTELAND_EARTH);
                 output.accept(WASTELAND_PORTAL);
+                output.accept(GEIGER_COUNTER);
+                output.accept(LIGHT_RADIATION_SHIELDING);
+                output.accept(MEDIUM_RADIATION_SHIELDING);
+                output.accept(HEAVY_RADIATION_SHIELDING);
+                output.accept(RADIATION_BADGE);
+                output.accept(RADAWAY);
+                output.accept(RADAWAY_SLOW);
+                output.accept(RAD_X);
+                output.accept(HAZMAT_HELMET);
+                output.accept(HAZMAT_CHESTPLATE);
+                output.accept(HAZMAT_LEGGINGS);
+                output.accept(HAZMAT_BOOTS);
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MISC_TAB = CREATIVE_MODE_TABS.register("misc_tab", () -> CreativeModeTab.builder()

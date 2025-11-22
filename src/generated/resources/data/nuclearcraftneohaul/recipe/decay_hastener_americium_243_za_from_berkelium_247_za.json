@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:berkelium_247_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_247_za"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:americium_243_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_243_za"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:manganese_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:manganese_nak"
+    }
   },
   "irradiatorFluxRequired": 150,
   "irradiatorHeatPerFlux": "manganese_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:manganese_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:manganese_nak_hot"
+    }
   }
 }

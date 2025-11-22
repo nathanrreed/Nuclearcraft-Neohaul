@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:heu_233"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:heu_233"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:heu_233"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:heu_233"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

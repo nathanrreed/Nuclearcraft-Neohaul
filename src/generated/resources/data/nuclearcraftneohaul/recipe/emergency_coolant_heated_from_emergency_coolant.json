@@ -3,10 +3,14 @@
   "cooling_multiplier": 1.0,
   "fluidIngredients": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:emergency_coolant"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:emergency_coolant"
+    }
   },
   "fluidProducts": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:emergency_coolant_heated"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:emergency_coolant_heated"
+    }
   }
 }

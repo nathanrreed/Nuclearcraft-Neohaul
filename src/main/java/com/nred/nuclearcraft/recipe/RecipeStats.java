@@ -1,11 +1,10 @@
 package com.nred.nuclearcraft.recipe;
 
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
-import com.nred.nuclearcraft.handler.NCRecipes;
-import com.nred.nuclearcraft.handler.NCRecipes.BasicProcessorRecipeHandler;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.recipe.NCRecipes.BasicProcessorRecipeHandler;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 
@@ -21,11 +20,11 @@ public class RecipeStats {
 
     public static void init() {
         setBasicProcessorMaxStats();
-//		setScrubberMaxStats(); TODO
+        setScrubberMaxStats();
         setDecayGeneratorMaxPower();
         setFissionMaxModeratorLineFlux();
-//        setBlockMutationThreshold();
-//        setBlockPurificationThreshold();
+        setBlockMutationThreshold();
+        setBlockPurificationThreshold();
     }
 
     private static void setBasicProcessorMaxStats() {
@@ -63,16 +62,16 @@ public class RecipeStats {
             }
         }
     }
-//
-//	private static void setScrubberMaxStats() {
-//		ProcessorContainerInfo<?, ?, ?> info = TileInfoHandler.getProcessorContainerInfo("radiation_scrubber");
-//		info.maxBaseProcessTime = 1D;
-//		info.maxBaseProcessPower = 0D;
-//		for (BasicRecipe recipe : info.getRecipeHandler().getRecipeList()) {
-//			info.maxBaseProcessTime = Math.max(info.maxBaseProcessTime, recipe.getScrubberProcessTime());
-//			info.maxBaseProcessPower = Math.max(info.maxBaseProcessPower, recipe.getScrubberProcessPower());
-//		}
-//	}
+
+    private static void setScrubberMaxStats() {
+        ProcessorMenuInfo<?, ?, ?> info = TileInfoHandler.getProcessorContainerInfo("radiation_scrubber");
+        info.maxBaseProcessTime = 1D;
+        info.maxBaseProcessPower = 0D;
+        for (BasicRecipe recipe : info.getRecipeHandler().getRecipeList()) {
+            info.maxBaseProcessTime = Math.max(info.maxBaseProcessTime, ((RadiationScrubberRecipe) recipe).getScrubberProcessTime());
+            info.maxBaseProcessPower = Math.max(info.maxBaseProcessPower, ((RadiationScrubberRecipe) recipe).getScrubberProcessPower());
+        }
+    }
 
     public static int getDecayGeneratorMaxPower() {
         return decay_generator_max_power;
@@ -102,29 +101,29 @@ public class RecipeStats {
         fission_max_moderator_line_flux *= fission_neutron_reach;
     }
 
-//	public static double getBlockMutationThreshold() { TODO
-//		return block_mutation_threshold;
-//	}
-//
-//	private static void setBlockMutationThreshold() {
-//		block_mutation_threshold = Double.MAX_VALUE;
-//		for (BasicRecipe recipe : NCRecipes.radiation_block_mutation.recipeList) {
-//			if (recipe != null) {
-//				block_mutation_threshold = Math.min(block_mutation_threshold, recipe.getBlockMutationThreshold());
-//			}
-//		}
-//	}
-//
-//	public static double getBlockPurificationThreshold() {
-//		return block_purification_threshold;
-//	}
-//
-//	private static void setBlockPurificationThreshold() {
-//		block_purification_threshold = 0D;
-//		for (BasicRecipe recipe : NCRecipes.radiation_block_purification.recipeList) {
-//			if (recipe != null) {
-//				block_purification_threshold = Math.max(block_purification_threshold, recipe.getBlockMutationThreshold());
-//			}
-//		}
-//	}
+    public static double getBlockMutationThreshold() {
+        return block_mutation_threshold;
+    }
+
+    private static void setBlockMutationThreshold() {
+        block_mutation_threshold = Double.MAX_VALUE;
+        for (BasicRecipe basicRecipe : NCRecipes.radiation_block_mutation.getRecipeList()) {
+            if (basicRecipe instanceof RadiationBlockMutationRecipe recipe) {
+                block_mutation_threshold = Math.min(block_mutation_threshold, recipe.getBlockMutationThreshold());
+            }
+        }
+    }
+
+    public static double getBlockPurificationThreshold() {
+        return block_purification_threshold;
+    }
+
+    private static void setBlockPurificationThreshold() {
+        block_purification_threshold = 0D;
+        for (BasicRecipe basicRecipe : NCRecipes.radiation_block_purification.getRecipeList()) {
+            if (basicRecipe instanceof RadiationBlockPurificationRecipe recipe) {
+                block_purification_threshold = Math.max(block_purification_threshold, recipe.getPurificationThreshold());
+            }
+        }
+    }
 }

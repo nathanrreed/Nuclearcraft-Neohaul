@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "tag": "minecraft:oak_logs"
+      "ingredient": {
+        "tag": "minecraft:oak_logs"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 6,
-      "item": "minecraft:oak_planks"
+      "ingredient": {
+        "item": "minecraft:oak_planks"
+      }
     }
   ],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

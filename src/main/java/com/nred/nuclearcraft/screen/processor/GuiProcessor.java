@@ -214,6 +214,7 @@ public abstract class GuiProcessor<MENU extends InfoTileMenu<TILE, PACKET, INFO>
 
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+        super.renderTooltip(guiGraphics, x, y);
         renderProcessorTooltips(guiGraphics, x, y);
     }
 

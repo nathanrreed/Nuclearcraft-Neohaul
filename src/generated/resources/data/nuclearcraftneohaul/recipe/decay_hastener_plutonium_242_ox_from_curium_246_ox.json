@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:curium_246_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_246_ox"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:plutonium_242_ox"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_242_ox"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

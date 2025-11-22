@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:end_stone_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:end_stone_nak"
+    }
   },
   "irradiatorFluxRequired": 65,
   "irradiatorHeatPerFlux": "end_stone_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:end_stone_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:end_stone_nak_hot"
+    }
   }
 }

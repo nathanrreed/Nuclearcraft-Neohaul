@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:cocoa_butter"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:cocoa_butter"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:cocoa_butter"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:cocoa_butter"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

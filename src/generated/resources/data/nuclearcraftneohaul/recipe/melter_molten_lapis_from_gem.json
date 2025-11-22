@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:lapis"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lapis"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:gems/lapis"
+      "ingredient": {
+        "tag": "c:gems/lapis"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

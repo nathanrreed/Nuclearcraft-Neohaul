@@ -5,7 +5,7 @@ import com.nred.nuclearcraft.block_entity.dummy.IInterfaceable;
 import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
 import com.nred.nuclearcraft.block_entity.energy.TileEnergy;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeStats;

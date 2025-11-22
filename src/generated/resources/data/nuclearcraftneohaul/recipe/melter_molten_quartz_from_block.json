@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 2664,
-      "fluid": "nuclearcraftneohaul:quartz"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:quartz"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:storage_blocks/quartz"
+      "ingredient": {
+        "tag": "c:storage_blocks/quartz"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 9.0
 }

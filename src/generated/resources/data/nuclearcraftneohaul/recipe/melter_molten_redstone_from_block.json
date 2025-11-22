@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 900,
-      "fluid": "nuclearcraftneohaul:redstone"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:redstone"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:redstone_block"
+      "ingredient": {
+        "item": "minecraft:redstone_block"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

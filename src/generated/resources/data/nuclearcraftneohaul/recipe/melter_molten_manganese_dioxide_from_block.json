@@ -4,24 +4,26 @@
   "fluidResults": [
     {
       "amount": 1296,
-      "fluid": "nuclearcraftneohaul:manganese_dioxide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:manganese_dioxide"
+      }
     }
   ],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:storage_blocks/manganese_dioxide"
         },
         {
           "tag": "c:storage_blocks/raw_manganese_dioxide"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 9.0
 }

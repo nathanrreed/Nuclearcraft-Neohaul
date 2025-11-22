@@ -3,26 +3,35 @@
   "fluidInputs": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:benzene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:benzene"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:oxygen_difluoride"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen_difluoride"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:fluorobenzene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorobenzene"
+      }
     },
     {
       "amount": 100,
       "chancePercent": 250,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

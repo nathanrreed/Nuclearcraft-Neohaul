@@ -2,11 +2,15 @@
   "type": "nuclearcraftneohaul:fission_heating_recipe",
   "fluidIngredients": {
     "amount": 1,
-    "fluid": "minecraft:water"
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
   },
   "fluidProducts": {
     "amount": 4,
-    "fluid": "nuclearcraftneohaul:high_pressure_steam"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:high_pressure_steam"
+    }
   },
   "heatPerInputMB": 64,
   "isCoolant": false

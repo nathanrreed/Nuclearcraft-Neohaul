@@ -1,0 +1,26 @@
+{
+  "parent": "nuclearcraftneohaul:turbine_controller",
+  "criteria": {
+    "assemble_turbine_assembled": {
+      "trigger": "nuclearcraftneohaul:turbine_assembled"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.turbine_assembled.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:turbine_controller"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.turbine_assembled.title"
+    }
+  },
+  "requirements": [
+    [
+      "assemble_turbine_assembled"
+    ]
+  ]
+}

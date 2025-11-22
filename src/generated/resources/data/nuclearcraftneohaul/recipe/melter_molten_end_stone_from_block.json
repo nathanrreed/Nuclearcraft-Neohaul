@@ -4,24 +4,26 @@
   "fluidResults": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:end_stone"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:end_stone"
+      }
     }
   ],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "item": "minecraft:end_stone"
         },
         {
           "item": "minecraft:end_stone_bricks"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

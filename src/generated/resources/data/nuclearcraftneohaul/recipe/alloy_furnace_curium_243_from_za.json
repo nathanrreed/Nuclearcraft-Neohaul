@@ -5,27 +5,31 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:curium_243"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_243"
+      }
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/zirconium"
         },
         {
           "tag": "c:ingots/zirconium"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:curium_243_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:curium_243_c"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

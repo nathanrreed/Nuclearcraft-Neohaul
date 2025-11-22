@@ -4,36 +4,37 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 7,
+      "ingredient": [
         {
           "tag": "c:dusts/zirconium"
         },
         {
           "tag": "c:ingots/zirconium"
         }
-      ],
-      "count": 7
+      ]
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:dusts/tin"
         },
         {
           "tag": "c:ingots/tin"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 8,
-      "item": "nuclearcraftneohaul:zircaloy_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zircaloy_alloy"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 4.0
 }

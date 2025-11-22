@@ -11,10 +11,10 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.payload.processor.EnergyProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.util.NBTHelper;

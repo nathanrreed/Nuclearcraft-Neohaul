@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:slime_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:slime_nak"
+    }
   },
   "irradiatorFluxRequired": 145,
   "irradiatorHeatPerFlux": "slime_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:slime_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:slime_nak_hot"
+    }
   }
 }

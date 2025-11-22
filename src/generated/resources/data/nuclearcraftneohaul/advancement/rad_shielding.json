@@ -1,0 +1,40 @@
+{
+  "parent": "nuclearcraftneohaul:geiger_counter",
+  "criteria": {
+    "pickup_rad_shielding": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:light_radiation_shielding"
+          },
+          {
+            "items": "nuclearcraftneohaul:medium_radiation_shielding"
+          },
+          {
+            "items": "nuclearcraftneohaul:heavy_radiation_shielding"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.nuclearcraftneohaul.rad_shielding.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "nuclearcraftneohaul:light_radiation_shielding"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.nuclearcraftneohaul.rad_shielding.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_rad_shielding"
+    ]
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "nuclearcraftneohaul:radiation_block_mutation_recipe",
+  "itemIngredient": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "minecraft:leaves"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:vine"
+      }
+    }
+  ],
+  "itemProduct": [],
+  "mutationThreshold": 100.0
+}

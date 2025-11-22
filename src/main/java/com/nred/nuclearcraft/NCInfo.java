@@ -9,6 +9,7 @@ import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.ItemFissionRecipe;
@@ -19,6 +20,7 @@ import com.nred.nuclearcraft.recipe.machine.MachineSieveAssemblyRecipe;
 import com.nred.nuclearcraft.util.Lang;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
@@ -202,13 +204,9 @@ public class NCInfo {
         return Lang.canLocalize(preposition) ? Lang.localize("nc.sf.power_adverb_preposition", Lang.localize("nc.sf.power_adverb" + p, verb), Lang.localize(preposition)) : Lang.localize("nc.sf.power_adverb" + p, verb);
     }
 
-    // Rad Shielding TODO
-//
-//	public static String[][] radShieldingInfo() {
-//		String[][] info = new String[MetaEnums.RadShieldingType.values().length][];
-//		for (int i = 0; i < MetaEnums.RadShieldingType.values().length; ++i) {
-//			info[i] = InfoHelper.formattedInfo(Lang.localize("item.nuclearcraft.rad_shielding.desc" + (radiation_hardcore_containers > 0D ? "_hardcore" : ""), RadiationHelper.resistanceSigFigs(radiation_shielding_level[i])));
-//		}
-//		return info;
-//	}
+    // Rad Shielding
+
+    public static Component radShieldingInfo(int id) {
+        return Component.translatable(MODID + ".tooltip.rad_shielding.desc" + (radiation_hardcore_containers > 0D ? "_hardcore" : ""), RadiationHelper.resistanceSigFigs(radiation_shielding_level[id])).withStyle(ChatFormatting.AQUA);
+    }
 }

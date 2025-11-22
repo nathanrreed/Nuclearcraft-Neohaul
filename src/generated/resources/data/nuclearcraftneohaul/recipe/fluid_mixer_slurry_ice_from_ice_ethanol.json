@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:ice"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ice"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:ethanol"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethanol"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:slurry_ice"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:slurry_ice"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

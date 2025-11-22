@@ -5,19 +5,26 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:heb_248_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:heb_248_ni"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 6,
-      "item": "nuclearcraftneohaul:berkelium_247_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_247_ni"
+      }
     },
     {
       "count": 3,
-      "item": "nuclearcraftneohaul:berkelium_248_ni"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_248_ni"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

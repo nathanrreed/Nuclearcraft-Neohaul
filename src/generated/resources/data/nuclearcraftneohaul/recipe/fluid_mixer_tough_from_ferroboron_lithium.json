@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:ferroboron"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ferroboron"
+      }
     },
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:lithium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lithium"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:tough"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:tough"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

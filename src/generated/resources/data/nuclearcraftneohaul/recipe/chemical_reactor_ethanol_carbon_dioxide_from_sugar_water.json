@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:sugar"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sugar"
+      }
     },
     {
       "amount": 500,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 2000,
-      "fluid": "nuclearcraftneohaul:ethanol"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethanol"
+      }
     },
     {
       "amount": 2000,
-      "fluid": "nuclearcraftneohaul:carbon_dioxide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:carbon_dioxide"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

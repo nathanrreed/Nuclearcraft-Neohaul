@@ -3,11 +3,15 @@
   "expansion_level": 2.0,
   "fluidIngredients": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:low_pressure_steam"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:low_pressure_steam"
+    }
   },
   "fluidProducts": {
     "amount": 2,
-    "fluid": "nuclearcraftneohaul:low_quality_steam"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:low_quality_steam"
+    }
   },
   "particle": "cloud",
   "particle_speed_mult": 0.04310344827586207,

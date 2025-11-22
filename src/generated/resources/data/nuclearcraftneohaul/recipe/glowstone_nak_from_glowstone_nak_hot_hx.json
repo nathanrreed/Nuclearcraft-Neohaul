@@ -4,13 +4,17 @@
   "heatDifference": 360.0,
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:glowstone_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:glowstone_nak_hot"
+    }
   },
   "inputTemp": 800,
   "isHeating": false,
   "output": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:glowstone_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:glowstone_nak"
+    }
   },
   "outputTemp": 400,
   "preferredFlowDir": 0

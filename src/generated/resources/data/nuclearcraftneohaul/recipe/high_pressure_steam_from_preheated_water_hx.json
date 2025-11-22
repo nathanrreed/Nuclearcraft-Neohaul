@@ -4,13 +4,17 @@
   "heatDifference": 32.0,
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:preheated_water"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:preheated_water"
+    }
   },
   "inputTemp": 400,
   "isHeating": false,
   "output": {
     "amount": 4,
-    "fluid": "nuclearcraftneohaul:high_pressure_steam"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:high_pressure_steam"
+    }
   },
   "outputTemp": 600,
   "preferredFlowDir": 1

@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:enderium_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:enderium_nak"
+    }
   },
   "irradiatorFluxRequired": 155,
   "irradiatorHeatPerFlux": "enderium_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:enderium_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:enderium_nak_hot"
+    }
   }
 }

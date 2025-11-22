@@ -10,6 +10,7 @@ public class ModCheck {
     private static boolean emiLoaded = false;
     private static boolean ccLoaded = false;
     private static boolean patchouliLoaded = false;
+    private static boolean curiosLoaded = false;
 
     public static void init() {
         if (initialized) {
@@ -21,12 +22,17 @@ public class ModCheck {
         mekanismLoaded = loader.isLoaded("mekanism");
         jeiLoaded = loader.isLoaded("jei");
         emiLoaded = loader.isLoaded("emi");
+        curiosLoaded = loader.isLoaded("curios");
         ccLoaded = loader.isLoaded("computercraft");
         patchouliLoaded = loader.isLoaded("patchouli");
     }
 
     public static boolean mekanismLoaded() {
         return mekanismLoaded;
+    }
+
+    public static boolean curiosLoaded() {
+        return curiosLoaded;
     }
 
     public static boolean jeiLoaded() {

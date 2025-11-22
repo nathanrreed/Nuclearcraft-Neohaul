@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tbp_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tbp_dust"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tbu"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tbu"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

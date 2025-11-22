@@ -6,11 +6,15 @@
   "heat": 270,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:leu_233_za"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:leu_233_za"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:depleted_leu_233_za"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:depleted_leu_233_za"
+    }
   },
   "radiation": 1.5368750507812497E-4,
   "selfPriming": false,

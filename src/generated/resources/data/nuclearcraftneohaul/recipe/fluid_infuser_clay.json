@@ -3,30 +3,34 @@
   "fluidInputs": [
     {
       "amount": 2000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "item": "minecraft:dirt"
         },
         {
           "item": "minecraft:grass_block"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:clay"
+      "ingredient": {
+        "item": "minecraft:clay"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

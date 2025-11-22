@@ -5,45 +5,64 @@
   "itemInputs": [
     {
       "count": 9,
-      "item": "nuclearcraftneohaul:depleted_hecf_251_tr"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:depleted_hecf_251_tr"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:californium_252_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_252_c"
+      }
     },
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:californium_252_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_252_c"
+      }
     },
     {
       "chancePercent": 90,
       "count": 1,
-      "item": "nuclearcraftneohaul:ruthenium_106_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:ruthenium_106_dust"
+      }
     },
     {
       "count": 2,
-      "item": "nuclearcraftneohaul:californium_252_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_252_c"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:californium_252_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_252_c"
+      }
     },
     {
       "chancePercent": 60,
       "count": 1,
-      "item": "nuclearcraftneohaul:europium_155_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:europium_155_dust"
+      }
     },
     {
       "count": 4,
-      "item": "nuclearcraftneohaul:graphite_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:graphite_dust"
+      }
     },
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "tag": "minecraft:crimson_stems"
+      "ingredient": {
+        "tag": "minecraft:crimson_stems"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 6,
-      "item": "minecraft:crimson_planks"
+      "ingredient": {
+        "item": "minecraft:crimson_planks"
+      }
     }
   ],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

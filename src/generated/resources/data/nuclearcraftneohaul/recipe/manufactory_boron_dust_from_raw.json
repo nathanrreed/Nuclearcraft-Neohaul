@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:boron_raw"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:boron_raw"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:boron_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:boron_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

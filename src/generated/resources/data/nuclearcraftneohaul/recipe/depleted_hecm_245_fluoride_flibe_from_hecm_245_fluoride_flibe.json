@@ -6,11 +6,15 @@
   "heat": 570,
   "ingredient": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:hecm_245_fluoride_flibe"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:hecm_245_fluoride_flibe"
+    }
   },
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:depleted_hecm_245_fluoride_flibe"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:depleted_hecm_245_fluoride_flibe"
+    }
   },
   "radiation": 2.3019976475694448E-4,
   "selfPriming": false,

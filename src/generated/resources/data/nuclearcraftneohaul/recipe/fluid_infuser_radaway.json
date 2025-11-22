@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:infuser_recipe",
+  "fluidInputs": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:radaway"
+      }
+    }
+  ],
+  "fluidResults": [],
+  "itemInputs": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:bioplastic"
+      }
+    }
+  ],
+  "itemResults": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:radaway"
+      }
+    }
+  ],
+  "powerModifier": 0.5,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

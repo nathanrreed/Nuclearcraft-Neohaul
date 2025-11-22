@@ -4,11 +4,15 @@
   "efficiency": 666.6666666666666,
   "ingredient": {
     "count": 1,
-    "item": "nuclearcraftneohaul:fertile_isotope_americium_block"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:fertile_isotope_americium_block"
+    }
   },
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:lead_block"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:lead_block"
+    }
   },
   "radiation": 1.4E-4
 }

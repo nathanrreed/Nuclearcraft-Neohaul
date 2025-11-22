@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 5994,
-      "fluid": "nuclearcraftneohaul:silicon"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:silicon"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:storage_blocks/silicon"
+      "ingredient": {
+        "tag": "c:storage_blocks/silicon"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 9.0
 }

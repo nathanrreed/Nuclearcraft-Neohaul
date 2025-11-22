@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:polymethylsilylene_methylene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:polymethylsilylene_methylene"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:polymethylsilylene_methylene"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:polymethylsilylene_methylene"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 900,
-      "fluid": "nuclearcraftneohaul:coal"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:coal"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:graphite_block"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:graphite_block"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

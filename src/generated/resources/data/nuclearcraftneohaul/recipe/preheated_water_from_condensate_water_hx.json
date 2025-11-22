@@ -4,13 +4,17 @@
   "heatDifference": 8.0,
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:condensate_water"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:condensate_water"
+    }
   },
   "inputTemp": 350,
   "isHeating": false,
   "output": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:preheated_water"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:preheated_water"
+    }
   },
   "outputTemp": 400,
   "preferredFlowDir": 0

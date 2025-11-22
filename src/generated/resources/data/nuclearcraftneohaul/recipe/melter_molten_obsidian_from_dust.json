@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:obsidian"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:obsidian"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:obsidian_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:obsidian_gem_dust"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 192,
-      "fluid": "nuclearcraftneohaul:boron"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boron"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:boron_11"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boron_11"
+      }
     },
     {
       "amount": 48,
-      "fluid": "nuclearcraftneohaul:boron_10"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boron_10"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.3333333333333333
 }

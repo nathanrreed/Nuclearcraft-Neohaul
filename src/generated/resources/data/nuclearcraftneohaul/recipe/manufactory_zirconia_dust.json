@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:sintered_zirconia"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sintered_zirconia"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:zirconia_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconia_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

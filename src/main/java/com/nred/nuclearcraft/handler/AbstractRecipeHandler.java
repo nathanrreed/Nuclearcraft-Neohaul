@@ -35,11 +35,18 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
     public abstract List<RECIPE> getRecipeList();
 
     public @Nullable RecipeInfo<RECIPE> getRecipeInfoFromInputs(Level level, List<ItemStack> itemInputs, List<Tank> fluidInputs) { // TODO readd caching
-        List<SizedChanceItemIngredient> itemIngredients = itemInputs.stream().filter(itemStack -> !itemStack.isEmpty()).map(itemStack -> SizedChanceItemIngredient.of(itemStack.getItem(), itemStack.getCount())).toList();
-        List<SizedChanceFluidIngredient> fluidIngredients = fluidInputs.stream().filter(tank -> !tank.isEmpty()).map(tank -> tank.isEmpty() ? new SizedChanceFluidIngredient(FluidIngredient.empty(), 1) : SizedChanceFluidIngredient.of(tank.getFluid())).toList();
+        List<SizedChanceItemIngredient> itemIngredients = itemInputs.stream().map(itemStack -> SizedChanceItemIngredient.of(itemStack.getItem(), itemStack.getCount())).toList(); // Tries without filtering
+        List<SizedChanceFluidIngredient> fluidIngredients = fluidInputs.stream().map(tank -> tank.isEmpty() ? SizedChanceFluidIngredient.EMPTY : SizedChanceFluidIngredient.of(tank.getFluid())).toList();
         RECIPE recipe = getRecipeFromIngredients(level, itemIngredients, fluidIngredients);
+        if (recipe == null) { // Retries after filtering out empty ingredients
+            itemIngredients = itemInputs.stream().filter(itemStack -> !itemStack.isEmpty()).map(itemStack -> SizedChanceItemIngredient.of(itemStack.getItem(), itemStack.getCount())).toList();
+            fluidIngredients = fluidInputs.stream().filter(tank -> !tank.isEmpty()).map(tank -> tank.isEmpty() ? new SizedChanceFluidIngredient(FluidIngredient.empty(), 1) : SizedChanceFluidIngredient.of(tank.getFluid())).toList();
+            recipe = getRecipeFromIngredients(level, itemIngredients, fluidIngredients);
+        }
+
         if (recipe == null)
             return null;
+
         return new RecipeInfo<>(recipe, RecipeHelper.matchIngredients(IngredientSorption.INPUT, itemIngredients, fluidIngredients, itemInputs, fluidInputs));
     }
 

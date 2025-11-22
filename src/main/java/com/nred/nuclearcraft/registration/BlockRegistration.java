@@ -10,6 +10,8 @@ import com.nred.nuclearcraft.block.item.NCItemBlock;
 import com.nred.nuclearcraft.block.item.energy.ItemBlockBattery;
 import com.nred.nuclearcraft.block.processor.BlockProcessor;
 import com.nred.nuclearcraft.block.processor.NuclearFurnaceBlock;
+import com.nred.nuclearcraft.block.radiation.GeigerCounterBlock;
+import com.nred.nuclearcraft.block.radiation.RadiationScrubberBlock;
 import com.nred.nuclearcraft.block.tile.BlockSimpleTile;
 import com.nred.nuclearcraft.block.tile.dummy.BlockMachineInterface;
 import com.nred.nuclearcraft.multiblock.battery.BatteryPartType;
@@ -29,6 +31,7 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
 import com.nred.nuclearcraft.property.MachinePortSorption;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.util.InfoHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.PrimitiveFunction.ObjEnumFunction;
@@ -101,6 +104,9 @@ public class BlockRegistration {
     public static final DeferredBlock<Block> GLOWING_MUSHROOM_BLOCK = registerBlockItem("glowing_mushroom_block", () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).mapColor(MapColor.COLOR_YELLOW).lightLevel(blockState -> 2)));
     public static final DeferredBlock<Block> GLOWING_MUSHROOM_STEM_BLOCK = registerBlockItem("glowing_mushroom_stem_block", () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUSHROOM_STEM).lightLevel(blockState -> 2)));
     public static final DeferredBlock<Block> GLOWING_MUSHROOM = registerBlockItem("glowing_mushroom", () -> new GlowingMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).mapColor(MapColor.COLOR_YELLOW)));
+
+    public static final DeferredBlock<Block> GEIGER_COUNTER_BLOCK = registerBlockItemWithTooltip("geiger_counter_block", GeigerCounterBlock::new, false);
+    public static final DeferredBlock<Block> RADIATION_SCRUBBER = registerBlockItemWithTooltip("radiation_scrubber", RadiationScrubberBlock::new, false, radiation_scrubber_non_linear ? Component.translatable(MODID + ".tooltip.radiation_scrubber_non_linear", NCMath.pcDecimalPlaces(RadiationHelper.getAltScrubbingFraction(1D), 1), Component.translatable("nc.sf.one_hundred_percent")) : Component.translatable(MODID + ".tooltip.radiation_scrubber", NCMath.pcDecimalPlaces(radiation_scrubber_fraction, 1), Component.translatable("nc.sf.one_hundred_percent")));
 
     public static <T extends Block> DeferredBlock<Block> registerBlockItemWithTooltip(String name, Supplier<T> block, boolean hasFixed, Component... tooltip) {
         DeferredBlock<Block> toReturn = BLOCKS.register(name, block);

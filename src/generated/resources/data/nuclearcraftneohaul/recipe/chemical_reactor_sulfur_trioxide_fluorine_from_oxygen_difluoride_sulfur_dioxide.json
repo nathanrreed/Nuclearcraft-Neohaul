@@ -3,25 +3,34 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:oxygen_difluoride"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen_difluoride"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:sulfur_dioxide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur_dioxide"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:sulfur_trioxide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur_trioxide"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:fluorine"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorine"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:cobblestone"
+      "ingredient": {
+        "item": "minecraft:cobblestone"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:sand"
+      "ingredient": {
+        "item": "minecraft:sand"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

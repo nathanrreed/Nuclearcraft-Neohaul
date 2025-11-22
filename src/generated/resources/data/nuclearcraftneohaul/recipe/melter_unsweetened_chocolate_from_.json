@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:unsweetened_chocolate"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:unsweetened_chocolate"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:unsweetened_chocolate"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:unsweetened_chocolate"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

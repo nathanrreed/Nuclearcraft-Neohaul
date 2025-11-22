@@ -5,27 +5,31 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:hecf_251"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hecf_251"
+      }
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "item": "nuclearcraftneohaul:graphite_ingot"
         },
         {
           "item": "nuclearcraftneohaul:graphite_dust"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:hecf_251_c"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hecf_251_c"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

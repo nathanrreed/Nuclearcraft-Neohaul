@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:manganese_dioxide"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:manganese_dioxide"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:manganese_dioxide_ingot"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:manganese_dioxide_ingot"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

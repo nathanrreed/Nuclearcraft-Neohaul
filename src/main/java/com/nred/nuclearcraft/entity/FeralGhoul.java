@@ -38,7 +38,7 @@ public class FeralGhoul extends Zombie {
     private static final EntityDataAccessor<Byte> DATA_CLIMBING_ID = SynchedEntityData.defineId(FeralGhoul.class, EntityDataSerializers.BYTE);
 
     public FeralGhoul(EntityType<FeralGhoul> entityType, Level level) {
-        super(entityType, level);
+        super((EntityType<FeralGhoul>) entityType, level);
     }
 
     @Override

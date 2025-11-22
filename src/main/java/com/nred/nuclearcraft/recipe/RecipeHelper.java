@@ -207,6 +207,14 @@ public class RecipeHelper {
         return BuiltInRegistries.ITEM.getId(stack.getItem());
     }
 
+    public static int pack(Item item) {
+        return BuiltInRegistries.ITEM.getId(item);
+    }
+
+    public static ItemStack unpack(int id) {
+        return new ItemStack(BuiltInRegistries.ITEM.byId(id));
+    }
+
     public static BasicRecipe blockRecipe(BasicRecipeHandler<? extends BasicRecipe> recipeHandler, Level level, BlockPos pos) {
         return blockRecipe(recipeHandler, level, level.getBlockState(pos));
     }

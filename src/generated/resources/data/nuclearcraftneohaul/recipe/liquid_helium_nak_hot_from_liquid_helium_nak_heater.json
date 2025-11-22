@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:liquid_helium_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:liquid_helium_nak"
+    }
   },
   "irradiatorFluxRequired": 190,
   "irradiatorHeatPerFlux": "liquid_helium_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:liquid_helium_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:liquid_helium_nak_hot"
+    }
   }
 }

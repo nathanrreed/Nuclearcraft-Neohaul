@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:emerald_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:emerald_nak"
+    }
   },
   "irradiatorFluxRequired": 195,
   "irradiatorHeatPerFlux": "emerald_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:emerald_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:emerald_nak_hot"
+    }
   }
 }

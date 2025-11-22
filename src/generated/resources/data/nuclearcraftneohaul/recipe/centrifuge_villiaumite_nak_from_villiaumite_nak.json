@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:villiaumite_nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:villiaumite_nak"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 1332,
-      "fluid": "nuclearcraftneohaul:villiaumite"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:villiaumite"
+      }
     },
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:nak"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nak"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

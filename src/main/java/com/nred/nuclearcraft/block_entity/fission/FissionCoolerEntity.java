@@ -13,7 +13,7 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.FissionCoolerMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;

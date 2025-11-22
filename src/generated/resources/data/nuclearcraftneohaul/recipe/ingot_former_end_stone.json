@@ -3,7 +3,9 @@
   "fluidInputs": [
     {
       "amount": 288,
-      "fluid": "nuclearcraftneohaul:end_stone"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:end_stone"
+      }
     }
   ],
   "fluidResults": [],
@@ -11,9 +13,12 @@
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:end_stone"
+      "ingredient": {
+        "item": "minecraft:end_stone"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:graphite_ingot"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:graphite_ingot"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:pyrolytic_carbon"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:pyrolytic_carbon"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

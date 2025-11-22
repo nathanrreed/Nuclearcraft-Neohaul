@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:lecf_249"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lecf_249"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 128,
-      "fluid": "nuclearcraftneohaul:californium_252"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_252"
+      }
     },
     {
       "amount": 16,
-      "fluid": "nuclearcraftneohaul:californium_249"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_249"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

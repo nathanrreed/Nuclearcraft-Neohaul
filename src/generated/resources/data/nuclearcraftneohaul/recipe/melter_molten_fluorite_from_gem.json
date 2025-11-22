@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:fluorite"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorite"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:gems/fluorite"
+      "ingredient": {
+        "tag": "c:gems/fluorite"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

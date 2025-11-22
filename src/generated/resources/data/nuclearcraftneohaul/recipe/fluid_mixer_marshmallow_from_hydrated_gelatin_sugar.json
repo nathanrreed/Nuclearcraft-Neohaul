@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:hydrated_gelatin"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrated_gelatin"
+      }
     },
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:sugar"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sugar"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:marshmallow"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:marshmallow"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

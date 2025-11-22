@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.handler.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;

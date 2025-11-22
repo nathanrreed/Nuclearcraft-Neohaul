@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:roasted_cocoa_beans"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:roasted_cocoa_beans"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:ground_cocoa_nibs"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:ground_cocoa_nibs"
+      }
     }
   ],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:magenta_concrete_powder"
+      "ingredient": {
+        "item": "minecraft:magenta_concrete_powder"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "minecraft:magenta_concrete"
+      "ingredient": {
+        "item": "minecraft:magenta_concrete"
+      }
     }
   ],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

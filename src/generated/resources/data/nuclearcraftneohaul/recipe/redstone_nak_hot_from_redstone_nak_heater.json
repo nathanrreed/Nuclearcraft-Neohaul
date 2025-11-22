@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:redstone_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:redstone_nak"
+    }
   },
   "irradiatorFluxRequired": 85,
   "irradiatorHeatPerFlux": "redstone_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:redstone_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:redstone_nak_hot"
+    }
   }
 }

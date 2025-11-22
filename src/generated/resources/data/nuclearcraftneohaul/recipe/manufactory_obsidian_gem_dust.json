@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:obsidian"
+      "ingredient": {
+        "item": "minecraft:obsidian"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:obsidian_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:obsidian_gem_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

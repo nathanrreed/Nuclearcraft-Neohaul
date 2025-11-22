@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "nuclearcraftneohaul:bioplastic"
+    },
+    "E": {
+      "item": "nuclearcraftneohaul:energetic_blend"
+    },
+    "R": {
+      "item": "nuclearcraftneohaul:radaway"
+    },
+    "Z": {
+      "item": "minecraft:blaze_powder"
+    }
+  },
+  "pattern": [
+    "EBE",
+    "BRB",
+    "BZB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:rad_x"
+  }
+}

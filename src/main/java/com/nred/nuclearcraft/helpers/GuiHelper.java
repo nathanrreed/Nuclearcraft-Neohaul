@@ -2,11 +2,13 @@ package com.nred.nuclearcraft.helpers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
 
 import java.util.List;
@@ -59,5 +61,43 @@ public class GuiHelper {
                 throw new IllegalArgumentException("Tiled sprite texture size must be positive, got " + spriteWidth + "x" + spriteHeight);
             }
         }
+    }
+
+    public static int getScreenEdgeFromAngleX(int width, double angle) {
+        if (angle >= 45D && angle <= 135D) {
+            return width;
+        }
+        if (angle >= 225D && angle <= 315D) {
+            return 0;
+        }
+
+        double radAngle = Math.toRadians(angle - 45D);
+        double cos = Math.cos(radAngle);
+        double sin = Math.sin(radAngle);
+
+        return NCMath.toInt(Math.round(0.5D * width * (1 + cos * Math.abs(cos) + sin * Math.abs(sin))));
+    }
+
+    public static int getScreenEdgeFromAngleY(int height, double angle) {
+        if (angle >= 315D || angle <= 45D) {
+            return 0;
+        }
+        if (angle >= 135D && angle <= 225D) {
+            return height;
+        }
+
+        double radAngle = Math.toRadians(angle - 45D);
+        double cos = Math.cos(radAngle);
+        double sin = Math.sin(radAngle);
+
+        return NCMath.toInt(Math.round(0.5D * height * (1 - cos * Math.abs(cos) + sin * Math.abs(sin))));
+    }
+
+    public static int getRenderPositionXFromAngle(int guiWidth, double angle, int width, int cushion) {
+        return Mth.clamp(getScreenEdgeFromAngleX(guiWidth, angle), cushion, guiWidth - width - cushion);
+    }
+
+    public static int getRenderPositionYFromAngle(int guiHeight, double angle, int height, int cushion) {
+        return Mth.clamp(getScreenEdgeFromAngleY(guiHeight, angle), cushion, guiHeight - height - cushion);
     }
 }

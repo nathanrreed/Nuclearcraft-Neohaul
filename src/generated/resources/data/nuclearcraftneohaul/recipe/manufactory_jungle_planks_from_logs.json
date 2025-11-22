@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "tag": "minecraft:jungle_logs"
+      "ingredient": {
+        "tag": "minecraft:jungle_logs"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 6,
-      "item": "minecraft:jungle_planks"
+      "ingredient": {
+        "item": "minecraft:jungle_planks"
+      }
     }
   ],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

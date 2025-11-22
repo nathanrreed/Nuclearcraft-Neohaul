@@ -3,26 +3,35 @@
   "fluidInputs": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:methanol"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:methanol"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:fluoromethane"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluoromethane"
+      }
     },
     {
       "amount": 100,
       "chancePercent": 250,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 2.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

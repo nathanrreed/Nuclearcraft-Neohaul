@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:neptunium_237"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:neptunium_237"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:uranium_233"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_233"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

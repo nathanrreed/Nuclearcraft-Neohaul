@@ -2,11 +2,15 @@
   "type": "nuclearcraftneohaul:fission_heating_recipe",
   "fluidIngredients": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:diamond_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:diamond_nak"
+    }
   },
   "fluidProducts": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:diamond_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:diamond_nak_hot"
+    }
   },
   "heatPerInputMB": 200,
   "isCoolant": true

@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:boron_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:boron_nak"
+    }
   },
   "irradiatorFluxRequired": 160,
   "irradiatorHeatPerFlux": "boron_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:boron_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:boron_nak_hot"
+    }
   }
 }

@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:magnesium_raw"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:magnesium_raw"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:magnesium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:magnesium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

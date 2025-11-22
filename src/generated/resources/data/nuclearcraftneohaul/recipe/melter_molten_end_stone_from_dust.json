@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:end_stone"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:end_stone"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:end_stone_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:end_stone_gem_dust"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 2.0
 }

@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:bone"
+      "ingredient": {
+        "item": "minecraft:bone"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 6,
-      "item": "minecraft:bone_meal"
+      "ingredient": {
+        "item": "minecraft:bone_meal"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

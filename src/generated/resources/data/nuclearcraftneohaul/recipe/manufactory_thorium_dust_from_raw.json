@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:thorium_raw"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:thorium_raw"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:thorium_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:thorium_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

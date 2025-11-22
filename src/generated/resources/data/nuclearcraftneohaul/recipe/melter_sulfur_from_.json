@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 666,
-      "fluid": "nuclearcraftneohaul:sulfur"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:sulfur_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sulfur_gem_dust"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

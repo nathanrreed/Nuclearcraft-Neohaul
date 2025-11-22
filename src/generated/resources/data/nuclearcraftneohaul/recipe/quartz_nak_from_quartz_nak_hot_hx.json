@@ -4,13 +4,17 @@
   "heatDifference": 320.0,
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:quartz_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:quartz_nak_hot"
+    }
   },
   "inputTemp": 800,
   "isHeating": false,
   "output": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:quartz_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:quartz_nak"
+    }
   },
   "outputTemp": 400,
   "preferredFlowDir": 0

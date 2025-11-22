@@ -2,11 +2,15 @@
   "type": "nuclearcraftneohaul:fission_heating_recipe",
   "fluidIngredients": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:emerald_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:emerald_nak"
+    }
   },
   "fluidProducts": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:emerald_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:emerald_nak_hot"
+    }
   },
   "heatPerInputMB": 195,
   "isCoolant": true

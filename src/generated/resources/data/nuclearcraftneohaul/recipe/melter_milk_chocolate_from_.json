@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:milk_chocolate"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:milk_chocolate"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:milk_chocolate"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:milk_chocolate"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

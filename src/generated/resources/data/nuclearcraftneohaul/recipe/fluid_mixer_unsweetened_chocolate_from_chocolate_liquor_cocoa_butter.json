@@ -3,21 +3,28 @@
   "fluidInputs": [
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:chocolate_liquor"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:chocolate_liquor"
+      }
     },
     {
       "amount": 72,
-      "fluid": "nuclearcraftneohaul:cocoa_butter"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:cocoa_butter"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:unsweetened_chocolate"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:unsweetened_chocolate"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

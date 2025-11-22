@@ -45,7 +45,6 @@ public class ModDatapackProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.DIMENSION_TYPE, NCDimensions::bootstrapType)
             .add(Registries.LEVEL_STEM, NCDimensions::bootstrapStem)
             .add(Registries.NOISE_SETTINGS, NCDimensions::bootstrapNoise)
-//            .add(Registries.BIOME, NCDimensions::bootstrap)
             ;
 
     public ModDatapackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> event) {

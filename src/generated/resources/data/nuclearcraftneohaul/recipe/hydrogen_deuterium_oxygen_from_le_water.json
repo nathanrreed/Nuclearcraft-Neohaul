@@ -3,21 +3,29 @@
   "fluidInputs": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:le_water"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:le_water"
+      }
     }
   ],
   "fluidProducts": [
     {
       "amount": 375,
-      "fluid": "nuclearcraftneohaul:hydrogen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen"
+      }
     },
     {
       "amount": 125,
-      "fluid": "nuclearcraftneohaul:deuterium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:deuterium"
+      }
     },
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:oxygen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
     }
   ],
   "itemInputs": [],

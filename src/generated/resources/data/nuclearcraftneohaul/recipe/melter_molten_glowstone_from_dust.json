@@ -4,16 +4,21 @@
   "fluidResults": [
     {
       "amount": 250,
-      "fluid": "nuclearcraftneohaul:glowstone"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:glowstone"
+      }
     }
   ],
   "itemInputs": [
     {
       "count": 1,
-      "item": "minecraft:glowstone_dust"
+      "ingredient": {
+        "item": "minecraft:glowstone_dust"
+      }
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 0.25
 }

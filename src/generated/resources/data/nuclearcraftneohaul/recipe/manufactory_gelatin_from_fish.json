@@ -5,15 +5,20 @@
   "itemInputs": [
     {
       "count": 1,
-      "tag": "minecraft:fishes"
+      "ingredient": {
+        "tag": "minecraft:fishes"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 4,
-      "item": "nuclearcraftneohaul:gelatin"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:gelatin"
+      }
     }
   ],
   "powerModifier": 0.5,
+  "radiation": 0.0,
   "timeModifier": 0.5
 }

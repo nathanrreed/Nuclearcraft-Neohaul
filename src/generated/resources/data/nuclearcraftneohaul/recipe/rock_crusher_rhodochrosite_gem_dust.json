@@ -4,35 +4,41 @@
   "fluidResults": [],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "item": "minecraft:granite"
         },
         {
           "item": "minecraft:polished_granite"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "chancePercent": 40,
       "count": 2,
-      "item": "nuclearcraftneohaul:rhodochrosite_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:rhodochrosite_gem_dust"
+      }
     },
     {
       "chancePercent": 30,
       "count": 2,
-      "item": "nuclearcraftneohaul:sulfur_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sulfur_gem_dust"
+      }
     },
     {
       "chancePercent": 35,
       "count": 1,
-      "item": "nuclearcraftneohaul:villiaumite_gem_dust"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:villiaumite_gem_dust"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

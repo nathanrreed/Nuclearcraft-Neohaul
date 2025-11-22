@@ -5,27 +5,31 @@
   "itemInputs": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lep_239"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lep_239"
+      }
     },
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "item": "nuclearcraftneohaul:zirconium_ingot"
         },
         {
           "item": "nuclearcraftneohaul:zirconium_dust"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:lep_239_za"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lep_239_za"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

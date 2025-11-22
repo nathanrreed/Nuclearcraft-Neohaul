@@ -22,8 +22,8 @@ import java.util.stream.Stream;
 
 public class SizedChanceItemIngredient {
     public static final Codec<SizedChanceItemIngredient> FLAT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    Ingredient.MAP_CODEC_NONEMPTY.forGetter(SizedChanceItemIngredient::ingredient),
-                    NeoForgeExtraCodecs.optionalFieldAlwaysWrite(ExtraCodecs.POSITIVE_INT, "count", 1).forGetter(SizedChanceItemIngredient::count),
+                    Ingredient.CODEC.fieldOf("ingredient").forGetter(SizedChanceItemIngredient::ingredient),
+                    NeoForgeExtraCodecs.optionalFieldAlwaysWrite(ExtraCodecs.NON_NEGATIVE_INT, "count", 1).forGetter(SizedChanceItemIngredient::count),
                     ExtraCodecs.POSITIVE_INT.optionalFieldOf("chancePercent", 100).forGetter(SizedChanceItemIngredient::chancePercent),
                     ExtraCodecs.POSITIVE_INT.optionalFieldOf("minStackSize", 0).forGetter(SizedChanceItemIngredient::minStackSize))
             .apply(instance, SizedChanceItemIngredient::new));
@@ -40,13 +40,12 @@ public class SizedChanceItemIngredient {
     private final int chancePercent;
     private final int minStackSize;
 
+    public static final SizedChanceItemIngredient EMPTY = new SizedChanceItemIngredient(Ingredient.EMPTY, 0);
+
     @Nullable
     private ItemStack[] cachedStacks;
 
     public SizedChanceItemIngredient(Ingredient ingredient, int count, int chancePercent, int minStackSize) {
-        if (count <= 0) {
-            throw new IllegalArgumentException("Size must be positive");
-        }
         if (chancePercent <= 0) {
             throw new IllegalArgumentException("Chance must be positive");
         }
@@ -61,10 +60,6 @@ public class SizedChanceItemIngredient {
     }
 
     public SizedChanceItemIngredient(Ingredient ingredient, int count) {
-        if (count <= 0) {
-            throw new IllegalArgumentException("Size must be positive");
-        }
-
         this.ingredient = ingredient;
         this.count = count;
         this.chancePercent = 100;
@@ -97,6 +92,10 @@ public class SizedChanceItemIngredient {
 
     public int count() {
         return count;
+    }
+
+    public boolean isEmpty() {
+        return ingredient == Ingredient.EMPTY;
     }
 
     public int chancePercent() {

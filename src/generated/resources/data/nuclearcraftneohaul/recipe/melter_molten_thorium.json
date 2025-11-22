@@ -4,13 +4,15 @@
   "fluidResults": [
     {
       "amount": 144,
-      "fluid": "nuclearcraftneohaul:thorium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:thorium"
+      }
     }
   ],
   "itemInputs": [
     {
-      "type": "neoforge:compound",
-      "children": [
+      "count": 1,
+      "ingredient": [
         {
           "tag": "c:ingots/thorium"
         },
@@ -20,11 +22,11 @@
         {
           "tag": "c:dusts/thorium"
         }
-      ],
-      "count": 1
+      ]
     }
   ],
   "itemResults": [],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

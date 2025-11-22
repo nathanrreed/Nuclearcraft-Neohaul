@@ -3,26 +3,35 @@
   "fluidInputs": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:ethylene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethylene"
+      }
     },
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:oxygen"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
     }
   ],
   "fluidResults": [
     {
       "amount": 500,
-      "fluid": "nuclearcraftneohaul:acetylene"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:acetylene"
+      }
     },
     {
       "amount": 100,
       "chancePercent": 500,
-      "fluid": "minecraft:water"
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
     }
   ],
   "itemInputs": [],
   "itemResults": [],
   "powerModifier": 4.0,
+  "radiation": 0.0,
   "timeModifier": 3.0
 }

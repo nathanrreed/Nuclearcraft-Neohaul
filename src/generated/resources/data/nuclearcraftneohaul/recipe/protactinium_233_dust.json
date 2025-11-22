@@ -2,7 +2,9 @@
   "type": "nuclearcraftneohaul:fission_irradiator_recipe",
   "input": {
     "count": 1,
-    "item": "nuclearcraftneohaul:tbp_dust"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:tbp_dust"
+    }
   },
   "irradiatorBaseProcessRadiation": 0.08358024698110801,
   "irradiatorFluxRequired": 2720000,
@@ -12,6 +14,8 @@
   "irradiatorProcessEfficiency": 0.0,
   "product": {
     "count": 1,
-    "item": "nuclearcraftneohaul:protactinium_233_dust"
+    "ingredient": {
+      "item": "nuclearcraftneohaul:protactinium_233_dust"
+    }
   }
 }

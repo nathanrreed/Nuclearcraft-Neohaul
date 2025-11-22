@@ -1,0 +1,52 @@
+{
+  "values": [
+    {
+      "id": "nuclearcraftneohaul:superfluid_freeze",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:plasma_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:gas_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:steam_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:molten_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:corium_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:hot_coolant_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:acid_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:fluid_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:hypothermia",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:fission_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:fatal_rads",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "nuclearcraftneohaul:superfluid_freeze",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:plasma_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:gas_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:steam_burn",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:hypothermia",
+      "required": false
+    },
+    {
+      "id": "nuclearcraftneohaul:fatal_rads",
+      "required": false
+    }
+  ]
+}

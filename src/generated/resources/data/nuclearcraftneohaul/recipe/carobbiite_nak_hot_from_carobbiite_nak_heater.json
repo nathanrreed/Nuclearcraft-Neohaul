@@ -6,12 +6,16 @@
   },
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:carobbiite_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:carobbiite_nak"
+    }
   },
   "irradiatorFluxRequired": 140,
   "irradiatorHeatPerFlux": "carobbiite_heater",
   "product": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:carobbiite_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:carobbiite_nak_hot"
+    }
   }
 }

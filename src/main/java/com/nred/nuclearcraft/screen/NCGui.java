@@ -167,7 +167,7 @@ public abstract class NCGui<MENU extends AbstractContainerMenu> extends Abstract
 
     protected List<Component> energyInfo(IEnergyStorage energyStorage) {
         String energy = UnitHelper.prefix(energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored(), 5, "RF");
-        return Lists.newArrayList(Component.translatable(MODID + ".tooltip.energy_stored", Component.literal(energy)).withStyle(ChatFormatting.LIGHT_PURPLE));
+        return Lists.newArrayList(Component.translatable(MODID + ".tooltip.energy_stored", Component.literal(energy).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 
     protected List<Component> noEnergyInfo() {

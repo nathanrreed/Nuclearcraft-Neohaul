@@ -3,22 +3,29 @@
   "fluidInputs": [
     {
       "amount": 1000,
-      "fluid": "nuclearcraftneohaul:tritium"
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:tritium"
+      }
     }
   ],
   "fluidResults": [],
   "itemInputs": [
     {
       "count": 1,
-      "tag": "c:glass_blocks"
+      "ingredient": {
+        "tag": "c:glass_blocks"
+      }
     }
   ],
   "itemResults": [
     {
       "count": 1,
-      "item": "nuclearcraftneohaul:tritium_lamp"
+      "ingredient": {
+        "item": "nuclearcraftneohaul:tritium_lamp"
+      }
     }
   ],
   "powerModifier": 1.0,
+  "radiation": 0.0,
   "timeModifier": 1.0
 }

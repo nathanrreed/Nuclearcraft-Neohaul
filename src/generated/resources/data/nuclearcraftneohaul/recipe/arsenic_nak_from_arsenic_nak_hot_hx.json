@@ -4,13 +4,17 @@
   "heatDifference": 540.0,
   "input": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:arsenic_nak_hot"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:arsenic_nak_hot"
+    }
   },
   "inputTemp": 800,
   "isHeating": false,
   "output": {
     "amount": 1,
-    "fluid": "nuclearcraftneohaul:arsenic_nak"
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:arsenic_nak"
+    }
   },
   "outputTemp": 400,
   "preferredFlowDir": 0
