@@ -12,8 +12,8 @@ import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.FL
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
 
 public class FluidInfuserRecipe extends ProcessorRecipe {
-    public FluidInfuserRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier) {
-        super(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier);
+    public FluidInfuserRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier, double radiation) {
+        super(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier, radiation);
     }
 
     @Override

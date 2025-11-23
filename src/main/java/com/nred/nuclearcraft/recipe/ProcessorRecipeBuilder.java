@@ -38,13 +38,19 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
     private final Class<? extends ProcessorRecipe> clazz;
     private final double timeModifier;
     private final double powerModifier;
+    private final double radiation;
     protected Map<String, Criterion<?>> criteria = new HashMap<>();
     protected String group = null;
 
-    public ProcessorRecipeBuilder(Class<? extends ProcessorRecipe> clazz, double timeModifier, double powerModifier) {
+    public ProcessorRecipeBuilder(Class<? extends ProcessorRecipe> clazz, double timeModifier, double powerModifier, double radiation) {
         this.clazz = clazz;
         this.timeModifier = timeModifier;
         this.powerModifier = powerModifier;
+        this.radiation = radiation;
+    }
+
+    public ProcessorRecipeBuilder(Class<? extends ProcessorRecipe> clazz, double timeModifier, double powerModifier) {
+        this(clazz, timeModifier, powerModifier, 0.0);
     }
 
     public ProcessorRecipeBuilder addItemInput(ItemLike input, int amount) {
@@ -182,7 +188,7 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
                 .requirements(AdvancementRequirements.Strategy.OR);
 
         try {
-            ProcessorRecipe recipe = clazz.getDeclaredConstructor(List.class, List.class, List.class, List.class, double.class, double.class).newInstance(this.itemInputs, this.itemResults, this.fluidInputs, this.fluidResults, this.timeModifier, this.powerModifier);
+            ProcessorRecipe recipe = clazz.getDeclaredConstructor(List.class, List.class, List.class, List.class, double.class, double.class, double.class).newInstance(this.itemInputs, this.itemResults, this.fluidInputs, this.fluidResults, this.timeModifier, this.powerModifier, this.radiation);
             output.accept(key, recipe, advancement.build(key.withPrefix("recipes/")));
         } catch (Exception e) {
             log.error("e: ", e);

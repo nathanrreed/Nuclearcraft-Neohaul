@@ -5,8 +5,8 @@ import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.entity.FeralGhoul;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.payload.radiation.PlayerRadsUpdatePacket;
+import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.util.Lazy;
 import com.nred.nuclearcraft.util.ModCheck;
 import com.nred.nuclearcraft.util.NCMath;
@@ -57,13 +57,13 @@ public class RadiationHandler {
     public static final Lazy<BasicRecipeHandler<?>> RADIATION_BLOCK_PURIFICATION = new Lazy<>(() -> NCRecipes.radiation_block_purification);
 
     @SubscribeEvent
-    public void updatePlayerRadiation(PlayerTickEvent event) {
-        if (radiation_enabled_public && !radiation_require_counter && event instanceof PlayerTickEvent.Pre) {
+    public void updatePlayerRadiation(PlayerTickEvent.Pre event) {
+        if (radiation_enabled_public && !radiation_require_counter && event.getEntity().level().isClientSide()) {
             playGeigerSound(event.getEntity());
         }
 
         UUID playerUUID = event.getEntity().getUUID();
-        if (event instanceof PlayerTickEvent.Post || (event.getEntity().level().getGameTime() + playerUUID.hashCode()) % radiation_player_tick_rate != 0) {
+        if ((event.getEntity().level().getGameTime() + playerUUID.hashCode()) % radiation_player_tick_rate != 0) {
             return;
         }
 

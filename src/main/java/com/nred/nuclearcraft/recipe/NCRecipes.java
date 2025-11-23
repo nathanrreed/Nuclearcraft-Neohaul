@@ -62,8 +62,6 @@ public class NCRecipes {
         }
         initialized = true;
 
-//        RadSources.init(); TODO
-
         putHandler(new ManufactoryRecipes());
         putHandler(new SeparatorRecipes());
         putHandler(new DecayHastenerRecipes());
@@ -410,7 +408,7 @@ public class NCRecipes {
         }
 
         public static ProcessorRecipe getVanillaFurnaceRecipe(SmeltingRecipe recipe) {
-            return new ElectricFurnaceRecipe(recipe.getIngredients().stream().map(i -> new SizedChanceItemIngredient(i, 1)).toList(), Collections.singletonList(SizedChanceItemIngredient.of(recipe.getResultItem(null).getItem(), recipe.getResultItem(null).getCount())), Collections.emptyList(), Collections.emptyList(), 1.0, 1.0);
+            return new ElectricFurnaceRecipe(recipe.getIngredients().stream().map(i -> new SizedChanceItemIngredient(i, 1)).toList(), Collections.singletonList(SizedChanceItemIngredient.of(recipe.getResultItem(null).getItem(), recipe.getResultItem(null).getCount())), Collections.emptyList(), Collections.emptyList(), 1.0, 1.0, 0.0);
         }
 
         @Override

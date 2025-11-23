@@ -12,8 +12,8 @@ import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SU
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
 
 public class SupercoolerRecipe extends ProcessorRecipe {
-    public SupercoolerRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier) {
-        super(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier);
+    public SupercoolerRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier, double radiation) {
+        super(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier, radiation);
     }
 
     @Override

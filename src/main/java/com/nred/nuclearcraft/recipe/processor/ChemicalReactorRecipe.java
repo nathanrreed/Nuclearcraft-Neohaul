@@ -12,8 +12,8 @@ import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.CH
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
 
 public class ChemicalReactorRecipe extends ProcessorRecipe {
-    public ChemicalReactorRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier) {
-        super(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier);
+    public ChemicalReactorRecipe(List<SizedChanceItemIngredient> itemInputs, List<SizedChanceItemIngredient> itemResults, List<SizedChanceFluidIngredient> fluidInputs, List<SizedChanceFluidIngredient> fluidResults, double timeModifier, double powerModifier, double radiation) {
+        super(itemInputs, itemResults, fluidInputs, fluidResults, timeModifier, powerModifier, radiation);
     }
 
     @Override

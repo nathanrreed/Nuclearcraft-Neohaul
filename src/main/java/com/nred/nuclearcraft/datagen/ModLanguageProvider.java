@@ -1627,20 +1627,20 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.radiation_ores", "Ore Stack Radiation");
         add(MODID + ".configuration.radiation_ores.tooltip", "List of ore dict entries and their stack radiation levels. Can be used to overwrite default values. Can use Unix-style wildcards for the ore name. Format: 'oreName_radiationLevel'.");
         add(MODID + ".configuration.radiation_items", "Item Stack Radiation");
-        add(MODID + ".configuration.radiation_items.tooltip", "List of items and their stack radiation levels. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel'.");
+        add(MODID + ".configuration.radiation_items.tooltip", "List of items and their stack radiation levels. Can be used to overwrite default values. Format: 'modid:name_radiationLevel'.");
         add(MODID + ".configuration.radiation_blocks", "Block Stack Radiation");
-        add(MODID + ".configuration.radiation_blocks.tooltip", "List of blocks and their radiation levels. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel'.");
+        add(MODID + ".configuration.radiation_blocks.tooltip", "List of blocks and their radiation levels. Can be used to overwrite default values. Format: 'modid:name_radiationLevel'.");
         add(MODID + ".configuration.radiation_fluids", "Fluid Stack Radiation");
         add(MODID + ".configuration.radiation_fluids.tooltip", "List of fluids and their radiation levels. Can be used to overwrite default values. If the fluid has a corresponding block, then it will also be given a radiation level. Format: 'fluidName_radiationLevel'.");
         add(MODID + ".configuration.radiation_foods", "Food Radiation and Resistance");
-        add(MODID + ".configuration.radiation_foods.tooltip", "List of foods and the rads and rad resistance gained on consumption. Negative values mean rads and rad resistance will be lost. Can be used to overwrite default values. Format: 'modid:name:meta_radiationLevel_radiationResistance'.");
+        add(MODID + ".configuration.radiation_foods.tooltip", "List of foods and the rads and rad resistance gained on consumption. Negative values mean rads and rad resistance will be lost. Can be used to overwrite default values. Format: 'modid:name_radiationLevel_radiationResistance'.");
 
         add(MODID + ".configuration.radiation_ores_blacklist", "Ore Stack Radiation Blacklist");
         add(MODID + ".configuration.radiation_ores_blacklist.tooltip", "List of ore dict entries that will be forced not have a radiation level. Can use Unix-style wildcards for the ore name. Format: 'oreName'.");
         add(MODID + ".configuration.radiation_items_blacklist", "Item Stack Radiation Blacklist");
-        add(MODID + ".configuration.radiation_items_blacklist.tooltip", "List of items that will be forced not have a radiation level. Format: 'modid:name:meta'.");
+        add(MODID + ".configuration.radiation_items_blacklist.tooltip", "List of items that will be forced not have a radiation level. Format: 'modid:name'.");
         add(MODID + ".configuration.radiation_blocks_blacklist", "Block Stack Radiation Blacklist");
-        add(MODID + ".configuration.radiation_blocks_blacklist.tooltip", "List of blocks that will be forced not have a radiation level. Format: 'modid:name:meta'.");
+        add(MODID + ".configuration.radiation_blocks_blacklist.tooltip", "List of blocks that will be forced not have a radiation level. Format: 'modid:name'.");
         add(MODID + ".configuration.radiation_fluids_blacklist", "Fluid Radiation Blacklist");
         add(MODID + ".configuration.radiation_fluids_blacklist.tooltip", "List of fluids that will be forced not have a radiation level. Format: 'fluidName'.");
 
@@ -1717,11 +1717,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.radiation_shielding_default_recipes", "Radiation Shielding Default Recipes");
         add(MODID + ".configuration.radiation_shielding_default_recipes.tooltip", "If enabled, radiation shielding attachment recipes will be added for all registered armour pieces.");
         add(MODID + ".configuration.radiation_shielding_item_blacklist", "Radiation Shielding ItemStack Blacklist");
-        add(MODID + ".configuration.radiation_shielding_item_blacklist.tooltip", "List of armour item stacks for which shielding recipes will not be added by default. Format: 'modid:armorName:meta'.");
+        add(MODID + ".configuration.radiation_shielding_item_blacklist.tooltip", "List of armour item stacks for which shielding recipes will not be added by default. Format: 'modid:armorName'.");
         add(MODID + ".configuration.radiation_shielding_custom_stacks", "Radiation Shielding ItemStack Whitelist");
-        add(MODID + ".configuration.radiation_shielding_custom_stacks.tooltip", "List of armour item stacks for which shielding recipes will be added. Mostly used when the automated shielding recipes are disabled. Format: 'modid:armorName:meta'.");
+        add(MODID + ".configuration.radiation_shielding_custom_stacks.tooltip", "List of armour item stacks for which shielding recipes will be added. Mostly used when the automated shielding recipes are disabled. Format: 'modid:armorName'.");
         add(MODID + ".configuration.radiation_shielding_default_levels", "Radiation Default Armor Shielding");
-        add(MODID + ".configuration.radiation_shielding_default_levels.tooltip", "List of armour item stacks and their default radiation shielding levels. Format: 'modid:armorName:meta_resistance'. Note: this is not the only way to add these values if you have CraftTweaker installed. Rad resistance can also be given to armour by changing their recipe such that an NBT tag called \"ncRadiationResistance\" with the double value equal to the resistance level is attached to it.");
+        add(MODID + ".configuration.radiation_shielding_default_levels.tooltip", "List of armour item stacks and their default radiation shielding levels. Format: 'modid:armorName_resistance'. Note: this is not the only way to add these values if you have CraftTweaker installed. Rad resistance can also be given to armour by changing their recipe such that an NBT tag called \"ncRadiationResistance\" with the double value equal to the resistance level is attached to it.");
 
         add(MODID + ".configuration.radiation_hud_size", "Radiation HUD Size");
         add(MODID + ".configuration.radiation_hud_size.tooltip", "Modifier for the size of radiation info on the HUD.");

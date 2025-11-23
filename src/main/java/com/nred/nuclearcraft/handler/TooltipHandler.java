@@ -3,7 +3,6 @@ package com.nred.nuclearcraft.handler;
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NCInfo;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
-import com.nred.nuclearcraft.item.FoodItem;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
@@ -27,6 +26,7 @@ import com.nred.nuclearcraft.util.ArmorHelper;
 import com.nred.nuclearcraft.util.InfoHelper;
 import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -178,7 +178,7 @@ public class TooltipHandler {
 
     @OnlyIn(Dist.CLIENT)
     private static void addFoodRadiationTooltip(List<Component> tooltip, ItemStack stack) {
-        if (!(stack.getItem() instanceof FoodItem)) {
+        if (!(stack.has(DataComponents.FOOD))) {
             return;
         }
 

@@ -14,7 +14,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -244,12 +243,12 @@ public class RadiationHelper {
 
     // Player Radiation Resistance
 
-    public static double getArmorInventoryRadResistance(Entity entity) {
+    public static double getArmorInventoryRadResistance(LivingEntity entity) {
         if (entity == null) {
             return 0D;
         }
         double resistance = 0D;
-        for (ItemStack armor : entity.getControllingPassenger().getArmorSlots()) {
+        for (ItemStack armor : entity.getArmorSlots()) {
             resistance += getArmorRadResistance(armor);
         }
 

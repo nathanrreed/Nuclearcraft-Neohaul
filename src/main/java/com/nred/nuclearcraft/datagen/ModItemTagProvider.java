@@ -42,6 +42,7 @@ class ModItemTagProvider extends ItemTagsProvider {
         simpleTag(ALLOYS, ALLOY_MAP, Tags.Items.INGOTS);
         simpleTag(GEMS, GEM_MAP, Tags.Items.GEMS);
         simpleTag(DUSTS, DUST_MAP, Tags.Items.DUSTS);
+        simpleTag(FISSION_DUSTS, FISSION_DUST_MAP, Tags.Items.DUSTS);
         simpleTag(GEM_DUSTS, GEM_DUST_MAP, Tags.Items.DUSTS);
         simpleTag(COMPOUNDS, COMPOUND_MAP, Tags.Items.DUSTS);
         simpleTag(RAWS, RAW_MAP, Tags.Items.RAW_MATERIALS);

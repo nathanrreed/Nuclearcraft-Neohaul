@@ -77,18 +77,17 @@ public class RadPotionEffects {
 
                 charIndex = effectInfo.indexOf('@');
                 if (charIndex == -1) {
-
-                    Optional<Holder.Reference<MobEffect>> potion = BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.parse(effectName));
-                    if (potion.isPresent()) {
+                    Optional<Holder.Reference<MobEffect>> effect_holder = BuiltInRegistries.MOB_EFFECT.getHolder(ResourceLocation.parse(effectName));
+                    if (effect_holder.isPresent()) {
                         int amplifier = Integer.parseInt(effectInfo);
                         int duration = getModifiedPotionDuration(effectName, rawDuration, amplifier - 1);
-                        radEffectList.add((x, y) -> x.addEffect(new MobEffectInstance(potion.get(), NCMath.toInt(y * duration), amplifier, false, false)));
+                        radEffectList.add((x, y) -> x.addEffect(new MobEffectInstance(effect_holder.get(), NCMath.toInt(y * duration), amplifier, false, false)));
                     }
                 } else {
                     String attributeName = "RadEffect[" + i + "][" + j + "]";
                     double amount = Double.parseDouble(effectInfo.substring(0, charIndex));
                     AttributeModifier.Operation operation = AttributeModifier.Operation.BY_ID.apply(Integer.parseInt(effectInfo.substring(charIndex + 1)));
-                    AttributeModifier modifier = new AttributeModifier(ncLoc(attributeName), amount, operation); // TODO
+                    AttributeModifier modifier = new AttributeModifier(ncLoc(attributeName), amount, operation); // TODO what is this for?
 //                    radEffectList.add((x, y) -> {
 //                        AttributeInstance attributeInstance = x.getAttributes().getInstance(effectName);
 //                        if (attributeInstance != null && !attributeInstance.hasModifier(modifier.id())) {

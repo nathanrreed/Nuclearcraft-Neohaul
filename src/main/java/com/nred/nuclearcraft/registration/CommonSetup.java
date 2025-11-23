@@ -1,12 +1,14 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistanceItem;
+import com.nred.nuclearcraft.handler.ItemUseHandler;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
-import com.nred.nuclearcraft.radiation.RadArmor;
+import com.nred.nuclearcraft.radiation.*;
+import com.nred.nuclearcraft.radiation.environment.RadiationEnvironmentHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeStats;
@@ -57,6 +59,8 @@ public class CommonSetup {
         MultitoolItem.registerRightClickLogic();
 
         TileInfoHandler.init();
+
+        RadSources.refreshRadSources(false);
         RadArmor.init();
 
         // TerraBlender
@@ -89,7 +93,19 @@ public class CommonSetup {
 
         addArmorShieldingRecipes(event);
 
+        RadArmor.postInit();
+        RadDimensions.init();
+        RadPotionEffects.init();
+        RadSources.postInit();
+        RadStructures.init();
+        RadEntities.init();
+
+//        NeoForge.EVENT_BUS.register(new RadiationCapabilityHandler()); TODO
+        NeoForge.EVENT_BUS.register(new RadiationHandler());
+        NeoForge.EVENT_BUS.register(new RadiationEnvironmentHandler());
+
         NeoForge.EVENT_BUS.register(new PlayerRespawnHandler());
+        NeoForge.EVENT_BUS.register(new ItemUseHandler());
     }
 
     @SubscribeEvent

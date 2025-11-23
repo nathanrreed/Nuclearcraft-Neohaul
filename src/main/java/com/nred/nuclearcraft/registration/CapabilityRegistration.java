@@ -21,9 +21,12 @@ import com.nred.nuclearcraft.capability.radiation.entity.PlayerRadsCap;
 import com.nred.nuclearcraft.capability.radiation.resistance.IRadiationResistance;
 import com.nred.nuclearcraft.capability.radiation.sink.IRadiationSink;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
+import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.compat.curios.RegisterCurios;
 import com.nred.nuclearcraft.item.EnergyItem;
+import com.nred.nuclearcraft.radiation.RadSources;
+import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.ModCheck;
 import mekanism.api.chemical.IChemicalHandler;
 import net.minecraft.core.Direction;
@@ -33,6 +36,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -207,6 +211,10 @@ public class CapabilityRegistration {
 
     private static void radiation_capabilities(RegisterCapabilitiesEvent event) {
         event.registerEntity(CAPABILITY_ENTITY_RADS, EntityType.PLAYER, (entity, _void) -> new PlayerRadsCap(entity));
+
+        for (Item item : BuiltInRegistries.ITEM) {
+            event.registerItem(ITEM_CAPABILITY_RADIATION_SOURCE, (itemStack, _void) -> new RadiationSource(RadSources.STACK_MAP.get(RecipeHelper.pack(item))), item);
+        }
 
         for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
             event.registerEntity(CAPABILITY_ENTITY_RADS, entityType, (entity, _void) -> (entity instanceof LivingEntity living && !(entity instanceof Player)) ? new EntityRadsCap(living) : null);
