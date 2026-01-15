@@ -57,6 +57,11 @@ public class Concat {
 
     @SafeVarargs
     public static List<ItemStack> itemStackValues(Map<String, DeferredItem<Item>>... args) {
-        return Arrays.stream(args).flatMap(m -> m.values().stream()).map(block -> new ItemStack(block.asItem())).toList();
+        return Arrays.stream(args).flatMap(m -> m.values().stream()).map(item -> new ItemStack(item.asItem())).toList();
+    }
+
+    @SafeVarargs
+    public static List<ItemStack> itemStackValues(DeferredItem<Item>... args) {
+        return Arrays.stream(args).map(item -> new ItemStack(item.asItem())).toList();
     }
 }

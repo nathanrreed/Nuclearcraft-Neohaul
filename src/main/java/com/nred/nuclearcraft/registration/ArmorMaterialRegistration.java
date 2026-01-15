@@ -12,6 +12,7 @@ import java.util.EnumMap;
 import java.util.List;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static com.nred.nuclearcraft.registration.Registers.ARMOR_MATERIALS;
 
 public class ArmorMaterialRegistration {
@@ -22,17 +23,83 @@ public class ArmorMaterialRegistration {
                         map.put(ArmorItem.Type.LEGGINGS, 6);
                         map.put(ArmorItem.Type.CHESTPLATE, 7);
                         map.put(ArmorItem.Type.HELMET, 3);
-                        map.put(ArmorItem.Type.BODY, 5);
+                        map.put(ArmorItem.Type.BODY, 4);
                     }),
                     5,
                     SoundEvents.ARMOR_EQUIP_LEATHER,
                     () -> Ingredient.of(Items.LEATHER),
                     // Determines the texture locations of the armor to apply when rendering
                     // This can also be specified by overriding 'IItemExtension#getArmorTexture' on your item if the armor texture needs to be more dynamic
-                    List.of(
-                            new ArmorMaterial.Layer(ncLoc("hazmat"))
-                    ),
+                    List.of(new ArmorMaterial.Layer(ncLoc("hazmat"))),
                     0,
+                    0
+            ));
+
+    public static final Holder<ArmorMaterial> BORON_MATERIAL =
+            ARMOR_MATERIALS.register("boron", () -> new ArmorMaterial(
+                    Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                        map.put(ArmorItem.Type.BOOTS, 2);
+                        map.put(ArmorItem.Type.LEGGINGS, 5);
+                        map.put(ArmorItem.Type.CHESTPLATE, 7);
+                        map.put(ArmorItem.Type.HELMET, 3);
+                        map.put(ArmorItem.Type.BODY, 5);
+                    }),
+                    6,
+                    SoundEvents.ARMOR_EQUIP_IRON,
+                    () -> Ingredient.of(INGOT_MAP.get("boron")),
+                    List.of(new ArmorMaterial.Layer(ncLoc("boron"))),
+                    1,
+                    0
+            ));
+
+    public static final Holder<ArmorMaterial> BORON_NITRIDE_MATERIAL =
+            ARMOR_MATERIALS.register("boron_nitride", () -> new ArmorMaterial(
+                    Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                        map.put(ArmorItem.Type.BOOTS, 3);
+                        map.put(ArmorItem.Type.LEGGINGS, 6);
+                        map.put(ArmorItem.Type.CHESTPLATE, 8);
+                        map.put(ArmorItem.Type.HELMET, 3);
+                        map.put(ArmorItem.Type.BODY, 11);
+                    }),
+                    20,
+                    SoundEvents.ARMOR_EQUIP_DIAMOND,
+                    () -> Ingredient.of(GEM_MAP.get("boron_nitride")),
+                    List.of(new ArmorMaterial.Layer(ncLoc("boron_nitride"))),
+                    2,
+                    0
+            ));
+
+    public static final Holder<ArmorMaterial> HARD_CARBON_MATERIAL =
+            ARMOR_MATERIALS.register("hard_carbon", () -> new ArmorMaterial(
+                    Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                        map.put(ArmorItem.Type.BOOTS, 3);
+                        map.put(ArmorItem.Type.LEGGINGS, 5);
+                        map.put(ArmorItem.Type.CHESTPLATE, 7);
+                        map.put(ArmorItem.Type.HELMET, 3);
+                        map.put(ArmorItem.Type.BODY, 7);
+                    }),
+                    12,
+                    SoundEvents.ARMOR_EQUIP_IRON,
+                    () -> Ingredient.of(ALLOY_MAP.get("hard_carbon")),
+                    List.of(new ArmorMaterial.Layer(ncLoc("hard_carbon"))),
+                    1,
+                    0
+            ));
+
+    public static final Holder<ArmorMaterial> TOUGH_MATERIAL =
+            ARMOR_MATERIALS.register("tough", () -> new ArmorMaterial(
+                    Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                        map.put(ArmorItem.Type.BOOTS, 3);
+                        map.put(ArmorItem.Type.LEGGINGS, 6);
+                        map.put(ArmorItem.Type.CHESTPLATE, 7);
+                        map.put(ArmorItem.Type.HELMET, 3);
+                        map.put(ArmorItem.Type.BODY, 8);
+                    }),
+                    15,
+                    SoundEvents.ARMOR_EQUIP_IRON,
+                    () -> Ingredient.of(ALLOY_MAP.get("tough")),
+                    List.of(new ArmorMaterial.Layer(ncLoc("tough"))),
+                    2,
                     0
             ));
 

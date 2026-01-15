@@ -12,6 +12,7 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 #### Required:
 - [ZenCore 2](https://github.com/ZeroNoRyouki/ZeroCore2)
 - [TerraBlender](https://github.com/Glitchfiend/TerraBlender)
+- [Mekanism](https://github.com/mekanism/Mekanism)
 #### Recommended:
 - [ConnectedTexturesMod](https://github.com/Chisel-Team/ConnectedTexturesMod)
 - [EMI](https://github.com/emilyploszaj/emi)
@@ -19,7 +20,6 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - [JEI](https://github.com/mezz/JustEnoughItems)
 - [CC: Tweaked](https://github.com/cc-tweaked/CC-Tweaked)
 - [Patchouli](https://github.com/VazkiiMods/Patchouli)
-- [Mekanism](https://github.com/mekanism/Mekanism)
 
 ### Current Status:
 
@@ -46,7 +46,7 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 
 #### Currently Working on:
 - Radiation
+- Tools and Armour
 
 #### Future Additions:
-- Tools and Armour
 - Integrations with other mods (CubeJS / CraftTweaker, Jade / TOP)

@@ -27,10 +27,11 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.newEffect;
 import static com.nred.nuclearcraft.info.Names.*;
-import static com.nred.nuclearcraft.registration.ArmorMaterialRegistration.HAZMAT_MATERIAL;
+import static com.nred.nuclearcraft.registration.ArmorMaterialRegistration.*;
 import static com.nred.nuclearcraft.registration.EntityRegistration.FERAL_GHOUL;
 import static com.nred.nuclearcraft.registration.Registers.ITEMS;
 import static com.nred.nuclearcraft.registration.SoundRegistration.*;
+import static net.minecraft.world.item.ArmorItem.Type.*;
 
 public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> INGOT_MAP = createItems(INGOTS, "ingot");
@@ -63,10 +64,30 @@ public class ItemRegistration {
     public static final DeferredItem<Item> MEDIUM_RADIATION_SHIELDING = ITEMS.register("medium_radiation_shielding", () -> new RadShieldingItem(1));
     public static final DeferredItem<Item> HEAVY_RADIATION_SHIELDING = ITEMS.register("heavy_radiation_shielding", () -> new RadShieldingItem(2));
 
-    public static final DeferredItem<Item> HAZMAT_HELMET = ITEMS.register("hazmat_helmet", () -> new HazmatSuitItem(HAZMAT_MATERIAL, ArmorItem.Type.HELMET, new Properties(), 0.2));
-    public static final DeferredItem<Item> HAZMAT_CHESTPLATE = ITEMS.register("hazmat_chestplate", () -> new HazmatSuitItem(HAZMAT_MATERIAL, ArmorItem.Type.CHESTPLATE, new Properties(), 0.4));
-    public static final DeferredItem<Item> HAZMAT_LEGGINGS = ITEMS.register("hazmat_leggings", () -> new HazmatSuitItem(HAZMAT_MATERIAL, ArmorItem.Type.LEGGINGS, new Properties(), 0.2));
-    public static final DeferredItem<Item> HAZMAT_BOOTS = ITEMS.register("hazmat_boots", () -> new HazmatSuitItem(HAZMAT_MATERIAL, ArmorItem.Type.BOOTS, new Properties(), 0.2));
+    public static final DeferredItem<Item> HAZMAT_HELMET = ITEMS.register("hazmat_helmet", () -> new HazmatSuitItem(HAZMAT_MATERIAL, HELMET, new Properties(), 0.2));
+    public static final DeferredItem<Item> HAZMAT_CHESTPLATE = ITEMS.register("hazmat_chestplate", () -> new HazmatSuitItem(HAZMAT_MATERIAL, CHESTPLATE, new Properties(), 0.4));
+    public static final DeferredItem<Item> HAZMAT_LEGGINGS = ITEMS.register("hazmat_leggings", () -> new HazmatSuitItem(HAZMAT_MATERIAL, LEGGINGS, new Properties(), 0.2));
+    public static final DeferredItem<Item> HAZMAT_BOOTS = ITEMS.register("hazmat_boots", () -> new HazmatSuitItem(HAZMAT_MATERIAL, BOOTS, new Properties(), 0.2));
+
+    public static final DeferredItem<Item> BORON_HELMET = ITEMS.register("boron_helmet", () -> new ArmorItem(BORON_MATERIAL, HELMET, new Item.Properties().durability(HELMET.getDurability(22))));
+    public static final DeferredItem<Item> BORON_CHESTPLATE = ITEMS.register("boron_chestplate", () -> new ArmorItem(BORON_MATERIAL, CHESTPLATE, new Properties().durability(CHESTPLATE.getDurability(22))));
+    public static final DeferredItem<Item> BORON_LEGGINGS = ITEMS.register("boron_leggings", () -> new ArmorItem(BORON_MATERIAL, LEGGINGS, new Properties().durability(LEGGINGS.getDurability(22))));
+    public static final DeferredItem<Item> BORON_BOOTS = ITEMS.register("boron_boots", () -> new ArmorItem(BORON_MATERIAL, BOOTS, new Properties().durability(BOOTS.getDurability(22))));
+
+    public static final DeferredItem<Item> BORON_NITRIDE_HELMET = ITEMS.register("boron_nitride_helmet", () -> new ArmorItem(BORON_NITRIDE_MATERIAL, HELMET, new Properties().durability(HELMET.getDurability(42))));
+    public static final DeferredItem<Item> BORON_NITRIDE_CHESTPLATE = ITEMS.register("boron_nitride_chestplate", () -> new ArmorItem(BORON_NITRIDE_MATERIAL, CHESTPLATE, new Properties().durability(CHESTPLATE.getDurability(42))));
+    public static final DeferredItem<Item> BORON_NITRIDE_LEGGINGS = ITEMS.register("boron_nitride_leggings", () -> new ArmorItem(BORON_NITRIDE_MATERIAL, LEGGINGS, new Properties().durability(LEGGINGS.getDurability(42))));
+    public static final DeferredItem<Item> BORON_NITRIDE_BOOTS = ITEMS.register("boron_nitride_boots", () -> new ArmorItem(BORON_NITRIDE_MATERIAL, BOOTS, new Properties().durability(BOOTS.getDurability(42))));
+
+    public static final DeferredItem<Item> HARD_CARBON_HELMET = ITEMS.register("hard_carbon_helmet", () -> new ArmorItem(HARD_CARBON_MATERIAL, HELMET, new Properties().durability(HELMET.getDurability(34))));
+    public static final DeferredItem<Item> HARD_CARBON_CHESTPLATE = ITEMS.register("hard_carbon_chestplate", () -> new ArmorItem(HARD_CARBON_MATERIAL, CHESTPLATE, new Properties().durability(CHESTPLATE.getDurability(34))));
+    public static final DeferredItem<Item> HARD_CARBON_LEGGINGS = ITEMS.register("hard_carbon_leggings", () -> new ArmorItem(HARD_CARBON_MATERIAL, LEGGINGS, new Properties().durability(LEGGINGS.getDurability(34))));
+    public static final DeferredItem<Item> HARD_CARBON_BOOTS = ITEMS.register("hard_carbon_boots", () -> new ArmorItem(HARD_CARBON_MATERIAL, BOOTS, new Properties().durability(BOOTS.getDurability(34))));
+
+    public static final DeferredItem<Item> TOUGH_HELMET = ITEMS.register("tough_helmet", () -> new ArmorItem(TOUGH_MATERIAL, HELMET, new Properties().durability(HELMET.getDurability(30))));
+    public static final DeferredItem<Item> TOUGH_CHESTPLATE = ITEMS.register("tough_chestplate", () -> new ArmorItem(TOUGH_MATERIAL, CHESTPLATE, new Properties().durability(CHESTPLATE.getDurability(30))));
+    public static final DeferredItem<Item> TOUGH_LEGGINGS = ITEMS.register("tough_leggings", () -> new ArmorItem(TOUGH_MATERIAL, LEGGINGS, new Properties().durability(LEGGINGS.getDurability(30))));
+    public static final DeferredItem<Item> TOUGH_BOOTS = ITEMS.register("tough_boots", () -> new ArmorItem(TOUGH_MATERIAL, BOOTS, new Properties().durability(BOOTS.getDurability(30))));
 
     public static final DeferredItem<Item> FERAL_GHOUL_SPAWN_EGG = ITEMS.register("feral_ghoul_spawn_egg", () -> new DeferredSpawnEggItem(FERAL_GHOUL, 0xaf9890, 0x192124, new Properties()));
 

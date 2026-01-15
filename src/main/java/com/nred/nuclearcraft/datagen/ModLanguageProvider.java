@@ -771,10 +771,30 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MEDIUM_RADIATION_SHIELDING.get(), "Medium Radiation Shielding");
         add(HEAVY_RADIATION_SHIELDING.get(), "Heavy Radiation Shielding");
 
-        add(HAZMAT_HELMET.get(), "Hazmat Suit Headwears");
+        add(HAZMAT_HELMET.get(), "Hazmat Suit Headwear");
         add(HAZMAT_CHESTPLATE.get(), "Hazmat Suit Chestpiece");
         add(HAZMAT_LEGGINGS.get(), "Hazmat Suit Leggings");
         add(HAZMAT_BOOTS.get(), "Hazmat Suit Boots");
+
+        simpleItem(BORON_HELMET);
+        simpleItem(BORON_CHESTPLATE);
+        simpleItem(BORON_LEGGINGS);
+        simpleItem(BORON_BOOTS);
+
+        simpleItem(BORON_NITRIDE_HELMET);
+        simpleItem(BORON_NITRIDE_CHESTPLATE);
+        simpleItem(BORON_NITRIDE_LEGGINGS);
+        simpleItem(BORON_NITRIDE_BOOTS);
+
+        simpleItem(HARD_CARBON_HELMET);
+        simpleItem(HARD_CARBON_CHESTPLATE);
+        simpleItem(HARD_CARBON_LEGGINGS);
+        simpleItem(HARD_CARBON_BOOTS);
+
+        simpleItem(TOUGH_HELMET);
+        simpleItem(TOUGH_CHESTPLATE);
+        simpleItem(TOUGH_LEGGINGS);
+        simpleItem(TOUGH_BOOTS);
 
         fuelTypeItems(AMERICIUM_MAP, "Americium-");
         fuelTypeItems(BERKELIUM_MAP, "Berkelium-");
@@ -1847,6 +1867,10 @@ public class ModLanguageProvider extends LanguageProvider {
         };
 
         return name.substring(0, name.lastIndexOf('_')).toUpperCase().replaceAll("(?<=[LH]EC)M", "m").replaceAll("(?<=[LH]EC)F", "f") + suffix;
+    }
+
+    private void simpleItem(DeferredItem<Item> item) {
+        add(item.asItem(), capitalize(item.getId().getPath()));
     }
 
     private void simpleItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String append) {

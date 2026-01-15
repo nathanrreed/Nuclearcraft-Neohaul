@@ -101,6 +101,26 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(HAZMAT_LEGGINGS, "armour/hazmat_leggings");
         simpleItem(HAZMAT_BOOTS, "armour/hazmat_boots");
 
+        simpleItem(BORON_HELMET, "armour/boron_helmet");
+        simpleItem(BORON_CHESTPLATE, "armour/boron_chestplate");
+        simpleItem(BORON_LEGGINGS, "armour/boron_leggings");
+        simpleItem(BORON_BOOTS, "armour/boron_boots");
+
+        simpleItem(BORON_NITRIDE_HELMET, "armour/boron_nitride_helmet");
+        simpleItem(BORON_NITRIDE_CHESTPLATE, "armour/boron_nitride_chestplate");
+        simpleItem(BORON_NITRIDE_LEGGINGS, "armour/boron_nitride_leggings");
+        simpleItem(BORON_NITRIDE_BOOTS, "armour/boron_nitride_boots");
+
+        simpleItem(HARD_CARBON_HELMET, "armour/hard_carbon_helmet");
+        simpleItem(HARD_CARBON_CHESTPLATE, "armour/hard_carbon_chestplate");
+        simpleItem(HARD_CARBON_LEGGINGS, "armour/hard_carbon_leggings");
+        simpleItem(HARD_CARBON_BOOTS, "armour/hard_carbon_boots");
+
+        simpleItem(TOUGH_HELMET, "armour/tough_helmet");
+        simpleItem(TOUGH_CHESTPLATE, "armour/tough_chestplate");
+        simpleItem(TOUGH_LEGGINGS, "armour/tough_leggings");
+        simpleItem(TOUGH_BOOTS, "armour/tough_boots");
+
         withExistingParent(FERAL_GHOUL_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
 
         buckets();

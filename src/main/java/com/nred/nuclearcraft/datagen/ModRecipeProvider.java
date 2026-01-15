@@ -97,6 +97,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         rtg(recipeOutput);
         quantum(recipeOutput);
         radiation(recipeOutput);
+        armour(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(MISC, Items.BROWN_MUSHROOM, 1).requires(GLOWING_MUSHROOM, 1).unlockedBy(getHasName(GLOWING_MUSHROOM), has(GLOWING_MUSHROOM)).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(MISC, GLOWING_MUSHROOM, 1).requires(Items.BROWN_MUSHROOM, 1).requires(Items.GLOWSTONE_DUST, 1).unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM)).save(recipeOutput);
@@ -1025,6 +1026,42 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(FOOD, FOURSMORE, 1).pattern("SC").pattern("MS")
                 .define('S', FOOD_MAP.get("moresmore")).define('C', FOOD_MAP.get("milk_chocolate")).define('M', FOOD_MAP.get("marshmallow"))
                 .unlockedBy(getHasName(FOOD_MAP.get("moresmore")), has(FOOD_MAP.get("moresmore"))).save(recipeOutput);
+    }
+
+    private void armour(RecipeOutput recipeOutput) {
+        armourSet(recipeOutput, INGOT_MAP.get("boron"), BORON_HELMET, BORON_CHESTPLATE, BORON_LEGGINGS, BORON_BOOTS);
+        armourSet(recipeOutput, GEM_MAP.get("boron_nitride"), BORON_NITRIDE_HELMET, BORON_NITRIDE_CHESTPLATE, BORON_NITRIDE_LEGGINGS, BORON_NITRIDE_BOOTS);
+        armourSet(recipeOutput, ALLOY_MAP.get("hard_carbon"), HARD_CARBON_HELMET, HARD_CARBON_CHESTPLATE, HARD_CARBON_LEGGINGS, HARD_CARBON_BOOTS);
+        armourSet(recipeOutput, ALLOY_MAP.get("tough"), TOUGH_HELMET, TOUGH_CHESTPLATE, TOUGH_LEGGINGS, TOUGH_BOOTS);
+    }
+
+    private void armourSet(RecipeOutput recipeOutput, ItemLike item, ItemLike helmet, ItemLike chestplate, ItemLike leggings, ItemLike boots) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, helmet)
+                .define('X', item)
+                .pattern("XXX")
+                .pattern("X X")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, chestplate)
+                .define('X', item)
+                .pattern("X X")
+                .pattern("XXX")
+                .pattern("XXX")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, leggings)
+                .define('X', item)
+                .pattern("XXX")
+                .pattern("X X")
+                .pattern("X X")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, boots)
+                .define('X', item)
+                .pattern("X X")
+                .pattern("X X")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
     }
 
     public static TagKey<Fluid> fluidTag(String name) {
