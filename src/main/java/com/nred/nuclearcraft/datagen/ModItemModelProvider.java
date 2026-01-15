@@ -121,6 +121,34 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(TOUGH_LEGGINGS, "armour/tough_leggings");
         simpleItem(TOUGH_BOOTS, "armour/tough_boots");
 
+        handheldItem(BORON_SWORD, "tool/boron_sword");
+        handheldItem(BORON_PICKAXE, "tool/boron_pickaxe");
+        handheldItem(BORON_SHOVEL, "tool/boron_shovel");
+        handheldItem(BORON_AXE, "tool/boron_axe");
+        handheldItem(BORON_HOE, "tool/boron_hoe");
+        handheldItem(BORON_SPAXELHOE, "tool/boron_spaxelhoe");
+
+        handheldItem(BORON_NITRIDE_SWORD, "tool/boron_nitride_sword");
+        handheldItem(BORON_NITRIDE_PICKAXE, "tool/boron_nitride_pickaxe");
+        handheldItem(BORON_NITRIDE_SHOVEL, "tool/boron_nitride_shovel");
+        handheldItem(BORON_NITRIDE_AXE, "tool/boron_nitride_axe");
+        handheldItem(BORON_NITRIDE_HOE, "tool/boron_nitride_hoe");
+        handheldItem(BORON_NITRIDE_SPAXELHOE, "tool/boron_nitride_spaxelhoe");
+
+        handheldItem(HARD_CARBON_SWORD, "tool/hard_carbon_sword");
+        handheldItem(HARD_CARBON_PICKAXE, "tool/hard_carbon_pickaxe");
+        handheldItem(HARD_CARBON_SHOVEL, "tool/hard_carbon_shovel");
+        handheldItem(HARD_CARBON_AXE, "tool/hard_carbon_axe");
+        handheldItem(HARD_CARBON_HOE, "tool/hard_carbon_hoe");
+        handheldItem(HARD_CARBON_SPAXELHOE, "tool/hard_carbon_spaxelhoe");
+
+        handheldItem(TOUGH_SWORD, "tool/tough_sword");
+        handheldItem(TOUGH_PICKAXE, "tool/tough_pickaxe");
+        handheldItem(TOUGH_SHOVEL, "tool/tough_shovel");
+        handheldItem(TOUGH_AXE, "tool/tough_axe");
+        handheldItem(TOUGH_HOE, "tool/tough_hoe");
+        handheldItem(TOUGH_SPAXELHOE, "tool/tough_spaxelhoe");
+
         withExistingParent(FERAL_GHOUL_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
 
         buckets();
@@ -142,9 +170,17 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private void simpleItem(DeferredItem<Item> deferredItem, String name) {
+        buildItem(deferredItem, name, "item/generated");
+    }
+
+    private void handheldItem(DeferredItem<Item> deferredItem, String name) {
+        buildItem(deferredItem, name, "item/handheld");
+    }
+
+    private void buildItem(DeferredItem<Item> deferredItem, String name, String parent) {
         ResourceLocation item = BuiltInRegistries.ITEM.getKey(deferredItem.asItem());
         getBuilder(item.toString())
-                .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                .parent(new ModelFile.UncheckedModelFile(parent))
                 .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + name));
     }
 

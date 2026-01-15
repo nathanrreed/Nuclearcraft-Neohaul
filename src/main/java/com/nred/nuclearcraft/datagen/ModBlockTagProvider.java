@@ -20,6 +20,7 @@ import static com.nred.nuclearcraft.helpers.Concat.blockValues;
 import static com.nred.nuclearcraft.helpers.Concat.blockValuesExcluding;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
+import static net.minecraft.tags.BlockTags.*;
 
 class ModBlockTagProvider extends BlockTagsProvider {
     public ModBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -45,6 +46,8 @@ class ModBlockTagProvider extends BlockTagsProvider {
         simpleTag(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS);
         simpleTag(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, Tags.Blocks.STORAGE_BLOCKS);
         simpleTag(RAWS, RAW_BLOCK_MAP, Tags.Blocks.STORAGE_BLOCKS, "raw_");
+
+        tag(MINEABLE_WITH_SPAXELHOE).addTags(MINEABLE_WITH_AXE, MINEABLE_WITH_HOE, MINEABLE_WITH_PICKAXE, MINEABLE_WITH_SHOVEL);
     }
 
     private void simpleTag(List<String> list, HashMap<String, DeferredBlock<Block>> map, TagKey<Block> tag) {

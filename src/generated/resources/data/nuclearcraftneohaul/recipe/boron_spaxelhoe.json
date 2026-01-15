@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "nuclearcraftneohaul:boron_axe"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:boron_hoe"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:boron_pickaxe"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:boron_shovel"
+    },
+    "W": {
+      "item": "nuclearcraftneohaul:boron_sword"
+    }
+  },
+  "pattern": [
+    "ASP",
+    "HIW",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:boron_spaxelhoe"
+  }
+}

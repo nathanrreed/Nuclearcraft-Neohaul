@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "nuclearcraftneohaul:item/tool/boron_nitride_pickaxe"
+  }
+}

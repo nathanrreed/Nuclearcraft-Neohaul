@@ -39,7 +39,9 @@ import com.nred.nuclearcraft.util.PrimitiveFunction.ObjIntFunction;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
@@ -56,6 +58,7 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.*;
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType.BORON_SILVER;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType.*;
@@ -72,6 +75,8 @@ public class BlockRegistration {
     public static final BooleanProperty INVISIBLE = BooleanProperty.create("invisible");
     public static final EnumProperty<Direction.Axis> AXIS_ALL = BlockStateProperties.AXIS;
     public static final EnumProperty<MachinePortSorption> MACHINE_PORT_SORPTION = EnumProperty.create("machine_port_sorption", MachinePortSorption.class);
+
+    public static final TagKey<Block> MINEABLE_WITH_SPAXELHOE = TagKey.create(Registries.BLOCK, ncLoc("mineable/spaxelhoe"));
 
     public static final HashMap<String, DeferredBlock<Block>> ORE_MAP = createOres();
     public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);

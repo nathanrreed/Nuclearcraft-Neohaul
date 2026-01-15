@@ -98,6 +98,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         quantum(recipeOutput);
         radiation(recipeOutput);
         armour(recipeOutput);
+        tools(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(MISC, Items.BROWN_MUSHROOM, 1).requires(GLOWING_MUSHROOM, 1).unlockedBy(getHasName(GLOWING_MUSHROOM), has(GLOWING_MUSHROOM)).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(MISC, GLOWING_MUSHROOM, 1).requires(Items.BROWN_MUSHROOM, 1).requires(Items.GLOWSTONE_DUST, 1).unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM)).save(recipeOutput);
@@ -1060,6 +1061,68 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('X', item)
                 .pattern("X X")
                 .pattern("X X")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+    }
+
+    private void tools(RecipeOutput recipeOutput) {
+        toolSet(recipeOutput, INGOT_MAP.get("boron"), BORON_SWORD, BORON_PICKAXE, BORON_SHOVEL, BORON_AXE, BORON_HOE, BORON_SPAXELHOE);
+        toolSet(recipeOutput, GEM_MAP.get("boron_nitride"), BORON_NITRIDE_SWORD, BORON_NITRIDE_PICKAXE, BORON_NITRIDE_SHOVEL, BORON_NITRIDE_AXE, BORON_NITRIDE_HOE, BORON_NITRIDE_SPAXELHOE);
+        toolSet(recipeOutput, ALLOY_MAP.get("hard_carbon"), HARD_CARBON_SWORD, HARD_CARBON_PICKAXE, HARD_CARBON_SHOVEL, HARD_CARBON_AXE, HARD_CARBON_HOE, HARD_CARBON_SPAXELHOE);
+        toolSet(recipeOutput, ALLOY_MAP.get("tough"), TOUGH_SWORD, TOUGH_PICKAXE, TOUGH_SHOVEL, TOUGH_AXE, TOUGH_HOE, TOUGH_SPAXELHOE);
+    }
+
+    private void toolSet(RecipeOutput recipeOutput, ItemLike item, ItemLike sword, ItemLike pickaxe, ItemLike shovel, ItemLike axe, ItemLike hoe, ItemLike spaxelhoe) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, sword)
+                .define('#', Items.STICK)
+                .define('X', item)
+                .pattern("X")
+                .pattern("X")
+                .pattern("#")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pickaxe)
+                .define('#', Items.STICK)
+                .define('X', item)
+                .pattern("XXX")
+                .pattern(" # ")
+                .pattern(" # ")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shovel)
+                .define('#', Items.STICK)
+                .define('X', item)
+                .pattern("X")
+                .pattern("#")
+                .pattern("#")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, axe)
+                .define('#', Items.STICK)
+                .define('X', item)
+                .pattern("XX")
+                .pattern("X#")
+                .pattern(" #")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hoe)
+                .define('#', Items.STICK)
+                .define('X', item)
+                .pattern("XX")
+                .pattern(" #")
+                .pattern(" #")
+                .unlockedBy(getHasName(item), has(item))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, spaxelhoe)
+                .define('I', Items.IRON_INGOT)
+                .define('A', axe)
+                .define('H', hoe)
+                .define('P', pickaxe)
+                .define('S', shovel)
+                .define('W', sword)
+                .pattern("ASP")
+                .pattern("HIW")
+                .pattern(" I ")
                 .unlockedBy(getHasName(item), has(item))
                 .save(recipeOutput);
     }

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "nuclearcraftneohaul:tough_axe"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:tough_hoe"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:tough_pickaxe"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:tough_shovel"
+    },
+    "W": {
+      "item": "nuclearcraftneohaul:tough_sword"
+    }
+  },
+  "pattern": [
+    "ASP",
+    "HIW",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:tough_spaxelhoe"
+  }
+}

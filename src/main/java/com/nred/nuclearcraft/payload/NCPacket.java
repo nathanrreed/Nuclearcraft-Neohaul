@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload;
 
-import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
+import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
 import com.nred.nuclearcraft.util.PosHelper;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
@@ -9,7 +9,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -34,25 +36,17 @@ public abstract class NCPacket implements CustomPacketPayload {
         }
     }
 
-    //	public void sendToAllAround(NetworkRegistry.TargetPoint point) { TODO
-//		getWrapper().sendToAllAround(this, point);
-//	}
-//
-//	public void sendToAllTracking(NetworkRegistry.TargetPoint point) {
-//		getWrapper().sendToAllTracking(this, point);
-//	}
-//
-//	public void sendToAllTracking(Entity entity) {
-//		getWrapper().sendToAllTracking(this, entity);
-//	}
-//
-//	public void sendToDimension(int dimensionId) {
-//		getWrapper().sendToDimension(this, dimensionId);
-//	}
-//
-	public void sendToServer() {
+    public void sendToAllTracking(Entity entity) {
+        PacketDistributor.sendToPlayersTrackingEntity(entity, this);
+    }
+
+    public void sendToDimension(ServerLevel level) {
+        PacketDistributor.sendToPlayersInDimension(level, this);
+    }
+
+    public void sendToServer() {
         PacketDistributor.sendToServer(this);
-	}
+    }
 
     public void toBytes(RegistryFriendlyByteBuf buf) {
     }

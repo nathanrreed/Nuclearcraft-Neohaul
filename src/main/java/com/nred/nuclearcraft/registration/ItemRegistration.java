@@ -10,10 +10,8 @@ import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.Rarity;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -31,6 +29,7 @@ import static com.nred.nuclearcraft.registration.ArmorMaterialRegistration.*;
 import static com.nred.nuclearcraft.registration.EntityRegistration.FERAL_GHOUL;
 import static com.nred.nuclearcraft.registration.Registers.ITEMS;
 import static com.nred.nuclearcraft.registration.SoundRegistration.*;
+import static com.nred.nuclearcraft.registration.ToolMaterialRegistration.*;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
 public class ItemRegistration {
@@ -64,6 +63,8 @@ public class ItemRegistration {
     public static final DeferredItem<Item> MEDIUM_RADIATION_SHIELDING = ITEMS.register("medium_radiation_shielding", () -> new RadShieldingItem(1));
     public static final DeferredItem<Item> HEAVY_RADIATION_SHIELDING = ITEMS.register("heavy_radiation_shielding", () -> new RadShieldingItem(2));
 
+    // Armour
+
     public static final DeferredItem<Item> HAZMAT_HELMET = ITEMS.register("hazmat_helmet", () -> new HazmatSuitItem(HAZMAT_MATERIAL, HELMET, new Properties(), 0.2));
     public static final DeferredItem<Item> HAZMAT_CHESTPLATE = ITEMS.register("hazmat_chestplate", () -> new HazmatSuitItem(HAZMAT_MATERIAL, CHESTPLATE, new Properties(), 0.4));
     public static final DeferredItem<Item> HAZMAT_LEGGINGS = ITEMS.register("hazmat_leggings", () -> new HazmatSuitItem(HAZMAT_MATERIAL, LEGGINGS, new Properties(), 0.2));
@@ -88,6 +89,36 @@ public class ItemRegistration {
     public static final DeferredItem<Item> TOUGH_CHESTPLATE = ITEMS.register("tough_chestplate", () -> new ArmorItem(TOUGH_MATERIAL, CHESTPLATE, new Properties().durability(CHESTPLATE.getDurability(30))));
     public static final DeferredItem<Item> TOUGH_LEGGINGS = ITEMS.register("tough_leggings", () -> new ArmorItem(TOUGH_MATERIAL, LEGGINGS, new Properties().durability(LEGGINGS.getDurability(30))));
     public static final DeferredItem<Item> TOUGH_BOOTS = ITEMS.register("tough_boots", () -> new ArmorItem(TOUGH_MATERIAL, BOOTS, new Properties().durability(BOOTS.getDurability(30))));
+
+    // Tools
+
+    public static final DeferredItem<Item> BORON_SWORD = ITEMS.register("boron_sword", () -> new SwordItem(BORON_TIER, new Properties().attributes(SwordItem.createAttributes(BORON_TIER, 3, -2.4F))));
+    public static final DeferredItem<Item> BORON_PICKAXE = ITEMS.register("boron_pickaxe", () -> new PickaxeItem(BORON_TIER, new Properties().attributes(PickaxeItem.createAttributes(BORON_TIER, 1.0F, -2.8F))));
+    public static final DeferredItem<Item> BORON_SHOVEL = ITEMS.register("boron_shovel", () -> new ShovelItem(BORON_TIER, new Properties().attributes(ShovelItem.createAttributes(BORON_TIER, 1.5F, -3.0F))));
+    public static final DeferredItem<Item> BORON_AXE = ITEMS.register("boron_axe", () -> new AxeItem(BORON_TIER, new Properties().attributes(AxeItem.createAttributes(BORON_TIER, 7.0F, -3.2F))));
+    public static final DeferredItem<Item> BORON_HOE = ITEMS.register("boron_hoe", () -> new HoeItem(BORON_TIER, new Properties().attributes(HoeItem.createAttributes(BORON_TIER, -1.0F, -2.0F))));
+    public static final DeferredItem<Item> BORON_SPAXELHOE = ITEMS.register("boron_spaxelhoe", () -> new SpaxelhoeItem(BORON_TIER, new Properties().attributes(SpaxelhoeItem.createAttributes(BORON_TIER, 3.0F, -2.4F)), ChatFormatting.GRAY));
+
+    public static final DeferredItem<Item> BORON_NITRIDE_SWORD = ITEMS.register("boron_nitride_sword", () -> new SwordItem(BORON_NITRIDE_TIER, new Properties().attributes(SwordItem.createAttributes(BORON_NITRIDE_TIER, 3, -2.4F))));
+    public static final DeferredItem<Item> BORON_NITRIDE_PICKAXE = ITEMS.register("boron_nitride_pickaxe", () -> new PickaxeItem(BORON_NITRIDE_TIER, new Properties().attributes(PickaxeItem.createAttributes(BORON_NITRIDE_TIER, 1.0F, -2.8F))));
+    public static final DeferredItem<Item> BORON_NITRIDE_SHOVEL = ITEMS.register("boron_nitride_shovel", () -> new ShovelItem(BORON_NITRIDE_TIER, new Properties().attributes(ShovelItem.createAttributes(BORON_NITRIDE_TIER, 1.5F, -3.0F))));
+    public static final DeferredItem<Item> BORON_NITRIDE_AXE = ITEMS.register("boron_nitride_axe", () -> new AxeItem(BORON_NITRIDE_TIER, new Properties().attributes(AxeItem.createAttributes(BORON_NITRIDE_TIER, 5.0F, -3.0F))));
+    public static final DeferredItem<Item> BORON_NITRIDE_HOE = ITEMS.register("boron_nitride_hoe", () -> new HoeItem(BORON_NITRIDE_TIER, new Properties().attributes(HoeItem.createAttributes(BORON_NITRIDE_TIER, -3.0F, 0.0F))));
+    public static final DeferredItem<Item> BORON_NITRIDE_SPAXELHOE = ITEMS.register("boron_nitride_spaxelhoe", () -> new SpaxelhoeItem(BORON_NITRIDE_TIER, new Properties().attributes(SpaxelhoeItem.createAttributes(BORON_TIER, 4.0F, -2.4F)), ChatFormatting.GREEN));
+
+    public static final DeferredItem<Item> HARD_CARBON_SWORD = ITEMS.register("hard_carbon_sword", () -> new SwordItem(HARD_CARBON_TIER, new Properties().attributes(SwordItem.createAttributes(HARD_CARBON_TIER, 3, -2.4F))));
+    public static final DeferredItem<Item> HARD_CARBON_PICKAXE = ITEMS.register("hard_carbon_pickaxe", () -> new PickaxeItem(HARD_CARBON_TIER, new Properties().attributes(PickaxeItem.createAttributes(HARD_CARBON_TIER, 1.0F, -2.8F))));
+    public static final DeferredItem<Item> HARD_CARBON_SHOVEL = ITEMS.register("hard_carbon_shovel", () -> new ShovelItem(HARD_CARBON_TIER, new Properties().attributes(ShovelItem.createAttributes(HARD_CARBON_TIER, 1.5F, -3.0F))));
+    public static final DeferredItem<Item> HARD_CARBON_AXE = ITEMS.register("hard_carbon_axe", () -> new AxeItem(HARD_CARBON_TIER, new Properties().attributes(AxeItem.createAttributes(HARD_CARBON_TIER, 6.0F, -3.1F))));
+    public static final DeferredItem<Item> HARD_CARBON_HOE = ITEMS.register("hard_carbon_hoe", () -> new HoeItem(HARD_CARBON_TIER, new Properties().attributes(HoeItem.createAttributes(HARD_CARBON_TIER, -2.0F, -1.0F))));
+    public static final DeferredItem<Item> HARD_CARBON_SPAXELHOE = ITEMS.register("hard_carbon_spaxelhoe", () -> new SpaxelhoeItem(HARD_CARBON_TIER, new Properties().attributes(SpaxelhoeItem.createAttributes(BORON_TIER, 3.5F, -2.4F)), ChatFormatting.BLUE));
+
+    public static final DeferredItem<Item> TOUGH_SWORD = ITEMS.register("tough_sword", () -> new SwordItem(TOUGH_TIER, new Properties().attributes(SwordItem.createAttributes(TOUGH_TIER, 3, -2.4F))));
+    public static final DeferredItem<Item> TOUGH_PICKAXE = ITEMS.register("tough_pickaxe", () -> new PickaxeItem(TOUGH_TIER, new Properties().attributes(PickaxeItem.createAttributes(TOUGH_TIER, 1.0F, -2.8F))));
+    public static final DeferredItem<Item> TOUGH_SHOVEL = ITEMS.register("tough_shovel", () -> new ShovelItem(TOUGH_TIER, new Properties().attributes(ShovelItem.createAttributes(TOUGH_TIER, 1.5F, -3.0F))));
+    public static final DeferredItem<Item> TOUGH_AXE = ITEMS.register("tough_axe", () -> new AxeItem(TOUGH_TIER, new Properties().attributes(AxeItem.createAttributes(TOUGH_TIER, 6.0F, -3.1F))));
+    public static final DeferredItem<Item> TOUGH_HOE = ITEMS.register("tough_hoe", () -> new HoeItem(TOUGH_TIER, new Properties().attributes(HoeItem.createAttributes(TOUGH_TIER, -2.0F, -1.0F))));
+    public static final DeferredItem<Item> TOUGH_SPAXELHOE = ITEMS.register("tough_spaxelhoe", () -> new SpaxelhoeItem(TOUGH_TIER, new Properties().attributes(SpaxelhoeItem.createAttributes(BORON_TIER, 3.5F, -2.4F)), ChatFormatting.DARK_PURPLE));
 
     public static final DeferredItem<Item> FERAL_GHOUL_SPAWN_EGG = ITEMS.register("feral_ghoul_spawn_egg", () -> new DeferredSpawnEggItem(FERAL_GHOUL, 0xaf9890, 0x192124, new Properties()));
 

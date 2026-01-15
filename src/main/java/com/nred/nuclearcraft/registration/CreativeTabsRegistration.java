@@ -87,10 +87,14 @@ public class CreativeTabsRegistration {
                 output.accept(FOURSMORE);
                 output.acceptAll(itemStackValues(MUSIC_DISC_MAP));
                 output.accept(FERAL_GHOUL_SPAWN_EGG);
+                output.acceptAll(itemStackValues(BORON_SWORD, BORON_PICKAXE, BORON_SHOVEL, BORON_AXE, BORON_HOE, BORON_SPAXELHOE));
+                output.acceptAll(itemStackValues(TOUGH_SWORD, TOUGH_PICKAXE, TOUGH_SHOVEL, TOUGH_AXE, TOUGH_HOE, TOUGH_SPAXELHOE));
+                output.acceptAll(itemStackValues(HARD_CARBON_SWORD, HARD_CARBON_PICKAXE, HARD_CARBON_SHOVEL, HARD_CARBON_AXE, HARD_CARBON_HOE, HARD_CARBON_SPAXELHOE));
+                output.acceptAll(itemStackValues(BORON_NITRIDE_SWORD, BORON_NITRIDE_PICKAXE, BORON_NITRIDE_SHOVEL, BORON_NITRIDE_AXE, BORON_NITRIDE_HOE, BORON_NITRIDE_SPAXELHOE));
                 output.acceptAll(itemStackValues(BORON_HELMET, BORON_CHESTPLATE, BORON_LEGGINGS, BORON_BOOTS));
-                output.acceptAll(itemStackValues(BORON_NITRIDE_HELMET, BORON_NITRIDE_CHESTPLATE, BORON_NITRIDE_LEGGINGS, BORON_NITRIDE_BOOTS));
-                output.acceptAll(itemStackValues(HARD_CARBON_HELMET, HARD_CARBON_CHESTPLATE, HARD_CARBON_LEGGINGS, HARD_CARBON_BOOTS));
                 output.acceptAll(itemStackValues(TOUGH_HELMET, TOUGH_CHESTPLATE, TOUGH_LEGGINGS, TOUGH_BOOTS));
+                output.acceptAll(itemStackValues(HARD_CARBON_HELMET, HARD_CARBON_CHESTPLATE, HARD_CARBON_LEGGINGS, HARD_CARBON_BOOTS));
+                output.acceptAll(itemStackValues(BORON_NITRIDE_HELMET, BORON_NITRIDE_CHESTPLATE, BORON_NITRIDE_LEGGINGS, BORON_NITRIDE_BOOTS));
             }).build());
 
     public static void init() {

@@ -776,25 +776,20 @@ public class ModLanguageProvider extends LanguageProvider {
         add(HAZMAT_LEGGINGS.get(), "Hazmat Suit Leggings");
         add(HAZMAT_BOOTS.get(), "Hazmat Suit Boots");
 
-        simpleItem(BORON_HELMET);
-        simpleItem(BORON_CHESTPLATE);
-        simpleItem(BORON_LEGGINGS);
-        simpleItem(BORON_BOOTS);
+        simpleItems(BORON_HELMET, BORON_CHESTPLATE, BORON_LEGGINGS, BORON_BOOTS);
+        simpleItems(BORON_NITRIDE_HELMET, BORON_NITRIDE_CHESTPLATE, BORON_NITRIDE_LEGGINGS, BORON_NITRIDE_BOOTS);
+        simpleItems(HARD_CARBON_HELMET, HARD_CARBON_CHESTPLATE, HARD_CARBON_LEGGINGS, HARD_CARBON_BOOTS);
+        simpleItems(TOUGH_HELMET, TOUGH_CHESTPLATE, TOUGH_LEGGINGS, TOUGH_BOOTS);
 
-        simpleItem(BORON_NITRIDE_HELMET);
-        simpleItem(BORON_NITRIDE_CHESTPLATE);
-        simpleItem(BORON_NITRIDE_LEGGINGS);
-        simpleItem(BORON_NITRIDE_BOOTS);
+        simpleItems(BORON_SWORD, BORON_PICKAXE, BORON_SHOVEL, BORON_AXE, BORON_HOE, BORON_SPAXELHOE);
+        simpleItems(BORON_NITRIDE_SWORD, BORON_NITRIDE_PICKAXE, BORON_NITRIDE_SHOVEL, BORON_NITRIDE_AXE, BORON_NITRIDE_HOE, BORON_NITRIDE_SPAXELHOE);
+        simpleItems(HARD_CARBON_SWORD, HARD_CARBON_PICKAXE, HARD_CARBON_SHOVEL, HARD_CARBON_AXE, HARD_CARBON_HOE, HARD_CARBON_SPAXELHOE);
+        simpleItems(TOUGH_SWORD, TOUGH_PICKAXE, TOUGH_SHOVEL, TOUGH_AXE, TOUGH_HOE, TOUGH_SPAXELHOE);
 
-        simpleItem(HARD_CARBON_HELMET);
-        simpleItem(HARD_CARBON_CHESTPLATE);
-        simpleItem(HARD_CARBON_LEGGINGS);
-        simpleItem(HARD_CARBON_BOOTS);
-
-        simpleItem(TOUGH_HELMET);
-        simpleItem(TOUGH_CHESTPLATE);
-        simpleItem(TOUGH_LEGGINGS);
-        simpleItem(TOUGH_BOOTS);
+        addTooltip(BORON_SPAXELHOE, "A universal tool made up of all of the standard Boron tools. Sneak to use shovel flattening.");
+        addTooltip(BORON_NITRIDE_SPAXELHOE, "A universal tool made up of all of the standard Boron Nitride tools. Sneak to use shovel flattening.");
+        addTooltip(HARD_CARBON_SPAXELHOE, "A universal tool made up of all of the standard Hard Carbon tools. Sneak to use shovel flattening.");
+        addTooltip(TOUGH_SPAXELHOE, "A universal tool made up of all of the standard Tough tools. Sneak to use shovel flattening.");
 
         fuelTypeItems(AMERICIUM_MAP, "Americium-");
         fuelTypeItems(BERKELIUM_MAP, "Berkelium-");
@@ -1252,6 +1247,10 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void addTooltip(DeferredBlock<Block> block, String string) {
         add(block.asItem().getDescriptionId() + ".desc", string);
+    }
+
+    private void addTooltip(DeferredItem<Item> item, String string) {
+        add(item.asItem().getDescriptionId() + ".desc", string);
     }
 
     private void damage_types() {
@@ -1871,6 +1870,12 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void simpleItem(DeferredItem<Item> item) {
         add(item.asItem(), capitalize(item.getId().getPath()));
+    }
+
+    @SafeVarargs
+    private void simpleItems(DeferredItem<Item>... items) {
+        for (DeferredItem<Item> item : items)
+            add(item.asItem(), capitalize(item.getId().getPath()));
     }
 
     private void simpleItems(List<String> list, HashMap<String, DeferredItem<Item>> map, String append) {

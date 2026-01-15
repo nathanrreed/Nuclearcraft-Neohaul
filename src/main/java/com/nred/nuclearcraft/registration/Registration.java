@@ -26,6 +26,7 @@ public class Registration {
         SoundRegistration.init();
         AttachmentRegistration.init();
         ArmorMaterialRegistration.init();
+        ToolMaterialRegistration.init();
         DataComponentRegistration.init();
     }
 
