@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.block_entity;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
+import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
 import it.zerono.mods.zerocore.lib.data.nbt.INestedSyncableEntity;
 import it.zerono.mods.zerocore.lib.data.nbt.ISyncableEntity;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockController;
@@ -17,16 +19,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblockController<MULTIBLOCK>> extends AbstractCuboidMultiblockPart<MULTIBLOCK> implements ITile, INestedSyncableEntity {
     private boolean isRedstonePowered = false, alternateComparator = false, redstoneControl = false;
 
-//	private final IRadiationSource radiation; TODO
+    private final IRadiationSource radiation;
 
     public TilePartAbstract(final BlockEntityType<?> type, final BlockPos position, final BlockState blockState) {
         super(type, position, blockState);
-//		radiation = new RadiationSource(0D);
+        radiation = new RadiationSource(0D);
     }
 
     @Override
@@ -84,10 +87,9 @@ public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblo
         return getBlockState().getBlock();
     }
 
-//	@Override
-//	public IRadiationSource getRadiationSource() {
-//		return radiation;
-//	}
+    public IRadiationSource getRadiationSource() {
+        return radiation;
+    }
 
     public boolean isUseableByPlayer(Player entityplayer) {
         if (level.getBlockEntity(worldPosition) != this) {
@@ -159,7 +161,7 @@ public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblo
     }
 
     public CompoundTag writeRadiation(CompoundTag nbt, HolderLookup.Provider registries) {
-//		nbt.putDouble("radiationLevel", getRadiationSource().getRadiationLevel()); TODO
+        nbt.putDouble("radiationLevel", getRadiationSource().getRadiationLevel());
         return nbt;
     }
 
@@ -180,7 +182,7 @@ public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblo
 
     public void readRadiation(CompoundTag nbt, HolderLookup.Provider registries) {
         if (nbt.contains("radiationLevel")) {
-//			getRadiationSource().setRadiationLevel(nbt.getDouble("radiationLevel")); TODO
+            getRadiationSource().setRadiationLevel(nbt.getDouble("radiationLevel"));
         }
     }
 
@@ -194,5 +196,13 @@ public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblo
     @Override
     public Optional<ISyncableEntity> getNestedSyncableEntity() { // TODO find out if this should be here
         return this.getMultiblockController().map(c -> c);
+    }
+
+    public @Nullable IRadiationSource getMultiblockRadiationSource() {
+        return isMultiblockSaveDelegate() && isConnected() ? getMultiblockRadiationSourceInternal() : null;
+    }
+
+    protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
+        return null;
     }
 }

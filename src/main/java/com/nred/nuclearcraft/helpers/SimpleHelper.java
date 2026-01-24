@@ -1,13 +1,8 @@
 package com.nred.nuclearcraft.helpers;
 
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static java.lang.Math.max;
 

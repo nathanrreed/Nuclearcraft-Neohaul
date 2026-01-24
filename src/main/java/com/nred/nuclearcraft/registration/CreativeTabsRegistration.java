@@ -64,13 +64,9 @@ public class CreativeTabsRegistration {
                 output.accept(WASTELAND_EARTH);
                 output.accept(WASTELAND_PORTAL);
                 output.accept(GEIGER_COUNTER);
-                output.accept(LIGHT_RADIATION_SHIELDING);
-                output.accept(MEDIUM_RADIATION_SHIELDING);
-                output.accept(HEAVY_RADIATION_SHIELDING);
+                output.acceptAll(itemStackValues(LIGHT_RADIATION_SHIELDING, MEDIUM_RADIATION_SHIELDING, HEAVY_RADIATION_SHIELDING));
                 output.accept(RADIATION_BADGE);
-                output.accept(RADAWAY);
-                output.accept(RADAWAY_SLOW);
-                output.accept(RAD_X);
+                output.acceptAll(itemStackValues(RADAWAY, RADAWAY_SLOW, RAD_X));
                 output.acceptAll(itemStackValues(HAZMAT_HELMET, HAZMAT_CHESTPLATE, HAZMAT_LEGGINGS, HAZMAT_BOOTS));
             }).build());
 

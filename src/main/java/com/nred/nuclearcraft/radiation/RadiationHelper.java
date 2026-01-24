@@ -1,5 +1,7 @@
 package com.nred.nuclearcraft.radiation;
 
+import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.dummy.TileDummy;
 import com.nred.nuclearcraft.block_entity.radiation.ITileRadiationEnvironment;
 import com.nred.nuclearcraft.capability.radiation.IRadiation;
 import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
@@ -22,13 +24,14 @@ import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.neoforged.neoforge.capabilities.BaseCapability;
-import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.attachment.AttachmentHolder;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -52,32 +55,39 @@ public class RadiationHelper {
     }
 
     public static IRadiationSource getRadiationSource(ChunkAccess chunk) {
-        return chunk.getData(RADIATION_SOURCE.get());
+        return chunk.getData(RADIATION_SOURCE);
     }
 
-    public static IRadiationResistance getRadiationResistance(ICapabilityProvider<BaseCapability<IRadiationResistance, Direction>, @Nullable Object, @Nullable IRadiationResistance> provider) {
-        return provider.getCapability(CAPABILITY_RADIATION_RESISTANCE, null);
+    public static IRadiationSource getRadiationSource(AttachmentHolder attachmentHolder) {
+        return attachmentHolder.getData(RADIATION_SOURCE);
     }
 
+    public static IRadiationResistance getRadiationResistance(BlockEntity blockEntity) {
+        return blockEntity.getLevel().getCapability(CAPABILITY_RADIATION_RESISTANCE, blockEntity.getBlockPos(), null);
+    }
 
-    public static boolean hasInfiniteRadiationResistance(ICapabilityProvider provider) {
-        IRadiationResistance resistance = getRadiationResistance(provider);
+    public static IRadiationResistance getRadiationResistance(ItemStack itemStack) {
+        return itemStack.get(RADIATION_RESISTANCE_ITEM);
+    }
+
+    public static boolean hasInfiniteRadiationResistance(BlockEntity blockEntity) {
+        IRadiationResistance resistance = getRadiationResistance(blockEntity);
         return resistance != null && resistance.getTotalRadResistance() == Double.POSITIVE_INFINITY;
     }
 
-//    public static IItemHandler getTileInventory(ICapabilityProvider provider, Direction side) { TODO
-//        if (!(provider instanceof BlockEntity) || provider instanceof TileDummy || hasInfiniteRadiationResistance(provider) || !provider.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side)) {
-//            return null;
-//        }
-//        return provider.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
-//    }
-//
-//    public static IFluidHandler getTileTanks(ICapabilityProvider provider, Direction side) {
-//        if (!(provider instanceof BlockEntity) || provider instanceof TileDummy || hasInfiniteRadiationResistance(provider) || !provider.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side)) {
-//            return null;
-//        }
-//        return provider.getCapability(Capabilities.FLUID_HANDLER_CAPABILITY, side);
-//    }
+    public static IItemHandler getTileInventory(BlockEntity blockEntity, Direction side) {
+        if (!(blockEntity instanceof BlockEntity entity) || blockEntity instanceof TileDummy || hasInfiniteRadiationResistance(blockEntity)) {
+            return null;
+        }
+        return entity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, entity.getBlockPos(), side);
+    }
+
+    public static IFluidHandler getTileTanks(BlockEntity blockEntity, Direction side) {
+        if (!(blockEntity instanceof BlockEntity entity) || blockEntity instanceof TileDummy || hasInfiniteRadiationResistance(blockEntity)) {
+            return null;
+        }
+        return entity.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, entity.getBlockPos(), side);
+    }
 
     // Radiation Level Modification
 
@@ -144,77 +154,95 @@ public class RadiationHelper {
 
     // Source -> ChunkBuffer
 
-    public static void transferRadiationFromProviderToChunkBuffer(ICapabilityProvider provider, Direction side, IRadiationSource chunkSource) {
+    public static void transferRadiationFromProviderToChunkBuffer(BlockEntity blockEntity, Direction side, IRadiationSource chunkSource) {
         if (chunkSource == null) {
             return;
         }
 
-//        double rawRadiation = 0D;
-//        if (radiation_hardcore_containers > 0D) {
-//            IItemHandler inventory = getTileInventory(provider, side);
-//            if (inventory != null) {
-//                for (int i = 0; i < inventory.getSlots(); ++i) {
-//                    ItemStack stack = inventory.getStackInSlot(i);
-//                    rawRadiation += getRadiationFromStack(stack, radiation_hardcore_containers);
-//                }
-//            }
-//
-//            IFluidHandler tanks = getTileTanks(provider, side);
-//            if (tanks != null) {
-//                IFluidTankProperties[] props = tanks.getTankProperties();
-//                if (props != null) {
-//                    for (IFluidTankProperties prop : props) {
-//                        FluidStack stack = prop.getContents();
-//                        rawRadiation += getRadiationFromFluid(stack, radiation_hardcore_containers);
-//                    }
-//                }
-//            }
-//        }
-//
-//        IRadiationSource radiationSource = getRadiationSource(provider);
-//        if (radiationSource != null) {
-//            rawRadiation += radiationSource.getRadiationLevel();
-//        }
-//
-//        if (provider instanceof ITileMultiblockPart<?, ?> part) {
-//            IRadiationSource multiblockSource = part.getMultiblockRadiationSource();
-//            if (multiblockSource != null) {
-//                rawRadiation += multiblockSource.getRadiationLevel();
-//            }
-//        }
-//
-//        double resistance = 0D;
-//        IRadiationResistance providerResistance = getRadiationResistance(provider);
-//        if (providerResistance != null) {
-//            resistance = providerResistance.getTotalRadResistance();
-//        }
-//
-//        double radiation = rawRadiation <= 0D ? 0D : NCMath.sq(rawRadiation) / (rawRadiation + resistance);
-//        addToSourceBuffer(chunkSource, radiation);
+        double rawRadiation = 0D;
+        if (radiation_hardcore_containers > 0D) {
+            IItemHandler inventory = getTileInventory(blockEntity, side);
+            if (inventory != null) {
+                for (int i = 0; i < inventory.getSlots(); ++i) {
+                    ItemStack stack = inventory.getStackInSlot(i);
+                    rawRadiation += getRadiationFromStack(stack, radiation_hardcore_containers);
+                }
+            }
+
+            IFluidHandler tanks = getTileTanks(blockEntity, side);
+            if (tanks != null) {
+                for (int i = 0; i < tanks.getTanks(); i++) {
+                    FluidStack stack = tanks.getFluidInTank(i);
+                    rawRadiation += getRadiationFromFluid(stack, radiation_hardcore_containers);
+                }
+            }
+        }
+
+        IRadiationSource radiationSource = getRadiationSource(blockEntity);
+        if (radiationSource != null) {
+            rawRadiation += radiationSource.getRadiationLevel();
+        }
+
+        if (blockEntity instanceof TilePartAbstract<?> part) {
+            IRadiationSource multiblockSource = part.getMultiblockRadiationSource();
+            if (multiblockSource != null) {
+                rawRadiation += multiblockSource.getRadiationLevel();
+            }
+        }
+
+        double resistance = 0D;
+        IRadiationResistance providerResistance = getRadiationResistance(blockEntity);
+        if (providerResistance != null) {
+            resistance = providerResistance.getTotalRadResistance();
+        }
+
+        double radiation = rawRadiation <= 0D ? 0D : NCMath.sq(rawRadiation) / (rawRadiation + resistance);
+        addToSourceBuffer(chunkSource, radiation);
     }
 
-//    // Inventory -> ChunkBuffer TODO
-//
-//    public static void transferRadsFromInventoryToChunkBuffer(Inventory inventory, IRadiationSource chunkSource) {
-//        if (!radiation_hardcore_stacks) {
-//            return;
-//        }
-//        for (ItemStack stack : inventory.items) {
-//            if (!stack.isEmpty()) {
-//                transferRadiationFromProviderToChunkBuffer(stack, null, chunkSource);
-//            }
-//        }
-//        for (ItemStack stack : inventory.armour) {
-//            if (!stack.isEmpty()) {
-//                transferRadiationFromProviderToChunkBuffer(stack, null, chunkSource);
-//            }
-//        }
-//        for (ItemStack stack : inventory.offhand) {
-//            if (!stack.isEmpty()) {
-//                transferRadiationFromProviderToChunkBuffer(stack, null, chunkSource);
-//            }
-//        }
-//    }
+    public static void transferRadiationFromProviderToChunkBuffer(ItemStack itemStack, Direction side, IRadiationSource chunkSource) {
+        if (chunkSource == null) {
+            return;
+        }
+
+        double rawRadiation = 0D;
+        IRadiationSource radiationSource = getRadiationSource(itemStack);
+        if (radiationSource != null) {
+            rawRadiation += radiationSource.getRadiationLevel();
+        }
+
+        double resistance = 0D;
+        IRadiationResistance providerResistance = getRadiationResistance(itemStack);
+        if (providerResistance != null) {
+            resistance = providerResistance.getTotalRadResistance();
+        }
+
+        double radiation = rawRadiation <= 0D ? 0D : NCMath.sq(rawRadiation) / (rawRadiation + resistance);
+        addToSourceBuffer(chunkSource, radiation);
+    }
+
+    // Inventory -> ChunkBuffer
+
+    public static void transferRadsFromInventoryToChunkBuffer(Inventory inventory, IRadiationSource chunkSource) {
+        if (!radiation_hardcore_stacks) {
+            return;
+        }
+        for (ItemStack stack : inventory.items) {
+            if (!stack.isEmpty()) {
+                transferRadiationFromProviderToChunkBuffer(stack, null, chunkSource);
+            }
+        }
+        for (ItemStack stack : inventory.armor) {
+            if (!stack.isEmpty()) {
+                transferRadiationFromProviderToChunkBuffer(stack, null, chunkSource);
+            }
+        }
+        for (ItemStack stack : inventory.offhand) {
+            if (!stack.isEmpty()) {
+                transferRadiationFromProviderToChunkBuffer(stack, null, chunkSource);
+            }
+        }
+    }
 
     // Chunk Set Previous Radiation and Spread
 

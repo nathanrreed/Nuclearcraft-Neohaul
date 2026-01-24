@@ -41,6 +41,8 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.RADIATION_SCR
 import static com.nred.nuclearcraft.registration.CapabilityRegistration.CAPABILITY_ENTITY_RADS;
 import static com.nred.nuclearcraft.registration.ItemRegistration.GEIGER_COUNTER;
 
+// TODO default place for the bar overlaps with the offhand box
+
 @OnlyIn(Dist.CLIENT)
 public class RadiationRenders {
     private static final ResourceLocation RADS_BAR = ncLoc("hud/" + "rads_bar");

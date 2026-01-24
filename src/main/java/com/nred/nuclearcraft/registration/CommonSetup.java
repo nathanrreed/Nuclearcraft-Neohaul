@@ -116,6 +116,8 @@ public class CommonSetup {
                     builder.set(RADIATION_RESISTANCE_ITEM.get(), new RadiationResistanceItem(RadArmor.ARMOR_RAD_RESISTANCE_MAP.get(RecipeHelper.pack(item))))
             );
         }
+
+        // TODO add armour values here from config
     }
 
     @SubscribeEvent

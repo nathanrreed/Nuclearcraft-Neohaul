@@ -24,7 +24,7 @@ import static net.neoforged.neoforge.common.NeoForgeMod.enableMilkFluid;
 @Mod(NuclearcraftNeohaul.MODID)
 public class NuclearcraftNeohaul {
     public static final String MODID = "nuclearcraftneohaul";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final BlockHighlightTracker blockOverlayTracker = new BlockHighlightTracker();
     public static final NCRecipes recipes = new NCRecipes();

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
-import net.minecraft.world.item.crafting.RecipeType;
+import com.nred.nuclearcraft.radiation.RadBiomes;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -31,5 +31,12 @@ public class SeverSetup {
                     .add(LootItem.lootTableItem(MUSIC_DISC_MAP.get("music_disc_hyperspace")).setWeight(15))
                     .build());
         }
+    }
+
+    @SubscribeEvent
+    public static void serverStart(ServerStartingEvent event) {
+        RadBiomes.init(event.getServer());
+
+//        CommandHandler.registerCommands(event); // TODO
     }
 }

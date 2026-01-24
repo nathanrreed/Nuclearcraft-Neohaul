@@ -7,7 +7,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 
-public class FourPos {
+public class FourPos { // TODO is this just net.minecraft.core.GlobalPos
 	private final BlockPos pos;
 	private final ResourceKey<Level> dim;
 	

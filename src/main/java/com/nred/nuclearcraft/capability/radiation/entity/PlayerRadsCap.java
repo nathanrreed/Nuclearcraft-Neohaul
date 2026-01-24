@@ -32,7 +32,6 @@ public class PlayerRadsCap implements IEntityRads {
     @Override
     public double getRadiationLevel() {
         return entity.getData(PLAYER_RADIATION).getRadiationLevel();
-
     }
 
     @Override

@@ -14,7 +14,6 @@ import org.joml.Matrix4f;
 import java.util.List;
 
 public class GuiHelper {
-
     public static List<Float> colorToFloat(int color) {
         return List.of(FastColor.ARGB32.red(color) / 255.0f, FastColor.ARGB32.green(color) / 255.0f, FastColor.ARGB32.blue(color) / 255.0f, FastColor.ARGB32.alpha(color) / 255.0f);
     }

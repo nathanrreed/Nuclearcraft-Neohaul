@@ -18,7 +18,6 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public interface ITileManagerListener<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>, MANAGER extends ITileManager<MULTIBLOCK, LOGIC, MANAGER, LISTENER>, LISTENER extends ITileManagerListener<MULTIBLOCK, LOGIC, MANAGER, LISTENER>> extends ITileLogicMultiblockPart<MULTIBLOCK, LOGIC> {
-
     BlockPos getManagerPos();
 
     void setManagerPos(BlockPos pos);

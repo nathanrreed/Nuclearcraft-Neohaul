@@ -212,7 +212,7 @@ public class CapabilityRegistration {
     private static void radiation_capabilities(RegisterCapabilitiesEvent event) {
         event.registerEntity(CAPABILITY_ENTITY_RADS, EntityType.PLAYER, (entity, _void) -> new PlayerRadsCap(entity));
 
-        for (Item item : BuiltInRegistries.ITEM) {
+        for (Item item : BuiltInRegistries.ITEM) { // TODO should this be replaced with a DataComponent?
             event.registerItem(ITEM_CAPABILITY_RADIATION_SOURCE, (itemStack, _void) -> new RadiationSource(RadSources.STACK_MAP.get(RecipeHelper.pack(item))), item);
         }
 

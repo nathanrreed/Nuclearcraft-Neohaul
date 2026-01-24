@@ -13,6 +13,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
@@ -174,7 +175,7 @@ public class NCConfig {
     public static String[] radiation_structures; // Mineshaft, Village, Fortress, Stronghold, Temple, Monument, EndCity, Mansion
     public static String[] radiation_dim_limits;
     public static String[] radiation_biome_limits;
-    public static int[] radiation_from_biomes_dims_blacklist;
+    public static String[] radiation_from_biomes_dims_blacklist;
 
     public static String[] radiation_ores;
     public static String[] radiation_items;
@@ -406,7 +407,7 @@ public class NCConfig {
         radiation_structures = syncStrings(RADIATION_STRUCTURES, LIST);
         radiation_dim_limits = syncStrings(RADIATION_DIM_LIMITS, LIST);
         radiation_biome_limits = syncStrings(RADIATION_BIOME_LIMITS, LIST);
-        radiation_from_biomes_dims_blacklist = syncInts(RADIATION_FROM_BIOMES_DIMS_BLACKLIST, LIST);
+        radiation_from_biomes_dims_blacklist = syncStrings(RADIATION_FROM_BIOMES_DIMS_BLACKLIST, LIST);
 
         radiation_ores = syncStrings(RADIATION_ORES, LIST);
         radiation_items = syncStrings(RADIATION_ITEMS, LIST);
@@ -631,7 +632,7 @@ public class NCConfig {
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_STRUCTURES = addString(CATEGORY_RADIATION, "radiation_structures", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIM_LIMITS = addString(CATEGORY_RADIATION, "radiation_level_limits", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOME_LIMITS = addString(CATEGORY_RADIATION, "radiation_biome_limits", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RADIATION_FROM_BIOMES_DIMS_BLACKLIST = add(CATEGORY_RADIATION, "radiation_from_biomes_dims_blacklist", List.of(144), Integer.MIN_VALUE, Integer.MAX_VALUE, LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FROM_BIOMES_DIMS_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_from_biomes_dims_blacklist", List.of(), e -> e instanceof String && ResourceLocation.tryParse((String) e) != null, LIST);
 
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES = addString(CATEGORY_RADIATION, "radiation_ores", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ITEMS = addString(CATEGORY_RADIATION, "radiation_items", List.of(), LIST);
@@ -777,7 +778,11 @@ public class NCConfig {
     }
 
     public static ModConfigSpec.ConfigValue<List<? extends String>> addString(String category, String name, List<String> defaultValue, boolean fixedArray) {
-        return BUILDER.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> "", e -> e instanceof String);
+        return addString(category, name, defaultValue, e -> e instanceof String, fixedArray);
+    }
+
+    public static ModConfigSpec.ConfigValue<List<? extends String>> addString(String category, String name, List<String> defaultValue, Predicate<Object> validator, boolean fixedArray) {
+        return BUILDER.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> "", validator);
     }
 
     public static ModConfigSpec.ConfigValue<List<? extends Double>> add(String category, String name, List<Double> defaultValue, double minValue, double maxValue, boolean fixedArray) {

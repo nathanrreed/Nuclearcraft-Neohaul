@@ -6,6 +6,8 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.processor.AbstractProcessorElement;
 import com.nred.nuclearcraft.block_entity.machine.IMachineController;
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
+import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
@@ -44,7 +46,7 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Machine, MachineLogic>, IPacketMultiblock<Machine, MachineUpdatePacket> {
     protected IMachineController<?> controller;
 
-//	public final IRadiationSource radiation = new RadiationSource(0D); TODO
+    public final IRadiationSource radiation = new RadiationSource(0D);
 
     public @Nonnull EnergyStorage energyStorage = new EnergyStorage(1);
 
@@ -189,7 +191,7 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
 
         public void process() {
             energyStorage.changeEnergyStored(logic.isGenerator() ? logic.getProcessPower() : -logic.getProcessPower());
-//			radiation.setRadiationLevel(baseProcessRadiation * getSpeedMultiplier()); TODO
+            radiation.setRadiationLevel(baseProcessRadiation * getSpeedMultiplier());
             super.process(getWorld());
             productionCount = 0;
         }
@@ -202,7 +204,7 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
 
         @Override
         public boolean onIdle(boolean wasProcessing) {
-//			radiation.setRadiationLevel(0D); TODO
+            radiation.setRadiationLevel(0D);
             return super.onIdle(wasProcessing);
         }
 

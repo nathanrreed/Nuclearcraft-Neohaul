@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block_entity.machine;
 
 import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.multiblock.machine.IMachinePartType;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartTypeProvider;
@@ -11,6 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
 
 public abstract class AbstractMachineEntity extends TilePartAbstract<Machine> implements IMultiblockPartTypeProvider<Machine, IMachinePartType>, IMachinePart {
     public AbstractMachineEntity(final BlockEntityType<?> type, final BlockPos position, final BlockState blockState) {
@@ -28,11 +31,11 @@ public abstract class AbstractMachineEntity extends TilePartAbstract<Machine> im
         return new Machine(this.getLevel());
     }
 
-//    @Override TODO
-//    protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
-//        Machine machine = getMultiblock();
-//        return machine == null ? null : machine.radiation;
-//    }
+    @Override
+    protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
+        Machine machine = getMultiblockController().orElse(null);
+        return machine == null ? null : machine.radiation;
+    }
 
     public boolean isTransparent() {
         return false;

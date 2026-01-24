@@ -111,7 +111,7 @@ public class RadSources {
     }
 
     static {
-        for (TagKey<Item> tag : List.of(Tags.Items.INGOTS, Tags.Items.DUSTS, Tags.Items.GEMS)) {
+        for (TagKey<Item> tag : List.of(Tags.Items.INGOTS, Tags.Items.DUSTS, Tags.Items.GEMS, Tags.Items.RAW_MATERIALS)) {
             addMaterialPrefixMultiplier(tag, 1.0);
         }
         for (TagKey<Item> tag : List.of(Tags.Items.NUGGETS)) {
@@ -123,7 +123,7 @@ public class RadSources {
         for (TagKey<Item> tag : List.of(Tags.Items.RODS)) {
             addMaterialPrefixMultiplier(tag, 1D / 2.0);
         }
-        for (TagKey<Item> tag : List.of(Tags.Items.STORAGE_BLOCKS, Tags.Items.RAW_MATERIALS)) {
+        for (TagKey<Item> tag : List.of(Tags.Items.STORAGE_BLOCKS)) {
             addMaterialPrefixMultiplier(tag, 9.0);
         }
     }
@@ -354,6 +354,7 @@ public class RadSources {
             for (Object2DoubleMap.Entry<TagKey<Item>> entry : PREFIX_MULTIPLIER_MAP.object2DoubleEntrySet()) {
                 addToTagMap(tag(entry.getKey(), name), radiation * entry.getDoubleValue());
             }
+            addToTagMap(ItemTags.create(Tags.Items.STORAGE_BLOCKS.location().withSuffix("raw_" + name)), radiation * 9.0);
         }
     }
 

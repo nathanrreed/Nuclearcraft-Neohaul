@@ -11,7 +11,7 @@ import static com.nred.nuclearcraft.config.NCConfig.max_entity_rads;
 public class RadEntities {
     public static final Object2DoubleMap<Class<? extends Entity>> MAX_RADS_MAP = new Object2DoubleOpenHashMap<>();
 
-    public static void init() { // TODO call
+    public static void init() {
         for (String entityInfo : max_entity_rads) {
             int scorePos = entityInfo.lastIndexOf('_');
             if (scorePos == -1) {

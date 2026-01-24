@@ -1641,7 +1641,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.radiation_biome_limits", "Biome Radiation Limit");
         add(MODID + ".configuration.radiation_biome_limits.tooltip", "List of biomes and their radiation level limits. These values stack with the underlying world's background radiation. Format: 'modid:biomeName_radiationLimit'.");
         add(MODID + ".configuration.radiation_from_biomes_dims_blacklist", "Biome Radiation Dimension Blacklist");
-        add(MODID + ".configuration.radiation_from_biomes_dims_blacklist.tooltip", "List of IDs of dimensions to blacklist for biome background radiation.");
+        add(MODID + ".configuration.radiation_from_biomes_dims_blacklist.tooltip", "List of dimensions to blacklist for biome background radiation. Format: 'modid:biomeName'.");
 
         add(MODID + ".configuration.radiation_ores", "Ore Stack Radiation");
         add(MODID + ".configuration.radiation_ores.tooltip", "List of ore dict entries and their stack radiation levels. Can be used to overwrite default values. Can use Unix-style wildcards for the ore name. Format: 'oreName_radiationLevel'.");

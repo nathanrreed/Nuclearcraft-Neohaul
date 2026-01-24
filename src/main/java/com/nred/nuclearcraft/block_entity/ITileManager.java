@@ -22,7 +22,6 @@ import java.util.Optional;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 public interface ITileManager<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>, MANAGER extends ITileManager<MULTIBLOCK, LOGIC, MANAGER, LISTENER>, LISTENER extends ITileManagerListener<MULTIBLOCK, LOGIC, MANAGER, LISTENER>> extends ITileLogicMultiblockPart<MULTIBLOCK, LOGIC> {
-
     LongSet getListenerPosSet();
 
     boolean getRefreshListenersFlag();
