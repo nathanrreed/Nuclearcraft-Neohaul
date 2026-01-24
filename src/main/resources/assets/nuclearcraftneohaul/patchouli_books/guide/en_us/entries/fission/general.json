@@ -1,6 +1,6 @@
 {
     "name": "General Info",
-    "icon": "nuclearcraftneohaul:fission_reactor_casing",
+    "icon": "nuclearcraftneohaul:solid_fuel_fission_controller",
     "category": "nuclearcraftneohaul:fission",
     "sortnum": 0,
     "pages": [

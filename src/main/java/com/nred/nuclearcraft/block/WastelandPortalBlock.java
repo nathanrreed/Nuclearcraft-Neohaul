@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -26,7 +28,7 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.worldgen.dimension.NCDimensions.WASTELAND_LEVEL_KEY;
 
-public class WastelandPortal extends Block implements Portal {
+public class WastelandPortalBlock extends Block implements Portal {
     public static final MapCodec<EndPortalBlock> CODEC = simpleCodec(EndPortalBlock::new);
 
     @Override
@@ -34,7 +36,7 @@ public class WastelandPortal extends Block implements Portal {
         return CODEC;
     }
 
-    public WastelandPortal() {
+    public WastelandPortalBlock() {
         super(BlockBehaviour.Properties.of().strength(-1, 6000000F).noCollission().noLootTable().randomTicks().pushReaction(PushReaction.BLOCK));
     }
 
@@ -59,26 +61,43 @@ public class WastelandPortal extends Block implements Portal {
     }
 
     @Override
-    public @Nullable DimensionTransition getPortalDestination(ServerLevel level, Entity entity, BlockPos pos) {
-        ResourceKey<Level> resourcekey = level.dimension() == WASTELAND_LEVEL_KEY ? Level.OVERWORLD : WASTELAND_LEVEL_KEY;
-        ServerLevel serverlevel = level.getServer().getLevel(resourcekey);
-        if (serverlevel == null) {
+    public @Nullable DimensionTransition getPortalDestination(ServerLevel currentLevel, Entity entity, BlockPos portalEntryPos) {
+        ResourceKey<Level> resourcekey = currentLevel.dimension() == WASTELAND_LEVEL_KEY ? Level.OVERWORLD : WASTELAND_LEVEL_KEY;
+        ServerLevel newLevel = currentLevel.getServer().getLevel(resourcekey);
+        if (newLevel == null) {
             return null;
         } else {
-            boolean flag = serverlevel.dimension() == WASTELAND_LEVEL_KEY;
-            WorldBorder worldborder = serverlevel.getWorldBorder();
-            double d0 = DimensionType.getTeleportationScale(level.dimensionType(), serverlevel.dimensionType());
-            BlockPos blockpos = worldborder.clampToBounds(entity.getX() * d0, entity.getY(), entity.getZ() * d0);
+            WorldBorder worldborder = newLevel.getWorldBorder();
+            double teleportationScale = DimensionType.getTeleportationScale(currentLevel.dimensionType(), newLevel.dimensionType());
+            BlockPos.MutableBlockPos columnPos = worldborder.clampToBounds(entity.getX() * teleportationScale, entity.getY(), entity.getZ() * teleportationScale).mutable();
 
-            // TODO add original code for better locating portal
+            int maxPlaceableY = Math.min(newLevel.getMaxBuildHeight(), newLevel.getMinBuildHeight() + newLevel.getLogicalHeight() - 1);
+            int height = Math.min(maxPlaceableY, newLevel.getHeight(Heightmap.Types.MOTION_BLOCKING, columnPos.getX(), columnPos.getZ()));
+
+            while (this.canPortalReplaceBlock(columnPos.below(), newLevel)) {
+                height--;
+                columnPos.setY(height);
+            }
+
+            for (int y = height; y < newLevel.getMaxBuildHeight(); y++) { // Finds the first open space above the land
+                columnPos.setY(y);
+                if (this.canPortalReplaceBlock(columnPos, newLevel) && this.canPortalReplaceBlock(columnPos.relative(Direction.UP), newLevel)) {
+                    break;
+                }
+            }
 
             return new DimensionTransition(
-                    serverlevel,
-                    blockpos.getCenter(),
+                    newLevel,
+                    columnPos.getCenter(),
                     entity.getDeltaMovement(),
                     entity.getYRot(),
                     entity.getXRot(),
                     DimensionTransition.PLAY_PORTAL_SOUND.then(DimensionTransition.PLACE_PORTAL_TICKET));
         }
+    }
+
+    private boolean canPortalReplaceBlock(BlockPos pos, Level level) {
+        BlockState blockState = level.getBlockState(pos);
+        return blockState.canBeReplaced() && blockState.getFluidState().isEmpty();
     }
 }

@@ -17,7 +17,7 @@ import static com.nred.nuclearcraft.config.NCConfig.*;
 public class RadBiomes {
     public static final Object2DoubleMap<Biome> RAD_MAP = new Object2DoubleOpenHashMap<>();
     public static final Object2DoubleMap<Biome> LIMIT_MAP = new Object2DoubleOpenHashMap<>();
-    public static final HashSet<Biome> DIM_BLACKLIST = new HashSet<>();
+    public static final HashSet<ResourceLocation> DIM_BLACKLIST = new HashSet<>();
 
     public static void init(MinecraftServer server) {
         HolderGetter.Provider provider = server.getLevel(Level.OVERWORLD).registryAccess().asGetterLookup();
@@ -38,7 +38,7 @@ public class RadBiomes {
         }
 
         for (String dim : radiation_from_biomes_dims_blacklist) {
-            provider.get(Registries.BIOME, ResourceKey.create(Registries.BIOME, ResourceLocation.parse(dim))).ifPresent(biome -> DIM_BLACKLIST.add(biome.value()));
+            provider.get(Registries.DIMENSION, ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(dim))).ifPresent(dimension -> DIM_BLACKLIST.add(dimension.key().location()));
         }
     }
 }

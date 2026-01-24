@@ -1254,18 +1254,18 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void damage_types() {
-        add(MODID + ".death.attack.superfluid_freeze", "%swas Bose-Einstein condensated");
-        add(MODID + ".death.attack.plasma_burn", "%s was incinerated by plasma");
-        add(MODID + ".death.attack.gas_burn", "%s was excruciatingly vaporized");
-        add(MODID + ".death.attack.steam_burn", "%s would have fared better in a kettle");
-        add(MODID + ".death.attack.molten_burn", "%s went to hell but didn't come back");
-        add(MODID + ".death.attack.corium_burn", "%s decided to follow the fate of their fission reactor");
-        add(MODID + ".death.attack.hot_coolant_burn", "%s cooled off at the wrong time and place");
-        add(MODID + ".death.attack.acid_burn", "%s turned out to be far too alkaline");
-        add(MODID + ".death.attack.fluid_burn", "%s was effectively pan-fried");
-        add(MODID + ".death.attack.hypothermia", "%s died as a result of extreme hypothermia");
-        add(MODID + ".death.attack.fission_burn", "%s was fried by a fission reactor");
-        add(MODID + ".death.attack.fatal_rads", "%s died due to fatal radiation poisoning");
+        add("death.attack.superfluid_freeze", "%swas Bose-Einstein condensated");
+        add("death.attack.plasma_burn", "%s was incinerated by plasma");
+        add("death.attack.gas_burn", "%s was excruciatingly vaporized");
+        add("death.attack.steam_burn", "%s would have fared better in a kettle");
+        add("death.attack.molten_burn", "%s went to hell but didn't come back");
+        add("death.attack.corium_burn", "%s decided to follow the fate of their fission reactor");
+        add("death.attack.hot_coolant_burn", "%s cooled off at the wrong time and place");
+        add("death.attack.acid_burn", "%s turned out to be far too alkaline");
+        add("death.attack.fluid_burn", "%s was effectively pan-fried");
+        add("death.attack.hypothermia", "%s died as a result of extreme hypothermia");
+        add("death.attack.fission_burn", "%s was fried by a fission reactor");
+        add("death.attack.fatal_rads", "%s died due to fatal radiation poisoning");
     }
 
     private void menus() {

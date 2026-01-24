@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.NCInfo;
 import com.nred.nuclearcraft.block.GlowingMushroomBlock;
 import com.nred.nuclearcraft.block.SolidifiedCorium;
 import com.nred.nuclearcraft.block.SupercoldIceBlock;
-import com.nred.nuclearcraft.block.WastelandPortal;
+import com.nred.nuclearcraft.block.WastelandPortalBlock;
 import com.nred.nuclearcraft.block.battery.BlockBattery;
 import com.nred.nuclearcraft.block.item.NCItemBlock;
 import com.nred.nuclearcraft.block.item.energy.ItemBlockBattery;
@@ -105,7 +105,7 @@ public class BlockRegistration {
     public static final DeferredBlock<Block> DECAY_GENERATOR = registerBlockItem("decay_generator", () -> new BlockSimpleTile<>("decay_generator"));
 
     public static final DeferredBlock<Block> WASTELAND_EARTH = registerBlockItem("wasteland_earth", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DIRT)));
-    public static final DeferredBlock<Block> WASTELAND_PORTAL = registerBlockItem("wasteland_portal", WastelandPortal::new);
+    public static final DeferredBlock<Block> WASTELAND_PORTAL = registerBlockItem("wasteland_portal", WastelandPortalBlock::new);
     public static final DeferredBlock<Block> GLOWING_MUSHROOM_BLOCK = registerBlockItem("glowing_mushroom_block", () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).mapColor(MapColor.COLOR_YELLOW).lightLevel(blockState -> 2)));
     public static final DeferredBlock<Block> GLOWING_MUSHROOM_STEM_BLOCK = registerBlockItem("glowing_mushroom_stem_block", () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUSHROOM_STEM).lightLevel(blockState -> 2)));
     public static final DeferredBlock<Block> GLOWING_MUSHROOM = registerBlockItem("glowing_mushroom", () -> new GlowingMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).mapColor(MapColor.COLOR_YELLOW)));

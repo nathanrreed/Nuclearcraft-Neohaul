@@ -1,17 +1,17 @@
 {
     "name": "Spaxehoe",
-    "icon": "nuclearcraftneohaul:spaxelhoe_boron",
+    "icon": "nuclearcraftneohaul:boron_spaxelhoe",
     "category": "nuclearcraftneohaul:items",
     "sortnum": 0,
     "pages": [
         {
             "anchor": "spaxelhoe",
-            "type": "todo",
+            "type": "items/4",
             "header": "Spaxelhoe",
-            "item1": "nuclearcraftneohaul:spaxelhoe_boron",
-            "item2": "nuclearcraftneohaul:spaxelhoe_tough",
-            "item3": "nuclearcraftneohaul:spaxelhoe_hard_carbon",
-            "item4": "nuclearcraftneohaul:spaxelhoe_boron_nitride",
+            "item1": "nuclearcraftneohaul:boron_spaxelhoe",
+            "item2": "nuclearcraftneohaul:tough_spaxelhoe",
+            "item3": "nuclearcraftneohaul:hard_carbon_spaxelhoe",
+            "item4": "nuclearcraftneohaul:boron_nitride_spaxelhoe",
             "text": "The $(item)Spaxelhoe$() is every tool condensed into one. It has the function of an axe, a sword, a shovel, a hoe, and a pickaxe."
         }
     ]

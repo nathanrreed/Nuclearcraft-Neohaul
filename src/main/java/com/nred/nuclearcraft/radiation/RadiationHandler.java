@@ -1,7 +1,6 @@
 package com.nred.nuclearcraft.radiation;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block_entity.radiation.ITileRadiationEnvironment;
 import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
@@ -229,7 +228,6 @@ public class RadiationHandler {
         if (!radiation_enabled_public) {
             return;
         }
-        NuclearcraftNeohaul.LOGGER.debug("??");
 
         if (!(event.getLevel() instanceof ServerLevel level)) {
             return;
@@ -335,23 +333,21 @@ public class RadiationHandler {
                 }
             }
 
-            if (RadDimensions.RAD_MAP.containsKey(dimension)) {
-                RadiationHelper.addToSourceBuffer(chunkSource, RadDimensions.RAD_MAP.get(dimension));
+            if (RadDimensions.RAD_MAP.containsKey(dimension.location())) {
+                RadiationHelper.addToSourceBuffer(chunkSource, RadDimensions.RAD_MAP.get(dimension.location()));
             }
 
             Biome biome = getBiome(loadedChunk, randomOffsetPos, biomeProvider);
-            if (biome != null && !RadBiomes.DIM_BLACKLIST.contains(dimension)) {
-                Double biomeRadiation = RadBiomes.RAD_MAP.get(biome);
-                if (biomeRadiation != null) {
-                    RadiationHelper.addToSourceBuffer(chunkSource, biomeRadiation);
+            if (biome != null && !RadBiomes.DIM_BLACKLIST.contains(dimension.location())) {
+                if (RadBiomes.RAD_MAP.containsKey(biome)) {
+                    RadiationHelper.addToSourceBuffer(chunkSource, RadBiomes.RAD_MAP.getDouble(biome));
                 }
             }
 
             BlockPos randomChunkPos = newRandomPosInChunk(level, loadedChunk);
             if (randomStructure != null && StructureHelper.CACHE.isInStructure(level, randomStructure, randomChunkPos)) {
-                Double structureRadiation = RadStructures.RAD_MAP.get(randomStructure);
-                if (structureRadiation != null) {
-                    RadiationHelper.addToSourceBuffer(chunkSource, structureRadiation);
+                if (RadStructures.RAD_MAP.containsKey(randomStructure)) {
+                    RadiationHelper.addToSourceBuffer(chunkSource, RadStructures.RAD_MAP.getDouble(randomStructure));
                 }
             }
 
@@ -386,10 +382,10 @@ public class RadiationHandler {
                 newLevel = Math.min(newLevel, radiation_chunk_limit);
             }
             if (biome != null && RadBiomes.LIMIT_MAP.containsKey(biome)) {
-                newLevel = Math.min(newLevel, RadBiomes.LIMIT_MAP.get(biome));
+                newLevel = Math.min(newLevel, RadBiomes.LIMIT_MAP.getDouble(biome));
             }
-            if (RadDimensions.LIMIT_MAP.containsKey(dimension)) {
-                newLevel = Math.min(newLevel, RadDimensions.LIMIT_MAP.get(dimension));
+            if (RadDimensions.LIMIT_MAP.containsKey(dimension.location())) {
+                newLevel = Math.min(newLevel, RadDimensions.LIMIT_MAP.get(dimension.location()));
             }
 
             chunkSource.setRadiationLevel(newLevel);

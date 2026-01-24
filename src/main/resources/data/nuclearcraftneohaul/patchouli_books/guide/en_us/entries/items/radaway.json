@@ -6,7 +6,7 @@
     "pages": [
         {
             "anchor": "radaway",
-            "type": "todo",
+            "type": "items/2",
             "header": "Radaway",
             "item1": "nuclearcraftneohaul:radaway",
             "item2": "nuclearcraftneohaul:radaway_slow",
