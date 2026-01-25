@@ -25,13 +25,13 @@ public class EmiRadiationScrubberRecipe extends RecipeViewerRecipe {
         super(EMI_RADIATION_SCRUBBER_CATEGORY, id);
         this.recipe = recipe;
 
-        if (!recipe.getItemIngredients().isEmpty())
+        if (!recipe.getItemIngredient().isEmpty())
             this.inputs.add(EmiIngredient.of(recipe.getItemIngredient().ingredient(), recipe.getItemIngredient().count()));
-        if (!recipe.getFluidIngredients().isEmpty())
+        if (!recipe.getFluidIngredient().isEmpty())
             this.inputs.add(NeoForgeEmiIngredient.of(recipe.getFluidIngredient().sized()));
-        if (!recipe.getItemProducts().isEmpty())
+        if (!recipe.getItemProduct().isEmpty())
             this.outputs.add(EmiStack.of(recipe.getItemProduct().getStack()));
-        if (!recipe.getFluidProducts().isEmpty())
+        if (!recipe.getFluidProduct().isEmpty())
             this.outputs.add(NeoForgeEmiStack.of(recipe.getFluidProduct().getStack()));
     }
 
