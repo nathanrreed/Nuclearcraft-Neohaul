@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.item.*;
 import com.nred.nuclearcraft.item.armour.HazmatSuitItem;
 import com.nred.nuclearcraft.item.curios.GeigerCounterItem;
 import com.nred.nuclearcraft.item.curios.RadiationBadgeItem;
+import com.nred.nuclearcraft.item.energy.BatteryItem;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -49,7 +50,7 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> MUSIC_DISC_MAP = createMusicDiscs();
     public static final DeferredItem<Item> PORTABLE_ENDER_CHEST = ITEMS.register("portable_ender_chest", () -> new PortableEnderChest(new Properties().stacksTo(1)));
     public static final DeferredItem<Item> FOURSMORE = ITEMS.register("foursmore", () -> new FoodItem(48, 8.6F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 1200), newEffect(MobEffects.DIG_SPEED, 2, 1200), newEffect(MobEffects.ABSORPTION, 2, 1200))));
-    public static final DeferredItem<Item> LITHIUM_ION_CELL = ITEMS.register("lithium_ion_cell", () -> new LithiumIonCell(new Properties()));
+    public static final DeferredItem<Item> LITHIUM_ION_CELL = ITEMS.register("lithium_ion_cell", () -> new BatteryItem(new Properties(), () -> battery_item_capacity[0], () -> battery_item_max_transfer[0]));
     public static final DeferredItem<Item> MULTITOOL = ITEMS.register("multitool", () -> new MultitoolItem(new Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> GEIGER_COUNTER = ITEMS.register("geiger_counter", GeigerCounterItem::new);

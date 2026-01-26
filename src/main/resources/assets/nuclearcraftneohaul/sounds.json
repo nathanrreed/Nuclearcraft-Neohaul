@@ -23,6 +23,13 @@
 		"subtitle": "nuclearcraftneohaul.sound.entity.feral_ghoul_charge",
 		"sounds": [ { "name": "nuclearcraftneohaul:entity/feral_ghoul_charge", "stream": false } ]
 	},
+	"entity.feral_ghoul_ambient": {
+		"subtitle": "nuclearcraftneohaul.sound.entity.feral_ghoul_ambient",
+		"sounds": [
+			{ "name": "nuclearcraftneohaul:entity/feral_ghoul_ambient1", "stream": false },
+			{ "name": "nuclearcraftneohaul:entity/feral_ghoul_ambient2", "stream": false }
+		]
+	},
 	"player.chems_wear_off": {
 		"subtitle": "nuclearcraftneohaul.sound.player.chems_wear_off",
 		"sounds": [ { "name": "nuclearcraftneohaul:player/chems_wear_off", "stream": false } ]

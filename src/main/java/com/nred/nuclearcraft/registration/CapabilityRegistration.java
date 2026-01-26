@@ -20,11 +20,12 @@ import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
 import com.nred.nuclearcraft.capability.radiation.entity.PlayerRadsCap;
 import com.nred.nuclearcraft.capability.radiation.resistance.IRadiationResistance;
 import com.nred.nuclearcraft.capability.radiation.sink.IRadiationSink;
+import com.nred.nuclearcraft.capability.radiation.sink.RadiationSinkItemCap;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.compat.curios.RegisterCurios;
-import com.nred.nuclearcraft.item.EnergyItem;
+import com.nred.nuclearcraft.item.energy.EnergyItem;
 import com.nred.nuclearcraft.radiation.RadSources;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.ModCheck;
@@ -50,6 +51,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CELL;
+import static com.nred.nuclearcraft.registration.ItemRegistration.RADIATION_BADGE;
 
 @EventBusSubscriber(modid = MODID)
 public class CapabilityRegistration {
@@ -209,6 +211,7 @@ public class CapabilityRegistration {
         }
     }
 
+    // TODO check all these
     private static void radiation_capabilities(RegisterCapabilitiesEvent event) {
         event.registerEntity(CAPABILITY_ENTITY_RADS, EntityType.PLAYER, (entity, _void) -> new PlayerRadsCap(entity));
 
@@ -216,13 +219,15 @@ public class CapabilityRegistration {
             event.registerItem(ITEM_CAPABILITY_RADIATION_SOURCE, (itemStack, _void) -> new RadiationSource(RadSources.STACK_MAP.get(RecipeHelper.pack(item))), item);
         }
 
+        event.registerItem(ITEM_CAPABILITY_RADIATION_SINK, (itemStack, _void) -> new RadiationSinkItemCap(itemStack, 0), RADIATION_BADGE);
+
         for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
             event.registerEntity(CAPABILITY_ENTITY_RADS, entityType, (entity, _void) -> (entity instanceof LivingEntity living && !(entity instanceof Player)) ? new EntityRadsCap(living) : null);
         }
     }
 
     private static void items(RegisterCapabilitiesEvent event) {
-        event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, context) -> new EnergyStorage(((EnergyItem) stack.getItem()).capacity.get(), ((EnergyItem) stack.getItem()).rate.get(), ((EnergyItem) stack.getItem()).rate.get(), stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("energy")) {
+        event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, context) -> new EnergyStorage(((EnergyItem) stack.getItem()).capacity.get(), ((EnergyItem) stack.getItem()).maxTransfer.get(), ((EnergyItem) stack.getItem()).maxTransfer.get(), stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("energy")) {
             @Override
             public int receiveEnergy(int toReceive, boolean simulate) {
                 int rtn = super.receiveEnergy(toReceive, simulate);

@@ -298,7 +298,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".info.fission_fuel.decay_factor", "Decay Factor: %s");
         add(MODID + ".info.fission_fuel.self_priming", "Self-priming!");
 
-        add(MODID + ".radiation_badge.exposure", "Your Radiation Badge has been exposed to");
+        add(MODID + ".radiation_badge.exposure", "Your Radiation Badge has been exposed to %s");
         add(MODID + ".radiation_badge.broken", "Your Radiation Badge disintegrated...");
         add(MODID + ".radiation_badge", "Informs the player of how irradiated they have been while being worn on every %s of radiation detected, up to a maximum of %s.");
 
@@ -1216,6 +1216,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".tooltip.energy_stored", "Energy Stored: %s");
         add(MODID + ".tooltip.process_time", "Base Process Time: %s");
+        add(MODID + ".tooltip.base_process_radiation", "Base Process Radiation: %s");
         add(MODID + ".tooltip.process_power", "Base Process Power: %s");
         add(MODID + ".tooltip.no_energy", "Does not require energy!");
 
@@ -1355,6 +1356,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".sound.entity.feral_ghoul_death", "Feral Ghoul Death");
         add(MODID + ".sound.entity.feral_ghoul_charge", "Feral Ghoul Charge");
+        add(MODID + ".sound.entity.feral_ghoul_ambient", "Feral Ghoul groans");
     }
 
     private void config() {
@@ -1419,7 +1421,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.battery_item_max_transfer", "Battery Item Transfer Rates");
         add(MODID + ".configuration.battery_item_max_transfer.tooltip", "Maximum RF transferable per tick. Order: Lithium Ion Cell.");
 
-        add(MODID + ".configuration.machine", "Large Machine Configs"); // TODO check if need after adding machines
+        add(MODID + ".configuration.machine", "Large Machine Configs");
         add(MODID + ".configuration.machine.tooltip", "Configure large machines.");
 
         add(MODID + ".configuration.machine_min_size", "Minimum Structure Length");

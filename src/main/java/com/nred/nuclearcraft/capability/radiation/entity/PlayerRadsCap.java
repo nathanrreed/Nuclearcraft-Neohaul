@@ -26,7 +26,6 @@ public class PlayerRadsCap implements IEntityRads {
     @Override
     public double getMaxRads() {
         return entity.getData(PLAYER_RADIATION).getMaxRads();
-
     }
 
     @Override
@@ -44,7 +43,6 @@ public class PlayerRadsCap implements IEntityRads {
     @Override
     public double getInternalRadiationResistance() {
         return entity.getData(PLAYER_RADIATION).getInternalRadiationResistance();
-
     }
 
     @Override

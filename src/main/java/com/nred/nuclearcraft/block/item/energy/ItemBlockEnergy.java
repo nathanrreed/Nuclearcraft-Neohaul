@@ -20,7 +20,6 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 public class ItemBlockEnergy extends NCItemBlock implements IChargableItem {
-
     private final Supplier<Integer> capacity;
     private final Supplier<Integer> maxTransfer;
     private final EnergyConnection energyConnection;

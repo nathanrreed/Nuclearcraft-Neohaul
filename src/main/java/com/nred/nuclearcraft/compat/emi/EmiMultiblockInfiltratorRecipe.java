@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.compat.emi.part.RecipeViewerRecipe;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -41,10 +42,10 @@ public class EmiMultiblockInfiltratorRecipe extends RecipeViewerRecipe {
             list.add(Component.translatable(MODID + ".recipe_viewer.infiltrator_heating_factor", Component.literal(NCMath.pcDecimalPlaces(heatingBonus, 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.RED));
         }
 
-//        double radiation = recipe.getBaseProcessRadiation(); TODO
-//        if (radiation > 0D) {
-//            list.add(Component.translatable(MODID + ".tooltip.base_process_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
-//        }
+        double radiation = recipe.getBaseProcessRadiation();
+        if (radiation > 0D) {
+            list.add(Component.translatable(MODID + ".tooltip.base_process_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+        }
 
         return list;
     }

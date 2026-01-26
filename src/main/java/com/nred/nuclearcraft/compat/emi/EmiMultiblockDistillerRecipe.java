@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.compat.emi.part.RecipeViewerRecipe;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -37,10 +38,10 @@ public class EmiMultiblockDistillerRecipe extends RecipeViewerRecipe {
         list.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(recipe.getBaseProcessPower(machine_distiller_power), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
         list.add(Component.translatable(MODID + ".recipe_viewer.distiller_sieve_tray_count", Component.literal(recipe.getDistillerSieveTrayCount() + "").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
 
-//        double radiation = recipe.getBaseProcessRadiation(); TODO
-//        if (radiation > 0D) {
-//            list.add(Component.translatable(MODID + ".tooltip.base_process_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
-//        }
+        double radiation = recipe.getBaseProcessRadiation();
+        if (radiation > 0D) {
+            list.add(Component.translatable(MODID + ".tooltip.base_process_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+        }
 
         return list;
     }

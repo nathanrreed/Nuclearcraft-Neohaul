@@ -1,12 +1,16 @@
 package com.nred.nuclearcraft.fluid;
 
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.config.NCConfig;
+import com.nred.nuclearcraft.radiation.RadSources;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
@@ -25,13 +29,13 @@ public abstract class CoriumFluid extends NCSourceFluid {
 
     @Override
     protected void randomTick(Level level, BlockPos pos, FluidState state, RandomSource random) {
-//        Chunk chunk = world.getChunk(pos); TODO add radiation
-//        if (chunk.isLoaded()) {
-//            IRadiationSource chunkSource = RadiationHelper.getRadiationSource(chunk);
-//            if (chunkSource != null) {
-//                RadiationHelper.addToSourceRadiation(chunkSource, RadSources.CORIUM * getQuantaValue(world, pos));
-//            }
-//        }
+        ChunkAccess chunk = level.getChunk(pos);
+        if (chunk.isUnsaved()) {
+            IRadiationSource chunkSource = RadiationHelper.getRadiationSource(chunk);
+            if (chunkSource != null) {
+                RadiationHelper.addToSourceRadiation(chunkSource, RadSources.CORIUM * getAmount(state));
+            }
+        }
 
         super.randomTick(level, pos, state, random);
 

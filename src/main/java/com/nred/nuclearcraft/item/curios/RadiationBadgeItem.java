@@ -6,6 +6,8 @@ import com.nred.nuclearcraft.item.TooltipItem;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.CommonColors;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +44,16 @@ public class RadiationBadgeItem extends TooltipItem {
         if (badge == null) {
             return 0;
         }
-        return Mth.ceil(Mth.clamp(badge.getRadiationLevel() / radiation_badge_durability, 0D, 1D) * 13f);
+        return 13 - Mth.ceil(Mth.clamp(badge.getRadiationLevel() / radiation_badge_durability, 0D, 1D) * 13f);
+    }
+
+    @Override
+    public int getBarColor(ItemStack stack) {
+        IRadiationSink badge = stack.getCapability(ITEM_CAPABILITY_RADIATION_SINK, null);
+        if (badge == null) {
+            return CommonColors.RED;
+        }
+        return FastColor.ARGB32.lerp((float) Mth.clamp(badge.getRadiationLevel() / radiation_badge_durability, 0D, 1D), ChatFormatting.GREEN.getColor(), ChatFormatting.RED.getColor());
     }
 
     public static void updateBadge(ItemStack stack, Player player) {
@@ -63,7 +74,7 @@ public class RadiationBadgeItem extends TooltipItem {
             }
             stack.shrink(1);
         } else if (!level.isClientSide() && infoCount != Mth.floor(badge.getRadiationLevel() / (radiation_badge_info_rate * radiation_badge_durability))) {
-            player.sendSystemMessage(Component.translatable(MODID + ".radiation_badge.exposure", UnitHelper.prefix(badge.getRadiationLevel(), 3, "Rad")).withStyle(ChatFormatting.ITALIC));
+            player.sendSystemMessage(Component.translatable(MODID + ".radiation_badge.exposure", UnitHelper.prefix(Mth.floor(badge.getRadiationLevel()), 3, "Rad")).withStyle(ChatFormatting.ITALIC));
         }
     }
 }

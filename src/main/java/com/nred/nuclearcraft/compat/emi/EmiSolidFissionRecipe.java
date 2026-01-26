@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.compat.emi.part.RecipeViewerRecipe;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -42,10 +43,12 @@ public class EmiSolidFissionRecipe extends RecipeViewerRecipe {
         if (recipe.getFissionFuelSelfPriming()) {
             list.add(Component.translatable(MODID + ".info.fission_fuel.self_priming").withStyle(ChatFormatting.DARK_AQUA));
         }
-//        double radiation = getFissionFuelRadiation();  TODO add radiation
-//        if (radiation > 0D) {
-//            list.add(Component.translatable(MODID + ".recipe_viewer.fission_fuel.radiation_per_flux", RadiationHelper.radsColoredPrefix(radiation, true))).withStyle(ChatFormatting.GOLD);
-//        }
+
+        double radiation = recipe.getFissionFuelRadiation();
+        if (radiation > 0D) {
+            list.add(Component.translatable(MODID + ".recipe_viewer.radiation_per_flux", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+        }
+
         return list;
     }
 

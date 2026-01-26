@@ -1,6 +1,9 @@
 package com.nred.nuclearcraft.entity;
 
+import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
+import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.entity.ai.FeralGhoulLeapGoal;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -76,7 +79,7 @@ public class FeralGhoul extends Zombie {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundEvents.HUSK_AMBIENT;
+        return feral_ghoul_ambient.get();
     }
 
     @Override
@@ -91,7 +94,7 @@ public class FeralGhoul extends Zombie {
 
     @Override
     protected SoundEvent getStepSound() {
-        return SoundEvents.HUSK_STEP;
+        return SoundEvents.HUSK_STEP; // Uses generic footstep
     }
 
     @Override
@@ -131,15 +134,13 @@ public class FeralGhoul extends Zombie {
             int mult = NCMath.toInt(30F * Mth.clamp(level().getCurrentDifficultyAt(this.getOnPos()).getEffectiveDifficulty(), 1F, 2.5F));
             target.addEffect(new MobEffectInstance(MobEffects.POISON, mult));
 
-//            IEntityRads entityRads = RadiationHelper.getEntityRadiation(target); TODO
-//            if (entityRads != null) {
-//                double attackRadiation = NCConfig.radiation_feral_ghoul_attack * mult;
-//                entityRads.setPoisonBuffer(entityRads.getPoisonBuffer() + attackRadiation);
-//                entityRads.setRecentPoisonAddition(attackRadiation);
-//                playSound(rad_poisoning.get(), (float) (1.35D * radiation_sound_volumes[7]), 1F + 0.2F * (random.nextFloat() - random.nextFloat()));
-//            }
-
-            playSound(rad_poisoning.get(), (float) (1.35D * radiation_sound_volumes[7]), 1F + 0.2F * (random.nextFloat() - random.nextFloat())); // TODO REMOVE after radiation added
+            IEntityRads entityRads = RadiationHelper.getEntityRadiation(target);
+            if (entityRads != null) {
+                double attackRadiation = NCConfig.radiation_feral_ghoul_attack * mult;
+                entityRads.setPoisonBuffer(entityRads.getPoisonBuffer() + attackRadiation);
+                entityRads.setRecentPoisonAddition(attackRadiation);
+                playSound(rad_poisoning.get(), (float) (1.35D * radiation_sound_volumes[7]), 1F + 0.2F * (random.nextFloat() - random.nextFloat()));
+            }
         }
 
         return flag;

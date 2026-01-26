@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.compat.emi.part.RecipeViewerRecipe;
 import com.nred.nuclearcraft.compat.emi.part.TankWithAmount;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.recipe.machine.ElectrolyzerElectrolyteRecipe;
 import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
 import com.nred.nuclearcraft.util.NCMath;
@@ -85,10 +86,10 @@ public class EmiMultiblockElectrolyzerRecipe extends RecipeViewerRecipe {
         list.add(Component.translatable(MODID + ".tooltip.process_time", Component.literal(UnitHelper.applyTimeUnitShort(recipe.getBaseProcessTime(machine_electrolyzer_time), 3)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
         list.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(recipe.getBaseProcessPower(machine_electrolyzer_power), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
 
-//        double radiation = recipe.getBaseProcessRadiation(); TODO
-//        if (radiation > 0D) {
-//            list.add(Component.translatable(MODID + ".tooltip.base_process_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
-//        }
+        double radiation = recipe.getBaseProcessRadiation();
+        if (radiation > 0D) {
+            list.add(Component.translatable(MODID + ".tooltip.base_process_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+        }
 
         return list;
     }

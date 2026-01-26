@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.compat.emi.part.RecipeViewerRecipe;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -33,10 +34,10 @@ public class EmiDecayGeneratorRecipe extends RecipeViewerRecipe {
         list.add(Component.translatable(MODID + ".recipe_viewer.decay_gen_power", Component.literal(UnitHelper.prefix(recipe.getDecayGeneratorPower(), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
 
 
-//        double radiation = recipe.getBaseProcessRadiation(); TODO
-//        if (radiation > 0D) {
-//            list.add(Component.translatable(MODID + ".tooltip.decay_gen_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
-//        }
+        double radiation = recipe.getDecayGeneratorRadiation();
+        if (radiation > 0D) {
+            list.add(Component.translatable(MODID + ".recipe_viewer.decay_gen_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+        }
 
         return list;
     }

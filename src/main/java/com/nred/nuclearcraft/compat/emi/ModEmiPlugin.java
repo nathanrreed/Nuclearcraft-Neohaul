@@ -20,6 +20,7 @@ import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.neoforge.NeoForgeEmiIngredient;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.recipe.EmiWorldInteractionRecipe;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -143,7 +144,7 @@ public class ModEmiPlugin implements EmiPlugin {
 
                 @Override
                 public List<Slot> getCraftingSlots(AbstractContainerMenu handler) {
-                    return handler.slots; //TODO
+                    return handler.slots;
                 }
 
                 @Override
@@ -319,7 +320,7 @@ public class ModEmiPlugin implements EmiPlugin {
             registry.addRecipe(new EmiTurbineRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value().getTurbinePowerPerMB(), recipe.value().getTurbineExpansionLevel(), recipe.value().getTurbineSpinUpMultiplier()));
         }
 
-        //  TODO add corium registry.addRecipe(EmiWorldInteractionRecipe.builder()..build());
+        registry.addRecipe(EmiWorldInteractionRecipe.builder().rightInput(EmiStack.of(CUSTOM_FLUID_MAP.get("corium").still.get(), 1000), false).leftInput(EmiStack.EMPTY).output(EmiStack.of(SOLIDIFIED_CORIUM.get())).build());
     }
 
     public static EmiIngredient getEmiFluidIngredient(SizedChanceFluidIngredient fluidIngredient) {

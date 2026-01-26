@@ -269,7 +269,6 @@ public class RadiationHandler {
                 continue;
             }
 
-
             List<Entity> entityListArray = level.getEntities(null, new AABB(chunk.getPos().getMinBlockX(), loadedChunk.getMinBuildHeight(), chunk.getPos().getMinBlockZ(), chunk.getPos().getMaxBlockX(), loadedChunk.getMaxBuildHeight(), chunk.getPos().getMaxBlockZ()));
             for (Entity entity : entityListArray) {
                 if (entity instanceof Player player) {

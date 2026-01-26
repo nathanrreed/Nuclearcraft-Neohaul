@@ -1,6 +1,8 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.compat.emi.part.RecipeViewerRecipe;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
+import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.recipe.fission.FissionIrradiatorRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -49,11 +51,10 @@ public class EmiFissionIrradiatorRecipe extends RecipeViewerRecipe {
                 list.add(Component.translatable(MODID + ".recipe_viewer.irradiator_valid_flux_range", Component.literal(minFluxPerTick + " - " + maxFluxPerTick + " N/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.RED));
             }
         }
-//        double radiation = getIrradiatorBaseProcessRadiation() / RecipeStats.getFissionMaxModeratorLineFlux(); TODO add radiation
-//        if (radiation > 0D) {
-//            tooltip.add(TextFormatting.GOLD + RADIATION_PER_FLUX + " " + RadiationHelper.getRadiationTextColor(radiation) + UnitHelper.prefix(radiation, 3, "Rad/N"));
-//            list.add(Component.translatable(MODID + ".recipe_viewer.radiation_per_flux", Component.literal(RadiationHelper.getRadiationTextColor(radiation) + UnitHelper.prefix(radiation, 3, "Rad/N")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GOLD));
-//        }
+        double radiation = recipe.getIrradiatorBaseProcessRadiation() / RecipeStats.getFissionMaxModeratorLineFlux();
+        if (radiation > 0D) {
+            list.add(Component.translatable(MODID + ".recipe_viewer.radiation_per_flux", Component.literal(RadiationHelper.getRadiationTextColor(radiation) + UnitHelper.prefix(radiation, 3, "Rad/N")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GOLD));
+        }
         return list;
     }
 

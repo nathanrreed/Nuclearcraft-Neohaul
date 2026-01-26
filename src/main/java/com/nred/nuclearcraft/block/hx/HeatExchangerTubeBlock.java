@@ -159,7 +159,7 @@ public class HeatExchangerTubeBlock<Controller extends IMultiblockController<Con
     );
 
     @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { // TODO add caching
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { // TODO add caching?
         if (state.getBlock() != this) {
             return super.getShape(state, level, pos, context);
         }

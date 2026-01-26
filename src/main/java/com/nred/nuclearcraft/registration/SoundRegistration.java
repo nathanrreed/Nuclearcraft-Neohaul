@@ -30,8 +30,6 @@ public class SoundRegistration {
     public static final Supplier<SoundEvent> HYPERSPACE = SOUND_EVENTS.register("music_disc.hyperspace", SoundEvent::createVariableRangeEvent);
     public static final ResourceKey<JukeboxSong> HYPERSPACE_KEY = createSong("hyperspace");
 
-    public static final Supplier<SoundEvent> RAD_POISONING = SOUND_EVENTS.register("rad_poisoning", SoundEvent::createVariableRangeEvent);
-
     public static final Supplier<SoundEvent> distiller_run = SOUND_EVENTS.register("block.distiller_run", SoundEvent::createVariableRangeEvent);
     public static final Supplier<SoundEvent> electrolyzer_run = SOUND_EVENTS.register("block.electrolyzer_run", SoundEvent::createVariableRangeEvent);
     public static final Supplier<SoundEvent> fusion_run = SOUND_EVENTS.register("block.fusion_run", SoundEvent::createVariableRangeEvent);
@@ -46,6 +44,7 @@ public class SoundRegistration {
 
     public static final Supplier<SoundEvent> feral_ghoul_death = SOUND_EVENTS.register("entity.feral_ghoul_death", SoundEvent::createVariableRangeEvent);
     public static final Supplier<SoundEvent> feral_ghoul_charge = SOUND_EVENTS.register("entity.feral_ghoul_charge", SoundEvent::createVariableRangeEvent);
+    public static final Supplier<SoundEvent> feral_ghoul_ambient = SOUND_EVENTS.register("entity.feral_ghoul_ambient", SoundEvent::createVariableRangeEvent);
 
     public static ResourceKey<JukeboxSong> createSong(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(MODID, name));

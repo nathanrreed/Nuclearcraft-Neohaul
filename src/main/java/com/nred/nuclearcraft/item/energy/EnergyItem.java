@@ -1,6 +1,7 @@
-package com.nred.nuclearcraft.item;
+package com.nred.nuclearcraft.item.energy;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -16,14 +17,16 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
 
-public class EnergyItem extends Item {
+public class EnergyItem extends Item implements IChargableItem {
     public final Supplier<Integer> capacity;
-    public final Supplier<Integer> rate;
+    public final Supplier<Integer> maxTransfer;
+    private final EnergyConnection energyConnection;
 
-    public EnergyItem(Properties properties, Supplier<Integer> capacity, Supplier<Integer> rate) {
+    public EnergyItem(Properties properties, Supplier<Integer> capacity, Supplier<Integer> maxTransfer, EnergyConnection energyConnection) {
         super(properties);
         this.capacity = capacity;
-        this.rate = rate;
+        this.maxTransfer = maxTransfer;
+        this.energyConnection = energyConnection;
     }
 
     @Override
@@ -57,5 +60,30 @@ public class EnergyItem extends Item {
         }
 
         tooltipComponents.add(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.energy_stored", getFEString(tag.getInt("energy")), getFEString(capacity.get())).withStyle(ChatFormatting.LIGHT_PURPLE));
+    }
+
+    @Override
+    public long getMaxEnergyStored(ItemStack stack) {
+        return capacity.get();
+    }
+
+    @Override
+    public int getMaxTransfer(ItemStack stack) {
+        return maxTransfer.get();
+    }
+
+    @Override
+    public boolean canReceive(ItemStack stack) {
+        return energyConnection.canReceive();
+    }
+
+    @Override
+    public boolean canExtract(ItemStack stack) {
+        return energyConnection.canExtract();
+    }
+
+    @Override
+    public EnergyConnection getEnergyConnection(ItemStack stack) {
+        return energyConnection;
     }
 }
