@@ -115,11 +115,6 @@ dependencies {
     runtimeOnly("vazkii.patchouli:Patchouli:${patchouli_version}-NEOFORGE")
 
     compileOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
-    jarJar(implementation("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api") { // Is this how it should be done?
-        version {
-            prefer "${mekanism_version}"
-        }
-    })
 
     runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")// Mekanism
     runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")// Mekanism: Additions

@@ -75,7 +75,7 @@ public class NCRecipes {
         putHandler(new IngotFormerRecipes());
         putHandler(new PressurizerRecipes());
         putHandler(new ChemicalReactorRecipes());
-        putHandler(new SaltMixerRecipes());
+        putHandler(new FluidMixerRecipes());
         putHandler(new CrystallizerRecipes());
         putHandler(new EnricherRecipes());
         putHandler(new ExtractorRecipes());
@@ -133,7 +133,7 @@ public class NCRecipes {
     public static IngotFormerRecipes ingot_former;
     public static PressurizerRecipes pressurizer;
     public static ChemicalReactorRecipes chemical_reactor;
-    public static SaltMixerRecipes salt_mixer;
+    public static FluidMixerRecipes salt_mixer;
     public static CrystallizerRecipes crystallizer;
     public static EnricherRecipes enricher;
     public static ExtractorRecipes extractor;
@@ -438,13 +438,13 @@ public class NCRecipes {
 
     public static class EnricherRecipes extends BasicProcessorRecipeHandler {
         public EnricherRecipes() {
-            super("enricher", 1, 1, 0, 1);
+            super("fluid_enricher", 1, 1, 0, 1);
         }
     }
 
     public static class ExtractorRecipes extends BasicProcessorRecipeHandler {
         public ExtractorRecipes() {
-            super("extractor", 1, 0, 1, 1);
+            super("fluid_extractor", 1, 0, 1, 1);
         }
     }
 
@@ -456,7 +456,7 @@ public class NCRecipes {
 
     public static class InfuserRecipes extends BasicProcessorRecipeHandler {
         public InfuserRecipes() {
-            super("infuser", 1, 1, 1, 0);
+            super("fluid_infuser", 1, 1, 1, 0);
         }
     }
 
@@ -490,9 +490,9 @@ public class NCRecipes {
         }
     }
 
-    public static class SaltMixerRecipes extends BasicProcessorRecipeHandler {
-        public SaltMixerRecipes() {
-            super("salt_mixer", 0, 2, 0, 1);
+    public static class FluidMixerRecipes extends BasicProcessorRecipeHandler {
+        public FluidMixerRecipes() {
+            super("fluid_mixer", 0, 2, 0, 1);
         }
     }
 

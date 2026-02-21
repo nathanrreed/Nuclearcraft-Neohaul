@@ -56,7 +56,12 @@ public class TileInfoHandler {
     public static void preInit() {
         registerBlockTileInfo(new BlockSimpleTileInfo<>("machine_interface", MachineInterfaceEntity.class, MachineInterfaceEntity::new));
         registerBlockTileInfo(new BlockSimpleTileInfo<>("decay_generator", DecayGeneratorEntity.class, DecayGeneratorEntity::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("bin", UniversalBinEntity.class, UniversalBinEntity::new));
+
+        if (ModCheck.mekanismLoaded()) {
+            registerBlockTileInfo(new BlockSimpleTileInfo<>("bin", com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity.class, com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity::new));
+        } else {
+            registerBlockTileInfo(new BlockSimpleTileInfo<>("bin", UniversalBinEntity.class, UniversalBinEntity::new));
+        }
 
         registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_basic", TileSolarPanel.Basic.class, TileSolarPanel.Basic::new));
         registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_advanced", TileSolarPanel.Advanced.class, TileSolarPanel.Advanced::new));

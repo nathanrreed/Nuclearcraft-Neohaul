@@ -4,5 +4,4 @@
 - JEI / EMI standardization / automation
 - Renaming and Cleanup
 - Make Nuclear Wasteland generate better
-- See if JarJar is required for Mekanism
 - Look into armour trim

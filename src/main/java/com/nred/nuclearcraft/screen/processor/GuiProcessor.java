@@ -124,7 +124,7 @@ public abstract class GuiProcessor<MENU extends InfoTileMenu<TILE, PACKET, INFO>
     protected void drawBars(GuiGraphics guiGraphics) {
         drawProgressBar(guiGraphics);
 
-        if (tile.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, tile.getBlockPos(), null) != null) {
+        if (tile.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, tile.getBlockPos(), null) != null && info.getDefaultProcessPower() != 0) {
             drawEnergyBar(guiGraphics);
         }
     }

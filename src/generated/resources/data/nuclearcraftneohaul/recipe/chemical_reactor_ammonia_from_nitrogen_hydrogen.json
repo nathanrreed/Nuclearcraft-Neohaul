@@ -4,13 +4,13 @@
     {
       "amount": 250,
       "ingredient": {
-        "fluid": "nuclearcraftneohaul:nitrogen"
+        "tag": "c:nitrogen"
       }
     },
     {
       "amount": 750,
       "ingredient": {
-        "fluid": "nuclearcraftneohaul:hydrogen"
+        "tag": "c:hydrogen"
       }
     }
   ],

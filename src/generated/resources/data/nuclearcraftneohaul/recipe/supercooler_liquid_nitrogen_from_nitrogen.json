@@ -4,7 +4,7 @@
     {
       "amount": 8000,
       "ingredient": {
-        "fluid": "nuclearcraftneohaul:nitrogen"
+        "tag": "c:nitrogen"
       }
     }
   ],

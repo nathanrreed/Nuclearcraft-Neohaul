@@ -108,6 +108,7 @@ public class StackHelper {
 //	public static ItemStack getBucket(String fluidName) {
 //		return getBucket(new FluidStack(FluidRegistry.getFluid(fluidName), FluidType.BUCKET_VOLUME));
 //	}
+
     public static ItemStack getBucket(@Nonnull FluidStack fluidStack) {
         return FluidUtil.getFilledBucket(fluidStack);
     }

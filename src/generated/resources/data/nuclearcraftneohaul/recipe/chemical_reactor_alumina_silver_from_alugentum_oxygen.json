@@ -10,7 +10,7 @@
     {
       "amount": 3000,
       "ingredient": {
-        "fluid": "nuclearcraftneohaul:oxygen"
+        "tag": "c:oxygen"
       }
     }
   ],

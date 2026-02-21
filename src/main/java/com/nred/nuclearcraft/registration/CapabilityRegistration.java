@@ -25,15 +25,14 @@ import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.compat.curios.RegisterCurios;
+import com.nred.nuclearcraft.compat.mekanism.MekanismCapabilities;
 import com.nred.nuclearcraft.item.energy.EnergyItem;
 import com.nred.nuclearcraft.radiation.RadSources;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.ModCheck;
-import mekanism.api.chemical.IChemicalHandler;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -178,36 +177,7 @@ public class CapabilityRegistration {
         }
 
         if (ModCheck.mekanismLoaded() && enable_mek_gas) {
-            // Mekanism Chemical Capabilities
-            BlockCapability.getAllProxyable().stream().filter(a -> a.name().equals(ResourceLocation.parse("mekanism:chemical_handler"))).findFirst().ifPresent(c -> {
-                BlockCapability<IChemicalHandler, Direction> CHEMICAL = (BlockCapability<IChemicalHandler, Direction>) c;
-
-                // Turbine
-                event.registerBlockEntity(CHEMICAL, TURBINE_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((TurbineInletEntity) entity).getChemicalCapability(direction));
-                event.registerBlockEntity(CHEMICAL, TURBINE_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((TurbineOutletEntity) entity).getChemicalCapability(direction));
-                // Fission
-                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("cooler").get(), (entity, direction) -> ((FissionCoolerEntity) entity).getChemicalCapability(direction));
-                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("coolant_heater").get(), (entity, direction) -> ((SaltFissionHeaterEntity) entity).getChemicalCapability(direction));
-                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vent").get(), (entity, direction) -> ((FissionVentEntity) entity).getChemicalCapability(direction));
-                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vessel").get(), (entity, direction) -> ((SaltFissionVesselEntity) entity).getChemicalCapability(direction));
-                // Fission Port
-                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("cooler_port").get(), (entity, direction) -> ((FissionCoolerPortEntity) entity).getChemicalCapability(direction));
-                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), (entity, direction) -> ((FissionHeaterPortEntity) entity).getChemicalCapability(direction));
-                event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vessel_port").get(), (entity, direction) -> ((FissionVesselPortEntity) entity).getChemicalCapability(direction));
-                // Heat Exchanger
-                event.registerBlockEntity(CHEMICAL, HX_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> ((HeatExchangerInletEntity) entity).getChemicalCapability(direction));
-                event.registerBlockEntity(CHEMICAL, HX_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> ((HeatExchangerOutletEntity) entity).getChemicalCapability(direction));
-                // Universal Bin
-                event.registerBlockEntity(CHEMICAL, UNIVERSAL_BIN_ENTITY_TYPE.get(), (entity, direction) -> entity.tank);
-                // Collectors
-                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
-                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_COMPACT_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
-                event.registerBlockEntity(CHEMICAL, NITROGEN_COLLECTOR_DENSE_ENTITY_TYPE.get(), ITileFluid::getChemicalCapability);
-                // Machine
-                event.registerBlockEntity(CHEMICAL, MACHINE_ENTITY_TYPE.get("process_port").get(), (entity, direction) -> ((MachineProcessPortEntity) entity).getChemicalCapability(direction));
-                event.registerBlockEntity(CHEMICAL, MACHINE_ENTITY_TYPE.get("reservoir_port").get(), (entity, direction) -> ((MachineReservoirPortEntity) entity).getChemicalCapability(direction));
-
-            });
+            MekanismCapabilities.registerCapabilities(event);
         }
     }
 

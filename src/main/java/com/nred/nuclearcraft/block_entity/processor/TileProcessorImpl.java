@@ -65,7 +65,7 @@ public class TileProcessorImpl {
 
     public static class InfuserEntity extends BasicUpgradableEnergyProcessorEntity<InfuserEntity> {
         public InfuserEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "infuser");
+            super(pos, blockState, "fluid_infuser");
         }
     }
 
@@ -113,7 +113,7 @@ public class TileProcessorImpl {
 
     public static class SaltMixerEntity extends BasicUpgradableEnergyProcessorEntity<SaltMixerEntity> {
         public SaltMixerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "salt_mixer");
+            super(pos, blockState, "fluid_mixer");
         }
     }
 
@@ -125,13 +125,13 @@ public class TileProcessorImpl {
 
     public static class EnricherEntity extends BasicUpgradableEnergyProcessorEntity<EnricherEntity> {
         public EnricherEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "enricher");
+            super(pos, blockState, "fluid_enricher");
         }
     }
 
     public static class ExtractorEntity extends BasicUpgradableEnergyProcessorEntity<ExtractorEntity> {
         public ExtractorEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "extractor");
+            super(pos, blockState, "fluid_extractor");
         }
     }
 

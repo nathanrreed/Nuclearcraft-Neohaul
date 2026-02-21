@@ -32,6 +32,8 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.datagen.ModFluidTagProvider.NITROGEN_TAG;
+import static com.nred.nuclearcraft.datagen.ModFluidTagProvider.OXYGEN_TAG;
 import static com.nred.nuclearcraft.helpers.Location.cLoc;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
 import static com.nred.nuclearcraft.info.Names.*;
@@ -251,8 +253,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("graphite"), DUST_MAP.get("graphite")), 1).addItemResult(pelletMap.get(prefix + minor + "_c"), 1).save(recipeOutput, prefix + minor + "_from_c");
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("zirconium"), DUST_MAP.get("zirconium")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_za"), 1).save(recipeOutput, prefix + minor + "_from_za");
 
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("nitrogen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ni"), 1).save(recipeOutput, prefix + minor + "_from_ni");
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(GAS_MAP.get("oxygen"), 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ox"), 1).save(recipeOutput, prefix + minor + "_from_ox");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(NITROGEN_TAG, 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ni"), 1).save(recipeOutput, prefix + minor + "_from_ni");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ox"), 1).save(recipeOutput, prefix + minor + "_from_ox");
 
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get(prefix + minor), 144).addItemResult(pelletMap.get(prefix + minor), 1).save(recipeOutput, prefix + minor);
 

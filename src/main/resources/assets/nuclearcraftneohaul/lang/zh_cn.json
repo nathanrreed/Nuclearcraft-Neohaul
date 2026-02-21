@@ -1702,8 +1702,6 @@
   "nuclearcraftneohaul.configuration.radiation_hud_size.tooltip": "辐射信息在 HUD 上的尺寸。",
   "nuclearcraftneohaul.configuration.radiation_hud_text_outline": "辐射 HUD 信息边框",
   "nuclearcraftneohaul.configuration.radiation_hud_text_outline.tooltip": "如果设定为 (true) ，HUD 下部的信息将会拥有一个边框。",
-  "nuclearcraftneohaul.configuration.radiation_ic2_reactor_mult": "[IC2]工业2 辐射乘数",
-  "nuclearcraftneohaul.configuration.radiation_ic2_reactor_mult.tooltip": "[IC2] 反应堆辐射等级的乘数，基于其能量输出（单位：EU/t）。",
   "nuclearcraftneohaul.configuration.radiation_immune_players": "玩家辐射免疫",
   "nuclearcraftneohaul.configuration.radiation_immune_players.tooltip": "永久免疫辐射的玩家的 UUID 列表。",
   "nuclearcraftneohaul.configuration.radiation_items": "物品辐射",

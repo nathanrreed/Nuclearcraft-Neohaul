@@ -2791,8 +2791,6 @@
   "nuclearcraftneohaul.configuration.radiation_hud_size.tooltip": "Modifier for the size of radiation info on the HUD.",
   "nuclearcraftneohaul.configuration.radiation_hud_text_outline": "HUD Text Outline",
   "nuclearcraftneohaul.configuration.radiation_hud_text_outline.tooltip": "If enabled, a black outline will surround the radiation counter text underneath the rad bar.",
-  "nuclearcraftneohaul.configuration.radiation_ic2_reactor_mult": "Radiation IC2 Reactor Multiplier",
-  "nuclearcraftneohaul.configuration.radiation_ic2_reactor_mult.tooltip": "Multiplier for the radiation level of an IC2 reactor based on its EU/t output.",
   "nuclearcraftneohaul.configuration.radiation_immune_players": "Player Radiation Immunity",
   "nuclearcraftneohaul.configuration.radiation_immune_players.tooltip": "List of UUIDs for players who will be given permanent radiation immunity.",
   "nuclearcraftneohaul.configuration.radiation_items": "Item Stack Radiation",

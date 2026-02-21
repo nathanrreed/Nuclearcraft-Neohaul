@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistanceItem;
+import com.nred.nuclearcraft.handler.EntityHandler;
 import com.nred.nuclearcraft.handler.ItemUseHandler;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
@@ -15,7 +16,6 @@ import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.util.ModCheck;
 import com.nred.nuclearcraft.worldgen.biome.NuclearWastelandBiome;
 import com.nred.nuclearcraft.worldgen.region.NuclearWastelandRegion;
-import mekanism.api.radiation.IRadiationManager;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -62,6 +62,8 @@ public class CommonSetup {
 
         RadSources.refreshRadSources(false);
         RadArmor.init();
+
+        NeoForge.EVENT_BUS.register(new EntityHandler());
 
         // TerraBlender
         Regions.register(new NuclearWastelandRegion(ncLoc("nuclear_wasteland"), 2));
@@ -134,7 +136,7 @@ public class CommonSetup {
 
     @SubscribeEvent
     public static void onLivingDamagePre(LivingDamageEvent.Pre event) {
-        if (event.getSource().is(IRadiationManager.INSTANCE.getRadiationDamageTypeKey()) || event.getSource().is(ACID_BURN) || event.getSource().is(CORIUM_BURN) || event.getSource().is(HOT_COOLANT_BURN)) {
+        if (event.getSource().getMsgId().equals("radiation") || event.getSource().is(ACID_BURN) || event.getSource().is(CORIUM_BURN) || event.getSource().is(HOT_COOLANT_BURN)) {
             for (ItemStack stack : event.getEntity().getArmorSlots()) {
                 RadiationResistanceItem rad_resistance = stack.get(RADIATION_RESISTANCE_ITEM.get());
                 if (rad_resistance != null)

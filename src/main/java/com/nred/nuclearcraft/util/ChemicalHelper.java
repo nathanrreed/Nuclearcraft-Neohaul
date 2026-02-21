@@ -20,7 +20,7 @@ public class ChemicalHelper { // TODO look into protected RecipeManager.CachedCh
             return FluidStack.EMPTY;
         }
         Optional<RecipeHolder<RotaryRecipe>> temp = level.getRecipeManager().getRecipeFor((RecipeType<RotaryRecipe>) BuiltInRegistries.RECIPE_TYPE.get(NAME_ROTARY), new RotaryRecipeInput(Either.right(chemicalStack)), level);
-        return temp.map(holder -> holder.value().getFluidOutput(chemicalStack).copyWithAmount((int) ((holder.value().getChemicalInput().getNeededAmount(chemicalStack) / holder.value().getFluidOutput(chemicalStack).getAmount()) * chemicalStack.getAmount()))).orElse(FluidStack.EMPTY);
+        return temp.map(holder -> holder.value().getFluidOutput(chemicalStack).copyWithAmount(Math.clamp(((holder.value().getChemicalInput().getNeededAmount(chemicalStack) / holder.value().getFluidOutput(chemicalStack).getAmount()) * chemicalStack.getAmount()), Integer.MIN_VALUE, Integer.MAX_VALUE))).orElse(FluidStack.EMPTY);
     }
 
     public static ChemicalStack getGasFromFluid(FluidStack fluidStack, Level level) {
@@ -28,6 +28,6 @@ public class ChemicalHelper { // TODO look into protected RecipeManager.CachedCh
             return ChemicalStack.EMPTY;
         }
         Optional<RecipeHolder<RotaryRecipe>> temp = level.getRecipeManager().getRecipeFor((RecipeType<RotaryRecipe>) BuiltInRegistries.RECIPE_TYPE.get(NAME_ROTARY), new RotaryRecipeInput(Either.left(fluidStack)), level);
-        return temp.map(holder -> holder.value().getChemicalOutput(fluidStack).copyWithAmount((holder.value().getFluidInput().getNeededAmount(fluidStack) / holder.value().getChemicalOutput(fluidStack).getAmount()) * fluidStack.getAmount())).orElse(ChemicalStack.EMPTY);
+        return temp.map(holder -> holder.value().getChemicalOutput(fluidStack).copyWithAmount(Math.clamp((holder.value().getFluidInput().getNeededAmount(fluidStack) / holder.value().getChemicalOutput(fluidStack).getAmount()) * fluidStack.getAmount(), Integer.MIN_VALUE, Integer.MAX_VALUE))).orElse(ChemicalStack.EMPTY);
     }
 }

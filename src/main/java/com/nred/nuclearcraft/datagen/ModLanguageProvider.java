@@ -1694,8 +1694,6 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.radiation_rain_mult.tooltip", "Multiplies the rate of irradiation while in rain.");
         add(MODID + ".configuration.radiation_swim_mult", "Radiation Swimming Multiplier");
         add(MODID + ".configuration.radiation_swim_mult.tooltip", "Multiplies the rate of irradiation while swimming.");
-        add(MODID + ".configuration.radiation_ic2_reactor_mult", "Radiation IC2 Reactor Multiplier");
-        add(MODID + ".configuration.radiation_ic2_reactor_mult.tooltip", "Multiplier for the radiation level of an IC2 reactor based on its EU/t output.");
 
         add(MODID + ".configuration.radiation_feral_ghoul_attack", "Feral Ghoul Attack Radiation");
         add(MODID + ".configuration.radiation_feral_ghoul_attack.tooltip", "The amount of radiation received from an attack by a feral ghoul.");
