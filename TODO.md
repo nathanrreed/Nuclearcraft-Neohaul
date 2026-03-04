@@ -5,3 +5,4 @@
 - Renaming and Cleanup
 - Make Nuclear Wasteland generate better
 - Look into armour trim
+- Look into Data Maps

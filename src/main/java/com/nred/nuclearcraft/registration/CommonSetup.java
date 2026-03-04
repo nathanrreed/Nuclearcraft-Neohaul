@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistanceItem;
+import com.nred.nuclearcraft.command.CommandHandler;
 import com.nred.nuclearcraft.handler.EntityHandler;
 import com.nred.nuclearcraft.handler.ItemUseHandler;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
@@ -63,6 +64,7 @@ public class CommonSetup {
         RadSources.refreshRadSources(false);
         RadArmor.init();
 
+        NeoForge.EVENT_BUS.addListener(CommandHandler::registerCommands);
         NeoForge.EVENT_BUS.register(new EntityHandler());
 
         // TerraBlender
