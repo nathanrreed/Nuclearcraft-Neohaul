@@ -15,10 +15,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenPosition;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.common.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
@@ -69,13 +73,15 @@ public class JeiCollectorCategory implements IRecipeCategory<CollectorRecipe> {
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY).setPosition(position.x() + 1, position.y() + 1).addItemStack(recipe.getToastSymbol());
 
-//        position = recipeViewerInfo.outputs().getFirst();
-//        if (!recipe.itemResult().isEmpty()) { TODO
-//            this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("collector_item");
-//            builder.addOutputSlot(position.x() + 1, position.y() + 1).addItemStack(recipe.itemResult());
-//        } else {
-//            builder.addOutputSlot(position.x() - 3, position.y() - 3).addFluidStack(recipe.fluidResult().getFluid(), recipe.fluidResult().getAmount()).setFluidRenderer(recipe.fluidResult().getAmount(), false, 24, 24);
-//        }
+        if (!recipe.getItemProducts().isEmpty()) {
+            this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("collector_item");
+            position = recipeViewerInfo.item_outputs().getFirst();
+            builder.addOutputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.getItemProduct().ingredient());
+        } else {
+            this.recipeViewerInfo = RECIPE_VIEWER_MAP.get("collector_fluid");
+            position = recipeViewerInfo.fluid_outputs().getFirst();
+            builder.addOutputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.getFluidProduct().getStack().getFluid(), recipe.getFluidProduct().amount()).setFluidRenderer(recipe.getFluidProduct().amount(), false, 24, 24);
+        }
     }
 
     @Override
@@ -83,15 +89,15 @@ public class JeiCollectorCategory implements IRecipeCategory<CollectorRecipe> {
         guiGraphics.blit(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top(), recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height());
         guiGraphics.blit(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 176, 3, (int) (((double) System.currentTimeMillis() / 75) % 37), 38);
 
-//        boolean isItem = !recipe.itemResult().isEmpty(); TODO
-//
-//        if (isItem) {
-//            ScreenPosition position = recipeViewerInfo.outputs().getFirst();
-//            guiGraphics.renderItemDecorations(font, recipe.itemResult(), position.x() + 1, position.y() + 1);
-//        }
-//
-//        if (new ScreenRectangle(recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2).containsPoint((int) mouseX, (int) mouseY)) {
-//            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.production_rate", recipe.rate() + (isItem ? " C" : " mB"))), Optional.empty(), (int) mouseX, (int) mouseY);
-//        }
+        boolean isItem = !recipe.getItemProducts().isEmpty();
+
+        if (isItem) {
+            ScreenPosition position = recipeViewerInfo.item_inputs().getFirst();
+            guiGraphics.renderItemDecorations(font, recipe.getItemProduct().getStack(), position.x() + 1, position.y() + 1);
+        }
+
+        if (new ScreenRectangle(recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2).containsPoint((int) mouseX, (int) mouseY)) {
+            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable(MODID + ".tooltip.production_rate", recipe.getCollectorProductionRate() + (isItem ? " C" : " mB"))), Optional.empty(), (int) mouseX, (int) mouseY);
+        }
     }
 }

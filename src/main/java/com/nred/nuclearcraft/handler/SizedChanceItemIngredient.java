@@ -106,6 +106,10 @@ public class SizedChanceItemIngredient {
         return minStackSize;
     }
 
+    public double getMeanStackSize() {
+        return this.minStackSize + (double) (Arrays.stream(this.getItemsRaw()).findFirst().get().getCount() - this.minStackSize) * (double) this.chancePercent / 100D;
+    }
+
     public boolean test(ItemStack stack) {
         return ingredient.test(stack) && stack.getCount() >= count;
     }

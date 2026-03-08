@@ -61,7 +61,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MACHINE_INTERFACE.asItem(), capitalize(MACHINE_INTERFACE.getId().getPath()));
         add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
         add(LITHIUM_ION_CELL.asItem(), capitalize(LITHIUM_ION_CELL.getId().getPath()));
-        add("jei.probability", "Production chance: %s%%");
+        add(MODID + ".recipe_viewer.chance_output", "Output: %s-%s [Mean: %s]");
 
         add("biome." + MODID + ".nuclear_wasteland", "Nuclear Wasteland");
         add("dimension." + MODID + ".nuclear_wasteland", "Nuclear Wasteland");

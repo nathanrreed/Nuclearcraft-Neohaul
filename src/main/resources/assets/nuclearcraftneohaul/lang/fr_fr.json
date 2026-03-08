@@ -1533,7 +1533,7 @@
   "nuclearcraftneohaul.music_disc.wanderer.credit": "Cover 8-bits, par \"8 Bit Universe\"",
   "nuclearcraftneohaul.radiation_badge": "Informe le joueur de leur exposition aux radiations lorsqu'il est porté, pour chaque %s de radiation détecté, jusqu'à un maximum de %s.",
   "nuclearcraftneohaul.radiation_badge.broken": "Votre Badge radiation s'est désintégré...",
-  "nuclearcraftneohaul.radiation_badge.exposure": "Votre Badge radiation à été exposé à",
+  "nuclearcraftneohaul.recipe_viewer.chance_output": "Sortie: %s-%s [Moyenne: %s]",
   "nuclearcraftneohaul.sound.block.fusion_run": "Réacteur à fusion en marche",
   "nuclearcraftneohaul.sound.block.turbine_run": "Turbine en marche",
   "nuclearcraftneohaul.sound.entity.feral_ghoul_charge": "Charge de goule folle",

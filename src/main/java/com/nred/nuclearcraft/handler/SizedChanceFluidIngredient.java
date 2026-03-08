@@ -130,6 +130,10 @@ public class SizedChanceFluidIngredient {
         return Arrays.stream(getFluids()).findFirst().orElse(FluidStack.EMPTY);
     }
 
+    public double getMeanStackSize() {
+        return this.minStackSize + (double) (Arrays.stream(this.getFluidsRaw()).findFirst().get().getAmount() - this.minStackSize) * (double) this.chancePercent / 100D;
+    }
+
     public FluidStack[] getFluidsRaw() {
         if (cachedStacks == null) {
             cachedStacks = Stream.of(ingredient.getStacks())

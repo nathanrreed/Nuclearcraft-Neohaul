@@ -5,11 +5,11 @@ import com.nred.nuclearcraft.block_entity.hx.HeatExchangerOutletEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerTubeEntity;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.payload.multiblock.CondenserRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.CondenserUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerUpdatePacket;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.longs.LongList;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
@@ -22,7 +22,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidType;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -70,16 +69,7 @@ public class CondenserLogic extends HeatExchangerLogic {
     }
 
     private static Stream<Map.Entry<ResourceKey<Fluid>, Fluid>> getCondenserDissipationStream() {
-        List<Map.Entry<ResourceKey<Fluid>, Fluid>> fluids = BuiltInRegistries.FLUID.entrySet().stream().filter(x -> x.getValue().getFluidType().getTemperature() <= 300).toList();
-        Set<FluidType> set = new HashSet<>(fluids.size());
-        Stream.Builder<Map.Entry<ResourceKey<Fluid>, Fluid>> stream = Stream.builder();
-        for (var i : fluids) { // Removes dupes
-            if (!set.contains(i.getValue().getFluidType())) {
-                set.add(i.getValue().getFluidType());
-                stream.add(i);
-            }
-        }
-        return stream.build();
+        return BuiltInRegistries.FLUID.entrySet().stream().filter(x -> x.getValue().getFluidType().getTemperature() <= 300 && x.getValue().isSource(x.getValue().defaultFluidState()));
     }
 
     public static List<FluidStack> getCondenserDissipationFluids() {

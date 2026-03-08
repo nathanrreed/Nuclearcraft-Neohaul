@@ -10,12 +10,15 @@ import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 
 import static com.nred.nuclearcraft.config.NCConfig.processor_passive_rate;
+import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.COLLECTOR_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC;
@@ -48,6 +51,11 @@ public class CollectorRecipe extends BasicRecipe {
             case "nitrogen_collector_dense" -> NITROGEN_COLLECTOR_DENSE_RECIPE_TYPE.get();
             default -> throw new IllegalStateException("Unexpected value: " + this.typeName);
         };
+    }
+
+    @Override
+    public @NonNull ItemStack getToastSymbol() {
+        return COLLECTOR_MAP.get(this.typeName).toStack();
     }
 
     public String getCollectorProductionRate() {
