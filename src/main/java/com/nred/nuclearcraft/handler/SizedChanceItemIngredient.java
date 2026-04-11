@@ -111,7 +111,7 @@ public class SizedChanceItemIngredient {
     }
 
     public boolean test(ItemStack stack) {
-        return ingredient.test(stack) && stack.getCount() >= count;
+        return ingredient.test(stack);
     }
 
     public ItemStack[] getItems() {
@@ -132,7 +132,7 @@ public class SizedChanceItemIngredient {
     }
 
     public ItemStack getStack() {
-        return Arrays.stream(getItems()).findFirst().orElse(ItemStack.EMPTY);
+        return Arrays.stream(getItems()).findFirst().orElse(ItemStack.EMPTY).copy();
     }
 
     @Override

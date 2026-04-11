@@ -249,6 +249,8 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 continue;
             }
 
+            if (getItemProducts().size() <= i) break;
+
             SizedChanceItemIngredient product = getItemProducts().get(i);
             int productMaxStackSize = product.count();
             Optional<ItemStack> productStack = Arrays.stream(product.getItems()).findFirst();
@@ -260,7 +262,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 return false;
             } else {
                 ItemStack stack = stacks.get(slot);
-                if (!stack.isEmpty()) {
+                if (!stack.isEmpty() && !productStack.get().isEmpty()) {
                     if (!ItemStack.isSameItemSameComponents(stack, productStack.get())) {
                         return false;
                     } else if (outputSetting == ItemOutputSetting.DEFAULT && stack.getCount() + productMaxStackSize > getItemProductCapacity(slot, stack)) {
@@ -280,6 +282,8 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 clearTank(tankIndex);
                 continue;
             }
+
+            if (getFluidProducts().size() <= i) break;
 
             SizedChanceFluidIngredient product = getFluidProducts().get(i);
             int productMaxStackSize = product.amount();
@@ -417,6 +421,8 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 continue;
             }
 
+            if (getItemProducts().size() <= i) break;
+
             SizedChanceItemIngredient product = getItemProducts().get(i);
             if (product.count() <= 0) {
                 continue;
@@ -442,6 +448,8 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
                 clearTank(tankIndex);
                 continue;
             }
+
+            if (getFluidProducts().size() <= i) break;
 
             SizedChanceFluidIngredient product = getFluidProducts().get(i);
 

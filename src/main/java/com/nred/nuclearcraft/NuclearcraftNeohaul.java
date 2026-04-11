@@ -55,7 +55,7 @@ public class NuclearcraftNeohaul {
         @Override
         public void onResourceManagerReload(ResourceManager resourceManager) {
             LOGGER.debug("Recipes changed"); // TODO clear cache
-            NCRecipes.clearRecipes();
+            NCRecipes.clearRecipes(); // TODO this removes all valid fluids and may cause them to no longer work
         }
     }
 

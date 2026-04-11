@@ -1,7 +1,7 @@
 ### Current TODOs:
 - Recipe caching
+- Make sure radiation works as intended
 - Readd configs (One tab, registration)
-- JEI / EMI standardization / automation
 - Renaming and Cleanup
 - Make Nuclear Wasteland generate better
 - Look into armour trim

@@ -6,7 +6,7 @@ A remake of Nuclearcraft Overhaul to Neoforge 1.21.1, the original for on MC 1.1
 
 For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https://github.com/igentuman/NuclearCraft-Neoteric)
 
-Until ready for public consumption jar files can be found in [Github Actions](https://github.com/nathanrreed/Nuclearcraft-Neohaul/actions/workflows/gradle.yml)
+Early jar files can be found in [Github Actions](https://github.com/nathanrreed/Nuclearcraft-Neohaul/actions/workflows/gradle.yml)
 
 ### Dependencies:
 #### Required:
@@ -40,13 +40,12 @@ Until ready for public consumption jar files can be found in [Github Actions](ht
 - Quantum Computer
 - Wasteland
 - CC: T Integration
-
-#### Continual:
 - Integrations with JEI, EMI, Mekanism
-
-#### Currently Working on:
 - Radiation
 - Tools and Armour
+
+#### Currently Working on:
+- Testing an optimizing
 
 #### Future Additions:
 - Integrations with other mods (CubeJS / CraftTweaker, Jade / TOP)

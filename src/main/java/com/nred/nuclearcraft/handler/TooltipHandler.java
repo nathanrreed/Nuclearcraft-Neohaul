@@ -49,14 +49,13 @@ import static com.nred.nuclearcraft.registration.DataComponentRegistration.RADIA
 public class TooltipHandler {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public void addAdditionalTooltips(ItemTooltipEvent event) {
+    public void addAdditionalTooltips(ItemTooltipEvent event) { // TODO rework this in 26.1 style for ease of use and future compat
         List<Component> tooltip = event.getToolTip();
         ItemStack stack = event.getItemStack();
 
         // Fixes shift info being under advanced lines
         List<Component> advanced = new ArrayList<>();
         if (event.getFlags().isAdvanced()) {
-            advanced.add(tooltip.removeLast());
             advanced.add(tooltip.removeLast());
         }
 
