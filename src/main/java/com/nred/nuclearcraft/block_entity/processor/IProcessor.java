@@ -498,7 +498,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
     }
 
     default boolean onIdle(boolean wasProcessing) {
-//        getRadiationSource().setRadiationLevel(0D); TODO
+        getRadiationSource().setRadiationLevel(0D);
 
         if (getCurrentTime() > 0D) {
             if (getContainerInfo().losesProgress && !isHalted()) {

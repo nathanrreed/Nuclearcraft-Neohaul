@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.block_entity.ITile;
 import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.*;
@@ -30,7 +31,6 @@ import com.nred.nuclearcraft.item.energy.EnergyItem;
 import com.nred.nuclearcraft.radiation.RadSources;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.ModCheck;
-import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -38,6 +38,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.*;
@@ -55,10 +56,11 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.RADIATION_BADG
 @EventBusSubscriber(modid = MODID)
 public class CapabilityRegistration {
     public static final EntityCapability<IEntityRads, Void> CAPABILITY_ENTITY_RADS = EntityCapability.createVoid(ncLoc("capability_entity_rads"), IEntityRads.class);
-    public static final BlockCapability<IRadiationResistance, Direction> CAPABILITY_RADIATION_RESISTANCE = BlockCapability.createSided(ncLoc("capability_default_radiation_resistance"), IRadiationResistance.class);
+    public static final BlockCapability<IRadiationResistance, Void> CAPABILITY_RADIATION_RESISTANCE = BlockCapability.createVoid(ncLoc("capability_default_radiation_resistance"), IRadiationResistance.class);
     public static final ItemCapability<IRadiationResistance, Void> ITEM_CAPABILITY_RADIATION_RESISTANCE = ItemCapability.createVoid(ncLoc("item_capability_radiation_resistance"), IRadiationResistance.class);
-    public static final EntityCapability<IRadiationSink, Void> CAPABILITY_RADIATION_SINK = EntityCapability.createVoid(ncLoc("capability_radiation_sink"), IRadiationSink.class);
+    public static final BlockCapability<IRadiationSink, Void> CAPABILITY_RADIATION_SINK = BlockCapability.createVoid(ncLoc("capability_radiation_sink"), IRadiationSink.class);
     public static final ItemCapability<IRadiationSink, Void> ITEM_CAPABILITY_RADIATION_SINK = ItemCapability.createVoid(ncLoc("item_capability_radiation_sink"), IRadiationSink.class);
+    public static final BlockCapability<IRadiationSource, Void> CAPABILITY_RADIATION_SOURCE = BlockCapability.createVoid(ncLoc("capability_radiation_source"), IRadiationSource.class);
     public static final ItemCapability<IRadiationSource, Void> ITEM_CAPABILITY_RADIATION_SOURCE = ItemCapability.createVoid(ncLoc("item_capability_radiation_source"), IRadiationSource.class);
 
     @SubscribeEvent
@@ -193,6 +195,10 @@ public class CapabilityRegistration {
 
         for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
             event.registerEntity(CAPABILITY_ENTITY_RADS, entityType, (entity, _void) -> (entity instanceof LivingEntity living && !(entity instanceof Player)) ? new EntityRadsCap(living) : null);
+        }
+
+        for (BlockEntityType<?> type : BuiltInRegistries.BLOCK_ENTITY_TYPE) {
+            event.registerBlockEntity(CAPABILITY_RADIATION_SOURCE, type, (entity, direction) -> entity instanceof ITile ncTile ? ncTile.getRadiationSource() : null);
         }
     }
 

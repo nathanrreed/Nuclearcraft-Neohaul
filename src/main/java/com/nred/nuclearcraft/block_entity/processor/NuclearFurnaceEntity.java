@@ -1,7 +1,11 @@
 package com.nred.nuclearcraft.block_entity.processor;
 
+import com.nred.nuclearcraft.block_entity.ITile;
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
+import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
 import com.nred.nuclearcraft.helpers.RecipeHelpers;
 import com.nred.nuclearcraft.menu.processor.NuclearFurnaceMenu;
+import com.nred.nuclearcraft.radiation.RadSources;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -11,7 +15,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
 
@@ -20,12 +26,12 @@ import java.util.Optional;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.NUCLEAR_FURNACE_ENTITY_TYPE;
 
-public class NuclearFurnaceEntity extends AbstractFurnaceBlockEntity { //ITile
-//    private final IRadiationSource radiation; TODO
+public class NuclearFurnaceEntity extends AbstractFurnaceBlockEntity implements ITile { // TODO should this be ported to original code?
+    private final IRadiationSource radiation;
 
     public NuclearFurnaceEntity(BlockPos pos, BlockState blockState) {
         super(NUCLEAR_FURNACE_ENTITY_TYPE.get(), pos, blockState, RecipeType.SMELTING);
-//        radiation = new RadiationSource(0D);
+        radiation = new RadiationSource(0D);
         this.quickCheck = createCheck(RecipeType.SMELTING);
 
     }
@@ -61,9 +67,9 @@ public class NuclearFurnaceEntity extends AbstractFurnaceBlockEntity { //ITile
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, NuclearFurnaceEntity blockEntity) {
         if (blockEntity.isLit()) {
-//            blockEntity.getRadiationSource().setRadiationLevel(RadSources.LEU_235_FISSION);
+            blockEntity.getRadiationSource().setRadiationLevel(RadSources.LEU_235_FISSION);
         } else {
-//            blockEntity.getRadiationSource().setRadiationLevel(0D);
+            blockEntity.getRadiationSource().setRadiationLevel(0D);
         }
         AbstractFurnaceBlockEntity.serverTick(level, pos, state, blockEntity);
     }
@@ -110,17 +116,70 @@ public class NuclearFurnaceEntity extends AbstractFurnaceBlockEntity { //ITile
 
     public void readRadiation(CompoundTag tag, HolderLookup.Provider registries) {
         if (tag.contains("radiationLevel")) {
-//            getRadiationSource().setRadiationLevel(nbt.getDouble("radiationLevel")); // TODO
+            getRadiationSource().setRadiationLevel(tag.getDouble("radiationLevel"));
         }
     }
 
     public CompoundTag writeRadiation(CompoundTag tag, HolderLookup.Provider registries) {
-//        tag.putDouble("radiationLevel", getRadiationSource().getRadiationLevel());
+        tag.putDouble("radiationLevel", getRadiationSource().getRadiationLevel());
         return tag;
     }
 
-//    @Override
-//    public IRadiationSource getRadiationSource() {
-//        return radiation;
-//    }
+    @Override
+    public BlockEntity getTile() {
+        return this;
+    }
+
+    @Override
+    public Level getTileWorld() {
+        return level;
+    }
+
+    @Override
+    public BlockPos getTilePos() {
+        return worldPosition;
+    }
+
+    @Override
+    public Block getTileBlockType() {
+        return getBlockState().getBlock();
+    }
+
+    @Override
+    public IRadiationSource getRadiationSource() {
+        return radiation;
+    }
+
+    @Override
+    public boolean getIsRedstonePowered() {
+        return false;
+    }
+
+    @Override
+    public void setIsRedstonePowered(boolean isRedstonePowered) {
+
+    }
+
+    @Override
+    public boolean getAlternateComparator() {
+        return false;
+    }
+
+    @Override
+    public void setAlternateComparator(boolean alternate) {
+    }
+
+    @Override
+    public boolean getRedstoneControl() {
+        return false;
+    }
+
+    @Override
+    public void setRedstoneControl(boolean redstoneControl) {
+    }
+
+    @Override
+    public void markTileDirty() {
+        setChanged();
+    }
 }

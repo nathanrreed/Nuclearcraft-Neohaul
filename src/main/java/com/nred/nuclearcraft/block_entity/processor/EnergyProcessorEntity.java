@@ -305,7 +305,7 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     @Override
     public void process() {
         getEnergyStorage().changeEnergyStored(info.isGenerator ? getProcessPower() : -getProcessPower());
-//        getRadiationSource().setRadiationLevel(baseProcessRadiation * getSpeedMultiplier()); TODO
+        getRadiationSource().setRadiationLevel(baseProcessRadiation * getSpeedMultiplier());
         IProcessor.super.process();
     }
 

@@ -11,15 +11,12 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.FissionIrradiatorMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.FissionIrradiatorUpdatePacket;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.RecipeHelper;
-import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.fission.FissionIrradiatorRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import com.nred.nuclearcraft.util.NBTHelper;
@@ -471,7 +468,7 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
 
     @Override
     public void process() {
-//        getRadiationSource().setRadiationLevel(baseProcessRadiation * getSpeedMultiplier() / RecipeStats.getFissionMaxModeratorLineFlux()); TODO
+        getRadiationSource().setRadiationLevel(baseProcessRadiation * getSpeedMultiplier() / RecipeStats.getFissionMaxModeratorLineFlux());
         IBasicProcessor.super.process();
     }
 

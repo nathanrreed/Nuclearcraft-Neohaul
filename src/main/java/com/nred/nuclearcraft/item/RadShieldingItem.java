@@ -72,7 +72,7 @@ public class RadShieldingItem extends TooltipItem {
             return InteractionResultHolder.fail(stack);
         }
 
-        IRadiationResistance resistance = level.getCapability(CAPABILITY_RADIATION_RESISTANCE, pos, side);
+        IRadiationResistance resistance = level.getCapability(CAPABILITY_RADIATION_RESISTANCE, pos, null);
         if (resistance == null) {
             return InteractionResultHolder.fail(stack);
         }

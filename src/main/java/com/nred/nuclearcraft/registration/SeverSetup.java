@@ -36,7 +36,5 @@ public class SeverSetup {
     @SubscribeEvent
     public static void serverStart(ServerStartingEvent event) {
         RadBiomes.init(event.getServer());
-
-//        CommandHandler.registerCommands(event); // TODO
     }
 }

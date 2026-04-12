@@ -39,7 +39,7 @@ public class RTGEntity extends TilePartAbstract<RTGMultiblock> implements ITicka
         energyConnections = ITileEnergy.energyConnectionAll(EnergyConnection.OUT);
         energySides = ITileEnergy.getDefaultEnergySides(this);
         this.rtgType = rtgType;
-//		getRadiationSource().setRadiationLevel(rtgType.radiation); TODO
+		getRadiationSource().setRadiationLevel(rtgType.getRadiation());
     }
 
     public boolean ignoreSide(Direction side) {

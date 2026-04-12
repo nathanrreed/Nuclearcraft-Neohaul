@@ -28,7 +28,7 @@ public class NCBlock extends Block {
 //        setResistance(15F);
     }
 
-//    @Override TODO
+//    @Override TODO remove?
 //    public TriState canSustainPlant(BlockState state, BlockGetter level, BlockPos soilPosition, Direction facing, BlockState plant) {
 //        return canSustainPlant && super.canSustainPlant(state, level, soilPosition, facing, plant);
 //    }

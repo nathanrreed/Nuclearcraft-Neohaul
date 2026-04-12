@@ -5,8 +5,8 @@ import com.nred.nuclearcraft.block_entity.dummy.IInterfaceable;
 import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
 import com.nred.nuclearcraft.block_entity.energy.TileEnergy;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.util.NCMath;
@@ -47,7 +47,7 @@ public class DecayGeneratorEntity extends TileEnergy implements ITickable, IInte
             tickGenerator();
             if (generatorCount == 0) {
                 getEnergyStorage().changeEnergyStored(getGenerated());
-//				getRadiationSource().setRadiationLevel(getRadiation()); TODO
+				getRadiationSource().setRadiationLevel(getRadiation());
             }
             pushEnergy();
         }

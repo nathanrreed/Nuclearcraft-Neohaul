@@ -27,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.neoforged.neoforge.attachment.AttachmentHolder;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -58,8 +57,8 @@ public class RadiationHelper {
         return chunk.getData(RADIATION_SOURCE);
     }
 
-    public static IRadiationSource getRadiationSource(AttachmentHolder attachmentHolder) {
-        return attachmentHolder.getData(RADIATION_SOURCE);
+    public static IRadiationSource getRadiationSource(BlockEntity blockEntity) {
+        return blockEntity.getLevel().getCapability(CAPABILITY_RADIATION_SOURCE, blockEntity.getBlockPos());
     }
 
     public static IRadiationResistance getRadiationResistance(BlockEntity blockEntity) {
@@ -479,7 +478,7 @@ public class RadiationHelper {
         return resistance < 0D ? ChatFormatting.GRAY : ChatFormatting.WHITE;
     }
 
-// Unit Prefixing
+    // Unit Prefixing
 
     public static String radsPrefix(double rads, boolean rate) {
         String unit = rate ? "Rad/t" : "Rad";
@@ -490,7 +489,7 @@ public class RadiationHelper {
         return getRadiationTextColor(rads) + radsPrefix(rads, rate);
     }
 
-// Rad Resistance Sig Figs
+    // Rad Resistance Sig Figs
 
     public static String resistanceSigFigs(double resistance) {
         return NCMath.sigFigs(resistance, Math.max(2, radiation_unit_prefixes));

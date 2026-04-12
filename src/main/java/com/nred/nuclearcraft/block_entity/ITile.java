@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block_entity;
 
 import com.nred.nuclearcraft.block.IActivatable;
 import com.nred.nuclearcraft.block.IDynamicState;
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -50,7 +51,7 @@ public interface ITile {
         return getBlockState(pos).getBlock();
     }
 
-//    IRadiationSource getRadiationSource(); TODO
+    IRadiationSource getRadiationSource();
 
     default boolean shouldSaveRadiation() {
         return true;

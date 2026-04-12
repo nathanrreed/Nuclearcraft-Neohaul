@@ -15,7 +15,7 @@ public class MultiblockMachine extends BasicRecipe {
         super(itemIngredients, fluidIngredients, itemProducts, fluidProducts);
         this.timeModifier = timeModifier;
         this.powerModifier = powerModifier;
-        this.radiation = 0; // TODO
+        this.radiation = 0; // Currently no rads are used
     }
 
     public double getProcessTimeMultiplier() {

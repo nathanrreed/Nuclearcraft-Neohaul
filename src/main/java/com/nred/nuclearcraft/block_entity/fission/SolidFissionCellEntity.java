@@ -10,14 +10,16 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SolidFissionCellMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.SolidFissionCellUpdatePacket;
+import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
@@ -423,10 +425,8 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     @Override
     public void onClusterMeltdown(Iterator<IFissionComponent> componentIterator) {
-//        IRadiationSource chunkSource = RadiationHelper.getRadiationSource(level.getChunk(pos)); TODO
-//        if (chunkSource != null) {
-//            RadiationHelper.addToSourceRadiation(chunkSource, 8D * baseProcessRadiation * getSpeedMultiplier() * fission_meltdown_radiation_multiplier);
-//        }
+        IRadiationSource chunkSource = RadiationHelper.getRadiationSource(level.getChunk(worldPosition));
+        RadiationHelper.addToSourceRadiation(chunkSource, 8D * baseProcessRadiation * getSpeedMultiplier() * fission_meltdown_radiation_multiplier);
 
         componentIterator.remove();
         level.removeBlockEntity(worldPosition);
@@ -786,7 +786,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     @Override
     public void process() {
-//        getRadiationSource().setRadiationLevel(baseProcessRadiation * getSpeedMultiplier()); TODO
+        getRadiationSource().setRadiationLevel(baseProcessRadiation * getSpeedMultiplier());
         IBasicProcessor.super.process();
     }
 
