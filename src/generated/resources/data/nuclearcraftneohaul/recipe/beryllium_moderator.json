@@ -1,8 +1,0 @@
-{
-  "type": "nuclearcraftneohaul:moderator_recipe",
-  "efficiency": 1.05,
-  "fluxFactor": 22,
-  "moderator": {
-    "item": "nuclearcraftneohaul:beryllium_block"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "type": "nuclearcraftneohaul:infiltrator_pressure_fluid_recipe",
-  "efficiency": 1.0,
-  "gas": {
-    "fluid": "nuclearcraftneohaul:helium"
-  }
-}

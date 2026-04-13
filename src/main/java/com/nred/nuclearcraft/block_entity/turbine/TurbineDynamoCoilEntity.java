@@ -16,46 +16,4 @@ public class TurbineDynamoCoilEntity extends TurbineDynamoEntityPart {
         this.placementRule = TurbinePlacement.RULE_MAP.get(dynamoCoilType.getName() + "_coil");
         this.conductivity = dynamoCoilType.getConductivity();
     }
-
-    public static class Variant extends TurbineDynamoCoilEntity {
-        protected Variant(final BlockPos position, final BlockState blockState, TurbineDynamoCoilType dynamoCoilType) {
-            super(position, blockState, dynamoCoilType);
-        }
-    }
-
-    public static class Magnesium extends TurbineDynamoCoilEntity.Variant {
-        public Magnesium(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, TurbineDynamoCoilType.MAGNESIUM);
-        }
-    }
-
-    public static class Beryllium extends TurbineDynamoCoilEntity.Variant {
-        public Beryllium(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, TurbineDynamoCoilType.BERYLLIUM);
-        }
-    }
-
-    public static class Aluminum extends TurbineDynamoCoilEntity.Variant {
-        public Aluminum(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, TurbineDynamoCoilType.ALUMINUM);
-        }
-    }
-
-    public static class Gold extends TurbineDynamoCoilEntity.Variant {
-        public Gold(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, TurbineDynamoCoilType.GOLD);
-        }
-    }
-
-    public static class Copper extends TurbineDynamoCoilEntity.Variant {
-        public Copper(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, TurbineDynamoCoilType.COPPER);
-        }
-    }
-
-    public static class Silver extends TurbineDynamoCoilEntity.Variant {
-        public Silver(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, TurbineDynamoCoilType.SILVER);
-        }
-    }
 }

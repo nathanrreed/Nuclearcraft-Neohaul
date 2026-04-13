@@ -9,11 +9,11 @@ import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.InfiltratorPressureFluidRecipe;
 import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
 import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
 import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
+import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -27,9 +27,10 @@ import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.*;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.INFILTRATOR_PRESSURE_DATA;
 
 public class RecipeViewerImpl {
-    public static Function<InfiltratorPressureFluidRecipe, Component> INFILTRATOR_PRESSURE_FLUID_TOOLTIP = (recipe) -> Component.translatable(MODID + ".recipe_viewer.infiltrator_pressure_fluid_efficiency", Component.literal(NCMath.pcDecimalPlaces(recipe.getInfiltratorPressureFluidEfficiency(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE);
+    public static Function<FluidStack, Component> INFILTRATOR_PRESSURE_FLUID_TOOLTIP = (fluidStack) -> Component.translatable(MODID + ".recipe_viewer.infiltrator_pressure_fluid_efficiency", Component.literal(NCMath.pcDecimalPlaces(DataMapHelper.getData(fluidStack, INFILTRATOR_PRESSURE_DATA).efficiency(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE);
     public static Function<FluidStack, Component> CONDENSER_DISSIPATION_TOOLTIP = (fluidStack) -> Component.translatable(MODID + ".recipe_viewer.condenser_dissipation_fluid_temp", Component.literal(fluidStack.getFluidType().getTemperature() + "K").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA);
 
     public abstract static class RecipeViewer<R extends BasicRecipe> {

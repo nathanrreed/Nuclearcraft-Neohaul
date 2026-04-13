@@ -7,7 +7,6 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IRotorBlad
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.IRotorStatorType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.ITurbineRotorBlade;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
-import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
@@ -26,24 +25,12 @@ public class TurbineRotorStatorEntity extends AbstractTurbineEntity implements I
         return position == PartPosition.Interior;
     }
 
-    public IRotorStatorType statorType = null;
+    public final IRotorStatorType statorType;
     protected TurbinePartDir dir = TurbinePartDir.Y;
 
     public TurbineRotorStatorEntity(final BlockPos position, final BlockState blockState, IRotorStatorType statorType) {
         super(TURBINE_ENTITY_TYPE.get("rotor_stator").get(), position, blockState);
         this.statorType = statorType;
-    }
-
-    public static class Variant extends TurbineRotorStatorEntity {
-        protected Variant(final BlockPos position, final BlockState blockState, TurbineRotorStatorType statorType) {
-            super(position, blockState, statorType);
-        }
-    }
-
-    public static class Standard extends Variant {
-        public Standard(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, TurbineRotorStatorType.STANDARD);
-        }
     }
 
     @Override

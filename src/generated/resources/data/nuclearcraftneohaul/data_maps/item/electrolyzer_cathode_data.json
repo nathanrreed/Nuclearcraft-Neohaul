@@ -1,0 +1,22 @@
+{
+  "values": {
+    "#c:storage_blocks/cobalt": {
+      "efficiency": 0.9
+    },
+    "#c:storage_blocks/iron": {
+      "efficiency": 0.6
+    },
+    "#c:storage_blocks/molybdenum": {
+      "efficiency": 0.8
+    },
+    "#c:storage_blocks/nickel": {
+      "efficiency": 0.7
+    },
+    "#c:storage_blocks/palladium": {
+      "efficiency": 1.0
+    },
+    "#c:storage_blocks/platinum": {
+      "efficiency": 1.0
+    }
+  }
+}

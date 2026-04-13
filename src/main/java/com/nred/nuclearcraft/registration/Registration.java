@@ -8,6 +8,7 @@ import static com.nred.nuclearcraft.registration.Registers.*;
 
 public class Registration {
     public static void init() {
+        DataComponentRegistration.init();
         DamageTypeRegistration.init();
         BlockRegistration.init();
         ItemRegistration.init();
@@ -27,7 +28,6 @@ public class Registration {
         AttachmentRegistration.init();
         ArmorMaterialRegistration.init();
         ToolMaterialRegistration.init();
-        DataComponentRegistration.init();
     }
 
     public static void register(IEventBus modEventBus) {

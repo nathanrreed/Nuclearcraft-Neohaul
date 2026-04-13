@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.datamap.*;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
@@ -10,13 +11,7 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
-import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
-import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.ItemFissionRecipe;
-import com.nred.nuclearcraft.recipe.machine.ElectrolyzerAnodeRecipe;
-import com.nred.nuclearcraft.recipe.machine.ElectrolyzerCathodeRecipe;
-import com.nred.nuclearcraft.recipe.machine.MachineDiaphragmRecipe;
-import com.nred.nuclearcraft.recipe.machine.MachineSieveAssemblyRecipe;
 import com.nred.nuclearcraft.util.Lang;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -33,8 +28,8 @@ public class NCInfo {
 
     // Diaphragm
 
-    public static Component[] machineDiaphragmFixedInfo(MachineDiaphragmRecipe recipe) {
-        return new Component[]{Component.translatable(MODID + ".tooltip.diaphragm"), Component.translatable(MODID + ".tooltip.diaphragm.efficiency", NCMath.pcDecimalPlaces(recipe.getMachineDiaphragmEfficiency(), 1)), Component.translatable(MODID + ".tooltip.diaphragm.contact", NCMath.pcDecimalPlaces(recipe.getMachineDiaphragmContactFactor(), 1))};
+    public static Component[] machineDiaphragmFixedInfo(MachineDiaphragmData data) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.diaphragm"), Component.translatable(MODID + ".tooltip.diaphragm.efficiency", NCMath.pcDecimalPlaces(data.efficiency(), 1)), Component.translatable(MODID + ".tooltip.diaphragm.contact", NCMath.pcDecimalPlaces(data.contact_factor(), 1))};
     }
 
     public static Component machineDiaphragmInfo() {
@@ -43,8 +38,8 @@ public class NCInfo {
 
     // Sieve Assembly
 
-    public static Component[] machineSieveAssemblyFixedInfo(MachineSieveAssemblyRecipe recipe) {
-        return new Component[]{Component.translatable(MODID + ".tooltip.sieve_assembly"), Component.translatable(MODID + ".tooltip.sieve_assembly.efficiency", NCMath.pcDecimalPlaces(recipe.getMachineSieveAssemblyEfficiency(), 1))};
+    public static Component[] machineSieveAssemblyFixedInfo(MachineSieveAssemblyData data) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.sieve_assembly"), Component.translatable(MODID + ".tooltip.sieve_assembly.efficiency", NCMath.pcDecimalPlaces(data.efficiency(), 1))};
     }
 
     public static Component machineSieveAssemblyInfo() {
@@ -53,14 +48,14 @@ public class NCInfo {
 
     // Electrolyzer Electrode
 
-    public static Component[] electrodeFixedInfo(ElectrolyzerCathodeRecipe cathodeRecipe, ElectrolyzerAnodeRecipe anodeRecipe) {
-        boolean anyElectrode = cathodeRecipe != null && anodeRecipe != null;
-        List<Component> list = Lists.newArrayList(Component.translatable(MODID + ".tooltip.electrode" + (anyElectrode ? "" : cathodeRecipe != null ? ".cathode" : ".anode")));
-        if (cathodeRecipe != null) {
-            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency" + (anyElectrode ? ".cathode" : ""), NCMath.pcDecimalPlaces(cathodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
+    public static Component[] electrodeFixedInfo(ElectrolyzerCathodeData cathodeData, ElectrolyzerAnodeData anodeData) {
+        boolean anyElectrode = cathodeData != null && anodeData != null;
+        List<Component> list = Lists.newArrayList(Component.translatable(MODID + ".tooltip.electrode" + (anyElectrode ? "" : cathodeData != null ? ".cathode" : ".anode")));
+        if (cathodeData != null) {
+            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency" + (anyElectrode ? ".cathode" : ""), NCMath.pcDecimalPlaces(cathodeData.efficiency(), 1)));
         }
-        if (anodeRecipe != null) {
-            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency" + (anyElectrode ? ".anode" : ""), NCMath.pcDecimalPlaces(anodeRecipe.getElectrolyzerElectrodeEfficiency(), 1)));
+        if (anodeData != null) {
+            list.add(Component.translatable(MODID + ".tooltip.electrode.efficiency" + (anyElectrode ? ".anode" : ""), NCMath.pcDecimalPlaces(anodeData.efficiency(), 1)));
         }
         return list.toArray(new Component[0]);
     }
@@ -133,11 +128,11 @@ public class NCInfo {
 
     // Fission Moderator
 
-    public static Component[] fissionModeratorFixedInfo(FissionModeratorRecipe moderatorInfo) {
+    public static Component[] fissionModeratorFixedInfo(FissionModeratorData moderatorInfo) {
         return new Component[]{
                 Component.translatable(MODID + ".tooltip.moderator.underline"),
-                Component.translatable(MODID + ".tooltip.moderator.flux_factor", moderatorInfo.getFissionModeratorFluxFactor() + " N/t"),
-                Component.translatable(MODID + ".tooltip.moderator.efficiency", NCMath.pcDecimalPlaces(moderatorInfo.getFissionModeratorEfficiency(), 1))};
+                Component.translatable(MODID + ".tooltip.moderator.flux_factor", moderatorInfo.fluxFactor() + " N/t"),
+                Component.translatable(MODID + ".tooltip.moderator.efficiency", NCMath.pcDecimalPlaces(moderatorInfo.efficiency(), 1))};
     }
 
     public static Component[] fissionModeratorInfo() {
@@ -146,8 +141,8 @@ public class NCInfo {
 
     // Fission Reflector
 
-    public static Component[] fissionReflectorFixedInfo(FissionReflectorRecipe reflectorInfo) {
-        return new Component[]{Component.translatable(MODID + ".info.reflector"), Component.translatable(MODID + ".info.reflector.reflectivity", NCMath.pcDecimalPlaces(reflectorInfo.getFissionReflectorReflectivity(), 1)), Component.translatable(MODID + ".info.reflector.efficiency", NCMath.pcDecimalPlaces(reflectorInfo.getFissionReflectorEfficiency(), 1))};
+    public static Component[] fissionReflectorFixedInfo(FissionReflectorData reflectorInfo) {
+        return new Component[]{Component.translatable(MODID + ".info.reflector"), Component.translatable(MODID + ".info.reflector.reflectivity", NCMath.pcDecimalPlaces(reflectorInfo.reflectivity(), 1)), Component.translatable(MODID + ".info.reflector.efficiency", NCMath.pcDecimalPlaces(reflectorInfo.efficiency(), 1))};
     }
 
     public static Component fissionReflectorInfo() {

@@ -1,0 +1,16 @@
+{
+  "values": {
+    "nuclearcraftneohaul:beryllium_block": {
+      "efficiency": 1.05,
+      "fluxFactor": 22
+    },
+    "nuclearcraftneohaul:graphite_block": {
+      "efficiency": 1.1,
+      "fluxFactor": 10
+    },
+    "nuclearcraftneohaul:heavy_water_moderator": {
+      "efficiency": 1.0,
+      "fluxFactor": 36
+    }
+  }
+}

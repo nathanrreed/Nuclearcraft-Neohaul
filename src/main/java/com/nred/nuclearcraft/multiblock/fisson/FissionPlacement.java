@@ -1,12 +1,11 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
 import com.nred.nuclearcraft.block_entity.fission.*;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.PlacementRule.AdjacencyType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.CountType;
 import com.nred.nuclearcraft.multiblock.PlacementRule.PlacementMap;
-import com.nred.nuclearcraft.recipe.RecipeHelper;
+import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.StringHelper;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -24,6 +23,8 @@ import java.util.regex.Pattern;
 import static com.nred.nuclearcraft.config.NCConfig.fission_heater_rule;
 import static com.nred.nuclearcraft.config.NCConfig.fission_sink_rule;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_MODERATOR_DATA;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_REFLECTOR_DATA;
 
 public abstract class FissionPlacement {
 
@@ -406,12 +407,12 @@ public abstract class FissionPlacement {
     public static boolean isActiveModerator(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
         if (reactor.isEmpty()) return false;
         IFissionComponent component = reactor.get().getPartMap(IFissionComponent.class).get(pos.asLong());
-        return (component != null && component.isActiveModerator()) || (reactor.get().activeModeratorCache.contains(pos.asLong()) && RecipeHelper.blockRecipe(NCRecipes.fission_moderator, reactor.get().getWorld(), pos) != null);
+        return (component != null && component.isActiveModerator()) || (reactor.get().activeModeratorCache.contains(pos.asLong()) && DataMapHelper.getData(reactor.get().getWorld().getBlockState(pos), FISSION_MODERATOR_DATA) != null);
     }
 
     public static boolean isActiveReflector(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
         if (reactor.isEmpty()) return false;
-        return reactor.get().activeReflectorCache.contains(pos.asLong()) && RecipeHelper.blockRecipe(NCRecipes.fission_reflector, reactor.get().getWorld(), pos) != null;
+        return reactor.get().activeReflectorCache.contains(pos.asLong()) && DataMapHelper.getData(reactor.get().getWorld().getBlockState(pos), FISSION_REFLECTOR_DATA) != null;
     }
 
     public static boolean isFunctionalIrradiator(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {

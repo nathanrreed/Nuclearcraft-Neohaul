@@ -6,8 +6,8 @@ import com.nred.nuclearcraft.block_entity.machine.DistillerReboilingUnitEntity;
 import com.nred.nuclearcraft.block_entity.machine.DistillerRefluxUnitEntity;
 import com.nred.nuclearcraft.block_entity.machine.DistillerSieveTrayEntity;
 import com.nred.nuclearcraft.config.NCConfig;
+import com.nred.nuclearcraft.datamap.MachineSieveAssemblyData;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.payload.multiblock.DistillerRenderPacket;
@@ -15,9 +15,9 @@ import com.nred.nuclearcraft.payload.multiblock.DistillerUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.MachineRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.MachineUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.RecipeHelper;
-import com.nred.nuclearcraft.recipe.machine.MachineSieveAssemblyRecipe;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
+import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
@@ -42,6 +42,7 @@ import java.util.function.Consumer;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.machine_distiller_sound_volume;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.MACHINE_SIEVE_ASSEMBLY_DATA;
 import static com.nred.nuclearcraft.registration.SoundRegistration.distiller_run;
 
 public class DistillerLogic extends MachineLogic {
@@ -142,20 +143,20 @@ public class DistillerLogic extends MachineLogic {
 
         for (int i = 0, len = multiblock.getInteriorLengthY(); i < len; ++i) {
             BlockPos pos = corner.above(i);
-            BasicRecipe blockRecipe;
+            MachineSieveAssemblyData machine_sieve_assembly;
             if (getWorld().getBlockEntity(pos) instanceof DistillerSieveTrayEntity) {
-                blockRecipe = RecipeHelper.blockRecipe(NCRecipes.machine_sieve_assembly, getWorld(), getWorld().getBlockState(pos.above()));
-                if (blockRecipe == null) {
+                machine_sieve_assembly = DataMapHelper.getData(getWorld().getBlockState(pos.above()), MACHINE_SIEVE_ASSEMBLY_DATA);
+                if (machine_sieve_assembly == null) {
                     multiblock.setLastError(pos, MODID + ".multiblock_validation.distiller.invalid_sieve_recipe");
                     return false;
                 } else {
                     trayLevels.add(i);
                     traySieveCache.add(i + 1);
-                    traySieveEfficiency += ((MachineSieveAssemblyRecipe) blockRecipe).getMachineSieveAssemblyEfficiency();
+                    traySieveEfficiency += machine_sieve_assembly.efficiency();
                     ++traySieveCount;
                 }
-            } else if (!traySieveCache.contains(i) && (blockRecipe = RecipeHelper.blockRecipe(NCRecipes.machine_sieve_assembly, getWorld(), getWorld().getBlockState(pos))) != null) {
-                packedSieveEfficiency += ((MachineSieveAssemblyRecipe) blockRecipe).getMachineSieveAssemblyEfficiency();
+            } else if (!traySieveCache.contains(i) && (machine_sieve_assembly = DataMapHelper.getData(getWorld().getBlockState(pos), MACHINE_SIEVE_ASSEMBLY_DATA)) != null) {
+                packedSieveEfficiency += machine_sieve_assembly.efficiency();
                 ++packedSieveCount;
             }
         }

@@ -168,11 +168,11 @@ public class RecipeHelper {
         return new RecipeMatchResult(true, itemIngredientNumbers, fluidIngredientNumbers, itemInputOrder, fluidInputOrder);
     }
 
-    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler recipeHandler) {
+    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler<?> recipeHandler) {
         return validFluids(recipeHandler, Collections.emptySet());
     }
 
-    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler recipeHandler, Set<ResourceLocation> exceptions) {
+    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler<?> recipeHandler, Set<ResourceLocation> exceptions) {
         Set<ResourceLocation> fluidNameSet = new ObjectOpenHashSet<>();
         for (Map.Entry<ResourceKey<Fluid>, Fluid> entry : BuiltInRegistries.FLUID.entrySet()) {
             ResourceLocation fluidKey = entry.getKey().location();

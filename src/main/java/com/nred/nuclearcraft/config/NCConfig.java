@@ -81,6 +81,7 @@ public class NCConfig {
     public static int machine_infiltrator_power;
     public static double machine_infiltrator_sound_volume;
 
+    // TODO move all these out of here if possible
     public static int fission_min_size; // Default: 1
     public static int fission_max_size; // Default: 24
     public static double fission_fuel_time_multiplier; // Default: 1

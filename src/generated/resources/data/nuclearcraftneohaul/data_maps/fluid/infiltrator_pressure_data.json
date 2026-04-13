@@ -1,0 +1,16 @@
+{
+  "values": {
+    "#c:argon": {
+      "efficiency": 0.9
+    },
+    "#c:helium": {
+      "efficiency": 1.0
+    },
+    "#c:neon": {
+      "efficiency": 0.9
+    },
+    "#c:nitrogen": {
+      "efficiency": 0.8
+    }
+  }
+}

@@ -1,16 +1,18 @@
 package com.nred.nuclearcraft.recipe;
 
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
+import com.nred.nuclearcraft.datamap.FissionModeratorData;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes.BasicProcessorRecipeHandler;
-import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
 import com.nred.nuclearcraft.util.NCMath;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.List;
 
 import static com.nred.nuclearcraft.config.NCConfig.*;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_MODERATOR_DATA;
 
 public class RecipeStats {
     private static int decay_generator_max_power;
@@ -93,9 +95,9 @@ public class RecipeStats {
 
     private static void setFissionMaxModeratorLineFlux() {
         fission_max_moderator_line_flux = 0;
-        for (FissionModeratorRecipe recipe : NCRecipes.fission_moderator.getRecipeList()) {
-            if (recipe != null) {
-                fission_max_moderator_line_flux = Math.max(fission_max_moderator_line_flux, recipe.getFissionModeratorFluxFactor());
+        for (FissionModeratorData moderatorData : BuiltInRegistries.ITEM.getDataMap(FISSION_MODERATOR_DATA).values()) {
+            if (moderatorData != null) {
+                fission_max_moderator_line_flux = Math.max(fission_max_moderator_line_flux, moderatorData.fluxFactor());
             }
         }
         fission_max_moderator_line_flux *= fission_neutron_reach;

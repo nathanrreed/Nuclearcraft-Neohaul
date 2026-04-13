@@ -2,8 +2,8 @@ package com.nred.nuclearcraft.block_entity.fission;
 
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorLine;
-import com.nred.nuclearcraft.block_entity.fission.manager.IFissionManagerListener;
 import com.nred.nuclearcraft.block_entity.fission.manager.FissionShieldManagerEntity;
+import com.nred.nuclearcraft.block_entity.fission.manager.IFissionManagerListener;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
@@ -32,11 +32,14 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class FissionShieldEntity extends AbstractFissionEntity implements IFissionHeatingComponent, IFissionManagerListener<FissionShieldManagerEntity, FissionShieldEntity> {
-    private final FissionNeutronShieldType fissionNeutronShieldType;
+    private final FissionNeutronShieldType fissionNeutronShieldType; // TODO
 
     public FissionShieldEntity(final BlockPos position, final BlockState blockState, FissionNeutronShieldType fissionNeutronShieldType) {
         super(FISSION_ENTITY_TYPE.get("shield").get(), position, blockState);
         this.fissionNeutronShieldType = fissionNeutronShieldType;
+
+        this.heatPerFlux = fissionNeutronShieldType.getHeatPerFlux();
+        this.efficiency = fissionNeutronShieldType.getEfficiency();
     }
 
     public double heatPerFlux, efficiency;
@@ -52,18 +55,6 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
 
     protected BlockPos managerPos = DEFAULT_NON;
     protected FissionShieldManagerEntity manager = null;
-
-    public static class Variant extends FissionShieldEntity {
-        protected Variant(final BlockPos position, final BlockState blockState, FissionNeutronShieldType fissionNeutronShieldType) {
-            super(position, blockState, fissionNeutronShieldType);
-        }
-    }
-
-    public static class BoronSilver extends Variant {
-        public BoronSilver(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, FissionNeutronShieldType.BORON_SILVER);
-        }
-    }
 
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
@@ -210,8 +201,8 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
             } else {
                 return NCMath.toInt(innerFlux);
             }
-        } else if (line.reflectorRecipe != null) {
-            return NCMath.toInt(Math.floor((innerFlux + outerFlux) * (1D + line.reflectorRecipe.getFissionReflectorReflectivity())));
+        } else if (line.reflectorData != null) {
+            return NCMath.toInt(Math.floor((innerFlux + outerFlux) * (1D + line.reflectorData.reflectivity())));
         }
         return NCMath.toInt(innerFlux);
     }

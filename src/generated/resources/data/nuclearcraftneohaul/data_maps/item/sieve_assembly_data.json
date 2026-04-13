@@ -1,0 +1,13 @@
+{
+  "values": {
+    "nuclearcraftneohaul:hastelloy_sieve_assembly": {
+      "efficiency": 1.0
+    },
+    "nuclearcraftneohaul:polytetrafluoroethene_sieve_assembly": {
+      "efficiency": 0.9
+    },
+    "nuclearcraftneohaul:steel_sieve_assembly": {
+      "efficiency": 0.8
+    }
+  }
+}

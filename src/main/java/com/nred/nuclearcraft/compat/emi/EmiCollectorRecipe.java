@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
-import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
+import com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfo;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.material.Fluid;
 import java.util.Collection;
 import java.util.List;
 
-import static com.nred.nuclearcraft.compat.common.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
+import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
 import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.EMI_COLLECTOR_CATEGORY;
 
 public class EmiCollectorRecipe extends BasicEmiRecipe {

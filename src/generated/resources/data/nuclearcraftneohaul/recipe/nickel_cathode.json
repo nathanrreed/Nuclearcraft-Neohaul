@@ -1,7 +1,0 @@
-{
-  "type": "nuclearcraftneohaul:electrolyzer_cathode_recipe",
-  "block": {
-    "tag": "c:storage_blocks/nickel"
-  },
-  "efficiency": 0.7
-}

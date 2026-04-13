@@ -5,17 +5,20 @@ import com.nred.nuclearcraft.block_entity.machine.AbstractMachineEntity;
 import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerAnodeTerminalEntity;
 import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerCathodeTerminalEntity;
 import com.nred.nuclearcraft.config.NCConfig;
+import com.nred.nuclearcraft.datamap.ElectrolyzerAnodeData;
+import com.nred.nuclearcraft.datamap.ElectrolyzerCathodeData;
+import com.nred.nuclearcraft.datamap.ElectrolyzerElectrolyteData;
+import com.nred.nuclearcraft.datamap.MachineDiaphragmData;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.payload.multiblock.ElectrolyzerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.ElectrolyzerUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.MachineRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.MachineUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.RecipeHelper;
-import com.nred.nuclearcraft.recipe.RecipeInfo;
-import com.nred.nuclearcraft.recipe.machine.*;
+import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
+import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.Vec2i;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
@@ -39,6 +42,7 @@ import java.util.function.Consumer;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.machine_electrolyzer_sound_volume;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 import static com.nred.nuclearcraft.registration.SoundRegistration.electrolyzer_run;
 
 public class ElectrolyzerLogic extends MachineLogic {
@@ -193,29 +197,31 @@ public class ElectrolyzerLogic extends MachineLogic {
                             }
 
                             long minPosLongXZ = corner.offset(vec.u, -1, vec.v).asLong();
-                            BasicRecipe blockRecipe;
                             if (cathodeMap.containsKey(minPosLongXZ)) {
-                                if ((blockRecipe = RecipeHelper.blockRecipe(NCRecipes.electrolyzer_cathode, getWorld(), blockState)) != null) {
-                                    region.cathodeMap.put(vec, ((ElectrolyzerCathodeRecipe) blockRecipe).getElectrolyzerElectrodeEfficiency());
+                                ElectrolyzerCathodeData cathodeData = DataMapHelper.getData(blockState, ELECTROLYZER_CATHODE_DATA);
+                                if (cathodeData != null) {
+                                    region.cathodeMap.put(vec, cathodeData.efficiency());
                                     globalCathodes.add(vec);
                                     push.accept(vec);
                                     continue;
                                 }
                             } else if (anodeMap.containsKey(minPosLongXZ)) {
-                                if ((blockRecipe = RecipeHelper.blockRecipe(NCRecipes.electrolyzer_anode, getWorld(), blockState)) != null) {
-                                    region.anodeMap.put(vec, ((ElectrolyzerAnodeRecipe) blockRecipe).getElectrolyzerElectrodeEfficiency());
+                                ElectrolyzerAnodeData anodeData = DataMapHelper.getData(blockState, ELECTROLYZER_ANODE_DATA);
+                                if (anodeData != null) {
+                                    region.anodeMap.put(vec, anodeData.efficiency());
                                     globalAnodes.add(vec);
                                     push.accept(vec);
                                     continue;
                                 }
                             }
 
-                            if ((blockRecipe = RecipeHelper.blockRecipe(NCRecipes.machine_diaphragm, getWorld(), blockState)) != null) {
+                            MachineDiaphragmData machineDiaphragmData = DataMapHelper.getData(blockState, MACHINE_DIAPHRAGM_DATA);
+                            if (machineDiaphragmData != null) {
                                 if (dir.equals(Vec2i.ZERO)) {
                                     continue stackLoop;
                                 } else {
-                                    region.diaphragmMap.put(vec, ((MachineDiaphragmRecipe) blockRecipe).getMachineDiaphragmEfficiency());
-                                    globalDiaphragmMap.put(vec, ((MachineDiaphragmRecipe) blockRecipe).getMachineDiaphragmContactFactor());
+                                    region.diaphragmMap.put(vec, machineDiaphragmData.efficiency());
+                                    globalDiaphragmMap.put(vec, machineDiaphragmData.contact_factor());
                                     continue;
                                 }
                             }
@@ -340,8 +346,8 @@ public class ElectrolyzerLogic extends MachineLogic {
     public void refreshActivity() {
         super.refreshActivity();
 
-        RecipeInfo<ElectrolyzerElectrolyteRecipe> recipeInfo = NCRecipes.electrolyzer_electrolyte.getRecipeInfoFromInputs(getWorld(), electrolyte_group, multiblock.reservoirTanks.subList(0, 1));
-        electrolyteEfficiency = recipeInfo == null ? 0D : recipeInfo.recipe.getElectrolyzerElectrolyteEfficiency();
+        ElectrolyzerElectrolyteData electrolyteData = DataMapHelper.getData(multiblock.reservoirTanks.getFirst().getFluid(), ELECTROLYZER_ELECTROLYTE_DATA);
+        electrolyteEfficiency = electrolyteData == null ? 0D : electrolyteData.efficiency();
     }
 
     // Client

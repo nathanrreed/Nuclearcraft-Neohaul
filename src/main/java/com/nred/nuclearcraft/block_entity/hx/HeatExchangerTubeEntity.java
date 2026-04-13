@@ -53,30 +53,6 @@ public class HeatExchangerTubeEntity extends AbstractHeatExchangerEntity impleme
         return position == PartPosition.Interior;
     }
 
-    public static abstract class Variant extends HeatExchangerTubeEntity {
-        protected Variant(final BlockPos position, final BlockState blockState, HeatExchangerTubeType type) {
-            super(position, blockState, type);
-        }
-    }
-
-    public static class Copper extends Variant {
-        public Copper(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, HeatExchangerTubeType.COPPER);
-        }
-    }
-
-    public static class HardCarbon extends Variant {
-        public HardCarbon(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, HeatExchangerTubeType.HARD_CARBON);
-        }
-    }
-
-    public static class Thermoconducting extends Variant {
-        public Thermoconducting(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, HeatExchangerTubeType.THERMOCONDUCTING);
-        }
-    }
-
     public void setTubeSettings(@Nonnull HeatExchangerTubeSetting[] settings) {
         System.arraycopy(settings, 0, this.settings, 0, 6);
     }

@@ -1,0 +1,12 @@
+{
+  "values": {
+    "nuclearcraftneohaul:beryllium_carbon_reflector": {
+      "efficiency": 0.5,
+      "reflectivity": 1.0
+    },
+    "nuclearcraftneohaul:lead_steel_reflector": {
+      "efficiency": 0.25,
+      "reflectivity": 0.5
+    }
+  }
+}

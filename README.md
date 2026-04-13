@@ -45,7 +45,7 @@ Early jar files can be found in [Github Actions](https://github.com/nathanrreed/
 - Tools and Armour
 
 #### Currently Working on:
-- Testing an optimizing
+- Testing and optimizing
 
 #### Future Additions:
 - Integrations with other mods (CubeJS / CraftTweaker, Jade / TOP)

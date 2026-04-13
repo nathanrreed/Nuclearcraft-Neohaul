@@ -4,36 +4,39 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorHeatingUnitEntity;
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorPressureChamberEntity;
 import com.nred.nuclearcraft.config.NCConfig;
+import com.nred.nuclearcraft.datamap.InfiltratorPressureData;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.payload.multiblock.InfiltratorRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.InfiltratorUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.MachineRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.MachineUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.RecipeInfo;
-import com.nred.nuclearcraft.recipe.machine.InfiltratorPressureFluidRecipe;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import it.zerono.mods.zerocore.lib.data.nbt.ISyncableEntity;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static com.nred.nuclearcraft.config.NCConfig.machine_infiltrator_sound_volume;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.INFILTRATOR_PRESSURE_DATA;
 import static com.nred.nuclearcraft.registration.SoundRegistration.infiltrator_run;
 
 public class InfiltratorLogic extends MachineLogic {
@@ -63,7 +66,7 @@ public class InfiltratorLogic extends MachineLogic {
 
     @Override
     public List<Set<ResourceLocation>> getReservoirValidFluids() {
-        return NCRecipes.infiltrator_pressure_fluid.validFluids;
+        return List.of(BuiltInRegistries.FLUID.getDataMap(INFILTRATOR_PRESSURE_DATA).keySet().stream().map(ResourceKey::location).collect(Collectors.toSet())); // Since reservoirTankCount() is 1 list of 1
     }
 
     @Override
@@ -151,7 +154,7 @@ public class InfiltratorLogic extends MachineLogic {
 
     @Override
     protected double getSpeedMultiplier() {
-        return multiblock.baseSpeedMultiplier * pressureFluidEfficiency * (1D + heatingBonus) * getReservoirLevelFraction();
+        return multiblock.baseSpeedMultiplier * pressureFluidEfficiency * (1.0 + heatingBonus) * getReservoirLevelFraction();
     }
 
     @Override
@@ -161,15 +164,15 @@ public class InfiltratorLogic extends MachineLogic {
 
     @Override
     protected boolean readyToProcess() {
-        return super.readyToProcess() && getReservoirLevelFraction() > 0D;
+        return super.readyToProcess() && getReservoirLevelFraction() > 0.0;
     }
 
     @Override
     public void refreshActivity() {
         super.refreshActivity();
 
-        RecipeInfo<InfiltratorPressureFluidRecipe> recipeInfo = NCRecipes.infiltrator_pressure_fluid.getRecipeInfoFromInputs(getWorld(), Collections.emptyList(), multiblock.reservoirTanks.subList(0, 1));
-        pressureFluidEfficiency = recipeInfo == null ? 0D : recipeInfo.recipe.getInfiltratorPressureFluidEfficiency();
+        InfiltratorPressureData infiltratorPressureData = DataMapHelper.getData(multiblock.reservoirTanks.getFirst().getFluid(), INFILTRATOR_PRESSURE_DATA);
+        pressureFluidEfficiency = infiltratorPressureData == null ? 0.0 : infiltratorPressureData.efficiency();
     }
 
     // Client

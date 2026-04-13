@@ -13,8 +13,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import org.slf4j.Logger;
@@ -33,12 +31,10 @@ public class NuclearcraftNeohaul {
     public NuclearcraftNeohaul(IEventBus modEventBus, ModContainer modContainer) {
         enableMilkFluid();
         Registration.register(modEventBus);
-        modContainer.registerConfig(ModConfig.Type.COMMON, NCConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, NCConfig.SPEC); // TODO split into client and server
 
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::addReloadListeners);
         modEventBus.addListener(this::commonSetup);
-
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
     private ReloadListener recipeCacheManager;

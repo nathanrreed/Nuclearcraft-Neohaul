@@ -1,0 +1,16 @@
+{
+  "values": {
+    "nuclearcraftneohaul:polyethersulfone_diaphragm": {
+      "contact_factor": 1.5,
+      "efficiency": 0.9
+    },
+    "nuclearcraftneohaul:sintered_steel_diaphragm": {
+      "contact_factor": 1.0,
+      "efficiency": 0.8
+    },
+    "nuclearcraftneohaul:zirfon_diaphragm": {
+      "contact_factor": 2.0,
+      "efficiency": 1.0
+    }
+  }
+}

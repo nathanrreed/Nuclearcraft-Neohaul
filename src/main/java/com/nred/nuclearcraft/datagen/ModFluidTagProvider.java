@@ -30,6 +30,10 @@ public class ModFluidTagProvider extends FluidTagsProvider {
     public static final TagKey<Fluid> HYDROGEN_TAG = FluidTags.create(ResourceLocation.parse("c:hydrogen"));
     public static final TagKey<Fluid> HELIUM_TAG = FluidTags.create(ResourceLocation.parse("c:helium"));
 
+    // Used in INFILTRATOR_PRESSURE_DATA, but not created in mod
+    public static final TagKey<Fluid> ARGON_TAG = FluidTags.create(ResourceLocation.parse("c:argon"));
+    public static final TagKey<Fluid> NEON_TAG = FluidTags.create(ResourceLocation.parse("c:neon"));
+
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(CRYOTHEUM_TAG).add(CUSTOM_FLUID_MAP.get("cryotheum").still.get());

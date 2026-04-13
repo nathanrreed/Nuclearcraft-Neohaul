@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.compat.emi.part;
 
-import com.nred.nuclearcraft.compat.common.RecipeViewerInfo;
+import com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfo;
 import com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.RecipeViewer;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.material.Fluid;
 import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.compat.common.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
+import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
 
 public abstract class RecipeViewerRecipe extends BasicEmiRecipe {
     private final RecipeViewerInfo recipeViewerInfo;

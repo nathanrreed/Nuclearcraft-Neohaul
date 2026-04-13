@@ -1,11 +1,15 @@
 package com.nred.nuclearcraft.compat.jei;
 
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.recipe.*;
+import com.nred.nuclearcraft.recipe.CollectorRecipe;
+import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
+import com.nred.nuclearcraft.recipe.ProcessorRecipe;
+import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.*;
+import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
+import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
+import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import mezz.jei.api.IModPlugin;
@@ -13,27 +17,39 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.datamaps.DataMapType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
+import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.CONDENSER_DISSIPATION_TOOLTIP;
+import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.INFILTRATOR_PRESSURE_FLUID_TOOLTIP;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.COOLANTS;
 import static com.nred.nuclearcraft.multiblock.hx.CondenserLogic.getCondenserDissipationFluids;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
 
 @JeiPlugin
@@ -47,19 +63,19 @@ public class ModJeiPlugin implements IModPlugin {
     public static IRecipeCategory<FissionHeatingRecipe> JEI_VENT_CATEGORY;
     public static IRecipeCategory<FissionEmergencyCoolingRecipe> JEI_EMERGENCY_COOLING_CATEGORY;
     public static IRecipeCategory<FissionCoolantHeaterRecipe> JEI_SALT_COOLING_CATEGORY;
-    public static IRecipeCategory<FissionModeratorRecipe> JEI_MODERATOR_CATEGORY;
-    public static IRecipeCategory<FissionReflectorRecipe> JEI_REFLECTOR_CATEGORY;
     public static IRecipeCategory<HeatExchangerRecipe> JEI_HEAT_EXCHANGER_CATEGORY;
     public static IRecipeCategory<CondenserRecipe> JEI_CONDENSER_CATEGORY;
-    public static IRecipeCategory<BasicRecipe> JEI_CONDENSER_DISSIPATION_CATEGORY;
+    public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_CONDENSER_DISSIPATION_CATEGORY;
     public static IRecipeCategory<MultiblockDistillerRecipe> JEI_MULTIBLOCK_DISTILLER_CATEGORY;
     public static IRecipeCategory<MultiblockElectrolyzerRecipe> JEI_MULTIBLOCK_ELECTROLYZER_CATEGORY;
     public static IRecipeCategory<MultiblockInfiltratorRecipe> JEI_MULTIBLOCK_INFILTRATOR_CATEGORY;
-    public static IRecipeCategory<ElectrolyzerCathodeRecipe> JEI_ELECTROLYZER_CATHODE_CATEGORY;
-    public static IRecipeCategory<ElectrolyzerAnodeRecipe> JEI_ELECTROLYZER_ANODE_CATEGORY;
-    public static IRecipeCategory<InfiltratorPressureFluidRecipe> JEI_INFILTRATOR_PRESSURE_CATEGORY;
-    public static IRecipeCategory<MachineDiaphragmRecipe> JEI_DIAPHRAGM_CATEGORY;
-    public static IRecipeCategory<MachineSieveAssemblyRecipe> JEI_SIEVE_ASSEMBLY_CATEGORY;
+    public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_INFILTRATOR_PRESSURE_CATEGORY;
+    public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_MODERATOR_CATEGORY;
+    public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_REFLECTOR_CATEGORY;
+    public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_ELECTROLYZER_CATHODE_CATEGORY;
+    public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_ELECTROLYZER_ANODE_CATEGORY;
+    public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_DIAPHRAGM_CATEGORY;
+    public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_SIEVE_ASSEMBLY_CATEGORY;
     public static IRecipeCategory<DecayGeneratorRecipe> JEI_DECAY_GENERATOR_CATEGORY;
     public static IRecipeCategory<RadiationScrubberRecipe> JEI_RADIATION_SCRUBBER_CATEGORY;
 
@@ -92,15 +108,15 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(JEI_EMERGENCY_COOLING_CATEGORY);
         JEI_SALT_COOLING_CATEGORY = new JeiSaltCoolingCategory(helper);
         registration.addRecipeCategories(JEI_SALT_COOLING_CATEGORY);
-        JEI_MODERATOR_CATEGORY = new JeiBasicInfoCategory<>(helper, "fission_moderator", HEAVY_WATER_MODERATOR, FissionModeratorRecipe.class);
+        JEI_MODERATOR_CATEGORY = new JeiBasicInfoCategory(helper, "fission_moderator", HEAVY_WATER_MODERATOR);
         registration.addRecipeCategories(JEI_MODERATOR_CATEGORY);
-        JEI_REFLECTOR_CATEGORY = new JeiBasicInfoCategory<>(helper, "fission_reflector", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"), FissionReflectorRecipe.class);
+        JEI_REFLECTOR_CATEGORY = new JeiBasicInfoCategory(helper, "fission_reflector", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"));
         registration.addRecipeCategories(JEI_REFLECTOR_CATEGORY);
         JEI_HEAT_EXCHANGER_CATEGORY = new JeiHeatExchangerCategory(helper);
         registration.addRecipeCategories(JEI_HEAT_EXCHANGER_CATEGORY);
         JEI_CONDENSER_CATEGORY = new JeiCondenserCategory(helper);
         registration.addRecipeCategories(JEI_CONDENSER_CATEGORY);
-        JEI_CONDENSER_DISSIPATION_CATEGORY = new JeiBasicInfoCategory<>(helper, "condenser_dissipation", HX_MAP.get("heat_exchanger_inlet"), BasicRecipe.class);
+        JEI_CONDENSER_DISSIPATION_CATEGORY = new JeiBasicInfoCategory(helper, "condenser_dissipation", HX_MAP.get("heat_exchanger_inlet"));
         registration.addRecipeCategories(JEI_CONDENSER_DISSIPATION_CATEGORY);
         JEI_MULTIBLOCK_DISTILLER_CATEGORY = new JeiMultiblockDistillerCategory(helper);
         registration.addRecipeCategories(JEI_MULTIBLOCK_DISTILLER_CATEGORY);
@@ -108,15 +124,15 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(JEI_MULTIBLOCK_ELECTROLYZER_CATEGORY);
         JEI_MULTIBLOCK_INFILTRATOR_CATEGORY = new JeiMultiblockInfiltratorCategory(helper);
         registration.addRecipeCategories(JEI_MULTIBLOCK_INFILTRATOR_CATEGORY);
-        JEI_ELECTROLYZER_CATHODE_CATEGORY = new JeiBasicInfoCategory<>(helper, "electrolyzer_cathode", MACHINE_MAP.get("electrolyzer_cathode_terminal"), ElectrolyzerCathodeRecipe.class);
+        JEI_ELECTROLYZER_CATHODE_CATEGORY = new JeiBasicInfoCategory(helper, "electrolyzer_cathode", MACHINE_MAP.get("electrolyzer_cathode_terminal"));
         registration.addRecipeCategories(JEI_ELECTROLYZER_CATHODE_CATEGORY);
-        JEI_ELECTROLYZER_ANODE_CATEGORY = new JeiBasicInfoCategory<>(helper, "electrolyzer_anode", MACHINE_MAP.get("electrolyzer_anode_terminal"), ElectrolyzerAnodeRecipe.class);
+        JEI_ELECTROLYZER_ANODE_CATEGORY = new JeiBasicInfoCategory(helper, "electrolyzer_anode", MACHINE_MAP.get("electrolyzer_anode_terminal"));
         registration.addRecipeCategories(JEI_ELECTROLYZER_ANODE_CATEGORY);
-        JEI_INFILTRATOR_PRESSURE_CATEGORY = new JeiBasicInfoCategory<>(helper, "infiltrator_pressure", MACHINE_MAP.get("infiltrator_pressure_chamber"), InfiltratorPressureFluidRecipe.class);
+        JEI_INFILTRATOR_PRESSURE_CATEGORY = new JeiBasicInfoCategory(helper, "infiltrator_pressure", MACHINE_MAP.get("infiltrator_pressure_chamber"));
         registration.addRecipeCategories(JEI_INFILTRATOR_PRESSURE_CATEGORY);
-        JEI_DIAPHRAGM_CATEGORY = new JeiBasicInfoCategory<>(helper, "diaphragm", MACHINE_MAP.get("sintered_steel_diaphragm"), MachineDiaphragmRecipe.class);
+        JEI_DIAPHRAGM_CATEGORY = new JeiBasicInfoCategory(helper, "machine_diaphragm", MACHINE_MAP.get("sintered_steel_diaphragm"));
         registration.addRecipeCategories(JEI_DIAPHRAGM_CATEGORY);
-        JEI_SIEVE_ASSEMBLY_CATEGORY = new JeiBasicInfoCategory<>(helper, "sieve_assembly", MACHINE_MAP.get("steel_sieve_assembly"), MachineSieveAssemblyRecipe.class);
+        JEI_SIEVE_ASSEMBLY_CATEGORY = new JeiBasicInfoCategory(helper, "machine_sieve_assembly", MACHINE_MAP.get("steel_sieve_assembly"));
         registration.addRecipeCategories(JEI_SIEVE_ASSEMBLY_CATEGORY);
         JEI_DECAY_GENERATOR_CATEGORY = new JeiDecayGeneratorCategory(helper);
         registration.addRecipeCategories(JEI_DECAY_GENERATOR_CATEGORY);
@@ -129,7 +145,7 @@ public class ModJeiPlugin implements IModPlugin {
         for (String type : JEI_PROCESSOR_CATEGORIES.keySet()) {
             registration.addRecipeCatalysts(JEI_PROCESSOR_CATEGORIES.get(type).getRecipeType(), PROCESSOR_MAP.get(type));
         }
-        registration.addRecipeCatalysts(RecipeTypes.SMELTING, VanillaTypes.ITEM_STACK, List.of(PROCESSOR_MAP.get("electric_furnace").toStack()));
+        registration.addRecipeCatalysts(RecipeTypes.SMELTING, VanillaTypes.ITEM_STACK, List.of(PROCESSOR_MAP.get("electric_furnace").toStack(), NUCLEAR_FURNACE.toStack()));
 
         registration.addRecipeCatalysts(JEI_COLLECTOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, COLLECTOR_MAP.values().stream().map(DeferredBlock::toStack).toList());
         registration.addRecipeCatalysts(JEI_TURBINE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(TURBINE_MAP.get("turbine_controller").toStack()));
@@ -173,28 +189,50 @@ public class ModJeiPlugin implements IModPlugin {
         });
 
         registration.addRecipes(JEI_TURBINE_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
-
         registration.addRecipes(JEI_SOLID_FISSION_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(SOLID_FISSION_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_SALT_FISSION_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(SALT_FISSION_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_IRRADIATOR_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(FISSION_IRRADIATOR_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_VENT_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(FISSION_HEATING_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_EMERGENCY_COOLING_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(FISSION_EMERGENCY_COOLING_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_SALT_COOLING_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(COOLANT_HEATER_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(JEI_MODERATOR_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(FISSION_MODERATOR_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(JEI_REFLECTOR_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(FISSION_REFLECTOR_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
+        createItemDataMapCategory(registration, JEI_MODERATOR_CATEGORY, FISSION_MODERATOR_DATA);
+        createItemDataMapCategory(registration, JEI_REFLECTOR_CATEGORY, FISSION_REFLECTOR_DATA);
+
         registration.addRecipes(JEI_HEAT_EXCHANGER_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(HEAT_EXCHANGER_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_CONDENSER_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(CONDENSER_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(JEI_CONDENSER_DISSIPATION_CATEGORY.getRecipeType(), getCondenserDissipationFluids().stream().map(fluid -> new BasicRecipe(List.of(), List.of(SizedChanceFluidIngredient.of(fluid)), List.of(), List.of())).toList());
+        registration.addRecipes(JEI_CONDENSER_DISSIPATION_CATEGORY.getRecipeType(), getCondenserDissipationFluids().stream().map(e -> JeiBasicInfoRecipe.create(registration.getIngredientManager(), e, NeoForgeTypes.FLUID_STACK, CONDENSER_DISSIPATION_TOOLTIP)).toList());
         registration.addRecipes(JEI_MULTIBLOCK_DISTILLER_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MULTIBLOCK_DISTILLER_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_MULTIBLOCK_ELECTROLYZER_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MULTIBLOCK_ELECTROLYZER_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_MULTIBLOCK_INFILTRATOR_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MULTIBLOCK_INFILTRATOR_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(JEI_ELECTROLYZER_CATHODE_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(ELECTROLYZER_CATHODE_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(JEI_ELECTROLYZER_ANODE_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(ELECTROLYZER_ANODE_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(JEI_INFILTRATOR_PRESSURE_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(INFILTRATOR_PRESSURE_FLUID_RECIPE_TYPE.get()).stream().filter(x->!x.value().getFluidIngredient().isEmpty()).map(RecipeHolder::value).toList());
-        registration.addRecipes(JEI_DIAPHRAGM_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MACHINE_DIAPHRAGM_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
-        registration.addRecipes(JEI_SIEVE_ASSEMBLY_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MACHINE_SIEVE_ASSEMBLY_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
+        createItemDataMapCategory(registration, JEI_ELECTROLYZER_CATHODE_CATEGORY, ELECTROLYZER_CATHODE_DATA);
+        createItemDataMapCategory(registration, JEI_ELECTROLYZER_ANODE_CATEGORY, ELECTROLYZER_ANODE_DATA);
+        createFluidDataMapCategory(registration, JEI_INFILTRATOR_PRESSURE_CATEGORY, INFILTRATOR_PRESSURE_DATA, INFILTRATOR_PRESSURE_FLUID_TOOLTIP);
+        createItemDataMapCategory(registration, JEI_DIAPHRAGM_CATEGORY, MACHINE_DIAPHRAGM_DATA);
+        createItemDataMapCategory(registration, JEI_SIEVE_ASSEMBLY_CATEGORY, MACHINE_SIEVE_ASSEMBLY_DATA);
+
         registration.addRecipes(JEI_DECAY_GENERATOR_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(DECAY_GENERATOR_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_RADIATION_SCRUBBER_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(RADIATION_SCRUBBER_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
+    }
+
+
+    private <R> void createItemDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Item, R> dataMapType) {
+        createItemDataMapCategory(registration, category, dataMapType, null);
+    }
+
+    private <R> void createItemDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Item, R> dataMapType, Function<ItemStack, Component> tooltip) {
+        addDataMapRecipes(registration, category, BuiltInRegistries.ITEM.getDataMap(dataMapType).entrySet(), e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e.getKey())).getDefaultInstance(), VanillaTypes.ITEM_STACK, tooltip);
+    }
+
+    private <R> void createFluidDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Fluid, R> dataMapType) {
+        createFluidDataMapCategory(registration, category, dataMapType, null);
+    }
+
+    private <R> void createFluidDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Fluid, R> dataMapType, Function<FluidStack, Component> tooltip) {
+        addDataMapRecipes(registration, category, BuiltInRegistries.FLUID.getDataMap(dataMapType).entrySet(), e -> new FluidStack(Objects.requireNonNull(BuiltInRegistries.FLUID.get(e.getKey())), 1000), NeoForgeTypes.FLUID_STACK, tooltip);
+    }
+
+    private <T, R, S> void addDataMapRecipes(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, Set<Map.Entry<ResourceKey<T>, R>> entrySet, Function<Map.Entry<ResourceKey<T>, R>, S> toStack, IIngredientType<S> type, Function<S, Component> tooltip) {
+        registration.addRecipes(category.getRecipeType(), entrySet.stream().map(e -> JeiBasicInfoRecipe.create(registration.getIngredientManager(), toStack.apply(e), type, tooltip)).toList());
     }
 
     private static Map<String, IRecipeCategory<? extends ProcessorRecipe>> makeCategories(IRecipeCategoryRegistration registration) {

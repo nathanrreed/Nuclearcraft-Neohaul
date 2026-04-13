@@ -1,0 +1,22 @@
+{
+  "values": {
+    "nuclearcraftneohaul:cobalt_oxide_block": {
+      "efficiency": 0.8
+    },
+    "nuclearcraftneohaul:copper_oxide_block": {
+      "efficiency": 0.6
+    },
+    "nuclearcraftneohaul:iridium_oxide_block": {
+      "efficiency": 1.0
+    },
+    "nuclearcraftneohaul:nickel_oxide_block": {
+      "efficiency": 0.7
+    },
+    "nuclearcraftneohaul:ruthenium_oxide_block": {
+      "efficiency": 0.9
+    },
+    "nuclearcraftneohaul:tin_oxide_block": {
+      "efficiency": 0.6
+    }
+  }
+}

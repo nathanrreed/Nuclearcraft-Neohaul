@@ -1,40 +1,41 @@
 package com.nred.nuclearcraft.compat.jei;
 
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.machine.InfiltratorPressureFluidRecipe;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.ingredients.ITypedIngredient;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.CONDENSER_DISSIPATION_TOOLTIP;
-import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.INFILTRATOR_PRESSURE_FLUID_TOOLTIP;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class JeiBasicInfoCategory<RECIPE extends BasicRecipe> extends JeiBasicCategory<RECIPE> {
+public class JeiBasicInfoCategory implements IRecipeCategory<IJeiBasicInfoRecipe> {
     protected static final Font font = Minecraft.getInstance().font;
+    private final String name;
     private final ItemLike icon;
-    private final Class<RECIPE> clazz;
+    private final IGuiHelper helper;
+    public final RecipeType<IJeiBasicInfoRecipe> type;
 
-    public JeiBasicInfoCategory(IGuiHelper helper, String name, ItemLike icon, Class<RECIPE> clazz) {
-        super(helper, name);
+    public JeiBasicInfoCategory(IGuiHelper helper, String name, ItemLike icon) {
+        this.helper = helper;
+        this.name = name;
         this.icon = icon;
-        this.clazz = clazz;
+        this.type = new RecipeType<>(ncLoc(name), IJeiBasicInfoRecipe.class);
+    }
+
+    @Override
+    public RecipeType<IJeiBasicInfoRecipe> getRecipeType() {
+        return type;
     }
 
     @Override
@@ -52,31 +53,21 @@ public class JeiBasicInfoCategory<RECIPE extends BasicRecipe> extends JeiBasicCa
         return 18;
     }
 
+
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RECIPE recipe, IFocusGroup focuses) {
-        IRecipeSlotBuilder inputSlotBuilder = builder.addInputSlot(1, 1).setStandardSlotBackground();
+    public void setRecipe(IRecipeLayoutBuilder builder, IJeiBasicInfoRecipe recipe, IFocusGroup focuses) {
+        IRecipeSlotBuilder inputSlotBuilder = builder.addInputSlot(1, 1);
+        inputSlotBuilder.setBackground(helper.drawableBuilder(ncLoc("textures/gui/sprites/container/" + name + ".png"), 0, 0, 18, 18).setTextureSize(18, 18).build(), -1, -1);
+
+        if (recipe.getTooltip() != null) {
+            inputSlotBuilder.addRichTooltipCallback((slot, tooltipBuilder) -> tooltipBuilder.add(recipe.getTooltip()));
+        }
+
         IIngredientAcceptor<?> outputSlotBuilder = builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT);
 
-        for (SizedChanceItemIngredient typedIngredient : recipe.getItemIngredients()) {
-            inputSlotBuilder.addIngredients(typedIngredient.ingredient());
-            outputSlotBuilder.addIngredients(typedIngredient.ingredient());
-        }
-        for (SizedChanceFluidIngredient typedIngredient : recipe.getFluidIngredients()) {
-            FluidStack fluid = Arrays.stream(typedIngredient.getFluidsRaw()).findFirst().orElse(FluidStack.EMPTY);
-            if (fluid.isEmpty()) continue;
-            IRecipeSlotBuilder slot = inputSlotBuilder.addFluidStack(fluid.getFluid());
-            if (name.equals("condenser_dissipation")) {
-                slot.addRichTooltipCallback((recipeSlotView, tooltips) -> tooltips.add(CONDENSER_DISSIPATION_TOOLTIP.apply(fluid)));
-            } else if (name.equals("infiltrator_pressure")) {
-                slot.addRichTooltipCallback((recipeSlotView, tooltips) -> tooltips.add(INFILTRATOR_PRESSURE_FLUID_TOOLTIP.apply((InfiltratorPressureFluidRecipe) recipe)));
-            }
-            outputSlotBuilder.addFluidStack(fluid.getFluid());
-        }
-    }
-
-    @Override
-    public RecipeType<RECIPE> getRecipeType() {
-        return new RecipeType<>(ncLoc(name), clazz);
+        ITypedIngredient<?> typedIngredient = recipe.getIngredient();
+        inputSlotBuilder.addTypedIngredient(typedIngredient);
+        outputSlotBuilder.addTypedIngredient(typedIngredient);
     }
 
     @Override

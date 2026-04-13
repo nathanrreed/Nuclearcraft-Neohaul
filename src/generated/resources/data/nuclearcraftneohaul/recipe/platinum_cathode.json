@@ -1,7 +1,0 @@
-{
-  "type": "nuclearcraftneohaul:electrolyzer_cathode_recipe",
-  "block": {
-    "tag": "c:storage_blocks/platinum"
-  },
-  "efficiency": 1.0
-}

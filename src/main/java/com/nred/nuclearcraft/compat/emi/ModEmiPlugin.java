@@ -11,7 +11,9 @@ import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.*;
+import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
+import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
+import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
@@ -26,17 +28,22 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,6 +55,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.COOLANTS;
 import static com.nred.nuclearcraft.multiblock.hx.CondenserLogic.getCondenserDissipationFluids;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.MenuRegistration.*;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
@@ -81,9 +89,6 @@ public class ModEmiPlugin implements EmiPlugin {
     private static final EmiStack SALT_COOLING_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"));
     public static final EmiRecipeCategory EMI_SALT_COOLING_CATEGORY = new EmiRecipeCategory(ncLoc("salt_cooling"), SALT_COOLING_WORKSTATION);
 
-    public static final EmiRecipeCategory EMI_MODERATOR_CATEGORY = new EmiRecipeCategory(ncLoc("fission_moderator"), EmiStack.of(HEAVY_WATER_MODERATOR));
-    public static final EmiRecipeCategory EMI_REFLECTOR_CATEGORY = new EmiRecipeCategory(ncLoc("fission_reflector"), EmiStack.of(FISSION_REACTOR_MAP.get("beryllium_carbon_reflector")));
-
     private static final EmiStack HEAT_EXCHANGER_WORKSTATION = EmiStack.of(HX_MAP.get("heat_exchanger_controller"));
     public static final EmiRecipeCategory EMI_HEAT_EXCHANGER_CATEGORY = new EmiRecipeCategory(ncLoc("heat_exchanger"), HEAT_EXCHANGER_WORKSTATION);
 
@@ -102,21 +107,6 @@ public class ModEmiPlugin implements EmiPlugin {
     private static final EmiStack MULTIBLOCK_INFILTRATOR_WORKSTATION = EmiStack.of(MACHINE_MAP.get("infiltrator_controller"));
     public static final EmiRecipeCategory EMI_MULTIBLOCK_INFILTRATOR_CATEGORY = new EmiRecipeCategory(ncLoc("multiblock_infiltrator"), MULTIBLOCK_INFILTRATOR_WORKSTATION);
 
-    private static final EmiStack ELECTROLYZER_CATHODE_WORKSTATION = EmiStack.of(MACHINE_MAP.get("electrolyzer_cathode_terminal"));
-    public static final EmiRecipeCategory EMI_ELECTROLYZER_CATHODE_CATEGORY = new EmiRecipeCategory(ncLoc("electrolyzer_cathode"), ELECTROLYZER_CATHODE_WORKSTATION);
-
-    private static final EmiStack ELECTROLYZER_ANODE_WORKSTATION = EmiStack.of(MACHINE_MAP.get("electrolyzer_anode_terminal"));
-    public static final EmiRecipeCategory EMI_ELECTROLYZER_ANODE_CATEGORY = new EmiRecipeCategory(ncLoc("electrolyzer_anode"), ELECTROLYZER_ANODE_WORKSTATION);
-
-    private static final EmiStack INFILTRATOR_PRESSURE_WORKSTATION = EmiStack.of(MACHINE_MAP.get("infiltrator_pressure_chamber"));
-    public static final EmiRecipeCategory EMI_INFILTRATOR_PRESSURE_CATEGORY = new EmiRecipeCategory(ncLoc("infiltrator_pressure"), INFILTRATOR_PRESSURE_WORKSTATION);
-
-    private static final EmiStack DIAPHRAGM_WORKSTATION = EmiStack.of(MACHINE_MAP.get("sintered_steel_diaphragm"));
-    public static final EmiRecipeCategory EMI_DIAPHRAGM_CATEGORY = new EmiRecipeCategory(ncLoc("diaphragm"), DIAPHRAGM_WORKSTATION);
-
-    private static final EmiStack SIEVE_ASSEMBLY_WORKSTATION = EmiStack.of(MACHINE_MAP.get("steel_sieve_assembly"));
-    public static final EmiRecipeCategory EMI_SIEVE_ASSEMBLY_CATEGORY = new EmiRecipeCategory(ncLoc("sieve_assembly"), SIEVE_ASSEMBLY_WORKSTATION);
-
     private static final EmiStack DECAY_GENERATOR_WORKSTATION = EmiStack.of(DECAY_GENERATOR);
     public static final EmiRecipeCategory EMI_DECAY_GENERATOR_CATEGORY = new EmiRecipeCategory(ncLoc("decay_generator"), DECAY_GENERATOR_WORKSTATION);
 
@@ -132,6 +122,7 @@ public class ModEmiPlugin implements EmiPlugin {
         }
 
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, PROCESSOR_WORKSTATIONS.get("electric_furnace"));
+        registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(NUCLEAR_FURNACE));
         for (String type : EMI_PROCESSOR_CATEGORIES.keySet()) {
             registry.addCategory(EMI_PROCESSOR_CATEGORIES.get(type));
             registry.addRecipeHandler((MenuType<? extends ProcessorMenu<?, ?, ?>>) PROCESSOR_MENU_TYPES.get(type).get(), new StandardRecipeHandler() {
@@ -195,35 +186,16 @@ public class ModEmiPlugin implements EmiPlugin {
             registry.addRecipe(new EmiDecayGeneratorRecipe(recipe.id(), recipe.value()));
         }
 
-        registry.addCategory(EMI_DIAPHRAGM_CATEGORY);
-        addWorkstations(registry, EMI_DIAPHRAGM_CATEGORY, List.of(DIAPHRAGM_WORKSTATION, EmiStack.of(MACHINE_MAP.get("polyethersulfone_diaphragm")), EmiStack.of(MACHINE_MAP.get("zirfon_diaphragm"))));
-        for (RecipeHolder<MachineDiaphragmRecipe> recipe : manager.getAllRecipesFor(MACHINE_DIAPHRAGM_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiBasicInfoRecipe(List.of(EmiIngredient.of(recipe.value().block())), EMI_DIAPHRAGM_CATEGORY, ncLoc("diaphragm")));
-        }
-
-        registry.addCategory(EMI_SIEVE_ASSEMBLY_CATEGORY);
-        addWorkstations(registry, EMI_SIEVE_ASSEMBLY_CATEGORY, List.of(SIEVE_ASSEMBLY_WORKSTATION, EmiStack.of(MACHINE_MAP.get("polytetrafluoroethene_sieve_assembly")), EmiStack.of(MACHINE_MAP.get("hastelloy_sieve_assembly"))));
-        for (RecipeHolder<MachineSieveAssemblyRecipe> recipe : manager.getAllRecipesFor(MACHINE_SIEVE_ASSEMBLY_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiBasicInfoRecipe(List.of(EmiIngredient.of(recipe.value().block())), EMI_SIEVE_ASSEMBLY_CATEGORY, ncLoc("sieve_assembly")));
-        }
+        createItemDataMapCategory(registry, MACHINE_DIAPHRAGM_DATA, "machine_diaphragm", MACHINE_MAP.get("sintered_steel_diaphragm"));
+        createItemDataMapCategory(registry, MACHINE_SIEVE_ASSEMBLY_DATA, "machine_sieve_assembly", MACHINE_MAP.get("steel_sieve_assembly"));
+        createItemDataMapCategory(registry, ELECTROLYZER_CATHODE_DATA, "electrolyzer_cathode", MACHINE_MAP.get("electrolyzer_cathode_terminal"));
+        createItemDataMapCategory(registry, ELECTROLYZER_ANODE_DATA, "electrolyzer_anode", MACHINE_MAP.get("electrolyzer_anode_terminal"));
 
         registry.addCategory(EMI_MULTIBLOCK_ELECTROLYZER_CATEGORY);
         registry.addWorkstation(EMI_MULTIBLOCK_ELECTROLYZER_CATEGORY, MULTIBLOCK_ELECTROLYZER_WORKSTATION);
         registry.addRecipeHandler(ELECTROLYZER_CONTROLLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_MULTIBLOCK_ELECTROLYZER_CATEGORY));
         for (RecipeHolder<MultiblockElectrolyzerRecipe> recipe : manager.getAllRecipesFor(MULTIBLOCK_ELECTROLYZER_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiMultiblockElectrolyzerRecipe(recipe.id(), recipe.value(), manager.getAllRecipesFor(ELECTROLYZER_ELECTROLYTE_RECIPE_TYPE.get()).stream().filter(r -> r.value().getElectrolyteGroup().equals(recipe.value().getElectrolyteGroup())).map(RecipeHolder::value).toList()));
-        }
-
-        registry.addCategory(EMI_ELECTROLYZER_CATHODE_CATEGORY);
-        registry.addWorkstation(EMI_ELECTROLYZER_CATHODE_CATEGORY, ELECTROLYZER_CATHODE_WORKSTATION);
-        for (RecipeHolder<ElectrolyzerCathodeRecipe> recipe : manager.getAllRecipesFor(ELECTROLYZER_CATHODE_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiBasicInfoRecipe(List.of(EmiIngredient.of(recipe.value().block())), EMI_ELECTROLYZER_CATHODE_CATEGORY, ncLoc("electrolyzer_cathode")));
-        }
-
-        registry.addCategory(EMI_ELECTROLYZER_ANODE_CATEGORY);
-        registry.addWorkstation(EMI_ELECTROLYZER_ANODE_CATEGORY, ELECTROLYZER_ANODE_WORKSTATION);
-        for (RecipeHolder<ElectrolyzerAnodeRecipe> recipe : manager.getAllRecipesFor(ELECTROLYZER_ANODE_RECIPE_TYPE.get())) {
-            registry.addRecipe(new EmiBasicInfoRecipe(List.of(EmiIngredient.of(recipe.value().block())), EMI_ELECTROLYZER_ANODE_CATEGORY, ncLoc("electrolyzer_anode")));
+            registry.addRecipe(new EmiMultiblockElectrolyzerRecipe(recipe.id(), recipe.value()));
         }
 
         registry.addCategory(EMI_MULTIBLOCK_DISTILLER_CATEGORY);
@@ -239,12 +211,7 @@ public class ModEmiPlugin implements EmiPlugin {
             registry.addRecipe(new EmiMultiblockInfiltratorRecipe(recipe.id(), recipe.value()));
         }
 
-        registry.addCategory(EMI_INFILTRATOR_PRESSURE_CATEGORY);
-        registry.addWorkstation(EMI_INFILTRATOR_PRESSURE_CATEGORY, INFILTRATOR_PRESSURE_WORKSTATION);
-        for (RecipeHolder<InfiltratorPressureFluidRecipe> recipe : manager.getAllRecipesFor(INFILTRATOR_PRESSURE_FLUID_RECIPE_TYPE.get())) {
-            if (recipe.value().gas().hasNoFluids()) continue;
-            registry.addRecipe(new EmiBasicInfoRecipe(List.of(NeoForgeEmiIngredient.of(recipe.value().gas())), EMI_INFILTRATOR_PRESSURE_CATEGORY, ncLoc("infiltrator_pressure"), () -> ClientTooltipComponent.create(INFILTRATOR_PRESSURE_FLUID_TOOLTIP.apply(recipe.value()).getVisualOrderText())));
-        }
+        createFluidDataMapCategory(registry, INFILTRATOR_PRESSURE_DATA, "infiltrator_pressure", MACHINE_MAP.get("infiltrator_pressure_chamber"), INFILTRATOR_PRESSURE_FLUID_TOOLTIP);
 
         registry.addCategory(EMI_IRRADIATOR_CATEGORY);
         registry.addWorkstation(EMI_IRRADIATOR_CATEGORY, IRRADIATOR_WORKSTATION);
@@ -267,10 +234,8 @@ public class ModEmiPlugin implements EmiPlugin {
             registry.addRecipe(new EmiSaltFissionRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
-        registry.addCategory(EMI_MODERATOR_CATEGORY);
-        registry.addRecipe(new EmiBasicInfoRecipe(manager.getAllRecipesFor(FISSION_MODERATOR_RECIPE_TYPE.get()).stream().map(i -> EmiIngredient.of(i.value().moderator())).toList(), EMI_MODERATOR_CATEGORY, ncLoc("moderators")));
-        registry.addCategory(EMI_REFLECTOR_CATEGORY);
-        registry.addRecipe(new EmiBasicInfoRecipe(manager.getAllRecipesFor(FISSION_REFLECTOR_RECIPE_TYPE.get()).stream().map(i -> EmiIngredient.of(i.value().reflector())).toList(), EMI_REFLECTOR_CATEGORY, ncLoc("reflectors")));
+        createItemDataMapCategory(registry, FISSION_MODERATOR_DATA, "fission_moderator", HEAVY_WATER_MODERATOR);
+        createItemDataMapCategory(registry, FISSION_REFLECTOR_DATA, "fission_reflector", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"));
 
         registry.addCategory(EMI_VENT_CATEGORY);
         registry.addWorkstation(EMI_VENT_CATEGORY, VENT_WORKSTATION);
@@ -308,7 +273,7 @@ public class ModEmiPlugin implements EmiPlugin {
         registry.addCategory(EMI_CONDENSER_DISSIPATION_CATEGORY);
         registry.addWorkstation(EMI_CONDENSER_DISSIPATION_CATEGORY, CONDENSER_DISSIPATION_WORKSTATION);
         for (FluidStack fluidStack : getCondenserDissipationFluids()) {
-            registry.addRecipe(new EmiBasicInfoRecipe(List.of(NeoForgeEmiIngredient.of(SizedFluidIngredient.of(fluidStack))), EMI_CONDENSER_DISSIPATION_CATEGORY, ncLoc("condenser_dissipation"), () -> ClientTooltipComponent.create(CONDENSER_DISSIPATION_TOOLTIP.apply(fluidStack).getVisualOrderText())));
+            registry.addRecipe(new EmiBasicInfoRecipe(List.of(EmiStack.of(fluidStack.getFluid())), EMI_CONDENSER_DISSIPATION_CATEGORY, ncLoc("/condenser_dissipation/" + fluidStack.getDescriptionId()), () -> ClientTooltipComponent.create(CONDENSER_DISSIPATION_TOOLTIP.apply(fluidStack).getVisualOrderText())));
         }
 
         registry.addCategory(EMI_TURBINE_CATEGORY);
@@ -338,10 +303,39 @@ public class ModEmiPlugin implements EmiPlugin {
     }
 
     private void addWorkstations(EmiRegistry registry, EmiRecipeCategory category, List<EmiStack> stacks) {
-        for (EmiStack stack : stacks) {
-            registry.addWorkstation(category, EmiIngredient.of(List.of(stack)));
-        }
+        stacks.forEach(e -> registry.addWorkstation(category, e));
+    }
 
+    private <R> void createItemDataMapCategory(EmiRegistry registry, DataMapType<Item, R> dataMapType, String name, ItemLike icon) {
+        createItemDataMapCategory(registry, dataMapType, name, icon, null);
+    }
+
+    private <R> void createItemDataMapCategory(EmiRegistry registry, DataMapType<Item, R> dataMapType, String name, ItemLike defaultIcon, Function<ItemStack, Component> tooltip) {
+        createDataMapCategory(registry, BuiltInRegistries.ITEM.getDataMap(dataMapType).entrySet(), name, EmiStack.of(defaultIcon), List.of(), (e) -> EmiStack.of(Objects.requireNonNull(BuiltInRegistries.ITEM.get(e.getKey()))), tooltip);
+    }
+
+    private <R> void createFluidDataMapCategory(EmiRegistry registry, DataMapType<Fluid, R> dataMapType, String name, ItemLike icon) {
+        createFluidDataMapCategory(registry, dataMapType, name, icon, null);
+    }
+
+    private <R> void createFluidDataMapCategory(EmiRegistry registry, DataMapType<Fluid, R> dataMapType, String name, ItemLike icon, Function<FluidStack, Component> tooltip) {
+        createDataMapCategory(registry, BuiltInRegistries.FLUID.getDataMap(dataMapType).entrySet(), name, EmiStack.of(icon), List.of(EmiStack.of(icon)), (e) -> EmiStack.of(Objects.requireNonNull(BuiltInRegistries.FLUID.get(e.getKey()))), tooltip);
+    }
+
+    private <T, R, S> void createDataMapCategory(EmiRegistry registry, Set<Map.Entry<ResourceKey<T>, R>> entrySet, String name, EmiStack icon, List<EmiStack> workStations, Function<Map.Entry<ResourceKey<T>, R>, EmiStack> toEmiStack, Function<S, Component> tooltip) {
+        if (entrySet.isEmpty()) return;
+        EmiRecipeCategory category = new EmiRecipeCategory(ncLoc(name), icon);
+        registry.addCategory(category);
+
+        addWorkstations(registry, category, workStations);
+        for (Map.Entry<ResourceKey<T>, R> entry : entrySet) {
+            EmiStack stack = toEmiStack.apply(entry);
+            registry.addRecipe(new EmiBasicInfoRecipe(List.of(stack), category, ncLoc("/" + name + "/" + stack.getId().toString().replace(':', '_')), tooltip == null ? null : () -> ClientTooltipComponent.create(tooltip.apply((S) stack.getKey()).getVisualOrderText())));
+
+            if (workStations.isEmpty()) {
+                registry.addWorkstation(category, stack);
+            }
+        }
     }
 
     private record SimpleRecipeHandler<T extends AbstractContainerMenu>(EmiRecipeCategory category) implements StandardRecipeHandler<T> {

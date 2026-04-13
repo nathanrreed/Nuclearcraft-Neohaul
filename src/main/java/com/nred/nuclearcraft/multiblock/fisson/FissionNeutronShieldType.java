@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.config.NCConfig.fission_shield_efficiency;
 import static com.nred.nuclearcraft.config.NCConfig.fission_shield_heat_per_flux;
 
-public enum FissionNeutronShieldType implements StringRepresentable, IMultiblockVariant {
+public enum FissionNeutronShieldType implements StringRepresentable, IMultiblockVariant { // TODO make this a datamap or something?
     BORON_SILVER("boron_silver", () -> fission_shield_heat_per_flux[0], () -> fission_shield_efficiency[0]);
 
     private final String name;

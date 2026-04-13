@@ -1,10 +1,9 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
-import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.datamap.FissionModeratorData;
+import com.nred.nuclearcraft.datamap.FissionReflectorData;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
-import com.nred.nuclearcraft.recipe.RecipeHelper;
-import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
-import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
+import com.nred.nuclearcraft.util.DataMapHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
@@ -15,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.nred.nuclearcraft.config.NCConfig.fission_neutron_reach;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_MODERATOR_DATA;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_REFLECTOR_DATA;
 
 
 public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeatingComponent {
@@ -177,13 +178,14 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
                                     updateModeratorLine(fluxSink, dir, line, componentFailCache, assumedValidCache, simulate);
                                 }
                             } else if (i - 1 <= fission_neutron_reach / 2) {
-                                FissionReflectorRecipe recipe = (FissionReflectorRecipe) RecipeHelper.blockRecipe(NCRecipes.fission_reflector, getTileWorld(), offPos);
-                                if (recipe != null) {
-                                    line.reflectorRecipe = recipe;
-                                    line.flux = (long) Math.floor(2D * line.flux * recipe.getFissionReflectorReflectivity());
+
+                                FissionReflectorData reflectorData = DataMapHelper.getData(getTileWorld().getBlockState(offPos), FISSION_REFLECTOR_DATA);
+                                if (reflectorData != null) {
+                                    line.reflectorData = reflectorData;
+                                    line.flux = (long) Math.floor(2D * line.flux * reflectorData.reflectivity());
                                     addFlux(line.flux);
                                     getModeratorLineFluxes()[index] = line.flux;
-                                    getModeratorLineEfficiencies()[index] = recipe.getFissionReflectorEfficiency() * moderatorEfficiency / (i - 1);
+                                    getModeratorLineEfficiencies()[index] = reflectorData.efficiency() * moderatorEfficiency / (i - 1);
                                     incrementHeatMultiplier();
 
                                     if (isFunctional(simulate)) {
@@ -210,7 +212,7 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
         public final List<ModeratorBlockInfo> info;
         public final IFissionFuelComponent fuelComponent;
         public IFissionFluxSink fluxSink = null;
-        public FissionReflectorRecipe reflectorRecipe = null;
+        public FissionReflectorData reflectorData = null;
         public long flux = 0;
 
         public ModeratorLine(List<ModeratorBlockInfo> info, IFissionFuelComponent fuelComponent) {
@@ -219,7 +221,7 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
         }
 
         public boolean hasValidEndpoint(boolean simulate) {
-            return fluxSink != null && fluxSink.isFunctional(simulate) || reflectorRecipe != null;
+            return fluxSink != null && fluxSink.isFunctional(simulate) || reflectorData != null;
         }
     }
 
@@ -229,9 +231,9 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
             return component.getModeratorBlockInfo(dir, validActiveModeratorPos);
         }
 
-        FissionModeratorRecipe recipe = (FissionModeratorRecipe) RecipeHelper.blockRecipe(NCRecipes.fission_moderator, getTileWorld(), pos);
-        if (recipe != null) {
-            return new ModeratorBlockInfo(pos, null, false, validActiveModeratorPos, recipe.getFissionModeratorFluxFactor(), recipe.getFissionModeratorEfficiency());
+        FissionModeratorData moderatorData = DataMapHelper.getData(getTileWorld().getBlockState(pos), FISSION_MODERATOR_DATA);
+        if (moderatorData != null) {
+            return new ModeratorBlockInfo(pos, null, false, validActiveModeratorPos, moderatorData.fluxFactor(), moderatorData.efficiency());
         }
 
         return null;

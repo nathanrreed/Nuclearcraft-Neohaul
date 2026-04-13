@@ -1,0 +1,20 @@
+{
+  "values": {
+    "nuclearcraftneohaul:potassium_fluoride_solution": {
+      "efficiency": 1.0,
+      "group": "fluoride_solution"
+    },
+    "nuclearcraftneohaul:potassium_hydroxide_solution": {
+      "efficiency": 1.0,
+      "group": "hydroxide_solution"
+    },
+    "nuclearcraftneohaul:sodium_fluoride_solution": {
+      "efficiency": 0.9,
+      "group": "fluoride_solution"
+    },
+    "nuclearcraftneohaul:sodium_hydroxide_solution": {
+      "efficiency": 0.9,
+      "group": "hydroxide_solution"
+    }
+  }
+}

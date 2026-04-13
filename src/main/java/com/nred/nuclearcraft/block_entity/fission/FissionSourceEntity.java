@@ -1,13 +1,12 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
-import com.nred.nuclearcraft.block_entity.fission.manager.IFissionManagerListener;
 import com.nred.nuclearcraft.block_entity.fission.manager.FissionSourceManagerEntity;
-import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.block_entity.fission.manager.IFissionManagerListener;
+import com.nred.nuclearcraft.datamap.FissionReflectorData;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
-import com.nred.nuclearcraft.recipe.RecipeHelper;
-import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.render.BlockHighlightTracker;
+import com.nred.nuclearcraft.util.DataMapHelper;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
@@ -25,6 +24,7 @@ import javax.annotation.Nonnull;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.fission_max_size;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_REFLECTOR_DATA;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class FissionSourceEntity extends AbstractFissionEntity implements IFissionManagerListener<FissionSourceManagerEntity, FissionSourceEntity> {
@@ -44,30 +44,6 @@ public class FissionSourceEntity extends AbstractFissionEntity implements IFissi
     @Override
     public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
         return position.isFace();
-    }
-
-    public static class Variant extends FissionSourceEntity {
-        protected Variant(final BlockPos position, final BlockState blockState, FissionSourceType fissionSourceType) {
-            super(position, blockState, fissionSourceType);
-        }
-    }
-
-    public static class RadiumBeryllium extends Variant {
-        public RadiumBeryllium(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, FissionSourceType.RADIUM_BERYLLIUM);
-        }
-    }
-
-    public static class PoloniumBeryllium extends Variant {
-        public PoloniumBeryllium(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, FissionSourceType.POLONIUM_BERYLLIUM);
-        }
-    }
-
-    public static class Californium extends Variant {
-        public Californium(final BlockPos position, final BlockState blockState) {
-            super(position, blockState, FissionSourceType.CALIFORNIUM);
-        }
     }
 
     @Override
@@ -113,8 +89,9 @@ public class FissionSourceEntity extends AbstractFissionEntity implements IFissi
         Direction dir = posFacing.getOpposite();
         for (int i = 1; i <= fission_max_size; ++i) {
             BlockPos offPos = worldPosition.relative(dir, i);
-            FissionReflectorRecipe blockRecipe = (FissionReflectorRecipe) RecipeHelper.blockRecipe(NCRecipes.fission_reflector, level, offPos);
-            if (blockRecipe != null && blockRecipe.getFissionReflectorReflectivity() >= 1D) {
+
+            FissionReflectorData data = DataMapHelper.getData(level.getBlockState(offPos), FISSION_REFLECTOR_DATA);
+            if (data != null && data.reflectivity() >= 1.0) {
                 return null;
             }
 

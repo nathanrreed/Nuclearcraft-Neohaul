@@ -52,5 +52,6 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), new ModLanguageProvider(generator, "en_us"));
         generator.addProvider(event.includeClient(), new EmiLangProvider(generator, "en_us"));
         generator.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModDataMapProvider(packOutput, lookupProvider));
     }
 }

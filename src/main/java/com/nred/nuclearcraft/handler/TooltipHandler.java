@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.handler;
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NCInfo;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
+import com.nred.nuclearcraft.datamap.*;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
@@ -15,14 +16,9 @@ import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
-import com.nred.nuclearcraft.recipe.fission.FissionModeratorRecipe;
-import com.nred.nuclearcraft.recipe.fission.FissionReflectorRecipe;
 import com.nred.nuclearcraft.recipe.fission.ItemFissionRecipe;
-import com.nred.nuclearcraft.recipe.machine.ElectrolyzerAnodeRecipe;
-import com.nred.nuclearcraft.recipe.machine.ElectrolyzerCathodeRecipe;
-import com.nred.nuclearcraft.recipe.machine.MachineDiaphragmRecipe;
-import com.nred.nuclearcraft.recipe.machine.MachineSieveAssemblyRecipe;
 import com.nred.nuclearcraft.util.ArmorHelper;
+import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.InfoHelper;
 import it.zerono.mods.zerocore.base.multiblock.part.GenericDeviceBlock;
 import net.minecraft.ChatFormatting;
@@ -45,6 +41,7 @@ import java.util.function.Function;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.DataComponentRegistration.RADIATION_RESISTANCE_ITEM;
+import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 
 public class TooltipHandler {
     @OnlyIn(Dist.CLIENT)
@@ -97,43 +94,44 @@ public class TooltipHandler {
 
     @OnlyIn(Dist.CLIENT)
     private static void addRecipeTooltip(List<Component> tooltips, ItemStack stack, Level level) {
+        MachineDiaphragmData machineDiaphragmData = DataMapHelper.getData(stack, MACHINE_DIAPHRAGM_DATA);
+        if (machineDiaphragmData != null) {
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED}, NCInfo.machineDiaphragmFixedInfo(machineDiaphragmData), ChatFormatting.AQUA, NCInfo.machineDiaphragmInfo());
+        }
+
+        MachineSieveAssemblyData machine_sieve_assembly = DataMapHelper.getData(stack, MACHINE_SIEVE_ASSEMBLY_DATA);
+        if (machine_sieve_assembly != null) {
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.LIGHT_PURPLE}, NCInfo.machineSieveAssemblyFixedInfo(machine_sieve_assembly), ChatFormatting.AQUA, NCInfo.machineSieveAssemblyInfo());
+        }
+
+        ElectrolyzerAnodeData electrolyzer_anode = DataMapHelper.getData(stack, ELECTROLYZER_ANODE_DATA);
+        ElectrolyzerCathodeData electrolyzer_cathode = DataMapHelper.getData(stack, ELECTROLYZER_CATHODE_DATA);
+        if (electrolyzer_cathode != null || electrolyzer_anode != null) {
+            List<ChatFormatting> fixedColors = Lists.newArrayList(ChatFormatting.UNDERLINE);
+            if (electrolyzer_cathode != null) {
+                fixedColors.add(ChatFormatting.LIGHT_PURPLE);
+            }
+            if (electrolyzer_anode != null) {
+                fixedColors.add(ChatFormatting.BLUE);
+            }
+            InfoHelper.infoFull(tooltips, fixedColors.toArray(new ChatFormatting[0]), NCInfo.electrodeFixedInfo(electrolyzer_cathode, electrolyzer_anode), ChatFormatting.AQUA, NCInfo.electrodeInfo());
+        }
+
+        FissionModeratorData fission_moderator = DataMapHelper.getData(stack, FISSION_MODERATOR_DATA);
+        if (fission_moderator != null) {
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionModeratorFixedInfo(fission_moderator), ChatFormatting.AQUA, NCInfo.fissionModeratorInfo());
+        }
+
+        FissionReflectorData fission_reflector = DataMapHelper.getData(stack, FISSION_REFLECTOR_DATA);
+        if (fission_reflector != null) {
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo(fission_reflector), ChatFormatting.AQUA); // TODO not in NCO , NCInfo.fissionReflectorInfo()
+        }
+
         BasicRecipe recipe;
         Function<BasicRecipeHandler<?>, BasicRecipe> itemRecipe = x -> {
             RecipeInfo<? extends BasicRecipe> recipeInfo = x.getRecipeInfoFromInputs(level, Collections.singletonList(stack), Collections.emptyList());
             return recipeInfo == null ? null : recipeInfo.recipe;
         };
-
-        recipe = itemRecipe.apply(NCRecipes.machine_diaphragm);
-        if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED}, NCInfo.machineDiaphragmFixedInfo((MachineDiaphragmRecipe) recipe), ChatFormatting.AQUA, NCInfo.machineDiaphragmInfo());
-        }
-
-        recipe = itemRecipe.apply(NCRecipes.machine_sieve_assembly);
-        if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.LIGHT_PURPLE}, NCInfo.machineSieveAssemblyFixedInfo((MachineSieveAssemblyRecipe) recipe), ChatFormatting.AQUA, NCInfo.machineSieveAssemblyInfo());
-        }
-
-        BasicRecipe cathodeRecipe = itemRecipe.apply(NCRecipes.electrolyzer_cathode), anodeRecipe = itemRecipe.apply(NCRecipes.electrolyzer_anode);
-        if (cathodeRecipe != null || anodeRecipe != null) {
-            List<ChatFormatting> fixedColors = Lists.newArrayList(ChatFormatting.UNDERLINE);
-            if (cathodeRecipe != null) {
-                fixedColors.add(ChatFormatting.LIGHT_PURPLE);
-            }
-            if (anodeRecipe != null) {
-                fixedColors.add(ChatFormatting.BLUE);
-            }
-            InfoHelper.infoFull(tooltips, fixedColors.toArray(new ChatFormatting[0]), NCInfo.electrodeFixedInfo((ElectrolyzerCathodeRecipe) cathodeRecipe, (ElectrolyzerAnodeRecipe) anodeRecipe), ChatFormatting.AQUA, NCInfo.electrodeInfo());
-        }
-
-        recipe = itemRecipe.apply(NCRecipes.fission_moderator);
-        if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionModeratorFixedInfo((FissionModeratorRecipe) recipe), ChatFormatting.AQUA, NCInfo.fissionModeratorInfo());
-        }
-
-        recipe = itemRecipe.apply(NCRecipes.fission_reflector);
-        if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE}, NCInfo.fissionReflectorFixedInfo((FissionReflectorRecipe) recipe), ChatFormatting.AQUA); // TODO not in NCO , NCInfo.fissionReflectorInfo()
-        }
 
         recipe = itemRecipe.apply(NCRecipes.solid_fission);
         if (recipe != null) {

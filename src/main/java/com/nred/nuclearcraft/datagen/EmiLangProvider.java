@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 import static com.nred.nuclearcraft.compat.emi.ModEmiPlugin.*;
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.*;
 
 public class EmiLangProvider extends LanguageProvider {
@@ -65,8 +66,8 @@ public class EmiLangProvider extends LanguageProvider {
 
         add("emi.category." + EMI_SOLID_FISSION_CATEGORY.getId().toLanguageKey(), "Solid Fuel Fission");
         add("emi.category." + EMI_SALT_FISSION_CATEGORY.getId().toLanguageKey(), "Molten Salt Fission");
-        add("emi.category." + EMI_MODERATOR_CATEGORY.getId().toLanguageKey(), "Fission Moderator");
-        add("emi.category." + EMI_REFLECTOR_CATEGORY.getId().toLanguageKey(), "Fission Reflector");
+        add("emi.category." + ncLoc("fission_moderator").toLanguageKey(), "Fission Moderator");
+        add("emi.category." + ncLoc("fission_reflector").toLanguageKey(), "Fission Reflector");
         add("emi.category." + EMI_IRRADIATOR_CATEGORY.getId().toLanguageKey(), "Fission Irradiator");
         add("emi.category." + EMI_VENT_CATEGORY.getId().toLanguageKey(), "Fission Vent Heating");
         add("emi.category." + EMI_EMERGENCY_COOLING_CATEGORY.getId().toLanguageKey(), "Fission Emergency Cooling");
@@ -79,11 +80,11 @@ public class EmiLangProvider extends LanguageProvider {
         add("emi.category." + EMI_MULTIBLOCK_DISTILLER_CATEGORY.getId().toLanguageKey(), "Multiblock Distiller");
         add("emi.category." + EMI_MULTIBLOCK_ELECTROLYZER_CATEGORY.getId().toLanguageKey(), "Multiblock Electrolyzer");
         add("emi.category." + EMI_MULTIBLOCK_INFILTRATOR_CATEGORY.getId().toLanguageKey(), "Multiblock Infiltrator");
-        add("emi.category." + EMI_DIAPHRAGM_CATEGORY.getId().toLanguageKey(), "Diaphragm");
-        add("emi.category." + EMI_SIEVE_ASSEMBLY_CATEGORY.getId().toLanguageKey(), "Sieve Assembly");
-        add("emi.category." + EMI_ELECTROLYZER_CATHODE_CATEGORY.getId().toLanguageKey(), "Electrolyzer Cathode");
-        add("emi.category." + EMI_ELECTROLYZER_ANODE_CATEGORY.getId().toLanguageKey(), "Electrolyzer Anode");
-        add("emi.category." + EMI_INFILTRATOR_PRESSURE_CATEGORY.getId().toLanguageKey(), "Infiltrator Pressure Fluid");
+        add("emi.category." + ncLoc("machine_diaphragm").toLanguageKey(), "Diaphragm");
+        add("emi.category." + ncLoc("machine_sieve_assembly").toLanguageKey(), "Sieve Assembly");
+        add("emi.category." + ncLoc("electrolyzer_cathode").toLanguageKey(), "Electrolyzer Cathode");
+        add("emi.category." + ncLoc("electrolyzer_anode").toLanguageKey(), "Electrolyzer Anode");
+        add("emi.category." + ncLoc("infiltrator_pressure").toLanguageKey(), "Infiltrator Pressure Fluid");
     }
 
     private void simpleName(List<String> list, TagKey<?> key, String append) {
