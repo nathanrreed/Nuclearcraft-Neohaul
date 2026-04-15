@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemIngredients": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "minecraft:sugar_cane"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:bioplastic"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

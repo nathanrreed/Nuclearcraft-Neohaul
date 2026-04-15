@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:supercooler_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 8000,
+      "ingredient": {
+        "tag": "c:helium"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 25,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:liquid_helium"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

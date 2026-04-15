@@ -1,0 +1,34 @@
+{
+  "type": "nuclearcraftneohaul:multiblock_infiltrator_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:polyphenylene_sulfide"
+      }
+    }
+  ],
+  "heatingFactor": 0.0,
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sintered_zirconia"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconia_dust"
+      }
+    }
+  ],
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:zirfon"
+    }
+  },
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

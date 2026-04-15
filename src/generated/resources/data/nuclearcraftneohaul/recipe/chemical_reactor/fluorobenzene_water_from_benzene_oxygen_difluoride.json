@@ -1,0 +1,35 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:benzene"
+      }
+    },
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen_difluoride"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorobenzene"
+      }
+    },
+    {
+      "amount": 100,
+      "chancePercent": 250,
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

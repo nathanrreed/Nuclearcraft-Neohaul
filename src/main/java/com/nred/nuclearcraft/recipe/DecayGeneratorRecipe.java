@@ -9,6 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.List;
 
@@ -25,6 +26,10 @@ public class DecayGeneratorRecipe extends BasicRecipe {
         this.lifetime = lifetime;
         this.power = power;
         this.radiation = radiation;
+    }
+
+    public DecayGeneratorRecipe(ItemLike input, ItemLike output, double lifetime, double power, double radiation) {
+        this(SizedChanceItemIngredient.of(input.asItem(), 1), SizedChanceItemIngredient.of(output.asItem(), 1), lifetime, power, radiation);
     }
 
     public double getDecayGeneratorLifetime() {
@@ -51,8 +56,8 @@ public class DecayGeneratorRecipe extends BasicRecipe {
 
     public static class Serializer implements RecipeSerializer<DecayGeneratorRecipe> {
         public static MapCodec<DecayGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(DecayGeneratorRecipe::getItemIngredient),
-                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("product").forGetter(DecayGeneratorRecipe::getItemProduct),
+                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemIngredient").forGetter(DecayGeneratorRecipe::getItemIngredient),
+                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemProduct").forGetter(DecayGeneratorRecipe::getItemProduct),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(DecayGeneratorRecipe::getDecayGeneratorLifetime),
                 Codec.DOUBLE.fieldOf("decayFactor").forGetter(DecayGeneratorRecipe::getDecayGeneratorPower),
                 Codec.DOUBLE.fieldOf("radiation").forGetter(DecayGeneratorRecipe::getDecayGeneratorRadiation)

@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lep_239_fluoride"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lep_239"
+      }
+    },
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorine"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

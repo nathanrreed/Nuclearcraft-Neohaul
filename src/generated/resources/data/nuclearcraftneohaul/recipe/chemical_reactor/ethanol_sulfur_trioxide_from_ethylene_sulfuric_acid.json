@@ -1,0 +1,34 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethylene"
+      }
+    },
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfuric_acid"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethanol"
+      }
+    },
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur_trioxide"
+      }
+    }
+  ],
+  "powerModifier": 2.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

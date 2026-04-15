@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 288,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:manganese"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:ores/manganese"
+      }
+    }
+  ],
+  "powerModifier": 1.5,
+  "radiation": 0.0,
+  "timeModifier": 1.25
+}

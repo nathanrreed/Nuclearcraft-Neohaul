@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur"
+      }
+    },
+    {
+      "amount": 500,
+      "ingredient": {
+        "tag": "c:hydrogen"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen_sulfide"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

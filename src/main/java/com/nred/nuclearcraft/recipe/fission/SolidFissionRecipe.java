@@ -10,6 +10,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
 
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SOLID_FISSION_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SOLID_FISSION_RECIPE_TYPE;
@@ -17,6 +18,10 @@ import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SOLID_FI
 public class SolidFissionRecipe extends ItemFissionRecipe {
     public SolidFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
         super(ingredient, product, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+    }
+
+    public SolidFissionRecipe(ItemLike input, ItemLike output, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+        this(SizedChanceItemIngredient.of(input.asItem(), 1), SizedChanceItemIngredient.of(output.asItem(), 1), time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
     }
 
     @Override
@@ -31,8 +36,8 @@ public class SolidFissionRecipe extends ItemFissionRecipe {
 
     public static class Serializer implements RecipeSerializer<SolidFissionRecipe> {
         public static MapCodec<SolidFissionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(SolidFissionRecipe::getItemIngredient),
-                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("product").forGetter(SolidFissionRecipe::getItemProduct),
+                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemIngredient").forGetter(SolidFissionRecipe::getItemIngredient),
+                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemProduct").forGetter(SolidFissionRecipe::getItemProduct),
                 Codec.INT.fieldOf("time").forGetter(SolidFissionRecipe::getFissionFuelTimeRaw),
                 Codec.INT.fieldOf("heat").forGetter(SolidFissionRecipe::getFissionFuelHeatRaw),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(SolidFissionRecipe::getFissionFuelEfficiencyRaw),

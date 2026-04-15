@@ -100,8 +100,8 @@ public class HeatExchangerRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<HeatExchangerRecipe> {
         private static final MapCodec<HeatExchangerRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(HeatExchangerRecipe::getFluidIngredient),
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("output").forGetter(HeatExchangerRecipe::getFluidProduct),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(HeatExchangerRecipe::getFluidIngredient),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(HeatExchangerRecipe::getFluidProduct),
                         Codec.DOUBLE.fieldOf("heatDifference").forGetter(HeatExchangerRecipe::getHeatExchangerHeatDifference),
                         Codec.INT.fieldOf("inputTemp").forGetter(HeatExchangerRecipe::getHeatExchangerInputTemperature),
                         Codec.INT.fieldOf("outputTemp").forGetter(HeatExchangerRecipe::getHeatExchangerOutputTemperature),

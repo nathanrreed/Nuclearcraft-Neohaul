@@ -46,12 +46,16 @@ public class NCRecipes {
         return RECIPE_HANDLER_MAP.values();
     }
 
-    public static List<? extends BasicRecipe> getRecipeList(String name) {
-        return getHandler(name).getRecipeList();
+    public static List<? extends BasicRecipe> getRecipeList(String name, @NotNull Level level) {
+        return getHandler(name).getRecipeList(level.getRecipeManager());
     }
 
-    public static List<Set<ResourceLocation>> getValidFluids(String name) {
-        return getHandler(name).validFluids;
+    public static List<Set<ResourceLocation>> getValidFluids(String name, @NotNull Level level) {
+        return getHandler(name).getValidFluids(level.getRecipeManager());
+    }
+
+    public static List<Set<ResourceLocation>> getValidFluids(String name, RecipeManager recipeManager) {
+        return getHandler(name).getValidFluids(recipeManager);
     }
 
     public void registerRecipes() {
@@ -196,15 +200,9 @@ public class NCRecipes {
         }
     }
 
-//    public static void postInit() {
-//        for (BasicRecipeHandler handler : getHandlers()) {
-//            handler.postInit();
-//        }
-//    }
-
-    public static void clearRecipes() {
+    public static void postInit(RecipeManager recipeManager) {
         for (BasicRecipeHandler<?> handler : getHandlers()) {
-            handler.clearRecipes();
+            handler.postInit(recipeManager);
         }
     }
 
@@ -326,7 +324,7 @@ public class NCRecipes {
         }
 
         @Override
-        public @NotNull List<ProcessorRecipe> getRecipes(@NotNull RecipeManager recipeManager) {
+        public @NotNull List<ProcessorRecipe> setRecipes(@NotNull RecipeManager recipeManager) {
             if (recipeList.isEmpty()) {
                 recipeList = recipeManager.getAllRecipesFor(RecipeType.SMELTING).stream().map(RecipeHolder::value).map(ElectricFurnaceRecipes::getVanillaFurnaceRecipe).toList();
             }

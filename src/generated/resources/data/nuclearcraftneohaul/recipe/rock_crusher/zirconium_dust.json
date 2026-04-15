@@ -1,0 +1,42 @@
+{
+  "type": "nuclearcraftneohaul:rock_crusher_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "item": "minecraft:diorite"
+        },
+        {
+          "item": "minecraft:polished_diorite"
+        }
+      ]
+    }
+  ],
+  "itemProducts": [
+    {
+      "chancePercent": 50,
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconium_dust"
+      }
+    },
+    {
+      "chancePercent": 45,
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:fluorite_gem_dust"
+      }
+    },
+    {
+      "chancePercent": 35,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:carobbiite_gem_dust"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

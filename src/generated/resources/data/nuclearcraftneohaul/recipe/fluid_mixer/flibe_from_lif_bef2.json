@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lif"
+      }
+    },
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:bef2"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:flibe"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

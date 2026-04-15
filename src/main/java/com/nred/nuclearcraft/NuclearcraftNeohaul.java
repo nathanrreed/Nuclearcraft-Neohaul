@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.registration.Registration;
 import com.nred.nuclearcraft.render.BlockHighlightTracker;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.bus.api.EventPriority;
@@ -50,8 +51,9 @@ public class NuclearcraftNeohaul {
     public static class ReloadListener implements ResourceManagerReloadListener {
         @Override
         public void onResourceManagerReload(ResourceManager resourceManager) {
-            LOGGER.debug("Recipes changed"); // TODO clear cache
-            NCRecipes.clearRecipes(); // TODO this removes all valid fluids and may cause them to no longer work
+            if (Minecraft.getInstance().level != null) {
+                NCRecipes.getHandlers().forEach(e -> e.postReload(Minecraft.getInstance().level.getRecipeManager()));
+            }
         }
     }
 

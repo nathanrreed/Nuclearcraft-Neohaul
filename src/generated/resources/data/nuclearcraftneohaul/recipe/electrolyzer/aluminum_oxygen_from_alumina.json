@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:alumina"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:aluminum"
+      }
+    },
+    {
+      "amount": 750,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 2.0
+}

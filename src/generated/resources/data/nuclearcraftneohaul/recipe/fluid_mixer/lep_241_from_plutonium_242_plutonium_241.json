@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 128,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:plutonium_242"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:plutonium_241"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lep_241"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

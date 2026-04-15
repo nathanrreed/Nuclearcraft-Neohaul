@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater_recipe",
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:nak"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:nak_hot"
+    }
+  },
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:standard_fission_coolant_heater"
+  },
+  "irradiatorFluxRequired": 55,
+  "irradiatorHeatPerFlux": "standard_heater"
+}

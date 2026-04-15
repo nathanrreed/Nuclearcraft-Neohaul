@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:phenol"
+      }
+    },
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen_peroxide"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydroquinone_solution"
+      }
+    }
+  ],
+  "powerModifier": 2.0,
+  "radiation": 0.0,
+  "timeModifier": 2.0
+}

@@ -1,0 +1,35 @@
+{
+  "type": "nuclearcraftneohaul:infuser_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ender"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "tag": "c:sands"
+        },
+        {
+          "tag": "c:sandstone/blocks"
+        }
+      ]
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:end_stone"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

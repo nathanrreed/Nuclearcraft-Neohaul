@@ -1,0 +1,26 @@
+{
+  "type": "nuclearcraftneohaul:fission_irradiator_recipe",
+  "irradiatorBaseProcessRadiation": 7.15E-11,
+  "irradiatorFluxRequired": 160000,
+  "irradiatorHeatPerFlux": 0.0,
+  "irradiatorMaxFluxPerTick": -1,
+  "irradiatorMinFluxPerTick": 0,
+  "irradiatorProcessEfficiency": 0.0,
+  "itemIngredient": {
+    "count": 1,
+    "ingredient": [
+      {
+        "item": "nuclearcraftneohaul:thorium_ingot"
+      },
+      {
+        "item": "nuclearcraftneohaul:thorium_dust"
+      }
+    ]
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:tbp_dust"
+    }
+  }
+}

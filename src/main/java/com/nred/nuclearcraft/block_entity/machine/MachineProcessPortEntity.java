@@ -312,9 +312,9 @@ public class MachineProcessPortEntity extends AbstractMachineEntity implements I
         }
 
         if (NCConfig.smart_processor_input) {
-            return machine.recipeHandler.isValidItemInput(stack, this.slot, machine.processor.getItemInputs(false), machine.processor.getFluidInputs(false), machine.processor.recipeInfo);
+            return machine.recipeHandler.isValidItemInput(level.getRecipeManager(), stack, this.slot, machine.processor.getItemInputs(false), machine.processor.getFluidInputs(false), machine.processor.recipeInfo);
         } else {
-            return machine.recipeHandler.isValidItemInput(stack);
+            return machine.recipeHandler.isValidItemInput(stack, level);
         }
     }
 
@@ -405,9 +405,9 @@ public class MachineProcessPortEntity extends AbstractMachineEntity implements I
         }
 
         if (NCConfig.smart_processor_input) {
-            return machine.recipeHandler.isValidFluidInput(stack, this.tankIndex, machine.processor.getFluidInputs(false), machine.processor.getItemInputs(false), machine.processor.recipeInfo);
+            return machine.recipeHandler.isValidFluidInput(level.getRecipeManager(), stack, this.tankIndex, machine.processor.getFluidInputs(false), machine.processor.getItemInputs(false), machine.processor.recipeInfo);
         } else {
-            return machine.recipeHandler.isValidFluidInput(stack);
+            return machine.recipeHandler.isValidFluidInput(stack, level);
         }
     }
 

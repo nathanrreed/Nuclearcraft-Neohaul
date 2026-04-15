@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater_recipe",
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:villiaumite_nak"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:villiaumite_nak_hot"
+    }
+  },
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:villiaumite_fission_coolant_heater"
+  },
+  "irradiatorFluxRequired": 180,
+  "irradiatorHeatPerFlux": "villiaumite_heater"
+}

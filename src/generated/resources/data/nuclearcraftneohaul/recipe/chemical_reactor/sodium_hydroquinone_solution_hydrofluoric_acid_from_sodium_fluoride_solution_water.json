@@ -1,0 +1,34 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_fluoride_solution"
+      }
+    },
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sodium_hydroquinone_solution"
+      }
+    },
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      }
+    }
+  ],
+  "powerModifier": 2.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:ingot_former_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 666,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:emerald"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:emerald"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

@@ -3,11 +3,11 @@ package com.nred.nuclearcraft.multiblock.hx;
 import com.nred.nuclearcraft.block_entity.hx.*;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
 import com.nred.nuclearcraft.multiblock.MultiblockLogic;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerUpdatePacket;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.util.LambdaHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.*;
@@ -68,11 +68,11 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
     }
 
     protected Set<ResourceLocation> getShellValidFluids() {
-        return NCRecipes.heat_exchanger.validFluids.get(0);
+        return NCRecipes.heat_exchanger.getValidFluids(getWorld(), 0);
     }
 
     protected Set<ResourceLocation> getTubeValidFluids() {
-        return NCRecipes.heat_exchanger.validFluids.get(0);
+        return NCRecipes.heat_exchanger.getValidFluids(getWorld(), 0);
     }
 
     // Multiblock Size Limits

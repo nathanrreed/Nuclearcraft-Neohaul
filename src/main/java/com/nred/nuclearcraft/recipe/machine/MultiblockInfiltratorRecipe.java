@@ -50,9 +50,9 @@ public class MultiblockInfiltratorRecipe extends MultiblockMachine {
     public static class Serializer implements RecipeSerializer<MultiblockInfiltratorRecipe> {
         private static final MapCodec<MultiblockInfiltratorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemInputs").forGetter(MultiblockInfiltratorRecipe::getItemIngredients),
-                        SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidInputs").forGetter(MultiblockInfiltratorRecipe::getFluidIngredients),
-                        SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemResult").forGetter(MultiblockInfiltratorRecipe::getItemProduct),
+                        SizedChanceItemIngredient.FLAT_CODEC.listOf(0, 2).fieldOf("itemIngredients").forGetter(MultiblockInfiltratorRecipe::getItemIngredients),
+                        SizedChanceFluidIngredient.FLAT_CODEC.listOf(0, 2).fieldOf("fluidIngredients").forGetter(MultiblockInfiltratorRecipe::getFluidIngredients),
+                        SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemProduct").forGetter(MultiblockInfiltratorRecipe::getItemProduct),
                         Codec.DOUBLE.fieldOf("timeModifier").forGetter(MultiblockInfiltratorRecipe::getProcessTimeMultiplier),
                         Codec.DOUBLE.fieldOf("powerModifier").forGetter(MultiblockInfiltratorRecipe::getProcessPowerMultiplier),
                         Codec.DOUBLE.fieldOf("heatingFactor").forGetter(MultiblockInfiltratorRecipe::getInfiltratorHeatingFactor)

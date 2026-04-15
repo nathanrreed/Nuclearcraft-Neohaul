@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:bone"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "minecraft:bone_meal"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

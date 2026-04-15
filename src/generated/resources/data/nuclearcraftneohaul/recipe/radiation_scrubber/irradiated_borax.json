@@ -1,0 +1,18 @@
+{
+  "type": "nuclearcraftneohaul:radiation_scrubber_recipe",
+  "efficiency": 1.0,
+  "itemIngredient": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:borax"
+    }
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:irradiated_borax"
+    }
+  },
+  "power": 200,
+  "time": 12000
+}

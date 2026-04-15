@@ -55,8 +55,8 @@ public class FissionCoolantHeaterRecipe extends BasicRecipe {
         private static final MapCodec<FissionCoolantHeaterRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
                         ItemStack.CODEC.fieldOf("heater").forGetter(FissionCoolantHeaterRecipe::getHeater),
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(FissionCoolantHeaterRecipe::getFluidIngredient),
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("product").forGetter(FissionCoolantHeaterRecipe::getFluidProduct),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(FissionCoolantHeaterRecipe::getFluidIngredient),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(FissionCoolantHeaterRecipe::getFluidProduct),
                         Codec.INT.fieldOf("irradiatorFluxRequired").forGetter(FissionCoolantHeaterRecipe::getCoolantHeaterCoolingRate),
                         Codec.STRING.fieldOf("irradiatorHeatPerFlux").forGetter(FissionCoolantHeaterRecipe::getCoolantHeaterPlacementRule)
                 ).apply(inst, FissionCoolantHeaterRecipe::new));

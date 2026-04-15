@@ -15,12 +15,12 @@ import java.util.Map;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public abstract class SimpleRecipeBuilder implements RecipeBuilder {
+abstract class SimpleRecipeBuilder implements RecipeBuilder {
     protected ItemStack result;
     protected Map<String, Criterion<?>> criteria = new HashMap<>();
     protected String group = null;
 
-    public SimpleRecipeBuilder(ItemStack result) {
+    protected SimpleRecipeBuilder(ItemStack result) {
         this.result = result;
     }
 

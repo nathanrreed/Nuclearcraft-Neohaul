@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:enricher_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 1000,
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 666,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydroquinone_solution"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hydroquinone"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

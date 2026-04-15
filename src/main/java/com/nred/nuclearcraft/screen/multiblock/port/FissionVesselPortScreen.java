@@ -65,6 +65,7 @@ public class FissionVesselPortScreen extends GuiInfoTile<FissionVesselPortMenu, 
 
     @Override
     protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
         drawFilteredFluidTooltip(guiGraphics, tile.getTanks().get(0), tile.getFilterTanks().get(0), mouseX, mouseY, 40, 31, 24, 24);
         drawFilteredFluidTooltip(guiGraphics, tile.getTanks().get(1), tile.getFilterTanks().get(1), mouseX, mouseY, 112, 31, 24, 24);
     }

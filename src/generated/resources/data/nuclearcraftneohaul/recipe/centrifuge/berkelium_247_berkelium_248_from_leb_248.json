@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:leb_248"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 128,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:berkelium_247"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:berkelium_248"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

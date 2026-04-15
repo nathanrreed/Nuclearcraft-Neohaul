@@ -1,16 +1,16 @@
 package com.nred.nuclearcraft.multiblock.hx;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity;
+import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.util.PosHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -50,7 +50,7 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
 
     public static final int BASE_MAX_INPUT = 4000, BASE_MAX_OUTPUT = 16000;
 
-    public final @Nonnull List<Tank> shellTanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, NCRecipes.heat_exchanger.validFluids.get(0)), new Tank(BASE_MAX_OUTPUT, null));
+    public final @Nonnull List<Tank> shellTanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, NCRecipes.heat_exchanger.getValidFluids(getWorld(), 0)), new Tank(BASE_MAX_OUTPUT, null));
 
     public RecipeInfo<BasicRecipe> shellRecipe;
 

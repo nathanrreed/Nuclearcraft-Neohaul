@@ -72,8 +72,8 @@ public class FissionIrradiatorRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<FissionIrradiatorRecipe> {
         private static final MapCodec<FissionIrradiatorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedChanceItemIngredient.FLAT_CODEC.fieldOf("input").forGetter(FissionIrradiatorRecipe::getItemIngredient),
-                        SizedChanceItemIngredient.FLAT_CODEC.fieldOf("product").forGetter(FissionIrradiatorRecipe::getItemProduct),
+                        SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemIngredient").forGetter(FissionIrradiatorRecipe::getItemIngredient),
+                        SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemProduct").forGetter(FissionIrradiatorRecipe::getItemProduct),
                         Codec.LONG.fieldOf("irradiatorFluxRequired").forGetter(FissionIrradiatorRecipe::getIrradiatorFluxRequired),
                         Codec.DOUBLE.fieldOf("irradiatorHeatPerFlux").forGetter(FissionIrradiatorRecipe::getIrradiatorHeatPerFlux),
                         Codec.DOUBLE.fieldOf("irradiatorProcessEfficiency").forGetter(FissionIrradiatorRecipe::getIrradiatorProcessEfficiency),

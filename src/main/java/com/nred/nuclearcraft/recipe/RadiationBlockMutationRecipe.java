@@ -52,7 +52,7 @@ public class RadiationBlockMutationRecipe extends BasicRecipe {
 
     public static class Serializer implements RecipeSerializer<RadiationBlockMutationRecipe> {
         public static MapCodec<RadiationBlockMutationRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemIngredient").forGetter(RadiationBlockMutationRecipe::getItemIngredients),
+                SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemIngredients").forGetter(RadiationBlockMutationRecipe::getItemIngredients),
                 Ingredient.CODEC.fieldOf("itemProduct").forGetter(RadiationBlockMutationRecipe::getItemIngredientProduct),
                 Codec.DOUBLE.fieldOf("mutationThreshold").forGetter(RadiationBlockMutationRecipe::getBlockMutationThreshold)
         ).apply(inst, RadiationBlockMutationRecipe::new));

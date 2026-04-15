@@ -51,8 +51,8 @@ public class FissionHeatingRecipe extends BasicRecipe {
 
     public static class Serializer implements RecipeSerializer<FissionHeatingRecipe> {
         public static MapCodec<FissionHeatingRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredients").forGetter(FissionHeatingRecipe::getFluidIngredient),
-                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProducts").forGetter(FissionHeatingRecipe::getFluidProduct),
+                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(FissionHeatingRecipe::getFluidIngredient),
+                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(FissionHeatingRecipe::getFluidProduct),
                 Codec.INT.fieldOf("heatPerInputMB").forGetter(FissionHeatingRecipe::getFissionHeatingHeatPerInputMBRaw),
                 Codec.BOOL.fieldOf("isCoolant").forGetter(FissionHeatingRecipe::getIsCoolant)
         ).apply(inst, FissionHeatingRecipe::new));

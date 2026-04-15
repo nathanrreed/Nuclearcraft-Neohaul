@@ -45,6 +45,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
@@ -73,11 +74,11 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     }
 
     private EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, INFO info) {
-        this(type, pos, blockState, name, info, ITileInventory.inventoryConnectionAll(info.defaultItemSorptions()), info.getEnergyCapacity(1D, 1D), ITileEnergy.energyConnectionAll(info.defaultEnergyConnection()), info.defaultTankCapacities(), NCRecipes.getValidFluids(info.recipeHandlerName), ITileFluid.fluidConnectionAll(info.defaultTankSorptions()));
+        this(type, pos, blockState, name, info, ITileInventory.inventoryConnectionAll(info.defaultItemSorptions()), info.getEnergyCapacity(1D, 1D), ITileEnergy.energyConnectionAll(info.defaultEnergyConnection()), info.defaultTankCapacities(), e -> NCRecipes.getValidFluids(info.recipeHandlerName, e), ITileFluid.fluidConnectionAll(info.defaultTankSorptions()));
     }
 
-    private EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, INFO info, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceLocation>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
-        super(type, pos, blockState, name, info.getInventorySize(), inventoryConnections, capacity, energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+    private EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, INFO info, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, Function<Level, List<Set<ResourceLocation>>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+        super(type, pos, blockState, name, info.getInventorySize(), inventoryConnections, capacity, energyConnections, fluidCapacity, validFluidsFunc, fluidConnections);
         initFromInfo(info, false);
     }
 
@@ -97,7 +98,7 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
         if (superConstructor) {
             long capacity = info.getEnergyCapacity(1D, 1D);
             initTileEnergy(capacity, NCMath.toInt(capacity), ITileEnergy.energyConnectionAll(info.defaultEnergyConnection()));
-            initTileEnergyFluid(info.defaultTankCapacities(), NCRecipes.getValidFluids(info.recipeHandlerName), ITileFluid.fluidConnectionAll(info.defaultTankSorptions()));
+            initTileEnergyFluid(info.defaultTankCapacities(), NCRecipes.getValidFluids(info.recipeHandlerName, level), ITileFluid.fluidConnectionAll(info.defaultTankSorptions()));
             initTileEnergyFluidInventory(info.name, info.getInventorySize(), ITileInventory.inventoryConnectionAll(info.defaultItemSorptions()));
         }
 

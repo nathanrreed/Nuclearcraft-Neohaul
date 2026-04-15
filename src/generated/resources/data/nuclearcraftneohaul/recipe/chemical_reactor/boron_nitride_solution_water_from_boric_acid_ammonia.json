@@ -1,0 +1,35 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boric_acid"
+      }
+    },
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ammonia"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:boron_nitride_solution"
+      }
+    },
+    {
+      "amount": 100,
+      "chancePercent": 1000,
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

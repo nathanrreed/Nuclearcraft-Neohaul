@@ -11,25 +11,34 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.nred.nuclearcraft.config.NCConfig.processor_passive_rate;
 import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.COLLECTOR_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
-import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC;
-import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC;
 
-public class CollectorRecipe extends BasicRecipe {
+public class CollectorRecipe extends BasicRecipe { // TODO should this be a DataMap?
     private final String typeName;
 
-    public CollectorRecipe(String typeName, List<SizedChanceItemIngredient> itemProduct, List<SizedChanceFluidIngredient> fluidProduct) {
-        super(List.of(), List.of(), itemProduct, fluidProduct);
+    public CollectorRecipe(String typeName, SizedChanceItemIngredient itemProduct, SizedChanceFluidIngredient fluidProduct) {
+        super(List.of(), List.of(), itemProduct == null ? List.of() : List.of(itemProduct), fluidProduct == null ? List.of() : List.of(fluidProduct));
         this.typeName = typeName;
+    }
+
+    public CollectorRecipe(String typeName, Ingredient itemProduct) {
+        this(typeName, new SizedChanceItemIngredient(itemProduct, 1), null);
+    }
+
+    public CollectorRecipe(String typeName, FluidIngredient fluidProduct) {
+        this(typeName, null, new SizedChanceFluidIngredient(fluidProduct, 1));
     }
 
     @Override
@@ -90,14 +99,14 @@ public class CollectorRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<CollectorRecipe> {
         public static MapCodec<CollectorRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 Codec.STRING.fieldOf("typeName").forGetter(CollectorRecipe::getTypeName),
-                SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemProduct").forGetter(CollectorRecipe::getItemProducts),
-                SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidProduct").forGetter(CollectorRecipe::getFluidProducts)
-        ).apply(inst, CollectorRecipe::new));
+                SizedChanceItemIngredient.FLAT_CODEC.lenientOptionalFieldOf("itemProduct").forGetter(e -> Optional.ofNullable(e.getItemProducts().isEmpty() ? null : e.getItemProduct())),
+                SizedChanceFluidIngredient.FLAT_CODEC.lenientOptionalFieldOf("fluidProduct").forGetter(e -> Optional.ofNullable(e.getFluidProducts().isEmpty() ? null : e.getFluidProduct()))
+        ).apply(inst, (typeName, itemProduct, fluidProduct) -> new CollectorRecipe(typeName, itemProduct.orElse(null), fluidProduct.orElse(null))));
 
         public static StreamCodec<RegistryFriendlyByteBuf, CollectorRecipe> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.STRING_UTF8, CollectorRecipe::getTypeName,
-                SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC, CollectorRecipe::getItemProducts,
-                SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC, CollectorRecipe::getFluidProducts,
+                SizedChanceItemIngredient.STREAM_CODEC, e -> e.getItemProducts().isEmpty() ? SizedChanceItemIngredient.EMPTY : e.getItemProduct(),
+                SizedChanceFluidIngredient.STREAM_CODEC, e -> e.getFluidProducts().isEmpty() ? SizedChanceFluidIngredient.EMPTY : e.getFluidProduct(),
                 CollectorRecipe::new
         );
 

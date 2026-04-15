@@ -1,0 +1,35 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:koh"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium"
+      }
+    },
+    {
+      "amount": 100,
+      "chancePercent": 250,
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
+    },
+    {
+      "amount": 125,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:oxygen"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

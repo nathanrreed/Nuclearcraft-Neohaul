@@ -74,8 +74,8 @@ public class CondenserRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<CondenserRecipe> {
         private static final MapCodec<CondenserRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("input").forGetter(CondenserRecipe::getFluidIngredient),
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("output").forGetter(CondenserRecipe::getFluidProduct),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(CondenserRecipe::getFluidIngredient),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(CondenserRecipe::getFluidProduct),
                         Codec.DOUBLE.fieldOf("coolingRequired").forGetter(CondenserRecipe::getCondenserCoolingRequired),
                         Codec.INT.fieldOf("inputTemp").forGetter(CondenserRecipe::getCondenserInputTemperature),
                         Codec.INT.fieldOf("outputTemp").forGetter(CondenserRecipe::getCondenserOutputTemperature),

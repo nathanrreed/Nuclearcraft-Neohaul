@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:enricher_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethanol"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:radaway"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:glowing_mushroom"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

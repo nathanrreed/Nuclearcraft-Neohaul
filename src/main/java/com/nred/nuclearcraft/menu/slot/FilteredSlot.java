@@ -83,7 +83,7 @@ public class FilteredSlot extends Slot {
 
         @Override
         public boolean isItemValidRaw(ItemStack stack) {
-            return recipeHandler.isValidItemInput(stack);
+            return recipeHandler.isValidItemInput(stack, tile.getTileWorld());
         }
     }
 }

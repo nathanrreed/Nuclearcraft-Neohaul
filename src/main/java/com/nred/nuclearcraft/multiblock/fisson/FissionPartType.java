@@ -37,7 +37,7 @@ public enum FissionPartType implements IFissionPartType {
     CellPort(() -> FISSION_ENTITY_TYPE.get("cell_port")::get, FissionCellPortBlock::new),
 
     Cooler(() -> FISSION_ENTITY_TYPE.get("cooler")::get, GenericTooltipDeviceBlock::new),
-    CoolerPort(() -> FISSION_ENTITY_TYPE.get("cooler")::get, FissionCoolerPortBlock::new),
+    CoolerPort(() -> FISSION_ENTITY_TYPE.get("cooler_port")::get, FissionCoolerPortBlock::new),
 
     Irradiator(() -> FISSION_ENTITY_TYPE.get("irradiator")::get, GenericTooltipDeviceBlock::new),
     IrradiatorPort(() -> FISSION_ENTITY_TYPE.get("irradiator_port")::get, FissionIrradiatorPortBlock::new),

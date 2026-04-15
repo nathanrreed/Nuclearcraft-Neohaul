@@ -71,8 +71,8 @@ public final class TurbineRecipe extends BasicRecipe {
     public static class Serializer implements RecipeSerializer<TurbineRecipe> {
         private static final MapCodec<TurbineRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredients").forGetter(TurbineRecipe::getFluidIngredient),
-                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProducts").forGetter(TurbineRecipe::getFluidProduct),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(TurbineRecipe::getFluidIngredient),
+                        SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(TurbineRecipe::getFluidProduct),
                         Codec.DOUBLE.fieldOf("power_per_mb").forGetter(TurbineRecipe::getTurbinePowerPerMB),
                         Codec.DOUBLE.fieldOf("expansion_level").forGetter(TurbineRecipe::getTurbineExpansionLevel),
                         Codec.DOUBLE.fieldOf("spin_up_multiplier").forGetter(TurbineRecipe::getTurbineSpinUpMultiplierRaw),

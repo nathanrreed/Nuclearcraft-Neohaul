@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:crystallizer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 666,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydroquinone_solution"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hydroquinone"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

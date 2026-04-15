@@ -317,7 +317,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
     }
 
     protected void makeRotorVisible() {
-        multiblock.shouldSpecialRenderRotor = false;
+        multiblock.shouldSpecialRenderRotor = false; // TODO find a way to make this faster
 
         if (multiblock.flowDir != null) {
             TurbinePartDir shaftDir = multiblock.getShaftDir();
@@ -399,12 +399,12 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
         }
 
         if (axis == null) {
-            multiblock.setLastError(MODID + ".multiblock_validation.multiblock.need_bearings");
+            multiblock.setLastError(MODID + ".multiblock_validation.turbine.need_bearings");
             return false;
         }
 
         if (axis == Axis.X && multiblock.getInteriorLengthY() != multiblock.getInteriorLengthZ() || axis == Axis.Y && multiblock.getInteriorLengthZ() != multiblock.getInteriorLengthX() || axis == Axis.Z && multiblock.getInteriorLengthX() != multiblock.getInteriorLengthY() || tooManyAxes || notInAWall) {
-            multiblock.setLastError(MODID + ".multiblock_validation.multiblock.bearings_side_square");
+            multiblock.setLastError(MODID + ".multiblock_validation.turbine.bearings_side_square");
             return false;
         }
 
@@ -430,7 +430,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
         }
 
         if (!validAmountOfBearings) {
-            multiblock.setLastError(MODID + ".multiblock_validation.multiblock.bearings_center_and_square");
+            multiblock.setLastError(MODID + ".multiblock_validation.turbine.bearings_center_and_square");
             return false;
         }
 
@@ -442,7 +442,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             if (getPartMap(TurbineRotorBearingEntity.class).containsKey(pos.asLong())) {
                 continue;
             }
-            multiblock.setLastError(MODID + ".multiblock_validation.turbine.bearings_center_and_square", pos);
+            multiblock.setLastError(MODID + ".multiblock_validation.turbine.bearings_center_and_square");
             return false;
         }
 
@@ -450,7 +450,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             if (getPartMap(TurbineRotorBearingEntity.class).containsKey(pos.asLong())) {
                 continue;
             }
-            multiblock.setLastError(MODID + ".multiblock_validation.turbine.bearings_center_and_square", pos);
+            multiblock.setLastError(MODID + ".multiblock_validation.turbine.bearings_center_and_square");
             return false;
         }
 
@@ -472,7 +472,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 Direction thisFlowDir = Direction.get(AxisDirection.POSITIVE, axis);
                 // Make sure that all inlets are in the same wall
                 if (multiblock.flowDir != null && multiblock.flowDir != thisFlowDir) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.valve_wrong_wall", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.valve_wrong_wall");
                     return false;
                 } else {
                     multiblock.flowDir = thisFlowDir;
@@ -481,13 +481,13 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 Direction thisFlowDir = Direction.get(AxisDirection.NEGATIVE, axis);
                 // Make sure that all inlets are in the same wall
                 if (multiblock.flowDir != null && multiblock.flowDir != thisFlowDir) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.valve_wrong_wall", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.valve_wrong_wall");
                     return false;
                 } else {
                     multiblock.flowDir = thisFlowDir;
                 }
             } else {
-                multiblock.setLastError(MODID + ".multiblock_validation.turbine.valve_wrong_wall", pos);
+                multiblock.setLastError(MODID + ".multiblock_validation.turbine.valve_wrong_wall");
                 return false;
             }
         }
@@ -501,7 +501,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             BlockPos pos = outlet.getBlockPos();
 
             if (!multiblock.isInWall(multiblock.flowDir, pos)) {
-                multiblock.setLastError(MODID + ".multiblock_validation.turbine.valve_wrong_wall", pos);
+                multiblock.setLastError(MODID + ".multiblock_validation.turbine.valve_wrong_wall");
                 return false;
             }
         }
@@ -514,7 +514,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             for (BlockPos pos : multiblock.getInteriorPlane(Direction.get(AxisDirection.POSITIVE, axis), depth, multiblock.bladeLength, multiblock.bladeLength, multiblock.bladeLength, multiblock.bladeLength)) {
                 TurbineRotorShaftEntity shaft = getPartMap(TurbineRotorShaftEntity.class).get(pos.asLong());
                 if (shaft == null) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.shaft_center", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.shaft_center");
                     return false;
                 }
             }
@@ -561,7 +561,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
 
             for (BlockPos pos : multiblock.getInteriorPlane(multiblock.flowDir, depth, 0, 0, multiblock.shaftWidth + multiblock.bladeLength, multiblock.shaftWidth + multiblock.bladeLength)) {
                 if (!BlockStateHelper.isReplaceable(getWorld().getBlockState(pos))) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.space_between_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.space_between_blades");
                     return false;
                 }
                 getWorld().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
@@ -569,7 +569,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
 
             for (BlockPos pos : multiblock.getInteriorPlane(multiblock.flowDir, depth, multiblock.shaftWidth + multiblock.bladeLength, 0, 0, multiblock.shaftWidth + multiblock.bladeLength)) {
                 if (!BlockStateHelper.isReplaceable(getWorld().getBlockState(pos))) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.space_between_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.space_between_blades");
                     return false;
                 }
                 getWorld().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
@@ -577,7 +577,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
 
             for (BlockPos pos : multiblock.getInteriorPlane(multiblock.flowDir, depth, 0, multiblock.shaftWidth + multiblock.bladeLength, multiblock.shaftWidth + multiblock.bladeLength, 0)) {
                 if (!BlockStateHelper.isReplaceable(getWorld().getBlockState(pos))) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.space_between_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.space_between_blades");
                     return false;
                 }
                 getWorld().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
@@ -585,7 +585,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
 
             for (BlockPos pos : multiblock.getInteriorPlane(multiblock.flowDir, depth, multiblock.shaftWidth + multiblock.bladeLength, multiblock.shaftWidth + multiblock.bladeLength, 0, 0)) {
                 if (!BlockStateHelper.isReplaceable(getWorld().getBlockState(pos))) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.space_between_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.space_between_blades");
                     return false;
                 }
                 getWorld().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
@@ -599,12 +599,12 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 ITurbineRotorBlade<?> thisBlade = multiblock.getBlade(pos);
                 IRotorBladeType thisBladeType = thisBlade == null ? null : thisBlade.getBladeType();
                 if (thisBladeType == null) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.missing_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.missing_blades");
                     return false;
                 } else if (currentBladeType == null) {
                     currentBladeType = thisBladeType;
                 } else if (!currentBladeType.eq(thisBladeType)) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.different_type_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.different_type_blades");
                     return false;
                 }
                 thisBlade.setDir(multiblock.getBladeDir(PlaneDir.V));
@@ -617,10 +617,10 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 ITurbineRotorBlade<?> thisBlade = multiblock.getBlade(pos);
                 IRotorBladeType thisBladeType = thisBlade == null ? null : thisBlade.getBladeType();
                 if (thisBladeType == null) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.missing_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.missing_blades");
                     return false;
                 } else if (!currentBladeType.eq(thisBladeType)) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.different_type_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.different_type_blades");
                     return false;
                 }
                 thisBlade.setDir(multiblock.getBladeDir(PlaneDir.U));
@@ -633,10 +633,10 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 ITurbineRotorBlade<?> thisBlade = multiblock.getBlade(pos);
                 IRotorBladeType thisBladeType = thisBlade == null ? null : thisBlade.getBladeType();
                 if (thisBladeType == null) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.missing_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.missing_blades");
                     return false;
                 } else if (!currentBladeType.eq(thisBladeType)) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.different_type_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.different_type_blades");
                     return false;
                 }
                 thisBlade.setDir(multiblock.getBladeDir(PlaneDir.U));
@@ -649,10 +649,10 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 ITurbineRotorBlade<?> thisBlade = multiblock.getBlade(pos);
                 IRotorBladeType thisBladeType = thisBlade == null ? null : thisBlade.getBladeType();
                 if (thisBladeType == null) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.missing_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.missing_blades");
                     return false;
                 } else if (!currentBladeType.eq(thisBladeType)) {
-                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.different_type_blades", pos);
+                    multiblock.setLastError(MODID + ".multiblock_validation.turbine.different_type_blades");
                     return false;
                 }
                 thisBlade.setDir(multiblock.getBladeDir(PlaneDir.V));

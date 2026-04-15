@@ -1,0 +1,54 @@
+{
+  "type": "nuclearcraftneohaul:fuel_reprocessor_recipe",
+  "itemIngredients": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:depleted_tbu_ni"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_233_ni"
+      }
+    },
+    {
+      "count": 5,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_238_ni"
+      }
+    },
+    {
+      "chancePercent": 25,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:strontium_90_dust"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:neptunium_236_ni"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:neptunium_237_ni"
+      }
+    },
+    {
+      "chancePercent": 25,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:caesium_137_dust"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

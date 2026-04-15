@@ -1,0 +1,42 @@
+{
+  "type": "nuclearcraftneohaul:rock_crusher_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "item": "minecraft:granite"
+        },
+        {
+          "item": "minecraft:polished_granite"
+        }
+      ]
+    }
+  ],
+  "itemProducts": [
+    {
+      "chancePercent": 40,
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:rhodochrosite_gem_dust"
+      }
+    },
+    {
+      "chancePercent": 30,
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:sulfur_gem_dust"
+      }
+    },
+    {
+      "chancePercent": 35,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:villiaumite_gem_dust"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

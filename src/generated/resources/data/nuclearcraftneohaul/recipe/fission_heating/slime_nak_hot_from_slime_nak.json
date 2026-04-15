@@ -1,0 +1,17 @@
+{
+  "type": "nuclearcraftneohaul:fission_heating_recipe",
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:slime_nak"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:slime_nak_hot"
+    }
+  },
+  "heatPerInputMB": 145,
+  "isCoolant": true
+}

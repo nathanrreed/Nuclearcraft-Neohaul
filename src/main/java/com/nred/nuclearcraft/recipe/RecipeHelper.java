@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -168,15 +169,15 @@ public class RecipeHelper {
         return new RecipeMatchResult(true, itemIngredientNumbers, fluidIngredientNumbers, itemInputOrder, fluidInputOrder);
     }
 
-    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler<?> recipeHandler) {
-        return validFluids(recipeHandler, Collections.emptySet());
+    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler<?> recipeHandler, RecipeManager recipeManager) {
+        return validFluids(recipeHandler, Collections.emptySet(), recipeManager);
     }
 
-    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler<?> recipeHandler, Set<ResourceLocation> exceptions) {
+    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler<?> recipeHandler, Set<ResourceLocation> exceptions, RecipeManager recipeManager) {
         Set<ResourceLocation> fluidNameSet = new ObjectOpenHashSet<>();
-        for (Map.Entry<ResourceKey<Fluid>, Fluid> entry : BuiltInRegistries.FLUID.entrySet()) {
+        for (Map.Entry<ResourceKey<Fluid>, Fluid> entry : BuiltInRegistries.FLUID.entrySet()) { // TODO do this better
             ResourceLocation fluidKey = entry.getKey().location();
-            if (recipeHandler.isValidFluidInput(new FluidStack(entry.getValue(), 1000)) && !exceptions.contains(fluidKey)) {
+            if (recipeHandler.isValidFluidInput(new FluidStack(entry.getValue(), 1000), recipeManager) && !exceptions.contains(fluidKey)) {
                 fluidNameSet.add(fluidKey);
             }
         }

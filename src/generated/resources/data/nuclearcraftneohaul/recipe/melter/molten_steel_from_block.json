@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 1296,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:steel"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "tag": "c:storage_blocks/steel"
+        },
+        {
+          "tag": "c:storage_blocks/raw_steel"
+        }
+      ]
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 9.0
+}

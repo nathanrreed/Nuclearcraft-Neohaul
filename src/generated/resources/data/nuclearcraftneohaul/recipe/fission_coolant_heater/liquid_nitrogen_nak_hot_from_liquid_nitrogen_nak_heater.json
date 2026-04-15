@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater_recipe",
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:liquid_nitrogen_nak"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:liquid_nitrogen_nak_hot"
+    }
+  },
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:liquid_nitrogen_fission_coolant_heater"
+  },
+  "irradiatorFluxRequired": 185,
+  "irradiatorHeatPerFlux": "liquid_nitrogen_heater"
+}

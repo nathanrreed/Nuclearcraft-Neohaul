@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:fission_heater_recipe",
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:end_stone_nak"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:end_stone_nak_hot"
+    }
+  },
+  "heater": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:end_stone_fission_coolant_heater"
+  },
+  "irradiatorFluxRequired": 65,
+  "irradiatorHeatPerFlux": "end_stone_heater"
+}

@@ -7,27 +7,29 @@ import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 public abstract class TileEnergyFluidSidedInventory extends TileEnergyFluidInventory {
-    public TileEnergyFluidSidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Set<ResourceLocation> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
-        super(type, pos, blockState, name, size, inventoryConnections, capacity, NCMath.toInt(capacity), energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+    public TileEnergyFluidSidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+        super(type, pos, blockState, name, size, inventoryConnections, capacity, NCMath.toInt(capacity), energyConnections, fluidCapacity, validFluidsFunc, fluidConnections);
     }
 
-    public TileEnergyFluidSidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceLocation>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
-        super(type, pos, blockState, name, size, inventoryConnections, capacity, NCMath.toInt(capacity), energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+    public TileEnergyFluidSidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, Function<Level, List<Set<ResourceLocation>>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+        super(type, pos, blockState, name, size, inventoryConnections, capacity, NCMath.toInt(capacity), energyConnections, fluidCapacity, validFluidsFunc, fluidConnections);
     }
 
-    public TileEnergyFluidSidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Set<ResourceLocation> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
-        super(type, pos, blockState, name, size, inventoryConnections, capacity, maxTransfer, energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+    public TileEnergyFluidSidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, int fluidCapacity, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+        super(type, pos, blockState, name, size, inventoryConnections, capacity, maxTransfer, energyConnections, fluidCapacity, validFluidsFunc, fluidConnections);
     }
 
-    public TileEnergyFluidSidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, List<Set<ResourceLocation>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
-        super(type, pos, blockState, name, size, inventoryConnections, capacity, maxTransfer, energyConnections, fluidCapacity, allowedFluids, fluidConnections);
+    public TileEnergyFluidSidedInventory(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, int size, @Nonnull InventoryConnection[] inventoryConnections, long capacity, int maxTransfer, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, Function<Level, List<Set<ResourceLocation>>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+        super(type, pos, blockState, name, size, inventoryConnections, capacity, maxTransfer, energyConnections, fluidCapacity, validFluidsFunc, fluidConnections);
     }
 }

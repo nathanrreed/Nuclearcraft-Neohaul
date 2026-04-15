@@ -37,7 +37,7 @@ import static com.nred.nuclearcraft.config.NCConfig.fission_overheat;
 import static com.nred.nuclearcraft.config.NCConfig.fission_sparsity_penalty_params;
 
 public class SaltFissionLogic extends FissionReactorLogic {
-    public final List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_emergency_cooling.validFluids.get(0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
+    public final List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_emergency_cooling.getValidFluids(getWorld(), 0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
 
     public RecipeInfo<FissionEmergencyCoolingRecipe> emergencyCoolingRecipeInfo;
 

@@ -1,0 +1,54 @@
+{
+  "type": "nuclearcraftneohaul:fuel_reprocessor_recipe",
+  "itemIngredients": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:depleted_hecm_247_ox"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_247_ox"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:berkelium_248_ox"
+      }
+    },
+    {
+      "chancePercent": 90,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:molybdenum_dust"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_249_ox"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:californium_251_ox"
+      }
+    },
+    {
+      "chancePercent": 60,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:europium_155_dust"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

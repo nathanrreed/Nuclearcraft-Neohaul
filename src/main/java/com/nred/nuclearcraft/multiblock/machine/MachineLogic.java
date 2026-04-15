@@ -122,7 +122,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
 
         int nextTankCount = tankCount(), prevTankCount = multiblock.tanks.size();
 
-        List<Set<ResourceLocation>> validFluids = multiblock.recipeHandler == null ? null : multiblock.recipeHandler.validFluids;
+        List<Set<ResourceLocation>> validFluids = multiblock.recipeHandler == null ? null : multiblock.recipeHandler.getValidFluids(multiblock.getWorld().getRecipeManager());
         IntFunction<Set<ResourceLocation>> getValidFluids = x -> validFluids != null && x < validFluids.size() ? validFluids.get(x) : null;
 
         multiblock.tanks = IntStream.range(0, nextTankCount).mapToObj(x -> {

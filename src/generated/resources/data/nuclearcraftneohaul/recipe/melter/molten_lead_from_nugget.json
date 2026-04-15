@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lead"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:nuggets/lead"
+      }
+    }
+  ],
+  "powerModifier": 0.25,
+  "radiation": 0.0,
+  "timeModifier": 0.1111111111111111
+}

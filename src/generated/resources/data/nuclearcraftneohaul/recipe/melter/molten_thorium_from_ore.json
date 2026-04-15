@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 288,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:thorium"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:ores/thorium"
+      }
+    }
+  ],
+  "powerModifier": 1.5,
+  "radiation": 0.0,
+  "timeModifier": 1.25
+}

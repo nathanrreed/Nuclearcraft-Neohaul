@@ -23,7 +23,7 @@ public class FissionHeaterPortEntity extends FissionFluidPortEntity<FissionHeate
     private final FissionCoolantHeaterPortType heaterPortType;
 
     public FissionHeaterPortEntity(final BlockPos pos, final BlockState blockState, FissionCoolantHeaterPortType heaterPortType) {
-        super(FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), pos, blockState, "fission_heater_port", FissionHeaterPortEntity.class, INGOT_BLOCK_VOLUME, Collections.singleton(heaterPortType.getCoolantId()), NCRecipes.coolant_heater);
+        super(FISSION_ENTITY_TYPE.get("coolant_heater_port").get(), pos, blockState, "fission_heater_port", FissionHeaterPortEntity.class, INGOT_BLOCK_VOLUME, e -> Collections.singleton(heaterPortType.getCoolantId()), NCRecipes.coolant_heater);
         this.heaterPortType = heaterPortType;
     }
 

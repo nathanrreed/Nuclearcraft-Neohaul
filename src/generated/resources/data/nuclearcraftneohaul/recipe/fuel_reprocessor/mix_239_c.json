@@ -1,0 +1,66 @@
+{
+  "type": "nuclearcraftneohaul:fuel_reprocessor_recipe",
+  "itemIngredients": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:depleted_mix_239_tr"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_238_c"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_241_c"
+      }
+    },
+    {
+      "chancePercent": 25,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:strontium_90_dust"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_242_c"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_243_c"
+      }
+    },
+    {
+      "chancePercent": 25,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:promethium_147_dust"
+      }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:graphite_dust"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

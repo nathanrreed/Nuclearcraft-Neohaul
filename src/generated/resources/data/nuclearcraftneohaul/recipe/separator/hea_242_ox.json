@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "itemIngredients": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hea_242_ox"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_243_ox"
+      }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:americium_242_ox"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

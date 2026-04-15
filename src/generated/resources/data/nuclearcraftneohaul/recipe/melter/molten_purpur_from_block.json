@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 288,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:purpur"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:purpur_block"
+      }
+    }
+  ],
+  "powerModifier": 1.5,
+  "radiation": 0.0,
+  "timeModifier": 2.0
+}

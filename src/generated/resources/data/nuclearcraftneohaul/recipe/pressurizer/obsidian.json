@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:pressurizer_recipe",
+  "itemIngredients": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:obsidian_gem_dust"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:obsidian"
+      }
+    }
+  ],
+  "powerModifier": 1.5,
+  "radiation": 0.0,
+  "timeModifier": 1.5
+}

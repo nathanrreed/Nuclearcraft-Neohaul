@@ -1,0 +1,54 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:depleted_hecf_251"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 32,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_252"
+      }
+    },
+    {
+      "amount": 32,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_252"
+      }
+    },
+    {
+      "amount": 16,
+      "chancePercent": 20,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ruthenium_106"
+      }
+    },
+    {
+      "amount": 32,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_252"
+      }
+    },
+    {
+      "amount": 32,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_252"
+      }
+    },
+    {
+      "amount": 16,
+      "chancePercent": 60,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:europium_155"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

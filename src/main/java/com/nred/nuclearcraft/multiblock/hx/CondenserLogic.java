@@ -77,7 +77,7 @@ public class CondenserLogic extends HeatExchangerLogic {
     }
 
     protected Set<ResourceLocation> getTubeValidFluids() {
-        return NCRecipes.condenser.validFluids.get(0);
+        return NCRecipes.condenser.getValidFluids(getWorld(), 0);
     }
 
     // Multiblock Methods

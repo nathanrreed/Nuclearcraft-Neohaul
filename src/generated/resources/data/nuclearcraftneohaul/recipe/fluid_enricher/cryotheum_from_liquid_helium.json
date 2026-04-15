@@ -1,0 +1,31 @@
+{
+  "type": "nuclearcraftneohaul:enricher_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 25,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:liquid_helium"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 100,
+      "chancePercent": 25,
+      "ingredient": {
+        "tag": "nuclearcraftneohaul:cryotheum"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "minecraft:snowball"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

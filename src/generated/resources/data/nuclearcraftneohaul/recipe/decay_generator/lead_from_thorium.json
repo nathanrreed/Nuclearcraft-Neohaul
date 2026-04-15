@@ -1,0 +1,18 @@
+{
+  "type": "nuclearcraftneohaul:decay_generator_recipe",
+  "decayFactor": 0.75,
+  "efficiency": 16000.0,
+  "itemIngredient": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:thorium_block"
+    }
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:lead_block"
+    }
+  },
+  "radiation": 7.15E-11
+}

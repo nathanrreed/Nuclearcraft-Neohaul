@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:salt_fission_recipe",
+  "criticality": 35,
+  "decayFactor": 0.07,
+  "efficiency": 1.15,
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:hen_236_fluoride_flibe"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:depleted_hen_236_fluoride_flibe"
+    }
+  },
+  "heat": 702,
+  "radiation": 1.871094112847222E-4,
+  "selfPriming": false,
+  "time": 2462
+}

@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethanol"
+      }
+    },
+    {
+      "amount": 200,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:redstone"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:redstone_ethanol"
+      }
+    }
+  ],
+  "powerModifier": 0.5,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

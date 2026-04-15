@@ -1,0 +1,10 @@
+{
+  "type": "nuclearcraftneohaul:collector_recipe",
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "typeName": "cobblestone_generator_dense"
+}

@@ -1,0 +1,33 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lep_241"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "item": "nuclearcraftneohaul:zirconium_ingot"
+        },
+        {
+          "item": "nuclearcraftneohaul:zirconium_dust"
+        }
+      ]
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:lep_241_za"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "itemIngredients": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hep_239"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_242"
+      }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:plutonium_239"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

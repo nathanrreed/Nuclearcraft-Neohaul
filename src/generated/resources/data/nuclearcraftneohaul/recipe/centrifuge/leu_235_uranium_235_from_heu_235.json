@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 64,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:heu_235"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 96,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:leu_235"
+      }
+    },
+    {
+      "amount": 48,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:uranium_235"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

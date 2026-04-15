@@ -16,6 +16,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import java.util.List;
 
 import static com.nred.nuclearcraft.config.NCConfig.*;
+import static com.nred.nuclearcraft.info.Fluids.sizedIngredient;
+import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_MAP;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SALT_FISSION_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SALT_FISSION_RECIPE_TYPE;
 
@@ -37,6 +39,10 @@ public class SaltFissionRecipe extends BasicRecipe {
         this.decayFactor = decayFactor;
         this.selfPriming = selfPriming;
         this.radiation = radiation;
+    }
+
+    public SaltFissionRecipe(String fuelType, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+        this(sizedIngredient(FISSION_FUEL_MAP.get(fuelType + "_fluoride_flibe"), 1), sizedIngredient(FISSION_FUEL_MAP.get("depleted_" + fuelType + "_fluoride_flibe"), 1), time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
     }
 
     public int getSaltFissionFuelTimeRaw() {
@@ -95,8 +101,8 @@ public class SaltFissionRecipe extends BasicRecipe {
 
     public static class Serializer implements RecipeSerializer<SaltFissionRecipe> {
         public static MapCodec<SaltFissionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(SaltFissionRecipe::getFluidIngredient),
-                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("product").forGetter(SaltFissionRecipe::getFluidProduct),
+                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(SaltFissionRecipe::getFluidIngredient),
+                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(SaltFissionRecipe::getFluidProduct),
                 Codec.INT.fieldOf("time").forGetter(SaltFissionRecipe::getSaltFissionFuelTimeRaw),
                 Codec.INT.fieldOf("heat").forGetter(SaltFissionRecipe::getFissionFuelHeatRaw),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(SaltFissionRecipe::getFissionFuelEfficiencyRaw),

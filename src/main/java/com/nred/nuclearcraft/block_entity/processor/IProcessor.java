@@ -657,9 +657,9 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
         }
 
         if (smart_processor_input) {
-            return getRecipeHandler().isValidItemInput(stack, slot, getItemInputs(false), getFluidInputs(false), getRecipeInfo());
+            return getRecipeHandler().isValidItemInput(getTileWorld().getRecipeManager(), stack, slot, getItemInputs(false), getFluidInputs(false), getRecipeInfo());
         } else {
-            return getRecipeHandler().isValidItemInput(stack);
+            return getRecipeHandler().isValidItemInput(stack, getTileWorld());
         }
     }
 
@@ -701,9 +701,9 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
         }
 
         if (smart_processor_input) {
-            return getRecipeHandler().isValidFluidInput(stack, tankNumber, getFluidInputs(false), getItemInputs(false), getRecipeInfo());
+            return getRecipeHandler().isValidFluidInput(getTileWorld().getRecipeManager(), stack, tankNumber, getFluidInputs(false), getItemInputs(false), getRecipeInfo());
         } else {
-            return getRecipeHandler().isValidFluidInput(stack);
+            return getRecipeHandler().isValidFluidInput(stack, getTileWorld());
         }
     }
 

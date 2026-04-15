@@ -1,10 +1,12 @@
 package com.nred.nuclearcraft.recipe;
 
+import com.google.common.base.CaseFormat;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.handler.TileInfoHandler;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -70,12 +72,13 @@ public abstract class ProcessorRecipe extends BasicRecipe {
 
         @Override
         public MapCodec<ProcessorRecipe> codec() {
+            var info = TileInfoHandler.getProcessorContainerInfo(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()).replace("_recipe", ""));
             return RecordCodecBuilder.mapCodec(inst ->
                     inst.group(
-                            SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemInputs").forGetter(ProcessorRecipe::getItemIngredients),
-                            SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemResults").forGetter(ProcessorRecipe::getItemProducts),
-                            SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidInputs").forGetter(ProcessorRecipe::getFluidIngredients),
-                            SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidResults").forGetter(ProcessorRecipe::getFluidProducts),
+                            SizedChanceItemIngredient.FLAT_CODEC.listOf(0, info.itemInputSize).lenientOptionalFieldOf("itemIngredients", List.of()).forGetter(ProcessorRecipe::getItemIngredients),
+                            SizedChanceItemIngredient.FLAT_CODEC.listOf(0, info.itemOutputSize).lenientOptionalFieldOf("itemProducts", List.of()).forGetter(ProcessorRecipe::getItemProducts),
+                            SizedChanceFluidIngredient.FLAT_CODEC.listOf(0, info.fluidInputSize).lenientOptionalFieldOf("fluidIngredients", List.of()).forGetter(ProcessorRecipe::getFluidIngredients),
+                            SizedChanceFluidIngredient.FLAT_CODEC.listOf(0, info.fluidOutputSize).lenientOptionalFieldOf("fluidProducts", List.of()).forGetter(ProcessorRecipe::getFluidProducts),
                             Codec.DOUBLE.fieldOf("timeModifier").forGetter(ProcessorRecipe::getProcessTimeMultiplier),
                             Codec.DOUBLE.fieldOf("powerModifier").forGetter(ProcessorRecipe::getProcessPowerMultiplier),
                             Codec.DOUBLE.fieldOf("radiation").forGetter(ProcessorRecipe::getBaseProcessRadiation)

@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 64,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hecf_249"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 96,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:lecf_249"
+      }
+    },
+    {
+      "amount": 48,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_249"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

@@ -4,7 +4,8 @@ import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.ITilePort;
 import com.nred.nuclearcraft.block_entity.ITilePortTarget;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
-import com.nred.nuclearcraft.handler.*;
+import com.nred.nuclearcraft.handler.BasicRecipeHandler;
+import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.InfoTileMenu;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
@@ -75,7 +76,7 @@ public abstract class PortMenu<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogi
     }
 
     public ItemStack transferPlayerStack(Player player, int index, int invStart, int invEnd, ItemStack stack) {
-        if (getRecipeHandler().isValidItemInput(stack)) {
+        if (getRecipeHandler().isValidItemInput(stack, player.level())) {
             if (!moveItemStackTo(stack, 0, tile instanceof ITileFilteredInventory ? 1 : 0, false)) {
                 return ItemStack.EMPTY;
             }

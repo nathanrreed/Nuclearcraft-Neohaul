@@ -10,6 +10,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
 
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.PEBBLE_FISSION_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PEBBLE_FISSION_RECIPE_TYPE;
@@ -17,6 +18,10 @@ import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PEBBLE_F
 public class PebbleFissionRecipe extends ItemFissionRecipe {
     public PebbleFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
         super(ingredient, product, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+    }
+
+    public PebbleFissionRecipe(ItemLike input, ItemLike output, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+        this(SizedChanceItemIngredient.of(input.asItem(), 1), SizedChanceItemIngredient.of(output.asItem(), 1), time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
     }
 
     @Override
@@ -31,8 +36,8 @@ public class PebbleFissionRecipe extends ItemFissionRecipe {
 
     public static class Serializer implements RecipeSerializer<PebbleFissionRecipe> {
         public static MapCodec<PebbleFissionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(PebbleFissionRecipe::getItemIngredient),
-                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("product").forGetter(PebbleFissionRecipe::getItemProduct),
+                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemIngredient").forGetter(PebbleFissionRecipe::getItemIngredient),
+                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemProduct").forGetter(PebbleFissionRecipe::getItemProduct),
                 Codec.INT.fieldOf("time").forGetter(PebbleFissionRecipe::getFissionFuelTimeRaw),
                 Codec.INT.fieldOf("heat").forGetter(PebbleFissionRecipe::getFissionFuelHeatRaw),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(PebbleFissionRecipe::getFissionFuelEfficiencyRaw),

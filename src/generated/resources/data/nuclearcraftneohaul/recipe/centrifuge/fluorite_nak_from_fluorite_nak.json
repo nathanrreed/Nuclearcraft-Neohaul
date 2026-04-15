@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorite_nak"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 1332,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorite"
+      }
+    },
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nak"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

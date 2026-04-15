@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_ore"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_dust"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.25
+}

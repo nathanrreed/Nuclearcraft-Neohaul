@@ -8,6 +8,7 @@ import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes.BasicProcessorRecipeHandler;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.List;
 
@@ -20,20 +21,20 @@ public class RecipeStats {
     private static double block_mutation_threshold;
     private static double block_purification_threshold;
 
-    public static void init() {
-        setBasicProcessorMaxStats();
-        setScrubberMaxStats();
-        setDecayGeneratorMaxPower();
+    public static void init(RecipeManager recipeManager) {
+        setBasicProcessorMaxStats(recipeManager);
+        setScrubberMaxStats(recipeManager);
+        setDecayGeneratorMaxPower(recipeManager);
         setFissionMaxModeratorLineFlux();
-        setBlockMutationThreshold();
-        setBlockPurificationThreshold();
+        setBlockMutationThreshold(recipeManager);
+        setBlockPurificationThreshold(recipeManager);
     }
 
-    private static void setBasicProcessorMaxStats() {
+    private static void setBasicProcessorMaxStats(RecipeManager recipeManager) {
         for (TileContainerInfo<?> info : TileInfoHandler.TILE_CONTAINER_INFO_MAP.values()) {
             if (info instanceof ProcessorMenuInfo<?, ?, ?> processorInfo) {
                 if (processorInfo.getRecipeHandler() instanceof BasicProcessorRecipeHandler processorRecipeHandler) {
-                    List<ProcessorRecipe> recipeList = processorRecipeHandler.getRecipeList();
+                    List<ProcessorRecipe> recipeList = processorRecipeHandler.getRecipeList(recipeManager);
                     if (recipeList.isEmpty()) {
                         processorInfo.maxBaseProcessTime = processor_time_multiplier * processorInfo.getDefaultProcessTime();
                         processorInfo.maxBaseProcessPower = processor_power_multiplier * processorInfo.getDefaultProcessPower();
@@ -41,7 +42,7 @@ public class RecipeStats {
                         double maxProcessTimeMultiplier = 1D, maxProcessPowerMultiplier = 0D;
                         int maxFluidInputSize = 0, maxFluidOutputSize = 0;
 
-                        for (ProcessorRecipe recipe : processorRecipeHandler.getRecipeList()) {
+                        for (ProcessorRecipe recipe : processorRecipeHandler.getRecipeList(recipeManager)) {
                             maxProcessTimeMultiplier = Math.max(maxProcessTimeMultiplier, recipe.getProcessTimeMultiplier());
                             maxProcessPowerMultiplier = Math.max(maxProcessPowerMultiplier, recipe.getProcessPowerMultiplier());
 
@@ -65,11 +66,11 @@ public class RecipeStats {
         }
     }
 
-    private static void setScrubberMaxStats() {
+    private static void setScrubberMaxStats(RecipeManager recipeManager) {
         ProcessorMenuInfo<?, ?, ?> info = TileInfoHandler.getProcessorContainerInfo("radiation_scrubber");
         info.maxBaseProcessTime = 1D;
         info.maxBaseProcessPower = 0D;
-        for (BasicRecipe recipe : info.getRecipeHandler().getRecipeList()) {
+        for (BasicRecipe recipe : info.getRecipeHandler().getRecipeList(recipeManager)) {
             info.maxBaseProcessTime = Math.max(info.maxBaseProcessTime, ((RadiationScrubberRecipe) recipe).getScrubberProcessTime());
             info.maxBaseProcessPower = Math.max(info.maxBaseProcessPower, ((RadiationScrubberRecipe) recipe).getScrubberProcessPower());
         }
@@ -79,9 +80,9 @@ public class RecipeStats {
         return decay_generator_max_power;
     }
 
-    private static void setDecayGeneratorMaxPower() {
+    private static void setDecayGeneratorMaxPower(RecipeManager recipeManager) {
         double max = 0D;
-        for (DecayGeneratorRecipe recipe : NCRecipes.decay_generator.getRecipeList()) {
+        for (DecayGeneratorRecipe recipe : NCRecipes.decay_generator.getRecipeList(recipeManager)) {
             if (recipe != null) {
                 max = Math.max(max, recipe.getDecayGeneratorPower());
             }
@@ -107,9 +108,9 @@ public class RecipeStats {
         return block_mutation_threshold;
     }
 
-    private static void setBlockMutationThreshold() {
+    private static void setBlockMutationThreshold(RecipeManager recipeManager) {
         block_mutation_threshold = Double.MAX_VALUE;
-        for (BasicRecipe basicRecipe : NCRecipes.radiation_block_mutation.getRecipeList()) {
+        for (BasicRecipe basicRecipe : NCRecipes.radiation_block_mutation.getRecipeList(recipeManager)) {
             if (basicRecipe instanceof RadiationBlockMutationRecipe recipe) {
                 block_mutation_threshold = Math.min(block_mutation_threshold, recipe.getBlockMutationThreshold());
             }
@@ -120,9 +121,9 @@ public class RecipeStats {
         return block_purification_threshold;
     }
 
-    private static void setBlockPurificationThreshold() {
+    private static void setBlockPurificationThreshold(RecipeManager recipeManager) {
         block_purification_threshold = 0D;
-        for (BasicRecipe basicRecipe : NCRecipes.radiation_block_purification.getRecipeList()) {
+        for (BasicRecipe basicRecipe : NCRecipes.radiation_block_purification.getRecipeList(recipeManager)) {
             if (basicRecipe instanceof RadiationBlockPurificationRecipe recipe) {
                 block_purification_threshold = Math.max(block_purification_threshold, recipe.getPurificationThreshold());
             }

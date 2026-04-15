@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:fission_irradiator_recipe",
+  "irradiatorBaseProcessRadiation": 4.975E-20,
+  "irradiatorFluxRequired": 1920000,
+  "irradiatorHeatPerFlux": 0.0,
+  "irradiatorMaxFluxPerTick": -1,
+  "irradiatorMinFluxPerTick": 0,
+  "irradiatorProcessEfficiency": 0.5,
+  "itemIngredient": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:bismuth_dust"
+    }
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:polonium_dust"
+    }
+  }
+}

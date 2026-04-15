@@ -14,7 +14,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public record ProcessorPeripheral(BasicUpgradableEnergyProcessorEntity<?> processorEntity) implements IPeripheral {
     @LuaFunction(mainThread = true)
     public String getComponentName() {
-        return processorEntity.getContainerInfo().ocComponentName;
+        return processorEntity.getContainerInfo().ccComponentName;
     }
 
     @LuaFunction(mainThread = true)

@@ -39,7 +39,7 @@ public class HeatExchangerInletEntity extends AbstractHeatExchangerEntity implem
 
     public @Nonnull NonNullList<ItemStack> inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
 
-    public final @Nonnull List<Tank> masterTanks = Lists.newArrayList(new Tank(HeatExchanger.BASE_MAX_INPUT, NCRecipes.heat_exchanger.validFluids.get(0)), new Tank(HeatExchanger.BASE_MAX_OUTPUT, null));
+    public final @Nonnull List<Tank> masterTanks = Lists.newArrayList(new Tank(HeatExchanger.BASE_MAX_INPUT, NCRecipes.heat_exchanger.getValidFluids(level, 0)), new Tank(HeatExchanger.BASE_MAX_OUTPUT, null));
 
     private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(TankSorption.IN);
 

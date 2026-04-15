@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.RADIATION_SCRUBBER_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.RADIATION_SCRUBBER_RECIPE_TYPE;
@@ -22,8 +23,8 @@ public class RadiationScrubberRecipe extends BasicRecipe {
     private final long power;
     private final double efficiency;
 
-    public RadiationScrubberRecipe(SizedChanceItemIngredient itemIngredients, SizedChanceFluidIngredient fluidIngredients, SizedChanceItemIngredient itemProducts, SizedChanceFluidIngredient fluidProducts, long time, long power, double efficiency) {
-        super(List.of(itemIngredients), List.of(fluidIngredients), List.of(itemProducts), List.of(fluidProducts));
+    public RadiationScrubberRecipe(SizedChanceItemIngredient itemIngredient, SizedChanceFluidIngredient fluidIngredient, SizedChanceItemIngredient itemProduct, SizedChanceFluidIngredient fluidProduct, long time, long power, double efficiency) {
+        super(itemIngredient == null ? List.of() : List.of(itemIngredient), fluidIngredient == null ? List.of() : List.of(fluidIngredient), itemProduct == null ? List.of() : List.of(itemProduct), fluidProduct == null ? List.of() : List.of(fluidProduct));
         this.time = time;
         this.power = power;
         this.efficiency = efficiency;
@@ -53,20 +54,21 @@ public class RadiationScrubberRecipe extends BasicRecipe {
 
     public static class Serializer implements RecipeSerializer<RadiationScrubberRecipe> {
         public static MapCodec<RadiationScrubberRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemIngredient").forGetter(RadiationScrubberRecipe::getItemIngredient),
-                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(RadiationScrubberRecipe::getFluidIngredient),
-                SizedChanceItemIngredient.FLAT_CODEC.fieldOf("itemProduct").forGetter(RadiationScrubberRecipe::getItemProduct),
-                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(RadiationScrubberRecipe::getFluidProduct),
+                SizedChanceItemIngredient.FLAT_CODEC.lenientOptionalFieldOf("itemIngredient").forGetter(e -> Optional.ofNullable(e.getItemIngredients().isEmpty() ? null : e.getItemIngredient())),
+                SizedChanceFluidIngredient.FLAT_CODEC.lenientOptionalFieldOf("fluidIngredient").forGetter(e -> Optional.ofNullable(e.getFluidIngredients().isEmpty() ? null : e.getFluidIngredient())),
+                SizedChanceItemIngredient.FLAT_CODEC.lenientOptionalFieldOf("itemProduct").forGetter(e -> Optional.ofNullable(e.getItemProducts().isEmpty() ? null : e.getItemProduct())),
+                SizedChanceFluidIngredient.FLAT_CODEC.lenientOptionalFieldOf("fluidProduct").forGetter(e -> Optional.ofNullable(e.getFluidProducts().isEmpty() ? null : e.getFluidProduct())),
                 Codec.LONG.fieldOf("time").forGetter(RadiationScrubberRecipe::getScrubberProcessTime),
                 Codec.LONG.fieldOf("power").forGetter(RadiationScrubberRecipe::getScrubberProcessPower),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(RadiationScrubberRecipe::getScrubberProcessEfficiency)
-        ).apply(inst, RadiationScrubberRecipe::new));
+        ).apply(inst, (itemIngredient, fluidIngredient, itemProduct, fluidProduct, time, power, efficiency) ->
+                new RadiationScrubberRecipe(itemIngredient.orElse(null), fluidIngredient.orElse(null), itemProduct.orElse(null), fluidProduct.orElse(null), time, power, efficiency)));
 
         public static StreamCodec<RegistryFriendlyByteBuf, RadiationScrubberRecipe> STREAM_CODEC = NeoForgeStreamCodecs.composite(
-                SizedChanceItemIngredient.STREAM_CODEC, RadiationScrubberRecipe::getItemIngredient,
-                SizedChanceFluidIngredient.STREAM_CODEC, RadiationScrubberRecipe::getFluidIngredient,
-                SizedChanceItemIngredient.STREAM_CODEC, RadiationScrubberRecipe::getItemProduct,
-                SizedChanceFluidIngredient.STREAM_CODEC, RadiationScrubberRecipe::getFluidProduct,
+                SizedChanceItemIngredient.STREAM_CODEC, e -> e.getItemIngredients().isEmpty() ? SizedChanceItemIngredient.EMPTY : e.getItemIngredient(),
+                SizedChanceFluidIngredient.STREAM_CODEC, e -> e.getFluidIngredients().isEmpty() ? SizedChanceFluidIngredient.EMPTY : e.getFluidIngredient(),
+                SizedChanceItemIngredient.STREAM_CODEC, e -> e.getItemProducts().isEmpty() ? SizedChanceItemIngredient.EMPTY : e.getItemProduct(),
+                SizedChanceFluidIngredient.STREAM_CODEC, e -> e.getFluidProducts().isEmpty() ? SizedChanceFluidIngredient.EMPTY : e.getFluidProduct(),
                 ByteBufCodecs.VAR_LONG, RadiationScrubberRecipe::getScrubberProcessTime,
                 ByteBufCodecs.VAR_LONG, RadiationScrubberRecipe::getScrubberProcessPower,
                 ByteBufCodecs.DOUBLE, RadiationScrubberRecipe::getScrubberProcessEfficiency,

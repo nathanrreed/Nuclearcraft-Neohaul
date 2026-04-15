@@ -1,0 +1,42 @@
+{
+  "type": "nuclearcraftneohaul:rock_crusher_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "item": "minecraft:andesite"
+        },
+        {
+          "item": "minecraft:polished_andesite"
+        }
+      ]
+    }
+  ],
+  "itemProducts": [
+    {
+      "chancePercent": 50,
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:beryllium_dust"
+      }
+    },
+    {
+      "chancePercent": 30,
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:alugentum"
+      }
+    },
+    {
+      "chancePercent": 30,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:arsenic_gem_dust"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

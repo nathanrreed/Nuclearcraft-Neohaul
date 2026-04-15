@@ -51,10 +51,10 @@ public class MultiblockElectrolyzerRecipe extends MultiblockMachine {
     public static class Serializer implements RecipeSerializer<MultiblockElectrolyzerRecipe> {
         private static final MapCodec<MultiblockElectrolyzerRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemInputs").forGetter(MultiblockElectrolyzerRecipe::getItemIngredients),
-                        SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidInputs").forGetter(MultiblockElectrolyzerRecipe::getFluidIngredients),
-                        SizedChanceItemIngredient.FLAT_CODEC.listOf().fieldOf("itemProducts").forGetter(MultiblockElectrolyzerRecipe::getItemProducts),
-                        SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidProducts").forGetter(MultiblockElectrolyzerRecipe::getFluidProducts),
+                        SizedChanceItemIngredient.FLAT_CODEC.listOf(0, 2).fieldOf("itemIngredients").forGetter(MultiblockElectrolyzerRecipe::getItemIngredients),
+                        SizedChanceFluidIngredient.FLAT_CODEC.listOf(1, 2).fieldOf("fluidIngredients").forGetter(MultiblockElectrolyzerRecipe::getFluidIngredients),
+                        SizedChanceItemIngredient.FLAT_CODEC.listOf(0, 4).fieldOf("itemProducts").forGetter(MultiblockElectrolyzerRecipe::getItemProducts),
+                        SizedChanceFluidIngredient.FLAT_CODEC.listOf(1, 4).fieldOf("fluidProducts").forGetter(MultiblockElectrolyzerRecipe::getFluidProducts),
                         Codec.DOUBLE.fieldOf("timeModifier").forGetter(MultiblockElectrolyzerRecipe::getProcessTimeMultiplier),
                         Codec.DOUBLE.fieldOf("powerModifier").forGetter(MultiblockElectrolyzerRecipe::getProcessPowerMultiplier),
                         Codec.STRING.fieldOf("name").forGetter(MultiblockElectrolyzerRecipe::getElectrolyteGroup)

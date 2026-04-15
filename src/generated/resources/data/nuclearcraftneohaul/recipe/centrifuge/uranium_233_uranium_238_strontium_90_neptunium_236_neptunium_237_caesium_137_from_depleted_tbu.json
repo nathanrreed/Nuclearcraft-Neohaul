@@ -1,0 +1,54 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:depleted_tbu"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:uranium_233"
+      }
+    },
+    {
+      "amount": 80,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:uranium_238"
+      }
+    },
+    {
+      "amount": 16,
+      "chancePercent": 25,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:strontium_90"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:neptunium_236"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:neptunium_237"
+      }
+    },
+    {
+      "amount": 16,
+      "chancePercent": 25,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:caesium_137"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

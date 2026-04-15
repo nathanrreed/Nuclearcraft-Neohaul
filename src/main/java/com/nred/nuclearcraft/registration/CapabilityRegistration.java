@@ -143,31 +143,6 @@ public class CapabilityRegistration {
 
         radiation_capabilities(event);
 
-//        event.registerItem(CAPABILITY_RADIATION_SINK, new RadiationSinkProvider(0D), RADIATION_BADGE); TODO
-//
-//        @SubscribeEvent
-//        public void attachStackRadiationCapability (AttachCapabilitiesEvent < ItemStack > event) {
-//            ItemStack stack = event.getObject();
-//
-//            if (stack.getItem() == NCItems.radiation_badge) {
-//                addCapability(event, IRadiationSink.CAPABILITY_RADIATION_SINK_NAME, new RadiationSinkProvider(0D));
-//            }
-//
-//            int packed = RecipeItemHelper.pack(stack);
-//            if (RadSources.STACK_MAP.containsKey(packed)) {
-//                addCapability(event, IRadiationSource.CAPABILITY_RADIATION_SOURCE_NAME, new RadiationSourceStackProvider(stack));
-//            }
-//            if (RadArmor.ARMOR_RAD_RESISTANCE_MAP.containsKey(packed)) {
-//                addCapability(event, IRadiationResistance.CAPABILITY_RADIATION_RESISTANCE_NAME, new RadiationResistanceStackProvider(stack));
-//            }
-//        }
-//
-//        public static <T > void addCapability (AttachCapabilitiesEvent < T > event, ResourceLocation key, ICapabilityProvider capabilityProvider){
-//            if (!event.getCapabilities().containsKey(key)) {
-//                event.addCapability(key, capabilityProvider);
-//            }
-//        }
-
         items(event);
 
         if (ModCheck.ccLoaded()) {

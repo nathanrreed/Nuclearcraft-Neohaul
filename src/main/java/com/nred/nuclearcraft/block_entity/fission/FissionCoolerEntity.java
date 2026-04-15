@@ -94,7 +94,7 @@ public class FissionCoolerEntity extends AbstractFissionEntity implements IBasic
 
         inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
 
-        Set<ResourceLocation> validFluids = NCRecipes.fission_emergency_cooling.validFluids.get(0);
+        Set<ResourceLocation> validFluids = NCRecipes.fission_emergency_cooling.getValidFluids(level, 0);
         tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
 
         filterTanks = Lists.newArrayList(new Tank(1000, validFluids), new Tank(1000, new ObjectOpenHashSet<>()));

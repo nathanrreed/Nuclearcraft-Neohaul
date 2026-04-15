@@ -6,7 +6,6 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.turbine.ITurbineController;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBladeEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorStatorEntity;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
@@ -14,6 +13,7 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.ITurbineRo
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
 import com.nred.nuclearcraft.payload.multiblock.TurbineRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.TurbineUpdatePacket;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.util.NBTHelper;
@@ -54,7 +54,7 @@ public class Turbine extends Multiblock<Turbine> implements ILogicMultiblock<Tur
     public static final int BASE_MAX_ENERGY = 16000, BASE_MAX_INPUT = 1000, BASE_MAX_OUTPUT = 4000;
 
     public final EnergyStorage energyStorage = new EnergyStorage(BASE_MAX_ENERGY);
-    public final List<Tank> tanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, NCRecipes.turbine.validFluids.get(0)), new Tank(BASE_MAX_OUTPUT, null));
+    public final List<Tank> tanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, NCRecipes.turbine.getValidFluids(getWorld(), 0)), new Tank(BASE_MAX_OUTPUT, null));
 
     public RecipeInfo<TurbineRecipe> recipeInfo;
 

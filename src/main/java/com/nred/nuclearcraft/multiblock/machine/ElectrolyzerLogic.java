@@ -65,7 +65,7 @@ public class ElectrolyzerLogic extends MachineLogic {
 
     @Override
     public List<Set<ResourceLocation>> getReservoirValidFluids() {
-        return NCRecipes.multiblock_electrolyzer.validFluids;
+        return NCRecipes.multiblock_electrolyzer.getValidFluids(getWorld().getRecipeManager());
     }
 
     @Override

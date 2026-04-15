@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:multiblock_electrolyzer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrofluoric_acid"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hydrogen"
+      }
+    },
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorine"
+      }
+    }
+  ],
+  "itemIngredients": [],
+  "itemProducts": [],
+  "name": "fluoride_solution",
+  "powerModifier": 1.0,
+  "timeModifier": 1.0
+}

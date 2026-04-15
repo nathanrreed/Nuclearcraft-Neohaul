@@ -1,0 +1,10 @@
+{
+  "type": "nuclearcraftneohaul:collector_recipe",
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
+  },
+  "typeName": "water_source_dense"
+}

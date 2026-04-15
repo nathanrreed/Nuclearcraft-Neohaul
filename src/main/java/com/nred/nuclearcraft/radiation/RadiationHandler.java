@@ -54,8 +54,8 @@ public class RadiationHandler {
 
     public static Direction tile_side = Direction.DOWN;
 
-    public static boolean default_rad_immunity = false;
-    public static String[] rad_immunity_stages = new String[]{};
+//    public static boolean default_rad_immunity = false; TODO Game Stages
+//    public static String[] rad_immunity_stages = new String[]{};
 
     public static final Lazy<BasicRecipeHandler<?>> RADIATION_BLOCK_PURIFICATION = new Lazy<>(() -> NCRecipes.radiation_block_purification);
 
@@ -87,7 +87,7 @@ public class RadiationHandler {
                 return;
             }
 
-//            if (ModCheck.gameStagesLoaded()) { TODO
+//            if (ModCheck.gameStagesLoaded()) { TODO add
 //                playerRads.setRadiationImmunityStage(default_rad_immunity ^ GameStageHelper.hasAnyOf(player, rad_immunity_stages));
 //            }
 

@@ -91,7 +91,7 @@ public class CommonSetup {
     public static void postInit(ServerAboutToStartEvent event) { // TODO is this the right event type
         PlacementRule.postInit();
         NCRecipes.init(event.getServer().getRecipeManager());
-        RecipeStats.init();
+        RecipeStats.init(event.getServer().getRecipeManager());
 
         // TODO ADD
 
@@ -110,6 +110,9 @@ public class CommonSetup {
 
         NeoForge.EVENT_BUS.register(new PlayerRespawnHandler());
         NeoForge.EVENT_BUS.register(new ItemUseHandler());
+
+        NCRecipes.postInit(event.getServer().getRecipeManager());
+
     }
 
     @SubscribeEvent

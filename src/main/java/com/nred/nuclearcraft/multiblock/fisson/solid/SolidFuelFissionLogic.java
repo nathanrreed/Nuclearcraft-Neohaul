@@ -34,7 +34,7 @@ import static com.nred.nuclearcraft.config.NCConfig.fission_overheat;
 import static com.nred.nuclearcraft.config.NCConfig.fission_sparsity_penalty_params;
 
 public class SolidFuelFissionLogic extends FissionReactorLogic {
-    public List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_heating.validFluids.get(0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
+    public List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_heating.getValidFluids(getWorld(), 0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
 
     public RecipeInfo<FissionHeatingRecipe> heatingRecipeInfo;
 

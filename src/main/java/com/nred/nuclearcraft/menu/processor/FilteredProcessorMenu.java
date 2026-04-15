@@ -24,7 +24,7 @@ public abstract class FilteredProcessorMenu<TILE extends BlockEntity & IProcesso
 
     @Override
     public ItemStack transferPlayerStack(Player player, int index, int invStart, int invEnd, ItemStack stack) {
-        if (recipeHandler.isValidItemInput(stack)) {
+        if (recipeHandler.isValidItemInput(stack, player.level())) {
             if (!moveItemStackTo(stack, 0, info.itemInputSize, false)) {
                 return ItemStack.EMPTY;
             }

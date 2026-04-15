@@ -1,0 +1,33 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "itemIngredients": [
+    {
+      "count": 10,
+      "ingredient": [
+        {
+          "tag": "c:dusts/uranium"
+        },
+        {
+          "tag": "c:ingots/uranium"
+        }
+      ]
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_238"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_235"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

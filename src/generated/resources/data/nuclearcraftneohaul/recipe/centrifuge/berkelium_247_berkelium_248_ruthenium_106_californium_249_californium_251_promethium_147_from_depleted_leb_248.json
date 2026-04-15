@@ -1,0 +1,54 @@
+{
+  "type": "nuclearcraftneohaul:centrifuge_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:depleted_leb_248"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 80,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:berkelium_247"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:berkelium_248"
+      }
+    },
+    {
+      "amount": 16,
+      "chancePercent": 30,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ruthenium_106"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_249"
+      }
+    },
+    {
+      "amount": 16,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:californium_251"
+      }
+    },
+    {
+      "amount": 16,
+      "chancePercent": 20,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:promethium_147"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

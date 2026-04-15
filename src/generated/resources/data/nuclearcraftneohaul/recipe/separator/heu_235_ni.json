@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:separator_recipe",
+  "itemIngredients": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:heu_235_ni"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_238_ni"
+      }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:uranium_235_ni"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

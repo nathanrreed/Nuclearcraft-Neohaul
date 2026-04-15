@@ -35,7 +35,7 @@ public abstract class ProcessorContainerInfoBuilder<TILE extends BlockEntity & I
     protected boolean consumesInputs = false;
     protected boolean losesProgress = false;
 
-    protected String ocComponentName;
+    protected String ccComponentName;
 
     protected ProcessorContainerInfoBuilder(String name, Class<TILE> tileClass, BiFunction<BlockPos, BlockState, TILE> tileSupplier, MenuFunction<TILE> menuFunction) {
         super(name);
@@ -44,7 +44,7 @@ public abstract class ProcessorContainerInfoBuilder<TILE extends BlockEntity & I
         this.menuFunction = menuFunction;
         this.tileSupplier = tileSupplier;
 
-        ocComponentName = MODID + "_" + name;
+        ccComponentName = MODID + "_" + name;
     }
 
     public ProcessorBlockInfo<TILE> buildBlockInfo() {
@@ -55,16 +55,6 @@ public abstract class ProcessorContainerInfoBuilder<TILE extends BlockEntity & I
 
     public BUILDER setParticles(String... particles) {
         this.particles = Lists.newArrayList(particles);
-        return getThis();
-    }
-
-    public BUILDER setInputTankCapacity(int capacity) {
-        inputTankCapacity = capacity;
-        return getThis();
-    }
-
-    public BUILDER setOutputTankCapacity(int capacity) {
-        outputTankCapacity = capacity;
         return getThis();
     }
 
@@ -94,11 +84,6 @@ public abstract class ProcessorContainerInfoBuilder<TILE extends BlockEntity & I
 
     public BUILDER setLosesProgress(boolean losesProgress) {
         this.losesProgress = losesProgress;
-        return getThis();
-    }
-
-    public BUILDER setOCComponentName(String ocComponentName) {
-        this.ocComponentName = ocComponentName;
         return getThis();
     }
 }

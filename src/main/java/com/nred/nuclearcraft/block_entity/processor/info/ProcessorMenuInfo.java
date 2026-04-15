@@ -57,7 +57,7 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
     public final boolean consumesInputs;
     public final boolean losesProgress;
 
-    public final String ocComponentName;
+    public final String ccComponentName;
 
     public final int guiWidth;
     public final int guiHeight;
@@ -98,31 +98,10 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
     public final int redstoneControlGuiX;
     public final int redstoneControlGuiY;
 
-    public final boolean jeiCategoryEnabled;
-
-    public final String jeiCategoryUid;
-    public final String jeiTitle;
-    public final String jeiTexture;
-
-    public final int jeiBackgroundX;
-    public final int jeiBackgroundY;
-    public final int jeiBackgroundW;
-    public final int jeiBackgroundH;
-
-    public final int jeiTooltipX;
-    public final int jeiTooltipY;
-    public final int jeiTooltipW;
-    public final int jeiTooltipH;
-
-    public final int jeiClickAreaX;
-    public final int jeiClickAreaY;
-    public final int jeiClickAreaW;
-    public final int jeiClickAreaH;
-
     public double maxBaseProcessTime = 1D;
     public double maxBaseProcessPower = 0D;
 
-    protected ProcessorMenuInfo(String name, Class<TILE> tileClass, MenuFunction<TILE> menuFunction, String recipeHandlerName, int inputTankCapacity, int outputTankCapacity, Supplier<Integer> defaultProcessTime, Supplier<Integer> defaultProcessPower, boolean isGenerator, boolean consumesInputs, boolean losesProgress, String ocComponentName, int[] guiWH, List<int[]> itemInputGuiXYWH, List<int[]> fluidInputGuiXYWH, List<int[]> itemOutputGuiXYWH, List<int[]> fluidOutputGuiXYWH, int[] playerGuiXY, int[] progressBarGuiXYWHUV, int[] energyBarGuiXYWHUV, int[] machineConfigGuiXY, int[] redstoneControlGuiXY, boolean jeiCategoryEnabled, String jeiCategoryUid, String jeiTitle, String jeiTexture, int[] jeiBackgroundXYWH, int[] jeiTooltipXYWH, int[] jeiClickAreaXYWH) {
+    protected ProcessorMenuInfo(String name, Class<TILE> tileClass, MenuFunction<TILE> menuFunction, String recipeHandlerName, int inputTankCapacity, int outputTankCapacity, Supplier<Integer> defaultProcessTime, Supplier<Integer> defaultProcessPower, boolean isGenerator, boolean consumesInputs, boolean losesProgress, String ccComponentName, int[] guiWH, List<int[]> itemInputGuiXYWH, List<int[]> fluidInputGuiXYWH, List<int[]> itemOutputGuiXYWH, List<int[]> fluidOutputGuiXYWH, int[] playerGuiXY, int[] progressBarGuiXYWHUV, int[] energyBarGuiXYWHUV, int[] machineConfigGuiXY, int[] redstoneControlGuiXY) {
         super(name, tileClass, menuFunction);
 
         this.recipeHandlerName = recipeHandlerName;
@@ -149,7 +128,7 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
         this.consumesInputs = consumesInputs;
         this.losesProgress = losesProgress;
 
-        this.ocComponentName = ocComponentName;
+        this.ccComponentName = ccComponentName;
 
         guiWidth = guiWH[0];
         guiHeight = guiWH[1];
@@ -189,27 +168,6 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
 
         redstoneControlGuiX = redstoneControlGuiXY[0];
         redstoneControlGuiY = redstoneControlGuiXY[1];
-
-        this.jeiCategoryEnabled = jeiCategoryEnabled;
-
-        this.jeiCategoryUid = jeiCategoryUid;
-        this.jeiTitle = jeiTitle;
-        this.jeiTexture = jeiTexture;
-
-        jeiBackgroundX = jeiBackgroundXYWH[0];
-        jeiBackgroundY = jeiBackgroundXYWH[1];
-        jeiBackgroundW = jeiBackgroundXYWH[2];
-        jeiBackgroundH = jeiBackgroundXYWH[3];
-
-        jeiTooltipX = jeiTooltipXYWH[0];
-        jeiTooltipY = jeiTooltipXYWH[1];
-        jeiTooltipW = jeiTooltipXYWH[2];
-        jeiTooltipH = jeiTooltipXYWH[3];
-
-        jeiClickAreaX = jeiClickAreaXYWH[0];
-        jeiClickAreaY = jeiClickAreaXYWH[1];
-        jeiClickAreaW = jeiClickAreaXYWH[2];
-        jeiClickAreaH = jeiClickAreaXYWH[3];
     }
 
     public BasicRecipeHandler<ProcessorRecipe> getRecipeHandler() {

@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.datagen.recipes.*;
-import com.nred.nuclearcraft.datagen.recipes.multilock.*;
+import com.nred.nuclearcraft.datagen.recipes.multiblock.*;
 import com.nred.nuclearcraft.datagen.recipes.processor.*;
 import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.*;

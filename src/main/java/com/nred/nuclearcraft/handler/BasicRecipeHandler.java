@@ -8,9 +8,11 @@ import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.util.StreamHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
@@ -29,7 +31,7 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
     public final String name;
     public final int itemInputSize, fluidInputSize, itemOutputSize, fluidOutputSize;
 
-    public final List<Set<ResourceLocation>> validFluids = new ArrayList<>();
+    private final List<Set<ResourceLocation>> validFluids = new ArrayList<>();
 
     public BasicRecipeHandler(@Nonnull String name, int itemInputSize, int fluidInputSize, int itemOutputSize, int fluidOutputSize) {
         this.name = name;
@@ -42,11 +44,6 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
     @Override
     public String getName() {
         return name;
-    }
-
-    @Override
-    public List<RECIPE> getRecipeList() {
-        return recipeList;
     }
 
     public int getItemInputSize() {
@@ -68,23 +65,30 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
     @Override
     public void init(RecipeManager recipeManager) {
         super.init(recipeManager);
-
-        this.setValidFluids(recipeManager);
     }
 
-    public void clearRecipes() {
+    @Override
+    public void postInit(RecipeManager recipeManager) {
+        super.postInit(recipeManager);
+        this.setValidFluids();
+    }
+
+    public void setValidFluids() {
         validFluids.clear();
     }
 
-    protected void setValidFluids(RecipeManager recipeManager) {
-        if (recipeList.isEmpty())
-            getRecipes(recipeManager);
-        clearRecipes();
-        validFluids.addAll(RecipeHelper.validFluids(this));
+    public List<Set<ResourceLocation>> getValidFluids(RecipeManager recipeManager) {
+        if (validFluids.isEmpty())
+            validFluids.addAll(RecipeHelper.validFluids(this, recipeManager));
+        return validFluids;
     }
 
-    public boolean isValidInput(ItemStack stack, Function<BasicRecipe, List<SizedChanceItemIngredient>> ingredientsFunction) {
-        for (BasicRecipe recipe : recipeList) {
+    public Set<ResourceLocation> getValidFluids(Level level, int index) {
+        return getValidFluids((Objects.requireNonNull(level == null ? Minecraft.getInstance().level : level)).getRecipeManager()).get(index);
+    }
+
+    public boolean isValidInput(ItemStack stack, Function<BasicRecipe, List<SizedChanceItemIngredient>> ingredientsFunction, RecipeManager recipeManager) {
+        for (BasicRecipe recipe : getRecipeList(recipeManager)) {
             for (SizedChanceItemIngredient input : ingredientsFunction.apply(recipe)) {
                 if (matchIngredient(input, stack, IngredientSorption.NEUTRAL).matches()) {
                     return true;
@@ -94,8 +98,8 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
         return false;
     }
 
-    public boolean isValidInput(FluidStack stack, Function<BasicRecipe, List<SizedChanceFluidIngredient>> ingredientsFunction) {
-        for (BasicRecipe recipe : recipeList) {
+    public boolean isValidInput(FluidStack stack, Function<BasicRecipe, List<SizedChanceFluidIngredient>> ingredientsFunction, RecipeManager recipeManager) {
+        for (BasicRecipe recipe : getRecipeList(recipeManager)) {
             for (SizedChanceFluidIngredient input : ingredientsFunction.apply(recipe)) {
                 if (matchFluidIngredient(input, stack, IngredientSorption.NEUTRAL).matches()) {
                     return true;
@@ -105,27 +109,31 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
         return false;
     }
 
-    public boolean isValidItemInput(ItemStack stack) {
-        return isValidInput(stack, BasicRecipe::getItemIngredients);
+    public boolean isValidItemInput(ItemStack stack, Level level) {
+        return isValidInput(stack, BasicRecipe::getItemIngredients, level.getRecipeManager());
     }
 
-    public boolean isValidFluidInput(FluidStack stack) {
-        return isValidInput(stack, BasicRecipe::getFluidIngredients);
+    public boolean isValidFluidInput(FluidStack stack, Level level) {
+        return isValidFluidInput(stack, level.getRecipeManager());
+    }
+
+    public boolean isValidFluidInput(FluidStack stack, RecipeManager recipeManager) {
+        return isValidInput(stack, BasicRecipe::getFluidIngredients, recipeManager);
     }
 
     /**
      * Smart insertion - don't insert if stack is not valid for any possible recipes
      */
-    public boolean isValidItemInput(ItemStack stack, int index, List<ItemStack> inputs, List<FluidStack> associatedInputs, RecipeInfo<? extends BasicRecipe> recipeInfo, int inputSize, int associatedInputSize, Predicate<ItemStack> isEmptyFunction, Predicate<FluidStack> associatedIsEmptyFunction, Predicate<ItemStack> isEqualFunction, Function<BasicRecipe, List<SizedChanceItemIngredient>> ingredientsFunction, Function<BasicRecipe, List<SizedChanceFluidIngredient>> associatedIngredientsFunction) {
+    public boolean isValidItemInput(RecipeManager recipeManager, ItemStack stack, int index, List<ItemStack> inputs, List<FluidStack> associatedInputs, RecipeInfo<? extends BasicRecipe> recipeInfo, Predicate<ItemStack> isEmptyFunction, Predicate<FluidStack> associatedIsEmptyFunction, Predicate<ItemStack> isEqualFunction, Function<BasicRecipe, List<SizedChanceItemIngredient>> ingredientsFunction, Function<BasicRecipe, List<SizedChanceFluidIngredient>> associatedIngredientsFunction) {
         List<ItemStack> otherInputs = inputsExcludingIndex(inputs, index);
         if ((otherInputs.stream().allMatch(isEmptyFunction) && associatedInputs.stream().allMatch(associatedIsEmptyFunction)) || isEqualFunction.test(inputs.get(index))) {
-            return isValidInput(stack, ingredientsFunction);
+            return isValidInput(stack, ingredientsFunction, recipeManager);
         }
 
         if (recipeInfo == null) {
-            ObjectSet<BasicRecipe> recipes = new ObjectOpenHashSet<>(recipeList);
+            ObjectSet<BasicRecipe> recipes = new ObjectOpenHashSet<>(getRecipeList(recipeManager));
             recipeLoop:
-            for (BasicRecipe recipe : recipeList) {
+            for (BasicRecipe recipe : getRecipeList(recipeManager)) {
                 List<SizedChanceItemIngredient> ingredients = ingredientsFunction.apply(recipe);
                 List<SizedChanceFluidIngredient> associatedIngredients = associatedIngredientsFunction.apply(recipe);
                 stackLoop:
@@ -166,16 +174,16 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
         }
     }
 
-    public boolean isValidFluidInput(FluidStack stack, int index, List<FluidStack> inputs, List<ItemStack> associatedInputs, RecipeInfo<? extends BasicRecipe> recipeInfo, int inputSize, int associatedInputSize, Predicate<FluidStack> isEmptyFunction, Predicate<ItemStack> associatedIsEmptyFunction, Predicate<FluidStack> isEqualFunction, Function<BasicRecipe, List<SizedChanceFluidIngredient>> ingredientsFunction, Function<BasicRecipe, List<SizedChanceItemIngredient>> associatedIngredientsFunction) {
+    public boolean isValidFluidInput(RecipeManager recipeManager, FluidStack stack, int index, List<FluidStack> inputs, List<ItemStack> associatedInputs, RecipeInfo<? extends BasicRecipe> recipeInfo, Predicate<FluidStack> isEmptyFunction, Predicate<ItemStack> associatedIsEmptyFunction, Predicate<FluidStack> isEqualFunction, Function<BasicRecipe, List<SizedChanceFluidIngredient>> ingredientsFunction, Function<BasicRecipe, List<SizedChanceItemIngredient>> associatedIngredientsFunction) {
         List<FluidStack> otherInputs = inputsExcludingIndex(inputs, index);
         if ((otherInputs.stream().allMatch(isEmptyFunction) && associatedInputs.stream().allMatch(associatedIsEmptyFunction)) || isEqualFunction.test(inputs.get(index))) {
-            return isValidInput(stack, ingredientsFunction);
+            return isValidInput(stack, ingredientsFunction, recipeManager);
         }
 
         if (recipeInfo == null) {
-            ObjectSet<BasicRecipe> recipes = new ObjectOpenHashSet<>(recipeList);
+            ObjectSet<BasicRecipe> recipes = new ObjectOpenHashSet<>(getRecipeList(recipeManager));
             recipeLoop:
-            for (BasicRecipe recipe : recipeList) {
+            for (BasicRecipe recipe : getRecipeList(recipeManager)) {
                 List<SizedChanceFluidIngredient> ingredients = ingredientsFunction.apply(recipe);
                 List<SizedChanceItemIngredient> associatedIngredients = associatedIngredientsFunction.apply(recipe);
                 stackLoop:
@@ -217,12 +225,12 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
     }
 
 
-    public boolean isValidItemInput(ItemStack stack, int slot, List<ItemStack> itemInputs, List<Tank> fluidInputs, RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        return isValidItemInput(stack, slot, itemInputs, StreamHelper.map(fluidInputs, Tank::getFluid), recipeInfo, itemInputSize, fluidInputSize, ItemStack::isEmpty, x -> x == null || x.getAmount() <= 0, x -> ItemStack.isSameItemSameComponents(stack, x), BasicRecipe::getItemIngredients, BasicRecipe::getFluidIngredients);
+    public boolean isValidItemInput(RecipeManager recipeManager, ItemStack stack, int slot, List<ItemStack> itemInputs, List<Tank> fluidInputs, RecipeInfo<? extends BasicRecipe> recipeInfo) {
+        return isValidItemInput(recipeManager, stack, slot, itemInputs, StreamHelper.map(fluidInputs, Tank::getFluid), recipeInfo, ItemStack::isEmpty, x -> x == null || x.getAmount() <= 0, x -> ItemStack.isSameItemSameComponents(stack, x), BasicRecipe::getItemIngredients, BasicRecipe::getFluidIngredients);
     }
 
-    public boolean isValidFluidInput(FluidStack stack, int tankNumber, List<Tank> fluidInputs, List<ItemStack> itemInputs, @Nullable RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        return isValidFluidInput(stack, tankNumber, StreamHelper.map(fluidInputs, Tank::getFluid), itemInputs, recipeInfo, fluidInputSize, itemInputSize, x -> x == null || x.getAmount() <= 0, ItemStack::isEmpty, stack == null ? Objects::isNull : x -> (FluidStack.isSameFluidSameComponents(stack, x)), BasicRecipe::getFluidIngredients, BasicRecipe::getItemIngredients);
+    public boolean isValidFluidInput(RecipeManager recipeManager, FluidStack stack, int tankNumber, List<Tank> fluidInputs, List<ItemStack> itemInputs, @Nullable RecipeInfo<? extends BasicRecipe> recipeInfo) {
+        return isValidFluidInput(recipeManager, stack, tankNumber, StreamHelper.map(fluidInputs, Tank::getFluid), itemInputs, recipeInfo, x -> x == null || x.getAmount() <= 0, ItemStack::isEmpty, stack == null ? Objects::isNull : x -> (FluidStack.isSameFluidSameComponents(stack, x)), BasicRecipe::getFluidIngredients, BasicRecipe::getItemIngredients);
     }
 
     protected boolean isValidItemInputInternal(ItemStack stack, List<ItemStack> otherInputs, List<SizedChanceItemIngredient> ingredients, Predicate<ItemStack> isEmptyFunction) {

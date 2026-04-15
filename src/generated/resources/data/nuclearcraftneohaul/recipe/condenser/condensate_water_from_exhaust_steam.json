@@ -1,0 +1,20 @@
+{
+  "type": "nuclearcraftneohaul:condenser_recipe",
+  "coolingRequired": 32.0,
+  "flowDirectionBonus": 0.5,
+  "fluidIngredient": {
+    "amount": 16,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:exhaust_steam"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:condensate_water"
+    }
+  },
+  "inputTemp": 550,
+  "outputTemp": 350,
+  "preferredFlowDir": -1
+}

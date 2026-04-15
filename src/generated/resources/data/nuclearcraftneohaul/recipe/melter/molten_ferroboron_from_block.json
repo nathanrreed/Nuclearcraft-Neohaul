@@ -1,0 +1,27 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 1296,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ferroboron"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "tag": "c:storage_blocks/ferroboron"
+        },
+        {
+          "tag": "c:storage_blocks/raw_ferroboron"
+        }
+      ]
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 9.0
+}

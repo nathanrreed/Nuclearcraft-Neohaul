@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:solid_fission_recipe",
+  "criticality": 87,
+  "decayFactor": 0.065,
+  "efficiency": 1.0,
+  "heat": 150,
+  "itemIngredient": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:leu_235_za"
+    }
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:depleted_leu_235_za"
+    }
+  },
+  "radiation": 1.4647403038194445E-5,
+  "selfPriming": false,
+  "time": 3840
+}

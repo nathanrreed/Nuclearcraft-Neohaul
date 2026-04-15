@@ -1,0 +1,34 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sugar"
+      }
+    },
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 2000,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethanol"
+      }
+    },
+    {
+      "amount": 2000,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:carbon_dioxide"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

@@ -183,9 +183,9 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
         }
 
         if (NCConfig.smart_processor_input) {
-            return recipeHandler.isValidItemInput(stack, slot, getInventoryStacks().subList(0, recipeHandler.itemInputSize), Collections.emptyList(), null);
+            return recipeHandler.isValidItemInput(level.getRecipeManager(), stack, slot, getInventoryStacks().subList(0, recipeHandler.itemInputSize), Collections.emptyList(), null);
         } else {
-            return recipeHandler.isValidItemInput(stack);
+            return recipeHandler.isValidItemInput(stack, level);
         }
     }
 

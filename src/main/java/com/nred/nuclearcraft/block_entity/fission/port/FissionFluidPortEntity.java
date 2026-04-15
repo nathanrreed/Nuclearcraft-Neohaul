@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.smart_processor_input;
@@ -50,10 +51,11 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
-    public FissionFluidPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, int capacity, Set<ResourceLocation> validFluids, BasicRecipeHandler<?> recipeHandler) {
+    public FissionFluidPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, int capacity, Function<Level, Set<ResourceLocation>> validFluidsFunc, BasicRecipeHandler<?> recipeHandler) {
         super(type, pos, blockState, portClass);
         info = TileInfoHandler.getTileContainerInfo(name);
 
+        Set<ResourceLocation> validFluids = validFluidsFunc.apply(level);
         tanks = Lists.newArrayList(new Tank(capacity, validFluids), new Tank(capacity, new ObjectOpenHashSet<>()));
         filterTanks = Lists.newArrayList(new Tank(1000, validFluids), new Tank(1000, new ObjectOpenHashSet<>()));
         this.capacity = capacity;
@@ -199,9 +201,9 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
         }
 
         if (smart_processor_input) {
-            return recipeHandler.isValidFluidInput(stack, tankNumber, getTanks().subList(0, recipeHandler.fluidInputSize), Collections.emptyList(), null);
+            return recipeHandler.isValidFluidInput(level.getRecipeManager(), stack, tankNumber, getTanks().subList(0, recipeHandler.fluidInputSize), Collections.emptyList(), null);
         } else {
-            return recipeHandler.isValidFluidInput(stack);
+            return recipeHandler.isValidFluidInput(stack, level);
         }
     }
 

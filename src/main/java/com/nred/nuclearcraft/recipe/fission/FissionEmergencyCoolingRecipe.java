@@ -40,8 +40,8 @@ public class FissionEmergencyCoolingRecipe extends BasicRecipe {
 
     public static class Serializer implements RecipeSerializer<FissionEmergencyCoolingRecipe> {
         public static MapCodec<FissionEmergencyCoolingRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredients").forGetter(FissionEmergencyCoolingRecipe::getFluidIngredient),
-                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProducts").forGetter(FissionEmergencyCoolingRecipe::getFluidProduct),
+                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(FissionEmergencyCoolingRecipe::getFluidIngredient),
+                SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(FissionEmergencyCoolingRecipe::getFluidProduct),
                 Codec.DOUBLE.fieldOf("cooling_multiplier").forGetter(FissionEmergencyCoolingRecipe::getEmergencyCoolingHeatPerInputMB)
         ).apply(inst, FissionEmergencyCoolingRecipe::new));
 

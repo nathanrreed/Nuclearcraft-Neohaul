@@ -53,8 +53,8 @@ public class MultiblockDistillerRecipe extends MultiblockMachine {
     public static class Serializer implements RecipeSerializer<MultiblockDistillerRecipe> {
         private static final MapCodec<MultiblockDistillerRecipe> CODEC = RecordCodecBuilder.mapCodec(inst ->
                 inst.group(
-                        SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("itemInputs").forGetter(MultiblockDistillerRecipe::getFluidIngredients),
-                        SizedChanceFluidIngredient.FLAT_CODEC.listOf().fieldOf("fluidInputs").forGetter(MultiblockDistillerRecipe::getFluidProducts),
+                        SizedChanceFluidIngredient.FLAT_CODEC.listOf(1, 2).fieldOf("fluidIngredients").forGetter(MultiblockDistillerRecipe::getFluidIngredients),
+                        SizedChanceFluidIngredient.FLAT_CODEC.listOf(1, 8).fieldOf("fluidProducts").forGetter(MultiblockDistillerRecipe::getFluidProducts),
                         Codec.DOUBLE.fieldOf("timeModifier").forGetter(MultiblockDistillerRecipe::getProcessTimeMultiplier),
                         Codec.DOUBLE.fieldOf("powerModifier").forGetter(MultiblockDistillerRecipe::getProcessPowerMultiplier)
                 ).apply(inst, MultiblockDistillerRecipe::new));

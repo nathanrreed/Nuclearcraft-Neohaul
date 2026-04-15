@@ -18,7 +18,7 @@ public class SeverSetup {
     @SubscribeEvent
     public static void onLootTableLoad(LootTableLoadEvent event) {
         if (BuiltInLootTables.SIMPLE_DUNGEON.location().equals(event.getName())) {
-            event.getTable().addPool(LootPool.lootPool() // TODO check out this pool
+            event.getTable().addPool(LootPool.lootPool()
                     .setRolls(UniformGenerator.between(1.0F, 3.0F))
                     .add(LootItem.lootTableItem(FOOD_MAP.get("dominos")).setWeight(11))
                     .add(LootItem.lootTableItem(FOOD_MAP.get("milk_chocolate")).setWeight(10))

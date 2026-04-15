@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.block_entity.fission.port;
 
 import com.nred.nuclearcraft.block_entity.fission.FissionCoolerEntity;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionCoolerPortMenu;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +16,7 @@ import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 
 public class FissionCoolerPortEntity extends FissionFluidPortEntity<FissionCoolerPortEntity, FissionCoolerEntity> {
     public FissionCoolerPortEntity(BlockPos pos, BlockState blockState) {
-        super(FISSION_ENTITY_TYPE.get("cooler_port").get(), pos, blockState, "fission_cooler_port", FissionCoolerPortEntity.class, INGOT_BLOCK_VOLUME, null, NCRecipes.fission_emergency_cooling);
+        super(FISSION_ENTITY_TYPE.get("cooler_port").get(), pos, blockState, "fission_cooler_port", FissionCoolerPortEntity.class, INGOT_BLOCK_VOLUME, e -> null, NCRecipes.fission_emergency_cooling);
     }
 
     // MenuProvider
