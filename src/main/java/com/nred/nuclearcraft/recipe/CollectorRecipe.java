@@ -24,6 +24,8 @@ import static com.nred.nuclearcraft.config.NCConfig.processor_passive_rate;
 import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.COLLECTOR_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
+import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC;
+import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC;
 
 public class CollectorRecipe extends BasicRecipe { // TODO should this be a DataMap?
     private final String typeName;
@@ -39,6 +41,11 @@ public class CollectorRecipe extends BasicRecipe { // TODO should this be a Data
 
     public CollectorRecipe(String typeName, FluidIngredient fluidProduct) {
         this(typeName, null, new SizedChanceFluidIngredient(fluidProduct, 1));
+    }
+
+    private CollectorRecipe(String typeName, List<SizedChanceItemIngredient> itemProduct, List<SizedChanceFluidIngredient> fluidProduct) {
+        super(List.of(), List.of(), itemProduct, fluidProduct);
+        this.typeName = typeName;
     }
 
     @Override
@@ -105,8 +112,8 @@ public class CollectorRecipe extends BasicRecipe { // TODO should this be a Data
 
         public static StreamCodec<RegistryFriendlyByteBuf, CollectorRecipe> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.STRING_UTF8, CollectorRecipe::getTypeName,
-                SizedChanceItemIngredient.STREAM_CODEC, e -> e.getItemProducts().isEmpty() ? SizedChanceItemIngredient.EMPTY : e.getItemProduct(),
-                SizedChanceFluidIngredient.STREAM_CODEC, e -> e.getFluidProducts().isEmpty() ? SizedChanceFluidIngredient.EMPTY : e.getFluidProduct(),
+                SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC, CollectorRecipe::getItemProducts,
+                SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC, CollectorRecipe::getFluidProducts,
                 CollectorRecipe::new
         );
 
