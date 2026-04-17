@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:decay_hastener/palladium_dust"
+        "recipe": "nuclearcraftneohaul:decay_hastener/tbu_from_tbp_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:decay_hastener/palladium_dust"
+      "nuclearcraftneohaul:decay_hastener/tbu_from_tbp_dust"
     ]
   }
 }

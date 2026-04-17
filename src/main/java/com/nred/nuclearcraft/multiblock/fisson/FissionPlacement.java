@@ -62,7 +62,7 @@ public abstract class FissionPlacement {
     public static void init() {
         RULE_MAP.put("", new PlacementRule.Or<>(new ArrayList<>()));
 
-        addRule("water_fission_heat_sink", fission_sink_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("water_fission_heat_sink"), 1));
+        addRule("water_sink", fission_sink_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("water_fission_heat_sink"), 1));
         addRule("iron_sink", fission_sink_rule[1], new ItemStack(FISSION_REACTOR_MAP.get("iron_fission_heat_sink"), 1));
         addRule("redstone_sink", fission_sink_rule[2], new ItemStack(FISSION_REACTOR_MAP.get("redstone_fission_heat_sink"), 1));
         addRule("quartz_sink", fission_sink_rule[3], new ItemStack(FISSION_REACTOR_MAP.get("quartz_fission_heat_sink"), 1));

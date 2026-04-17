@@ -4,7 +4,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:tbp_dust"
+        "item": "nuclearcraftneohaul:ruthenium_106_dust"
       }
     }
   ],
@@ -12,11 +12,11 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:tbu"
+        "item": "nuclearcraftneohaul:palladium_dust"
       }
     }
   ],
   "powerModifier": 1.0,
-  "radiation": 0.0,
-  "timeModifier": 1.0
+  "radiation": 0.98,
+  "timeModifier": 0.09375
 }

@@ -9,6 +9,7 @@ import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
+import com.nred.nuclearcraft.ncpf.NCPFWriter;
 import com.nred.nuclearcraft.radiation.*;
 import com.nred.nuclearcraft.radiation.environment.RadiationEnvironmentHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes;
@@ -113,6 +114,7 @@ public class CommonSetup {
 
         NCRecipes.postInit(event.getServer().getRecipeManager());
 
+        NCPFWriter.exportNCPF();
     }
 
     @SubscribeEvent

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:decay_hastener/uranium_233"
+        "recipe": "nuclearcraftneohaul:decay_hastener/uranium_233_from_protactinium_233_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:decay_hastener/uranium_233"
+      "nuclearcraftneohaul:decay_hastener/uranium_233_from_protactinium_233_dust"
     ]
   }
 }

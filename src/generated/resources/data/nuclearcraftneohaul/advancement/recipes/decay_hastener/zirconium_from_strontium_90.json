@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:decay_hastener/zirconium_dust"
+        "recipe": "nuclearcraftneohaul:decay_hastener/zirconium_from_strontium_90"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:decay_hastener/zirconium_dust"
+      "nuclearcraftneohaul:decay_hastener/zirconium_from_strontium_90"
     ]
   }
 }

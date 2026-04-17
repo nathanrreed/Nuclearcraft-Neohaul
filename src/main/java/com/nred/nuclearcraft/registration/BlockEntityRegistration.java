@@ -43,7 +43,7 @@ import static com.nred.nuclearcraft.info.Names.COOLANTS;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.Registers.BLOCK_ENTITY_TYPES;
 
-public class BlockEntityRegistration { // TODO BlockEntityTypeAddBlocksEvent
+public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> PROCESSOR_ENTITY_TYPE = createProcessors();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TileSolarPanel>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
 

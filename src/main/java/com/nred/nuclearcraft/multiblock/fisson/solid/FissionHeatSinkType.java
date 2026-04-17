@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.config.NCConfig.fission_sink_cooling_rate;
 
 public enum FissionHeatSinkType implements StringRepresentable, IMultiblockVariant {
-    WATER("", () -> fission_sink_cooling_rate[0]),
+    WATER("water", () -> fission_sink_cooling_rate[0]),
     IRON("iron", () -> fission_sink_cooling_rate[1]),
     REDSTONE("redstone", () -> fission_sink_cooling_rate[2]),
     QUARTZ("quartz", () -> fission_sink_cooling_rate[3]),

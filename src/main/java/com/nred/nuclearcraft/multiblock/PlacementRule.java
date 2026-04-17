@@ -16,7 +16,6 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public abstract class PlacementRule<MULTIBLOCK extends AbstractMultiblockController<MULTIBLOCK>, T extends AbstractMultiblockPart<MULTIBLOCK>> {
-
     public final @Nullable List<PlacementRule<MULTIBLOCK, T>> subRules;
     public final List<String> dependencies;
     public final boolean requiresRecheck;

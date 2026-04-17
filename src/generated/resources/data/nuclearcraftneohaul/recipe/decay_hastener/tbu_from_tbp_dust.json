@@ -4,7 +4,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:strontium_90_dust"
+        "item": "nuclearcraftneohaul:tbp_dust"
       }
     }
   ],
@@ -12,11 +12,11 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:zirconium_dust"
+        "item": "nuclearcraftneohaul:tbu"
       }
     }
   ],
   "powerModifier": 1.0,
-  "radiation": 0.0,
-  "timeModifier": 1.0
+  "radiation": 0.08358024698110801,
+  "timeModifier": 0.1125
 }

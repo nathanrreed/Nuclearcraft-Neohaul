@@ -4,7 +4,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:ruthenium_106_dust"
+        "item": "nuclearcraftneohaul:strontium_90_dust"
       }
     }
   ],
@@ -12,11 +12,11 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:palladium_dust"
+        "item": "nuclearcraftneohaul:zirconium_dust"
       }
     }
   ],
   "powerModifier": 1.0,
-  "radiation": 0.0,
-  "timeModifier": 1.0
+  "radiation": 0.0345,
+  "timeModifier": 0.125
 }

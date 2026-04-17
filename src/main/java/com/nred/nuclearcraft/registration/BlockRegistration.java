@@ -53,6 +53,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -211,16 +212,17 @@ public class BlockRegistration {
         return map;
     }
 
+    public static final BiFunction<Block, TurbineRotorBladeType, BlockItem> BLADE_FUNCTION = (x, y) -> new NCItemBlock(x, new ChatFormatting[]{ChatFormatting.LIGHT_PURPLE, ChatFormatting.GRAY}, NCInfo.rotorBladeFixedInfo(y), true, ChatFormatting.AQUA, NCInfo.rotorBladeInfo());
+
     private static HashMap<String, DeferredBlock<Block>> createTurbineParts() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         map.put("turbine_controller", registerBlockItem("turbine_controller", TurbinePartType.Controller::createBlock));
         map.put("turbine_casing", registerBlockItem("turbine_casing", TurbinePartType.Casing::createBlock));
         map.put("turbine_glass", registerBlockItem("turbine_glass", TurbinePartType.Glass::createBlock));
         map.put("turbine_rotor_shaft", registerBlockItem("turbine_rotor_shaft", TurbinePartType.RotorShaft::createBlock));
-        ObjEnumFunction<Block, BlockItem> bladeFunction = (x, y) -> new NCItemBlock(x, new ChatFormatting[]{ChatFormatting.LIGHT_PURPLE, ChatFormatting.GRAY}, NCInfo.rotorBladeFixedInfo((TurbineRotorBladeType) y), true, ChatFormatting.AQUA, NCInfo.rotorBladeInfo());
-        map.put("steel_turbine_rotor_blade", registerBlockItemWithTooltip("steel_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(STEEL), x -> bladeFunction.apply(x, STEEL)));
-        map.put("extreme_alloy_turbine_rotor_blade", registerBlockItemWithTooltip("extreme_alloy_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(EXTREME), x -> bladeFunction.apply(x, EXTREME)));
-        map.put("sic_turbine_rotor_blade", registerBlockItemWithTooltip("sic_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(SIC_SIC_CMC), x -> bladeFunction.apply(x, SIC_SIC_CMC)));
+        map.put("steel_turbine_rotor_blade", registerBlockItemWithTooltip("steel_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(STEEL), x -> BLADE_FUNCTION.apply(x, STEEL)));
+        map.put("extreme_alloy_turbine_rotor_blade", registerBlockItemWithTooltip("extreme_alloy_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(EXTREME), x -> BLADE_FUNCTION.apply(x, EXTREME)));
+        map.put("sic_turbine_rotor_blade", registerBlockItemWithTooltip("sic_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(SIC_SIC_CMC), x -> BLADE_FUNCTION.apply(x, SIC_SIC_CMC)));
         map.put("standard_turbine_rotor_stator", registerBlockItemWithTooltip("standard_turbine_rotor_stator", () -> TurbinePartType.RotorStator.createBlock(STANDARD), x -> new NCItemBlock(x, ChatFormatting.GRAY, NCInfo.rotorStatorFixedInfo(STANDARD), true, ChatFormatting.AQUA, NCInfo.rotorStatorInfo())));
         map.put("turbine_rotor_bearing", registerBlockItem("turbine_rotor_bearing", TurbinePartType.RotorBearing::createBlock));
         ObjEnumFunction<Block, BlockItem> coilFunction = (x, y) -> new NCItemBlock(x, new ChatFormatting[]{ChatFormatting.LIGHT_PURPLE, ChatFormatting.GRAY}, NCInfo.dynamoCoilFixedInfo((TurbineDynamoCoilType) y), true, ChatFormatting.AQUA, false);

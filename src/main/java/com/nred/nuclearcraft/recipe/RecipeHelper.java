@@ -19,7 +19,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -29,40 +28,6 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class RecipeHelper {
-    public static ItemStack fixItemStack(Object object) {
-        if (object == null) {
-            return null;
-        } else if (object instanceof ItemStack stack) {
-            ItemStack copy = stack.copy();
-            if (copy.getCount() <= 0) {
-                copy.setCount(1);
-            }
-            return copy;
-        } else if (object instanceof Item item) {
-            return new ItemStack(item, 1);
-        } else if (object instanceof Block block) {
-            return new ItemStack(block, 1);
-        } else {
-            throw new RuntimeException(String.format("Invalid ItemStack: %s", object));
-        }
-    }
-
-    public static FluidStack fixFluidStack(Object object) {
-        if (object == null) {
-            return null;
-        } else if (object instanceof FluidStack stack) {
-            FluidStack copy = stack.copy();
-            if (copy.getAmount() <= 0) {
-                copy.setAmount(1000);
-            }
-            return copy;
-        } else if (object instanceof Fluid fluid) {
-            return new FluidStack(fluid, 1000);
-        } else {
-            throw new RuntimeException(String.format("Invalid FluidStack: %s", object));
-        }
-    }
-
     public static List<ItemStack[]> getItemInputLists(List<SizedChanceItemIngredient> itemIngredientList) {
         return StreamHelper.map(itemIngredientList, SizedChanceItemIngredient::getItems);
     }
@@ -223,5 +188,9 @@ public class RecipeHelper {
     public static BasicRecipe blockRecipe(BasicRecipeHandler<? extends BasicRecipe> recipeHandler, Level level, BlockState blockState) {
         RecipeInfo<? extends BasicRecipe> recipeInfo = recipeHandler.getRecipeInfoFromInputs(level, Lists.newArrayList(StackHelper.blockStateToStack(blockState)), Collections.emptyList());
         return recipeInfo == null ? null : recipeInfo.recipe;
+    }
+
+    public static double getDecayTimeMultiplier(double baseRads, double radiation, double scaleFactor) {
+        return radiation > baseRads ? (Math.log1p(baseRads / scaleFactor) / Math.log1p(radiation / scaleFactor)) : (1D + (Math.log1p(scaleFactor / radiation) / Math.log1p(scaleFactor / baseRads) - 1D) * (baseRads / scaleFactor) * (Math.log1p(scaleFactor / baseRads) / Math.log1p(baseRads / scaleFactor)));
     }
 }

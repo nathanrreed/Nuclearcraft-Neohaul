@@ -1,0 +1,1 @@
+com.nred.nuclearcraft.compat.kubejs.ModKubeJSPlugin nuclearcraftneohaul

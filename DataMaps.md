@@ -1,3 +1,5 @@
+For current data maps see [here](./src/generated/resources/data/nuclearcraftneohaul/data_maps)
+
 Item Data Maps:
 
 - machine_diaphragm_data

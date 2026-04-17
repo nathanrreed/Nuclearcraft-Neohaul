@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 @EventBusSubscriber(modid = MODID)
-public class NCConfig {
+public class NCConfig { // TODO make a new screen subclass that makes editing this nicer in game
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static final String CATEGORY_PROCESSOR = "processor";

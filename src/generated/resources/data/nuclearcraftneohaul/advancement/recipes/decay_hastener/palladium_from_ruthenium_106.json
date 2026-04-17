@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:decay_hastener/tbu"
+        "recipe": "nuclearcraftneohaul:decay_hastener/palladium_from_ruthenium_106"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:decay_hastener/tbu"
+      "nuclearcraftneohaul:decay_hastener/palladium_from_ruthenium_106"
     ]
   }
 }

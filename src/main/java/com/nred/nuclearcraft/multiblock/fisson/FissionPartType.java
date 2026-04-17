@@ -1,15 +1,11 @@
 package com.nred.nuclearcraft.multiblock.fisson;
 
-import com.nred.nuclearcraft.block.GenericActiveAxisTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericActiveDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.fission.*;
 import com.nred.nuclearcraft.block.fission.manager.FissionShieldManagerBlock;
 import com.nred.nuclearcraft.block.fission.manager.FissionSourceManagerBlock;
-import com.nred.nuclearcraft.block.fission.port.FissionIrradiatorPortBlock;
-import com.nred.nuclearcraft.block.fission.port.FissionCellPortBlock;
-import com.nred.nuclearcraft.block.fission.port.FissionCoolerPortBlock;
-import com.nred.nuclearcraft.block.fission.port.FissionVesselPortBlock;
+import com.nred.nuclearcraft.block.fission.port.*;
 import it.zerono.mods.zerocore.base.multiblock.part.GlassBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartTypeProperties;
@@ -47,7 +43,7 @@ public enum FissionPartType implements IFissionPartType {
 
     HeatSink(() -> FISSION_ENTITY_TYPE.get("heat_sink")::get, GenericTooltipDeviceBlock::new),
     Heater(() -> FISSION_ENTITY_TYPE.get("coolant_heater")::get, GenericTooltipDeviceBlock::new),
-    HeaterPort(() -> FISSION_ENTITY_TYPE.get("coolant_heater_port")::get, GenericActiveAxisTooltipDeviceBlock::new),
+    HeaterPort(() -> FISSION_ENTITY_TYPE.get("coolant_heater_port")::get, FissionHeaterPortBlock::new),
 
     ComputerPort(() -> FISSION_ENTITY_TYPE.get("computer_port")::get, GenericTooltipDeviceBlock::new),
 
