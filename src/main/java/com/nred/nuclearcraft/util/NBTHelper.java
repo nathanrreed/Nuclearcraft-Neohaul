@@ -62,7 +62,7 @@ public class NBTHelper {
             stack.set(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         }
 
-        CompoundTag nbt = stack.get(DataComponents.CUSTOM_DATA).copyTag();
+        CompoundTag nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 
         int lastIndex = subKeys.length - 1;
 

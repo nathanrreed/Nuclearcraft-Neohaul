@@ -8,6 +8,7 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -54,7 +55,7 @@ public abstract class TileEnergyFluid extends TileEnergy implements ITileFluid {
     }
 
     protected void initTileEnergyFluidFunc(@Nonnull IntList fluidCapacity, Function<Level, List<Set<ResourceLocation>>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {
-        initTileEnergyFluid(fluidCapacity, allowedFluids.apply(level), fluidConnections);
+        initTileEnergyFluid(fluidCapacity, allowedFluids.apply(level == null ? Minecraft.getInstance().level : level), fluidConnections);
     }
 
     protected void initTileEnergyFluid(@Nonnull IntList fluidCapacity, List<Set<ResourceLocation>> allowedFluids, @Nonnull FluidConnection[] fluidConnections) {

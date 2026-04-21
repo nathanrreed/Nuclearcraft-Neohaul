@@ -115,7 +115,7 @@ public class SizedChanceFluidIngredient {
     }
 
     public boolean test(FluidStack stack) {
-        return ingredient.test(stack) && stack.getAmount() >= amount;
+        return ingredient.test(stack);
     }
 
     public FluidStack[] getFluids() {
