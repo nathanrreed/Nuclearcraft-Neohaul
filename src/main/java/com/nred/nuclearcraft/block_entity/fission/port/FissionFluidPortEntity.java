@@ -286,7 +286,7 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
     public CompoundTag writeTanks(CompoundTag nbt, HolderLookup.Provider registries) {
         ITileFilteredFluid.super.writeTanks(nbt, registries);
         for (int i = 0; i < filterTanks.size(); ++i) {
-            getTanks().get(i).writeToNBT(nbt, registries, "filterTanks" + i + filterTanks.size());
+            filterTanks.get(i).writeToNBT(nbt, registries, "filterTanks" + i + filterTanks.size());
         }
         return nbt;
     }
@@ -295,7 +295,7 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
     public void readTanks(CompoundTag nbt, HolderLookup.Provider registries) {
         ITileFilteredFluid.super.readTanks(nbt, registries);
         for (int i = 0; i < filterTanks.size(); ++i) {
-            getTanks().get(i).readFromNBT(nbt, registries, "filterTanks" + i + filterTanks.size());
+            filterTanks.get(i).readFromNBT(nbt, registries, "filterTanks" + i + filterTanks.size());
         }
     }
 }

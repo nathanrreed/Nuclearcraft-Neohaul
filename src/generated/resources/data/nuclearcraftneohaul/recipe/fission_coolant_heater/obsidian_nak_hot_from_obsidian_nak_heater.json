@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:obsidian_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 70,
-  "irradiatorHeatPerFlux": "obsidian_heater"
+  "placementRule": "obsidian_heater"
 }

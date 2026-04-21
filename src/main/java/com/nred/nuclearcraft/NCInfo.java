@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeType;
+import com.nred.nuclearcraft.multiblock.rtg.RTGType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
@@ -66,8 +67,8 @@ public class NCInfo {
 
     // RTG
 
-    public static Component rtgInfo(Supplier<Integer> power) {
-        return Component.translatable(MODID + ".tooltip.rtg", (Supplier<String>) () -> UnitHelper.prefix(power.get(), 5, "RF/t"));
+    public static Component rtgInfo(RTGType type) {
+        return Component.translatable(MODID + ".tooltip.rtg", (Supplier<String>) () -> UnitHelper.prefix(type.getPower(), 5, "RF/t"));
     }
 
     // Solar Panel
@@ -102,7 +103,7 @@ public class NCInfo {
     }
 
     public static Component[] heaterCoolingRateFixedInfo(FissionCoolantHeaterType type) {
-        return new Component[]{Component.translatable(MODID + ".tooltip.salt_fission_heater.cooling_rate", (Supplier<Double>) type::getCoolingRate)};
+        return new Component[]{Component.translatable(MODID + ".tooltip.salt_fission_heater.cooling_rate", (Supplier<Integer>) type::getCoolingRate)};
     }
 
     // Neutron Source

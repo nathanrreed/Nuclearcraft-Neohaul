@@ -105,13 +105,9 @@ public class NCRecipes {
 
         registerShortcuts();
 
-//        CraftingRecipeHandler.registerCraftingRecipes();
+//        CraftingRecipeHandler.registerCraftingRecipes(); TODO
 //        FurnaceRecipeHandler.registerFurnaceRecipes();
 //        GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
-//
-//        for (RegistrationInfo info : CTRegistration.INFO_LIST) {
-//            info.recipeInit();
-//        }
     }
 
     public static ManufactoryRecipes manufactory;

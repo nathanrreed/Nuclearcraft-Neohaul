@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:boron_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 160,
-  "irradiatorHeatPerFlux": "boron_heater"
+  "placementRule": "boron_heater"
 }

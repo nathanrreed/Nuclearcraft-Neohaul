@@ -159,7 +159,7 @@ public abstract class FissionPlacement {
         protected @Nullable PlacementRule<FissionReactor, AbstractFissionEntity> partialParse(String s) {
             s = s.toLowerCase(Locale.ROOT);
 
-            s = s.replaceAll("at exactly one vertex", "vertex");
+            s = s.replace("at exactly one vertex", "vertex");
 
             boolean exact = s.contains("exact"), atMost = s.contains("at most");
             boolean axial = s.contains("axial"), vertex = s.contains("vertex"), edge = s.contains("edge");
@@ -168,23 +168,23 @@ public abstract class FissionPlacement {
                 return null;
             }
 
-            s = s.replaceAll("at least", "");
-            s = s.replaceAll("exactly", "");
-            s = s.replaceAll("exact", "");
-            s = s.replaceAll("at most", "");
-            s = s.replaceAll("axially", "");
-            s = s.replaceAll("axial", "");
-            s = s.replaceAll("at one vertex", "");
-            s = s.replaceAll("at a vertex", "");
-            s = s.replaceAll("at vertex", "");
-            s = s.replaceAll("vertex", "");
-            s = s.replaceAll("at one edge", "");
-            s = s.replaceAll("at an edge", "");
-            s = s.replaceAll("at edge", "");
-            s = s.replaceAll("along one edge", "");
-            s = s.replaceAll("along an edge", "");
-            s = s.replaceAll("along edge", "");
-            s = s.replaceAll("edge", "");
+            s = s.replace("at least", "");
+            s = s.replace("exactly", "");
+            s = s.replace("exact", "");
+            s = s.replace("at most", "");
+            s = s.replace("axially", "");
+            s = s.replace("axial", "");
+            s = s.replace("at one vertex", "");
+            s = s.replace("at a vertex", "");
+            s = s.replace("at vertex", "");
+            s = s.replace("vertex", "");
+            s = s.replace("at one edge", "");
+            s = s.replace("at an edge", "");
+            s = s.replace("at edge", "");
+            s = s.replace("along one edge", "");
+            s = s.replace("along an edge", "");
+            s = s.replace("along edge", "");
+            s = s.replace("edge", "");
 
             int amount = -1;
             String rule = null, type = null;
@@ -194,35 +194,30 @@ public abstract class FissionPlacement {
                 if (StringHelper.NUMBER_S2I_MAP.containsKey(split[i])) {
                     amount = StringHelper.NUMBER_S2I_MAP.getInt(split[i]);
                 } else if (rule == null) {
-                    if (split[i].contains("wall") || split[i].contains("casing")) {
-                        rule = "casing";
-                    } else if (split[i].contains("conductor")) {
-                        rule = "conductor";
-                    } else if (split[i].contains("moderator")) {
-                        rule = "moderator";
-                    } else if (split[i].contains("reflector")) {
-                        rule = "reflector";
-                    } else if (split[i].contains("irradiator")) {
-                        rule = "irradiator";
-                    } else if (split[i].contains("shield")) {
-                        rule = "shield";
-                    } else if (split[i].contains("cell")) {
-                        rule = "cell";
-                    } else if (split[i].contains("sink")) {
-                        rule = "sink";
-                        if (i > 0) {
-                            type = split[i - 1];
-                        } else {
-                            return null;
+                    switch (split[i]) {
+                        case "wall", "walls", "casing", "casings" -> rule = "casing";
+                        case "conductor", "conductors" -> rule = "conductor";
+                        case "moderator", "moderators" -> rule = "moderator";
+                        case "reflector", "reflectors" -> rule = "reflector";
+                        case "irradiator", "irradiators" -> rule = "irradiator";
+                        case "shield", "shields" -> rule = "shield";
+                        case "cell", "cells" -> rule = "cell";
+                        case "sink", "sinks" -> {
+                            rule = "sink";
+                            if (i > 0) {
+                                type = split[i - 1];
+                            } else {
+                                return null;
+                            }
                         }
-                    } else if (split[i].contains("vessel")) {
-                        rule = "vessel";
-                    } else if (split[i].contains("heater")) {
-                        rule = "heater";
-                        if (i > 0) {
-                            type = split[i - 1];
-                        } else {
-                            return null;
+                        case "vessel", "vessels" -> rule = "vessel";
+                        case "heater", "heaters" -> {
+                            rule = "heater";
+                            if (i > 0) {
+                                type = split[i - 1];
+                            } else {
+                                return null;
+                            }
                         }
                     }
                 }
@@ -341,7 +336,7 @@ public abstract class FissionPlacement {
         public final String sinkType;
 
         public AdjacentSink(int amount, CountType countType, AdjacencyType adjType, String sinkType) {
-            super(sinkType + "_sink", amount, countType, adjType);
+            super(sinkType + (sinkType.contains(":") ? "" : "_sink"), amount, countType, adjType);
             this.sinkType = sinkType;
         }
 
@@ -374,7 +369,7 @@ public abstract class FissionPlacement {
         public final String heaterType;
 
         public AdjacentHeater(int amount, CountType countType, AdjacencyType adjType, String heaterType) {
-            super(heaterType + "_heater", amount, countType, adjType);
+            super(heaterType + (heaterType.contains(":") ? "" : "_heater"), amount, countType, adjType);
             this.heaterType = heaterType;
         }
 

@@ -37,7 +37,7 @@ public class FissionHeaterPortScreen extends GuiInfoTile<FissionHeaterPortMenu, 
     }
 
     protected void clearTankPressed(NCButton guiButton, int pressed) {
-        if (tile.getLevel().isClientSide) {
+        if (tile.getLevel().isClientSide()) {
             for (int i = 0; i < 2; ++i) {
                 if (guiButton.id == i && NCUtil.isModifierKeyDown()) {
                     (tile.getTanks().get(i).isEmpty() ? new ClearFilterTankPacket(tile, i) : new ClearTankPacket(tile, i)).sendToServer();

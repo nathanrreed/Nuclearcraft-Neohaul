@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:prismarine_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 115,
-  "irradiatorHeatPerFlux": "prismarine_heater"
+  "placementRule": "prismarine_heater"
 }

@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:diamond_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 200,
-  "irradiatorHeatPerFlux": "diamond_heater"
+  "placementRule": "diamond_heater"
 }

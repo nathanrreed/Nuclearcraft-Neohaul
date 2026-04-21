@@ -74,7 +74,7 @@ public class CommonSetup {
         SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, NuclearWastelandBiome.makeRules());
 
         // Add Fluid Mixing
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, CUSTOM_FLUID_MAP, FISSION_FUEL_MAP)) {
+        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, CUSTOM_FLUID_MAP, FISSION_FUEL_MAP)) { // TODO add custom coolants
             if (fluid.block.get().getSourceMixingState() != null && fluid.block.get().getFlowingMixingState() != null) {
                 FluidInteractionRegistry.addInteraction(fluid.type.value(), new FluidInteractionRegistry.InteractionInformation(
                         NeoForgeMod.WATER_TYPE.value(),

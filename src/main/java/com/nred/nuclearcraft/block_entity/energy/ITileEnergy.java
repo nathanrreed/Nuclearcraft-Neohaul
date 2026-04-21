@@ -181,18 +181,4 @@ public interface ITileEnergy extends ITile {
         }
         return null;
     }
-
-//    // TOP
-//
-//    @Override
-//    @Optional.Method(modid = "theoneprobe")
-//    default long getStoredPower() {
-//        return getEnergyStoredLong();
-//    }
-//
-//    @Override
-//    @Optional.Method(modid = "theoneprobe")
-//    default long getCapacity() {
-//        return getMaxEnergyStoredLong();
-//    }
 }

@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:manganese_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 150,
-  "irradiatorHeatPerFlux": "manganese_heater"
+  "placementRule": "manganese_heater"
 }

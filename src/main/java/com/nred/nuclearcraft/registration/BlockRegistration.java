@@ -16,6 +16,7 @@ import com.nred.nuclearcraft.block.tile.BlockSimpleTile;
 import com.nred.nuclearcraft.block.tile.dummy.BlockMachineInterface;
 import com.nred.nuclearcraft.multiblock.battery.BatteryPartType;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
+import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterPortType;
@@ -30,11 +31,11 @@ import com.nred.nuclearcraft.multiblock.rtg.RTGType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
+import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
 import com.nred.nuclearcraft.property.MachinePortSorption;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.util.InfoHelper;
 import com.nred.nuclearcraft.util.NCMath;
-import com.nred.nuclearcraft.util.PrimitiveFunction.ObjEnumFunction;
 import com.nred.nuclearcraft.util.PrimitiveFunction.ObjIntFunction;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -212,7 +213,9 @@ public class BlockRegistration {
         return map;
     }
 
-    public static final BiFunction<Block, TurbineRotorBladeType, BlockItem> BLADE_FUNCTION = (x, y) -> new NCItemBlock(x, new ChatFormatting[]{ChatFormatting.LIGHT_PURPLE, ChatFormatting.GRAY}, NCInfo.rotorBladeFixedInfo(y), true, ChatFormatting.AQUA, NCInfo.rotorBladeInfo());
+    public static final BiFunction<Block, TurbineRotorBladeType, BlockItem> BLADE_FUNCTION = (block, type) -> new NCItemBlock(block, new ChatFormatting[]{ChatFormatting.LIGHT_PURPLE, ChatFormatting.GRAY}, NCInfo.rotorBladeFixedInfo(type), true, ChatFormatting.AQUA, NCInfo.rotorBladeInfo());
+    public static final BiFunction<Block, TurbineRotorStatorType, BlockItem> STATOR_FUNCTION = (block, type) -> new NCItemBlock(block, ChatFormatting.GRAY, NCInfo.rotorStatorFixedInfo(type), true, ChatFormatting.AQUA, NCInfo.rotorStatorInfo());
+    public static final BiFunction<Block, TurbineDynamoCoilType, BlockItem> COIL_FUNCTION = (block, type) -> new NCItemBlock(block, new ChatFormatting[]{ChatFormatting.LIGHT_PURPLE, ChatFormatting.GRAY}, NCInfo.dynamoCoilFixedInfo(type), true, ChatFormatting.AQUA, false);
 
     private static HashMap<String, DeferredBlock<Block>> createTurbineParts() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
@@ -223,15 +226,14 @@ public class BlockRegistration {
         map.put("steel_turbine_rotor_blade", registerBlockItemWithTooltip("steel_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(STEEL), x -> BLADE_FUNCTION.apply(x, STEEL)));
         map.put("extreme_alloy_turbine_rotor_blade", registerBlockItemWithTooltip("extreme_alloy_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(EXTREME), x -> BLADE_FUNCTION.apply(x, EXTREME)));
         map.put("sic_turbine_rotor_blade", registerBlockItemWithTooltip("sic_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(SIC_SIC_CMC), x -> BLADE_FUNCTION.apply(x, SIC_SIC_CMC)));
-        map.put("standard_turbine_rotor_stator", registerBlockItemWithTooltip("standard_turbine_rotor_stator", () -> TurbinePartType.RotorStator.createBlock(STANDARD), x -> new NCItemBlock(x, ChatFormatting.GRAY, NCInfo.rotorStatorFixedInfo(STANDARD), true, ChatFormatting.AQUA, NCInfo.rotorStatorInfo())));
+        map.put("standard_turbine_rotor_stator", registerBlockItemWithTooltip("standard_turbine_rotor_stator", () -> TurbinePartType.RotorStator.createBlock(STANDARD), x -> STATOR_FUNCTION.apply(x, STANDARD)));
         map.put("turbine_rotor_bearing", registerBlockItem("turbine_rotor_bearing", TurbinePartType.RotorBearing::createBlock));
-        ObjEnumFunction<Block, BlockItem> coilFunction = (x, y) -> new NCItemBlock(x, new ChatFormatting[]{ChatFormatting.LIGHT_PURPLE, ChatFormatting.GRAY}, NCInfo.dynamoCoilFixedInfo((TurbineDynamoCoilType) y), true, ChatFormatting.AQUA, false);
-        map.put("magnesium_turbine_dynamo_coil", registerBlockItemWithTooltip("magnesium_turbine_dynamo_coil", () -> TurbinePartType.Dynamo.createBlock(MAGNESIUM), x -> coilFunction.apply(x, MAGNESIUM)));
-        map.put("beryllium_turbine_dynamo_coil", registerBlockItemWithTooltip("beryllium_turbine_dynamo_coil", () -> TurbinePartType.Dynamo.createBlock(BERYLLIUM), x -> coilFunction.apply(x, BERYLLIUM)));
-        map.put("aluminum_turbine_dynamo_coil", registerBlockItemWithTooltip("aluminum_turbine_dynamo_coil", () -> TurbinePartType.Dynamo.createBlock(ALUMINUM), x -> coilFunction.apply(x, ALUMINUM)));
-        map.put("gold_turbine_dynamo_coil", registerBlockItemWithTooltip("gold_turbine_dynamo_coil", () -> TurbinePartType.Dynamo.createBlock(GOLD), x -> coilFunction.apply(x, GOLD)));
-        map.put("copper_turbine_dynamo_coil", registerBlockItemWithTooltip("copper_turbine_dynamo_coil", () -> TurbinePartType.Dynamo.createBlock(COPPER), x -> coilFunction.apply(x, COPPER)));
-        map.put("silver_turbine_dynamo_coil", registerBlockItemWithTooltip("silver_turbine_dynamo_coil", () -> TurbinePartType.Dynamo.createBlock(SILVER), x -> coilFunction.apply(x, SILVER)));
+        map.put("magnesium_turbine_dynamo_coil", registerBlockItemWithTooltip("magnesium_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(MAGNESIUM), x -> COIL_FUNCTION.apply(x, MAGNESIUM)));
+        map.put("beryllium_turbine_dynamo_coil", registerBlockItemWithTooltip("beryllium_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(BERYLLIUM), x -> COIL_FUNCTION.apply(x, BERYLLIUM)));
+        map.put("aluminum_turbine_dynamo_coil", registerBlockItemWithTooltip("aluminum_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(ALUMINUM), x -> COIL_FUNCTION.apply(x, ALUMINUM)));
+        map.put("gold_turbine_dynamo_coil", registerBlockItemWithTooltip("gold_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(GOLD), x -> COIL_FUNCTION.apply(x, GOLD)));
+        map.put("copper_turbine_dynamo_coil", registerBlockItemWithTooltip("copper_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(COPPER), x -> COIL_FUNCTION.apply(x, COPPER)));
+        map.put("silver_turbine_dynamo_coil", registerBlockItemWithTooltip("silver_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(SILVER), x -> COIL_FUNCTION.apply(x, SILVER)));
         map.put("turbine_coil_connector", registerBlockItem("turbine_coil_connector", TurbinePartType.DynamoConnector::createBlock));
         map.put("turbine_inlet", registerBlockItem("turbine_inlet", TurbinePartType.Inlet::createBlock));
         map.put("turbine_outlet", registerBlockItem("turbine_outlet", TurbinePartType.Outlet::createBlock));
@@ -239,6 +241,8 @@ public class BlockRegistration {
         map.put("turbine_computer_port", registerBlockItemWithTooltip("turbine_computer_port", TurbinePartType.ComputerPort::createBlock, false));
         return map;
     }
+
+    public static final BiFunction<Block, HeatExchangerTubeType, NCItemBlock> HX_TUBE_FUNCTION = (block, type) -> new NCItemBlock(block, new ChatFormatting[]{ChatFormatting.YELLOW, ChatFormatting.BLUE}, NCInfo.hxTubeFixedInfo(type), true, ChatFormatting.AQUA, NCInfo.hxTubeInfo());
 
     private static HashMap<String, DeferredBlock<Block>> createHeatExchangerParts() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
@@ -248,15 +252,19 @@ public class BlockRegistration {
         map.put("heat_exchanger_glass", registerBlockItem("heat_exchanger_glass", HeatExchangerPartType.Glass::createBlock));
         map.put("heat_exchanger_inlet", registerBlockItem("heat_exchanger_inlet", HeatExchangerPartType.Inlet::createBlock));
         map.put("heat_exchanger_outlet", registerBlockItem("heat_exchanger_outlet", HeatExchangerPartType.Outlet::createBlock));
-        ObjEnumFunction<Block, NCItemBlock> hxTubeItemBlockFunction = (x, y) -> new NCItemBlock(x, new ChatFormatting[]{ChatFormatting.YELLOW, ChatFormatting.BLUE}, NCInfo.hxTubeFixedInfo((HeatExchangerTubeType) y), true, ChatFormatting.AQUA, NCInfo.hxTubeInfo());
-        map.put("copper_heat_exchanger_tube", registerBlockItemWithTooltip("copper_heat_exchanger_tube", () -> HeatExchangerPartType.Tube.createBlock(HeatExchangerTubeType.COPPER), x -> hxTubeItemBlockFunction.apply(x, HeatExchangerTubeType.COPPER)));
-        map.put("hard_carbon_heat_exchanger_tube", registerBlockItemWithTooltip("hard_carbon_heat_exchanger_tube", () -> HeatExchangerPartType.Tube.createBlock(HeatExchangerTubeType.HARD_CARBON), x -> hxTubeItemBlockFunction.apply(x, HeatExchangerTubeType.HARD_CARBON)));
-        map.put("thermoconducting_alloy_heat_exchanger_tube", registerBlockItemWithTooltip("thermoconducting_alloy_heat_exchanger_tube", () -> HeatExchangerPartType.Tube.createBlock(HeatExchangerTubeType.THERMOCONDUCTING), x -> hxTubeItemBlockFunction.apply(x, HeatExchangerTubeType.THERMOCONDUCTING)));
+        map.put("copper_heat_exchanger_tube", registerBlockItemWithTooltip("copper_heat_exchanger_tube", () -> HeatExchangerPartType.Tube.createBlock(HeatExchangerTubeType.COPPER), x -> HX_TUBE_FUNCTION.apply(x, HeatExchangerTubeType.COPPER)));
+        map.put("hard_carbon_heat_exchanger_tube", registerBlockItemWithTooltip("hard_carbon_heat_exchanger_tube", () -> HeatExchangerPartType.Tube.createBlock(HeatExchangerTubeType.HARD_CARBON), x -> HX_TUBE_FUNCTION.apply(x, HeatExchangerTubeType.HARD_CARBON)));
+        map.put("thermoconducting_alloy_heat_exchanger_tube", registerBlockItemWithTooltip("thermoconducting_alloy_heat_exchanger_tube", () -> HeatExchangerPartType.Tube.createBlock(HeatExchangerTubeType.THERMOCONDUCTING), x -> HX_TUBE_FUNCTION.apply(x, HeatExchangerTubeType.THERMOCONDUCTING)));
         map.put("heat_exchanger_shell_baffle", registerBlockItem("heat_exchanger_shell_baffle", HeatExchangerPartType.Baffle::createBlock));
         map.put("heat_exchanger_redstone_port", registerBlockItem("heat_exchanger_redstone_port", HeatExchangerPartType.RedstonePort::createBlock));
         map.put("heat_exchanger_computer_port", registerBlockItemWithTooltip("heat_exchanger_computer_port", HeatExchangerPartType.ComputerPort::createBlock, false));
         return map;
     }
+
+    public static final BiFunction<Block, FissionSourceType, BlockItem> SOURCE_FUNCTION = (block, type) -> new NCItemBlock(block, ChatFormatting.LIGHT_PURPLE, NCInfo.neutronSourceFixedInfo(type), true, ChatFormatting.AQUA, false, NCInfo.neutronSourceInfo());
+    public static final BiFunction<Block, FissionNeutronShieldType, BlockItem> SHIELD_FUNCTION = (block, type) -> new NCItemBlock(block, new ChatFormatting[]{ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE}, NCInfo.neutronShieldFixedInfo(type), true, ChatFormatting.AQUA, false, NCInfo.neutronShieldInfo());
+    public static final BiFunction<Block, FissionHeatSinkType, BlockItem> HEAT_SINK_FUNCTION = (block, type) -> new NCItemBlock(block, ChatFormatting.BLUE, NCInfo.sinkCoolingRateFixedInfo(type), true, ChatFormatting.AQUA, false);
+    public static final BiFunction<Block, FissionCoolantHeaterType, BlockItem> COOLANT_HEATER_FUNCTION = (block, type) -> new NCItemBlock(block, ChatFormatting.BLUE, NCInfo.heaterCoolingRateFixedInfo(type), true, ChatFormatting.AQUA, false);
 
     private static HashMap<String, DeferredBlock<Block>> createFissionParts() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
@@ -269,11 +277,10 @@ public class BlockRegistration {
         map.put("fission_vent", registerBlockItem("fission_vent", FissionPartType.Vent::createBlock));
         map.put("fission_irradiator", registerBlockItem("fission_irradiator", FissionPartType.Irradiator::createBlock));
         map.put("fission_cooler", registerBlockItem("fission_cooler", FissionPartType.Cooler::createBlock));
-        ObjEnumFunction<Block, BlockItem> sourceFunction = (x, y) -> new NCItemBlock(x, ChatFormatting.LIGHT_PURPLE, NCInfo.neutronSourceFixedInfo((FissionSourceType) y), true, ChatFormatting.AQUA, false, NCInfo.neutronSourceInfo());
-        map.put("radium_beryllium_source", registerBlockItemWithTooltip("radium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.RADIUM_BERYLLIUM), x -> sourceFunction.apply(x, FissionSourceType.RADIUM_BERYLLIUM)));
-        map.put("polonium_beryllium_source", registerBlockItemWithTooltip("polonium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.POLONIUM_BERYLLIUM), x -> sourceFunction.apply(x, FissionSourceType.POLONIUM_BERYLLIUM)));
-        map.put("californium_source", registerBlockItemWithTooltip("californium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.CALIFORNIUM), x -> sourceFunction.apply(x, FissionSourceType.CALIFORNIUM)));
-        map.put("boron_silver_shield", registerBlockItemWithTooltip("boron_silver_shield", () -> FissionPartType.Shield.createBlock(BORON_SILVER), x -> new NCItemBlock(x, new ChatFormatting[]{ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE}, NCInfo.neutronShieldFixedInfo(BORON_SILVER), true, ChatFormatting.AQUA, false, NCInfo.neutronShieldInfo())));
+        map.put("radium_beryllium_source", registerBlockItemWithTooltip("radium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.RADIUM_BERYLLIUM), x -> SOURCE_FUNCTION.apply(x, FissionSourceType.RADIUM_BERYLLIUM)));
+        map.put("polonium_beryllium_source", registerBlockItemWithTooltip("polonium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.POLONIUM_BERYLLIUM), x -> SOURCE_FUNCTION.apply(x, FissionSourceType.POLONIUM_BERYLLIUM)));
+        map.put("californium_source", registerBlockItemWithTooltip("californium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.CALIFORNIUM), x -> SOURCE_FUNCTION.apply(x, FissionSourceType.CALIFORNIUM)));
+        map.put("boron_silver_shield", registerBlockItemWithTooltip("boron_silver_shield", () -> FissionPartType.Shield.createBlock(BORON_SILVER), x -> SHIELD_FUNCTION.apply(x, BORON_SILVER)));
         map.put("fission_computer_port", registerBlockItemWithTooltip("fission_computer_port", FissionPartType.ComputerPort::createBlock, false));
         map.put("fission_irradiator_port", registerBlockItem("fission_irradiator_port", FissionPartType.IrradiatorPort::createBlock));
         map.put("fission_cooler_port", registerBlockItem("fission_cooler_port", FissionPartType.CoolerPort::createBlock));
@@ -284,46 +291,48 @@ public class BlockRegistration {
         map.put("solid_fuel_fission_controller", registerBlockItem("solid_fuel_fission_controller", FissionPartType.SolidFuelController::createBlock));
         map.put("fission_fuel_cell", registerBlockItem("fission_fuel_cell", FissionPartType.Cell::createBlock));
         map.put("fission_fuel_cell_port", registerBlockItem("fission_fuel_cell_port", FissionPartType.CellPort::createBlock));
-        map.put("water_fission_heat_sink", registerBlockItemWithTooltip("water_fission_heat_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.WATER), x -> new NCItemBlock(x, ChatFormatting.BLUE, NCInfo.sinkCoolingRateFixedInfo(FissionHeatSinkType.WATER), true, ChatFormatting.AQUA, false)));
-        for (String name : COOLANTS) {
-            map.put(name + "_fission_heat_sink", registerBlockItemWithTooltip(name + "_fission_heat_sink", () -> FissionPartType.HeatSink.createBlock(FissionHeatSinkType.valueOf(name.toUpperCase())), x -> new NCItemBlock(x, ChatFormatting.BLUE, NCInfo.sinkCoolingRateFixedInfo(FissionHeatSinkType.valueOf(name.toUpperCase())), true, ChatFormatting.AQUA, false)));
+
+        for (FissionHeatSinkType type : FissionHeatSinkType.default_values()) {
+            map.put(type + "_fission_heat_sink", registerBlockItemWithTooltip(type + "_fission_heat_sink", () -> FissionPartType.HeatSink.createBlock(type), x -> HEAT_SINK_FUNCTION.apply(x, type)));
         }
         // Salt
         map.put("molten_salt_fission_controller", registerBlockItem("molten_salt_fission_controller", FissionPartType.MoltenSaltController::createBlock));
         map.put("fission_fuel_vessel", registerBlockItem("fission_fuel_vessel", FissionPartType.Vessel::createBlock));
         map.put("fission_fuel_vessel_port", registerBlockItem("fission_fuel_vessel_port", FissionPartType.VesselPort::createBlock));
-        map.put("standard_fission_coolant_heater", registerBlockItemWithTooltip("standard_fission_coolant_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.STANDARD), x -> new NCItemBlock(x, ChatFormatting.BLUE, NCInfo.heaterCoolingRateFixedInfo(FissionCoolantHeaterType.STANDARD), true, ChatFormatting.AQUA, false)));
-        for (String name : COOLANTS) {
-            map.put(name + "_fission_coolant_heater", registerBlockItemWithTooltip(name + "_fission_coolant_heater", () -> FissionPartType.Heater.createBlock(FissionCoolantHeaterType.valueOf(name.toUpperCase())), x -> new NCItemBlock(x, ChatFormatting.BLUE, NCInfo.heaterCoolingRateFixedInfo(FissionCoolantHeaterType.valueOf(name.toUpperCase())), true, ChatFormatting.AQUA, false)));
+
+        for (FissionCoolantHeaterType type : FissionCoolantHeaterType.default_values()) {
+            map.put(type + "_fission_coolant_heater", registerBlockItemWithTooltip(type + "_fission_coolant_heater", () -> FissionPartType.Heater.createBlock(type), x -> COOLANT_HEATER_FUNCTION.apply(x, type)));
         }
-        map.put("standard_fission_coolant_heater_port", registerBlockItem("standard_fission_coolant_heater_port", () -> FissionPartType.HeaterPort.createBlock(FissionCoolantHeaterPortType.STANDARD)));
-        for (String name : COOLANTS) {
-            map.put(name + "_fission_coolant_heater_port", registerBlockItem(name + "_fission_coolant_heater_port", () -> FissionPartType.HeaterPort.createBlock(FissionCoolantHeaterPortType.valueOf(name.toUpperCase()))));
+        for (FissionCoolantHeaterPortType type : FissionCoolantHeaterPortType.default_values()) {
+            map.put(type + "_fission_coolant_heater_port", registerBlockItem(type + "_fission_coolant_heater_port", () -> FissionPartType.HeaterPort.createBlock(type)));
         }
         return map;
     }
+
+    public static final Function<Block, ItemBlockBattery> BATTERY_FUNCTION = (x) -> new ItemBlockBattery((BlockBattery) x, NCInfo.batteryInfo());
 
     private static HashMap<String, DeferredBlock<Block>> createBatteries() {
-        Function<Block, ItemBlockBattery> itemBlockBatteryFunction = x -> new ItemBlockBattery((BlockBattery) x, NCInfo.batteryInfo());
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
-        map.put("basic_voltaic_pile", registerBlockItemWithTooltip("basic_voltaic_pile", () -> BatteryPartType.BATTERY.createBlock(BatteryType.VOLTAIC_PILE_BASIC), itemBlockBatteryFunction));
-        map.put("advanced_voltaic_pile", registerBlockItemWithTooltip("advanced_voltaic_pile", () -> BatteryPartType.BATTERY.createBlock(BatteryType.VOLTAIC_PILE_ADVANCED), itemBlockBatteryFunction));
-        map.put("du_voltaic_pile", registerBlockItemWithTooltip("du_voltaic_pile", () -> BatteryPartType.BATTERY.createBlock(BatteryType.VOLTAIC_PILE_DU), itemBlockBatteryFunction));
-        map.put("elite_voltaic_pile", registerBlockItemWithTooltip("elite_voltaic_pile", () -> BatteryPartType.BATTERY.createBlock(BatteryType.VOLTAIC_PILE_ELITE), itemBlockBatteryFunction));
+        map.put("basic_voltaic_pile", registerBlockItemWithTooltip("basic_voltaic_pile", () -> BatteryPartType.Battery.createBlock(BatteryType.VOLTAIC_PILE_BASIC), x -> BATTERY_FUNCTION.apply(x)));
+        map.put("advanced_voltaic_pile", registerBlockItemWithTooltip("advanced_voltaic_pile", () -> BatteryPartType.Battery.createBlock(BatteryType.VOLTAIC_PILE_ADVANCED), x -> BATTERY_FUNCTION.apply(x)));
+        map.put("du_voltaic_pile", registerBlockItemWithTooltip("du_voltaic_pile", () -> BatteryPartType.Battery.createBlock(BatteryType.VOLTAIC_PILE_DU), x -> BATTERY_FUNCTION.apply(x)));
+        map.put("elite_voltaic_pile", registerBlockItemWithTooltip("elite_voltaic_pile", () -> BatteryPartType.Battery.createBlock(BatteryType.VOLTAIC_PILE_ELITE), x -> BATTERY_FUNCTION.apply(x)));
 
-        map.put("basic_lithium_ion_battery", registerBlockItemWithTooltip("basic_lithium_ion_battery", () -> BatteryPartType.BATTERY.createBlock(BatteryType.LITHIUM_ION_BATTERY_BASIC), itemBlockBatteryFunction));
-        map.put("advanced_lithium_ion_battery", registerBlockItemWithTooltip("advanced_lithium_ion_battery", () -> BatteryPartType.BATTERY.createBlock(BatteryType.LITHIUM_ION_BATTERY_ADVANCED), itemBlockBatteryFunction));
-        map.put("du_lithium_ion_battery", registerBlockItemWithTooltip("du_lithium_ion_battery", () -> BatteryPartType.BATTERY.createBlock(BatteryType.LITHIUM_ION_BATTERY_DU), itemBlockBatteryFunction));
-        map.put("elite_lithium_ion_battery", registerBlockItemWithTooltip("elite_lithium_ion_battery", () -> BatteryPartType.BATTERY.createBlock(BatteryType.LITHIUM_ION_BATTERY_ELITE), itemBlockBatteryFunction));
+        map.put("basic_lithium_ion_battery", registerBlockItemWithTooltip("basic_lithium_ion_battery", () -> BatteryPartType.Battery.createBlock(BatteryType.LITHIUM_ION_BATTERY_BASIC), x -> BATTERY_FUNCTION.apply(x)));
+        map.put("advanced_lithium_ion_battery", registerBlockItemWithTooltip("advanced_lithium_ion_battery", () -> BatteryPartType.Battery.createBlock(BatteryType.LITHIUM_ION_BATTERY_ADVANCED), x -> BATTERY_FUNCTION.apply(x)));
+        map.put("du_lithium_ion_battery", registerBlockItemWithTooltip("du_lithium_ion_battery", () -> BatteryPartType.Battery.createBlock(BatteryType.LITHIUM_ION_BATTERY_DU), x -> BATTERY_FUNCTION.apply(x)));
+        map.put("elite_lithium_ion_battery", registerBlockItemWithTooltip("elite_lithium_ion_battery", () -> BatteryPartType.Battery.createBlock(BatteryType.LITHIUM_ION_BATTERY_ELITE), x -> BATTERY_FUNCTION.apply(x)));
         return map;
     }
+
+    public static final BiFunction<Block, RTGType, BlockItem> RTG_FUNCTION = (block, type) -> new NCItemBlock(block, ChatFormatting.RED, InfoHelper.EMPTY_ARRAY, false, ChatFormatting.AQUA, NCInfo.rtgInfo(type));
 
     private static HashMap<String, DeferredBlock<Block>> createRTGs() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
-        map.put("rtg_uranium", registerBlockItemWithTooltip("rtg_uranium", () -> RTGPartType.RTG.createBlock(RTGType.URANIUM), false, NCInfo.rtgInfo(() -> rtg_power[0])));
-        map.put("rtg_plutonium", registerBlockItemWithTooltip("rtg_plutonium", () -> RTGPartType.RTG.createBlock((RTGType.PLUTONIUM)), false, NCInfo.rtgInfo(() -> rtg_power[1])));
-        map.put("rtg_americium", registerBlockItemWithTooltip("rtg_americium", () -> RTGPartType.RTG.createBlock((RTGType.AMERICIUM)), false, NCInfo.rtgInfo(() -> rtg_power[2])));
-        map.put("rtg_californium", registerBlockItemWithTooltip("rtg_californium", () -> RTGPartType.RTG.createBlock((RTGType.CALIFORNIUM)), false, NCInfo.rtgInfo(() -> rtg_power[3])));
+        map.put("rtg_uranium", registerBlockItemWithTooltip("rtg_uranium", () -> RTGPartType.RTG.createBlock(RTGType.URANIUM), x -> RTG_FUNCTION.apply(x, RTGType.URANIUM)));
+        map.put("rtg_plutonium", registerBlockItemWithTooltip("rtg_plutonium", () -> RTGPartType.RTG.createBlock(RTGType.PLUTONIUM), x -> RTG_FUNCTION.apply(x, RTGType.PLUTONIUM)));
+        map.put("rtg_americium", registerBlockItemWithTooltip("rtg_americium", () -> RTGPartType.RTG.createBlock(RTGType.AMERICIUM), x -> RTG_FUNCTION.apply(x, RTGType.AMERICIUM)));
+        map.put("rtg_californium", registerBlockItemWithTooltip("rtg_californium", () -> RTGPartType.RTG.createBlock(RTGType.CALIFORNIUM), x -> RTG_FUNCTION.apply(x, RTGType.CALIFORNIUM)));
         return map;
     }
 

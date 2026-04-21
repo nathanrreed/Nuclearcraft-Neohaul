@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NCInfo;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.datamap.*;
-import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
@@ -79,11 +78,11 @@ public class TooltipHandler {
             if (block.getPartType() == TurbinePartType.DynamoConnector) {
                 rule = TurbinePlacement.TOOLTIP_MAP.get("connector");
             } else if (block.getMultiblockVariant().get() instanceof TurbineDynamoCoilType coil) {
-                rule = TurbinePlacement.TOOLTIP_MAP.get(coil.getSerializedName() + "_coil");
+                rule = coil.getTooltipRule();
             } else if (block.getMultiblockVariant().get() instanceof FissionCoolantHeaterType heater) {
-                rule = FissionPlacement.TOOLTIP_MAP.get(heater.getSerializedName() + "_heater");
+                rule = heater.getTooltipRule();
             } else if (block.getMultiblockVariant().get() instanceof FissionHeatSinkType sink) {
-                rule = FissionPlacement.TOOLTIP_MAP.get(sink.getSerializedName() + "_sink");
+                rule = sink.getTooltipRule();
             }
 
             if (rule != null) {

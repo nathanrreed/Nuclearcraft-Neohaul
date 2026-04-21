@@ -58,7 +58,7 @@ public class FissionCoolantHeaterRecipe extends BasicRecipe {
                         SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(FissionCoolantHeaterRecipe::getFluidIngredient),
                         SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(FissionCoolantHeaterRecipe::getFluidProduct),
                         Codec.INT.fieldOf("irradiatorFluxRequired").forGetter(FissionCoolantHeaterRecipe::getCoolantHeaterCoolingRate),
-                        Codec.STRING.fieldOf("irradiatorHeatPerFlux").forGetter(FissionCoolantHeaterRecipe::getCoolantHeaterPlacementRule)
+                        Codec.STRING.fieldOf("placementRule").forGetter(FissionCoolantHeaterRecipe::getCoolantHeaterPlacementRule)
                 ).apply(inst, FissionCoolantHeaterRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, FissionCoolantHeaterRecipe> STREAM_CODEC = StreamCodec.composite(

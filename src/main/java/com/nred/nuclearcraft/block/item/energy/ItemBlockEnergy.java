@@ -2,11 +2,10 @@ package com.nred.nuclearcraft.block.item.energy;
 
 import com.nred.nuclearcraft.block.item.NCItemBlock;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
-import com.nred.nuclearcraft.item.energy.IChargableItem;
+import com.nred.nuclearcraft.item.energy.IChargeableItem;
 import com.nred.nuclearcraft.util.InfoHelper;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
@@ -19,7 +18,7 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
-public class ItemBlockEnergy extends NCItemBlock implements IChargableItem {
+public class ItemBlockEnergy extends NCItemBlock implements IChargeableItem {
     private final Supplier<Integer> capacity;
     private final Supplier<Integer> maxTransfer;
     private final EnergyConnection energyConnection;
@@ -33,24 +32,23 @@ public class ItemBlockEnergy extends NCItemBlock implements IChargableItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        InfoHelper.infoLine(tooltip, ChatFormatting.LIGHT_PURPLE, Component.translatable(MODID + ".tooltip.energy_stored", UnitHelper.getFormattedFraction(getEnergyStored(stack), getMaxEnergyStored(stack), "RF")));
+        InfoHelper.infoLine(tooltip, ChatFormatting.LIGHT_PURPLE, Component.translatable(MODID + ".tooltip.energy_stored", UnitHelper.getFormattedFraction(IChargeableItem.getEnergyStored(stack), getMaxEnergyStored(stack), "RF")));
         super.appendHoverText(stack, context, tooltip, tooltipFlag);
     }
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        CompoundTag nbt = IChargableItem.getEnergyStorageNBT(stack);
-        return nbt != null && nbt.getLong("energy") > 0;
+        return IChargeableItem.getEnergyStored(stack) > 0;
     }
 
     @Override
     public int getBarColor(ItemStack stack) {
-        return FastColor.ARGB32.lerp((float) getEnergyStored(stack) / capacity.get(), ChatFormatting.RED.getColor(), ChatFormatting.GREEN.getColor());
+        return FastColor.ARGB32.lerp((float) IChargeableItem.getEnergyStored(stack) / capacity.get(), ChatFormatting.RED.getColor(), ChatFormatting.GREEN.getColor());
     }
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        return Mth.ceil(Mth.clamp((double) getEnergyStored(stack) / capacity.get(), 0D, 1D) * 13f);
+        return Mth.ceil(Mth.clamp((double) IChargeableItem.getEnergyStored(stack) / capacity.get(), 0D, 1D) * 13f);
     }
 
     @Override

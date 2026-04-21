@@ -1,7 +1,6 @@
 package com.nred.nuclearcraft.block_entity.turbine;
 
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
-import com.nred.nuclearcraft.multiblock.turbine.TurbinePlacement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -13,7 +12,7 @@ public class TurbineDynamoCoilEntity extends TurbineDynamoEntityPart {
     public TurbineDynamoCoilEntity(final BlockPos position, final BlockState blockState, TurbineDynamoCoilType dynamoCoilType) {
         super(TURBINE_ENTITY_TYPE.get("dynamo").get(), position, blockState);
         this.dynamoCoilType = dynamoCoilType;
-        this.placementRule = TurbinePlacement.RULE_MAP.get(dynamoCoilType.getName() + "_coil");
+        this.placementRule = dynamoCoilType.getRule();
         this.conductivity = dynamoCoilType.getConductivity();
     }
 }

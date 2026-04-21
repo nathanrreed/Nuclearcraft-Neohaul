@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:aluminum_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 175,
-  "irradiatorHeatPerFlux": "aluminum_heater"
+  "placementRule": "aluminum_heater"
 }

@@ -35,7 +35,7 @@ public abstract class FissionFluidPortBlock<PORT extends FissionFluidPortEntity<
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             BlockEntity tile = level.getBlockEntity(pos);
             if (portClass.isInstance(tile)) {
                 PORT port = portClass.cast(tile);

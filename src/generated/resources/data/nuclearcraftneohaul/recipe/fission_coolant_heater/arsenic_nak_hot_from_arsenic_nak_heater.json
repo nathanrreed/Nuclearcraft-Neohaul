@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:arsenic_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 135,
-  "irradiatorHeatPerFlux": "arsenic_heater"
+  "placementRule": "arsenic_heater"
 }

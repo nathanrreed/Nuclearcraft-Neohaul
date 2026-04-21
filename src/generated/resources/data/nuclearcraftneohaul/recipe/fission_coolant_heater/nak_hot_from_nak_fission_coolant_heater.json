@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:standard_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 55,
-  "irradiatorHeatPerFlux": "standard_heater"
+  "placementRule": "standard_heater"
 }

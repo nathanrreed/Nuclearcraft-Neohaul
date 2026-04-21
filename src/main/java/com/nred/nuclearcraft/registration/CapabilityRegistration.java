@@ -27,22 +27,22 @@ import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
 import com.nred.nuclearcraft.compat.cct.RegisterPeripherals;
 import com.nred.nuclearcraft.compat.curios.RegisterCurios;
 import com.nred.nuclearcraft.compat.mekanism.MekanismCapabilities;
+import com.nred.nuclearcraft.handler.ItemEnergyStorage;
 import com.nred.nuclearcraft.item.energy.EnergyItem;
 import com.nred.nuclearcraft.radiation.RadSources;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.ModCheck;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.*;
-import net.neoforged.neoforge.energy.EnergyStorage;
+import net.neoforged.neoforge.energy.ComponentEnergyStorage;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -50,6 +50,7 @@ import static com.nred.nuclearcraft.config.NCConfig.enable_mek_gas;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
+import static com.nred.nuclearcraft.registration.DataComponentRegistration.ENERGY_COMPONENT;
 import static com.nred.nuclearcraft.registration.ItemRegistration.LITHIUM_ION_CELL;
 import static com.nred.nuclearcraft.registration.ItemRegistration.RADIATION_BADGE;
 
@@ -178,20 +179,9 @@ public class CapabilityRegistration {
     }
 
     private static void items(RegisterCapabilitiesEvent event) {
-        event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, context) -> new EnergyStorage(((EnergyItem) stack.getItem()).capacity.get(), ((EnergyItem) stack.getItem()).maxTransfer.get(), ((EnergyItem) stack.getItem()).maxTransfer.get(), stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("energy")) {
-            @Override
-            public int receiveEnergy(int toReceive, boolean simulate) {
-                int rtn = super.receiveEnergy(toReceive, simulate);
-                stack.update(DataComponents.CUSTOM_DATA, CustomData.EMPTY, data -> data.update(compoundTag -> compoundTag.putInt("energy", this.energy)));
-                return rtn;
-            }
+        event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, side) -> new ComponentEnergyStorage(stack, ENERGY_COMPONENT.get(), ((EnergyItem) stack.getItem()).capacity.get(), ((EnergyItem) stack.getItem()).maxTransfer.get()), LITHIUM_ION_CELL);
 
-            @Override
-            public int extractEnergy(int toExtract, boolean simulate) {
-                int rtn = super.extractEnergy(toExtract, simulate);
-                stack.update(DataComponents.CUSTOM_DATA, CustomData.EMPTY, data -> data.update(compoundTag -> compoundTag.putInt("energy", this.energy)));
-                return rtn;
-            }
-        }, LITHIUM_ION_CELL);
+        // Uses nbt from block entity
+        event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, side) -> new ItemEnergyStorage(stack), BATTERY_ENTITY_TYPE.get().getValidBlocks().stream().map(Block::asItem).toArray(Item[]::new));
     }
 }

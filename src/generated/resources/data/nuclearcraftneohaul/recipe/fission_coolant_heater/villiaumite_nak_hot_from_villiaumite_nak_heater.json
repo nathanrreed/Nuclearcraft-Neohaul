@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:villiaumite_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 180,
-  "irradiatorHeatPerFlux": "villiaumite_heater"
+  "placementRule": "villiaumite_heater"
 }

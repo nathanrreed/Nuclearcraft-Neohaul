@@ -105,8 +105,9 @@ public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblo
 
     @Override
     public void setChanged() {
-        if (level != null) {
-            level.blockEntityChanged(worldPosition);
+        super.setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
     }
 

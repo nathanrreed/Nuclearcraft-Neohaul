@@ -52,8 +52,8 @@ import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.CONDEN
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.INFILTRATOR_PRESSURE_FLUID_TOOLTIP;
 import static com.nred.nuclearcraft.helpers.Concat.fluidEntries;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.info.Names.COOLANTS;
 import static com.nred.nuclearcraft.multiblock.hx.CondenserLogic.getCondenserDissipationFluids;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.HX_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
@@ -245,10 +245,10 @@ public class ModEmiPlugin implements EmiPlugin {
         }
 
         registry.addCategory(EMI_SALT_COOLING_CATEGORY);
-        addWorkstations(registry, EMI_SALT_COOLING_CATEGORY, Stream.concat(COOLANTS.stream().map(part -> EmiStack.of(FISSION_REACTOR_MAP.get(part + "_fission_coolant_heater"))), Stream.of(SOLID_FISSION_WORKSTATION)).toList());
         registry.addRecipeHandler(FISSION_SALT_HEATER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_SALT_COOLING_CATEGORY));
         for (RecipeHolder<FissionCoolantHeaterRecipe> recipe : manager.getAllRecipesFor(COOLANT_HEATER_RECIPE_TYPE.get())) {
             registry.addRecipe(new EmiSaltCoolingRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
+            registry.addWorkstation(EMI_SALT_COOLING_CATEGORY, EmiStack.of(recipe.value().getHeater()));
         }
 
         registry.addCategory(EMI_EMERGENCY_COOLING_CATEGORY);
@@ -258,14 +258,16 @@ public class ModEmiPlugin implements EmiPlugin {
             registry.addRecipe(new EmiFissionEmergencyCoolingRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
+        Stream<EmiStack> hx_tubes = HX_ENTITY_TYPE.get("tube").get().getValidBlocks().stream().map(EmiStack::of);
+
         registry.addCategory(EMI_HEAT_EXCHANGER_CATEGORY);
-        addWorkstations(registry, EMI_HEAT_EXCHANGER_CATEGORY, List.of(HEAT_EXCHANGER_WORKSTATION, EmiStack.of(HX_MAP.get("copper_heat_exchanger_tube")), EmiStack.of(HX_MAP.get("hard_carbon_heat_exchanger_tube")), EmiStack.of(HX_MAP.get("thermoconducting_alloy_heat_exchanger_tube"))));
+        addWorkstations(registry, EMI_HEAT_EXCHANGER_CATEGORY, Stream.concat(Stream.of(HEAT_EXCHANGER_WORKSTATION), hx_tubes).toList());
         for (RecipeHolder<HeatExchangerRecipe> recipe : manager.getAllRecipesFor(HEAT_EXCHANGER_RECIPE_TYPE.get())) {
             registry.addRecipe(new EmiHeatExchangerRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
         registry.addCategory(EMI_CONDENSER_CATEGORY);
-        addWorkstations(registry, EMI_CONDENSER_CATEGORY, List.of(CONDENSER_WORKSTATION, EmiStack.of(HX_MAP.get("copper_heat_exchanger_tube")), EmiStack.of(HX_MAP.get("hard_carbon_heat_exchanger_tube")), EmiStack.of(HX_MAP.get("thermoconducting_alloy_heat_exchanger_tube"))));
+        addWorkstations(registry, EMI_CONDENSER_CATEGORY, Stream.concat(Stream.of(CONDENSER_WORKSTATION), hx_tubes).toList());
         for (RecipeHolder<CondenserRecipe> recipe : manager.getAllRecipesFor(CONDENSER_RECIPE_TYPE.get())) {
             registry.addRecipe(new EmiCondenserRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }

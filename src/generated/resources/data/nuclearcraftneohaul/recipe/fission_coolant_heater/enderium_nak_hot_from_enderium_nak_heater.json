@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:enderium_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 155,
-  "irradiatorHeatPerFlux": "enderium_heater"
+  "placementRule": "enderium_heater"
 }

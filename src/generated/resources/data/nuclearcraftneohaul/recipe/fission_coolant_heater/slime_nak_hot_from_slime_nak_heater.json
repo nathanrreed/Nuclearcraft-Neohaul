@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:slime_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 145,
-  "irradiatorHeatPerFlux": "slime_heater"
+  "placementRule": "slime_heater"
 }

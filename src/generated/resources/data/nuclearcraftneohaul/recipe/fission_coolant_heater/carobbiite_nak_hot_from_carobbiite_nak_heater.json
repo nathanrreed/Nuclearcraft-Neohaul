@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:carobbiite_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 140,
-  "irradiatorHeatPerFlux": "carobbiite_heater"
+  "placementRule": "carobbiite_heater"
 }

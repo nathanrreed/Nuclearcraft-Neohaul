@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:tin_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 120,
-  "irradiatorHeatPerFlux": "tin_heater"
+  "placementRule": "tin_heater"
 }

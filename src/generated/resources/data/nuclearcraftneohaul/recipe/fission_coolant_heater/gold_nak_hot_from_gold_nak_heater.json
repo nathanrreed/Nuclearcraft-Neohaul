@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:gold_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 110,
-  "irradiatorHeatPerFlux": "gold_heater"
+  "placementRule": "gold_heater"
 }

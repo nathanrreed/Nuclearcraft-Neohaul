@@ -44,7 +44,8 @@ public class NBTHelper {
 
         return nbt;
     }
-//    public static void setStackNBT(ItemStack stack, CompoundTag nbt) {
+
+//    public static void setStackNBT(ItemStack stack, CompoundTag nbt) { TODO
 //        if (stack.isEmpty()) {
 //            return;
 //        }

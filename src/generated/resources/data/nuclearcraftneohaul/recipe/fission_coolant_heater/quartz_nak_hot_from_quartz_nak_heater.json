@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:quartz_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 80,
-  "irradiatorHeatPerFlux": "quartz_heater"
+  "placementRule": "quartz_heater"
 }

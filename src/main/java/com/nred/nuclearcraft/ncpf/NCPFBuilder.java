@@ -156,7 +156,7 @@ public class NCPFBuilder {
                 Map<String, Object> sink = new HashMap<>();
                 sink.put("cooling", type.getCoolingRate());
                 elem.modules.put("nuclearcraft:" + configContext + ":heat_sink", sink);
-                translatePlacementRules(sink, block, type.getSerializedName() + "_sink", FissionPlacement.RULE_MAP);
+                translatePlacementRules(sink, type.getRule());
             }
 
             if (block instanceof GenericTooltipDeviceBlock<?, ?> mBlock && mBlock.getMultiblockVariant().orElse(null) instanceof FissionCoolantHeaterType type) {
@@ -176,7 +176,7 @@ public class NCPFBuilder {
                 translate(recipes, NCRecipes.coolant_heater, (recipe) -> ((BlockItem) recipe.getHeater().getItem()).getBlock() == block);
                 recipesModule.put("recipes", recipes);
                 elem.modules.put("ncpf:block_recipes", recipesModule);
-                translatePlacementRules(heaterModule, block, type.getSerializedName() + "_heater", FissionPlacement.RULE_MAP);
+                translatePlacementRules(heaterModule, type.getRule());
             }
 
             if (block == FISSION_REACTOR_MAP.get("fission_fuel_cell").get()) {
@@ -277,13 +277,13 @@ public class NCPFBuilder {
                 Map<String, Object> coil = new HashMap<>();
                 coil.put("efficiency", type.getConductivity());
                 elem.modules.put("nuclearcraft:" + configContext + ":coil", coil);
-                translatePlacementRules(coil, block, type.getSerializedName() + "_coil", TurbinePlacement.RULE_MAP);
+                translatePlacementRules(coil, type.getRule());
             }
 
             if (block == TURBINE_MAP.get("turbine_coil_connector").get()) {
                 Map<String, Object> connector = new HashMap<>();
                 elem.modules.put("nuclearcraft:" + configContext + ":connector", connector);
-                translatePlacementRules(connector, block, "connector", TurbinePlacement.RULE_MAP);
+                translatePlacementRules(connector, TurbinePlacement.RULE_MAP.get("connector"));
             }
 
             if (block == TURBINE_MAP.get("turbine_rotor_bearing").get()) {
@@ -536,10 +536,8 @@ public class NCPFBuilder {
         return ncpfItem;
     }
 
-    private static <MULTIBLOCK extends Multiblock<MULTIBLOCK>, T extends AbstractMultiblockPart<MULTIBLOCK>> void translatePlacementRules(Map<String, Object> module, Block block, String ruleID, Map<String, PlacementRule<MULTIBLOCK, T>> ruleMap) {
+    private static <MULTIBLOCK extends Multiblock<MULTIBLOCK>, T extends AbstractMultiblockPart<MULTIBLOCK>> void translatePlacementRules(Map<String, Object> module, PlacementRule<MULTIBLOCK, T> rule) {
         List<NCPFPlacementRule> rules = new ArrayList<>();
-
-        PlacementRule<MULTIBLOCK, T> rule = ruleMap.get(ruleID);
 
         NCPFPlacementRule placementRule = translatePlacementRule(rule);
         rules.add(placementRule);

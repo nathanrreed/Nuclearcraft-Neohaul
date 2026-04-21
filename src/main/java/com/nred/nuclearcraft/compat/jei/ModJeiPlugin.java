@@ -46,8 +46,9 @@ import java.util.stream.Stream;
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.CONDENSER_DISSIPATION_TOOLTIP;
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.INFILTRATOR_PRESSURE_FLUID_TOOLTIP;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.info.Names.COOLANTS;
 import static com.nred.nuclearcraft.multiblock.hx.CondenserLogic.getCondenserDissipationFluids;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
+import static com.nred.nuclearcraft.registration.BlockEntityRegistration.HX_ENTITY_TYPE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
@@ -154,11 +155,13 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(JEI_IRRADIATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("fission_irradiator").toStack()));
         registration.addRecipeCatalysts(JEI_VENT_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("fission_vent").toStack()));
         registration.addRecipeCatalysts(JEI_EMERGENCY_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("fission_vent").toStack()));
-        registration.addRecipeCatalysts(JEI_SALT_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, Stream.concat(COOLANTS.stream().map(part -> FISSION_REACTOR_MAP.get(part + "_fission_coolant_heater").toStack()), Stream.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").toStack())).toList());
-        registration.addRecipeCatalysts(JEI_MODERATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(HEAVY_WATER_MODERATOR.toStack(), INGOT_BLOCK_MAP.get("beryllium").toStack(), INGOT_BLOCK_MAP.get("graphite").toStack()));
-        registration.addRecipeCatalysts(JEI_REFLECTOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("beryllium_carbon_reflector").toStack(), FISSION_REACTOR_MAP.get("lead_steel_reflector").toStack()));
-        registration.addRecipeCatalysts(JEI_HEAT_EXCHANGER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(HX_MAP.get("heat_exchanger_controller").toStack(), HX_MAP.get("copper_heat_exchanger_tube").toStack(), HX_MAP.get("hard_carbon_heat_exchanger_tube").toStack(), HX_MAP.get("thermoconducting_alloy_heat_exchanger_tube").toStack()));
-        registration.addRecipeCatalysts(JEI_CONDENSER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(HX_MAP.get("condenser_controller").toStack(), HX_MAP.get("copper_heat_exchanger_tube").toStack(), HX_MAP.get("hard_carbon_heat_exchanger_tube").toStack(), HX_MAP.get("thermoconducting_alloy_heat_exchanger_tube").toStack()));
+        registration.addRecipeCatalysts(JEI_SALT_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, Stream.concat(FISSION_ENTITY_TYPE.get("coolant_heater").get().getValidBlocks().stream().map(e -> e.asItem().getDefaultInstance()), Stream.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").toStack())).toList());
+        registration.addRecipeCatalysts(JEI_MODERATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.ITEM.getDataMap(FISSION_MODERATOR_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e)).getDefaultInstance()).toList());
+        registration.addRecipeCatalysts(JEI_REFLECTOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.ITEM.getDataMap(FISSION_REFLECTOR_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e)).getDefaultInstance()).toList());
+        Stream<ItemStack> hx_tubes = HX_ENTITY_TYPE.get("tube").get().getValidBlocks().stream().map(e -> e.asItem().getDefaultInstance());
+
+        registration.addRecipeCatalysts(JEI_HEAT_EXCHANGER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, Stream.concat(Stream.of(HX_MAP.get("heat_exchanger_controller").toStack()), hx_tubes).toList());
+        registration.addRecipeCatalysts(JEI_CONDENSER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, Stream.concat(Stream.of(HX_MAP.get("condenser_controller").toStack()), hx_tubes).toList());
         registration.addRecipeCatalysts(JEI_MULTIBLOCK_DISTILLER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("distiller_controller").toStack()));
         registration.addRecipeCatalysts(JEI_CONDENSER_DISSIPATION_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(HX_MAP.get("heat_exchanger_inlet").toStack()));
         registration.addRecipeCatalysts(JEI_MULTIBLOCK_ELECTROLYZER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("electrolyzer_controller").toStack()));
@@ -166,8 +169,8 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(JEI_ELECTROLYZER_CATHODE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("electrolyzer_cathode_terminal").toStack()));
         registration.addRecipeCatalysts(JEI_ELECTROLYZER_ANODE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("electrolyzer_anode_terminal").toStack()));
         registration.addRecipeCatalysts(JEI_INFILTRATOR_PRESSURE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("infiltrator_pressure_chamber").toStack()));
-        registration.addRecipeCatalysts(JEI_DIAPHRAGM_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("sintered_steel_diaphragm").toStack(), MACHINE_MAP.get("polyethersulfone_diaphragm").toStack(), MACHINE_MAP.get("zirfon_diaphragm").toStack()));
-        registration.addRecipeCatalysts(JEI_SIEVE_ASSEMBLY_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("steel_sieve_assembly").toStack(), MACHINE_MAP.get("polytetrafluoroethene_sieve_assembly").toStack(), MACHINE_MAP.get("hastelloy_sieve_assembly").toStack()));
+        registration.addRecipeCatalysts(JEI_DIAPHRAGM_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.ITEM.getDataMap(MACHINE_DIAPHRAGM_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e)).getDefaultInstance()).toList());
+        registration.addRecipeCatalysts(JEI_SIEVE_ASSEMBLY_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.ITEM.getDataMap(MACHINE_SIEVE_ASSEMBLY_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e)).getDefaultInstance()).toList());
         registration.addRecipeCatalysts(JEI_DECAY_GENERATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(DECAY_GENERATOR.toStack()));
         registration.addRecipeCatalysts(JEI_RADIATION_SCRUBBER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(RADIATION_SCRUBBER.toStack()));
     }

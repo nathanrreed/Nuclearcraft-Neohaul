@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:fluorite_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 165,
-  "irradiatorHeatPerFlux": "fluorite_heater"
+  "placementRule": "fluorite_heater"
 }

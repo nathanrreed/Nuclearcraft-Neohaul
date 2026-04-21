@@ -1,7 +1,9 @@
 package com.nred.nuclearcraft.registration;
 
+import com.mojang.serialization.Codec;
 import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistanceItem;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import static com.nred.nuclearcraft.registration.Registers.DATA_COMPONENT_TYPES;
@@ -13,6 +15,8 @@ public class DataComponentRegistration {
                     .persistent(RadiationResistanceItem.CODEC)
                     .networkSynchronized(RadiationResistanceItem.STREAM_CODEC)
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ENERGY_COMPONENT = DATA_COMPONENT_TYPES.registerComponentType("energy_component", builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
 
     public static void init() {
     }

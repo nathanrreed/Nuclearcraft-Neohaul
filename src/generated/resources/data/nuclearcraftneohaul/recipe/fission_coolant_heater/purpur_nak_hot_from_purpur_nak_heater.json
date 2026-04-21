@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:purpur_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 95,
-  "irradiatorHeatPerFlux": "purpur_heater"
+  "placementRule": "purpur_heater"
 }

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY_ENTITY_TYPE;
 
 public enum BatteryPartType implements IBatteryPartType {
-    BATTERY(() -> BATTERY_ENTITY_TYPE::get, BlockBattery::new, "");
+    Battery(() -> BATTERY_ENTITY_TYPE::get, BlockBattery::new, "");
 
     private final MultiblockPartTypeProperties<BatteryMultiblock, IBatteryPartType> _properties;
 

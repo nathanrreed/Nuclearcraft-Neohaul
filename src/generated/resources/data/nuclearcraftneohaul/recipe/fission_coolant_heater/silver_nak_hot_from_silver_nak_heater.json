@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:silver_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 170,
-  "irradiatorHeatPerFlux": "silver_heater"
+  "placementRule": "silver_heater"
 }

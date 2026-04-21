@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:redstone_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 85,
-  "irradiatorHeatPerFlux": "redstone_heater"
+  "placementRule": "redstone_heater"
 }

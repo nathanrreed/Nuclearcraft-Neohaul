@@ -17,5 +17,5 @@
     "id": "nuclearcraftneohaul:copper_fission_coolant_heater"
   },
   "irradiatorFluxRequired": 75,
-  "irradiatorHeatPerFlux": "copper_heater"
+  "placementRule": "copper_heater"
 }

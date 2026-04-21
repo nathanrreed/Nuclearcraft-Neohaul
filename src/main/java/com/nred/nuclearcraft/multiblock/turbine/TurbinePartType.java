@@ -25,7 +25,7 @@ public enum TurbinePartType implements ITurbinePartType {
     RotorStator(() -> TURBINE_ENTITY_TYPE.get("rotor_stator")::get, TurbineRotorStatorBlock::new),
     Outlet(() -> TURBINE_ENTITY_TYPE.get("outlet")::get, GenericDirectionalTooltipDeviceBlock::new),
     Inlet(() -> TURBINE_ENTITY_TYPE.get("inlet")::get, GenericDirectionalTooltipDeviceBlock::new),
-    Dynamo(() -> TURBINE_ENTITY_TYPE.get("dynamo")::get, TurbineDynamoCoilBlock::new),
+    DynamoCoil(() -> TURBINE_ENTITY_TYPE.get("dynamo")::get, TurbineDynamoCoilBlock::new),
     DynamoConnector(() -> TURBINE_ENTITY_TYPE.get("coil_connector")::get, GenericTooltipDeviceBlock::new),
     ComputerPort(() -> TURBINE_ENTITY_TYPE.get("computer_port")::get, GenericTooltipDeviceBlock::new),
     RedstonePort(() -> TURBINE_ENTITY_TYPE.get("redstone_port")::get, TurbineRedstonePortBlock::new),
