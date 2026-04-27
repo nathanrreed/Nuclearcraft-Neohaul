@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:purpur_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 95,
   "placementRule": "purpur_heater"
 }

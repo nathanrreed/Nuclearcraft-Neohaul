@@ -1,0 +1,11 @@
+{
+    "pack": {
+        "description": "For Fusion Connected textures",
+        "pack_format": 15,
+        "min_format": 15,
+        "max_format": 1000
+    },
+    "fusion": {
+        "overrides_folder": "fusion"
+    }
+}

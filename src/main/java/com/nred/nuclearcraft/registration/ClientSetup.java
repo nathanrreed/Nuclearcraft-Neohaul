@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorControllerEntity;
 import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerQubitEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.config.ModConfigScreen;
 import com.nred.nuclearcraft.entity.FeralGhoul;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
@@ -46,7 +47,7 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
 public class ClientSetup {
     public ClientSetup(ModContainer modContainer) {
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class, (container, parent) -> new ConfigurationScreen(modContainer, parent, ModConfigScreen::new));
     }
 
     @SubscribeEvent

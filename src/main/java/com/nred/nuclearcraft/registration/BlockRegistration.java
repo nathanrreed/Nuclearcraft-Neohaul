@@ -219,15 +219,15 @@ public class BlockRegistration {
 
     private static HashMap<String, DeferredBlock<Block>> createTurbineParts() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
-        map.put("turbine_controller", registerBlockItem("turbine_controller", TurbinePartType.Controller::createBlock));
+        map.put("turbine_controller", registerBlockItemWithTooltip("turbine_controller", TurbinePartType.Controller::createBlock, false));
         map.put("turbine_casing", registerBlockItem("turbine_casing", TurbinePartType.Casing::createBlock));
         map.put("turbine_glass", registerBlockItem("turbine_glass", TurbinePartType.Glass::createBlock));
-        map.put("turbine_rotor_shaft", registerBlockItem("turbine_rotor_shaft", TurbinePartType.RotorShaft::createBlock));
+        map.put("turbine_rotor_shaft", registerBlockItemWithTooltip("turbine_rotor_shaft", TurbinePartType.RotorShaft::createBlock, false));
         map.put("steel_turbine_rotor_blade", registerBlockItemWithTooltip("steel_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(STEEL), x -> BLADE_FUNCTION.apply(x, STEEL)));
         map.put("extreme_alloy_turbine_rotor_blade", registerBlockItemWithTooltip("extreme_alloy_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(EXTREME), x -> BLADE_FUNCTION.apply(x, EXTREME)));
         map.put("sic_turbine_rotor_blade", registerBlockItemWithTooltip("sic_turbine_rotor_blade", () -> TurbinePartType.RotorBlade.createBlock(SIC_SIC_CMC), x -> BLADE_FUNCTION.apply(x, SIC_SIC_CMC)));
         map.put("standard_turbine_rotor_stator", registerBlockItemWithTooltip("standard_turbine_rotor_stator", () -> TurbinePartType.RotorStator.createBlock(STANDARD), x -> STATOR_FUNCTION.apply(x, STANDARD)));
-        map.put("turbine_rotor_bearing", registerBlockItem("turbine_rotor_bearing", TurbinePartType.RotorBearing::createBlock));
+        map.put("turbine_rotor_bearing", registerBlockItemWithTooltip("turbine_rotor_bearing", TurbinePartType.RotorBearing::createBlock, false));
         map.put("magnesium_turbine_dynamo_coil", registerBlockItemWithTooltip("magnesium_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(MAGNESIUM), x -> COIL_FUNCTION.apply(x, MAGNESIUM)));
         map.put("beryllium_turbine_dynamo_coil", registerBlockItemWithTooltip("beryllium_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(BERYLLIUM), x -> COIL_FUNCTION.apply(x, BERYLLIUM)));
         map.put("aluminum_turbine_dynamo_coil", registerBlockItemWithTooltip("aluminum_turbine_dynamo_coil", () -> TurbinePartType.DynamoCoil.createBlock(ALUMINUM), x -> COIL_FUNCTION.apply(x, ALUMINUM)));

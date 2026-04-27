@@ -1,10 +1,10 @@
 {
   "variants": {
     "nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/distiller_reboiling_unit_false"
+      "model": "nuclearcraftneohaul:block/distiller_reboiling_unit_off"
     },
     "nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/distiller_reboiling_unit_true"
+      "model": "nuclearcraftneohaul:block/distiller_reboiling_unit_on"
     }
   }
 }

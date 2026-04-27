@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:redstone_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 85,
   "placementRule": "redstone_heater"
 }

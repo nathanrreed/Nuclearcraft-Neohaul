@@ -1,26 +1,26 @@
 {
   "variants": {
     "axis=x,nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_false",
+      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_in",
       "y": 90
     },
     "axis=x,nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_true",
+      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_out",
       "y": 90
     },
     "axis=y,nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_false",
+      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_in",
       "x": 90
     },
     "axis=y,nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_true",
+      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_out",
       "x": 90
     },
     "axis=z,nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_false"
+      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_in"
     },
     "axis=z,nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_true"
+      "model": "nuclearcraftneohaul:block/glowstone_fission_coolant_heater_port_out"
     }
   }
 }

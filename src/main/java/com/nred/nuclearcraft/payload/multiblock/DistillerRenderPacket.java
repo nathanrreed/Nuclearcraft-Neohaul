@@ -9,6 +9,7 @@ import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -55,6 +56,11 @@ public class DistillerRenderPacket extends MachineRenderPacket {
         buf.writeBoolean(isProcessing);
         writeTankInfos(buf, tankInfos);
         writeInts(buf, trayLevels);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     public static class Handler extends MultiblockUpdatePacket.Handler<Machine, MachineUpdatePacket, DistillerControllerEntity, TileContainerInfo<DistillerControllerEntity>, DistillerRenderPacket> {

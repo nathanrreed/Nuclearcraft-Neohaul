@@ -13,7 +13,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
-import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -116,6 +115,5 @@ public class RadArmor {
         }
         shielding_recipes.addAll(recipeManager.getOrderedRecipes());
         recipeManager.replaceRecipes(shielding_recipes);
-        ClientHooks.onRecipesUpdated(recipeManager);
     }
 }

@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_ENTITY_TYPE;
 
 public enum MachinePartType implements IMachinePartType {
-    Frame(() -> MACHINE_ENTITY_TYPE.get("casing")::get, MachineFrameBlock::new),
+    Frame(() -> MACHINE_ENTITY_TYPE.get("frame")::get, MachineFrameBlock::new),
     Glass(() -> MACHINE_ENTITY_TYPE.get("glass")::get, GlassBlock::new, GlassBlock::addGlassProperties),
     PowerPort(() -> MACHINE_ENTITY_TYPE.get("power_port")::get, GenericActiveDirectionalTooltipDeviceBlock::new),
     ProcessPort(() -> MACHINE_ENTITY_TYPE.get("process_port")::get, MachineProcessPortBlock::new),

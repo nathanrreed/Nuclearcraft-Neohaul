@@ -9,7 +9,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE
 
 public class DistillerRefluxUnitEntity extends AbstractMachineEntity {
     public DistillerRefluxUnitEntity(BlockPos pos, BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("reflux_unit").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("distiller_reflux_unit").get(), pos, blockState);
     }
 
     @Override

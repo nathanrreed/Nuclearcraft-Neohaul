@@ -5,7 +5,7 @@ import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.registration.Registration;
 import com.nred.nuclearcraft.render.BlockHighlightTracker;
-import net.minecraft.client.Minecraft;
+import com.nred.nuclearcraft.util.NCUtil;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.bus.api.EventPriority;
@@ -51,9 +51,7 @@ public class NuclearcraftNeohaul {
     public static class ReloadListener implements ResourceManagerReloadListener {
         @Override
         public void onResourceManagerReload(ResourceManager resourceManager) {
-            if (Minecraft.getInstance().level != null) {
-                NCRecipes.getHandlers().forEach(e -> e.postReload(Minecraft.getInstance().level.getRecipeManager()));
-            }
+            NCRecipes.getHandlers().forEach(e -> e.postReload(NCUtil.getRecipeManager(null)));
         }
     }
 

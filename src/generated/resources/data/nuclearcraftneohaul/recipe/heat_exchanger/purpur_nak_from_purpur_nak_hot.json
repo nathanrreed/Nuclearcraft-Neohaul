@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:heat_exchanger_recipe",
+  "coolantHeater": "purpur",
+  "flowDirectionBonus": 0.0,
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:purpur_nak_hot"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:purpur_nak"
+    }
+  },
+  "inputTemp": 800,
+  "isHeating": false,
+  "outputTemp": 400,
+  "preferredFlowDir": 0
+}

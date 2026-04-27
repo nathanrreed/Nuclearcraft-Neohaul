@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:cryotheum_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 205,
   "placementRule": "cryotheum_heater"
 }

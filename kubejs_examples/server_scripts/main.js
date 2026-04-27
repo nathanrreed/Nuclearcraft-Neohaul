@@ -17,7 +17,6 @@ ServerEvents.recipes(event => {
             "count": 1,
             "id": global["test_heater"].toString()
         },
-        "irradiatorFluxRequired": 155,
         "placementRule": global["test_heater"].toString()
     })
 })

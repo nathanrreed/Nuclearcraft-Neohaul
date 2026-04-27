@@ -22,15 +22,15 @@ public class HeatExchangerCasingEntity extends AbstractHeatExchangerEntity {
     @Override
     public void onPreMachineAssembled(HeatExchanger multiblock) {
         super.onPreMachineAssembled(multiblock);
-        if (!level.isClientSide && getPartPosition().isFrame()) {
-            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 2);
+        if (getPartPosition().isFrame()) {
+            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 0);
         }
     }
 
     @Override
     public void onPreMachineBroken() {
-        if (!level.isClientSide && getPartPosition().isFrame()) {
-            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, false), 2);
+        if (getPartPosition().isFrame()) {
+            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, false), 0);
         }
         super.onPreMachineBroken();
     }

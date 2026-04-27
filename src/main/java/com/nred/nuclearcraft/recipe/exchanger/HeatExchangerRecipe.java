@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.StreamCodecsHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -15,6 +16,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
+import static com.nred.nuclearcraft.config.NCConfig.heat_exchanger_coolant_heat_mult;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.HEAT_EXCHANGER_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.HEAT_EXCHANGER_RECIPE_TYPE;
 
@@ -25,6 +27,7 @@ public class HeatExchangerRecipe extends BasicRecipe {
     private final boolean isHeating;
     private final int preferredFlowDir;
     private final double flowDirectionBonus;
+    private final String coolantType;
 
     public HeatExchangerRecipe(SizedChanceFluidIngredient input, SizedChanceFluidIngredient output, double heatDifference, int inputTemp, int outputTemp, boolean isHeating, int preferredFlowDir, double flowDirectionBonus) {
         super(List.of(), List.of(input), List.of(), List.of(output));
@@ -34,6 +37,29 @@ public class HeatExchangerRecipe extends BasicRecipe {
         this.isHeating = isHeating;
         this.preferredFlowDir = preferredFlowDir;
         this.flowDirectionBonus = flowDirectionBonus;
+        this.coolantType = "";
+    }
+
+    public HeatExchangerRecipe(SizedChanceFluidIngredient input, SizedChanceFluidIngredient output, String coolantType, int inputTemp, int outputTemp, boolean isHeating, int preferredFlowDir, double flowDirectionBonus) {
+        super(List.of(), List.of(input), List.of(), List.of(output));
+        this.heatDifference = 0.0;
+        this.inputTemp = inputTemp;
+        this.outputTemp = outputTemp;
+        this.isHeating = isHeating;
+        this.preferredFlowDir = preferredFlowDir;
+        this.flowDirectionBonus = flowDirectionBonus;
+        this.coolantType = coolantType;
+    }
+
+    public HeatExchangerRecipe(SizedChanceFluidIngredient input, SizedChanceFluidIngredient output, String coolantType, double heatDifference, int inputTemp, int outputTemp, boolean isHeating, int preferredFlowDir, double flowDirectionBonus) {
+        super(List.of(), List.of(input), List.of(), List.of(output));
+        this.heatDifference = heatDifference;
+        this.inputTemp = inputTemp;
+        this.outputTemp = outputTemp;
+        this.isHeating = isHeating;
+        this.preferredFlowDir = preferredFlowDir;
+        this.flowDirectionBonus = flowDirectionBonus;
+        this.coolantType = coolantType;
     }
 
     @Override
@@ -47,6 +73,14 @@ public class HeatExchangerRecipe extends BasicRecipe {
     }
 
     public double getHeatExchangerHeatDifference() {
+        if (!coolantType.isEmpty()) {
+            return FissionCoolantHeaterType.getType(coolantType).getCoolingRate() * heat_exchanger_coolant_heat_mult;
+        } else {
+            return heatDifference;
+        }
+    }
+
+    public double getHeatExchangerHeatDifferenceRaw() {
         return heatDifference;
     }
 
@@ -79,6 +113,10 @@ public class HeatExchangerRecipe extends BasicRecipe {
         return flowDirectionBonus;
     }
 
+    public String getCoolantType() {
+        return coolantType;
+    }
+
     public double getHeatExchangerFlowDirectionMultiplier(Vec3 flowDir) {
         int preferredFlowDirection = getHeatExchangerPreferredFlowDirection();
         double flowDirectionBonus = getHeatExchangerFlowDirectionBonus();
@@ -102,7 +140,8 @@ public class HeatExchangerRecipe extends BasicRecipe {
                 inst.group(
                         SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(HeatExchangerRecipe::getFluidIngredient),
                         SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(HeatExchangerRecipe::getFluidProduct),
-                        Codec.DOUBLE.fieldOf("heatDifference").forGetter(HeatExchangerRecipe::getHeatExchangerHeatDifference),
+                        Codec.STRING.optionalFieldOf("coolantHeater", "").forGetter(HeatExchangerRecipe::getCoolantType),
+                        Codec.DOUBLE.optionalFieldOf("heatDifference", 0.0).forGetter(HeatExchangerRecipe::getHeatExchangerHeatDifferenceRaw),
                         Codec.INT.fieldOf("inputTemp").forGetter(HeatExchangerRecipe::getHeatExchangerInputTemperature),
                         Codec.INT.fieldOf("outputTemp").forGetter(HeatExchangerRecipe::getHeatExchangerOutputTemperature),
                         Codec.BOOL.fieldOf("isHeating").forGetter(HeatExchangerRecipe::getHeatExchangerIsHeatingRaw),
@@ -113,7 +152,8 @@ public class HeatExchangerRecipe extends BasicRecipe {
         private static final StreamCodec<RegistryFriendlyByteBuf, HeatExchangerRecipe> STREAM_CODEC = StreamCodecsHelper.composite(
                 SizedChanceFluidIngredient.STREAM_CODEC, HeatExchangerRecipe::getFluidIngredient,
                 SizedChanceFluidIngredient.STREAM_CODEC, HeatExchangerRecipe::getFluidProduct,
-                ByteBufCodecs.DOUBLE, HeatExchangerRecipe::getHeatExchangerHeatDifference,
+                ByteBufCodecs.STRING_UTF8, HeatExchangerRecipe::getCoolantType,
+                ByteBufCodecs.DOUBLE, HeatExchangerRecipe::getHeatExchangerHeatDifferenceRaw,
                 ByteBufCodecs.INT, HeatExchangerRecipe::getHeatExchangerInputTemperature,
                 ByteBufCodecs.INT, HeatExchangerRecipe::getHeatExchangerOutputTemperature,
                 ByteBufCodecs.BOOL, HeatExchangerRecipe::getHeatExchangerIsHeatingRaw,

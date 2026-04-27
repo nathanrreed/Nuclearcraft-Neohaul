@@ -1,10 +1,10 @@
 {
   "variants": {
     "nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/infiltrator_heating_unit_false"
+      "model": "nuclearcraftneohaul:block/infiltrator_heating_unit_heating_unit_off"
     },
     "nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/infiltrator_heating_unit_true"
+      "model": "nuclearcraftneohaul:block/infiltrator_heating_unit_heating_unit_on"
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "variants": {
     "nuclearcraftneohaul_frame=false": {
-      "model": "nuclearcraftneohaul:block/machine_casing_false"
+      "model": "nuclearcraftneohaul:block/machine_casing_wall"
     },
     "nuclearcraftneohaul_frame=true": {
-      "model": "nuclearcraftneohaul:block/machine_casing_true"
+      "model": "nuclearcraftneohaul:block/machine_casing_frame"
     }
   }
 }

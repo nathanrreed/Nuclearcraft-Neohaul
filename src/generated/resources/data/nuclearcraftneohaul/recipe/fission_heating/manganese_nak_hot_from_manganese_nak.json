@@ -1,5 +1,6 @@
 {
   "type": "nuclearcraftneohaul:fission_heating_recipe",
+  "coolantHeater": "manganese",
   "fluidIngredient": {
     "amount": 1,
     "ingredient": {
@@ -11,7 +12,5 @@
     "ingredient": {
       "fluid": "nuclearcraftneohaul:manganese_nak_hot"
     }
-  },
-  "heatPerInputMB": 150,
-  "isCoolant": true
+  }
 }

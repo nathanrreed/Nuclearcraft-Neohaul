@@ -3,7 +3,6 @@ package com.nred.nuclearcraft.block_entity;
 import com.nred.nuclearcraft.block.IDynamicState;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -31,8 +30,7 @@ public abstract class NCTile extends BlockEntity implements ITile { // TODO chec
 
     @Override
     public void onLoad() {
-        if (level.isClientSide) {
-            ClientLevel l;
+        if (level.isClientSide()) {
             refreshIsRedstonePowered(level, worldPosition);
             setChanged();
             updateComparatorOutputLevel();

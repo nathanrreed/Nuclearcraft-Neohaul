@@ -1,5 +1,6 @@
 {
   "type": "nuclearcraftneohaul:fission_heating_recipe",
+  "coolantHeater": "glowstone",
   "fluidIngredient": {
     "amount": 1,
     "ingredient": {
@@ -11,7 +12,5 @@
     "ingredient": {
       "fluid": "nuclearcraftneohaul:glowstone_nak_hot"
     }
-  },
-  "heatPerInputMB": 90,
-  "isCoolant": true
+  }
 }

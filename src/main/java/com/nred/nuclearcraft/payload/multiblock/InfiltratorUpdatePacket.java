@@ -8,6 +8,7 @@ import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -49,6 +50,11 @@ public class InfiltratorUpdatePacket extends MachineUpdatePacket {
         super.toBytes(buf);
         buf.writeDouble(pressureFluidEfficiency);
         buf.writeDouble(heatingBonus);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     public static class Handler extends MultiblockUpdatePacket.Handler<Machine, MachineUpdatePacket, InfiltratorControllerEntity, TileContainerInfo<InfiltratorControllerEntity>, InfiltratorUpdatePacket> {

@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:quartz_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 80,
   "placementRule": "quartz_heater"
 }

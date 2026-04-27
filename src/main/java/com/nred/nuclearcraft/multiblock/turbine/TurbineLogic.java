@@ -6,7 +6,6 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.turbine.*;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
@@ -15,6 +14,7 @@ import com.nred.nuclearcraft.multiblock.turbine.Turbine.PlaneDir;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.*;
 import com.nred.nuclearcraft.payload.multiblock.TurbineRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.TurbineUpdatePacket;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.registration.SoundRegistration;
 import com.nred.nuclearcraft.util.BlockStateHelper;
@@ -127,7 +127,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             return;
         }
 
-        if (!getWorld().isClientSide) {
+        if (!getWorld().isClientSide()) {
             componentFailCache.clear();
             do {
                 assumedValidCache.clear();
@@ -136,31 +136,33 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             while (searchFlag);
 
             refreshDynamoStats();
+        }
 
-            for (TurbineRotorShaftEntity shaft : getParts(TurbineRotorShaftEntity.class)) {
-                BlockPos pos = shaft.getBlockPos();
-                BlockState state = getWorld().getBlockState(pos);
-                if (state.getBlock() instanceof TurbineRotorShaftBlock) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
-                }
+        for (TurbineRotorShaftEntity shaft : getParts(TurbineRotorShaftEntity.class)) {
+            BlockPos pos = shaft.getBlockPos();
+            BlockState state = getWorld().getBlockState(pos);
+            if (state.getBlock() instanceof TurbineRotorShaftBlock) {
+                getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 0);
             }
+        }
 
-            for (TurbineRotorBladeEntity blade : getParts(TurbineRotorBladeEntity.class)) {
-                BlockPos pos = blade.bladePos();
-                BlockState state = getWorld().getBlockState(pos);
-                if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
-                }
+        for (TurbineRotorBladeEntity blade : getParts(TurbineRotorBladeEntity.class)) {
+            BlockPos pos = blade.bladePos();
+            BlockState state = getWorld().getBlockState(pos);
+            if (state.getBlock() instanceof IBlockRotorBlade) {
+                getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 0);
             }
+        }
 
-            for (TurbineRotorStatorEntity stator : getParts(TurbineRotorStatorEntity.class)) {
-                BlockPos pos = stator.bladePos();
-                BlockState state = getWorld().getBlockState(pos);
-                if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 3);
-                }
+        for (TurbineRotorStatorEntity stator : getParts(TurbineRotorStatorEntity.class)) {
+            BlockPos pos = stator.bladePos();
+            BlockState state = getWorld().getBlockState(pos);
+            if (state.getBlock() instanceof IBlockRotorBlade) {
+                getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, TurbinePartDir.INVISIBLE), 0);
             }
+        }
 
+        if (!getWorld().isClientSide()) {
             for (TurbineDynamoEntityPart dynamoPart : getParts(TurbineDynamoEntityPart.class)) {
                 for (Direction side : Direction.values()) {
                     dynamoPart.setEnergyConnection(side == multiblock.flowDir || side == multiblock.flowDir.getOpposite() ? EnergyConnection.OUT : EnergyConnection.NON, side);
@@ -316,8 +318,8 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
         }
     }
 
-    protected void makeRotorVisible() {
-        multiblock.shouldSpecialRenderRotor = false; // TODO find a way to make this faster
+    public void makeRotorVisible() {
+        multiblock.shouldSpecialRenderRotor = false; // TODO is there a way to make this faster?
 
         if (multiblock.flowDir != null) {
             TurbinePartDir shaftDir = multiblock.getShaftDir();
@@ -325,7 +327,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 BlockPos pos = shaft.getBlockPos();
                 BlockState state = getWorld().getBlockState(pos);
                 if (state.getBlock() instanceof TurbineRotorShaftBlock) {
-                    getWorld().setBlockAndUpdate(pos, state.setValue(TurbineRotorBladeUtil.DIR, shaftDir));
+                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, shaftDir), 0);
                 }
             }
 
@@ -333,7 +335,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 BlockPos pos = blade.bladePos();
                 BlockState state = getWorld().getBlockState(pos);
                 if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getWorld().setBlockAndUpdate(pos, state.setValue(TurbineRotorBladeUtil.DIR, blade.getDir()));
+                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, blade.getDir()), 0);
                 }
             }
 
@@ -341,7 +343,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 BlockPos pos = stator.bladePos();
                 BlockState state = getWorld().getBlockState(pos);
                 if (state.getBlock() instanceof IBlockRotorBlade) {
-                    getWorld().setBlockAndUpdate(pos, state.setValue(TurbineRotorBladeUtil.DIR, stator.getDir()));
+                    getWorld().setBlock(pos, state.setValue(TurbineRotorBladeUtil.DIR, stator.getDir()), 0);
                 }
             }
         }

@@ -258,16 +258,14 @@ public class ModEmiPlugin implements EmiPlugin {
             registry.addRecipe(new EmiFissionEmergencyCoolingRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
-        Stream<EmiStack> hx_tubes = HX_ENTITY_TYPE.get("tube").get().getValidBlocks().stream().map(EmiStack::of);
-
         registry.addCategory(EMI_HEAT_EXCHANGER_CATEGORY);
-        addWorkstations(registry, EMI_HEAT_EXCHANGER_CATEGORY, Stream.concat(Stream.of(HEAT_EXCHANGER_WORKSTATION), hx_tubes).toList());
+        addWorkstations(registry, EMI_HEAT_EXCHANGER_CATEGORY, Stream.concat(Stream.of(HEAT_EXCHANGER_WORKSTATION), HX_ENTITY_TYPE.get("tube").get().getValidBlocks().stream().map(EmiStack::of)).toList());
         for (RecipeHolder<HeatExchangerRecipe> recipe : manager.getAllRecipesFor(HEAT_EXCHANGER_RECIPE_TYPE.get())) {
             registry.addRecipe(new EmiHeatExchangerRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
         registry.addCategory(EMI_CONDENSER_CATEGORY);
-        addWorkstations(registry, EMI_CONDENSER_CATEGORY, Stream.concat(Stream.of(CONDENSER_WORKSTATION), hx_tubes).toList());
+        addWorkstations(registry, EMI_CONDENSER_CATEGORY, Stream.concat(Stream.of(CONDENSER_WORKSTATION), HX_ENTITY_TYPE.get("tube").get().getValidBlocks().stream().map(EmiStack::of)).toList());
         for (RecipeHolder<CondenserRecipe> recipe : manager.getAllRecipesFor(CONDENSER_RECIPE_TYPE.get())) {
             registry.addRecipe(new EmiCondenserRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }

@@ -27,7 +27,7 @@ public class ElectrolyzerControllerEntity extends AbstractMachineEntity implemen
     protected boolean isRenderer = false;
 
     public ElectrolyzerControllerEntity(BlockPos pos, BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("controller").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("electrolyzer_controller").get(), pos, blockState);
     }
 
     @Override

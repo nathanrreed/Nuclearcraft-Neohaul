@@ -1,5 +1,6 @@
 {
   "type": "nuclearcraftneohaul:fission_heating_recipe",
+  "coolantHeater": "end_stone",
   "fluidIngredient": {
     "amount": 1,
     "ingredient": {
@@ -11,7 +12,5 @@
     "ingredient": {
       "fluid": "nuclearcraftneohaul:end_stone_nak_hot"
     }
-  },
-  "heatPerInputMB": 65,
-  "isCoolant": true
+  }
 }

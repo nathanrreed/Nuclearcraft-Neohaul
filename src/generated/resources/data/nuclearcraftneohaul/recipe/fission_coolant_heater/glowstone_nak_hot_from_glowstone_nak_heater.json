@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:glowstone_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 90,
   "placementRule": "glowstone_heater"
 }

@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:liquid_helium_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 190,
   "placementRule": "liquid_helium_heater"
 }

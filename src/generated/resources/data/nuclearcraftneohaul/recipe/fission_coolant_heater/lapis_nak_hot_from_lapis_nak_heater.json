@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:lapis_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 100,
   "placementRule": "lapis_heater"
 }

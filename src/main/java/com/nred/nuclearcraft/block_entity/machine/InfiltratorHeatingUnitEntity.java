@@ -9,7 +9,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE
 
 public class InfiltratorHeatingUnitEntity extends AbstractMachineEntity {
     public InfiltratorHeatingUnitEntity(BlockPos pos, BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("heating_unit").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("infiltrator_heating_unit").get(), pos, blockState);
     }
 
     @Override

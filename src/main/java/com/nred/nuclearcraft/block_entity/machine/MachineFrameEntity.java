@@ -11,7 +11,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FRAME;
 
 public class MachineFrameEntity extends AbstractMachineEntity {
     public MachineFrameEntity(final BlockPos position, final BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("casing").get(), position, blockState);
+        super(MACHINE_ENTITY_TYPE.get("frame").get(), position, blockState);
     }
 
     @Override
@@ -22,15 +22,15 @@ public class MachineFrameEntity extends AbstractMachineEntity {
     @Override
     public void onPreMachineAssembled(Machine controller) {
         super.onPreMachineAssembled(controller);
-        if (!level.isClientSide() && getPartPosition().isFrame()) {
-            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 2);
+        if (getPartPosition().isFrame()) {
+            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 0);
         }
     }
 
     @Override
     public void onPreMachineBroken() {
-        if (!level.isClientSide() && getPartPosition().isFrame()) {
-            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, false), 2);
+        if (getPartPosition().isFrame()) {
+            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, false), 0);
         }
         super.onPreMachineBroken();
     }

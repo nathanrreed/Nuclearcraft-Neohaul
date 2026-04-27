@@ -1,5 +1,6 @@
 {
   "type": "nuclearcraftneohaul:fission_heating_recipe",
+  "coolantHeater": "cryotheum",
   "fluidIngredient": {
     "amount": 1,
     "ingredient": {
@@ -11,7 +12,5 @@
     "ingredient": {
       "fluid": "nuclearcraftneohaul:cryotheum_nak_hot"
     }
-  },
-  "heatPerInputMB": 205,
-  "isCoolant": true
+  }
 }

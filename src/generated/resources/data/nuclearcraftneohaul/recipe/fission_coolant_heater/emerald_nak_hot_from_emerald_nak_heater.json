@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:emerald_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 195,
   "placementRule": "emerald_heater"
 }

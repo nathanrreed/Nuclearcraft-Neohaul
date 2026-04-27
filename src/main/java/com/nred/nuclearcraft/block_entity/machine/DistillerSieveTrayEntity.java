@@ -11,7 +11,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.INVISIBLE;
 
 public class DistillerSieveTrayEntity extends AbstractMachineEntity {
     public DistillerSieveTrayEntity(BlockPos pos, BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("sieve_tray").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("distiller_sieve_tray").get(), pos, blockState);
     }
 
     @Override

@@ -180,7 +180,7 @@ public final class FissionPeripheral extends MultiblockPeripheral<FissionReactor
 
     @Override
     public String getType() {
-        return ncLoc("multiblock").toString();
+        return ncLoc("fission").toString();
     }
 
     @Override

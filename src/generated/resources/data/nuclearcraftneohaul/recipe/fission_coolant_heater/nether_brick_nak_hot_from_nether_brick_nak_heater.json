@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:nether_brick_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 105,
   "placementRule": "nether_brick_heater"
 }

@@ -14,7 +14,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE
 
 public class ElectrolyzerCathodeTerminalEntity extends AbstractMachineEntity {
     public ElectrolyzerCathodeTerminalEntity(BlockPos pos, BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("cathode_terminal").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("electrolyzer_cathode_terminal").get(), pos, blockState);
     }
 
     @Override

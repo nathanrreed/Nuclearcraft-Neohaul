@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 @EventBusSubscriber(modid = MODID)
-public class NCConfig { // TODO make a new screen subclass that makes editing this nicer in game
+public class NCConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static final String CATEGORY_PROCESSOR = "processor";
@@ -28,7 +28,7 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
     public static final String CATEGORY_FISSION = "fission";
     public static final String CATEGORY_FUSION = "fusion";
     public static final String CATEGORY_HEAT_EXCHANGER = "heat_exchanger";
-    public static final String CATEGORY_TURBINE = "multiblock";
+    public static final String CATEGORY_TURBINE = "turbine";
     public static final String CATEGORY_QUANTUM = "quantum";
     public static final String CATEGORY_TOOL = "tool";
     public static final String CATEGORY_ARMOR = "armour";
@@ -81,7 +81,6 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
     public static int machine_infiltrator_power;
     public static double machine_infiltrator_sound_volume;
 
-    // TODO move all these out of here if possible
     public static int fission_min_size; // Default: 1
     public static int fission_max_size; // Default: 24
     public static double fission_fuel_time_multiplier; // Default: 1
@@ -91,7 +90,7 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
     public static double[] fission_source_efficiency;
     public static int[] fission_sink_cooling_rate;
     public static String[] fission_sink_rule;
-    public static int[] fission_heater_cooling_rate = new int[]{55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205}; // TODO FIX
+    public static int[] fission_heater_cooling_rate;
     public static String[] fission_heater_rule;
     public static double[] fission_shield_heat_per_flux;
     public static double[] fission_shield_efficiency;
@@ -136,6 +135,7 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
     public static int heat_exchanger_max_size; // Default: 24
     public static double[] heat_exchanger_heat_transfer_coefficient;
     public static double[] heat_exchanger_heat_retention_mult;
+    public static double heat_exchanger_coolant_heat_mult;
     public static boolean heat_exchanger_lmtd;
 
     public static int turbine_min_size; // Default: 1
@@ -325,6 +325,7 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
         fission_source_efficiency = syncDoubles(FISSION_SOURCE_EFFICIENCY, ARRAY);
         fission_sink_cooling_rate = syncInts(FISSION_SINK_COOLING_RATE, ARRAY);
         fission_sink_rule = syncStrings(FISSION_SINK_RULE, ARRAY);
+        fission_heater_cooling_rate = syncInts(FISSION_HEATER_COOLING_RATE, ARRAY);
         fission_heater_rule = syncStrings(FISSION_HEATER_RULE, ARRAY);
         fission_shield_heat_per_flux = syncDoubles(FISSION_SHIELD_HEAT_PER_FLUX, ARRAY);
         fission_shield_efficiency = syncDoubles(FISSION_SHIELD_EFFICIENCY, ARRAY);
@@ -346,29 +347,29 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
         fission_heat_dissipation_rate = FISSION_HEAT_DISSIPATION_RATE.getAsDouble();
         fission_sound_volume = FISSION_SOUND_VOLUME.getAsDouble();
 
-        fusion_fuel_time_multiplier = FUSION_FUEL_TIME_MULTIPLIER.getAsDouble();
-        fusion_fuel_heat_multiplier = FUSION_FUEL_HEAT_MULTIPLIER.getAsDouble();
-        fusion_fuel_efficiency_multiplier = FUSION_FUEL_EFFICIENCY_MULTIPLIER.getAsDouble();
-        fusion_fuel_radiation_multiplier = FUSION_FUEL_RADIATION_MULTIPLIER.getAsDouble();
-        fusion_overheat = FUSION_OVERHEAT.getAsBoolean();
-        fusion_meltdown_radiation_multiplier = FUSION_MELTDOWN_RADIATION_MULTIPLIER.getAsDouble();
-        fusion_min_size = FUSION_MIN_SIZE.getAsInt();
-        fusion_max_size = FUSION_MAX_SIZE.getAsInt();
-        fusion_comparator_max_efficiency = FUSION_COMPARATOR_MAX_EFFICIENCY.getAsInt();
-        fusion_electromagnet_power = FUSION_ELECTROMAGNET_POWER.getAsDouble();
-        fusion_plasma_craziness = FUSION_PLASMA_CRAZINESS.getAsBoolean();
-        fusion_sound_volume = FUSION_SOUND_VOLUME.getAsDouble();
-
-        fusion_fuel_time = syncDoubles(FUSION_FUEL_TIME, ARRAY);
-        fusion_fuel_heat_generation = syncDoubles(FUSION_FUEL_HEAT_GENERATION, ARRAY);
-        // TODO: multiply by R
-        fusion_fuel_optimal_temperature = syncDoubles(FUSION_FUEL_OPTIMAL_TEMPERATURE, ARRAY);
-        fusion_radiation = syncDoubles(FUSION_RADIATION, ARRAY);
+//        fusion_fuel_time_multiplier = FUSION_FUEL_TIME_MULTIPLIER.getAsDouble(); TODO
+//        fusion_fuel_heat_multiplier = FUSION_FUEL_HEAT_MULTIPLIER.getAsDouble();
+//        fusion_fuel_efficiency_multiplier = FUSION_FUEL_EFFICIENCY_MULTIPLIER.getAsDouble();
+//        fusion_fuel_radiation_multiplier = FUSION_FUEL_RADIATION_MULTIPLIER.getAsDouble();
+//        fusion_overheat = FUSION_OVERHEAT.getAsBoolean();
+//        fusion_meltdown_radiation_multiplier = FUSION_MELTDOWN_RADIATION_MULTIPLIER.getAsDouble();
+//        fusion_min_size = FUSION_MIN_SIZE.getAsInt();
+//        fusion_max_size = FUSION_MAX_SIZE.getAsInt();
+//        fusion_comparator_max_efficiency = FUSION_COMPARATOR_MAX_EFFICIENCY.getAsInt();
+//        fusion_electromagnet_power = FUSION_ELECTROMAGNET_POWER.getAsDouble();
+//        fusion_plasma_craziness = FUSION_PLASMA_CRAZINESS.getAsBoolean();
+//        fusion_sound_volume = FUSION_SOUND_VOLUME.getAsDouble();
+//
+//        fusion_fuel_time = syncDoubles(FUSION_FUEL_TIME, ARRAY);
+//        fusion_fuel_heat_generation = syncDoubles(FUSION_FUEL_HEAT_GENERATION, ARRAY);
+//        fusion_fuel_optimal_temperature = syncDoubles(FUSION_FUEL_OPTIMAL_TEMPERATURE, ARRAY);
+//        fusion_radiation = syncDoubles(FUSION_RADIATION, ARRAY);
 
         heat_exchanger_min_size = HEAT_EXCHANGER_MIN_SIZE.getAsInt();
         heat_exchanger_max_size = HEAT_EXCHANGER_MAX_SIZE.getAsInt();
         heat_exchanger_heat_transfer_coefficient = syncDoubles(HEAT_EXCHANGER_HEAT_TRANSFER_COEFFICIENT, ARRAY);
         heat_exchanger_heat_retention_mult = syncDoubles(HEAT_EXCHANGER_HEAT_RETENTION_MULT, ARRAY);
+        heat_exchanger_coolant_heat_mult = HEAT_EXCHANGER_COOLANT_HEAT_MULT.getAsDouble();
         heat_exchanger_lmtd = HEAT_EXCHANGER_LMTD.getAsBoolean();
 
         turbine_min_size = TURBINE_MIN_SIZE.getAsInt();
@@ -550,13 +551,13 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SOURCE_EFFICIENCY = add(CATEGORY_FISSION, "fission_source_efficiency", List.of(0.9D, 0.95D, 1D), 0D, 255D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_SINK_COOLING_RATE = add(CATEGORY_FISSION, "fission_sink_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_SINK_RULE = addString(CATEGORY_FISSION, "fission_sink_rule", List.of("one cell", "one moderator", "one cell && one moderator", "one redstone sink", "two axial glowstone sinks", "one obsidian sink", "two moderators", "one cell && one casing", "exactly two iron sinks", "two water sinks", "exactly one water sink && two lead sinks", "one reflector", "one reflector && one iron sink", "one cell && one gold sink", "one moderator && one prismarine sink", "one water sink", "two axial lapis sinks", "one iron sink", "exactly one quartz sink && one casing", "exactly two axial lead sinks && one casing", "exactly one moderator && one casing", "two cells", "one quartz sink && one lapis sink", "two glowstone sinks && one tin sink", "one gold sink && one prismarine sink", "one redstone sink && one end_stone sink", "one end_stone sink && one copper sink", "two axial reflectors", "two copper sinks && one purpur sink", "exactly two redstone sinks", "three moderators", "three cells"), ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_HEATER_COOLING_RATE = add(CATEGORY_FISSION, "fission_heater_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_HEATER_RULE = addString(CATEGORY_FISSION, "fission_heater_rule", List.of("one vessel", "one moderator", "one vessel && one moderator", "one redstone heater", "two axial glowstone heaters", "one obsidian heater", "two moderators", "one vessel && one casing", "exactly two iron heaters", "two standard heaters", "exactly one standard heater && two lead heaters", "one reflector", "one reflector && one iron heater", "one vessel && one gold heater", "one moderator && one prismarine heater", "one standard heater", "two axial lapis heaters", "one iron heater", "exactly one quartz heater && one casing", "exactly two axial lead heaters && one casing", "exactly one moderator && one casing", "two vessels", "one quartz heater && one lapis heater", "two glowstone heaters && one tin heater", "one gold heater && one prismarine heater", "one redstone heater && one end_stone heater", "one end_stone heater && one copper heater", "two axial reflectors", "two copper heaters && one purpur heater", "exactly two redstone heaters", "three moderators", "three vessels"), ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D), 0D, 32767D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D), 0D, 255D, ARRAY);
     private static final ModConfigSpec.IntValue FISSION_COOLING_EFFICIENCY_LENIENCY = add(CATEGORY_FISSION, "fission_cooling_efficiency_leniency", 10, 0, 32767);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SPARSITY_PENALTY_PARAMS = add(CATEGORY_FISSION, "fission_sparsity_penalty_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
     private static final ModConfigSpec.DoubleValue FISSION_HEATING_COOLANT_HEAT_MULT = add(CATEGORY_FISSION, "fission_heating_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
-
     private static final ModConfigSpec.BooleanValue FISSION_DECAY_MECHANICS = add(CATEGORY_FISSION, "fission_decay_mechanics", false);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_BUILD_UP_TIMES = add(CATEGORY_FISSION, "fission_decay_build_up_times", List.of(24000D, 24000D, 24000D), 0D, Integer.MAX_VALUE, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_LIFETIMES = add(CATEGORY_FISSION, "fission_decay_lifetimes", List.of(6000D, 8000D, 12000D), 0D, Integer.MAX_VALUE, ARRAY);
@@ -571,29 +572,31 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
     private static final ModConfigSpec.DoubleValue FISSION_HEAT_DISSIPATION_RATE = add(CATEGORY_FISSION, "fission_heat_dissipation_rate", 0D, 1D / 292032000D, 1D);
     private static final ModConfigSpec.DoubleValue FISSION_SOUND_VOLUME = add(CATEGORY_FISSION, "fission_sound_volume", 1D, 0D, 15D);
 
-    private static final ModConfigSpec.DoubleValue FUSION_FUEL_TIME_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_time_multiplier", 1D, 0.001D, 255D);
-    private static final ModConfigSpec.DoubleValue FUSION_FUEL_HEAT_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_heat_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.DoubleValue FUSION_FUEL_EFFICIENCY_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_efficiency_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.DoubleValue FUSION_FUEL_RADIATION_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_radiation_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.BooleanValue FUSION_OVERHEAT = add(CATEGORY_FUSION, "fusion_overheat", true);
-    private static final ModConfigSpec.DoubleValue FUSION_MELTDOWN_RADIATION_MULTIPLIER = add(CATEGORY_FUSION, "fusion_meltdown_radiation_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.IntValue FUSION_MIN_SIZE = add(CATEGORY_FUSION, "fusion_min_size", 1, 1, 255);
-    private static final ModConfigSpec.IntValue FUSION_MAX_SIZE = add(CATEGORY_FUSION, "fusion_max_size", 24, 1, 255);
-    private static final ModConfigSpec.IntValue FUSION_COMPARATOR_MAX_EFFICIENCY = add(CATEGORY_FUSION, "fusion_comparator_max_efficiency", 90, 1, 100);
-    private static final ModConfigSpec.DoubleValue FUSION_ELECTROMAGNET_POWER = add(CATEGORY_FUSION, "fusion_electromagnet_power", 250D, 0D, Integer.MAX_VALUE);
-    private static final ModConfigSpec.BooleanValue FUSION_PLASMA_CRAZINESS = add(CATEGORY_FUSION, "fusion_plasma_craziness", true);
-    private static final ModConfigSpec.DoubleValue FUSION_SOUND_VOLUME = add(CATEGORY_FUSION, "fusion_sound_volume", 1D, 0D, 15D);
-
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_TIME = add(CATEGORY_FUSION, "fusion_fuel_time", List.of(100D, 150D, 200D, 200D, 350D, 400D, 600D, 200D, 250D, 250D, 400D, 450D, 650D, 300D, 300D, 450D, 500D, 700D, 300D, 450D, 500D, 700D, 600D, 650D, 850D, 700D, 900D, 1100D), 1D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_HEAT_GENERATION = add(CATEGORY_FUSION, "fusion_fuel_heat_generation", List.of(44200D, 112300D, 30D, 303600D, 35100D, 133000D, 44400D, 50700D, 172600D, 225200D, 171600D, 85900D, 26100D, 90100D, 109900D, 91500D, 43500D, 700D, 131500D, 115100D, 72700D, 14000D, 106800D, 55200D, 15700D, 22900D, 45D, 5D), 0D, Integer.MAX_VALUE, ARRAY);
-    // TODO: multiply by R
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_OPTIMAL_TEMPERATURE = add(CATEGORY_FUSION, "fusion_fuel_optimal_temperature", List.of(3635D, 1022D, 4964D, 2740D, 5972D, 4161D, 13432D, 949D, 670D, 2160D, 3954D, 4131D, 13853D, 736D, 2137D, 4079D, 4522D, 27254D, 5420D, 7800D, 7937D, 24266D, 11268D, 11927D, 30399D, 13630D, 166414D, 293984D), 500D, 20000D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_RADIATION = add(CATEGORY_FUSION, "fusion_radiation", List.of(RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM + RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM / 2D + RadSources.NEUTRON / 2D) / 64D, (RadSources.FUSION + RadSources.TRITIUM + RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.TRITIUM + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D), 0D, 1000D, ARRAY);
+//    TODO
+//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_TIME_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_time_multiplier", 1D, 0.001D, 255D);
+//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_HEAT_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_heat_multiplier", 1D, 0D, 255D);
+//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_EFFICIENCY_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_efficiency_multiplier", 1D, 0D, 255D);
+//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_RADIATION_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_radiation_multiplier", 1D, 0D, 255D);
+//    private static final ModConfigSpec.BooleanValue FUSION_OVERHEAT = add(CATEGORY_FUSION, "fusion_overheat", true);
+//    private static final ModConfigSpec.DoubleValue FUSION_MELTDOWN_RADIATION_MULTIPLIER = add(CATEGORY_FUSION, "fusion_meltdown_radiation_multiplier", 1D, 0D, 255D);
+//    private static final ModConfigSpec.IntValue FUSION_MIN_SIZE = add(CATEGORY_FUSION, "fusion_min_size", 1, 1, 255);
+//    private static final ModConfigSpec.IntValue FUSION_MAX_SIZE = add(CATEGORY_FUSION, "fusion_max_size", 24, 1, 255);
+//    private static final ModConfigSpec.IntValue FUSION_COMPARATOR_MAX_EFFICIENCY = add(CATEGORY_FUSION, "fusion_comparator_max_efficiency", 90, 1, 100);
+//    private static final ModConfigSpec.DoubleValue FUSION_ELECTROMAGNET_POWER = add(CATEGORY_FUSION, "fusion_electromagnet_power", 250D, 0D, Integer.MAX_VALUE);
+//    private static final ModConfigSpec.BooleanValue FUSION_PLASMA_CRAZINESS = add(CATEGORY_FUSION, "fusion_plasma_craziness", true);
+//    private static final ModConfigSpec.DoubleValue FUSION_SOUND_VOLUME = add(CATEGORY_FUSION, "fusion_sound_volume", 1D, 0D, 15D);
+//
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_TIME = add(CATEGORY_FUSION, "fusion_fuel_time", List.of(100D, 150D, 200D, 200D, 350D, 400D, 600D, 200D, 250D, 250D, 400D, 450D, 650D, 300D, 300D, 450D, 500D, 700D, 300D, 450D, 500D, 700D, 600D, 650D, 850D, 700D, 900D, 1100D), 1D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_HEAT_GENERATION = add(CATEGORY_FUSION, "fusion_fuel_heat_generation", List.of(44200D, 112300D, 30D, 303600D, 35100D, 133000D, 44400D, 50700D, 172600D, 225200D, 171600D, 85900D, 26100D, 90100D, 109900D, 91500D, 43500D, 700D, 131500D, 115100D, 72700D, 14000D, 106800D, 55200D, 15700D, 22900D, 45D, 5D), 0D, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_OPTIMAL_TEMPERATURE = add(CATEGORY_FUSION, "fusion_fuel_optimal_temperature", List.of(3635D, 1022D, 4964D, 2740D, 5972D, 4161D, 13432D, 949D, 670D, 2160D, 3954D, 4131D, 13853D, 736D, 2137D, 4079D, 4522D, 27254D, 5420D, 7800D, 7937D, 24266D, 11268D, 11927D, 30399D, 13630D, 166414D, 293984D), 500D, 20000D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_RADIATION = add(CATEGORY_FUSION, "fusion_radiation", List.of(RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM + RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM / 2D + RadSources.NEUTRON / 2D) / 64D, (RadSources.FUSION + RadSources.TRITIUM + RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.TRITIUM + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D), 0D, 1000D, ARRAY);
 
     private static final ModConfigSpec.IntValue HEAT_EXCHANGER_MIN_SIZE = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_min_size", 1, 1, 255);
     private static final ModConfigSpec.IntValue HEAT_EXCHANGER_MAX_SIZE = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_max_size", 24, 2, 255);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_TRANSFER_COEFFICIENT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_transfer_coefficient", List.of(16D, 24D, 32D), 0.001D, Integer.MAX_VALUE, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_RETENTION_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_retention_mult", List.of(0.9D, 0.95D, 1D), 0.01D, 1D, ARRAY);
+    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_COOLANT_HEAT_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_coolant_heat_mult", 4.0, 0.001, Double.MAX_VALUE);
+
     private static final ModConfigSpec.BooleanValue HEAT_EXCHANGER_LMTD = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_lmtd", false);
 
     private static final ModConfigSpec.IntValue TURBINE_MIN_SIZE = add(CATEGORY_TURBINE, "turbine_min_size", 1, 1, 255);
@@ -621,17 +624,17 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
     private static final ModConfigSpec.IntValue QUANTUM_MAX_QUBITS = add(CATEGORY_QUANTUM, "quantum_max_qubits", 16, 1, 24);
     private static final ModConfigSpec.IntValue QUANTUM_ANGLE_PRECISION = add(CATEGORY_QUANTUM, "quantum_angle_precision", 16, 4, 1024);
 
-    private static final ModConfigSpec.IntValue ENTITY_TRACKING_RANGE = add(CATEGORY_ENTITY, "entity_tracking_range", 64, 1, 255);
+    private static final ModConfigSpec.IntValue ENTITY_TRACKING_RANGE = add(CATEGORY_ENTITY, "entity_tracking_range", 8, 1, 255);
 
     private static final ModConfigSpec.BooleanValue RADIATION_ENABLED = add(CATEGORY_RADIATION, "radiation_enabled", true);
 
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_IMMUNE_PLAYERS = addString(CATEGORY_RADIATION, "radiation_immune_players", List.of(), LIST);
     private static final ModConfigSpec.IntValue RADIATION_LEVEL_CHUNKS_PER_TICK = add(CATEGORY_RADIATION, "radiation_level_chunks_per_tick", 5, 1, 400);
     private static final ModConfigSpec.IntValue RADIATION_PLAYER_TICK_RATE = add(CATEGORY_RADIATION, "radiation_player_tick_rate", 5, 1, 400);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIMS = addString(CATEGORY_RADIATION, "radiation_worlds", List.of("nuclearcraftneohaul:nuclear_wasteland_2.25"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIMS = addString(CATEGORY_RADIATION, "radiation_dims", List.of("nuclearcraftneohaul:nuclear_wasteland_2.25"), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOMES = addString(CATEGORY_RADIATION, "radiation_biomes", List.of("nuclearcraftneohaul:nuclear_wasteland_0.25"), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_STRUCTURES = addString(CATEGORY_RADIATION, "radiation_structures", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIM_LIMITS = addString(CATEGORY_RADIATION, "radiation_level_limits", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIM_LIMITS = addString(CATEGORY_RADIATION, "radiation_dim_limits", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOME_LIMITS = addString(CATEGORY_RADIATION, "radiation_biome_limits", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FROM_BIOMES_DIMS_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_from_biomes_dims_blacklist", List.of(), e -> e instanceof String && ResourceLocation.tryParse((String) e) != null, LIST);
 
@@ -766,7 +769,7 @@ public class NCConfig { // TODO make a new screen subclass that makes editing th
         return BUILDER.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
     }
 
-    public static ModConfigSpec.ConfigValue<List<? extends Integer>> add(String category, String name, List<Integer> defaultValue, int minValue, int maxValue) {
+    public static ModConfigSpec.ConfigValue<List<? extends Integer>> add(String category, String name, List<Integer> defaultValue) {
         return BUILDER.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, () -> 0, e -> e instanceof Integer);
     }
 

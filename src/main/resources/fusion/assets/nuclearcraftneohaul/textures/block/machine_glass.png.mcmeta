@@ -1,0 +1,7 @@
+{
+    "fusion": {
+        "type": "connecting",
+        "render_type": "cutout",
+        "layout": "pieced"
+    }
+}

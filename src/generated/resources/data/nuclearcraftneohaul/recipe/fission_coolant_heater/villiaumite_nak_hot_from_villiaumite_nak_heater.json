@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:villiaumite_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 180,
   "placementRule": "villiaumite_heater"
 }

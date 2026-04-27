@@ -12,47 +12,54 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.config.NCConfig.fission_heater_cooling_rate;
 import static com.nred.nuclearcraft.registration.FluidRegistration.COOLANT_MAP;
 
 public class FissionCoolantHeaterType implements StringRepresentable, IMultiblockVariant {
-    public static final FissionCoolantHeaterType STANDARD = new FissionCoolantHeaterType("standard", 0, () -> fission_heater_cooling_rate[0]);
-    public static final FissionCoolantHeaterType IRON = new FissionCoolantHeaterType("iron", 1, () -> fission_heater_cooling_rate[1]);
-    public static final FissionCoolantHeaterType REDSTONE = new FissionCoolantHeaterType("redstone", 2, () -> fission_heater_cooling_rate[2]);
-    public static final FissionCoolantHeaterType QUARTZ = new FissionCoolantHeaterType("quartz", 3, () -> fission_heater_cooling_rate[3]);
-    public static final FissionCoolantHeaterType OBSIDIAN = new FissionCoolantHeaterType("obsidian", 4, () -> fission_heater_cooling_rate[4]);
-    public static final FissionCoolantHeaterType NETHER_BRICK = new FissionCoolantHeaterType("nether_brick", 5, () -> fission_heater_cooling_rate[5]);
-    public static final FissionCoolantHeaterType GLOWSTONE = new FissionCoolantHeaterType("glowstone", 6, () -> fission_heater_cooling_rate[6]);
-    public static final FissionCoolantHeaterType LAPIS = new FissionCoolantHeaterType("lapis", 7, () -> fission_heater_cooling_rate[7]);
-    public static final FissionCoolantHeaterType GOLD = new FissionCoolantHeaterType("gold", 8, () -> fission_heater_cooling_rate[8]);
-    public static final FissionCoolantHeaterType PRISMARINE = new FissionCoolantHeaterType("prismarine", 9, () -> fission_heater_cooling_rate[9]);
-    public static final FissionCoolantHeaterType SLIME = new FissionCoolantHeaterType("slime", 10, () -> fission_heater_cooling_rate[10]);
-    public static final FissionCoolantHeaterType END_STONE = new FissionCoolantHeaterType("end_stone", 11, () -> fission_heater_cooling_rate[11]);
-    public static final FissionCoolantHeaterType PURPUR = new FissionCoolantHeaterType("purpur", 12, () -> fission_heater_cooling_rate[12]);
-    public static final FissionCoolantHeaterType DIAMOND = new FissionCoolantHeaterType("diamond", 13, () -> fission_heater_cooling_rate[13]);
-    public static final FissionCoolantHeaterType EMERALD = new FissionCoolantHeaterType("emerald", 14, () -> fission_heater_cooling_rate[14]);
-    public static final FissionCoolantHeaterType COPPER = new FissionCoolantHeaterType("copper", 15, () -> fission_heater_cooling_rate[15]);
-    public static final FissionCoolantHeaterType TIN = new FissionCoolantHeaterType("tin", 16, () -> fission_heater_cooling_rate[16]);
-    public static final FissionCoolantHeaterType LEAD = new FissionCoolantHeaterType("lead", 17, () -> fission_heater_cooling_rate[17]);
-    public static final FissionCoolantHeaterType BORON = new FissionCoolantHeaterType("boron", 18, () -> fission_heater_cooling_rate[18]);
-    public static final FissionCoolantHeaterType LITHIUM = new FissionCoolantHeaterType("lithium", 19, () -> fission_heater_cooling_rate[19]);
-    public static final FissionCoolantHeaterType MAGNESIUM = new FissionCoolantHeaterType("magnesium", 20, () -> fission_heater_cooling_rate[20]);
-    public static final FissionCoolantHeaterType MANGANESE = new FissionCoolantHeaterType("manganese", 21, () -> fission_heater_cooling_rate[21]);
-    public static final FissionCoolantHeaterType ALUMINUM = new FissionCoolantHeaterType("aluminum", 22, () -> fission_heater_cooling_rate[22]);
-    public static final FissionCoolantHeaterType SILVER = new FissionCoolantHeaterType("silver", 23, () -> fission_heater_cooling_rate[23]);
-    public static final FissionCoolantHeaterType FLUORITE = new FissionCoolantHeaterType("fluorite", 24, () -> fission_heater_cooling_rate[24]);
-    public static final FissionCoolantHeaterType VILLIAUMITE = new FissionCoolantHeaterType("villiaumite", 25, () -> fission_heater_cooling_rate[25]);
-    public static final FissionCoolantHeaterType CAROBBIITE = new FissionCoolantHeaterType("carobbiite", 26, () -> fission_heater_cooling_rate[26]);
-    public static final FissionCoolantHeaterType ARSENIC = new FissionCoolantHeaterType("arsenic", 27, () -> fission_heater_cooling_rate[27]);
-    public static final FissionCoolantHeaterType LIQUID_NITROGEN = new FissionCoolantHeaterType("liquid_nitrogen", 28, () -> fission_heater_cooling_rate[28]);
-    public static final FissionCoolantHeaterType LIQUID_HELIUM = new FissionCoolantHeaterType("liquid_helium", 29, () -> fission_heater_cooling_rate[29]);
-    public static final FissionCoolantHeaterType ENDERIUM = new FissionCoolantHeaterType("enderium", 30, () -> fission_heater_cooling_rate[30]);
-    public static final FissionCoolantHeaterType CRYOTHEUM = new FissionCoolantHeaterType("cryotheum", 31, () -> fission_heater_cooling_rate[31]);
+    public static final HashMap<String, FissionCoolantHeaterType> DEFAULT_HEATER_MAP = new HashMap<>(Stream.of(
+            new FissionCoolantHeaterType("standard", 0, () -> fission_heater_cooling_rate[0]),
+            new FissionCoolantHeaterType("iron", 1, () -> fission_heater_cooling_rate[1]),
+            new FissionCoolantHeaterType("redstone", 2, () -> fission_heater_cooling_rate[2]),
+            new FissionCoolantHeaterType("quartz", 3, () -> fission_heater_cooling_rate[3]),
+            new FissionCoolantHeaterType("obsidian", 4, () -> fission_heater_cooling_rate[4]),
+            new FissionCoolantHeaterType("nether_brick", 5, () -> fission_heater_cooling_rate[5]),
+            new FissionCoolantHeaterType("glowstone", 6, () -> fission_heater_cooling_rate[6]),
+            new FissionCoolantHeaterType("lapis", 7, () -> fission_heater_cooling_rate[7]),
+            new FissionCoolantHeaterType("gold", 8, () -> fission_heater_cooling_rate[8]),
+            new FissionCoolantHeaterType("prismarine", 9, () -> fission_heater_cooling_rate[9]),
+            new FissionCoolantHeaterType("slime", 10, () -> fission_heater_cooling_rate[10]),
+            new FissionCoolantHeaterType("end_stone", 11, () -> fission_heater_cooling_rate[11]),
+            new FissionCoolantHeaterType("purpur", 12, () -> fission_heater_cooling_rate[12]),
+            new FissionCoolantHeaterType("diamond", 13, () -> fission_heater_cooling_rate[13]),
+            new FissionCoolantHeaterType("emerald", 14, () -> fission_heater_cooling_rate[14]),
+            new FissionCoolantHeaterType("copper", 15, () -> fission_heater_cooling_rate[15]),
+            new FissionCoolantHeaterType("tin", 16, () -> fission_heater_cooling_rate[16]),
+            new FissionCoolantHeaterType("lead", 17, () -> fission_heater_cooling_rate[17]),
+            new FissionCoolantHeaterType("boron", 18, () -> fission_heater_cooling_rate[18]),
+            new FissionCoolantHeaterType("lithium", 19, () -> fission_heater_cooling_rate[19]),
+            new FissionCoolantHeaterType("magnesium", 20, () -> fission_heater_cooling_rate[20]),
+            new FissionCoolantHeaterType("manganese", 21, () -> fission_heater_cooling_rate[21]),
+            new FissionCoolantHeaterType("aluminum", 22, () -> fission_heater_cooling_rate[22]),
+            new FissionCoolantHeaterType("silver", 23, () -> fission_heater_cooling_rate[23]),
+            new FissionCoolantHeaterType("fluorite", 24, () -> fission_heater_cooling_rate[24]),
+            new FissionCoolantHeaterType("villiaumite", 25, () -> fission_heater_cooling_rate[25]),
+            new FissionCoolantHeaterType("carobbiite", 26, () -> fission_heater_cooling_rate[26]),
+            new FissionCoolantHeaterType("arsenic", 27, () -> fission_heater_cooling_rate[27]),
+            new FissionCoolantHeaterType("liquid_nitrogen", 28, () -> fission_heater_cooling_rate[28]),
+            new FissionCoolantHeaterType("liquid_helium", 29, () -> fission_heater_cooling_rate[29]),
+            new FissionCoolantHeaterType("enderium", 30, () -> fission_heater_cooling_rate[30]),
+            new FissionCoolantHeaterType("cryotheum", 31, () -> fission_heater_cooling_rate[31])
+    ).collect(Collectors.toMap(FissionCoolantHeaterType::getName, e -> e)));
+    public static final ConcurrentHashMap<String, FissionCoolantHeaterType> ADDED_HEATER_MAP = new ConcurrentHashMap<>();
     private static final AtomicInteger _id = new AtomicInteger(31); // Used to increment KubeJS additions
 
     private final String name;
@@ -74,10 +81,19 @@ public class FissionCoolantHeaterType implements StringRepresentable, IMultibloc
     public FissionCoolantHeaterType(String name, Supplier<Integer> coolingRate, ResourceLocation fluid_id) { // Used by KubeJS
         this(name, _id.incrementAndGet(), coolingRate);
         this.coolantId = fluid_id;
+        ADDED_HEATER_MAP.put(name, this);
     }
 
     public static List<FissionCoolantHeaterType> default_values() {
-        return List.of(STANDARD, IRON, REDSTONE, QUARTZ, OBSIDIAN, NETHER_BRICK, GLOWSTONE, LAPIS, GOLD, PRISMARINE, SLIME, END_STONE, PURPUR, DIAMOND, EMERALD, COPPER, TIN, LEAD, BORON, LITHIUM, MAGNESIUM, MANGANESE, ALUMINUM, SILVER, FLUORITE, VILLIAUMITE, CAROBBIITE, ARSENIC, LIQUID_NITROGEN, LIQUID_HELIUM, ENDERIUM, CRYOTHEUM);
+        return DEFAULT_HEATER_MAP.values().stream().toList();
+    }
+
+    public static FissionCoolantHeaterType getType(String name) {
+        if (name.contains(":")) {
+            return ADDED_HEATER_MAP.get(name);
+        } else {
+            return DEFAULT_HEATER_MAP.get(name.replace("_heater", ""));
+        }
     }
 
     public PlacementRule<FissionReactor, AbstractFissionEntity> getRule() {

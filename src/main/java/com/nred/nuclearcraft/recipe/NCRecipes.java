@@ -12,6 +12,7 @@ import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
 import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
 import com.nred.nuclearcraft.recipe.processor.ElectricFurnaceRecipe;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
+import com.nred.nuclearcraft.util.NCUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.resources.ResourceLocation;
@@ -46,12 +47,12 @@ public class NCRecipes {
         return RECIPE_HANDLER_MAP.values();
     }
 
-    public static List<? extends BasicRecipe> getRecipeList(String name, @NotNull Level level) {
-        return getHandler(name).getRecipeList(level.getRecipeManager());
+    public static List<? extends BasicRecipe> getRecipeList(String name, Level level) {
+        return getHandler(name).getRecipeList(NCUtil.getRecipeManager(level));
     }
 
-    public static List<Set<ResourceLocation>> getValidFluids(String name, @NotNull Level level) {
-        return getHandler(name).getValidFluids(level.getRecipeManager());
+    public static List<Set<ResourceLocation>> getValidFluids(String name, Level level) {
+        return getHandler(name).getValidFluids(NCUtil.getRecipeManager(level));
     }
 
     public static List<Set<ResourceLocation>> getValidFluids(String name, RecipeManager recipeManager) {

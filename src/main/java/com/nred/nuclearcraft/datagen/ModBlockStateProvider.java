@@ -316,8 +316,8 @@ class ModBlockStateProvider extends BlockStateProvider {
         Block block = deferredBlock.get();
         String base = BLOCK_FOLDER + "/machine/distiller/";
 
-        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc("block/machine")).texture("top", modLoc(base + "reboiling_unit_top_on")).texture("bottom", modLoc(base + "reboiling_unit_bottom")).texture("side", modLoc(base + "reboiling_unit_side")).texture("back", modLoc(base + "reboiling_unit_side")).texture("front", modLoc(base + "reboiling_unit_side"));
-        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc("block/machine")).texture("top", modLoc(base + "reboiling_unit_top_off")).texture("bottom", modLoc(base + "reboiling_unit_bottom")).texture("side", modLoc(base + "reboiling_unit_side")).texture("back", modLoc(base + "reboiling_unit_side")).texture("front", modLoc(base + "reboiling_unit_side"));
+        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_on", modLoc("block/machine")).texture("top", modLoc(base + "reboiling_unit_top_on")).texture("bottom", modLoc(base + "reboiling_unit_bottom")).texture("side", modLoc(base + "reboiling_unit_side")).texture("back", modLoc(base + "reboiling_unit_side")).texture("front", modLoc(base + "reboiling_unit_side"));
+        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_off", modLoc("block/machine")).texture("top", modLoc(base + "reboiling_unit_top_off")).texture("bottom", modLoc(base + "reboiling_unit_bottom")).texture("side", modLoc(base + "reboiling_unit_side")).texture("back", modLoc(base + "reboiling_unit_side")).texture("front", modLoc(base + "reboiling_unit_side"));
 
         propertyBlock(block, state -> state.getValue(ACTIVE) ? modelTrue : modelFalse);
         simpleBlockItem(block, modelFalse);
@@ -449,8 +449,8 @@ class ModBlockStateProvider extends BlockStateProvider {
     private void booleanBlock(String nameTrue, String nameFalse, DeferredBlock<Block> deferredBlock, String folder, BooleanProperty property) {
         Block block = deferredBlock.get();
         String texture = BLOCK_FOLDER + "/" + folder + "/";
-        ModelFile modelTrue = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc(texture + nameTrue));
-        ModelFile modelFalse = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc(texture + nameFalse));
+        ModelFile modelTrue = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + nameTrue, modLoc(texture + nameTrue));
+        ModelFile modelFalse = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + nameFalse, modLoc(texture + nameFalse));
 
         propertyBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
         simpleBlockItem(block, modelFalse);
@@ -463,12 +463,12 @@ class ModBlockStateProvider extends BlockStateProvider {
         ModelFile modelFalse;
 
         if (directionality == None) {
-            modelTrue = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc(base + nameTrue));
-            modelFalse = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc(base + nameFalse));
+            modelTrue = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + nameTrue, modLoc(base + nameTrue));
+            modelFalse = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + nameFalse, modLoc(base + nameFalse));
         } else {
             String side = base + name + (name.isEmpty() ? "" : "_") + "side";
-            modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc("block/machine")).texture("top", modLoc(side)).texture("bottom", modLoc(side)).texture("side", modLoc(side)).texture("back", modLoc(base + back + (back_bool ? nameTrue : ""))).texture("front", modLoc(base + front + (front_bool ? nameTrue : "")));
-            modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc("block/machine")).texture("top", modLoc(side)).texture("bottom", modLoc(side)).texture("side", modLoc(side)).texture("back", modLoc(base + back + (back_bool ? nameFalse : ""))).texture("front", modLoc(base + front + (front_bool ? nameFalse : "")));
+            modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + nameTrue, modLoc("block/machine")).texture("top", modLoc(side)).texture("bottom", modLoc(side)).texture("side", modLoc(side)).texture("back", modLoc(base + back + (back_bool ? nameTrue : ""))).texture("front", modLoc(base + front + (front_bool ? nameTrue : "")));
+            modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + nameFalse, modLoc("block/machine")).texture("top", modLoc(side)).texture("bottom", modLoc(side)).texture("side", modLoc(side)).texture("back", modLoc(base + back + (back_bool ? nameFalse : ""))).texture("front", modLoc(base + front + (front_bool ? nameFalse : "")));
         }
 
         switch (directionality) {
@@ -481,13 +481,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockItem(block, modelFalse);
     }
 
-    private void axisBooleanBlockOverlay(String name, String name_true, String name_false, DeferredBlock<Block> deferredBlock, String sideFolder, String folder, BooleanProperty property) {
+    private void axisBooleanBlockOverlay(String name, String nameTrue, String nameFalse, DeferredBlock<Block> deferredBlock, String sideFolder, String folder, BooleanProperty property) {
         Block block = deferredBlock.get();
         String base = BLOCK_FOLDER + "/" + folder + "/";
         String side = BLOCK_FOLDER + "/" + sideFolder + "/";
         ResourceLocation none = modLoc(BLOCK_FOLDER + "/block_invisible");
-        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_true", modLoc("block/machine_overlayed")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name)).texture("front", modLoc(base + name)).texture("back_overlay", modLoc(base + name_true)).texture("front_overlay", modLoc(base + name_true)).texture("top_overlay", none).texture("bottom_overlay", none).texture("side_overlay", none);
-        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_false", modLoc("block/machine_overlayed")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name)).texture("front", modLoc(base + name)).texture("back_overlay", modLoc(base + name_false)).texture("front_overlay", modLoc(base + name_false)).texture("top_overlay", none).texture("bottom_overlay", none).texture("side_overlay", none);
+        ModelFile modelTrue = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + nameTrue, modLoc("block/machine_overlayed")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name)).texture("front", modLoc(base + name)).texture("back_overlay", modLoc(base + nameTrue)).texture("front_overlay", modLoc(base + nameTrue)).texture("top_overlay", none).texture("bottom_overlay", none).texture("side_overlay", none);
+        ModelFile modelFalse = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_" + nameFalse, modLoc("block/machine_overlayed")).texture("top", modLoc(side + "top")).texture("bottom", modLoc(side + "top")).texture("side", modLoc(side + "side")).texture("back", modLoc(base + name)).texture("front", modLoc(base + name)).texture("back_overlay", modLoc(base + nameFalse)).texture("front_overlay", modLoc(base + nameFalse)).texture("top_overlay", none).texture("bottom_overlay", none).texture("side_overlay", none);
 
         axisBlock(block, state -> state.getValue(property) ? modelTrue : modelFalse);
         simpleBlockItem(block, modelFalse);

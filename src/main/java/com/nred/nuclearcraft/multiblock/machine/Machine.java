@@ -420,7 +420,8 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
     protected boolean isBlockGoodForInterior(Level level, int x, int y, int z, IMultiblockValidator iMultiblockValidator) {
         return logic.isBlockGoodForInterior(level, x, y, z);
     }
-// Clear Material
+
+    // Clear Material
 
     @Override
     public void clearAllMaterial() {

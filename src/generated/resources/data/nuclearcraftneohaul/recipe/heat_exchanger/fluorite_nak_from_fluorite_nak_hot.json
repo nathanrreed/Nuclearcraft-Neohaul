@@ -1,0 +1,21 @@
+{
+  "type": "nuclearcraftneohaul:heat_exchanger_recipe",
+  "coolantHeater": "fluorite",
+  "flowDirectionBonus": 0.0,
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:fluorite_nak_hot"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:fluorite_nak"
+    }
+  },
+  "inputTemp": 800,
+  "isHeating": false,
+  "outputTemp": 400,
+  "preferredFlowDir": 0
+}

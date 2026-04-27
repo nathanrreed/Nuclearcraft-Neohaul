@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:obsidian_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 70,
   "placementRule": "obsidian_heater"
 }

@@ -1,5 +1,7 @@
 package com.nred.nuclearcraft.block_entity.passive;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
 import com.nred.nuclearcraft.block_entity.energyFluid.TileEnergyFluidSidedInventory;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
@@ -14,8 +16,11 @@ import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -31,6 +36,7 @@ import java.util.Collections;
 
 import static com.nred.nuclearcraft.config.NCConfig.machine_update_rate;
 import static com.nred.nuclearcraft.config.NCConfig.passive_push;
+import static net.minecraft.world.item.ItemStack.ITEM_NON_AIR_CODEC;
 
 
 public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory implements ITilePassive {
@@ -325,4 +331,28 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
         itemBuffer = nbt.getDouble("itemBuffer");
         fluidBuffer = nbt.getDouble("fluidBuffer");
     }
+
+    @Override
+    public CompoundTag writeInventory(CompoundTag nbt, HolderLookup.Provider registries) {
+        if (!getInventoryStacks().isEmpty() && !getInventoryStacks().getFirst().isEmpty()) {
+            CompoundTag compoundtag = new CompoundTag();
+            nbt.put("Item", ALL_SIZE_ITEM_CODEC.encode(getInventoryStacks().getFirst(), registries.createSerializationContext(NbtOps.INSTANCE), compoundtag).getOrThrow());
+        }
+        return nbt;
+    }
+
+    @Override
+    public void readInventory(CompoundTag nbt, HolderLookup.Provider registries) {
+        getInventoryStacks().set(0, ALL_SIZE_ITEM_CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE), nbt.getCompound("Item")).result().orElse(ItemStack.EMPTY));
+    }
+
+    private static final Codec<ItemStack> ALL_SIZE_ITEM_CODEC = Codec.lazyInitialized(
+            () -> RecordCodecBuilder.create(
+                    p_347288_ -> p_347288_.group(
+                            ITEM_NON_AIR_CODEC.fieldOf("id").forGetter(ItemStack::getItemHolder),
+                            ExtraCodecs.POSITIVE_INT.fieldOf("count").orElse(1).forGetter(ItemStack::getCount),
+                            DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(ItemStack::getComponentsPatch)
+                    ).apply(p_347288_, ItemStack::new)
+            )
+    );
 }

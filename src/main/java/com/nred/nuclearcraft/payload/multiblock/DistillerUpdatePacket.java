@@ -8,6 +8,7 @@ import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -54,6 +55,11 @@ public class DistillerUpdatePacket extends MachineUpdatePacket {
         buf.writeDouble(refluxUnitBonus);
         buf.writeDouble(reboilingUnitBonus);
         buf.writeDouble(liquidDistributorBonus);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     public static class Handler extends MultiblockUpdatePacket.Handler<Machine, MachineUpdatePacket, DistillerControllerEntity, TileContainerInfo<DistillerControllerEntity>, DistillerUpdatePacket> {

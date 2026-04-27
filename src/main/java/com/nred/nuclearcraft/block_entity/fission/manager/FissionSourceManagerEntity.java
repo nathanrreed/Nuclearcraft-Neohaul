@@ -9,7 +9,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 
 public class FissionSourceManagerEntity extends FissionManagerEntity<FissionSourceManagerEntity, FissionSourceEntity> {
     public FissionSourceManagerEntity(final BlockPos position, final BlockState blockState) {
-        super(FISSION_ENTITY_TYPE.get("shield_manager").get(), position, blockState, FissionSourceManagerEntity.class);
+        super(FISSION_ENTITY_TYPE.get("source_manager").get(), position, blockState, FissionSourceManagerEntity.class);
     }
 
     @Override

@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:end_stone_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 65,
   "placementRule": "end_stone_heater"
 }

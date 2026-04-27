@@ -146,8 +146,7 @@ public class Turbine extends Multiblock<Turbine> implements ILogicMultiblock<Tur
     protected void onMachineDisassembled() {
         logic.onMachineDisassembled();
     }
-
-
+    
     @Override
     protected int getMinimumNumberOfPartsForAssembledMachine() {
         return NCMath.hollowCuboid(Math.max(5, getMinimumInteriorLength() + 2), Math.max(5, getMinimumInteriorLength() + 2), getMinimumInteriorLength() + 2);

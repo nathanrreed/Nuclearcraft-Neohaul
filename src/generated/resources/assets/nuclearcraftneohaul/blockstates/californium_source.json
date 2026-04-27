@@ -1,33 +1,33 @@
 {
   "variants": {
     "facing=east,nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/californium_source_false",
+      "model": "nuclearcraftneohaul:block/californium_source__off",
       "y": 90
     },
     "facing=east,nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/californium_source_true",
+      "model": "nuclearcraftneohaul:block/californium_source__on",
       "y": 90
     },
     "facing=north,nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/californium_source_false"
+      "model": "nuclearcraftneohaul:block/californium_source__off"
     },
     "facing=north,nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/californium_source_true"
+      "model": "nuclearcraftneohaul:block/californium_source__on"
     },
     "facing=south,nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/californium_source_false",
+      "model": "nuclearcraftneohaul:block/californium_source__off",
       "y": 180
     },
     "facing=south,nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/californium_source_true",
+      "model": "nuclearcraftneohaul:block/californium_source__on",
       "y": 180
     },
     "facing=west,nuclearcraftneohaul_active=false": {
-      "model": "nuclearcraftneohaul:block/californium_source_false",
+      "model": "nuclearcraftneohaul:block/californium_source__off",
       "y": 270
     },
     "facing=west,nuclearcraftneohaul_active=true": {
-      "model": "nuclearcraftneohaul:block/californium_source_true",
+      "model": "nuclearcraftneohaul:block/californium_source__on",
       "y": 270
     }
   }

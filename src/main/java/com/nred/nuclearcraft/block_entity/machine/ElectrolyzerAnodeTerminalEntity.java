@@ -14,7 +14,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class ElectrolyzerAnodeTerminalEntity extends AbstractMachineEntity {
     public ElectrolyzerAnodeTerminalEntity(BlockPos pos, BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("anode_terminal").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("electrolyzer_anode_terminal").get(), pos, blockState);
     }
 
     @Override

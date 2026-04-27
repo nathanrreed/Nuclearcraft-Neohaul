@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:magnesium_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 125,
   "placementRule": "magnesium_heater"
 }

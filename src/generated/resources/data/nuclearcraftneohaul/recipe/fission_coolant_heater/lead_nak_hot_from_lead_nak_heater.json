@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:lead_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 60,
   "placementRule": "lead_heater"
 }

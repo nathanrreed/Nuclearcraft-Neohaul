@@ -10,21 +10,17 @@ displayName="${mod_name}"
 
 enumExtensions="META-INF/enumextensions.json"
 
-# A URL to query for updates for this mod. See the JSON update specification https://docs.neoforged.net/docs/misc/updatechecker/
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
-#logoFile="examplemod.png" #optional
+updateJSONURL="https://api.modrinth.com/updates/azurum-miner/forge_updates.json?neoforge=only"
+displayURL="https://github.com/nathanrreed/Nuclearcraft-Neohaul"
+logoFile="logo.png"
 
 credits="tomdodd4598"
 authors="${mod_authors}"
 description='''${mod_description}'''
 
-# The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 [[mixins]]
     config="${mod_id}.mixins.json"
 
-# The [[accessTransformers]] block allows you to declare where your AT file is.
-# If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
 [[accessTransformers]]
     file="META-INF/accesstransformer.cfg"
 
@@ -45,7 +41,7 @@ description='''${mod_description}'''
 [[dependencies.${mod_id}]]
     modId="terrablender"
     type="required"
-    versionRange="${terrablender_version}"
+    versionRange="${terrablender_version_range}"
     ordering="NONE"
     side="BOTH"
 
@@ -83,3 +79,17 @@ description='''${mod_description}'''
     versionRange="${patchouli_version}"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="kubejs"
+    type="optional"
+    versionRange="[1.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="fusion"
+    type="optional"
+    versionRange="[1.0.0,)"
+    ordering="NONE"
+    side="CLIENT"

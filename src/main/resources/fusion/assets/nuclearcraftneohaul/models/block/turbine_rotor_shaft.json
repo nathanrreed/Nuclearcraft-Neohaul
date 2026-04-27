@@ -1,0 +1,9 @@
+{
+    "type": "fusion:connecting",
+    "parent": "nuclearcraftneohaul:block/top_sides",
+    "loader": "fusion:model",
+    "textures": {
+        "sides": "nuclearcraftneohaul:block/turbine/rotor_shaft_side",
+        "top": "nuclearcraftneohaul:block/turbine_rotor_shaft_end"
+    }
+}

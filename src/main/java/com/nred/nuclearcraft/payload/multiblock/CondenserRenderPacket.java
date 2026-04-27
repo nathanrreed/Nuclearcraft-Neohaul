@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.multiblock.hx.HeatExchanger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -36,6 +37,11 @@ public class CondenserRenderPacket extends HeatExchangerRenderPacket {
     @Override
     public void toBytes(RegistryFriendlyByteBuf buf) {
         super.toBytes(buf);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     public static class Handler extends MultiblockUpdatePacket.Handler<HeatExchanger, HeatExchangerUpdatePacket, CondenserControllerEntity, TileContainerInfo<CondenserControllerEntity>, CondenserRenderPacket> {

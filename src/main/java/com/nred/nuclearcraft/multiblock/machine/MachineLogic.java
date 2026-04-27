@@ -508,7 +508,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
         logicTag.putBoolean("isMachineOn", multiblock.isMachineOn);
         logicTag.putBoolean("fullHalt", multiblock.fullHalt);
 
-//        logicTag.putDouble("radiationLevel", multiblock.radiation.getRadiationLevel()); TODO
+        logicTag.putDouble("radiationLevel", multiblock.radiation.getRadiationLevel());
 
         multiblock.energyStorage.writeToNBT(logicTag, registries, "energyStorage");
         writeTanks(multiblock.reservoirTanks, logicTag, registries, "reservoirTanks");
@@ -530,7 +530,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
         multiblock.isMachineOn = logicTag.getBoolean("isMachineOn");
         multiblock.fullHalt = logicTag.getBoolean("fullHalt");
 
-//        multiblock.radiation.setRadiationLevel(logicTag.getDouble("radiationLevel")); TODO
+        multiblock.radiation.setRadiationLevel(logicTag.getDouble("radiationLevel"));
 
         multiblock.energyStorage.readFromNBT(logicTag, registries, "energyStorage");
         readTanks(multiblock.reservoirTanks, logicTag, registries, "reservoirTanks");

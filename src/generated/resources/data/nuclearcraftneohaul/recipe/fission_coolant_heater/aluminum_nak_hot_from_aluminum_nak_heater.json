@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:aluminum_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 175,
   "placementRule": "aluminum_heater"
 }

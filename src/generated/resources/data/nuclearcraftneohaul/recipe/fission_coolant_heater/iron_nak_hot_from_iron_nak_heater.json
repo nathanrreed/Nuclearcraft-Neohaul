@@ -16,6 +16,5 @@
     "count": 1,
     "id": "nuclearcraftneohaul:iron_fission_coolant_heater"
   },
-  "irradiatorFluxRequired": 50,
   "placementRule": "iron_heater"
 }

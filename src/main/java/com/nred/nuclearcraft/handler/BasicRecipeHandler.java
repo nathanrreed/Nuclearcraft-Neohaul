@@ -5,10 +5,10 @@ import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.IngredientSorption;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.util.NCUtil;
 import com.nred.nuclearcraft.util.StreamHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -84,7 +84,7 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
     }
 
     public Set<ResourceLocation> getValidFluids(Level level, int index) {
-        return getValidFluids((Objects.requireNonNull(level == null ? Minecraft.getInstance().level : level)).getRecipeManager()).get(index);
+        return getValidFluids(NCUtil.getRecipeManager(level)).get(index);
     }
 
     public boolean isValidInput(ItemStack stack, Function<BasicRecipe, List<SizedChanceItemIngredient>> ingredientsFunction, RecipeManager recipeManager) {

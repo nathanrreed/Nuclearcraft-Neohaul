@@ -27,7 +27,7 @@ public class InfiltratorControllerEntity extends AbstractMachineEntity implement
     protected boolean isRenderer = false;
 
     public InfiltratorControllerEntity(BlockPos pos, BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("controller").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("infiltrator_controller").get(), pos, blockState);
     }
 
     @Override

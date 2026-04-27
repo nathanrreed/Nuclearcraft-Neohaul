@@ -34,7 +34,7 @@ public class DistillerControllerEntity extends AbstractMachineEntity implements 
     protected int brightnessIndex = 0;
 
     public DistillerControllerEntity(BlockPos pos, BlockState blockState) {
-        super(MACHINE_ENTITY_TYPE.get("controller").get(), pos, blockState);
+        super(MACHINE_ENTITY_TYPE.get("distiller_controller").get(), pos, blockState);
     }
 
     @Override

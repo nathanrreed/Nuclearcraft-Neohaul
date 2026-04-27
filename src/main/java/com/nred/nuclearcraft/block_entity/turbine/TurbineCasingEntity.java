@@ -22,15 +22,15 @@ public class TurbineCasingEntity extends AbstractTurbineEntity {
     @Override
     public void onPreMachineAssembled(Turbine controller) {
         super.onPreMachineAssembled(controller);
-        if (!level.isClientSide && getPartPosition().isFrame()) {
-            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 2);
+        if (getPartPosition().isFrame()) {
+            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, true), 0);
         }
     }
 
     @Override
     public void onPreMachineBroken() {
-        if (!level.isClientSide && getPartPosition().isFrame()) {
-            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, false), 2);
+        if (getPartPosition().isFrame()) {
+            level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FRAME, false), 0);
         }
         super.onPreMachineBroken();
     }
