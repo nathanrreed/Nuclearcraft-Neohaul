@@ -43,12 +43,12 @@ public class ModConfigScreen extends ConfigurationScreen.ConfigurationSectionScr
         map.put("solar_power", MODID + ".configuration.solar_order");
         map.put("battery_block_capacity", MODID + ".configuration.battery_block_order");
         map.put("battery_block_max_transfer", MODID + ".configuration.battery_block_order");
-        map.put("battery_item_capacity", MODID + ".configuration.battey_item_order");
-        map.put("battery_item_max_transfer", MODID + ".configuration.battey_item_order");
+        map.put("battery_item_capacity", MODID + ".configuration.battery_item_order");
+        map.put("battery_item_max_transfer", MODID + ".configuration.battery_item_order");
         map.put("fission_source_efficiency", MODID + ".configuration.fission_source_order");
         map.put("fission_sink_cooling_rate", MODID + ".configuration.heat_sink_order");
         map.put("fission_sink_rule", MODID + ".configuration.heat_sink_order");
-        map.put("fission_heater_cooling_rate", MODID + ".configuration.heat_sink_order");
+        map.put("fission_heater_cooling_rate", MODID + ".configuration.heater_order");
         map.put("fission_heater_rule", MODID + ".configuration.heater_order");
         map.put("fission_shield_heat_per_flux", MODID + ".configuration.fission_shield_order");
         map.put("fission_shield_efficiency", MODID + ".configuration.fission_shield_order");

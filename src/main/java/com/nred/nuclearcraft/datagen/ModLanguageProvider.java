@@ -1380,7 +1380,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.rtg_order", "Uranium, Plutonium, Americium, Californium");
         add(MODID + ".configuration.solar_order", "Basic, Advanced, DU, Elite");
         add(MODID + ".configuration.battery_block_order", "Basic Voltaic Pile, Advanced Voltaic Pile, DU Voltaic Pile, Elite Voltaic Pile, Basic Lithium Ion Battery, Advanced Lithium Ion Battery, DU Lithium Ion Battery, Elite Lithium Ion Battery");
-        add(MODID + ".configuration.battey_item_order", "Lithium Ion Cell");
+        add(MODID + ".configuration.battery_item_order", "Lithium Ion Cell");
         add(MODID + ".configuration.fission_source_order", "Ra-Be, Po-Be, Cf-252");
         add(MODID + ".configuration.heat_sink_order", "Water, Iron, Redstone, Quartz, Obsidian, Nether Brick, Glowstone, Lapis, Gold, Prismarine, Slime, End Stone, Purpur, Diamond, Emerald, Copper, Tin, Lead, Boron, Lithium, Magnesium, Manganese, Aluminum, Silver, Fluorite, Villiaumite, Carobbiite, Arsenic, Liquid Nitrogen, Liquid Helium, Enderium, Cryotheum");
         add(MODID + ".configuration.heater_order", "Standard, Iron, Redstone, Quartz, Obsidian, Nether Brick, Glowstone, Lapis, Gold, Prismarine, Slime, End Stone, Purpur, Diamond, Emerald, Copper, Tin, Lead, Boron, Lithium, Magnesium, Manganese, Aluminum, Silver, Fluorite, Villiaumite, Carobbiite, Arsenic, Liquid Nitrogen, Liquid Helium, Enderium, Cryotheum");
@@ -1388,7 +1388,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.turbine_blade_order", "Steel, Extreme Alloy, SiC-SiC CMC");
         add(MODID + ".configuration.turbine_coil_order", "Magnesium, Beryllium, Aluminum, Gold, Copper, Silver");
         add(MODID + ".configuration.turbine_connector_order", "Standard");
-        add(MODID + ".configuration.radiation_sound_order", "Geiger counter ticking, RadAway use, Rad-X use, food effects, chems wearing off, radiation badge breaking, radiation level warning, feral ghoul attack");
+        add(MODID + ".configuration.radiation_sound_order", "Geiger counter ticking, RadAway use, Rad-X use, Food effects, Chems wearing off, Radiation badge breaking, Radiation level warning, Feral ghoul attack");
         add(MODID + ".configuration.radiation_shielding_order", "Light, Medium, Heavy");
         add(MODID + ".configuration.fission_sparsity_penalty_params_order", "Multiplier, Threshold");
         add(MODID + ".configuration.fission_decay_order", "Decay heat, Iodine, Poison");
