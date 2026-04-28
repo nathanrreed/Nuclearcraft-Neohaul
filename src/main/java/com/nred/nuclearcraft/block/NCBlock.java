@@ -16,9 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 
 public class NCBlock extends Block {
-//    protected TriState canSustainPlant = TriState.TRUE;
-//    protected TriState canCreatureSpawn = TriState.TRUE;
-
     protected static boolean keepInventory;
 
     public NCBlock(BlockBehaviour.Properties properties) {
@@ -27,16 +24,6 @@ public class NCBlock extends Block {
 //        setHardness(2F);
 //        setResistance(15F);
     }
-
-//    @Override TODO remove?
-//    public TriState canSustainPlant(BlockState state, BlockGetter level, BlockPos soilPosition, Direction facing, BlockState plant) {
-//        return canSustainPlant && super.canSustainPlant(state, level, soilPosition, facing, plant);
-//    }
-//
-//    @Override
-//    public boolean canCreatureSpawn(IBlockState state, IBlockAccess world, BlockPos pos, SpawnPlacementType type) {
-//        return canCreatureSpawn && super.canCreatureSpawn(state, world, pos, type);
-//    }
 
     @Override
     protected BlockState rotate(BlockState state, Rotation rotation) {
@@ -64,7 +51,6 @@ public class NCBlock extends Block {
     }
 
     // NBT Stuff
-
 //    @Override TODO
 //    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
 //        if (this instanceof INBTDrop && willHarvest) {

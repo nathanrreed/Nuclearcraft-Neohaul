@@ -66,14 +66,14 @@ repositories {
         url = "https://maven.theillusivec4.top/"
     }
     maven {// KubeJS
-        url "https://maven.latvian.dev/releases"
+        url = "https://maven.latvian.dev/releases"
         content {
             includeGroup "dev.latvian.mods"
             includeGroup "dev.latvian.apps"
         }
     }
     maven {// KubeJS
-        url 'https://jitpack.io'
+        url = 'https://jitpack.io'
         content {
             includeGroup "com.github.rtyley"
         }

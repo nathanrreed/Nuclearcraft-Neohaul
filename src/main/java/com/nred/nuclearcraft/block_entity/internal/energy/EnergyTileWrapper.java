@@ -10,9 +10,17 @@ public record EnergyTileWrapper(ITileEnergy tile, Direction side) implements IEn
         return tile.getEnergyStored();
     }
 
+    public long getEnergyStoredLong() {
+        return tile.getEnergyStoredLong();
+    }
+
     @Override
     public int getMaxEnergyStored() {
         return tile.getMaxEnergyStored();
+    }
+
+    public long getMaxEnergyStoredLong() {
+        return tile.getMaxEnergyStoredLong();
     }
 
     @Override
