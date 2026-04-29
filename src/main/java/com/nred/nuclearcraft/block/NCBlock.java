@@ -14,15 +14,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 public class NCBlock extends Block {
     protected static boolean keepInventory;
 
-    public NCBlock(BlockBehaviour.Properties properties) {
-        super(properties);
-//        setHarvestLevel("pickaxe", 0); TODO
-//        setHardness(2F);
-//        setResistance(15F);
+    public NCBlock(UnaryOperator<Properties> properties) {
+        super(properties.apply(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(2.0f, 15.0f)));
     }
 
     @Override

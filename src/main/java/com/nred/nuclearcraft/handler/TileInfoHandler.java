@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.handler;
 
-import com.nred.nuclearcraft.block.tile.info.BlockSimpleTileInfo;
-import com.nred.nuclearcraft.block.tile.info.BlockTileInfo;
+import com.nred.nuclearcraft.block.tile.info.SimpleTileInfoBlock;
+import com.nred.nuclearcraft.block.tile.info.TileInfoBlock;
 import com.nred.nuclearcraft.block_entity.UniversalBinEntity;
 import com.nred.nuclearcraft.block_entity.dummy.MachineInterfaceEntity;
 import com.nred.nuclearcraft.block_entity.fission.*;
@@ -41,38 +41,38 @@ import static com.nred.nuclearcraft.util.ContainerInfoHelper.bigSlot;
 import static com.nred.nuclearcraft.util.ContainerInfoHelper.standardSlot;
 
 public class TileInfoHandler {
-    public static final Object2ObjectMap<String, BlockTileInfo<?>> BLOCK_TILE_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Object2ObjectMap<String, TileInfoBlock<?>> BLOCK_TILE_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
 
     public static final Object2ObjectMap<String, TileContainerInfo<?>> TILE_CONTAINER_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
 
     public static void preInit() {
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("machine_interface", MachineInterfaceEntity.class, MachineInterfaceEntity::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("decay_generator", DecayGeneratorEntity.class, DecayGeneratorEntity::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("machine_interface", MachineInterfaceEntity.class, MachineInterfaceEntity::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("decay_generator", DecayGeneratorEntity.class, DecayGeneratorEntity::new));
 
         if (ModCheck.mekanismLoaded()) {
-            registerBlockTileInfo(new BlockSimpleTileInfo<>("bin", com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity.class, com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity::new));
+            registerBlockTileInfo(new SimpleTileInfoBlock<>("bin", com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity.class, com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity::new));
         } else {
-            registerBlockTileInfo(new BlockSimpleTileInfo<>("bin", UniversalBinEntity.class, UniversalBinEntity::new));
+            registerBlockTileInfo(new SimpleTileInfoBlock<>("bin", UniversalBinEntity.class, UniversalBinEntity::new));
         }
 
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_basic", TileSolarPanel.Basic.class, TileSolarPanel.Basic::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_advanced", TileSolarPanel.Advanced.class, TileSolarPanel.Advanced::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_du", TileSolarPanel.DU.class, TileSolarPanel.DU::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("solar_panel_elite", TileSolarPanel.Elite.class, TileSolarPanel.Elite::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("solar_panel_basic", TileSolarPanel.Basic.class, TileSolarPanel.Basic::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("solar_panel_advanced", TileSolarPanel.Advanced.class, TileSolarPanel.Advanced::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("solar_panel_du", TileSolarPanel.DU.class, TileSolarPanel.DU::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("solar_panel_elite", TileSolarPanel.Elite.class, TileSolarPanel.Elite::new));
 
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("cobblestone_generator", TilePassive.CobblestoneGenerator.class, TilePassive.CobblestoneGenerator::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("cobblestone_generator_compact", TilePassive.CobblestoneGeneratorCompact.class, TilePassive.CobblestoneGeneratorCompact::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("cobblestone_generator_dense", TilePassive.CobblestoneGeneratorDense.class, TilePassive.CobblestoneGeneratorDense::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("cobblestone_generator", TilePassive.CobblestoneGenerator.class, TilePassive.CobblestoneGenerator::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("cobblestone_generator_compact", TilePassive.CobblestoneGeneratorCompact.class, TilePassive.CobblestoneGeneratorCompact::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("cobblestone_generator_dense", TilePassive.CobblestoneGeneratorDense.class, TilePassive.CobblestoneGeneratorDense::new));
 
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("water_source", TilePassive.WaterSource.class, TilePassive.WaterSource::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("water_source_compact", TilePassive.WaterSourceCompact.class, TilePassive.WaterSourceCompact::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("water_source_dense", TilePassive.WaterSourceDense.class, TilePassive.WaterSourceDense::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("water_source", TilePassive.WaterSource.class, TilePassive.WaterSource::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("water_source_compact", TilePassive.WaterSourceCompact.class, TilePassive.WaterSourceCompact::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("water_source_dense", TilePassive.WaterSourceDense.class, TilePassive.WaterSourceDense::new));
 
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("nitrogen_collector", TilePassive.NitrogenCollector.class, TilePassive.NitrogenCollector::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("nitrogen_collector_compact", TilePassive.NitrogenCollectorCompact.class, TilePassive.NitrogenCollectorCompact::new));
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("nitrogen_collector_dense", TilePassive.NitrogenCollectorDense.class, TilePassive.NitrogenCollectorDense::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("nitrogen_collector", TilePassive.NitrogenCollector.class, TilePassive.NitrogenCollector::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("nitrogen_collector_compact", TilePassive.NitrogenCollectorCompact.class, TilePassive.NitrogenCollectorCompact::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("nitrogen_collector_dense", TilePassive.NitrogenCollectorDense.class, TilePassive.NitrogenCollectorDense::new));
 
-        registerBlockTileInfo(new BlockSimpleTileInfo<>("geiger_block", GeigerCounterEntity.class, GeigerCounterEntity::new));
+        registerBlockTileInfo(new SimpleTileInfoBlock<>("geiger_block", GeigerCounterEntity.class, GeigerCounterEntity::new));
 
 //		registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>("nuclear_furnace", NuclearFurnaceTest.class, NuclearFurnaceTest::new)); TODO REMOVE
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("manufactory", ManufactoryEntity.class, ManufactoryEntity::new, ManufactoryMenu::new).setParticles("crit", "reddust").setDefaultProcessTime(() -> processor_time[0]).setDefaultProcessPower(() -> processor_power[0]).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
@@ -134,7 +134,7 @@ public class TileInfoHandler {
         }
     }
 
-    public static void registerBlockTileInfo(BlockTileInfo<?> info) {
+    public static void registerBlockTileInfo(TileInfoBlock<?> info) {
         register(BLOCK_TILE_INFO_MAP, info.name, info);
     }
 
@@ -148,7 +148,7 @@ public class TileInfoHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public static <TILE extends BlockEntity, INFO extends BlockSimpleTileInfo<TILE>> INFO getBlockSimpleTileInfo(String name) {
+    public static <TILE extends BlockEntity, INFO extends SimpleTileInfoBlock<TILE>> INFO getBlockSimpleTileInfo(String name) {
         return (INFO) BLOCK_TILE_INFO_MAP.get(name);
     }
 

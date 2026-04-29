@@ -20,15 +20,16 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.MagmaBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 
 import java.util.List;
 
 import static com.nred.nuclearcraft.item.TooltipItem.shiftForDetails;
 import static com.nred.nuclearcraft.registration.DamageTypeRegistration.CORIUM_BURN;
 
-public class SolidifiedCorium extends MagmaBlock {
-    public SolidifiedCorium() {
-        super(Properties.of().isValidSpawn((state, level, pos, value) -> false).lightLevel(s -> 4));
+public class SolidifiedCoriumBlock extends MagmaBlock {
+    public SolidifiedCoriumBlock() {
+        super(Properties.of().isValidSpawn((state, level, pos, value) -> false).lightLevel(s -> 4).mapColor(MapColor.STONE).requiresCorrectToolForDrops().isValidSpawn((s, b, p, e) -> e.fireImmune()));
     }
 
     @Override

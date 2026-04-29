@@ -18,12 +18,12 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
-public class ItemBlockEnergy extends NCItemBlock implements IChargeableItem {
+public class EnergyItemBlock extends NCItemBlock implements IChargeableItem {
     private final Supplier<Integer> capacity;
     private final Supplier<Integer> maxTransfer;
     private final EnergyConnection energyConnection;
 
-    public ItemBlockEnergy(Block block, Supplier<Integer> capacity, Supplier<Integer> maxTransfer, EnergyConnection connection, Component... tooltip) {
+    public EnergyItemBlock(Block block, Supplier<Integer> capacity, Supplier<Integer> maxTransfer, EnergyConnection connection, Component... tooltip) {
         super(block, tooltip);
         this.capacity = capacity;
         this.maxTransfer = maxTransfer;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.handler;
 
-import com.nred.nuclearcraft.block.item.energy.ItemBlockEnergy;
+import com.nred.nuclearcraft.block.item.energy.EnergyItemBlock;
 import com.nred.nuclearcraft.item.energy.IChargeableItem;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +14,8 @@ public class ItemEnergyStorage implements IEnergyStorage {
 
     public ItemEnergyStorage(ItemStack parent) {
         this.parent = parent;
-        this.capacity = ((ItemBlockEnergy) parent.getItem()).getMaxEnergyStored(parent);
-        this.maxTransfer = ((ItemBlockEnergy) parent.getItem()).getMaxTransfer(parent);
+        this.capacity = ((EnergyItemBlock) parent.getItem()).getMaxEnergyStored(parent);
+        this.maxTransfer = ((EnergyItemBlock) parent.getItem()).getMaxTransfer(parent);
     }
 
     @Override

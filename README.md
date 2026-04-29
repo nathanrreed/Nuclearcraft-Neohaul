@@ -23,6 +23,8 @@ For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https:
 #### Recommended:
 - [Fusion ](https://github.com/SuperMartijn642/Fusion) / [ConnectedTexturesMod](https://github.com/Chisel-Team/ConnectedTexturesMod)
 - [EMI](https://github.com/emilyploszaj/emi) / [JEI](https://github.com/mezz/JustEnoughItems)
+- [Jade](https://github.com/Snownee/Jade)
+
 #### Optional:
 - [Mekanism](https://github.com/mekanism/Mekanism)
 - [CC: Tweaked](https://github.com/cc-tweaked/CC-Tweaked)

@@ -55,7 +55,6 @@ public class NCConfig {
     public static double cobble_gen_power;
 
     public static boolean smart_processor_input;
-    //    public static boolean factor_recipes; TODO ADD or REMOVE
     public static boolean processor_particles;
 
     public static int[] rtg_power;
@@ -290,7 +289,6 @@ public class NCConfig {
         cobble_gen_power = COBBLE_GEN_POWER.getAsDouble();
 
         smart_processor_input = SMART_PROCESSOR_INPUT.getAsBoolean();
-//        factor_recipes = FACTOR_RECIPES.getAsBoolean();
         processor_particles = PROCESSOR_PARTICLES.getAsBoolean();
 
         rtg_power = syncInts(RTG_POWER, ARRAY);
@@ -516,7 +514,6 @@ public class NCConfig {
     private static final ModConfigSpec.BooleanValue PASSIVE_PUSH = add(CATEGORY_PROCESSOR, "passive_push", true);
     private static final ModConfigSpec.DoubleValue COBBLE_GEN_POWER = add(CATEGORY_PROCESSOR, "cobble_gen_power", 0D, 0D, 255D);
     private static final ModConfigSpec.BooleanValue SMART_PROCESSOR_INPUT = add(CATEGORY_PROCESSOR, "smart_processor_input", true);
-    //    private static final ModConfigSpec.BooleanValue FACTOR_RECIPES = add(CATEGORY_PROCESSOR, "factor_recipes", false);
     private static final ModConfigSpec.BooleanValue PROCESSOR_PARTICLES = add(CATEGORY_PROCESSOR, "processor_particles", true);
 
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RTG_POWER = add(CATEGORY_GENERATOR, "rtg_power", List.of(1, 40, 10, 200), 1, Integer.MAX_VALUE, ARRAY);

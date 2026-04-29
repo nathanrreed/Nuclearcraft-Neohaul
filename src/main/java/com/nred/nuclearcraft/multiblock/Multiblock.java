@@ -74,16 +74,10 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
     }
 
     public Optional<BlockPos> getMinimumCoord() {
-//        if (minimumCoord == null) { TODO
-//            recalculateCoords();
-//        }
         return Optional.of(this.getBoundingBox().getMin());
     }
 
     public Optional<BlockPos> getMaximumCoord() {
-//        if (maximumCoord == null) {
-//            recalculateCoords();
-//        }
         return Optional.of(this.getBoundingBox().getMax());
     }
 

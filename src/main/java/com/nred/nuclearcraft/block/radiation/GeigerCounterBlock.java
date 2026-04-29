@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.radiation;
 
-import com.nred.nuclearcraft.block.tile.BlockSimpleTile;
+import com.nred.nuclearcraft.block.tile.SimpleTileBlock;
 import com.nred.nuclearcraft.block_entity.radiation.GeigerCounterEntity;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
 import net.minecraft.core.BlockPos;
@@ -17,7 +17,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.radiation_lowest_rate;
 
-public class GeigerCounterBlock extends BlockSimpleTile<GeigerCounterEntity> {
+public class GeigerCounterBlock extends SimpleTileBlock<GeigerCounterEntity> {
     public GeigerCounterBlock() {
         super("geiger_block");
     }

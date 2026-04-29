@@ -1,28 +1,28 @@
 package com.nred.nuclearcraft.block.tile;
 
-import com.nred.nuclearcraft.block.tile.info.BlockSimpleTileInfo;
+import com.nred.nuclearcraft.block.tile.info.SimpleTileInfoBlock;
 import com.nred.nuclearcraft.block_entity.ITickable;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Nullable;
 
-public class BlockSimpleTile<TILE extends BlockEntity> extends BlockTile {
-    protected final BlockSimpleTileInfo<TILE> tileInfo;
+public class SimpleTileBlock<TILE extends BlockEntity> extends BlockTile {
+    protected final SimpleTileInfoBlock<TILE> tileInfo;
     private final boolean hasTicker;
 
-    public BlockSimpleTile(String name, boolean hasTicker) {
-        super(Properties.ofFullCopy(Blocks.IRON_BLOCK));
+    public SimpleTileBlock(String name, boolean hasTicker) {
+        super(p -> p.mapColor(MapColor.METAL));
         tileInfo = TileInfoHandler.getBlockSimpleTileInfo(name);
         this.hasTicker = hasTicker;
     }
 
-    public BlockSimpleTile(String name) {
+    public SimpleTileBlock(String name) {
         this(name, true);
     }
 

@@ -6,15 +6,16 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.UnaryOperator;
+
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
 
-public abstract class BlockSidedTile extends BlockTile {
-    public BlockSidedTile(BlockBehaviour.Properties properties) {
+public abstract class SidedTileBlock extends BlockTile {
+    public SidedTileBlock(UnaryOperator<Properties> properties) {
         super(properties);
         registerDefaultState(this.defaultBlockState().setValue(FACING_HORIZONTAL, Direction.NORTH));
     }

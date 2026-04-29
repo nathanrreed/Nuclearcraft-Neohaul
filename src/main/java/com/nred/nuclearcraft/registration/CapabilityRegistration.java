@@ -46,7 +46,6 @@ import net.neoforged.neoforge.energy.ComponentEnergyStorage;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.NCConfig.enable_mek_gas;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
@@ -154,7 +153,7 @@ public class CapabilityRegistration {
             RegisterCurios.registerCurios(event);
         }
 
-        if (ModCheck.mekanismLoaded() && enable_mek_gas) {
+        if (ModCheck.mekanismLoaded()) {
             MekanismCapabilities.registerCapabilities(event);
         }
     }

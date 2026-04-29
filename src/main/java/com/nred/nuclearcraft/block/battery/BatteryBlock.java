@@ -25,8 +25,8 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
-public class BlockBattery extends GenericTooltipDeviceBlock<BatteryMultiblock, IBatteryPartType> implements IDynamicState, ISidedEnergy {
-    public BlockBattery(@NotNull MultiblockPartProperties<IBatteryPartType> properties) {
+public class BatteryBlock extends GenericTooltipDeviceBlock<BatteryMultiblock, IBatteryPartType> implements IDynamicState, ISidedEnergy {
+    public BatteryBlock(@NotNull MultiblockPartProperties<IBatteryPartType> properties) {
         super(properties);
     }
 
@@ -40,7 +40,7 @@ public class BlockBattery extends GenericTooltipDeviceBlock<BatteryMultiblock, I
             if (tile instanceof BatteryEntity battery) {
                 if (!level.isClientSide()) {
                     EnergyStorage storage = battery.getEnergyStorage();
-                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.energy_stored", UnitHelper.prefix(storage.getEnergyStoredLong(), storage.getMaxEnergyStoredLong(), 5, "RF")));
+                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.energy_stored", UnitHelper.getFormattedFraction(storage.getEnergyStoredLong(), storage.getMaxEnergyStoredLong(), "RF")));
                 }
                 return ItemInteractionResult.CONSUME;
             }

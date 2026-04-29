@@ -47,14 +47,6 @@ public abstract class NCGui<MENU extends AbstractContainerMenu> extends Abstract
         super.init();
         clearWidgets();
     }
-//
-//	@Override
-//	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-//		drawDefaultBackground();
-//		super.drawScreen(mouseX, mouseY, partialTicks);
-//		renderHoveredToolTip(mouseX, mouseY);
-//		renderTooltips(mouseX, mouseY);
-//	}
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {

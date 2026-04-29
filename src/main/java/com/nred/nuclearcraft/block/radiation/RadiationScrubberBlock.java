@@ -11,11 +11,11 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +24,7 @@ import static com.nred.nuclearcraft.config.NCConfig.radiation_lowest_rate;
 
 public class RadiationScrubberBlock extends BlockTile {
     public RadiationScrubberBlock() {
-        super(Properties.ofFullCopy(Blocks.IRON_BLOCK));
+        super(p -> p.mapColor(MapColor.METAL));
     }
 
     @Override

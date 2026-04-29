@@ -26,6 +26,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static com.nred.nuclearcraft.config.NCConfig.enable_mek_gas;
+
 public interface ITileFluid extends ITile {
     // Tanks
 
@@ -436,7 +438,7 @@ public interface ITileFluid extends ITile {
     }
 
     default ChemicalTileWrapper getChemicalCapability(@Nullable Direction side) {
-        if (hasFluidSideCapability(side)) {
+        if (hasFluidSideCapability(side) && enable_mek_gas) {
             return getChemicalSide(side);
         }
         return null;

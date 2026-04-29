@@ -6,13 +6,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.BiFunction;
 
-public abstract class BlockTileInfo<TILE extends BlockEntity> {
+public abstract class TileInfoBlock<TILE extends BlockEntity> {
     public final String name;
 
     protected final Class<TILE> tileClass;
     protected final BiFunction<BlockPos, BlockState, TILE> tileSupplier;
 
-    public BlockTileInfo(String name, Class<TILE> tileClass, BiFunction<BlockPos, BlockState, TILE> tileSupplier) {
+    public TileInfoBlock(String name, Class<TILE> tileClass, BiFunction<BlockPos, BlockState, TILE> tileSupplier) {
         this.name = name;
 
         this.tileClass = tileClass;

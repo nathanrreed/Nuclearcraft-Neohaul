@@ -15,12 +15,13 @@ import net.minecraft.world.level.block.IceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 
 import static com.nred.nuclearcraft.registration.DamageTypeRegistration.HYPOTHERMIA;
 
 public class SupercoldIceBlock extends IceBlock {
     public SupercoldIceBlock() {
-        super(BlockBehaviour.Properties.of().friction(0.99F).sound(SoundType.GLASS).noOcclusion().strength(0.5f).isValidSpawn((state, level, pos, value) -> false).isRedstoneConductor((state, level, pos) -> false));
+        super(BlockBehaviour.Properties.of().friction(Math.nextAfter(1F, -1F)).sound(SoundType.GLASS).noOcclusion().strength(0.5f).isValidSpawn((state, level, pos, value) -> false).isRedstoneConductor((state, level, pos) -> false).mapColor(MapColor.ICE));
     }
 
     @Override

@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BlockMachineInterface extends BlockSimpleDummy<MachineInterfaceEntity> {
-    public BlockMachineInterface(String name) {
+public class MachineInterfaceBlock extends SimpleDummyBlock<MachineInterfaceEntity> {
+    public MachineInterfaceBlock(String name) {
         super(name);
     }
 

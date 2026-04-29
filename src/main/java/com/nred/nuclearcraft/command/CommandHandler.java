@@ -9,7 +9,6 @@ public class CommandHandler {
         CommandSetWorldRadiation.register(event.getDispatcher());
         CommandSetPlayerRadiation.register(event.getDispatcher());
 
-
 //        event.getDispatcher().register(Commands.literal("nc_test").executes(ctx -> {  // For Testing places all blocks
 //                    BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos().set(0, 90, 0);
 //                    for (ResourceLocation resourceLocation : BuiltInRegistries.BLOCK.keySet()) {
@@ -26,7 +25,5 @@ public class CommandHandler {
 //                    return 0;
 //                }
 //        ));
-
-//		CommandReconstructScriptAddons.register(event.getDispatcher()); TODO
     }
 }

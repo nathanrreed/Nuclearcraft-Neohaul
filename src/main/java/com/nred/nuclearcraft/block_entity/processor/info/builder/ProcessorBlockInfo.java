@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.processor.info.builder;
 
-import com.nred.nuclearcraft.block.tile.info.BlockTileInfo;
+import com.nred.nuclearcraft.block.tile.info.TileInfoBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 import java.util.function.BiFunction;
 
-public class ProcessorBlockInfo<TILE extends BlockEntity> extends BlockTileInfo<TILE> {
+public class ProcessorBlockInfo<TILE extends BlockEntity> extends TileInfoBlock<TILE> {
     public final List<String> particles;
 
     public ProcessorBlockInfo(String name, Class<TILE> menuFunction, BiFunction<BlockPos, BlockState, TILE> tileSupplier, List<String> particles) {

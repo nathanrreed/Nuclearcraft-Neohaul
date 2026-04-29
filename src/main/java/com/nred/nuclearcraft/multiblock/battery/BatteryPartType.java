@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.multiblock.battery;
 
-import com.nred.nuclearcraft.block.battery.BlockBattery;
+import com.nred.nuclearcraft.block.battery.BatteryBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartTypeProperties;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY_ENTITY_TYPE;
 
 public enum BatteryPartType implements IBatteryPartType {
-    Battery(() -> BATTERY_ENTITY_TYPE::get, BlockBattery::new, "");
+    Battery(() -> BATTERY_ENTITY_TYPE::get, BatteryBlock::new, "");
 
     private final MultiblockPartTypeProperties<BatteryMultiblock, IBatteryPartType> _properties;
 

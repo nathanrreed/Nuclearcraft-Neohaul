@@ -16,15 +16,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.fluids.FluidUtil;
 
 import javax.annotation.Nullable;
+import java.util.function.UnaryOperator;
 
 public abstract class BlockTile extends NCBlock implements EntityBlock {
-    public BlockTile(BlockBehaviour.Properties properties) {
+    public BlockTile(UnaryOperator<Properties> properties) {
         super(properties);
     }
 

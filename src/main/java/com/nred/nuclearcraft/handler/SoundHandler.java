@@ -152,11 +152,6 @@ public class SoundHandler {
             return sound.getDelay();
         }
 
-//		@Override
-//		public SoundCategory getCategory() {
-//			return sound.getCategory();
-//		}
-
         @Override
         public float getVolume() {
             return volume;

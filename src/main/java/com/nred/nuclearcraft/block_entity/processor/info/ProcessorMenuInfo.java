@@ -6,11 +6,11 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.TileContainerInfo;
 import com.nred.nuclearcraft.menu.MenuFunction;
 import com.nred.nuclearcraft.menu.slot.ProcessorSlot;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.util.CollectionHelper;
 import com.nred.nuclearcraft.util.ContainerInfoHelper;
@@ -288,8 +288,4 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
     public long getEnergyCapacity(double speedMultiplier, double powerMultiplier) {
         return (long) (Math.ceil(maxBaseProcessTime / speedMultiplier) * Math.ceil(maxBaseProcessPower * powerMultiplier));
     }
-
-//    public JEIContainerConnection getJEIContainerConnection() { TODO
-//        return new JEIContainerConnection(containerClass, guiClass, 0, itemInputSize, getInventorySize(), jeiClickAreaX, jeiClickAreaY, jeiClickAreaW, jeiClickAreaH);
-//    }
 }
