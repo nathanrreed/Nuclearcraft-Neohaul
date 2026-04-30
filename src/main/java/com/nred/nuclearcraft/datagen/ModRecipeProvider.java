@@ -571,7 +571,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("turbine_computer_port"), 1).pattern("HRH").pattern("CSC").pattern("HWH")
                 .define('H', ALLOY_MAP.get("hsla_steel")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
-                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput.withConditions(modLoaded("computercraft")));
 
         // Dynamos
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("magnesium_turbine_dynamo_coil"), 2).pattern("MMM").pattern("HTH").pattern("MMM")
@@ -739,7 +739,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_computer_port"), 1).pattern("PRP").pattern("CSC").pattern("PWP")
                 .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
-                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput.withConditions(modLoaded("computercraft")));
 
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_power_port"), 4).pattern("PCP").pattern("RSR").pattern("PCP")
                 .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', tag(Tags.Items.INGOTS, "copper"))
@@ -785,7 +785,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("heat_exchanger_computer_port"), 1).pattern("SRS").pattern("CTC").pattern("SWS")
                 .define('S', tag(Tags.Items.INGOTS, "steel")).define('T', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
-                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput.withConditions(modLoaded("computercraft")));
     }
 
     private void machine(RecipeOutput recipeOutput) {
@@ -810,7 +810,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, MACHINE_MAP.get("large_machine_computer_port"), 1).pattern("BRB").pattern("CMC").pattern("BWB")
                 .define('B', tag(Tags.Items.INGOTS, "bronze")).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
-                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput.withConditions(modLoaded("computercraft")));
 
         ShapedRecipeBuilder.shaped(MISC, MACHINE_MAP.get("sintered_steel_diaphragm"), 4).pattern("AQA").pattern("QAQ").pattern("AQA")
                 .define('Q', tag(Tags.Items.DUSTS, "quartz")).define('A', PART_MAP.get("sintered_steel"))
@@ -946,7 +946,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ALLOY_MAP.get("extreme")), has(ALLOY_MAP.get("extreme"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, QUANTUM_MAP.get("quantum_computer_port"), 1).pattern("XRX").pattern("CEC").pattern("XWX")
                 .define('X', ALLOY_MAP.get("extreme")).define('E', Items.ENDER_PEARL).define('R', Items.REDSTONE).define('C', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:cable")))).define('W', Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("computercraft:wired_modem"))))
-                .unlockedBy(getHasName(Items.ENDER_PEARL), has(Items.ENDER_PEARL)).save(recipeOutput);
+                .unlockedBy(getHasName(Items.ENDER_PEARL), has(Items.ENDER_PEARL)).save(recipeOutput.withConditions(modLoaded("computercraft")));
         ShapedRecipeBuilder.shaped(MISC, QUANTUM_MAP.get("quantum_computer_connector"), 8).pattern("XSX").pattern("S S").pattern("XSX")
                 .define('S', tag(Tags.Items.INGOTS, "steel")).define('X', ALLOY_MAP.get("extreme"))
                 .unlockedBy(getHasName(ALLOY_MAP.get("extreme")), has(ALLOY_MAP.get("extreme"))).save(recipeOutput);
