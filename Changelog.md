@@ -1,3 +1,2 @@
-- Added Jade plugin
-- Added missing tags
-- Cleanup
+- Made Computer Port recipe loading conditional (Thanks to carbonatek)
+- Fixed JEI fluid inputs being treated as outputs

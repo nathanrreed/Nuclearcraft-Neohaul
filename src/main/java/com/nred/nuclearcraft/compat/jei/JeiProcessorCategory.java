@@ -92,7 +92,7 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
 
         for (int i = 0; i < recipe.fluidIngredients.size(); i++) {
             ScreenPosition position = recipeViewerInfo.fluid_inputs().get(i);
-            builder.addOutputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.getFluidIngredients().get(i).getFluids()[0].getFluid(), recipe.getFluidIngredients().get(i).amount()).setFluidRenderer(1, false, 16, 16);
+            builder.addInputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.getFluidIngredients().get(i).getFluids()[0].getFluid(), recipe.getFluidIngredients().get(i).amount()).setFluidRenderer(1, false, 16, 16);
         }
 
         for (int i = 0; i < recipe.itemProducts.size(); i++) {

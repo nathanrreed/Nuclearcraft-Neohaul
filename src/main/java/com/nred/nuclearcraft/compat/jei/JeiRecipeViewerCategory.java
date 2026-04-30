@@ -44,7 +44,7 @@ public abstract class JeiRecipeViewerCategory<RECIPE extends BasicRecipe> extend
         for (int i = 0; i < recipe.fluidIngredients.size(); i++) {
             if (recipe.getFluidIngredients().get(i).isEmpty()) continue; // Required for radiation scrubber
             ScreenPosition position = recipeViewerInfo.fluid_inputs().get(i);
-            builder.addOutputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.getFluidIngredients().get(i).getFluids()[0].getFluid(), recipe.getFluidIngredients().get(i).amount()).setFluidRenderer(recipe.getFluidIngredient().amount(), false, 16, 16);
+            builder.addInputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.getFluidIngredients().get(i).getFluids()[0].getFluid(), recipe.getFluidIngredients().get(i).amount()).setFluidRenderer(recipe.getFluidIngredient().amount(), false, 16, 16);
         }
 
         for (int i = 0; i < recipe.itemProducts.size(); i++) {
