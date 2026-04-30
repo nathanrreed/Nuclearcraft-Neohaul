@@ -19,6 +19,7 @@ import com.nred.nuclearcraft.block_entity.radiation.GeigerCounterEntity;
 import com.nred.nuclearcraft.block_entity.radiation.RadiationScrubberEntity;
 import com.nred.nuclearcraft.block_entity.rtg.RTGEntity;
 import com.nred.nuclearcraft.block_entity.turbine.*;
+import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
@@ -43,6 +44,7 @@ import static com.nred.nuclearcraft.info.Names.COOLANTS;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.Registers.BLOCK_ENTITY_TYPES;
 
+@SuppressWarnings("ALL")
 public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> PROCESSOR_ENTITY_TYPE = createProcessors();
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TileSolarPanel>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
@@ -53,7 +55,7 @@ public class BlockEntityRegistration {
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractMachineEntity>>> MACHINE_ENTITY_TYPE = createMachine();
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractQuantumComputerEntity>>> QUANTUM_ENTITY_TYPE = createQuantum();
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(UniversalBinEntity::new, UNIVERSAL_BIN.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends UniversalBinEntity>> UNIVERSAL_BIN_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("universal_bin", () -> BlockEntityType.Builder.of(TileInfoHandler.UNIVERSAL_BIN_ENTITY_FACTORY, UNIVERSAL_BIN.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends MachineInterfaceEntity>> MACHINE_INTERFACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("machine_interface", () -> BlockEntityType.Builder.of(MachineInterfaceEntity::new, MACHINE_INTERFACE.get()).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends DecayGeneratorEntity>> DECAY_GENERATOR_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("decay_generator", () -> BlockEntityType.Builder.of(DecayGeneratorEntity::new, DECAY_GENERATOR.get()).build(null));

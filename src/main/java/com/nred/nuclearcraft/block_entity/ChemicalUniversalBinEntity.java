@@ -7,8 +7,10 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ChemicalUniversalBinEntity extends UniversalBinEntity {
     public ChemicalUniversalBinEntity(BlockPos pos, BlockState blockState) {
         super(pos, blockState);
-
     }
 
-    public final TankVoid tank = new com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTankVoid();
+    @Override
+    protected TankVoid createTank(){
+        return new com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTankVoid();
+    }
 }

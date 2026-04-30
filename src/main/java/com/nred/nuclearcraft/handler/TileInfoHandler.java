@@ -5,7 +5,10 @@ import com.nred.nuclearcraft.block.tile.info.TileInfoBlock;
 import com.nred.nuclearcraft.block_entity.UniversalBinEntity;
 import com.nred.nuclearcraft.block_entity.dummy.MachineInterfaceEntity;
 import com.nred.nuclearcraft.block_entity.fission.*;
-import com.nred.nuclearcraft.block_entity.fission.port.*;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
+import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.block_entity.generator.DecayGeneratorEntity;
 import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
 import com.nred.nuclearcraft.block_entity.hx.CondenserControllerEntity;
@@ -25,13 +28,17 @@ import com.nred.nuclearcraft.block_entity.radiation.GeigerCounterEntity;
 import com.nred.nuclearcraft.block_entity.radiation.RadiationScrubberEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.menu.multiblock.controller.*;
-import com.nred.nuclearcraft.menu.multiblock.port.*;
+import com.nred.nuclearcraft.menu.multiblock.port.FissionCellPortMenu;
+import com.nred.nuclearcraft.menu.multiblock.port.FissionHeaterPortMenu;
+import com.nred.nuclearcraft.menu.multiblock.port.FissionIrradiatorPortMenu;
+import com.nred.nuclearcraft.menu.multiblock.port.FissionVesselPortMenu;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.*;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.util.ModCheck;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.Map;
 
@@ -42,16 +49,18 @@ import static com.nred.nuclearcraft.util.ContainerInfoHelper.standardSlot;
 
 public class TileInfoHandler {
     public static final Object2ObjectMap<String, TileInfoBlock<?>> BLOCK_TILE_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
-
     public static final Object2ObjectMap<String, TileContainerInfo<?>> TILE_CONTAINER_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
+    public static BlockEntityType.BlockEntitySupplier<? extends UniversalBinEntity> UNIVERSAL_BIN_ENTITY_FACTORY;
 
     public static void preInit() {
         registerBlockTileInfo(new SimpleTileInfoBlock<>("machine_interface", MachineInterfaceEntity.class, MachineInterfaceEntity::new));
         registerBlockTileInfo(new SimpleTileInfoBlock<>("decay_generator", DecayGeneratorEntity.class, DecayGeneratorEntity::new));
 
         if (ModCheck.mekanismLoaded()) {
+            UNIVERSAL_BIN_ENTITY_FACTORY = com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity::new;
             registerBlockTileInfo(new SimpleTileInfoBlock<>("bin", com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity.class, com.nred.nuclearcraft.block_entity.ChemicalUniversalBinEntity::new));
         } else {
+            UNIVERSAL_BIN_ENTITY_FACTORY = UniversalBinEntity::new;
             registerBlockTileInfo(new SimpleTileInfoBlock<>("bin", UniversalBinEntity.class, UniversalBinEntity::new));
         }
 
@@ -74,7 +83,6 @@ public class TileInfoHandler {
 
         registerBlockTileInfo(new SimpleTileInfoBlock<>("geiger_block", GeigerCounterEntity.class, GeigerCounterEntity::new));
 
-//		registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>("nuclear_furnace", NuclearFurnaceTest.class, NuclearFurnaceTest::new)); TODO REMOVE
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("manufactory", ManufactoryEntity.class, ManufactoryEntity::new, ManufactoryMenu::new).setParticles("crit", "reddust").setDefaultProcessTime(() -> processor_time[0]).setDefaultProcessPower(() -> processor_power[0]).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("separator", SeparatorEntity.class, SeparatorEntity::new, SeparatorMenu::new).setParticles("reddust", "smoke").setDefaultProcessTime(() -> processor_time[1]).setDefaultProcessPower(() -> processor_power[1]).setItemInputSlots(standardSlot(42, 35)).setItemOutputSlots(bigSlot(98, 31), bigSlot(126, 31)).setProgressBarGuiXYWHUV(60, 34, 37, 18, 176, 3));
         registerProcessorInfo(new BasicUpgradableProcessorContainerInfoBuilder<>("decay_hastener", DecayHastenerEntity.class, DecayHastenerEntity::new, DecayHastenerMenu::new).setParticles("reddust").setDefaultProcessTime(() -> processor_time[2]).setDefaultProcessPower(() -> processor_power[2]).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));

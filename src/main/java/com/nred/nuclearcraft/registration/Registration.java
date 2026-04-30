@@ -2,12 +2,15 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
+import com.nred.nuclearcraft.util.ModCheck;
 import net.neoforged.bus.api.IEventBus;
 
 import static com.nred.nuclearcraft.registration.Registers.*;
 
 public class Registration {
     public static void init() {
+        ModCheck.init();
+
         DataComponentRegistration.init();
         DamageTypeRegistration.init();
         BlockRegistration.init();

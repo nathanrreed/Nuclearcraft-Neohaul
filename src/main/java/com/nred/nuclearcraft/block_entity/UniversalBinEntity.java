@@ -8,16 +8,23 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.UNIVERSAL_BIN_ENTITY_TYPE;
 
 public class UniversalBinEntity extends BlockEntity implements Container {
+    public TankVoid tank;
+
     public UniversalBinEntity(BlockPos pos, BlockState blockState) {
         super(UNIVERSAL_BIN_ENTITY_TYPE.get(), pos, blockState);
+        tank = createTank();
+    }
+
+    protected TankVoid createTank() {
+        return new TankVoid();
     }
 
     public final EnergyStorageVoid energyStorage = new EnergyStorageVoid();
-    public final TankVoid tank = new TankVoid();
 
     @Override
     public int getContainerSize() {
@@ -35,12 +42,12 @@ public class UniversalBinEntity extends BlockEntity implements Container {
     }
 
     @Override
-    public ItemStack removeItem(int slot, int amount) {
+    public @NonNull ItemStack removeItem(int slot, int amount) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack removeItemNoUpdate(int slot) {
+    public @NonNull ItemStack removeItemNoUpdate(int slot) {
         return ItemStack.EMPTY;
     }
 

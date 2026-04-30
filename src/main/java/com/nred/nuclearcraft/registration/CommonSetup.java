@@ -15,7 +15,6 @@ import com.nred.nuclearcraft.radiation.environment.RadiationEnvironmentHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeStats;
-import com.nred.nuclearcraft.util.ModCheck;
 import com.nred.nuclearcraft.worldgen.biome.NuclearWastelandBiome;
 import com.nred.nuclearcraft.worldgen.region.NuclearWastelandRegion;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -55,8 +54,6 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 public class CommonSetup {
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event) { // TODO is this the right event type
-        ModCheck.init();
-
         PlacementRule.init();
         MultitoolItem.registerRightClickLogic();
 
