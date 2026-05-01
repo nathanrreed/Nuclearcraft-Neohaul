@@ -1,3 +1,4 @@
 - Made Computer Port recipe loading conditional (Thanks to carbonatek)
 - Fixed JEI fluid inputs being treated as outputs
 - Fixed Universal Bin not working with Mekanism chemicals properly
+- Fixed save and exit freezing when reactor is running

@@ -9,10 +9,13 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 
 public interface IActivatable extends IDynamicState {
     default void setActivity(boolean isActive, BlockEntity tile) {
+        if (!tile.getLevel().isLoaded(tile.getBlockPos()))  // Was freezing on exit reloaded level
+            return;
+
         Level level = tile.getLevel();
         BlockPos pos = tile.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        if (!level.isClientSide && getClass().isInstance(state.getBlock())) {
+        if (!level.isClientSide() && getClass().isInstance(state.getBlock())) {
             if (isActive != state.getValue(ACTIVE)) {
                 level.setBlock(pos, state.setValue(ACTIVE, isActive), 2);
             }

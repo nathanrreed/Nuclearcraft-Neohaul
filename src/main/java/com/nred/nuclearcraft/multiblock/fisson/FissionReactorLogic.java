@@ -118,7 +118,7 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
     }
 
     public void onReactorBroken() {
-        if (!getWorld().isClientSide) {
+        if (!getWorld().isClientSide()) {
             refreshConnections();
             multiblock.updateActivity();
         }

@@ -158,7 +158,8 @@ dependencies {
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
-    implementation("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+    compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
+    runtimeOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
 
     implementation "maven.modrinth:fusion-connected-textures:${fusion_version}-neoforge-mc${minecraft_version}"
 }

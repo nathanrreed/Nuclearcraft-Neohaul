@@ -34,8 +34,7 @@ public abstract class TilePartAbstract<MULTIBLOCK extends AbstractCuboidMultiblo
 
     @Override
     public void onLoad() {
-        if (level.isClientSide) {
-//            level.markBlockRangeForRenderUpdate(pos, pos); TODO
+        if (level.isClientSide()) {
             refreshIsRedstonePowered(level, worldPosition);
             setChanged();
             updateComparatorOutputLevel();

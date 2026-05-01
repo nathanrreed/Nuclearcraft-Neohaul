@@ -110,6 +110,9 @@ public class TurbineControllerEntity extends AbstractTurbineEntity implements IT
 
     @Override
     public void setActivity(boolean value) {
+        if (!this.getLevel().isLoaded(this.getBlockPos()))  // Was freezing on exit reloaded level
+            return;
+
         BlockState state = getLevel().getBlockState(getBlockPos());
         if (!state.isAir())
             getLevel().setBlock(getBlockPos(), state.setValue(ACTIVE, value), Block.UPDATE_ALL);
