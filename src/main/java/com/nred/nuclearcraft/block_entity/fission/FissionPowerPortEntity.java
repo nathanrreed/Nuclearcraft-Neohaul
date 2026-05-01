@@ -19,13 +19,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
-import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class FissionPowerPortEntity extends AbstractFissionEntity implements ITickable, ITileEnergy {
     protected final EnergyStorage backupStorage = new EnergyStorage(0L);
@@ -44,11 +45,11 @@ public class FissionPowerPortEntity extends AbstractFissionEntity implements ITi
     }
 
     @Override
-    public void onPreMachineAssembled(FissionReactor controller) {
+    public void onPreMachineAssembled(@NonNull FissionReactor controller) {
         super.onPreMachineAssembled(controller);
         if (!level.isClientSide()) {
             Optional<Direction> facing = getPartPosition().getDirection();
-            facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_HORIZONTAL, direction), 2));
+            facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_ALL, direction), 2));
         }
     }
 
