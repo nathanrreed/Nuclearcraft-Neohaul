@@ -19,7 +19,7 @@ public interface IRecipe {
     }
 
     default SizedChanceItemIngredient getItemProduct() {
-        return getItemProducts().getFirst();
+        return getItemProducts().isEmpty() ? SizedChanceItemIngredient.EMPTY : getItemProducts().getFirst();
     }
 
     default SizedChanceFluidIngredient getFluidIngredient() {

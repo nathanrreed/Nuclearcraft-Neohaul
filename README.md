@@ -50,10 +50,10 @@ For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https:
 - Quantum Computer
 - Wasteland
 - CC: T Integration
-- Integrations with JEI, EMI, Mekanism
+- Integrations with JEI, EMI, Mekanism, Jade
 - Radiation
 - Tools and Armour
 
 #### Currently Working on:
 - Testing and optimizing
-- Integrations with other mods (KubeJS / CraftTweaker, Jade / TOP)
+- Integrations with other mods (KubeJS / CraftTweaker)
