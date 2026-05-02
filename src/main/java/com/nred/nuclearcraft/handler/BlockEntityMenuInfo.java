@@ -10,12 +10,12 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
-public class TileContainerInfo<TILE extends BlockEntity> {
+public class BlockEntityMenuInfo<TILE extends BlockEntity> {
     public final String name;
 
     protected final MenuFunction<TILE> menuFunction;
 
-    public TileContainerInfo(String name, Class<TILE> tileClass, MenuFunction<TILE> menuFunction) {
+    public BlockEntityMenuInfo(String name, Class<TILE> tileClass, MenuFunction<TILE> menuFunction) {
         this.name = name;
         this.menuFunction = menuFunction;
     }

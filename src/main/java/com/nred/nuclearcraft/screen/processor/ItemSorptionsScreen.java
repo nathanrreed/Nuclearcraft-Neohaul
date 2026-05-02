@@ -14,7 +14,7 @@ import com.nred.nuclearcraft.payload.gui.ResetItemSorptionsPacket;
 import com.nred.nuclearcraft.payload.gui.ToggleItemOutputSettingPacket;
 import com.nred.nuclearcraft.payload.gui.ToggleItemSorptionPacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
-import com.nred.nuclearcraft.screen.NCGui;
+import com.nred.nuclearcraft.screen.NCScreen;
 import com.nred.nuclearcraft.util.BlockHelper;
 import com.nred.nuclearcraft.util.NCUtil;
 import com.nred.nuclearcraft.util.StreamHelper;
@@ -29,8 +29,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public abstract class GuiItemSorptions<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends NCGui<ProcessorMenu<TILE, PACKET, INFO>> {
-    protected final NCGui<?> parent;
+public abstract class ItemSorptionsScreen<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends NCScreen<ProcessorMenu<TILE, PACKET, INFO>> {
+    protected final NCScreen<?> parent;
     protected final TILE tile;
     protected final Direction[] dirs;
     protected final int slot;
@@ -38,7 +38,7 @@ public abstract class GuiItemSorptions<TILE extends BlockEntity & ITileGui<TILE,
     protected static ResourceLocation gui_texture;
     protected int[] a, b;
 
-    public GuiItemSorptions(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot, ItemSorption.Type sorptionType) {
+    public ItemSorptionsScreen(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot, ItemSorption.Type sorptionType) {
         super((ProcessorMenu<TILE, PACKET, INFO>) parent.getMenu(), parent.getMenu().inventory, Component.empty());
         this.parent = parent;
         this.tile = tile;
@@ -108,8 +108,8 @@ public abstract class GuiItemSorptions<TILE extends BlockEntity & ITileGui<TILE,
         }
     }
 
-    public static class Input<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends GuiItemSorptions<TILE, PACKET, INFO> {
-        public Input(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
+    public static class Input<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends ItemSorptionsScreen<TILE, PACKET, INFO> {
+        public Input(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
             super(parent, tile, slot, ItemSorption.Type.INPUT);
             gui_texture = ncLoc("side_config/item_input");
             a = new int[]{25, 25, 7, 43, 25, 43};
@@ -119,10 +119,10 @@ public abstract class GuiItemSorptions<TILE extends BlockEntity & ITileGui<TILE,
         }
     }
 
-    public static class Output<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends GuiItemSorptions<TILE, PACKET, INFO> {
+    public static class Output<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends ItemSorptionsScreen<TILE, PACKET, INFO> {
         public ItemOutputSetting outputSetting;
 
-        public Output(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
+        public Output(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
             super(parent, tile, slot, ItemSorption.Type.OUTPUT);
             gui_texture = ncLoc("side_config/item_output");
             a = new int[]{47, 47, 29, 65, 47, 65};
@@ -163,14 +163,14 @@ public abstract class GuiItemSorptions<TILE extends BlockEntity & ITileGui<TILE,
     }
 
     public static class SpeedUpgrade<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends Input<TILE, PACKET, INFO> {
-        public SpeedUpgrade(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
+        public SpeedUpgrade(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
             super(parent, tile, slot);
             gui_texture = ncLoc("side_config/speed_upgrade");
         }
     }
 
     public static class EnergyUpgrade<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileInventory & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends Input<TILE, PACKET, INFO> {
-        public EnergyUpgrade(NCGui<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
+        public EnergyUpgrade(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
             super(parent, tile, slot);
             gui_texture = ncLoc("side_config/energy_upgrade");
         }

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.machine;
 
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.controller.ElectrolyzerControllerMenu;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
@@ -22,7 +22,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class ElectrolyzerControllerEntity extends AbstractMachineEntity implements IMachineController<ElectrolyzerControllerEntity> {
-    protected final TileContainerInfo<ElectrolyzerControllerEntity> info = TileInfoHandler.getTileContainerInfo("electrolyzer_controller");
+    protected final BlockEntityMenuInfo<ElectrolyzerControllerEntity> info = TileInfoHandler.getTileContainerInfo("electrolyzer_controller");
 
     protected boolean isRenderer = false;
 
@@ -41,7 +41,7 @@ public class ElectrolyzerControllerEntity extends AbstractMachineEntity implemen
     }
 
     @Override
-    public TileContainerInfo<ElectrolyzerControllerEntity> getContainerInfo() {
+    public BlockEntityMenuInfo<ElectrolyzerControllerEntity> getContainerInfo() {
         return info;
     }
 

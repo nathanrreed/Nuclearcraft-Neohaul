@@ -2,12 +2,11 @@ package com.nred.nuclearcraft.menu.multiblock.port;
 
 import com.nred.nuclearcraft.block_entity.fission.FissionCoolerEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCoolerPortEntity;
-import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.NCRecipes;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import it.zerono.mods.zerocore.lib.block.AbstractModBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,7 +14,7 @@ import net.minecraft.world.inventory.Slot;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.FISSION_COOLER_PORT_MENU_TYPE;
 
-public class FissionCoolerPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionCoolerPortEntity, FissionCoolerEntity, FluidPortUpdatePacket, TileContainerInfo<FissionCoolerPortEntity>> {
+public class FissionCoolerPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionCoolerPortEntity, FissionCoolerEntity, FluidPortUpdatePacket, BlockEntityMenuInfo<FissionCoolerPortEntity>> {
 
     public FissionCoolerPortMenu(int containerId, Inventory inventory, FissionCoolerPortEntity tile) {
         super(FISSION_COOLER_PORT_MENU_TYPE.get(), containerId, inventory, tile);
@@ -37,7 +36,7 @@ public class FissionCoolerPortMenu extends PortMenu<FissionReactor, FissionReact
     }
 
     @Override
-    protected BasicRecipeHandler getRecipeHandler() {
+    protected NCRecipes.FissionEmergencyCoolingRecipes getRecipeHandler() {
         return NCRecipes.fission_emergency_cooling;
     }
 }

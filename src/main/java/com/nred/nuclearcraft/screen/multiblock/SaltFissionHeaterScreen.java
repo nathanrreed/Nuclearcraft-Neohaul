@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionHeaterEntity;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SaltFissionHeaterMenu;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionHeaterUpdatePacket;
-import com.nred.nuclearcraft.screen.processor.GuiProcessorImpl.GuiBasicProcessor;
+import com.nred.nuclearcraft.screen.processor.ProcessorScreenImpl.BasicFilteredFluidProcessorScreen;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -17,7 +17,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class SaltFissionHeaterScreen extends GuiBasicProcessor<SaltFissionHeaterMenu, SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> {
+public class SaltFissionHeaterScreen extends BasicFilteredFluidProcessorScreen<SaltFissionHeaterMenu, SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> {
     public SaltFissionHeaterScreen(SaltFissionHeaterMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, ncLoc("screen/" + "salt_fission_heater"));
         inventoryLabelY = Integer.MIN_VALUE;

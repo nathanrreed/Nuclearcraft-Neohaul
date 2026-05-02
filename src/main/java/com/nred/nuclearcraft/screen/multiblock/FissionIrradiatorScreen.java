@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.FissionIrradiatorEntity;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.FissionIrradiatorMenu;
 import com.nred.nuclearcraft.payload.multiblock.FissionIrradiatorUpdatePacket;
-import com.nred.nuclearcraft.screen.processor.GuiProcessorImpl.GuiBasicFilteredProcessor;
+import com.nred.nuclearcraft.screen.processor.ProcessorScreenImpl.BasicFilteredItemProcessorScreen;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -17,7 +17,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class FissionIrradiatorScreen extends GuiBasicFilteredProcessor<FissionIrradiatorMenu, FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> {
+public class FissionIrradiatorScreen extends BasicFilteredItemProcessorScreen<FissionIrradiatorMenu, FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> {
     public FissionIrradiatorScreen(FissionIrradiatorMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, ncLoc("screen/" + "fission_irradiator"));
         inventoryLabelY = Integer.MIN_VALUE;

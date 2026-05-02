@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.payload.multiblock;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.machine.DistillerControllerEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
@@ -63,7 +63,7 @@ public class DistillerRenderPacket extends MachineRenderPacket {
         return TYPE;
     }
 
-    public static class Handler extends MultiblockUpdatePacket.Handler<Machine, MachineUpdatePacket, DistillerControllerEntity, TileContainerInfo<DistillerControllerEntity>, DistillerRenderPacket> {
+    public static class Handler extends MultiblockUpdatePacket.Handler<Machine, MachineUpdatePacket, DistillerControllerEntity, BlockEntityMenuInfo<DistillerControllerEntity>, DistillerRenderPacket> {
         public static void handleOnClient(DistillerRenderPacket payload, IPayloadContext context) {
             context.enqueueWork(() -> {
                 BlockEntity tile = context.player().level().getBlockEntity(payload.pos);

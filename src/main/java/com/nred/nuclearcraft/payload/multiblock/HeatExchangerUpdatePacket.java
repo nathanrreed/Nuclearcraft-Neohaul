@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchanger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -90,7 +90,7 @@ public class HeatExchangerUpdatePacket extends MultiblockUpdatePacket {
         return TYPE;
     }
 
-    public static class Handler extends MultiblockUpdatePacket.Handler<HeatExchanger, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, TileContainerInfo<HeatExchangerControllerEntity>, HeatExchangerUpdatePacket> {
+    public static class Handler extends MultiblockUpdatePacket.Handler<HeatExchanger, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, BlockEntityMenuInfo<HeatExchangerControllerEntity>, HeatExchangerUpdatePacket> {
         public static void handleOnClient(HeatExchangerUpdatePacket payload, IPayloadContext context) {
             context.enqueueWork(() -> {
                 BlockEntity tile = context.player().level().getBlockEntity(payload.pos);

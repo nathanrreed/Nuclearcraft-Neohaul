@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.screen.multiblock.controller;
 
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorControllerEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.controller.InfiltratorControllerMenu;
 import com.nred.nuclearcraft.multiblock.machine.InfiltratorLogic;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Inventory;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class InfiltratorControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, InfiltratorControllerEntity, TileContainerInfo<InfiltratorControllerEntity>, InfiltratorLogic, InfiltratorControllerMenu> {
+public class InfiltratorControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, InfiltratorControllerEntity, BlockEntityMenuInfo<InfiltratorControllerEntity>, InfiltratorLogic, InfiltratorControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "infiltrator_controller");
 
     public InfiltratorControllerScreen(InfiltratorControllerMenu menu, Inventory playerInventory, Component title) {

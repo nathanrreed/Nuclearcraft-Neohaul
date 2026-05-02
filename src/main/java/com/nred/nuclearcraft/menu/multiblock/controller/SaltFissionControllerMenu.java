@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.menu.multiblock.controller;
 
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionControllerEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.SaltFissionLogic;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.SALT_FISSION_CONTROLLER_MENU_TYPE;
 
-public class SaltFissionControllerMenu extends MultiblockControllerMenu<FissionReactor, FissionUpdatePacket, SaltFissionControllerEntity, TileContainerInfo<SaltFissionControllerEntity>> {
+public class SaltFissionControllerMenu extends MultiblockControllerMenu<FissionReactor, FissionUpdatePacket, SaltFissionControllerEntity, BlockEntityMenuInfo<SaltFissionControllerEntity>> {
     public final SaltFissionLogic logic = (SaltFissionLogic) this.tile.getLogic();
 
     public SaltFissionControllerMenu(int containerId, Inventory inventory, final SaltFissionControllerEntity controller) {

@@ -5,7 +5,7 @@ import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -35,8 +35,8 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.smart_processor_input;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity<PORT, TARGET> & ITileFilteredFluid, TARGET extends IFissionPortTarget<PORT, TARGET> & ITileFilteredFluid> extends FissionPortEntity<PORT, TARGET> implements ITileFilteredFluid, ITileGui<PORT, FluidPortUpdatePacket, TileContainerInfo<PORT>> {
-    protected final TileContainerInfo<PORT> info;
+public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity<PORT, TARGET> & ITileFilteredFluid, TARGET extends IFissionPortTarget<PORT, TARGET> & ITileFilteredFluid> extends FissionPortEntity<PORT, TARGET> implements ITileFilteredFluid, ITileGui<PORT, FluidPortUpdatePacket, BlockEntityMenuInfo<PORT>> {
+    protected final BlockEntityMenuInfo<PORT> info;
 
     protected final @Nonnull List<Tank> tanks;
     protected final @Nonnull List<Tank> filterTanks;
@@ -67,7 +67,7 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
     }
 
     @Override
-    public TileContainerInfo<PORT> getContainerInfo() {
+    public BlockEntityMenuInfo<PORT> getContainerInfo() {
         return info;
     }
 

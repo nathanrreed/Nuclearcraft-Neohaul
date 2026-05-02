@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.screen.multiblock.controller;
 
 import com.nred.nuclearcraft.block_entity.machine.DistillerControllerEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.controller.DistillerControllerMenu;
 import com.nred.nuclearcraft.multiblock.machine.DistillerLogic;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Inventory;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class DistillerControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, DistillerControllerEntity, TileContainerInfo<DistillerControllerEntity>, DistillerLogic, DistillerControllerMenu> {
+public class DistillerControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, DistillerControllerEntity, BlockEntityMenuInfo<DistillerControllerEntity>, DistillerLogic, DistillerControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "distiller_controller");
 
     public DistillerControllerScreen(DistillerControllerMenu menu, Inventory playerInventory, Component title) {

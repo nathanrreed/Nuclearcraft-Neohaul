@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
 import com.nred.nuclearcraft.multiblock.IMultiblockController;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.payload.NCPacket;
@@ -37,6 +37,6 @@ public class MultiblockUpdatePacket extends NCPacket {
         throw new RuntimeException("Raw use of MultiblockUpdatePacket");
     }
 
-    public static abstract class Handler<MULTIBLOCK extends Multiblock<MULTIBLOCK> & IPacketMultiblock<MULTIBLOCK, PACKET>, PACKET extends MultiblockUpdatePacket, CONTROLLER extends BlockEntity & IMultiblockController<MULTIBLOCK, PACKET, CONTROLLER, INFO>, INFO extends TileContainerInfo<CONTROLLER>, MESSAGE extends MultiblockUpdatePacket> {
+    public static abstract class Handler<MULTIBLOCK extends Multiblock<MULTIBLOCK> & IPacketMultiblock<MULTIBLOCK, PACKET>, PACKET extends MultiblockUpdatePacket, CONTROLLER extends BlockEntity & IMultiblockController<MULTIBLOCK, PACKET, CONTROLLER, INFO>, INFO extends BlockEntityMenuInfo<CONTROLLER>, MESSAGE extends MultiblockUpdatePacket> {
     }
 }

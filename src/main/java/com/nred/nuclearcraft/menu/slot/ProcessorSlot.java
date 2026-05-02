@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.menu.slot;
 
-import com.nred.nuclearcraft.screen.processor.GuiFluidSorptions;
-import com.nred.nuclearcraft.screen.processor.GuiItemSorptions;
+import com.nred.nuclearcraft.screen.processor.FluidSorptionsScreen;
+import com.nred.nuclearcraft.screen.processor.ItemSorptionsScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
@@ -13,6 +13,6 @@ public class ProcessorSlot extends Slot {
 
     @Override
     public boolean isActive() {
-        return !(Minecraft.getInstance().screen instanceof GuiItemSorptions<?,?,?> || Minecraft.getInstance().screen instanceof GuiFluidSorptions<?,?,?>);
+        return !(Minecraft.getInstance().screen instanceof ItemSorptionsScreen<?,?,?> || Minecraft.getInstance().screen instanceof FluidSorptionsScreen<?,?,?>);
     }
 }

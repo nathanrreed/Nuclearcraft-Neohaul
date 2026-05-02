@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.screen.multiblock.controller;
 
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.controller.MultiblockControllerMenu;
 import com.nred.nuclearcraft.multiblock.*;
 import com.nred.nuclearcraft.payload.multiblock.MultiblockUpdatePacket;
@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public abstract class LogicMultiblockControllerScreen<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC> & IPacketMultiblock<MULTIBLOCK, PACKET>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>, PACKET extends MultiblockUpdatePacket, CONTROLLER extends BlockEntity & IMultiblockGuiPart<MULTIBLOCK, PACKET, CONTROLLER, INFO>, INFO extends TileContainerInfo<CONTROLLER>, L extends LOGIC, MENU extends MultiblockControllerMenu<MULTIBLOCK, PACKET, CONTROLLER, INFO>> extends MultiblockControllerScreen<MULTIBLOCK, PACKET, CONTROLLER, INFO, MENU> {
+public abstract class LogicMultiblockControllerScreen<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC> & IPacketMultiblock<MULTIBLOCK, PACKET>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>, PACKET extends MultiblockUpdatePacket, CONTROLLER extends BlockEntity & IMultiblockScreenPart<MULTIBLOCK, PACKET, CONTROLLER, INFO>, INFO extends BlockEntityMenuInfo<CONTROLLER>, L extends LOGIC, MENU extends MultiblockControllerMenu<MULTIBLOCK, PACKET, CONTROLLER, INFO>> extends MultiblockControllerScreen<MULTIBLOCK, PACKET, CONTROLLER, INFO, MENU> {
     protected final LOGIC logic;
 
     public LogicMultiblockControllerScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {

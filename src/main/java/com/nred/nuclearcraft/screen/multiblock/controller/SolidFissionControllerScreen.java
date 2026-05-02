@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.screen.multiblock.controller;
 
 import com.nred.nuclearcraft.block_entity.fission.SolidFissionControllerEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.controller.SolidFissionControllerMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
@@ -23,7 +23,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class SolidFissionControllerScreen extends LogicMultiblockControllerScreen<FissionReactor, FissionReactorLogic, FissionUpdatePacket, SolidFissionControllerEntity, TileContainerInfo<SolidFissionControllerEntity>, SolidFuelFissionLogic, SolidFissionControllerMenu> {
+public class SolidFissionControllerScreen extends LogicMultiblockControllerScreen<FissionReactor, FissionReactorLogic, FissionUpdatePacket, SolidFissionControllerEntity, BlockEntityMenuInfo<SolidFissionControllerEntity>, SolidFuelFissionLogic, SolidFissionControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "solid_fission_controller");
 
     public SolidFissionControllerScreen(SolidFissionControllerMenu menu, Inventory playerInventory, Component title) {

@@ -1,0 +1,50 @@
+package com.nred.nuclearcraft.block.fission;
+
+import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
+import com.nred.nuclearcraft.block_entity.fission.SaltFissionVesselEntity;
+import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import com.nred.nuclearcraft.multiblock.fisson.IFissionPartType;
+import com.nred.nuclearcraft.util.FluidStackHelper;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.fluids.FluidStack;
+
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+
+public class SaltFissionVesselBlock extends GenericTooltipDeviceBlock<FissionReactor, IFissionPartType> {
+    public SaltFissionVesselBlock(MultiblockPartProperties<IFissionPartType> properties) {
+        super(properties);
+    }
+
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (hand != InteractionHand.MAIN_HAND || player.isCrouching()) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof SaltFissionVesselEntity vessel) {
+            FissionReactor reactor = vessel.getMultiblockController().orElse(null);
+            if (reactor != null) {
+                FluidStack fluidStack = FluidStackHelper.getFluid(player.getItemInHand(hand));
+                if (vessel.canModifyFilter(0) && vessel.getTanks().get(0).isEmpty() && fluidStack != null && !FluidStackHelper.stacksEqual(vessel.getFilterTanks().get(0).getFluid(), fluidStack) && vessel.isFluidValidForTank(0, fluidStack)) {
+                    player.sendSystemMessage(Component.translatable(MODID + ".message.filter", fluidStack.getHoverName().copy().withStyle(ChatFormatting.BOLD)));
+
+                    FluidStack filter = fluidStack.copy();
+                    filter.setAmount(1000);
+                    vessel.getFilterTanks().get(0).setFluid(filter);
+                    vessel.onFilterChanged(0);
+                    return ItemInteractionResult.CONSUME;
+                }
+            }
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+}

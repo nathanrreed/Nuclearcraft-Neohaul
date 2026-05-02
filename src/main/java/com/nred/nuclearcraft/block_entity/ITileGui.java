@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity;
 
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.payload.NCPacket;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.Set;
 
-public interface ITileGui<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO>, PACKET extends NCPacket, INFO extends TileContainerInfo<TILE>> extends ITilePacket<PACKET>, MenuProvider {
+public interface ITileGui<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO>, PACKET extends NCPacket, INFO extends BlockEntityMenuInfo<TILE>> extends ITilePacket<PACKET>, MenuProvider {
     INFO getContainerInfo();
 
     Set<Player> getTileUpdatePacketListeners();

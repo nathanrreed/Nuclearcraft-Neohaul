@@ -23,8 +23,8 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
-public abstract class GuiUpgradableProcessor<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO>> extends GuiProcessor<MENU, TILE, PACKET, INFO> {
-    public GuiUpgradableProcessor(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
+public abstract class UpgradableProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO>> extends ProcessorScreen<MENU, TILE, PACKET, INFO> {
+    public UpgradableProcessorScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
         super(menu, inventory, title, textureLocation);
     }
 
@@ -59,10 +59,10 @@ public abstract class GuiUpgradableProcessor<MENU extends InfoTileMenu<TILE, PAC
         if (super.sorptionButtonActionPerformed(button, pressed)) {
             return true;
         } else if (button.id == info.speedUpgradeSorptionButtonID) {
-            Minecraft.getInstance().setScreen(new GuiItemSorptions.SpeedUpgrade<>(this, tile, info.speedUpgradeSlot));
+            Minecraft.getInstance().setScreen(new ItemSorptionsScreen.SpeedUpgrade<>(this, tile, info.speedUpgradeSlot));
             return true;
         } else if (button.id == info.energyUpgradeSorptionButtonID) {
-            Minecraft.getInstance().setScreen(new GuiItemSorptions.EnergyUpgrade<>(this, tile, info.energyUpgradeSlot));
+            Minecraft.getInstance().setScreen(new ItemSorptionsScreen.EnergyUpgrade<>(this, tile, info.energyUpgradeSlot));
             return true;
         }
         return false;
@@ -88,7 +88,7 @@ public abstract class GuiUpgradableProcessor<MENU extends InfoTileMenu<TILE, PAC
         return Component.translatable(unloc, Component.literal(" x" + NCMath.decimalPlaces(mult, 2)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA);
     }
 
-    public class SideConfigScreen extends GuiUpgradableProcessor<MENU, TILE, PACKET, INFO> {
+    public class SideConfigScreen extends UpgradableProcessorScreen<MENU, TILE, PACKET, INFO> {
         private final Screen parent;
 
         public SideConfigScreen(MENU menu, Screen parent, Inventory inventory, Component title, ResourceLocation resourceLocation) {

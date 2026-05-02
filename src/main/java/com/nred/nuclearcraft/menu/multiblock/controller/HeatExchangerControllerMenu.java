@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.menu.multiblock.controller;
 
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchanger;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerUpdatePacket;
 import it.zerono.mods.zerocore.lib.block.AbstractModBlockEntity;
@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.HX_CONTROLLER_MENU_TYPE;
 
-public class HeatExchangerControllerMenu extends MultiblockControllerMenu<HeatExchanger, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, TileContainerInfo<HeatExchangerControllerEntity>> {
+public class HeatExchangerControllerMenu extends MultiblockControllerMenu<HeatExchanger, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, BlockEntityMenuInfo<HeatExchangerControllerEntity>> {
     public HeatExchangerControllerMenu(int containerId, Inventory inventory, final HeatExchangerControllerEntity controller) {
         super(HX_CONTROLLER_MENU_TYPE.get(), containerId, inventory, controller);
     }

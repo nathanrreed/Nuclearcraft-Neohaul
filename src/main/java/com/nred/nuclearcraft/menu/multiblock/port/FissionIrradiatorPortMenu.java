@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.block_entity.fission.FissionIrradiatorEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.slot.FilteredSlot;
 import com.nred.nuclearcraft.menu.slot.ResultSlot;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -17,7 +17,7 @@ import net.minecraft.world.inventory.Slot;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.FISSION_IRRADIATOR_PORT_MENU_TYPE;
 
-public class FissionIrradiatorPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionIrradiatorPortEntity, FissionIrradiatorEntity, ItemPortUpdatePacket, TileContainerInfo<FissionIrradiatorPortEntity>> {
+public class FissionIrradiatorPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionIrradiatorPortEntity, FissionIrradiatorEntity, ItemPortUpdatePacket, BlockEntityMenuInfo<FissionIrradiatorPortEntity>> {
     public FissionIrradiatorPortMenu(int containerId, Inventory inventory, FissionIrradiatorPortEntity tile) {
         super(FISSION_IRRADIATOR_PORT_MENU_TYPE.get(), containerId, inventory, tile);
 

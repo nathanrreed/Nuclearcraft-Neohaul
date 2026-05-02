@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.screen.multiblock.controller;
 
 import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerControllerEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.controller.ElectrolyzerControllerMenu;
 import com.nred.nuclearcraft.multiblock.machine.ElectrolyzerLogic;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Inventory;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class ElectrolyzerControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, ElectrolyzerControllerEntity, TileContainerInfo<ElectrolyzerControllerEntity>, ElectrolyzerLogic, ElectrolyzerControllerMenu> {
+public class ElectrolyzerControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, ElectrolyzerControllerEntity, BlockEntityMenuInfo<ElectrolyzerControllerEntity>, ElectrolyzerLogic, ElectrolyzerControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "electrolyzer_controller");
 
     public ElectrolyzerControllerScreen(ElectrolyzerControllerMenu menu, Inventory playerInventory, Component title) {

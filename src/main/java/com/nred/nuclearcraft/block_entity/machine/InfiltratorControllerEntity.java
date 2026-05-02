@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.machine;
 
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.controller.InfiltratorControllerMenu;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
@@ -22,7 +22,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class InfiltratorControllerEntity extends AbstractMachineEntity implements IMachineController<InfiltratorControllerEntity> {
-    protected final TileContainerInfo<InfiltratorControllerEntity> info = TileInfoHandler.getTileContainerInfo("infiltrator_controller");
+    protected final BlockEntityMenuInfo<InfiltratorControllerEntity> info = TileInfoHandler.getTileContainerInfo("infiltrator_controller");
 
     protected boolean isRenderer = false;
 
@@ -41,7 +41,7 @@ public class InfiltratorControllerEntity extends AbstractMachineEntity implement
     }
 
     @Override
-    public TileContainerInfo<InfiltratorControllerEntity> getContainerInfo() {
+    public BlockEntityMenuInfo<InfiltratorControllerEntity> getContainerInfo() {
         return info;
     }
 

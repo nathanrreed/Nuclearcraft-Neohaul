@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
@@ -81,7 +81,7 @@ public class TurbineRenderPacket extends MultiblockUpdatePacket {
         buf.writeDouble(recipeInputRateFP);
     }
 
-    public static class Handler extends MultiblockUpdatePacket.Handler<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>, TurbineRenderPacket> {
+    public static class Handler extends MultiblockUpdatePacket.Handler<Turbine, TurbineUpdatePacket, TurbineControllerEntity, BlockEntityMenuInfo<TurbineControllerEntity>, TurbineRenderPacket> {
         public static void handleOnClient(TurbineRenderPacket payload, IPayloadContext context) {
             context.enqueueWork(() -> {
                 BlockEntity tile = context.player().level().getBlockEntity(payload.pos);

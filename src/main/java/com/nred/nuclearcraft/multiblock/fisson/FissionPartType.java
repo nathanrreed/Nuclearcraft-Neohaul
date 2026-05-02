@@ -29,20 +29,20 @@ public enum FissionPartType implements IFissionPartType {
     Shield(() -> FISSION_ENTITY_TYPE.get("shield")::get, FissionShieldBlock::new),
     Source(() -> FISSION_ENTITY_TYPE.get("source")::get, FissionSourceBlock::new),
 
-    Cell(() -> FISSION_ENTITY_TYPE.get("cell")::get, GenericTooltipDeviceBlock::new),
+    Cell(() -> FISSION_ENTITY_TYPE.get("cell")::get, SolidFissionCellBlock::new),
     CellPort(() -> FISSION_ENTITY_TYPE.get("cell_port")::get, FissionCellPortBlock::new),
 
-    Cooler(() -> FISSION_ENTITY_TYPE.get("cooler")::get, GenericTooltipDeviceBlock::new),
+    Cooler(() -> FISSION_ENTITY_TYPE.get("cooler")::get, FissionCoolerBlock::new),
     CoolerPort(() -> FISSION_ENTITY_TYPE.get("cooler_port")::get, FissionCoolerPortBlock::new),
 
-    Irradiator(() -> FISSION_ENTITY_TYPE.get("irradiator")::get, GenericTooltipDeviceBlock::new),
+    Irradiator(() -> FISSION_ENTITY_TYPE.get("irradiator")::get, FissionIrradiatorBlock::new),
     IrradiatorPort(() -> FISSION_ENTITY_TYPE.get("irradiator_port")::get, FissionIrradiatorPortBlock::new),
 
-    Vessel(() -> FISSION_ENTITY_TYPE.get("vessel")::get, GenericTooltipDeviceBlock::new),
+    Vessel(() -> FISSION_ENTITY_TYPE.get("vessel")::get, SaltFissionVesselBlock::new),
     VesselPort(() -> FISSION_ENTITY_TYPE.get("vessel_port")::get, FissionVesselPortBlock::new),
 
     HeatSink(() -> FISSION_ENTITY_TYPE.get("heat_sink")::get, GenericTooltipDeviceBlock::new),
-    Heater(() -> FISSION_ENTITY_TYPE.get("coolant_heater")::get, GenericTooltipDeviceBlock::new),
+    Heater(() -> FISSION_ENTITY_TYPE.get("coolant_heater")::get, SaltFissionHeaterBlock::new),
     HeaterPort(() -> FISSION_ENTITY_TYPE.get("coolant_heater_port")::get, FissionHeaterPortBlock::new),
 
     ComputerPort(() -> FISSION_ENTITY_TYPE.get("computer_port")::get, GenericTooltipDeviceBlock::new),

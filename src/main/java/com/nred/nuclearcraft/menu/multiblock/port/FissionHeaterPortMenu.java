@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.menu.multiblock.port;
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionHeaterEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
@@ -15,7 +15,7 @@ import net.minecraft.world.inventory.Slot;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.FISSION_HEATER_PORT_MENU_TYPE;
 
-public class FissionHeaterPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionHeaterPortEntity, SaltFissionHeaterEntity, FluidPortUpdatePacket, TileContainerInfo<FissionHeaterPortEntity>> {
+public class FissionHeaterPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionHeaterPortEntity, SaltFissionHeaterEntity, FluidPortUpdatePacket, BlockEntityMenuInfo<FissionHeaterPortEntity>> {
     public FissionHeaterPortMenu(int containerId, Inventory inventory, FissionHeaterPortEntity tile) {
         super(FISSION_HEATER_PORT_MENU_TYPE.get(), containerId, inventory, tile);
 

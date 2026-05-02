@@ -49,7 +49,7 @@ import static com.nred.nuclearcraft.util.ContainerInfoHelper.standardSlot;
 
 public class TileInfoHandler {
     public static final Object2ObjectMap<String, TileInfoBlock<?>> BLOCK_TILE_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
-    public static final Object2ObjectMap<String, TileContainerInfo<?>> TILE_CONTAINER_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Object2ObjectMap<String, BlockEntityMenuInfo<?>> TILE_CONTAINER_INFO_MAP = new Object2ObjectLinkedOpenHashMap<>();
     public static BlockEntityType.BlockEntitySupplier<? extends UniversalBinEntity> UNIVERSAL_BIN_ENTITY_FACTORY;
 
     public static void preInit() {
@@ -106,15 +106,15 @@ public class TileInfoHandler {
 
         registerProcessorInfo(new BasicProcessorContainerInfoBuilder<>("radiation_scrubber", RadiationScrubberEntity.class, RadiationScrubberEntity::new, RadiationScrubberMenu::new).setDefaultProcessPower(() -> 1).setConsumesInputs(true).setItemInputSlots(standardSlot(32, 35)).setFluidInputSlots(standardSlot(52, 35)).setItemOutputSlots(bigSlot(108, 31)).setFluidOutputSlots(bigSlot(136, 31)).setProgressBarGuiXYWHUV(70, 35, 37, 16, 176, 3).setMachineConfigGuiXY(-1, -1).setRedstoneControlGuiXY(27, 63));
 
-        registerContainerInfo(new TileContainerInfo<>("electrolyzer_controller", ElectrolyzerControllerEntity.class, ElectrolyzerControllerMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("distiller_controller", DistillerControllerEntity.class, DistillerControllerMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("infiltrator_controller", InfiltratorControllerEntity.class, InfiltratorControllerMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("heat_exchanger_controller", HeatExchangerControllerEntity.class, HeatExchangerControllerMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("condenser_controller", CondenserControllerEntity.class, CondenserControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("electrolyzer_controller", ElectrolyzerControllerEntity.class, ElectrolyzerControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("distiller_controller", DistillerControllerEntity.class, DistillerControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("infiltrator_controller", InfiltratorControllerEntity.class, InfiltratorControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("heat_exchanger_controller", HeatExchangerControllerEntity.class, HeatExchangerControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("condenser_controller", CondenserControllerEntity.class, CondenserControllerMenu::new));
 
-        registerContainerInfo(new TileContainerInfo<>("solid_fission_controller", SolidFissionControllerEntity.class, SolidFissionControllerMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("salt_fission_controller", SaltFissionControllerEntity.class, SaltFissionControllerMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("turbine_controller", TurbineControllerEntity.class, TurbineControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("solid_fission_controller", SolidFissionControllerEntity.class, SolidFissionControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("salt_fission_controller", SaltFissionControllerEntity.class, SaltFissionControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("turbine_controller", TurbineControllerEntity.class, TurbineControllerMenu::new));
 
         registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("fission_irradiator", FissionIrradiatorEntity.class, FissionIrradiatorEntity::new, FissionIrradiatorMenu::new).setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().setStandardJeiAlternateTexture().buildContainerInfo());
         registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("solid_fission_cell", SolidFissionCellEntity.class, SolidFissionCellEntity::new, SolidFissionCellMenu::new).setRecipeHandlerName("solid_fission").setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
@@ -123,10 +123,10 @@ public class TileInfoHandler {
             throw new RuntimeException("Wrong method used : salt_fission_heater");
         }, SaltFissionHeaterMenu::new).setRecipeHandlerName("coolant_heater").setConsumesInputs(true).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
 
-        registerContainerInfo(new TileContainerInfo<>("fission_irradiator_port", FissionIrradiatorPortEntity.class, FissionIrradiatorPortMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("fission_cell_port", FissionCellPortEntity.class, FissionCellPortMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("fission_vessel_port", FissionVesselPortEntity.class, FissionVesselPortMenu::new));
-        registerContainerInfo(new TileContainerInfo<>("fission_heater_port", FissionHeaterPortEntity.class, FissionHeaterPortMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("fission_irradiator_port", FissionIrradiatorPortEntity.class, FissionIrradiatorPortMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("fission_cell_port", FissionCellPortEntity.class, FissionCellPortMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("fission_vessel_port", FissionVesselPortEntity.class, FissionVesselPortMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("fission_heater_port", FissionHeaterPortEntity.class, FissionHeaterPortMenu::new));
 
 //        registerContainerInfo(new BasicProcessorContainerInfoBuilder<>("fission_cooler", FissionCoolerEntity.class, FissionCoolerEntity::new, FissionCoolerMenu::new).setRecipeHandlerName("fission_cooler").setConsumesInputs(true).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)).setStandardJeiAlternateTitle().buildContainerInfo());
 //        registerContainerInfo(new TileContainerInfo<>("fission_cooler_port", FissionCoolerPortEntity.class, FissionCoolerPortMenu::new));
@@ -146,7 +146,7 @@ public class TileInfoHandler {
         register(BLOCK_TILE_INFO_MAP, info.name, info);
     }
 
-    public static void registerContainerInfo(TileContainerInfo<?> info) {
+    public static void registerContainerInfo(BlockEntityMenuInfo<?> info) {
         register(TILE_CONTAINER_INFO_MAP, info.name, info);
     }
 
@@ -166,7 +166,7 @@ public class TileInfoHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public static <TILE extends BlockEntity, INFO extends TileContainerInfo<TILE>> INFO getTileContainerInfo(String name) {
+    public static <TILE extends BlockEntity, INFO extends BlockEntityMenuInfo<TILE>> INFO getTileContainerInfo(String name) {
         return (INFO) TILE_CONTAINER_INFO_MAP.get(name);
     }
 

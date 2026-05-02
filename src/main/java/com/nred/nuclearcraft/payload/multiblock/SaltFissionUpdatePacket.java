@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionControllerEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import net.minecraft.core.BlockPos;
@@ -53,7 +53,7 @@ public class SaltFissionUpdatePacket extends FissionUpdatePacket {
         buf.writeDouble(totalHeatingSpeedMultiplier);
     }
 
-    public static class Handler extends MultiblockUpdatePacket.Handler<FissionReactor, FissionUpdatePacket, SaltFissionControllerEntity, TileContainerInfo<SaltFissionControllerEntity>, SaltFissionUpdatePacket> {
+    public static class Handler extends MultiblockUpdatePacket.Handler<FissionReactor, FissionUpdatePacket, SaltFissionControllerEntity, BlockEntityMenuInfo<SaltFissionControllerEntity>, SaltFissionUpdatePacket> {
         public static void handleOnClient(SaltFissionUpdatePacket payload, IPayloadContext context) {
             context.enqueueWork(() -> {
                 BlockEntity tile = context.player().level().getBlockEntity(payload.pos);

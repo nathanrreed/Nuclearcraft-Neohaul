@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.block_entity.fission.SolidFissionCellEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.slot.FilteredSlot;
 import com.nred.nuclearcraft.menu.slot.ResultSlot;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -17,7 +17,7 @@ import net.minecraft.world.inventory.Slot;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.FISSION_CELL_PORT_MENU_TYPE;
 
-public class FissionCellPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionCellPortEntity, SolidFissionCellEntity, ItemPortUpdatePacket, TileContainerInfo<FissionCellPortEntity>> {
+public class FissionCellPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionCellPortEntity, SolidFissionCellEntity, ItemPortUpdatePacket, BlockEntityMenuInfo<FissionCellPortEntity>> {
     public FissionCellPortMenu(int containerId, Inventory inventory, FissionCellPortEntity tile) {
         super(FISSION_CELL_PORT_MENU_TYPE.get(), containerId, inventory, tile);
 

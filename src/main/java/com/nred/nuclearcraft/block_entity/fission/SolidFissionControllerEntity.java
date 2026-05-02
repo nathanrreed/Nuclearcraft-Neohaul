@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.controller.SolidFissionControllerMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -25,7 +25,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
 
 public class SolidFissionControllerEntity extends AbstractFissionEntity implements IFissionController<SolidFissionControllerEntity>, MenuProvider {
-    protected final TileContainerInfo<SolidFissionControllerEntity> info = TileInfoHandler.getTileContainerInfo("solid_fission_controller");
+    protected final BlockEntityMenuInfo<SolidFissionControllerEntity> info = TileInfoHandler.getTileContainerInfo("solid_fission_controller");
 
     public SolidFissionControllerEntity(BlockPos pos, BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("solid_fuel_fission_controller").get(), pos, blockState);
@@ -42,7 +42,7 @@ public class SolidFissionControllerEntity extends AbstractFissionEntity implemen
     }
 
     @Override
-    public TileContainerInfo getContainerInfo() {
+    public BlockEntityMenuInfo getContainerInfo() {
         return info;
     }
 

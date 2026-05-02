@@ -5,7 +5,7 @@ import com.nred.nuclearcraft.block_entity.ITilePort;
 import com.nred.nuclearcraft.block_entity.ITilePortTarget;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.InfoTileMenu;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class PortMenu<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>, PORT extends BlockEntity & ITilePort<MULTIBLOCK, LOGIC, PORT, TARGET> & ITileGui<PORT, PACKET, INFO>, TARGET extends ITilePortTarget<MULTIBLOCK, LOGIC, PORT, TARGET>, PACKET extends TileUpdatePacket, INFO extends TileContainerInfo<PORT>> extends InfoTileMenu<PORT, PACKET, INFO> {
+public abstract class PortMenu<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>, PORT extends BlockEntity & ITilePort<MULTIBLOCK, LOGIC, PORT, TARGET> & ITileGui<PORT, PACKET, INFO>, TARGET extends ITilePortTarget<MULTIBLOCK, LOGIC, PORT, TARGET>, PACKET extends TileUpdatePacket, INFO extends BlockEntityMenuInfo<PORT>> extends InfoTileMenu<PORT, PACKET, INFO> {
     protected final PORT tile;
 
     public PortMenu(MenuType<?> menuType, int containerId, Inventory inventory, PORT tile) {

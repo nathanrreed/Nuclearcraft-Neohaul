@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.SolidFissionCellEntity;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SolidFissionCellMenu;
 import com.nred.nuclearcraft.payload.multiblock.SolidFissionCellUpdatePacket;
-import com.nred.nuclearcraft.screen.processor.GuiProcessorImpl.GuiBasicFilteredProcessor;
+import com.nred.nuclearcraft.screen.processor.ProcessorScreenImpl.BasicFilteredItemProcessorScreen;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -17,7 +17,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class SolidFissionCellScreen extends GuiBasicFilteredProcessor<SolidFissionCellMenu, SolidFissionCellEntity, SolidFissionCellUpdatePacket> {
+public class SolidFissionCellScreen extends BasicFilteredItemProcessorScreen<SolidFissionCellMenu, SolidFissionCellEntity, SolidFissionCellUpdatePacket> {
     public SolidFissionCellScreen(SolidFissionCellMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, ncLoc("screen/" + "solid_fission_cell"));
         inventoryLabelY = Integer.MIN_VALUE;

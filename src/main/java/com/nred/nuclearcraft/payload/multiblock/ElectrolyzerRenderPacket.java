@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.payload.multiblock;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerControllerEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -57,7 +57,7 @@ public class ElectrolyzerRenderPacket extends MachineRenderPacket {
         return TYPE;
     }
 
-    public static class Handler extends MultiblockUpdatePacket.Handler<Machine, MachineUpdatePacket, ElectrolyzerControllerEntity, TileContainerInfo<ElectrolyzerControllerEntity>, ElectrolyzerRenderPacket> {
+    public static class Handler extends MultiblockUpdatePacket.Handler<Machine, MachineUpdatePacket, ElectrolyzerControllerEntity, BlockEntityMenuInfo<ElectrolyzerControllerEntity>, ElectrolyzerRenderPacket> {
         public static void handleOnClient(ElectrolyzerRenderPacket payload, IPayloadContext context) {
             context.enqueueWork(() -> {
                 BlockEntity tile = context.player().level().getBlockEntity(payload.pos);

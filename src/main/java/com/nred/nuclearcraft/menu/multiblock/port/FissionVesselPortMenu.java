@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.block_entity.fission.SaltFissionVesselEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
@@ -15,7 +15,7 @@ import net.minecraft.world.inventory.Slot;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.FISSION_VESSEL_PORT_MENU_TYPE;
 
-public class FissionVesselPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionVesselPortEntity, SaltFissionVesselEntity, FluidPortUpdatePacket, TileContainerInfo<FissionVesselPortEntity>> {
+public class FissionVesselPortMenu extends PortMenu<FissionReactor, FissionReactorLogic, FissionVesselPortEntity, SaltFissionVesselEntity, FluidPortUpdatePacket, BlockEntityMenuInfo<FissionVesselPortEntity>> {
     public FissionVesselPortMenu(int containerId, Inventory inventory, FissionVesselPortEntity tile) {
         super(FISSION_VESSEL_PORT_MENU_TYPE.get(), containerId, inventory, tile);
 

@@ -9,7 +9,7 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
@@ -39,8 +39,8 @@ import java.util.stream.IntStream;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<PORT, TARGET> & ITileFilteredInventory, TARGET extends IFissionPortTarget<PORT, TARGET> & ITileFilteredInventory> extends FissionPortEntity<PORT, TARGET> implements ITileFilteredInventory, ITileGui<PORT, ItemPortUpdatePacket, TileContainerInfo<PORT>> {
-    protected final TileContainerInfo<PORT> info;
+public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<PORT, TARGET> & ITileFilteredInventory, TARGET extends IFissionPortTarget<PORT, TARGET> & ITileFilteredInventory> extends FissionPortEntity<PORT, TARGET> implements ITileFilteredInventory, ITileGui<PORT, ItemPortUpdatePacket, BlockEntityMenuInfo<PORT>> {
+    protected final BlockEntityMenuInfo<PORT> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks = NonNullList.withSize(2, ItemStack.EMPTY);
     protected final @Nonnull NonNullList<ItemStack> filterStacks = NonNullList.withSize(2, ItemStack.EMPTY);
@@ -60,7 +60,7 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
     }
 
     @Override
-    public TileContainerInfo<PORT> getContainerInfo() {
+    public BlockEntityMenuInfo<PORT> getContainerInfo() {
         return info;
     }
 

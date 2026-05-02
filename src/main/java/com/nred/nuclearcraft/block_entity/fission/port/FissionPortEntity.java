@@ -43,7 +43,7 @@ public abstract class FissionPortEntity<PORT extends FissionPortEntity<PORT, TAR
     @Override
     public void onPostMachineAssembled(FissionReactor controller) {
         super.onPostMachineAssembled(controller);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             Optional<Direction> posFacing = getPartPosition().getDirection();
             posFacing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(AXIS_ALL, direction.getAxis()), 2));
         }
@@ -107,7 +107,7 @@ public abstract class FissionPortEntity<PORT extends FissionPortEntity<PORT, TAR
 
     @Override
     public void update() {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (refreshTargetsFlag) {
                 refreshTargets();
             }

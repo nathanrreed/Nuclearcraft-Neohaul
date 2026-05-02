@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.menu.multiblock.controller;
 
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.payload.multiblock.TurbineUpdatePacket;
 import it.zerono.mods.zerocore.lib.block.AbstractModBlockEntity;
@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.registration.MenuRegistration.TURBINE_CONTROLLER_MENU_TYPE;
 
-public class TurbineControllerMenu extends MultiblockControllerMenu<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>> {
+public class TurbineControllerMenu extends MultiblockControllerMenu<Turbine, TurbineUpdatePacket, TurbineControllerEntity, BlockEntityMenuInfo<TurbineControllerEntity>> {
     public TurbineControllerMenu(int containerId, Inventory inventory, final TurbineControllerEntity controller) {
         super(TURBINE_CONTROLLER_MENU_TYPE.get(), containerId, inventory, controller);
     }

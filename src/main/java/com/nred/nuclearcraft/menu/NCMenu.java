@@ -10,11 +10,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.Objects;
 
-public abstract class NCContainer extends AbstractContainerMenu {
+public abstract class NCMenu extends AbstractContainerMenu {
     public final Inventory inventory;
     public BlockEntity tile;
 
-    public NCContainer(MenuType<?> menuType, int containerId, Inventory inventory, BlockEntity tile) {
+    public NCMenu(MenuType<?> menuType, int containerId, Inventory inventory, BlockEntity tile) {
         super(menuType, containerId);
         this.inventory = inventory;
         this.tile = tile;

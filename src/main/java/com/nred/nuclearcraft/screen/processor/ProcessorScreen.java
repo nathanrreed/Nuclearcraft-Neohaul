@@ -10,7 +10,7 @@ import com.nred.nuclearcraft.menu.InfoTileMenu;
 import com.nred.nuclearcraft.payload.gui.ClearTankPacket;
 import com.nred.nuclearcraft.payload.gui.ToggleRedstoneControlPacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
-import com.nred.nuclearcraft.screen.GuiInfoTile;
+import com.nred.nuclearcraft.screen.InfoTileScreen;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.NCUtil;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -30,8 +30,8 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public abstract class GuiProcessor<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends GuiInfoTile<MENU, TILE, PACKET, INFO> {
-    public GuiProcessor(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
+public abstract class ProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends InfoTileScreen<MENU, TILE, PACKET, INFO> {
+    public ProcessorScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
         super(menu, inventory, title, textureLocation);
 
         imageWidth = info.guiWidth;
@@ -184,28 +184,28 @@ public abstract class GuiProcessor<MENU extends InfoTileMenu<TILE, PACKET, INFO>
     protected boolean sorptionButtonActionPerformed(NCButton button, int pressed) {
         for (int i = 0; i < info.itemInputSize; ++i) {
             if (button.id == info.itemInputSorptionButtonID[i]) {
-                Minecraft.getInstance().setScreen(new GuiItemSorptions.Input<>(this, tile, info.itemInputSlots[i]));
+                Minecraft.getInstance().setScreen(new ItemSorptionsScreen.Input<>(this, tile, info.itemInputSlots[i]));
                 return true;
             }
         }
 
         for (int i = 0; i < info.fluidInputSize; ++i) {
             if (button.id == info.fluidInputSorptionButtonID[i]) {
-                Minecraft.getInstance().setScreen(new GuiFluidSorptions.Input<>(this, tile, info.fluidInputTanks[i]));
+                Minecraft.getInstance().setScreen(new FluidSorptionsScreen.Input<>(this, tile, info.fluidInputTanks[i]));
                 return true;
             }
         }
 
         for (int i = 0; i < info.itemOutputSize; ++i) {
             if (button.id == info.itemOutputSorptionButtonID[i]) {
-                Minecraft.getInstance().setScreen(new GuiItemSorptions.Output<>(this, tile, info.itemOutputSlots[i]));
+                Minecraft.getInstance().setScreen(new ItemSorptionsScreen.Output<>(this, tile, info.itemOutputSlots[i]));
                 return true;
             }
         }
 
         for (int i = 0; i < info.fluidOutputSize; ++i) {
             if (button.id == info.fluidOutputSorptionButtonID[i]) {
-                Minecraft.getInstance().setScreen(new GuiFluidSorptions.Output<>(this, tile, info.fluidOutputTanks[i]));
+                Minecraft.getInstance().setScreen(new FluidSorptionsScreen.Output<>(this, tile, info.fluidOutputTanks[i]));
                 return true;
             }
         }
@@ -291,7 +291,7 @@ public abstract class GuiProcessor<MENU extends InfoTileMenu<TILE, PACKET, INFO>
         return info;
     }
 
-    public class SideConfigScreen extends GuiProcessor<MENU, TILE, PACKET, INFO> {
+    public class SideConfigScreen extends ProcessorScreen<MENU, TILE, PACKET, INFO> {
         private final Screen parent;
 
         public SideConfigScreen(MENU menu, Screen parent, Inventory inventory, Component title, ResourceLocation textureLocation) {

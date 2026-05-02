@@ -32,10 +32,10 @@ import static com.nred.nuclearcraft.helpers.GuiHelper.blitTile;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 
-public abstract class NCGui<MENU extends AbstractContainerMenu> extends AbstractContainerScreen<MENU> {
+public abstract class NCScreen<MENU extends AbstractContainerMenu> extends AbstractContainerScreen<MENU> {
     public static final Font FONT = Minecraft.getInstance().font;
 
-    public NCGui(MENU menu, Inventory inventory, Component title) {
+    public NCScreen(MENU menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
 
         inventoryLabelY = Integer.MIN_VALUE;

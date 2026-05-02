@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.screen.multiblock.controller;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBearingEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.controller.TurbineControllerMenu;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.payload.multiblock.ClearAllMaterialPacket;
@@ -22,7 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>, TurbineControllerMenu> {
+public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine, TurbineUpdatePacket, TurbineControllerEntity, BlockEntityMenuInfo<TurbineControllerEntity>, TurbineControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "turbine_controller");
 
     public TurbineControllerScreen(TurbineControllerMenu menu, Inventory inventory, Component title) {

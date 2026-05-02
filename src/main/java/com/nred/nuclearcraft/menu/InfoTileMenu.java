@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.menu;
 
 import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.helpers.MenuHelper;
 import com.nred.nuclearcraft.payload.NCPacket;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class InfoTileMenu<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO>, PACKET extends NCPacket, INFO extends TileContainerInfo<TILE>> extends NCContainer {
+public abstract class InfoTileMenu<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO>, PACKET extends NCPacket, INFO extends BlockEntityMenuInfo<TILE>> extends NCMenu {
     public final INFO info;
 
     protected InfoTileMenu(MenuType<?> menuType, int containerId, Inventory inventory, TILE tile) {

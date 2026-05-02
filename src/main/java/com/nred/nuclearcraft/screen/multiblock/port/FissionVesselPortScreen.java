@@ -3,12 +3,12 @@ package com.nred.nuclearcraft.screen.multiblock.port;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.gui.NCButton;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionVesselPortMenu;
 import com.nred.nuclearcraft.payload.gui.ClearFilterTankPacket;
 import com.nred.nuclearcraft.payload.gui.ClearTankPacket;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
-import com.nred.nuclearcraft.screen.GuiInfoTile;
+import com.nred.nuclearcraft.screen.InfoTileScreen;
 import com.nred.nuclearcraft.util.NCUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -17,7 +17,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class FissionVesselPortScreen extends GuiInfoTile<FissionVesselPortMenu, FissionVesselPortEntity, FluidPortUpdatePacket, TileContainerInfo<FissionVesselPortEntity>> {
+public class FissionVesselPortScreen extends InfoTileScreen<FissionVesselPortMenu, FissionVesselPortEntity, FluidPortUpdatePacket, BlockEntityMenuInfo<FissionVesselPortEntity>> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "fission_vessel_port");
 
     public FissionVesselPortScreen(FissionVesselPortMenu menu, Inventory playerInventory, Component title) {

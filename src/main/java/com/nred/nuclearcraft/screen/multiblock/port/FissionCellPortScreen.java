@@ -1,10 +1,10 @@
 package com.nred.nuclearcraft.screen.multiblock.port;
 
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.port.FissionCellPortMenu;
 import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;
-import com.nred.nuclearcraft.screen.GuiInfoTile;
+import com.nred.nuclearcraft.screen.InfoTileScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class FissionCellPortScreen extends GuiInfoTile<FissionCellPortMenu, FissionCellPortEntity, ItemPortUpdatePacket, TileContainerInfo<FissionCellPortEntity>> {
+public class FissionCellPortScreen extends InfoTileScreen<FissionCellPortMenu, FissionCellPortEntity, ItemPortUpdatePacket, BlockEntityMenuInfo<FissionCellPortEntity>> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "fission_cell_port");
 
     public FissionCellPortScreen(FissionCellPortMenu menu, Inventory playerInventory, Component title) {

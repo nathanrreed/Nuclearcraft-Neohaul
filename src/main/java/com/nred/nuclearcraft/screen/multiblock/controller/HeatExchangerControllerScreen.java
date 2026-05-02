@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.screen.multiblock.controller;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerTubeEntity;
 import com.nred.nuclearcraft.gui.MultiblockButton;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.controller.HeatExchangerControllerMenu;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchanger;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerLogic;
@@ -22,7 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class HeatExchangerControllerScreen extends LogicMultiblockControllerScreen<HeatExchanger, HeatExchangerLogic, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, TileContainerInfo<HeatExchangerControllerEntity>, HeatExchangerLogic, HeatExchangerControllerMenu> {
+public class HeatExchangerControllerScreen extends LogicMultiblockControllerScreen<HeatExchanger, HeatExchangerLogic, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, BlockEntityMenuInfo<HeatExchangerControllerEntity>, HeatExchangerLogic, HeatExchangerControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "heat_exchanger_controller");
 
     public HeatExchangerControllerScreen(HeatExchangerControllerMenu menu, Inventory playerInventory, Component title) {

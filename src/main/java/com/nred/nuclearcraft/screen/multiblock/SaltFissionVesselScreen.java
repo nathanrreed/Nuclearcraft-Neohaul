@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionVesselEntity;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SaltFissionVesselMenu;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionVesselUpdatePacket;
-import com.nred.nuclearcraft.screen.processor.GuiProcessorImpl.GuiBasicProcessor;
+import com.nred.nuclearcraft.screen.processor.ProcessorScreenImpl.BasicFilteredFluidProcessorScreen;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
@@ -17,7 +17,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class SaltFissionVesselScreen extends GuiBasicProcessor<SaltFissionVesselMenu, SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> {
+public class SaltFissionVesselScreen extends BasicFilteredFluidProcessorScreen<SaltFissionVesselMenu, SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> {
     public SaltFissionVesselScreen(SaltFissionVesselMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, ncLoc("screen/" + "salt_fission_vessel"));
         titleLabelY = Integer.MIN_VALUE;

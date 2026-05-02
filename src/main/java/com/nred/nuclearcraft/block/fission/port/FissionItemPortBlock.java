@@ -40,6 +40,7 @@ public abstract class FissionItemPortBlock<PORT extends FissionItemPortEntity<PO
                     ItemStack heldStack = player.getItemInHand(hand);
                     if (port.canModifyFilter(0) && port.getInventoryStacks().get(0).isEmpty() && !ItemStack.isSameItem(heldStack, port.getFilterStacks().get(0)) && port.isItemValidForSlotInternal(0, heldStack)) {
                         player.sendSystemMessage(Component.translatable(MODID + ".message.filter", heldStack.getDisplayName().copy().withStyle(ChatFormatting.BOLD)));
+
                         ItemStack filter = heldStack.copy();
                         filter.setCount(1);
                         port.getFilterStacks().set(0, filter);

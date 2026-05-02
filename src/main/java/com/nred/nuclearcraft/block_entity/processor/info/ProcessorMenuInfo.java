@@ -6,7 +6,7 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.MenuFunction;
 import com.nred.nuclearcraft.menu.slot.ProcessorSlot;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.config.NCConfig.processor_power_multiplier;
 import static com.nred.nuclearcraft.config.NCConfig.processor_time_multiplier;
 
-public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends TileContainerInfo<TILE> {
+public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends BlockEntityMenuInfo<TILE> {
     public final String recipeHandlerName;
 
     public final int itemInputSize;

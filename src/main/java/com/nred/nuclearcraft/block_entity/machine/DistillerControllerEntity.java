@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.machine;
 
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.TileInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.controller.DistillerControllerMenu;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
@@ -26,7 +26,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class DistillerControllerEntity extends AbstractMachineEntity implements IMachineController<DistillerControllerEntity> {
-    protected final TileContainerInfo<DistillerControllerEntity> info = TileInfoHandler.getTileContainerInfo("distiller_controller");
+    protected final BlockEntityMenuInfo<DistillerControllerEntity> info = TileInfoHandler.getTileContainerInfo("distiller_controller");
 
     protected boolean isRenderer = false;
 
@@ -48,7 +48,7 @@ public class DistillerControllerEntity extends AbstractMachineEntity implements 
     }
 
     @Override
-    public TileContainerInfo<DistillerControllerEntity> getContainerInfo() {
+    public BlockEntityMenuInfo<DistillerControllerEntity> getContainerInfo() {
         return info;
     }
 

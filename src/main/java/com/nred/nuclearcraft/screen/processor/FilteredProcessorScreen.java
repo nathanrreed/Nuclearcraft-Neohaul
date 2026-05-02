@@ -7,7 +7,7 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.gui.NCButton;
-import com.nred.nuclearcraft.menu.processor.FilteredProcessorMenu;
+import com.nred.nuclearcraft.menu.InfoTileMenu;
 import com.nred.nuclearcraft.payload.gui.ClearFilterTankPacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.util.NCUtil;
@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.List;
 
-public class GuiFilteredProcessor<MENU extends FilteredProcessorMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO> & ITileFiltered & ITileFilteredInventory, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends GuiProcessor<MENU, TILE, PACKET, INFO> {
-    public GuiFilteredProcessor(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
+public class FilteredProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO> & ITileFiltered, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends ProcessorScreen<MENU, TILE, PACKET, INFO> {
+    public FilteredProcessorScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
         super(menu, inventory, title, textureLocation);
     }
 

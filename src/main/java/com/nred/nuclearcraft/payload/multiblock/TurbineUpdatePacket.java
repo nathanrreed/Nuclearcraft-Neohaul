@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.payload.multiblock;
 
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
-import com.nred.nuclearcraft.handler.TileContainerInfo;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -113,7 +113,7 @@ public class TurbineUpdatePacket extends MultiblockUpdatePacket {
         buf.writeDouble(bearingTension);
     }
 
-    public static class Handler extends MultiblockUpdatePacket.Handler<Turbine, TurbineUpdatePacket, TurbineControllerEntity, TileContainerInfo<TurbineControllerEntity>, TurbineUpdatePacket> {
+    public static class Handler extends MultiblockUpdatePacket.Handler<Turbine, TurbineUpdatePacket, TurbineControllerEntity, BlockEntityMenuInfo<TurbineControllerEntity>, TurbineUpdatePacket> {
         public static void handleOnClient(TurbineUpdatePacket payload, IPayloadContext context) {
             context.enqueueWork(() -> {
                 BlockEntity tile = context.player().level().getBlockEntity(payload.pos);
