@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.0,
+  "group": "polymethylsilylene_methylene",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:polydimethylsilylene"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:polymethylsilylene_methylene"
+  }
+}

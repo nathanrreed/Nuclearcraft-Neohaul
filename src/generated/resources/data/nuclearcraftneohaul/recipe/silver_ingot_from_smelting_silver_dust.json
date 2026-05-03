@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "silver",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:silver_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:silver_ingot"
+  }
+}

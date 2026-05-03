@@ -1,0 +1,22 @@
+{
+  "values": {
+    "minecraft:sugar": {
+      "burn_time": 200
+    },
+    "minecraft:sugar_cane": {
+      "burn_time": 200
+    },
+    "nuclearcraftneohaul:coal_gem_dust": {
+      "burn_time": 1600
+    },
+    "nuclearcraftneohaul:graphite_block": {
+      "burn_time": 16000
+    },
+    "nuclearcraftneohaul:graphite_dust": {
+      "burn_time": 1600
+    },
+    "nuclearcraftneohaul:graphite_ingot": {
+      "burn_time": 1600
+    }
+  }
+}

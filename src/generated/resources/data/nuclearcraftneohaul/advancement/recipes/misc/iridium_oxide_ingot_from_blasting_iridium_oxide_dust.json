@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iridium_oxide_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:iridium_oxide_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:iridium_oxide_ingot_from_blasting_iridium_oxide_dust"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_iridium_oxide_dust"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:iridium_oxide_ingot_from_blasting_iridium_oxide_dust"
+    ]
+  }
+}

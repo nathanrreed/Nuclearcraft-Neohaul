@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "ruthenium_oxide",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:ruthenium_oxide_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:ruthenium_oxide_ingot"
+  }
+}

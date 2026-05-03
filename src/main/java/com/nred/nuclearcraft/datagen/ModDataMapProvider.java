@@ -3,7 +3,9 @@ package com.nred.nuclearcraft.datagen;
 import com.nred.nuclearcraft.datamap.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.data.DataMapProvider;
+import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -12,7 +14,9 @@ import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.SALT_SOLUTION_MAP;
+import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static net.neoforged.neoforge.common.Tags.Items.STORAGE_BLOCKS;
+import static net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps.FURNACE_FUELS;
 
 public class ModDataMapProvider extends DataMapProvider {
     protected ModDataMapProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -21,6 +25,15 @@ public class ModDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather(HolderLookup.Provider provider) {
+        builder(FURNACE_FUELS)
+                .add(INGOT_MAP.get("graphite").getId(), new FurnaceFuel(1600), false)
+                .add(DUST_MAP.get("graphite").getId(), new FurnaceFuel(1600), false)
+                .add(INGOT_BLOCK_MAP.get("graphite").getId(), new FurnaceFuel(16000), false)
+                .add(GEM_DUST_MAP.get("coal").getId(), new FurnaceFuel(1600), false)
+                .add(Items.SUGAR_CANE.builtInRegistryHolder(), new FurnaceFuel(200), false)
+                .add(Items.SUGAR.builtInRegistryHolder(), new FurnaceFuel(200), false)
+        ;
+
         builder(MACHINE_DIAPHRAGM_DATA)
                 .add(MACHINE_MAP.get("sintered_steel_diaphragm").getId(), new MachineDiaphragmData(0.8, 1.0), false)
                 .add(MACHINE_MAP.get("polyethersulfone_diaphragm").getId(), new MachineDiaphragmData(0.9, 1.5), false)

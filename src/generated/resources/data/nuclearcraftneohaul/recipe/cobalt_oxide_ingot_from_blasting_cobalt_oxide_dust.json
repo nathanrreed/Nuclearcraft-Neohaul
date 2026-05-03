@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "cobalt_oxide",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:cobalt_oxide_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:cobalt_oxide_ingot"
+  }
+}

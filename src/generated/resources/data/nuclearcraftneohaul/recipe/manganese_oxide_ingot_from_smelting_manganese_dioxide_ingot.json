@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.0,
+  "group": "manganese_oxide",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:manganese_dioxide_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:manganese_oxide_ingot"
+  }
+}

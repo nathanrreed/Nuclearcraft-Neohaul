@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "palladium",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:palladium_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:palladium_ingot"
+  }
+}

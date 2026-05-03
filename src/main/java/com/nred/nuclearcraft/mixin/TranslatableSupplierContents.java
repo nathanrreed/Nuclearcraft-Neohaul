@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Supplier;
 
-@Mixin(TranslatableContents.class) // TODO find a way to not need this
+@Mixin(TranslatableContents.class) // TODO should this be changed?
 public class TranslatableSupplierContents { // Allows Suppliers to be passed to TranslatableContents
     @Final
     @Shadow

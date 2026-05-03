@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ammonium_sulfate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:ammonium_sulfate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:ammonium_bisulfate_from_blasting_ammonium_sulfate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ammonium_sulfate"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:ammonium_bisulfate_from_blasting_ammonium_sulfate"
+    ]
+  }
+}

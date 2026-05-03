@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polydimethylsilylene": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:polydimethylsilylene"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:polymethylsilylene_methylene_from_blasting_polydimethylsilylene"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_polydimethylsilylene"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:polymethylsilylene_methylene_from_blasting_polydimethylsilylene"
+    ]
+  }
+}

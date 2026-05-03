@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.0,
+  "group": "manganese_oxide",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:rhodochrosite_gem_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:manganese_oxide_dust"
+  }
+}

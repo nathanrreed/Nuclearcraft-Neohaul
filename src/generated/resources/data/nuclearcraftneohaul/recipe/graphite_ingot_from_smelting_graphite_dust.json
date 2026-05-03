@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "graphite",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:graphite_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:graphite_ingot"
+  }
+}

@@ -1,4 +1,2 @@
-- Fixed crash with fission power port
-- Fixed crash with Quark installed
-- Fixed filtering not working outside of GUI on some blocks
-- Fixed fluid filter screens not showing filter
+- Added missing furnace recipes
+- Added furnace fuel times

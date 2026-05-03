@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "iridium_oxide",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:iridium_oxide_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:iridium_oxide_ingot"
+  }
+}
