@@ -1,2 +1,1 @@
-- Added missing furnace recipes
-- Added furnace fuel times
+- Updated Ore textures
