@@ -879,7 +879,7 @@ public class ModLanguageProvider extends LanguageProvider {
 
         simpleBlocks(SOLAR_MAP, Map.of("solar_panel_basic", "Basic Solar Panel", "solar_panel_advanced", "Advanced Solar Panel", "solar_panel_du", "DU Solar Panel", "solar_panel_elite", "Elite Solar Panel"));
         simpleBlocks(TURBINE_MAP, Map.of("sic_turbine_rotor_blade", "SiC-SiC CMC Turbine Rotor Blade", "turbine_inlet", "Turbine Fluid Inlet", "turbine_outlet", "Turbine Fluid Outlet"));
-        simpleBlocks(FISSION_REACTOR_MAP, Map.of("boron_silver_shield", "Boron-Silver Fission Neutron Shield", "radium_beryllium_source", "Ra-Be Fission Neutron Source", "polonium_beryllium_source", "Po-Be Fission Neutron Source", "californium_source", "Cf-252 Fission Neutron Source", "beryllium_carbon_reflector", "Beryllium-Carbon Neutron Reflector", "lead_steel_reflector", "Lead-Steel Neutron Reflector"));
+        simpleBlocks(FISSION_REACTOR_MAP, Map.of("boron_silver_shield", "Boron-Silver Fission Neutron Shield", "radium_beryllium_source", "Ra-Be Fission Neutron Source", "polonium_beryllium_source", "Po-Be Fission Neutron Source", "californium_source", "Cf-252 Fission Neutron Source", "beryllium_carbon_reflector", "Beryllium-Carbon Neutron Reflector", "lead_steel_reflector", "Lead-Steel Neutron Reflector", "fission_source_manager", "Fission Neutron Source Manager", "fission_shield_manager", "Fission Neutron Shield Manager"));
         simpleBlocks(BATTERY_MAP, Map.of("du_voltaic_pile", "DU Voltaic Pile", "du_lithium_ion_battery", "DU Lithium Ion Battery"));
         simpleBlocks(HX_MAP);
         simpleBlocks(MACHINE_MAP);

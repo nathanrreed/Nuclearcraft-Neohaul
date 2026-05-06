@@ -44,7 +44,7 @@ public class RecipeHelpers {
     public static List<EmiIngredient> removeBarriers(List<EmiIngredient> itemInputs) {
         ArrayList<EmiIngredient> list = new ArrayList<>();
         for (EmiIngredient ingredient : itemInputs) {
-            List<EmiStack> stacks = ingredient.getEmiStacks().stream().filter(emiStack -> !emiStack.getItemStack().is(Items.BARRIER)).toList();
+            List<EmiStack> stacks = ingredient.getEmiStacks().stream().filter(emiStack -> !emiStack.getItemStack().is(Items.BARRIER)).map(emiStack -> emiStack.setAmount(ingredient.getAmount())).toList();
             if (!stacks.isEmpty()) {
                 list.add(EmiIngredient.of(stacks));
             }

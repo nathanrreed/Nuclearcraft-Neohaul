@@ -2,9 +2,9 @@
   "type": "nuclearcraftneohaul:pressurizer_recipe",
   "itemIngredients": [
     {
-      "count": 4,
+      "count": 1,
       "ingredient": {
-        "tag": "c:dusts/obsidian"
+        "tag": "c:dusts/steel"
       }
     }
   ],
@@ -12,11 +12,11 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "minecraft:obsidian"
+        "item": "nuclearcraftneohaul:sintered_steel"
       }
     }
   ],
-  "powerModifier": 1.5,
+  "powerModifier": 2.0,
   "radiation": 0.0,
-  "timeModifier": 1.5
+  "timeModifier": 2.0
 }

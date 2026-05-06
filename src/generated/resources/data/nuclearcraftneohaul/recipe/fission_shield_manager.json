@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "PTP",
+    "RSR",
+    "PTP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:fission_shield_manager"
+  }
+}

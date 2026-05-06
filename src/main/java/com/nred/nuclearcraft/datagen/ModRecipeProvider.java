@@ -820,6 +820,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_monitor"), 4).pattern("PGP").pattern("TST").pattern("PGP")
                 .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('T', ALLOY_MAP.get("tough")).define('G', Tags.Items.DUSTS_GLOWSTONE)
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_shield_manager"), 4).pattern("PTP").pattern("RSR").pattern("PTP")
+                .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('T', ALLOY_MAP.get("tough")).define('R', Items.REPEATER)
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_source_manager"), 4).pattern("PEP").pattern("RSR").pattern("PEP")
+                .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('E', COMPOUND_MAP.get("energetic_blend")).define('R', Items.REPEATER)
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
     }
 
     private void hx(RecipeOutput recipeOutput) {
@@ -1011,6 +1018,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, HAZMAT_BOOTS, 1).pattern("HIH").pattern("BLB")
                 .define('L', Items.LEATHER_BOOTS).define('H', HEAVY_RADIATION_SHIELDING).define('I', Tags.Items.DYES_BLACK).define('B', PART_MAP.get("bioplastic"))
                 .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, RADIATION_BADGE, 1).pattern(" C ").pattern("SRS").pattern(" L ")
+                .define('C', Tags.Items.INGOTS_COPPER).define('S', Tags.Items.STRINGS).define('R', Tags.Items.DUSTS_REDSTONE).define('L', tag(Tags.Items.INGOTS, "lead"))
+                .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(recipeOutput);
     }
 
     private void quantum(RecipeOutput recipeOutput) {

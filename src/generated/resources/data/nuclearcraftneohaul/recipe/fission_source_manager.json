@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "nuclearcraftneohaul:energetic_blend"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    }
+  },
+  "pattern": [
+    "PEP",
+    "RSR",
+    "PEP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:fission_source_manager"
+  }
+}

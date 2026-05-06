@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "L": {
+      "tag": "c:ingots/lead"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "S": {
+      "tag": "c:strings"
+    }
+  },
+  "pattern": [
+    " C ",
+    "SRS",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:radiation_badge"
+  }
+}
