@@ -437,7 +437,7 @@ public class RadiationHandler {
 
     public static Biome getBiome(LevelChunk chunk, BlockPos randomOffsetPos, BiomeManager biomeProvider) {
         try {
-            return biomeProvider.getBiome(randomOffsetPos).value();
+            return biomeProvider.getBiome(chunk.getPos().getWorldPosition().offset(randomOffsetPos)).value();
         } catch (Exception e) {
             return null;
         }
