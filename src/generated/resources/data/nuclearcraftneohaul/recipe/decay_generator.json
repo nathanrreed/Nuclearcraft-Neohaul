@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:cobblestone"
+    },
+    "L": {
+      "tag": "c:ingots/lead"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "LCL",
+    "CRC",
+    "LCL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:decay_generator"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:dusts/glowstone"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "PGP",
+    "TST",
+    "PGP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:fission_monitor"
+  }
+}

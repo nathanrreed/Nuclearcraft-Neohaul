@@ -42,8 +42,8 @@ jobs:
           tag_name: v${{ steps.gradle_props.outputs.minecraft_version }}-${{ steps.gradle_props.outputs.mod_version }}
           target_commitish: ${{ github.sha }}
 
-      - name: Publish
-        run: sh gradlew modrinth publish # curseforge TODO currently not working
-        env:
-          CURSEFORGE_KEY: ${{ secrets.CURSEFORGE_KEY }}
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+#      - name: Publish TODO currently not working
+#        run: sh gradlew curseforge modrinth publish
+#        env:
+#          CURSEFORGE_KEY: ${{ secrets.CURSEFORGE_KEY }}
+#          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:lithium_ion_cell"
+        "recipe": "nuclearcraftneohaul:multitool"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:lithium_ion_cell"
+      "nuclearcraftneohaul:multitool"
     ]
   }
 }

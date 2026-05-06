@@ -41,6 +41,7 @@ public class MelterProvider {
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(COMPOUND_MAP.get("sodium_hydroxide"), 1).addFluidResult(MOLTEN_MAP.get("naoh"), 666).save(recipeOutput);
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(COMPOUND_MAP.get("potassium_hydroxide"), 1).addFluidResult(MOLTEN_MAP.get("koh"), 666).save(recipeOutput);
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(GEM_DUST_MAP.get("arsenic"), 1).addFluidResult(HOT_GAS_MAP.get("arsenic"), 666).save(recipeOutput);
+        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(COMPOUND_MAP.get("alugentum"), 1).addFluidResult(MOLTEN_MAP.get("alugentum"), 144).save(recipeOutput);
 
         for (String name : INGOT_MAP.keySet()) {
             createSet(recipeOutput, name);

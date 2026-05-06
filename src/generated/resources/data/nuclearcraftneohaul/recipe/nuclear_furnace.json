@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "PTP",
+    "TFT",
+    "PTP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:nuclear_furnace"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "F": {
+      "item": "nuclearcraftneohaul:ferroboron_alloy"
+    },
+    "H": {
+      "item": "nuclearcraftneohaul:hard_carbon_alloy"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    " F ",
+    "HSF",
+    "SB "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:multitool"
+  }
+}

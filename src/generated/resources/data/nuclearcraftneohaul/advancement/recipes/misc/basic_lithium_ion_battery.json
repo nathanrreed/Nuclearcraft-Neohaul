@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ferroboron_alloy": {
+    "has_lithium_ion_cell": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:ferroboron_alloy"
+            "items": "nuclearcraftneohaul:lithium_ion_cell"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:lithium_ion_cell"
+        "recipe": "nuclearcraftneohaul:basic_lithium_ion_battery"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_ferroboron_alloy"
+      "has_lithium_ion_cell"
     ]
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:lithium_ion_cell"
+      "nuclearcraftneohaul:basic_lithium_ion_battery"
     ]
   }
 }

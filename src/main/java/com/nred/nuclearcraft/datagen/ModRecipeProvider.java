@@ -123,6 +123,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         radiation(recipeOutput);
         armour(recipeOutput);
         tools(recipeOutput);
+        batteries(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(MISC, Items.BROWN_MUSHROOM, 1).requires(GLOWING_MUSHROOM, 1).unlockedBy(getHasName(GLOWING_MUSHROOM), has(GLOWING_MUSHROOM)).save(recipeOutput);
         ShapelessRecipeBuilder.shapeless(MISC, GLOWING_MUSHROOM, 1).requires(Items.BROWN_MUSHROOM, 1).requires(Items.GLOWSTONE_DUST, 1).unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM)).save(recipeOutput);
@@ -190,7 +191,57 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapedRecipeBuilder.shaped(MISC, LITHIUM_ION_CELL).pattern("HHH").pattern("FLF").pattern("MMM")
                 .define('H', ALLOY_MAP.get("hard_carbon")).define('F', ALLOY_MAP.get("ferroboron")).define('L', tag(Tags.Items.INGOTS, "lithium")).define('M', ALLOY_MAP.get("lithium_manganese_dioxide"))
-                .unlockedBy(getHasName(Items.ENDER_CHEST), has(Items.ENDER_CHEST)).save(recipeOutput);
+                .unlockedBy(getHasName(ALLOY_MAP.get("ferroboron")), has(ALLOY_MAP.get("ferroboron"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, MULTITOOL).pattern(" F ").pattern("HSF").pattern("SB ")
+                .define('H', ALLOY_MAP.get("hard_carbon")).define('F', ALLOY_MAP.get("ferroboron")).define('S', tag(Tags.Items.INGOTS, "steel")).define('B', tag(Tags.Items.INGOTS, "bronze"))
+                .unlockedBy(getHasName(ALLOY_MAP.get("ferroboron")), has(ALLOY_MAP.get("ferroboron"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, NUCLEAR_FURNACE).pattern("PTP").pattern("TFT").pattern("PTP")
+                .define('P', PART_MAP.get("basic_plating")).define('F', Items.FURNACE).define('T', ALLOY_MAP.get("tough"))
+                .unlockedBy(getHasName(Items.FURNACE), has(Items.FURNACE)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, MACHINE_INTERFACE).pattern(" L ").pattern("EME").pattern(" S ")
+                .define('E', PART_MAP.get("electric_motor")).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('L', PART_MAP.get("linear_actuator")).define('S', PART_MAP.get("servomechanism"))
+                .unlockedBy(getHasName(Items.FURNACE), has(Items.FURNACE)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, DECAY_GENERATOR).pattern("LCL").pattern("CRC").pattern("LCL")
+                .define('R', Tags.Items.DUSTS_REDSTONE).define('C', Items.COBBLESTONE).define('L', tag(Tags.Items.INGOTS, "lead"))
+                .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE)).save(recipeOutput);
+    }
+
+    private void batteries(RecipeOutput recipeOutput) {
+        ShapedRecipeBuilder.shaped(MISC, BATTERY_MAP.get("basic_voltaic_pile"), 1).pattern("PCP").pattern("CMC").pattern("PCP")
+                .define('P', PART_MAP.get("basic_plating")).define('C', PART_MAP.get("copper_solenoid")).define('M', tag(Tags.Items.STORAGE_BLOCKS, "magnesium"))
+                .unlockedBy(getHasName(PART_MAP.get("basic_plating")), has(PART_MAP.get("basic_plating"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, BATTERY_MAP.get("advanced_voltaic_pile"), 1).pattern("PMP").pattern("VVV").pattern("PCP")
+                .define('P', PART_MAP.get("advanced_plating")).define('V', BATTERY_MAP.get("basic_voltaic_pile")).define('C', Tags.Items.INGOTS_COPPER).define('M', tag(Tags.Items.INGOTS, "magnesium"))
+                .unlockedBy(getHasName(BATTERY_MAP.get("basic_voltaic_pile")), has(BATTERY_MAP.get("basic_voltaic_pile"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, BATTERY_MAP.get("du_voltaic_pile"), 1).pattern("PMP").pattern("VVV").pattern("PCP")
+                .define('P', PART_MAP.get("du_plating")).define('V', BATTERY_MAP.get("advanced_voltaic_pile")).define('C', Tags.Items.INGOTS_COPPER).define('M', tag(Tags.Items.INGOTS, "magnesium"))
+                .unlockedBy(getHasName(BATTERY_MAP.get("advanced_voltaic_pile")), has(BATTERY_MAP.get("advanced_voltaic_pile"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, BATTERY_MAP.get("elite_voltaic_pile"), 1).pattern("PMP").pattern("VVV").pattern("PCP")
+                .define('P', PART_MAP.get("elite_plating")).define('V', BATTERY_MAP.get("du_voltaic_pile")).define('C', Tags.Items.INGOTS_COPPER).define('M', tag(Tags.Items.INGOTS, "magnesium"))
+                .unlockedBy(getHasName(BATTERY_MAP.get("du_voltaic_pile")), has(BATTERY_MAP.get("du_voltaic_pile"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, BATTERY_MAP.get("basic_lithium_ion_battery"), 1).pattern("PCP").pattern("CMC").pattern("PCP")
+                .define('P', PART_MAP.get("elite_plating")).define('C', LITHIUM_ION_CELL).define('M', PART_MAP.get("magnesium_diboride_solenoid"))
+                .unlockedBy(getHasName(LITHIUM_ION_CELL), has(LITHIUM_ION_CELL)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, BATTERY_MAP.get("advanced_lithium_ion_battery"), 1).pattern("PLP").pattern("BBB").pattern("PMP")
+                .define('P', PART_MAP.get("advanced_plating")).define('B', BATTERY_MAP.get("basic_lithium_ion_battery")).define('M', PART_MAP.get("magnesium_diboride_solenoid")).define('L', ALLOY_MAP.get("lithium_manganese_dioxide"))
+                .unlockedBy(getHasName(BATTERY_MAP.get("basic_lithium_ion_battery")), has(BATTERY_MAP.get("basic_lithium_ion_battery"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, BATTERY_MAP.get("du_lithium_ion_battery"), 1).pattern("PLP").pattern("BBB").pattern("PMP")
+                .define('P', PART_MAP.get("du_plating")).define('B', BATTERY_MAP.get("advanced_lithium_ion_battery")).define('M', PART_MAP.get("magnesium_diboride_solenoid")).define('L', ALLOY_MAP.get("lithium_manganese_dioxide"))
+                .unlockedBy(getHasName(BATTERY_MAP.get("advanced_lithium_ion_battery")), has(BATTERY_MAP.get("advanced_lithium_ion_battery"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, BATTERY_MAP.get("elite_lithium_ion_battery"), 1).pattern("PLP").pattern("BBB").pattern("PMP")
+                .define('P', PART_MAP.get("elite_plating")).define('B', BATTERY_MAP.get("du_lithium_ion_battery")).define('M', PART_MAP.get("magnesium_diboride_solenoid")).define('L', ALLOY_MAP.get("lithium_manganese_dioxide"))
+                .unlockedBy(getHasName(BATTERY_MAP.get("du_lithium_ion_battery")), has(BATTERY_MAP.get("du_lithium_ion_battery"))).save(recipeOutput);
     }
 
     private void fuels(RecipeOutput recipeOutput) {
@@ -324,7 +375,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(PART_MAP.get("du_plating")), has(PART_MAP.get("du_plating"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("copper_solenoid"), 2).pattern("CC").pattern("II").pattern("CC")
-                .define('C', tag(Tags.Items.INGOTS, "copper")).define('I', tag(Tags.Items.INGOTS, "iron"))
+                .define('C', Tags.Items.INGOTS_COPPER).define('I', Tags.Items.INGOTS_IRON)
                 .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("magnesium_diboride_solenoid"), 2).pattern("MM").pattern("MM").pattern("MM")
@@ -332,15 +383,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ALLOY_MAP.get("magnesium_diboride")), has(ALLOY_MAP.get("magnesium_diboride"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("servomechanism"), 1).pattern("F F").pattern("RSR").pattern("SCS")
-                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', tag(Tags.Items.INGOTS, "copper")).define('R', Items.REDSTONE).define('F', ALLOY_MAP.get("ferroboron"))
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', Tags.Items.INGOTS_COPPER).define('R', Items.REDSTONE).define('F', ALLOY_MAP.get("ferroboron"))
                 .unlockedBy(getHasName(ALLOY_MAP.get("ferroboron")), has(ALLOY_MAP.get("ferroboron"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("electric_motor"), 1).pattern("SSG").pattern("CCI").pattern("SSG")
-                .define('S', tag(Tags.Items.INGOTS, "steel")).define('I', tag(Tags.Items.INGOTS, "iron")).define('G', Items.GOLD_NUGGET).define('C', PART_MAP.get("copper_solenoid"))
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('I', Tags.Items.INGOTS_IRON).define('G', Items.GOLD_NUGGET).define('C', PART_MAP.get("copper_solenoid"))
                 .unlockedBy(getHasName(PART_MAP.get("copper_solenoid")), has(PART_MAP.get("copper_solenoid"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("linear_actuator"), 1).pattern("  S").pattern("FP ").pattern("CF ")
-                .define('S', tag(Tags.Items.INGOTS, "steel")).define('P', Items.PISTON).define('C', tag(Tags.Items.INGOTS, "copper")).define('F', ALLOY_MAP.get("ferroboron"))
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('P', Items.PISTON).define('C', Tags.Items.INGOTS_COPPER).define('F', ALLOY_MAP.get("ferroboron"))
                 .unlockedBy(getHasName(ALLOY_MAP.get("ferroboron")), has(ALLOY_MAP.get("ferroboron"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_BLOCK_MAP.get("machine_chassis"), 1).pattern("LSL").pattern("STS").pattern("LSL")
@@ -348,11 +399,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ALLOY_MAP.get("tough")), has(ALLOY_MAP.get("tough"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_BLOCK_MAP.get("empty_frame"), 1).pattern("PTP").pattern("I I").pattern("PTP")
-                .define('T', tag(Tags.Items.INGOTS, "tin")).define('I', tag(Tags.Items.INGOTS, "iron")).define('P', PART_MAP.get("basic_plating"))
+                .define('T', tag(Tags.Items.INGOTS, "tin")).define('I', Tags.Items.INGOTS_IRON).define('P', PART_MAP.get("basic_plating"))
                 .unlockedBy(getHasName(PART_MAP.get("basic_plating")), has(PART_MAP.get("basic_plating"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_BLOCK_MAP.get("steel_chassis"), 1).pattern("STS").pattern("TCT").pattern("STS")
-                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', tag(Tags.Items.INGOTS, "copper")).define('T', ALLOY_MAP.get("tough"))
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', Tags.Items.INGOTS_COPPER).define('T', ALLOY_MAP.get("tough"))
                 .unlockedBy(getHasName(ALLOY_MAP.get("tough")), has(ALLOY_MAP.get("tough"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_BLOCK_MAP.get("empty_heat_sink"), 8).pattern("PSP").pattern("T T").pattern("PSP")
@@ -407,7 +458,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(COLLECTOR_MAP.get("cobblestone_generator")), has(COLLECTOR_MAP.get("cobblestone_generator"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, COLLECTOR_MAP.get("cobblestone_generator_dense"), 1).pattern("CCC").pattern("CGC").pattern("CCC")
-                .define('C', COLLECTOR_MAP.get("cobblestone_generator_compact")).define('G', tag(Tags.Items.INGOTS, "gold"))
+                .define('C', COLLECTOR_MAP.get("cobblestone_generator_compact")).define('G', Tags.Items.INGOTS_GOLD)
                 .unlockedBy(getHasName(COLLECTOR_MAP.get("cobblestone_generator_compact")), has(COLLECTOR_MAP.get("cobblestone_generator_compact"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, COLLECTOR_MAP.get("water_source"), 1).pattern("PTP").pattern("W W").pattern("PTP")
@@ -419,7 +470,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(COLLECTOR_MAP.get("water_source")), has(COLLECTOR_MAP.get("water_source"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, COLLECTOR_MAP.get("water_source_dense"), 1).pattern("CCC").pattern("CGC").pattern("CCC")
-                .define('C', COLLECTOR_MAP.get("water_source_compact")).define('G', tag(Tags.Items.INGOTS, "gold"))
+                .define('C', COLLECTOR_MAP.get("water_source_compact")).define('G', Tags.Items.INGOTS_GOLD)
                 .unlockedBy(getHasName(COLLECTOR_MAP.get("water_source_compact")), has(COLLECTOR_MAP.get("water_source_compact"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, COLLECTOR_MAP.get("nitrogen_collector"), 1).pattern("PBP").pattern("E E").pattern("PBP")
@@ -431,7 +482,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(COLLECTOR_MAP.get("nitrogen_collector")), has(COLLECTOR_MAP.get("nitrogen_collector"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, COLLECTOR_MAP.get("nitrogen_collector_dense"), 1).pattern("CCC").pattern("CGC").pattern("CCC")
-                .define('C', COLLECTOR_MAP.get("nitrogen_collector_compact")).define('G', tag(Tags.Items.INGOTS, "gold"))
+                .define('C', COLLECTOR_MAP.get("nitrogen_collector_compact")).define('G', Tags.Items.INGOTS_GOLD)
                 .unlockedBy(getHasName(COLLECTOR_MAP.get("nitrogen_collector_compact")), has(COLLECTOR_MAP.get("nitrogen_collector_compact"))).save(recipeOutput);
     }
 
@@ -605,10 +656,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('A', tag(Tags.Items.INGOTS, "aluminum"))
                 .unlockedBy(getHasName(INGOT_MAP.get("aluminum")), has(INGOT_MAP.get("aluminum"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("gold_turbine_dynamo_coil"), 2).pattern("GGG").pattern("HTH").pattern("GGG")
-                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('G', tag(Tags.Items.INGOTS, "gold"))
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('G', Tags.Items.INGOTS_GOLD)
                 .unlockedBy(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT)).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("copper_turbine_dynamo_coil"), 2).pattern("CCC").pattern("HTH").pattern("CCC")
-                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('C', tag(Tags.Items.INGOTS, "copper"))
+                .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('C', Tags.Items.INGOTS_COPPER)
                 .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT)).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("silver_turbine_dynamo_coil"), 2).pattern("SSS").pattern("HTH").pattern("SSS")
                 .define('T', ALLOY_MAP.get("tough")).define('H', ALLOY_MAP.get("hsla_steel")).define('S', tag(Tags.Items.INGOTS, "silver"))
@@ -765,6 +816,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_power_port"), 4).pattern("PCP").pattern("RSR").pattern("PCP")
                 .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('R', Items.REDSTONE).define('C', tag(Tags.Items.INGOTS, "copper"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_monitor"), 4).pattern("PGP").pattern("TST").pattern("PGP")
+                .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('T', ALLOY_MAP.get("tough")).define('G', Tags.Items.DUSTS_GLOWSTONE)
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
     }
 
     private void hx(RecipeOutput recipeOutput) {
@@ -791,7 +846,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('M', PART_MAP.get("servomechanism"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("copper_heat_exchanger_tube"), 8).pattern("SOS").pattern("OCO").pattern("SMS")
-                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('O', tag(Tags.Items.INGOTS, "copper")).define('M', PART_MAP.get("servomechanism"))
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('O', Tags.Items.INGOTS_COPPER).define('M', PART_MAP.get("servomechanism"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, HX_MAP.get("hard_carbon_heat_exchanger_tube"), 8).pattern("SHS").pattern("HCH").pattern("SMS")
                 .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_BLOCK_MAP.get("steel_chassis")).define('H', ALLOY_MAP.get("hard_carbon")).define('M', PART_MAP.get("servomechanism"))
@@ -818,7 +873,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapelessRecipeBuilder.shapeless(MISC, MACHINE_MAP.get("large_machine_glass"), 1).requires(MACHINE_MAP.get("large_machine_frame")).requires(Tags.Items.GLASS_BLOCKS)
                 .unlockedBy(getHasName(MACHINE_MAP.get("large_machine_frame")), has(MACHINE_MAP.get("large_machine_frame"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, MACHINE_MAP.get("large_machine_power_port"), 4).pattern("BCB").pattern("RMR").pattern("BCB")
-                .define('B', tag(Tags.Items.INGOTS, "bronze")).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('R', Items.REDSTONE).define('C', tag(Tags.Items.INGOTS, "copper"))
+                .define('B', tag(Tags.Items.INGOTS, "bronze")).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('R', Items.REDSTONE).define('C', Tags.Items.INGOTS_COPPER)
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, MACHINE_MAP.get("large_machine_process_port"), 4).pattern("BHB").pattern("SMS").pattern("BHB")
                 .define('B', tag(Tags.Items.INGOTS, "bronze")).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('H', Items.HOPPER).define('S', PART_MAP.get("servomechanism"))
@@ -886,7 +941,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('B', tag(Tags.Items.INGOTS, "bronze")).define('T', ALLOY_MAP.get("tough")).define('F', ALLOY_MAP.get("ferroboron")).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('S', PART_MAP.get("sintered_steel"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, MACHINE_MAP.get("distiller_reboiling_unit"), 4).pattern("BSB").pattern("OMO").pattern("BCB")
-                .define('B', tag(Tags.Items.INGOTS, "bronze")).define('O', tag(Tags.Items.INGOTS, "copper")).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('S', PART_MAP.get("sintered_steel")).define('C', PART_MAP.get("copper_solenoid"))
+                .define('B', tag(Tags.Items.INGOTS, "bronze")).define('O', Tags.Items.INGOTS_COPPER).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('S', PART_MAP.get("sintered_steel")).define('C', PART_MAP.get("copper_solenoid"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, MACHINE_MAP.get("distiller_liquid_distributor"), 4).pattern("BFB").pattern("TMT").pattern("BEB")
                 .define('B', tag(Tags.Items.INGOTS, "bronze")).define('T', tag(Tags.Items.INGOTS, "tin")).define('F', ALLOY_MAP.get("ferroboron")).define('M', PART_BLOCK_MAP.get("machine_chassis")).define('E', PART_MAP.get("electric_motor"))
@@ -921,7 +976,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     private void radiation(RecipeOutput recipeOutput) {
         ShapedRecipeBuilder.shaped(MISC, GEIGER_COUNTER, 1).pattern("SFF").pattern("CRR").pattern("BFF")
-                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', tag(Tags.Items.INGOTS, "copper")).define('R', Items.REDSTONE).define('F', ALLOY_MAP.get("ferroboron")).define('B', PART_MAP.get("bioplastic"))
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', Tags.Items.INGOTS_COPPER).define('R', Items.REDSTONE).define('F', ALLOY_MAP.get("ferroboron")).define('B', PART_MAP.get("bioplastic"))
                 .unlockedBy(getHasName(PART_MAP.get("bioplastic")), has(PART_MAP.get("bioplastic"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, GEIGER_COUNTER_BLOCK, 1).pattern(" P ").pattern("PGP").pattern(" P ")
                 .define('P', PART_MAP.get("basic_plating")).define('G', GEIGER_COUNTER)

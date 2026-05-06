@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "nuclearcraftneohaul:electric_motor"
+    },
+    "L": {
+      "item": "nuclearcraftneohaul:linear_actuator"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    }
+  },
+  "pattern": [
+    " L ",
+    "EME",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:machine_interface"
+  }
+}

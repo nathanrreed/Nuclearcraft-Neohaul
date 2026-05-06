@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ferroboron_alloy": {
+    "has_du_voltaic_pile": {
       "conditions": {
         "items": [
           {
-            "items": "nuclearcraftneohaul:ferroboron_alloy"
+            "items": "nuclearcraftneohaul:du_voltaic_pile"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:lithium_ion_cell"
+        "recipe": "nuclearcraftneohaul:elite_voltaic_pile"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_ferroboron_alloy"
+      "has_du_voltaic_pile"
     ]
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:lithium_ion_cell"
+      "nuclearcraftneohaul:elite_voltaic_pile"
     ]
   }
 }
