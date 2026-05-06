@@ -30,6 +30,7 @@ import static com.nred.nuclearcraft.config.NCConfig.turbine_render_blade_width;
 import static com.nred.nuclearcraft.config.NCConfig.turbine_render_rotor_expansion;
 import static com.nred.nuclearcraft.render.RenderHelper.renderFluid;
 import static it.zerono.mods.zerocore.lib.CodeHelper.getSystemTime;
+import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.ONE_PIXEL;
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.bindBlocksTexture;
 
 @OnlyIn(Dist.CLIENT)
@@ -110,10 +111,10 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
 
         BlockPos posOffset = turbine.getExtremeInteriorCoord(false, false, false).subtract(controller.getTilePos());
         poseStack.translate(posOffset.getX(), posOffset.getY(), posOffset.getZ());
-        int xSize = turbine.getInteriorLengthX() - 1, ySize = turbine.getInteriorLengthY() - 1, zSize = turbine.getInteriorLengthZ() - 1;
+        int xSize = turbine.getInteriorLengthX(), ySize = turbine.getInteriorLengthY(), zSize = turbine.getInteriorLengthZ();
         Tank outputTank = turbine.tanks.get(1);
 
-        renderFluid(poseStack, bufferSource, packedLight, outputTank.getFluid(), outputTank.getCapacity(), xSize, ySize, zSize, x -> true, x -> 4D * x - 3D * outputTank.getCapacity());
+        renderFluid(poseStack, bufferSource, packedLight, outputTank.getFluid(), outputTank.getCapacity(), xSize + 2f * ONE_PIXEL, ySize + 2f * ONE_PIXEL, zSize + 2f * ONE_PIXEL, x -> true, x -> 4D * x - 3D * outputTank.getCapacity(), Direction.UP);
 
         poseStack.popPose();
     }

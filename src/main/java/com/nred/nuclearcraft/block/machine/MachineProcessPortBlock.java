@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.machine;
 
-import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
+import com.nred.nuclearcraft.block.GenericDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.IDynamicState;
 import com.nred.nuclearcraft.block_entity.machine.MachineProcessPortEntity;
 import com.nred.nuclearcraft.item.MultitoolItem;
@@ -14,33 +14,25 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.registration.BlockRegistration.AXIS_ALL;
-import static com.nred.nuclearcraft.registration.BlockRegistration.MACHINE_PORT_SORPTION;
+import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 
-public class MachineProcessPortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> implements IDynamicState {
+public class MachineProcessPortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericDirectionalTooltipDeviceBlock<Controller, PartType> implements IDynamicState {
     public MachineProcessPortBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(AXIS_ALL, Direction.Axis.Z).setValue(MACHINE_PORT_SORPTION, MachinePortSorption.ITEM_IN));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACING_ALL, Direction.NORTH).setValue(MACHINE_PORT_SORPTION, MachinePortSorption.ITEM_IN));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(AXIS_ALL, MACHINE_PORT_SORPTION);
-    }
-
-    @Override
-    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(AXIS_ALL, context.getNearestLookingDirection().getAxis());
+        builder.add(FACING_ALL, MACHINE_PORT_SORPTION);
     }
 
     @Override

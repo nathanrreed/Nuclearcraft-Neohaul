@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
+import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
@@ -32,15 +33,15 @@ import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_ENTITY_TYPE;
-import static com.nred.nuclearcraft.registration.BlockRegistration.AXIS_ALL;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 import static com.nred.nuclearcraft.registration.BlockRegistration.MACHINE_PORT_SORPTION;
 
 public class MachineProcessPortEntity extends AbstractMachineEntity implements ITickable, ITileInventory, ITileFluid {
     private final @Nonnull NonNullList<ItemStack> backupStacks = NonNullList.withSize(0, ItemStack.EMPTY);
     private final @Nonnull List<Tank> backupTanks = Collections.emptyList();
 
-    private final @Nonnull InventoryConnection[] backupInventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
-    private final @Nonnull FluidConnection[] backupFluidConnections = ITileFluid.fluidConnectionAll(Collections.emptyList());
+    private final @Nonnull InventoryConnection[] backupInventoryConnections = ITileInventory.inventoryConnectionAll(ItemSorption.IN);
+    private final @Nonnull FluidConnection[] backupFluidConnections = ITileFluid.fluidConnectionAll(TankSorption.IN);
 
     private final @Nonnull FluidTileWrapper[] fluidSides;
     private final @Nonnull ChemicalTileWrapper[] chemicalSides;
@@ -63,7 +64,7 @@ public class MachineProcessPortEntity extends AbstractMachineEntity implements I
         super.onPreMachineAssembled(controller);
         if (!level.isClientSide()) {
             Optional<Direction> facing = getPartPosition().getDirection();
-            facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(AXIS_ALL, direction.getAxis()), 2));
+            facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_ALL, direction), 2));
         }
     }
 

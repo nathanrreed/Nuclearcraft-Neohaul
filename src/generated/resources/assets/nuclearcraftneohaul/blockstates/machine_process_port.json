@@ -1,40 +1,96 @@
 {
   "variants": {
-    "axis=x,machine_port_sorption=fluid_in": {
+    "facing=down,machine_port_sorption=fluid_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in",
+      "x": 90
+    },
+    "facing=down,machine_port_sorption=fluid_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out",
+      "x": 90
+    },
+    "facing=down,machine_port_sorption=item_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_in",
+      "x": 90
+    },
+    "facing=down,machine_port_sorption=item_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_out",
+      "x": 90
+    },
+    "facing=east,machine_port_sorption=fluid_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in",
+      "y": 90
+    },
+    "facing=east,machine_port_sorption=fluid_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out",
+      "y": 90
+    },
+    "facing=east,machine_port_sorption=item_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_in",
+      "y": 90
+    },
+    "facing=east,machine_port_sorption=item_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_out",
+      "y": 90
+    },
+    "facing=north,machine_port_sorption=fluid_in": {
       "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in"
     },
-    "axis=x,machine_port_sorption=fluid_out": {
+    "facing=north,machine_port_sorption=fluid_out": {
       "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out"
     },
-    "axis=x,machine_port_sorption=item_in": {
+    "facing=north,machine_port_sorption=item_in": {
       "model": "nuclearcraftneohaul:block/machine_process_port_item_in"
     },
-    "axis=x,machine_port_sorption=item_out": {
+    "facing=north,machine_port_sorption=item_out": {
       "model": "nuclearcraftneohaul:block/machine_process_port_item_out"
     },
-    "axis=y,machine_port_sorption=fluid_in": {
-      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in"
+    "facing=south,machine_port_sorption=fluid_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in",
+      "y": 180
     },
-    "axis=y,machine_port_sorption=fluid_out": {
-      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out"
+    "facing=south,machine_port_sorption=fluid_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out",
+      "y": 180
     },
-    "axis=y,machine_port_sorption=item_in": {
-      "model": "nuclearcraftneohaul:block/machine_process_port_item_in"
+    "facing=south,machine_port_sorption=item_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_in",
+      "y": 180
     },
-    "axis=y,machine_port_sorption=item_out": {
-      "model": "nuclearcraftneohaul:block/machine_process_port_item_out"
+    "facing=south,machine_port_sorption=item_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_out",
+      "y": 180
     },
-    "axis=z,machine_port_sorption=fluid_in": {
-      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in"
+    "facing=up,machine_port_sorption=fluid_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in",
+      "x": 270
     },
-    "axis=z,machine_port_sorption=fluid_out": {
-      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out"
+    "facing=up,machine_port_sorption=fluid_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out",
+      "x": 270
     },
-    "axis=z,machine_port_sorption=item_in": {
-      "model": "nuclearcraftneohaul:block/machine_process_port_item_in"
+    "facing=up,machine_port_sorption=item_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_in",
+      "x": 270
     },
-    "axis=z,machine_port_sorption=item_out": {
-      "model": "nuclearcraftneohaul:block/machine_process_port_item_out"
+    "facing=up,machine_port_sorption=item_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_out",
+      "x": 270
+    },
+    "facing=west,machine_port_sorption=fluid_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_in",
+      "y": 270
+    },
+    "facing=west,machine_port_sorption=fluid_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_fluid_out",
+      "y": 270
+    },
+    "facing=west,machine_port_sorption=item_in": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_in",
+      "y": 270
+    },
+    "facing=west,machine_port_sorption=item_out": {
+      "model": "nuclearcraftneohaul:block/machine_process_port_item_out",
+      "y": 270
     }
   }
 }

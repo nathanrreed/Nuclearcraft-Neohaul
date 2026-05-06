@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block.*;
 import com.nred.nuclearcraft.block.battery.BatteryBlock;
 import com.nred.nuclearcraft.block.item.NCItemBlock;
 import com.nred.nuclearcraft.block.item.energy.BatteryItemBlock;
+import com.nred.nuclearcraft.block.machine.MachineTransparentBlock;
 import com.nred.nuclearcraft.block.processor.NuclearFurnaceBlock;
 import com.nred.nuclearcraft.block.processor.ProcessorBlock;
 import com.nred.nuclearcraft.block.radiation.GeigerCounterBlock;
@@ -383,13 +384,14 @@ public class BlockRegistration {
         map.put("large_machine_redstone_port", registerBlockItem("machine_redstone_port", MachinePartType.RedstonePort::createBlock));
         map.put("large_machine_computer_port", registerBlockItemWithTooltip("machine_computer_port", MachinePartType.ComputerPort::createBlock, false));
 
-        map.put("sintered_steel_diaphragm", registerBlockItem("sintered_steel_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
-        map.put("polyethersulfone_diaphragm", registerBlockItem("polyethersulfone_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
-        map.put("zirfon_diaphragm", registerBlockItem("zirfon_diaphragm", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
 
-        map.put("steel_sieve_assembly", registerBlockItem("steel_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
-        map.put("polytetrafluoroethene_sieve_assembly", registerBlockItem("polytetrafluoroethene_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
-        map.put("hastelloy_sieve_assembly", registerBlockItem("hastelloy_sieve_assembly", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
+        map.put("sintered_steel_diaphragm", registerBlockItem("sintered_steel_diaphragm", MachineTransparentBlock::new));
+        map.put("polyethersulfone_diaphragm", registerBlockItem("polyethersulfone_diaphragm", MachineTransparentBlock::new));
+        map.put("zirfon_diaphragm", registerBlockItem("zirfon_diaphragm", MachineTransparentBlock::new));
+
+        map.put("steel_sieve_assembly", registerBlockItem("steel_sieve_assembly", MachineTransparentBlock::new));
+        map.put("polytetrafluoroethene_sieve_assembly", registerBlockItem("polytetrafluoroethene_sieve_assembly", MachineTransparentBlock::new));
+        map.put("hastelloy_sieve_assembly", registerBlockItem("hastelloy_sieve_assembly", MachineTransparentBlock::new));
 
         // Electrolyzer
         map.put("electrolyzer_controller", registerBlockItem("electrolyzer_controller", MachinePartType.ElectrolyzerController::createBlock));

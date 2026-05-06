@@ -1,1 +1,3 @@
 - Updated Ore textures
+- Fixed Diaphragms and Sieve Assemblies being opaque
+- Fixed BlockEntity Renderers

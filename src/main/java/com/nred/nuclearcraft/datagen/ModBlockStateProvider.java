@@ -262,13 +262,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         process_port(MACHINE_MAP.get("large_machine_process_port"));
         booleanBlock("reservoir_port_front", true, "reservoir_port_back", false, "reservoir_port", "_output", "_input", MACHINE_MAP.get("large_machine_reservoir_port"), "machine", ACTIVE, Directional);
         blockWithStateItem("redstone_port", MACHINE_MAP.get("large_machine_redstone_port"), "machine", ACTIVE);
-        blockWithItem("computer_port", MACHINE_MAP.get("large_machine_computer_port"), "machine");
-        blockWithItem("sintered_steel", MACHINE_MAP.get("sintered_steel_diaphragm"), "machine/diaphragm");
-        blockWithItem("polyethersulfone", MACHINE_MAP.get("polyethersulfone_diaphragm"), "machine/diaphragm");
-        blockWithItem("zirfon", MACHINE_MAP.get("zirfon_diaphragm"), "machine/diaphragm");
-        blockWithItem("steel", MACHINE_MAP.get("steel_sieve_assembly"), "machine/sieve_assembly");
-        blockWithItem("polytetrafluoroethene", MACHINE_MAP.get("polytetrafluoroethene_sieve_assembly"), "machine/sieve_assembly");
-        blockWithItem("hastelloy", MACHINE_MAP.get("hastelloy_sieve_assembly"), "machine/sieve_assembly");
+        blockWithItemCutout("computer_port", MACHINE_MAP.get("large_machine_computer_port"), "machine");
+        blockWithItemCutout("sintered_steel", MACHINE_MAP.get("sintered_steel_diaphragm"), "machine/diaphragm");
+        blockWithItemCutout("polyethersulfone", MACHINE_MAP.get("polyethersulfone_diaphragm"), "machine/diaphragm");
+        blockWithItemCutout("zirfon", MACHINE_MAP.get("zirfon_diaphragm"), "machine/diaphragm");
+        blockWithItemCutout("steel", MACHINE_MAP.get("steel_sieve_assembly"), "machine/sieve_assembly");
+        blockWithItemCutout("polytetrafluoroethene", MACHINE_MAP.get("polytetrafluoroethene_sieve_assembly"), "machine/sieve_assembly");
+        blockWithItemCutout("hastelloy", MACHINE_MAP.get("hastelloy_sieve_assembly"), "machine/sieve_assembly");
 
         directionalMachine("controller", MACHINE_MAP.get("electrolyzer_controller"), "machine/electrolyzer", ACTIVE);
         directionalTop("cathode_terminal", MACHINE_MAP.get("electrolyzer_cathode_terminal"), "machine/electrolyzer");
@@ -302,12 +302,17 @@ class ModBlockStateProvider extends BlockStateProvider {
         ModelFile item_in = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_item_in", modLoc("block/machine")).texture("top", modLoc(base + "process_port_top")).texture("bottom", modLoc(base + "process_port_top")).texture("side", modLoc(base + "process_port_side")).texture("back", modLoc(base + "process_port_item_in")).texture("front", modLoc(base + "process_port_item_in"));
         ModelFile item_out = models().withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath() + "_item_out", modLoc("block/machine")).texture("top", modLoc(base + "process_port_top")).texture("bottom", modLoc(base + "process_port_top")).texture("side", modLoc(base + "process_port_side")).texture("back", modLoc(base + "process_port_item_out")).texture("front", modLoc(base + "process_port_item_out"));
 
-        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(switch (state.getValue(MACHINE_PORT_SORPTION)) {
-            case ITEM_IN -> item_in;
-            case FLUID_IN -> fluid_in;
-            case ITEM_OUT -> item_out;
-            case FLUID_OUT -> fluid_out;
-        }).build());
+        getVariantBuilder(block).forAllStates(state -> {
+            Direction dir = state.getValue(BlockStateProperties.FACING);
+            return ConfiguredModel.builder().modelFile(switch (state.getValue(MACHINE_PORT_SORPTION)) {
+                        case ITEM_IN -> item_in;
+                        case FLUID_IN -> fluid_in;
+                        case ITEM_OUT -> item_out;
+                        case FLUID_OUT -> fluid_out;
+                    })
+                    .rotationX(dir == Direction.DOWN ? 90 : dir.getAxis().isHorizontal() ? 0 : 270)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + 180) % 360).build();
+        });
 
         simpleBlockItem(block, fluid_in);
     }

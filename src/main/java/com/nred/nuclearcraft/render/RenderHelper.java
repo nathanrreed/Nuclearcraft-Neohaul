@@ -2,13 +2,18 @@ package com.nred.nuclearcraft.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import it.zerono.mods.zerocore.lib.client.render.FluidTankRenderer;
+import it.zerono.mods.zerocore.internal.client.RenderTypes;
+import it.zerono.mods.zerocore.lib.client.render.ModRenderHelper;
 import it.zerono.mods.zerocore.lib.client.render.buffer.VertexBuilderWrapper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 import java.util.Objects;
@@ -28,13 +33,15 @@ public class RenderHelper {
         renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, isGaseous, x -> x, Direction.UP);
     }
 
+    public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, float xSize, float ySize, float zSize, Direction fillDir, Predicate<FluidStack> isGaseous) {
+        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, isGaseous, x -> x, fillDir);
+    }
+
     public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, float xSize, float ySize, float zSize, Predicate<FluidStack> isGaseous, IntToDoubleFunction getAmount) {
-        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, Direction.UP);
+        renderFluid(poseStack, bufferSource, packedLight, stack, capacity, xSize, ySize, zSize, isGaseous, getAmount, Direction.UP);
     }
 
     public static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, FluidStack stack, int capacity, float xSize, float ySize, float zSize, Predicate<FluidStack> isGaseous, IntToDoubleFunction getAmount, Direction fillDir) {
-        FluidTankRenderer.Single renderer = new FluidTankRenderer.Single(capacity, 0, 0, 0, xSize, ySize, zSize);
-
         boolean gaseous = isGaseous.test(stack);
         double amount = getAmount.applyAsDouble(stack.getAmount());
 
@@ -44,7 +51,7 @@ public class RenderHelper {
 
         if (gaseous) {
             double fraction = Math.min(1D, amount / capacity);
-            renderer.render(poseStack, new TintingRenderTypeBufferWrapper(bufferSource, (float) fraction, 1f, 1f, 1f), packedLight, stack.copyWithAmount(capacity));
+            renderFluid(poseStack, new TintingRenderTypeBufferWrapper(bufferSource, (float) fraction, 1f, 1f, 1f), xSize, ySize, zSize, packedLight, capacity, stack.copyWithAmount(capacity));
         } else {
             poseStack.rotateAround(switch (fillDir) { // TODO check if these are right way around
                 case UP -> new Quaternionf();
@@ -55,7 +62,52 @@ public class RenderHelper {
                 case EAST -> new Quaternionf().setAngleAxis(Math.toRadians(90), 1, 0, 0);
 
             }, (xSize + 1) / 2f, (ySize + 1) / 2f, (zSize + 1) / 2f);
-            renderer.render(poseStack, bufferSource, packedLight, stack.copyWithAmount((int) amount));
+            renderFluid(poseStack, bufferSource, xSize, ySize, zSize, packedLight, capacity, stack.copyWithAmount((int) amount));
+        }
+    }
+
+    private static void renderFluid(PoseStack poseStack, MultiBufferSource bufferSource, float xSize, float ySize, float zSize, int packedLight, int capacity, FluidStack fluidStack) {
+        if (!fluidStack.isEmpty()) {
+            ySize *= Math.min(1.0F, (float) fluidStack.getAmount() / (float) capacity); // Fill percent
+            int xFull = Mth.ceil(xSize), yFull = Mth.ceil(ySize), zFull = Mth.ceil(zSize);
+            float xPartial = Mth.frac(xSize), yPartial = Mth.frac(ySize), zPartial = Mth.frac(zSize);
+
+            Matrix4f matrix = poseStack.last().pose();
+            VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderTypes.FLUID_COLUMN);
+            Fluid fluid = fluidStack.getFluid();
+            FluidType fluidType = fluid.getFluidType();
+            TextureAtlasSprite stillSprite = ModRenderHelper.getFluidStillSprite(fluid);
+            TextureAtlasSprite flowingSprite = ModRenderHelper.getFluidFlowingSprite(fluid);
+            int fluidColour = ModRenderHelper.getFluidTint(fluid);
+
+            packedLight = ModRenderHelper.addBlockLight(packedLight, fluidType.getLightLevel(fluidStack));
+            for (int z = 0; z < zFull; z++) {
+                float zPart = ((z + 1) > zSize ? zPartial : 1);
+                for (float x = 0; x < xFull; x++) {
+                    float xPart = ((x + 1) > xSize ? xPartial : 1);
+                    ModRenderHelper.renderBlockFace(vertexConsumer, matrix, Direction.UP, x, 0.005F, z, x + xPart, 0.005F, z + zPart, stillSprite.getU0(), stillSprite.getU(xPart), stillSprite.getV0(), stillSprite.getV(zPart), fluidColour, packedLight);
+                    ModRenderHelper.renderBlockFace(vertexConsumer, matrix, Direction.DOWN, x, ySize - 0.005F, z, x + xPart, ySize - 0.005F, z + zPart, stillSprite.getU0(), stillSprite.getU(xPart), stillSprite.getV0(), stillSprite.getV(zPart), fluidColour, packedLight);
+
+                    if (z == 0 || z == zFull - 1 || x == 0 || x == xFull - 1) {
+                        for (int y = 0; y < yFull; y++) {
+                            float yPart = ((y + 1) > ySize ? yPartial : 1);
+                            if (z == 0) {
+                                ModRenderHelper.renderBlockFace(vertexConsumer, matrix, Direction.NORTH, x, y, z, x + xPart, y + yPart, z + zPart, flowingSprite.getU0(), flowingSprite.getU(xPart), flowingSprite.getV(1 - yPart), flowingSprite.getV1(), fluidColour, packedLight);
+                            }
+                            if (z == zFull - 1) {
+                                ModRenderHelper.renderBlockFace(vertexConsumer, matrix, Direction.SOUTH, x, y, z, x + xPart, y + yPart, z + zPart, flowingSprite.getU0(), flowingSprite.getU(xPart), flowingSprite.getV(1 - yPart), flowingSprite.getV1(), fluidColour, packedLight);
+                            }
+
+                            if (x == 0) {
+                                ModRenderHelper.renderBlockFace(vertexConsumer, matrix, Direction.WEST, x, y, z, x + xPart, y + yPart, z + zPart, flowingSprite.getU0(), flowingSprite.getU(zPart), flowingSprite.getV(1 - yPart), flowingSprite.getV1(), fluidColour, packedLight);
+                            }
+                            if (x == xFull - 1) {
+                                ModRenderHelper.renderBlockFace(vertexConsumer, matrix, Direction.EAST, x, y, z, x + xPart, y + yPart, z + zPart, flowingSprite.getU0(), flowingSprite.getU(zPart), flowingSprite.getV(1 - yPart), flowingSprite.getV1(), fluidColour, packedLight);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

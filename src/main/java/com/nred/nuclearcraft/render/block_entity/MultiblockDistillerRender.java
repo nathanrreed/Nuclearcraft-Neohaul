@@ -140,7 +140,6 @@ public record MultiblockDistillerRender(BlockEntityRendererProvider.Context cont
             poseStack.pushPose();
             poseStack.translate(-0.5D * ONE_PIXEL, -0.5D * ONE_PIXEL, -0.5D * ONE_PIXEL);
             renderFluid(poseStack, bufferSource, packedLight, liquids.get(0).getFluid(), liquids.get(0).getCapacity(), xSize + ONE_PIXEL, (float) (0.25D + 0.5D * ONE_PIXEL), zSize + ONE_PIXEL);
-
             poseStack.popPose();
 
             Tank topLiquid = liquids.get(liquidCount - 1);
@@ -167,9 +166,12 @@ public record MultiblockDistillerRender(BlockEntityRendererProvider.Context cont
             }
         }
 
+        poseStack.pushPose();
+        poseStack.translate(-ONE_PIXEL, -ONE_PIXEL, -ONE_PIXEL);
         for (Tank tank : gasses) {
-            renderFluid(poseStack, bufferSource, packedLight, tank.getFluid(), tank.getCapacity(), xSize, ySize, zSize);
+            renderFluid(poseStack, bufferSource, packedLight, tank.getFluid(), tank.getCapacity(), xSize + 2f * ONE_PIXEL, ySize + 2f * ONE_PIXEL, zSize + 2f * ONE_PIXEL);
         }
+        poseStack.popPose();
 
         poseStack.popPose();
     }

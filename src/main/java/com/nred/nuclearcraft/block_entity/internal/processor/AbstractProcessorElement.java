@@ -266,7 +266,7 @@ public abstract class AbstractProcessorElement {
             }
         }
 
-        int fluidOutputSize = getFluidOutputSize();
+        int fluidOutputSize = Math.min(getFluidOutputSize(), getFluidProducts().size());
 
         List<Tank> tanks = getTanks();
         for (int i = 0; i < fluidOutputSize; ++i) {
@@ -419,7 +419,7 @@ public abstract class AbstractProcessorElement {
             }
         }
 
-        int fluidOutputSize = getFluidOutputSize();
+        int fluidOutputSize = Math.min(getFluidOutputSize(), getFluidProducts().size());
 
         List<Tank> tanks = getTanks();
         for (int i = 0; i < fluidOutputSize; ++i) {
