@@ -29,10 +29,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -156,8 +156,8 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(JEI_VENT_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("fission_vent").toStack()));
         registration.addRecipeCatalysts(JEI_EMERGENCY_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("fission_vent").toStack()));
         registration.addRecipeCatalysts(JEI_SALT_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, Stream.concat(FISSION_ENTITY_TYPE.get("coolant_heater").get().getValidBlocks().stream().map(e -> e.asItem().getDefaultInstance()), Stream.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").toStack())).toList());
-        registration.addRecipeCatalysts(JEI_MODERATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.ITEM.getDataMap(FISSION_MODERATOR_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e)).getDefaultInstance()).toList());
-        registration.addRecipeCatalysts(JEI_REFLECTOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.ITEM.getDataMap(FISSION_REFLECTOR_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e)).getDefaultInstance()).toList());
+        registration.addRecipeCatalysts(JEI_MODERATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.BLOCK.getDataMap(FISSION_MODERATOR_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e)).asItem().getDefaultInstance()).toList());
+        registration.addRecipeCatalysts(JEI_REFLECTOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.BLOCK.getDataMap(FISSION_REFLECTOR_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e)).asItem().getDefaultInstance()).toList());
         Stream<ItemStack> hx_tubes = HX_ENTITY_TYPE.get("tube").get().getValidBlocks().stream().map(e -> e.asItem().getDefaultInstance());
 
         registration.addRecipeCatalysts(JEI_HEAT_EXCHANGER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, Stream.concat(Stream.of(HX_MAP.get("heat_exchanger_controller").toStack()), hx_tubes).toList());
@@ -169,8 +169,8 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(JEI_ELECTROLYZER_CATHODE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("electrolyzer_cathode_terminal").toStack()));
         registration.addRecipeCatalysts(JEI_ELECTROLYZER_ANODE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("electrolyzer_anode_terminal").toStack()));
         registration.addRecipeCatalysts(JEI_INFILTRATOR_PRESSURE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("infiltrator_pressure_chamber").toStack()));
-        registration.addRecipeCatalysts(JEI_DIAPHRAGM_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.ITEM.getDataMap(MACHINE_DIAPHRAGM_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e)).getDefaultInstance()).toList());
-        registration.addRecipeCatalysts(JEI_SIEVE_ASSEMBLY_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.ITEM.getDataMap(MACHINE_SIEVE_ASSEMBLY_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e)).getDefaultInstance()).toList());
+        registration.addRecipeCatalysts(JEI_DIAPHRAGM_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.BLOCK.getDataMap(MACHINE_DIAPHRAGM_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e)).asItem().getDefaultInstance()).toList());
+        registration.addRecipeCatalysts(JEI_SIEVE_ASSEMBLY_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.BLOCK.getDataMap(MACHINE_SIEVE_ASSEMBLY_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e)).asItem().getDefaultInstance()).toList());
         registration.addRecipeCatalysts(JEI_DECAY_GENERATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(DECAY_GENERATOR.toStack()));
         registration.addRecipeCatalysts(JEI_RADIATION_SCRUBBER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(RADIATION_SCRUBBER.toStack()));
     }
@@ -218,12 +218,12 @@ public class ModJeiPlugin implements IModPlugin {
     }
 
 
-    private <R> void createItemDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Item, R> dataMapType) {
+    private <R> void createItemDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Block, R> dataMapType) {
         createItemDataMapCategory(registration, category, dataMapType, null);
     }
 
-    private <R> void createItemDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Item, R> dataMapType, Function<ItemStack, Component> tooltip) {
-        addDataMapRecipes(registration, category, BuiltInRegistries.ITEM.getDataMap(dataMapType).entrySet(), e -> Objects.requireNonNull(BuiltInRegistries.ITEM.get(e.getKey())).getDefaultInstance(), VanillaTypes.ITEM_STACK, tooltip);
+    private <R> void createItemDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Block, R> dataMapType, Function<ItemStack, Component> tooltip) {
+        addDataMapRecipes(registration, category, BuiltInRegistries.BLOCK.getDataMap(dataMapType).entrySet(), e -> Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e.getKey())).asItem().getDefaultInstance(), VanillaTypes.ITEM_STACK, tooltip);
     }
 
     private <R> void createFluidDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Fluid, R> dataMapType) {

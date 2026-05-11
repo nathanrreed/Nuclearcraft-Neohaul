@@ -11,12 +11,14 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -37,21 +39,23 @@ public abstract class JeiRecipeViewerCategory<RECIPE extends BasicRecipe> extend
         } else {
             for (int i = 0; i < recipe.itemIngredients.size(); i++) {
                 ScreenPosition position = recipeViewerInfo.item_inputs().get(i);
-                builder.addInputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemIngredients.get(i).ingredient());
+                builder.addInputSlot(position.x() + 1, position.y() + 1).addItemStacks(Arrays.stream(recipe.itemIngredients.get(i).getItemsRaw()).toList());
             }
         }
 
         for (int i = 0; i < recipe.fluidIngredients.size(); i++) {
             if (recipe.getFluidIngredients().get(i).isEmpty()) continue; // Required for radiation scrubber
             ScreenPosition position = recipeViewerInfo.fluid_inputs().get(i);
-            builder.addInputSlot(position.x() + 1, position.y() + 1).addFluidStack(recipe.getFluidIngredients().get(i).getFluids()[0].getFluid(), recipe.getFluidIngredients().get(i).amount()).setFluidRenderer(recipe.getFluidIngredient().amount(), false, 16, 16);
+            builder.addInputSlot(position.x() + 1, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.asList(recipe.fluidIngredients.get(i).getFluidsRaw())).setFluidRenderer(recipe.getFluidIngredient().amount(), false, 16, 16);
         }
 
         for (int i = 0; i < recipe.itemProducts.size(); i++) {
             ScreenPosition position = recipeViewerInfo.item_outputs().get(i);
-            IRecipeSlotBuilder temp = builder.addOutputSlot(position.x() + 1, position.y() + 1).addIngredients(recipe.itemProducts.get(i).ingredient());
             SizedChanceItemIngredient ingredient = recipe.getItemProducts().get(i);
-            temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable(MODID + ".recipe_viewer.chance_output", ingredient.minStackSize(), ingredient.count(), NCMath.decimalPlaces(ingredient.getMeanStackSize(), 2))));
+            IRecipeSlotBuilder temp = builder.addOutputSlot(position.x() + 1, position.y() + 1).addItemStacks(Arrays.asList(ingredient.getItemsRaw()));
+            if (ingredient.chancePercent() < 100) {
+                temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable(MODID + ".recipe_viewer.chance_output", ingredient.minStackSize(), ingredient.count(), NCMath.decimalPlaces(ingredient.getMeanStackSize(), 2))));
+            }
         }
 
         int size = recipeViewerInfo.fluid_outputs().size() < 3 ? 24 : 16;
@@ -59,11 +63,9 @@ public abstract class JeiRecipeViewerCategory<RECIPE extends BasicRecipe> extend
             if (recipe.getFluidProducts().get(i).isEmpty()) continue; // Required for radiation scrubber
             ScreenPosition position = recipeViewerInfo.fluid_outputs().get(i);
             SizedChanceFluidIngredient ingredient = recipe.getFluidProducts().get(i);
+            IRecipeSlotBuilder temp = builder.addOutputSlot(position.x() + 1, position.y() + 1).addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.asList(ingredient.getFluidsRaw())).setFluidRenderer(1, false, size, size);
             if (ingredient.chancePercent() < 100) {
-                builder.addOutputSlot(position.x() + 1, position.y() + 1).addFluidStack(ingredient.getFluids()[0].getFluid(), ingredient.amount()).setFluidRenderer(1, false, size, size)
-                        .setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable(MODID + ".recipe_viewer.chance_output", ingredient.minStackSize(), ingredient.amount(), NCMath.decimalPlaces(ingredient.getMeanStackSize(), 2))));
-            } else {
-                builder.addOutputSlot(position.x() + 1, position.y() + 1).addFluidStack(ingredient.getFluids()[0].getFluid(), ingredient.amount()).setFluidRenderer(1, false, size, size);
+                temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable(MODID + ".recipe_viewer.chance_output", ingredient.minStackSize(), ingredient.amount(), NCMath.decimalPlaces(ingredient.getMeanStackSize(), 2))));
             }
         }
     }

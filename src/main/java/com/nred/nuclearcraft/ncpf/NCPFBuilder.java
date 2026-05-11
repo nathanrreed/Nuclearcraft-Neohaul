@@ -322,8 +322,8 @@ public class NCPFBuilder {
     }
 
     public static void translateModerator(List<NCPFElement> list) {
-        for (var moderatorData : BuiltInRegistries.ITEM.getDataMap(FISSION_MODERATOR_DATA).entrySet()) {
-            NCPFElement element = translate(new ItemStack(BuiltInRegistries.ITEM.get(moderatorData.getKey())));
+        for (var moderatorData : BuiltInRegistries.BLOCK.getDataMap(FISSION_MODERATOR_DATA).entrySet()) {
+            NCPFElement element = translate(new ItemStack(BuiltInRegistries.BLOCK.get(moderatorData.getKey())));
 
             if (element.modules == null) {
                 element.modules = new HashMap<>();
@@ -339,8 +339,8 @@ public class NCPFBuilder {
     }
 
     public static void translateReflector(List<NCPFElement> list) {
-        for (var reflectorData : BuiltInRegistries.ITEM.getDataMap(FISSION_REFLECTOR_DATA).entrySet()) {
-            NCPFElement element = translate(new ItemStack(BuiltInRegistries.ITEM.get(reflectorData.getKey())));
+        for (var reflectorData : BuiltInRegistries.BLOCK.getDataMap(FISSION_REFLECTOR_DATA).entrySet()) {
+            NCPFElement element = translate(new ItemStack(Objects.requireNonNull(BuiltInRegistries.BLOCK.get(reflectorData.getKey())).asItem()));
             if (element.modules == null) {
                 element.modules = new HashMap<>();
             }

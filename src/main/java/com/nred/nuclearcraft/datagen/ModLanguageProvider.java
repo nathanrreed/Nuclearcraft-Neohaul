@@ -49,6 +49,7 @@ public class ModLanguageProvider extends LanguageProvider {
         fission_reactor();
         heat_exchanger();
         machine();
+        ponder();
 
         add(MODID + ".multiblock.validation.reactor.invalid_frame_block", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's frame");
         add(MODID + ".multiblock.validation.invalid_part_for_interior", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's interior");
@@ -474,6 +475,14 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".recipe_viewer.electrolyte", "Electrolyte: %s");
         add(MODID + ".recipe_viewer.distiller_sieve_tray_count", "Minimum Sieve Tray Count: %s");
         add(MODID + ".recipe_viewer.infiltrator_pressure_fluid_efficiency", "Efficiency Multiplier: %s");
+    }
+
+    private void ponder() {
+        add(MODID + ".ponder.moderator.header", "Moderator");
+        add(MODID + ".ponder.shared.moderator.active", "Active Moderator(s)");
+        add(MODID + ".ponder.shared.moderator.inactive", "Inactive Moderator(s)");
+
+        add(MODID + ".ponder.reflector.header", "Reflector");
     }
 
     private void string_formatting() {

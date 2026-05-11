@@ -78,6 +78,8 @@ repositories {
             includeGroup "com.github.rtyley"
         }
     }
+    maven { url = "https://maven.firstdark.dev/snapshots" }
+    maven { url = "https://maven.createmod.net" }
 }
 
 base {
@@ -162,6 +164,8 @@ dependencies {
     runtimeOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
 
     implementation "maven.modrinth:fusion-connected-textures:${fusion_version}-neoforge-mc${minecraft_version}"
+
+    implementation("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -230,6 +234,7 @@ modrinth {
         optional.project "kubejs"
         optional.project "mekanism"
         optional.project "fusion-connected-textures"
+        optional.project "create"
     }
     changelog = rootProject.file("Changelog.md").text
 }
@@ -249,7 +254,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
 
     mainFile.addRequirement("zerocore", "terrablender")
-    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm")
+    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "create")
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.

@@ -56,4 +56,10 @@ For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https:
 
 #### Currently Working on:
 - Testing and optimizing
-- Integrations with other mods (KubeJS / CraftTweaker)
+- Integrations with other mods (KubeJS / CraftTweaker
+
+---
+
+<p style="text-align: center; font-style: italic">
+No AI was or shall be use in this repository
+</p>

@@ -10,12 +10,12 @@ import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.datagen.ModFluidTagProvider.*;
-import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.blockTag;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.SALT_SOLUTION_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
-import static net.neoforged.neoforge.common.Tags.Items.STORAGE_BLOCKS;
+import static net.neoforged.neoforge.common.Tags.Blocks.STORAGE_BLOCKS;
 import static net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps.FURNACE_FUELS;
 
 public class ModDataMapProvider extends DataMapProvider {
@@ -53,12 +53,12 @@ public class ModDataMapProvider extends DataMapProvider {
                 .add(INGOT_BLOCK_MAP.get("iridium_oxide").getId(), new ElectrolyzerAnodeData(1.0), false);
 
         builder(ELECTROLYZER_CATHODE_DATA)
-                .add(tag(STORAGE_BLOCKS, "iron"), new ElectrolyzerCathodeData(0.6), false)
-                .add(tag(STORAGE_BLOCKS, "nickel"), new ElectrolyzerCathodeData(0.7), false)
-                .add(tag(STORAGE_BLOCKS, "molybdenum"), new ElectrolyzerCathodeData(0.8), false)
-                .add(tag(STORAGE_BLOCKS, "cobalt"), new ElectrolyzerCathodeData(0.9), false)
-                .add(tag(STORAGE_BLOCKS, "platinum"), new ElectrolyzerCathodeData(1.0), false)
-                .add(tag(STORAGE_BLOCKS, "palladium"), new ElectrolyzerCathodeData(1.0), false);
+                .add(blockTag(STORAGE_BLOCKS, "iron"), new ElectrolyzerCathodeData(0.6), false)
+                .add(blockTag(STORAGE_BLOCKS, "nickel"), new ElectrolyzerCathodeData(0.7), false)
+                .add(blockTag(STORAGE_BLOCKS, "molybdenum"), new ElectrolyzerCathodeData(0.8), false)
+                .add(blockTag(STORAGE_BLOCKS, "cobalt"), new ElectrolyzerCathodeData(0.9), false)
+                .add(blockTag(STORAGE_BLOCKS, "platinum"), new ElectrolyzerCathodeData(1.0), false)
+                .add(blockTag(STORAGE_BLOCKS, "palladium"), new ElectrolyzerCathodeData(1.0), false);
 
         builder(ELECTROLYZER_ELECTROLYTE_DATA)
                 .add(SALT_SOLUTION_MAP.get("sodium_hydroxide_solution").still.getId(), new ElectrolyzerElectrolyteData(0.9, "hydroxide_solution"), false)

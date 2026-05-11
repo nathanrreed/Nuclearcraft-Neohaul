@@ -57,8 +57,9 @@ public class TooltipHandler {
 
         addPlacementRuleTooltip(tooltip, stack);
 
-        if (event.getContext().level() != null)
+        if (event.getContext().level() != null) {
             addRecipeTooltip(tooltip, stack, event.getContext().level());
+        }
 
         if (radiation_enabled_public) {
             addArmorRadiationTooltip(tooltip, stack);
