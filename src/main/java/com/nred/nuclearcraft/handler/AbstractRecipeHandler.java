@@ -26,7 +26,7 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
 
     public static final IntList INVALID = new IntArrayList(new int[]{-1});
 
-    public List<RECIPE> getRecipeList(@NotNull RecipeManager recipeManager) {
+    public List<RECIPE> getRecipeList(RecipeManager recipeManager) {
         if (recipeList.isEmpty())
             setRecipes(recipeManager);
         return recipeList;
@@ -45,7 +45,7 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
         if (recipe == null)
             return null;
 
-        return new RecipeInfo<>(recipe, RecipeHelper.matchIngredients(IngredientSorption.INPUT, itemIngredients, fluidIngredients, itemInputs, fluidInputs));
+        return new RecipeInfo<>(recipe, RecipeHelper.matchIngredients(IngredientSorption.INPUT, recipe.itemIngredients, recipe.fluidIngredients, itemInputs, fluidInputs));
     }
 
     public static @Nullable BasicRecipe getRecipeFromIngredients(Level level, RecipeType<? extends BasicRecipe> recipeType, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients) {
@@ -59,13 +59,11 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
         return (RECIPE) getRecipeFromIngredients(level, (RecipeType<? extends BasicRecipe>) BuiltInRegistries.RECIPE_TYPE.get(ncLoc(getName())), itemIngredients, fluidIngredients);
     }
 
-    @NotNull
     @SuppressWarnings("unchecked")
-    public List<RECIPE> setRecipes(@NotNull RecipeManager recipeManager) {
+    public void setRecipes(@NotNull RecipeManager recipeManager) {
         if (recipeList.isEmpty()) {
             recipeList = recipeManager.getAllRecipesFor((RecipeType<RECIPE>) BuiltInRegistries.RECIPE_TYPE.get(ncLoc(getName()))).stream().map(RecipeHolder::value).toList();
         }
-        return recipeList;
     }
 
     public void init(RecipeManager recipeManager) {

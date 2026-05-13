@@ -28,7 +28,7 @@ public class ManufactoryRecipeProvider {
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(GEM_DUST_MAP.get("carobbiite"), 1).addItemResult(COMPOUND_MAP.get("potassium_fluoride"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(ItemTags.SAND, 1).addItemResult(GEM_MAP.get("silicon"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(PART_MAP.get("sintered_zirconia"), 1).addItemResult(DUST_MAP.get("zirconia"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 9, 1).addItemInput(MATERIAL_BLOCK_MAP.get("molybdenum"), 1).addItemResult(FISSION_DUST_MAP.get("molybdenum"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 9, 1).addItemInput(MATERIAL_BLOCK_MAP.get("molybdenum"), 1).addItemResult(FISSION_DUST_MAP.get("molybdenum"), 9).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 2, 1).addItemInput(Items.OBSIDIAN, 1).addItemResult(GEM_DUST_MAP.get("obsidian"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.COBBLESTONE, 1).addItemResult(Items.SAND, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.GRAVEL, 1).addItemResult(Items.FLINT, 1).save(recipeOutput);

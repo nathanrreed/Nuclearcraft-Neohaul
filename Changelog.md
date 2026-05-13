@@ -1,1 +1,2 @@
-- Fixed crash without ponder
+- Fixed recipes using wrong inputs
+- Fixed recipe removing from wrong slot

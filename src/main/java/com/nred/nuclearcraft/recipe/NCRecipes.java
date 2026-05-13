@@ -321,11 +321,10 @@ public class NCRecipes {
         }
 
         @Override
-        public @NotNull List<ProcessorRecipe> setRecipes(@NotNull RecipeManager recipeManager) {
+        public void setRecipes(@NotNull RecipeManager recipeManager) {
             if (recipeList.isEmpty()) {
                 recipeList = recipeManager.getAllRecipesFor(RecipeType.SMELTING).stream().map(RecipeHolder::value).map(ElectricFurnaceRecipes::getVanillaFurnaceRecipe).toList();
             }
-            return recipeList;
         }
 
         @Override

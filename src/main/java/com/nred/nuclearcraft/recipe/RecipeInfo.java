@@ -19,20 +19,6 @@ public class RecipeInfo<T extends IRecipe> {
         this.matchResult = matchResult;
     }
 
-    /**
-     * Already takes item input order into account!
-     */
-    public IntList getItemIngredientNumbers() {
-        return matchResult.itemIngredientNumbers;
-    }
-
-    /**
-     * Already takes fluid input order into account!
-     */
-    public IntList getFluidIngredientNumbers() {
-        return matchResult.fluidIngredientNumbers;
-    }
-
     public IntList getItemInputOrder() {
         return matchResult.itemInputOrder;
     }
@@ -59,7 +45,7 @@ public class RecipeInfo<T extends IRecipe> {
         if (itemInputCount == 1 && fluidInputCount == 0) {
             IntList itemInputOrder = getItemInputOrder();
             for (int i = 0, len = itemIngredients.size(); i < len; ++i) {
-                SizedChanceItemIngredient itemIngredient = itemIngredients.get(itemInputOrder.get(i));
+                SizedChanceItemIngredient itemIngredient = itemIngredients.get(itemInputOrder.getInt(i));
                 if (!itemIngredient.ingredient().hasNoItems()) {
                     return new RecipeUnitInfo("I/t", 0, baseRateMultiplier * itemIngredient.count());
                 }
@@ -67,7 +53,7 @@ public class RecipeInfo<T extends IRecipe> {
         } else if (itemInputCount == 0 && fluidInputCount == 1) {
             IntList fluidInputOrder = getFluidInputOrder();
             for (int i = 0, len = fluidIngredients.size(); i < len; ++i) {
-                SizedChanceFluidIngredient fluidIngredient = fluidIngredients.get(fluidInputOrder.get(i));
+                SizedChanceFluidIngredient fluidIngredient = fluidIngredients.get(fluidInputOrder.getInt(i));
                 if (!fluidIngredient.ingredient().hasNoFluids()) {
                     return new RecipeUnitInfo("B/t", -1, baseRateMultiplier * fluidIngredient.amount());
                 }

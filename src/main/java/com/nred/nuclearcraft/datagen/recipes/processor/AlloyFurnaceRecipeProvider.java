@@ -31,34 +31,35 @@ public class AlloyFurnaceRecipeProvider {
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 4, 1).addItemInput(ingotDusts("zirconium", 7, "tin", 1)).addItemResult(ALLOY_MAP.get("zircaloy"), 8).save(recipeOutput);
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 2, 2).addItemInput(List.of(SizedChanceItemIngredient.of(tag(Tags.Items.GEMS, "silicon"), 1), ingotDust("graphite", 1))).addItemResult(ALLOY_MAP.get("silicon_carbide"), 2).save(recipeOutput);
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 8, 2).addItemInput(List.of(ingotDust("iron", 15), new SizedChanceItemIngredient(Ingredient.of(COMPOUND_MAP.get("c_mn_blend")), 1))).addItemResult(ALLOY_MAP.get("hsla_steel"), 16).save(recipeOutput);
+        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 8, 2).addItemInput(List.of(new SizedChanceItemIngredient(Ingredient.of(FISSION_DUST_MAP.get("molybdenum")), 15), new SizedChanceItemIngredient(Ingredient.of(INGOT_MAP.get("zirconium")), 1))).addItemResult(ALLOY_MAP.get("zirconium_molybdenum"), 16).save(recipeOutput);
 
         for (String isotope : List.of("241", "242", "243")) {
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(AMERICIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(AMERICIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "americium_" + isotope + "_from_za");
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(AMERICIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(AMERICIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "americium_" + isotope + "_from_c");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(AMERICIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(AMERICIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "americium_" + isotope + "_from_za");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(AMERICIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(AMERICIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "americium_" + isotope + "_from_c");
         }
         for (String isotope : List.of("247", "248")) {
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(BERKELIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(BERKELIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "berkelium_" + isotope + "_from_za");
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(BERKELIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(BERKELIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "berkelium_" + isotope + "_from_c");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(BERKELIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(BERKELIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "berkelium_" + isotope + "_from_za");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(BERKELIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(BERKELIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "berkelium_" + isotope + "_from_c");
         }
         for (String isotope : List.of("249", "250", "251", "252")) {
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(CALIFORNIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(CALIFORNIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "californium_" + isotope + "_from_za");
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(CALIFORNIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(CALIFORNIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "californium_" + isotope + "_from_c");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(CALIFORNIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(CALIFORNIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "californium_" + isotope + "_from_za");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(CALIFORNIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(CALIFORNIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "californium_" + isotope + "_from_c");
         }
         for (String isotope : List.of("243", "245", "246", "247")) {
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(CURIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(CURIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "curium_" + isotope + "_from_za");
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(CURIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(CURIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "curium_" + isotope + "_from_c");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(CURIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(CURIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "curium_" + isotope + "_from_za");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(CURIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(CURIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "curium_" + isotope + "_from_c");
         }
         for (String isotope : List.of("236", "237")) {
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(NEPTUNIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(NEPTUNIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "neptunium_" + isotope + "_from_za");
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(NEPTUNIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(NEPTUNIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "neptunium_" + isotope + "_from_c");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(NEPTUNIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(NEPTUNIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "neptunium_" + isotope + "_from_za");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(NEPTUNIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(NEPTUNIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "neptunium_" + isotope + "_from_c");
         }
         for (String isotope : List.of("238", "239", "241", "242")) {
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(PLUTONIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(PLUTONIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "plutonium_" + isotope + "_from_za");
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(PLUTONIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(PLUTONIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "plutonium_" + isotope + "_from_c");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(PLUTONIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(PLUTONIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "plutonium_" + isotope + "_from_za");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(PLUTONIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(PLUTONIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "plutonium_" + isotope + "_from_c");
         }
         for (String isotope : List.of("233", "235", "238")) {
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(URANIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(URANIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "uranium_" + isotope + "_from_za");
-            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(URANIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(URANIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "uranium_" + isotope + "_from_c");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(URANIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(URANIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "uranium_" + isotope + "_from_za");
+            new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(URANIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(URANIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "uranium_" + isotope + "_from_c");
         }
     }
 }

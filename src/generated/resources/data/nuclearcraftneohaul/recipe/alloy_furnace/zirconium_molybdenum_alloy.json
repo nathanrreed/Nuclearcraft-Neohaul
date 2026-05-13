@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemIngredients": [
+    {
+      "count": 15,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:molybdenum_dust"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconium_ingot"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 16,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconium_molybdenum_alloy"
+      }
+    }
+  ],
+  "powerModifier": 2.0,
+  "radiation": 0.0,
+  "timeModifier": 8.0
+}
