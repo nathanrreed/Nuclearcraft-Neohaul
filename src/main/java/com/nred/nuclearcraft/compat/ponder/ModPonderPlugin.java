@@ -15,10 +15,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.registries.datamaps.DataMapsUpdatedEvent;
 
@@ -87,20 +83,13 @@ public class ModPonderPlugin implements PonderPlugin {
         scene.markAsFinished();
     }
 
-    @Mod(value = MODID, dist = Dist.CLIENT)
-    @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
-    public static class ModPondersClient {
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        PonderIndex.addPlugin(new ModPonderPlugin());
+    }
 
-        @SubscribeEvent
-        static void onClientSetup(FMLClientSetupEvent event) {
-            PonderIndex.addPlugin(new ModPonderPlugin());
-        }
-
-        @SubscribeEvent
-        static void onDataMapChanged(DataMapsUpdatedEvent event) {
-            if (event.getCause().equals(CLIENT_SYNC)) {
-                PonderIndex.reload();
-            }
+    public static void onDataMapChanged(DataMapsUpdatedEvent event) {
+        if (event.getCause().equals(CLIENT_SYNC)) {
+            PonderIndex.reload();
         }
     }
 }

@@ -152,7 +152,7 @@ public record MultiblockDistillerRender(BlockEntityRendererProvider.Context cont
                 double fallTop = ySize + 0.5D * ONE_PIXEL;
                 double fallBottom = trayCount == 0 ? -0.5D * ONE_PIXEL : trayLevels.getInt(trayCount - 1) + 0.5D + ONE_PIXEL;
 
-                for (DistillerLiquidDistributorEntity ld : machine.getParts(DistillerLiquidDistributorEntity.class)) { // TODO fix
+                for (DistillerLiquidDistributorEntity ld : machine.getParts(DistillerLiquidDistributorEntity.class)) { // TODO seems to render wrong on beginning of recipe
                     BlockPos ldPos = ld.getBlockPos();
                     int ldX = ldPos.getX() - cornerPos.getX(), ldZ = ldPos.getZ() - cornerPos.getZ();
 

@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorControllerEntity;
 import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerQubitEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
+import com.nred.nuclearcraft.compat.ponder.ModPonderPlugin;
 import com.nred.nuclearcraft.config.ModConfigScreen;
 import com.nred.nuclearcraft.entity.FeralGhoul;
 import com.nred.nuclearcraft.handler.SoundHandler;
@@ -17,6 +18,7 @@ import com.nred.nuclearcraft.radiation.RadiationRenders;
 import com.nred.nuclearcraft.render.BlockHighlightHandler;
 import com.nred.nuclearcraft.render.block_entity.*;
 import com.nred.nuclearcraft.render.entity.FeralGhoulRender;
+import com.nred.nuclearcraft.util.ModCheck;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -56,6 +58,10 @@ public class ClientSetup {
         NeoForge.EVENT_BUS.register(new TooltipHandler());
         NeoForge.EVENT_BUS.register(new BlockHighlightHandler());
         NeoForge.EVENT_BUS.register(new RadiationRenders());
+
+        if (ModCheck.ponderLoaded()) {
+            ModPonderPlugin.onClientSetup(event);
+        }
     }
 
     @SubscribeEvent

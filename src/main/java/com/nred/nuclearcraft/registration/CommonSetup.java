@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistanceItem;
 import com.nred.nuclearcraft.command.CommandHandler;
+import com.nred.nuclearcraft.compat.ponder.ModPonderPlugin;
 import com.nred.nuclearcraft.handler.EntityHandler;
 import com.nred.nuclearcraft.handler.ItemUseHandler;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
@@ -15,6 +16,7 @@ import com.nred.nuclearcraft.radiation.environment.RadiationEnvironmentHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeStats;
+import com.nred.nuclearcraft.util.ModCheck;
 import com.nred.nuclearcraft.worldgen.biome.NuclearWastelandBiome;
 import com.nred.nuclearcraft.worldgen.region.NuclearWastelandRegion;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -35,6 +37,7 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
+import net.neoforged.neoforge.registries.datamaps.DataMapsUpdatedEvent;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 
@@ -124,6 +127,13 @@ public class CommonSetup {
         }
 
         // TODO add armour values here from config
+    }
+
+    @SubscribeEvent
+    public static void onDataMapChanged(DataMapsUpdatedEvent event) {
+        if (ModCheck.ponderLoaded()) {
+            ModPonderPlugin.onDataMapChanged(event);
+        }
     }
 
     @SubscribeEvent

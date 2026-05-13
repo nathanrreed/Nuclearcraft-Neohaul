@@ -1,3 +1,1 @@
-- Readded CTM textures
-- Changed datamaps from item to block
-- Added basic ponder support
+- Fixed crash without ponder

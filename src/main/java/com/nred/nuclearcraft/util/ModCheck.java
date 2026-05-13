@@ -11,6 +11,7 @@ public class ModCheck {
     private static boolean ccLoaded = false;
     private static boolean patchouliLoaded = false;
     private static boolean curiosLoaded = false;
+    private static boolean ponderLoaded = false;
 
     public static void init() {
         if (initialized) {
@@ -25,6 +26,7 @@ public class ModCheck {
         curiosLoaded = loader.isLoaded("curios");
         ccLoaded = loader.isLoaded("computercraft");
         patchouliLoaded = loader.isLoaded("patchouli");
+        ponderLoaded = loader.isLoaded("ponder");
     }
 
     public static boolean mekanismLoaded() {
@@ -49,5 +51,9 @@ public class ModCheck {
 
     public static boolean ccLoaded() {
         return ccLoaded;
+    }
+
+    public static boolean ponderLoaded() {
+        return ponderLoaded;
     }
 }
