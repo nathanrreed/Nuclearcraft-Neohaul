@@ -80,6 +80,14 @@ repositories {
     }
     maven { url = "https://maven.firstdark.dev/snapshots" }
     maven { url = "https://maven.createmod.net" }
+    exclusiveContent {
+        forRepository {
+            maven { url = "https://maven.ryanhcode.dev/releases" }
+        }
+        filter {
+            includeGroup("dev.ryanhcode.sable-companion")
+        }
+    }
 }
 
 base {
@@ -145,10 +153,10 @@ dependencies {
 
     compileOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
 
-    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")// Mekanism
-    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")// Mekanism: Additions
-    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")// Mekanism: Generators
-    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")// Mekanism: Tools
+    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")            // Mekanism
+    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")  // Mekanism: Additions
+    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators") // Mekanism: Generators
+    runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")      // Mekanism: Tools
 
     implementation "curse.maven:zerocore-247921:${zerocore_version}"
 
@@ -166,6 +174,8 @@ dependencies {
     implementation "maven.modrinth:fusion-connected-textures:${fusion_version}-neoforge-mc${minecraft_version}"
 
     implementation("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
+
+    compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${minecraft_version}:${sable_companion_version}")
 }
 
 tasks.withType(ProcessResources).configureEach {

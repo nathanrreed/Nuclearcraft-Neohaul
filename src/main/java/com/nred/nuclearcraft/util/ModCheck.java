@@ -12,6 +12,7 @@ public class ModCheck {
     private static boolean patchouliLoaded = false;
     private static boolean curiosLoaded = false;
     private static boolean ponderLoaded = false;
+    private static boolean sableLoaded = false;
 
     public static void init() {
         if (initialized) {
@@ -27,6 +28,7 @@ public class ModCheck {
         ccLoaded = loader.isLoaded("computercraft");
         patchouliLoaded = loader.isLoaded("patchouli");
         ponderLoaded = loader.isLoaded("ponder");
+        sableLoaded = loader.isLoaded("sable"); // For Create Aeronautics
     }
 
     public static boolean mekanismLoaded() {
@@ -55,5 +57,8 @@ public class ModCheck {
 
     public static boolean ponderLoaded() {
         return ponderLoaded;
+    }
+    public static boolean sableLoaded() {
+        return sableLoaded;
     }
 }

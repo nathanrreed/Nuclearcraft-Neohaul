@@ -228,20 +228,20 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
         return getMinimumCoord().get().getX() + 1;
     }
 
-    public int getMinInteriorY() {
-        return getMinimumCoord().get().getY() + 1;
-    }
-
-    public int getMinInteriorZ() {
-        return getMinimumCoord().get().getZ() + 1;
-    }
-
     public int getMaxInteriorX() {
         return getMaximumCoord().get().getX() - 1;
     }
 
+    public int getMinInteriorY() {
+        return getMinimumCoord().get().getY() + 1;
+    }
+
     public int getMaxInteriorY() {
         return getMaximumCoord().get().getY() - 1;
+    }
+
+    public int getMinInteriorZ() {
+        return getMinimumCoord().get().getZ() + 1;
     }
 
     public int getMaxInteriorZ() {
@@ -383,6 +383,8 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
         };
     }
 
+    // Render Functions
+
     public BlockPos getMinimumInteriorPlaneCoord(Direction normal, int depth, int uCushion, int vCushion) {
         if (normal == null) {
             return getExtremeInteriorCoord(false, false, false);
@@ -413,10 +415,11 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
         };
     }
 
-    public Vector3f getMiddleInteriorPlaneCoord(Direction normal, int depth, int minUCushion, int minVCushion, int maxUCushion, int maxVCushion) {
-        BlockPos min = getMinimumInteriorPlaneCoord(normal, depth, minUCushion, minVCushion);
-        BlockPos max = getMaximumInteriorPlaneCoord(normal, depth, maxUCushion, maxVCushion);
-        return new Vector3f((min.getX() + max.getX()) / 2F, (min.getY() + max.getY()) / 2F, (min.getZ() + max.getZ()) / 2F);
+    public Vector3f getMiddleInteriorPlaneCoord(Direction normal, int depth, int minUCushion, int minVCushion, int maxUCushion, int maxVCushion, BlockPos controller) {
+        BlockPos min = getMinimumInteriorPlaneCoord(normal, depth, minUCushion, minVCushion).subtract(controller);
+        BlockPos max = getMaximumInteriorPlaneCoord(normal, depth, maxUCushion, maxVCushion).subtract(controller);
+
+        return new Vector3f((min.getX() + max.getX()) / 2.0f, (min.getY() + max.getY()) / 2.0f, (min.getZ() + max.getZ()) / 2.0f);
     }
 
     public Iterable<BlockPos> getInteriorPlaneMinX(int depth, int minUCushion, int minVCushion, int maxUCushion, int maxVCushion) {

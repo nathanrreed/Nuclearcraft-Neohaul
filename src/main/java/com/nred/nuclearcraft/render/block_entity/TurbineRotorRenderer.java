@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine.PlaneDir;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
+import com.nred.nuclearcraft.render.RenderHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,7 +29,6 @@ import org.joml.Vector3f;
 
 import static com.nred.nuclearcraft.config.NCConfig.turbine_render_blade_width;
 import static com.nred.nuclearcraft.config.NCConfig.turbine_render_rotor_expansion;
-import static com.nred.nuclearcraft.render.RenderHelper.renderFluid;
 import static it.zerono.mods.zerocore.lib.CodeHelper.getSystemTime;
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.ONE_PIXEL;
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.bindBlocksTexture;
@@ -71,9 +71,7 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
         // Enter rotated frame
         poseStack.pushPose();
 
-        poseStack.translate(-pos.getX() + (turbine.flowDir.getAxis() == Axis.X ? 1D : 0), -pos.getY(), -pos.getZ()); // Start location
-
-        poseStack.translate(pos.getX() - rX, pos.getY() - rY, pos.getZ() - rZ);
+        poseStack.translate((turbine.flowDir.getAxis() == Axis.X ? 1D : 0) - rX, -rY, -rZ); // Start location
         poseStack.scale((float) (dir.getAxis() == Axis.X ? 1D : scale), (float) (dir.getAxis() == Axis.Y ? 1D : scale), (float) (dir.getAxis() == Axis.Z ? 1D : scale));
         {
             long systemTime = getSystemTime() / 1000;
@@ -83,7 +81,7 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
             controller.prevRenderTime = systemTime;
             poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(turbine.rotorAngle), dir.getAxis() == Axis.X ? 1F : 0F, dir.getAxis() == Axis.Y ? 1F : 0F, dir.getAxis() == Axis.Z ? 1F : 0F));
         }
-        poseStack.translate(-pos.getX() + rX, -pos.getY() + rY, -pos.getZ() + rZ);
+        poseStack.translate(rX, rY, rZ);
 
         for (int depth : turbine.bladeDepths) {
             renderRotor(turbine, poseStack, bufferSource, brightness, shaftState, dir, flowLength, bladeLength, shaftWidth, turbine_render_blade_width, depth);
@@ -95,9 +93,9 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
         // Enter stationary frame
         poseStack.pushPose();
 
-        poseStack.translate(pos.getX() - rX, pos.getY() - rY, pos.getZ() - rZ);
+        poseStack.translate(-rX, -rY, -rZ);
         poseStack.scale((float) (dir.getAxis() == Axis.X ? 1D : scale), (float) (dir.getAxis() == Axis.Y ? 1D : scale), (float) (dir.getAxis() == Axis.Z ? 1D : scale));
-        poseStack.translate(-pos.getX() + rX, -pos.getY() + rY, -pos.getZ() + rZ);
+        poseStack.translate(rX, rY, rZ);
 
         for (int depth : turbine.statorDepths) {
             renderRotor(turbine, poseStack, bufferSource, brightness, shaftState, dir, flowLength, bladeLength, shaftWidth, turbine_render_blade_width, depth);
@@ -114,7 +112,7 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
         int xSize = turbine.getInteriorLengthX(), ySize = turbine.getInteriorLengthY(), zSize = turbine.getInteriorLengthZ();
         Tank outputTank = turbine.tanks.get(1);
 
-        renderFluid(poseStack, bufferSource, packedLight, outputTank.getFluid(), outputTank.getCapacity(), xSize + 2f * ONE_PIXEL, ySize + 2f * ONE_PIXEL, zSize + 2f * ONE_PIXEL, x -> true, x -> 4D * x - 3D * outputTank.getCapacity(), Direction.UP);
+        RenderHelper.renderFluid(poseStack, bufferSource, packedLight, outputTank.getFluid(), outputTank.getCapacity(), xSize + 2f * ONE_PIXEL, ySize + 2f * ONE_PIXEL, zSize + 2f * ONE_PIXEL, x -> true, x -> 4D * x - 3D * outputTank.getCapacity(), Direction.UP);
 
         poseStack.popPose();
     }
@@ -154,7 +152,8 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
 
         poseStack.translate(-0.5D, -0.5D, -0.5D);
 
-        poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(-90F), 0F, 1F, 0F));
+        poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(-90F), 0F, 1F, 0F)); // Get into position
+        poseStack.rotateAround(new Quaternionf().setAngleAxis(Math.toRadians(90F), 0F, 1F, 0F), 0.5f, 0.5f, 0.5f); // Reorient so block if facing correct direction
 
         context.getBlockRenderDispatcher().renderSingleBlock(shaftState, poseStack, bufferSource, brightness, OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderType.SOLID);
 

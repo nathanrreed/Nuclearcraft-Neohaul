@@ -44,7 +44,7 @@ public class RadShieldingItem extends TooltipItem {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (!radiation_tile_shielding || !player.isCrouching()) {
+        if (!radiation_block_entity_shielding || !player.isCrouching()) {
             return InteractionResultHolder.fail(stack);
         }
 

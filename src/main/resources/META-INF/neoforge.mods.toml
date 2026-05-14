@@ -10,7 +10,7 @@ displayName="${mod_name}"
 
 enumExtensions="META-INF/enumextensions.json"
 
-updateJSONURL="https://api.modrinth.com/updates/azurum-miner/forge_updates.json?neoforge=only"
+updateJSONURL="https://api.modrinth.com/updates/nuclearcraft-neohaul/forge_updates.json?neoforge=only"
 displayURL="https://github.com/nathanrreed/Nuclearcraft-Neohaul"
 logoFile="logo.png"
 
@@ -82,6 +82,13 @@ description='''${mod_description}'''
 
 [[dependencies.${mod_id}]]
     modId="kubejs"
+    type="optional"
+    versionRange="[1.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="sable"
     type="optional"
     versionRange="[1.0.0,)"
     ordering="NONE"

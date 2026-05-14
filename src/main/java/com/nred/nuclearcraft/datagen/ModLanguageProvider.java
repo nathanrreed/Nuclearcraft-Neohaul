@@ -1760,8 +1760,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.radiation_rad_x_cooldown.tooltip", "The time that must be waited between doses of Rad-X in ticks.");
         add(MODID + ".configuration.radiation_shielding_level", "Radiation Shielding Levels");
         add(MODID + ".configuration.radiation_shielding_level.tooltip", "The rad resistance levels provided by the three levels of shielding.");
-        add(MODID + ".configuration.radiation_tile_shielding", "Radiation Container Shielding");
-        add(MODID + ".configuration.radiation_tile_shielding.tooltip", "If enabled along with hardcore containers, radiation shielding can be applied to tile entities.");
+        add(MODID + ".configuration.radiation_block_entity_shielding", "Radiation Container Shielding");
+        add(MODID + ".configuration.radiation_block_entity_shielding.tooltip", "If enabled along with hardcore containers, radiation shielding can be applied to tile entities.");
         add(MODID + ".configuration.radiation_scrubber_fraction", "Scrubber Max Removal Rate");
         add(MODID + ".configuration.radiation_scrubber_fraction.tooltip", "The maximum rate at which a 100% efficiency scrubber will remove radiation as a fraction of the radiation level of the chunk it is in. Only applies when using linear scrubbing mechanics.");
         add(MODID + ".configuration.radiation_scrubber_radius", "Scrubber Search Radius");
@@ -1803,8 +1803,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.radiation_badge_info_rate", "Radiation Badge Info Rate");
         add(MODID + ".configuration.radiation_badge_info_rate.tooltip", "Determines the amount of exposed radiation after which the Radiation Badge will inform the player of its total exposure level as a fraction of the durability.");
 
-        add(MODID + ".configuration.radiation_tile_entities", "Tile Entity Radiation");
-        add(MODID + ".configuration.radiation_tile_entities.tooltip", "If enabled, tile entities can irradiate the chunk they are in.");
+        add(MODID + ".configuration.radiation_block_entities", "Tile Entity Radiation");
+        add(MODID + ".configuration.radiation_block_entities.tooltip", "If enabled, tile entities can irradiate the chunk they are in.");
         add(MODID + ".configuration.radiation_hardcore_stacks", "Hardcore Stacks");
         add(MODID + ".configuration.radiation_hardcore_stacks.tooltip", "If enabled, the radioactive stacks in a player's inventory will irradiate the chunk the player is in as well as the player directly, and will also irradiate the chunk if left to despawn as an entity.");
         add(MODID + ".configuration.radiation_hardcore_containers", "Hardcore Containers");

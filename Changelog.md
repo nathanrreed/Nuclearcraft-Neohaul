@@ -1,2 +1,2 @@
-- Fixed recipes using wrong inputs
-- Fixed recipe removing from wrong slot
+- Fixed radiation not working with Sable
+- Fixed rendering not working with Sable

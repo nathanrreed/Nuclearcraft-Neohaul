@@ -52,7 +52,7 @@ public class RadiationHandler {
     public static final Component RAD_X_WORE_OFF = Component.translatable(MODID + ".message.rad_x_wore_off").withStyle(ChatFormatting.ITALIC);
     public static final Component RAD_WARNING = Component.translatable(MODID + ".message.rad_warning").withStyle(ChatFormatting.GOLD);
 
-    public static Direction tile_side = Direction.DOWN;
+    public static Direction blockEntitySide = Direction.DOWN;
 
 //    public static boolean default_rad_immunity = false; TODO Game Stages
 //    public static String[] rad_immunity_stages = new String[]{};
@@ -324,11 +324,11 @@ public class RadiationHandler {
             chunkSource.setScrubbingFraction(0D);
             chunkSource.setEffectiveScrubberCount(0D);
 
-            Collection<BlockEntity> tiles = loadedChunk.getBlockEntities().values();
+            Collection<BlockEntity> blockEntities = loadedChunk.getBlockEntities().values();
 
-            if (radiation_tile_entities) {
-                for (BlockEntity tile : tiles) {
-                    RadiationHelper.transferRadiationFromProviderToChunkBuffer(tile, tile_side, chunkSource);
+            if (radiation_block_entities) {
+                for (BlockEntity blockEntity : blockEntities) {
+                    RadiationHelper.transferRadiationFromProviderToChunkBuffer(blockEntity, blockEntitySide, chunkSource);
                 }
             }
 
@@ -358,8 +358,8 @@ public class RadiationHandler {
             }
 
             double currentLevel = chunkSource.getRadiationLevel(), currentBuffer = chunkSource.getRadiationBuffer();
-            for (BlockEntity tile : tiles) {
-                if (tile instanceof ITileRadiationEnvironment tileRadiationEnvironment) {
+            for (BlockEntity blockEntity : blockEntities) {
+                if (blockEntity instanceof ITileRadiationEnvironment tileRadiationEnvironment) {
                     tileRadiationEnvironment.setCurrentChunkRadiationLevel(currentLevel);
                     tileRadiationEnvironment.setCurrentChunkRadiationBuffer(currentBuffer);
                     RadiationHelper.addScrubbingFractionToChunk(RadiationHelper.getRadiationSource(loadedChunk), tileRadiationEnvironment);
@@ -403,7 +403,7 @@ public class RadiationHandler {
             RadiationHelper.spreadRadiationFromChunk(chunk.getTickingChunk(), getRandomAdjacentChunk(chunkProvider, chunk.getTickingChunk()));
         }
 
-        tile_side = Direction.from3DDataValue(tile_side.ordinal() + 1);
+        blockEntitySide = Direction.from3DDataValue(blockEntitySide.ordinal() + 1);
     }
 
     public static final List<int[]> ADJACENT_COORDS = Lists.newArrayList(new int[]{1, 0}, new int[]{0, 1}, new int[]{-1, 0}, new int[]{0, -1});

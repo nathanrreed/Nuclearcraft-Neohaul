@@ -185,16 +185,17 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
         multiblock.inputPlane[3] = multiblock.getInteriorPlane(oppositeDir, 0, 0, bladeLength, shaftWidth + bladeLength, 0);
 
         if (!getWorld().isClientSide) {
+            BlockPos controllerPos = multiblock.controller.getWorldPosition();
             multiblock.renderPosArray = new Vector3f[(1 + 4 * shaftWidth) * flowLength];
 
             for (int depth = 0; depth < flowLength; ++depth) {
                 for (int w = 0; w < shaftWidth; ++w) {
-                    multiblock.renderPosArray[w + depth * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength);
-                    multiblock.renderPosArray[w + (depth + flowLength) * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength);
-                    multiblock.renderPosArray[w + (depth + 2 * flowLength) * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth + bladeLength, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength);
-                    multiblock.renderPosArray[w + (depth + 3 * flowLength) * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength, 0);
+                    multiblock.renderPosArray[w + depth * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength, controllerPos);
+                    multiblock.renderPosArray[w + (depth + flowLength) * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength, controllerPos);
+                    multiblock.renderPosArray[w + (depth + 2 * flowLength) * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth + bladeLength, 1 + w + bladeLength, 0, shaftWidth - w + bladeLength, controllerPos);
+                    multiblock.renderPosArray[w + (depth + 3 * flowLength) * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, shaftWidth - w + bladeLength, shaftWidth + bladeLength, 1 + w + bladeLength, 0, controllerPos);
                 }
-                multiblock.renderPosArray[depth + 4 * flowLength * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, 0, 0, 0);
+                multiblock.renderPosArray[depth + 4 * flowLength * shaftWidth] = multiblock.getMiddleInteriorPlaneCoord(oppositeDir, depth, 0, 0, 0, 0, controllerPos);
             }
 
             if (multiblock.controller != null) {

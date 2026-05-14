@@ -215,7 +215,7 @@ public class NCConfig {
     public static double radiation_rad_x_lifetime;
     public static double radiation_rad_x_cooldown;
     public static double[] radiation_shielding_level;
-    public static boolean radiation_tile_shielding;
+    public static boolean radiation_block_entity_shielding;
     public static double radiation_scrubber_fraction;
     public static int radiation_scrubber_radius;
     public static boolean radiation_scrubber_non_linear;
@@ -227,7 +227,7 @@ public class NCConfig {
     public static String[] radiation_shielding_custom_stacks;
     public static String[] radiation_shielding_default_levels;
 
-    public static boolean radiation_tile_entities;
+    public static boolean radiation_block_entities;
     public static boolean radiation_hardcore_stacks;
     public static double radiation_hardcore_containers;
     public static boolean radiation_dropped_items;
@@ -447,7 +447,7 @@ public class NCConfig {
         radiation_rad_x_lifetime = RADIATION_RAD_X_LIFETIME.getAsDouble();
         radiation_rad_x_cooldown = RADIATION_RAD_X_COOLDOWN.getAsDouble();
         radiation_shielding_level = syncDoubles(RADIATION_SHIELDING_LEVEL, ARRAY);
-        radiation_tile_shielding = RADIATION_TILE_SHIELDING.getAsBoolean();
+        radiation_block_entity_shielding = RADIATION_BLOCK_ENTITY_SHIELDING.getAsBoolean();
         radiation_scrubber_fraction = RADIATION_SCRUBBER_FRACTION.getAsDouble();
         radiation_scrubber_radius = RADIATION_SCRUBBER_RADIUS.getAsInt();
         radiation_scrubber_non_linear = RADIATION_SCRUBBER_NON_LINEAR.getAsBoolean();
@@ -459,7 +459,7 @@ public class NCConfig {
         radiation_shielding_custom_stacks = syncStrings(RADIATION_SHIELDING_CUSTOM_STACKS, LIST);
         radiation_shielding_default_levels = syncStrings(RADIATION_SHIELDING_DEFAULT_LEVELS, LIST);
 
-        radiation_tile_entities = RADIATION_TILE_ENTITIES.getAsBoolean();
+        radiation_block_entities = RADIATION_BLOCK_ENTITIES.getAsBoolean();
         radiation_hardcore_stacks = RADIATION_HARDCORE_STACKS.getAsBoolean();
         radiation_hardcore_containers = RADIATION_HARDCORE_CONTAINERS.getAsDouble();
         radiation_dropped_items = RADIATION_DROPPED_ITEMS.getAsBoolean();
@@ -673,7 +673,7 @@ public class NCConfig {
     private static final ModConfigSpec.DoubleValue RADIATION_RAD_X_LIFETIME = add(CATEGORY_RADIATION, "radiation_rad_x_lifetime", 12000D, 20D, 1000000000D);
     private static final ModConfigSpec.DoubleValue RADIATION_RAD_X_COOLDOWN = add(CATEGORY_RADIATION, "radiation_rad_x_cooldown", 0D, 0D, 100000D);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SHIELDING_LEVEL = add(CATEGORY_RADIATION, "radiation_shielding_level", List.of(0.01D, 0.1D, 1D), 0.000000000000000001D, 1000D, ARRAY);
-    private static final ModConfigSpec.BooleanValue RADIATION_TILE_SHIELDING = add(CATEGORY_RADIATION, "radiation_tile_shielding", true);
+    private static final ModConfigSpec.BooleanValue RADIATION_BLOCK_ENTITY_SHIELDING = add(CATEGORY_RADIATION, "radiation_block_entity_shielding", true);
     private static final ModConfigSpec.DoubleValue RADIATION_SCRUBBER_FRACTION = add(CATEGORY_RADIATION, "radiation_scrubber_fraction", 0.125D, 0.001D, 1D);
     private static final ModConfigSpec.IntValue RADIATION_SCRUBBER_RADIUS = add(CATEGORY_RADIATION, "radiation_scrubber_radius", 4, 1, 10);
     private static final ModConfigSpec.BooleanValue RADIATION_SCRUBBER_NON_LINEAR = add(CATEGORY_RADIATION, "radiation_scrubber_non_linear", true);
@@ -685,7 +685,7 @@ public class NCConfig {
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_CUSTOM_STACKS = addString(CATEGORY_RADIATION, "radiation_shielding_custom_stacks", List.of(), LIST);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_DEFAULT_LEVELS = addString(CATEGORY_RADIATION, "radiation_shielding_default_levels", List.of("nuclearcraftneohaul:hazmat_helmet_2.0", "nuclearcraftneohaul:hazmat_chestplate_3.0", "nuclearcraftneohaul:hazmat_leggings_2.0", "nuclearcraftneohaul:hazmat_boots_2.0", "gravisuite:gravichestplate_3.0", "gravisuit:gravisuit_3.0", "gravisuit:nucleargravisuit_3.0", "extraplanets:tier1_space_suit_helmet_1.0", "extraplanets:tier1_space_suit_chest_1.5", "extraplanets:tier1_space_suit_jetpack_chest_1.5", "extraplanets:tier1_space_suit_leggings_1.0", "extraplanets:tier1_space_suit_boots_1.0", "extraplanets:tier1_space_suit_gravity_boots_1.0", "extraplanets:tier2_space_suit_helmet_1.3", "extraplanets:tier2_space_suit_chest_1.95", "extraplanets:tier2_space_suit_jetpack_chest_1.95", "extraplanets:tier2_space_suit_leggings_1.3", "extraplanets:tier2_space_suit_boots_1.3", "extraplanets:tier2_space_suit_gravity_boots_1.3", "extraplanets:tier3_space_suit_helmet_1.6", "extraplanets:tier3_space_suit_chest_2.4", "extraplanets:tier3_space_suit_jetpack_chest_2.4", "extraplanets:tier3_space_suit_leggings_1.6", "extraplanets:tier3_space_suit_boots_1.6", "extraplanets:tier3_space_suit_gravity_boots_1.6", "extraplanets:tier4_space_suit_helmet_2.0", "extraplanets:tier4_space_suit_chest_3.0", "extraplanets:tier4_space_suit_jetpack_chest_3.0", "extraplanets:tier4_space_suit_leggings_2.0", "extraplanets:tier4_space_suit_boots_2.0", "extraplanets:tier4_space_suit_gravity_boots_2.0"), LIST);
 
-    private static final ModConfigSpec.BooleanValue RADIATION_TILE_ENTITIES = add(CATEGORY_RADIATION, "radiation_tile_entities", true);
+    private static final ModConfigSpec.BooleanValue RADIATION_BLOCK_ENTITIES = add(CATEGORY_RADIATION, "radiation_block_entities", true);
     private static final ModConfigSpec.BooleanValue RADIATION_HARDCORE_STACKS = add(CATEGORY_RADIATION, "radiation_hardcore_stacks", true);
     private static final ModConfigSpec.DoubleValue RADIATION_HARDCORE_CONTAINERS = add(CATEGORY_RADIATION, "radiation_hardcore_containers", 0D, 0D, 1D);
     private static final ModConfigSpec.BooleanValue RADIATION_DROPPED_ITEMS = add(CATEGORY_RADIATION, "radiation_dropped_items", true);

@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.capability.radiation.IRadiation;
 import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
 import com.nred.nuclearcraft.capability.radiation.resistance.IRadiationResistance;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
+import com.nred.nuclearcraft.compat.sable.SableUtil;
 import com.nred.nuclearcraft.radiation.RadPotionEffects.RadEffect;
 import com.nred.nuclearcraft.util.ModCheck;
 import com.nred.nuclearcraft.util.NCMath;
@@ -54,6 +55,12 @@ public class RadiationHelper {
     }
 
     public static IRadiationSource getRadiationSource(ChunkAccess chunk) {
+        if (ModCheck.sableLoaded()) {
+            IRadiationSource source = SableUtil.getSableChunkSource(chunk.getLevel(), chunk);
+            if (source != null) { // Sublevel was found
+                return source;
+            }
+        }
         return chunk.getData(RADIATION_SOURCE);
     }
 
