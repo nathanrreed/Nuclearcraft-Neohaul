@@ -211,6 +211,8 @@
   "block.nuclearcraftneohaul.fission_fuel_vessel_port": "裂变燃料容器端口",
   "block.nuclearcraftneohaul.fission_irradiator": "裂变辐照器",
   "block.nuclearcraftneohaul.fission_irradiator_port": "裂变辐照器端口",
+  "block.nuclearcraftneohaul.fission_shield_manager": "裂变中子防护屏管理器",
+  "block.nuclearcraftneohaul.fission_source_manager": "裂变中子源管理器",
   "block.nuclearcraftneohaul.fluid_enricher.desc": "将溶质溶于溶剂。",
   "block.nuclearcraftneohaul.fluid_extractor.desc": "从材料中提取流体。",
   "block.nuclearcraftneohaul.fluid_infuser.desc": "将流体注入材料。",

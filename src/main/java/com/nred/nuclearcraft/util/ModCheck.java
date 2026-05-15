@@ -55,7 +55,7 @@ public class ModCheck {
         return ccLoaded;
     }
 
-    public static boolean ponderLoaded() {
+    public static boolean ponderLoaded() { // TODO should this be replaced with GuideME?
         return ponderLoaded;
     }
     public static boolean sableLoaded() {

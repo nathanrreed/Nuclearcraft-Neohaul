@@ -140,7 +140,7 @@ public class RadiationHandler {
             if (!player.isCreative() && !player.isSpectator() && !playerRads.isImmune()) {
                 if (radiation_player_rads_fatal && playerRads.isFatal()) {
                     player.hurt(player.damageSources().source(FATAL_RADS), Float.MAX_VALUE);
-                } else if (!RadPotionEffects.PLAYER_RAD_LEVEL_LIST.isEmpty() && previousRadPercentage < RadPotionEffects.PLAYER_RAD_LEVEL_LIST.get(0) && playerRads.getRadsPercentage() >= RadPotionEffects.PLAYER_RAD_LEVEL_LIST.get(0) && !RadiationHelper.shouldShowHUD(player)) {
+                } else if (!RadPotionEffects.PLAYER_RAD_LEVEL_LIST.isEmpty() && previousRadPercentage < RadPotionEffects.PLAYER_RAD_LEVEL_LIST.getFirst() && playerRads.getRadsPercentage() >= RadPotionEffects.PLAYER_RAD_LEVEL_LIST.getFirst() && !RadiationHelper.shouldShowHUD(player)) {
                     playerRads.setShouldWarn(true);
                 } else {
                     playerRads.setShouldWarn(false);
@@ -265,9 +265,6 @@ public class RadiationHandler {
             }
 
             IRadiationSource chunkSource = RadiationHelper.getRadiationSource(loadedChunk);
-            if (chunkSource == null) {
-                continue;
-            }
 
             List<Entity> entityListArray = level.getEntities(null, new AABB(chunk.getPos().getMinBlockX(), loadedChunk.getMinBuildHeight(), chunk.getPos().getMinBlockZ(), chunk.getPos().getMaxBlockX(), loadedChunk.getMaxBuildHeight(), chunk.getPos().getMaxBlockZ()));
             for (Entity entity : entityListArray) {
@@ -324,7 +321,7 @@ public class RadiationHandler {
             chunkSource.setScrubbingFraction(0D);
             chunkSource.setEffectiveScrubberCount(0D);
 
-            Collection<BlockEntity> blockEntities = loadedChunk.getBlockEntities().values();
+            Collection<BlockEntity> blockEntities = new ArrayList<>(loadedChunk.getBlockEntities().values());
 
             if (radiation_block_entities) {
                 for (BlockEntity blockEntity : blockEntities) {

@@ -181,6 +181,7 @@
   "block.nuclearcraftneohaul.fission_fuel_vessel_port": "Interface de la cuve à combustible",
   "block.nuclearcraftneohaul.fission_irradiator": "Irradieur à neutrons",
   "block.nuclearcraftneohaul.fission_irradiator_port": "Interface des irradieurs à neutrons",
+  "block.nuclearcraftneohaul.fission_shield_manager": "Interface de contrôle du bouclier à neutrons",
   "block.nuclearcraftneohaul.fluid_enricher.desc": "Enrichi les fluides avec des matériaux.",
   "block.nuclearcraftneohaul.fluid_extractor.desc": "Extrait les fluides à partir des matériaux.",
   "block.nuclearcraftneohaul.fluid_infuser.desc": "Améliore les matériaux avec des fluides.",

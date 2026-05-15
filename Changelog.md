@@ -1,2 +1,1 @@
-- Fixed radiation not working with Sable
-- Fixed rendering not working with Sable
+- Updated translations
