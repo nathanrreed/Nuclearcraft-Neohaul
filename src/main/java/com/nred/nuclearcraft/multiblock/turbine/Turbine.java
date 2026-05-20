@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.turbine.ITurbineController;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBladeEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorStatorEntity;
+import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
@@ -18,6 +19,7 @@ import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.util.NBTHelper;
 import com.nred.nuclearcraft.util.NCMath;
+import com.nred.nuclearcraft.util.ValueTracker;
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
@@ -42,18 +44,18 @@ import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.config.NCConfig.turbine_max_size;
 
 public class Turbine extends Multiblock<Turbine> implements ILogicMultiblock<Turbine, TurbineLogic>, IPacketMultiblock<Turbine, TurbineUpdatePacket> {
     protected @Nonnull TurbineLogic logic = new TurbineLogic(this);
     public ITurbineController<?> controller;
 
-    public static final int BASE_MAX_ENERGY = 16000, BASE_MAX_INPUT = 1000, BASE_MAX_OUTPUT = 4000;
+    public static final int BASE_MAX_INPUT = 1000, BASE_MAX_OUTPUT = 4000;
 
-    public final EnergyStorage energyStorage = new EnergyStorage(BASE_MAX_ENERGY);
+    public final EnergyStorage energyStorage = new EnergyStorage(NCConfig.turbine_base_energy_capacity);
     public final List<Tank> tanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, NCRecipes.turbine.getValidFluids(getWorld(), 0)), new Tank(BASE_MAX_OUTPUT, null));
 
     public RecipeInfo<TurbineRecipe> recipeInfo;
@@ -66,11 +68,13 @@ public class Turbine extends Multiblock<Turbine> implements ILogicMultiblock<Tur
     public int shaftWidth = 0, inertia = 0, bladeLength = 0, noBladeSets = 0, recipeInputRate = 0, dynamoCoilCount = 0, dynamoCoilCountOpposite = 0;
     public double totalExpansionLevel = 1D, idealTotalExpansionLevel = 1D, spinUpMultiplier = 1D, basePowerPerMB = 0D, recipeInputRateFP = 0D;
 
+    public final ValueTracker recipeInputRateTracker = new ValueTracker();
+
     public double minBladeExpansionCoefficient = Double.MAX_VALUE;
     public double maxBladeExpansionCoefficient = 1D;
     public double minStatorExpansionCoefficient = 1D;
     public double maxStatorExpansionCoefficient = Double.MIN_VALUE;
-    public int effectiveMaxLength = turbine_max_size;
+    public int effectiveMaxLength = NCConfig.turbine_max_size;
     public double bearingTension = 0D;
 
     public final DoubleList expansionLevels = new DoubleArrayList(), rawBladeEfficiencies = new DoubleArrayList();
@@ -146,7 +150,7 @@ public class Turbine extends Multiblock<Turbine> implements ILogicMultiblock<Tur
     protected void onMachineDisassembled() {
         logic.onMachineDisassembled();
     }
-    
+
     @Override
     protected int getMinimumNumberOfPartsForAssembledMachine() {
         return NCMath.hollowCuboid(Math.max(5, getMinimumInteriorLength() + 2), Math.max(5, getMinimumInteriorLength() + 2), getMinimumInteriorLength() + 2);
@@ -160,16 +164,17 @@ public class Turbine extends Multiblock<Turbine> implements ILogicMultiblock<Tur
     }
 
     public boolean setLogic(Turbine multiblock) {
-        if (getPartMap(ITurbineController.class).isEmpty()) {
+        @SuppressWarnings("rawtypes") Map<Long, ITurbineController> controllerMap = getPartMap(ITurbineController.class);
+        if (controllerMap.isEmpty()) {
             multiblock.setLastError(MODID + ".multiblock_validation.no_controller");
             return false;
         }
-        if (getPartCount(ITurbineController.class) > 1) {
-            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers");
+        if (controllerMap.size() > 1) {
+            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers", controllerMap.keySet());
             return false;
         }
 
-        for (ITurbineController<?> contr : getParts(ITurbineController.class)) {
+        for (ITurbineController<?> contr : controllerMap.values()) {
             controller = contr;
             break;
         }

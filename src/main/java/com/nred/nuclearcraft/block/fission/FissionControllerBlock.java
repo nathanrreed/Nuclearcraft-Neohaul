@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block.fission;
 
 import com.nred.nuclearcraft.block.GenericDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.IActivatable;
+import com.nred.nuclearcraft.block_entity.fission.PebbleFissionControllerEntity;
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionControllerEntity;
 import com.nred.nuclearcraft.block_entity.fission.SolidFissionControllerEntity;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
@@ -19,8 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
-import static com.nred.nuclearcraft.registration.TriggerTypeRegistration.SALT_FISSION_ASSEMBLE_TRIGGER;
-import static com.nred.nuclearcraft.registration.TriggerTypeRegistration.SOLID_FISSION_ASSEMBLE_TRIGGER;
+import static com.nred.nuclearcraft.registration.TriggerTypeRegistration.*;
 
 public class FissionControllerBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericDirectionalTooltipDeviceBlock<Controller, PartType> implements IActivatable {
     public FissionControllerBlock(MultiblockPartProperties<PartType> properties) {
@@ -36,6 +36,8 @@ public class FissionControllerBlock<Controller extends IMultiblockController<Con
                 SOLID_FISSION_ASSEMBLE_TRIGGER.get().trigger((ServerPlayer) player);
             } else if (tile instanceof SaltFissionControllerEntity controller && controller.isMachineAssembled()) {
                 SALT_FISSION_ASSEMBLE_TRIGGER.get().trigger((ServerPlayer) player);
+            } else if (tile instanceof PebbleFissionControllerEntity controller && controller.isMachineAssembled()) {
+                PEBBLE_FISSION_ASSEMBLED.get().trigger((ServerPlayer) player);
             }
         }
 

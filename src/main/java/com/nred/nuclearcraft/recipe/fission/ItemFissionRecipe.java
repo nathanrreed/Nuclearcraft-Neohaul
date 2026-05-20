@@ -13,16 +13,18 @@ public abstract class ItemFissionRecipe extends BasicRecipe {
     private final int heat;
     private final double efficiency;
     private final int criticality;
+    private final int intrinsic_flux;
     private final double decayFactor;
     private final boolean selfPriming;
     private final double radiation;
 
-    public ItemFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+    public ItemFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, int intrinsic_flux, double decayFactor, boolean selfPriming, double radiation) {
         super(List.of(ingredient), List.of(), List.of(product), List.of());
         this.time = time;
         this.heat = heat;
         this.efficiency = efficiency;
         this.criticality = criticality;
+        this.intrinsic_flux = intrinsic_flux;
         this.decayFactor = decayFactor;
         this.selfPriming = selfPriming;
         this.radiation = radiation;
@@ -54,6 +56,10 @@ public abstract class ItemFissionRecipe extends BasicRecipe {
 
     public int getFissionFuelCriticality() {
         return criticality;
+    }
+
+    public int getFissionFuelIntrinsicFlux() {
+        return intrinsic_flux;
     }
 
     public double getFissionFuelDecayFactor() {

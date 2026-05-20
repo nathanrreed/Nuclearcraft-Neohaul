@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.block.IActivatable;
 import com.nred.nuclearcraft.block.tile.SidedTileBlock;
 import com.nred.nuclearcraft.block_entity.processor.EnergyProcessorEntity;
 import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorBlockInfo;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.util.BlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -30,7 +30,7 @@ public class ProcessorBlock<TILE extends BlockEntity> extends SidedTileBlock imp
 
     public ProcessorBlock(String name) {
         super(p -> p.mapColor(MapColor.METAL));
-        tileInfo = TileInfoHandler.getProcessorBlockInfo(name);
+        tileInfo = BlockEntityInfoHandler.getProcessorBlockInfo(name);
     }
 
     @Override

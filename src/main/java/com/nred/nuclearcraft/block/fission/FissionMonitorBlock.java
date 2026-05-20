@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class FissionMonitorBlock<Controller extends IMultiblockController<Contro
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected @NonNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (hand != InteractionHand.MAIN_HAND || player.isCrouching()) {
             return ItemInteractionResult.FAIL;
         }
@@ -55,9 +56,7 @@ public class FissionMonitorBlock<Controller extends IMultiblockController<Contro
                         if (component != null) {
                             FissionCluster cluster = component.getCluster();
                             if (cluster != null) {
-                                for (long posLong : cluster.getComponentMap().keySet()) {
-                                    BlockHighlightTracker.sendPacket((ServerPlayer) player, posLong, 5000);
-                                }
+                                BlockHighlightTracker.sendPacket((ServerPlayer) player, cluster.getComponentMap().keySet(), 5000);
                             }
                         }
                     }

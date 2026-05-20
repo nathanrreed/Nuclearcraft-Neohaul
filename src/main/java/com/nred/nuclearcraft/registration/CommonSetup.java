@@ -6,7 +6,7 @@ import com.nred.nuclearcraft.compat.ponder.ModPonderPlugin;
 import com.nred.nuclearcraft.handler.EntityHandler;
 import com.nred.nuclearcraft.handler.ItemUseHandler;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
@@ -60,7 +60,7 @@ public class CommonSetup {
         PlacementRule.init();
         MultitoolItem.registerRightClickLogic();
 
-        TileInfoHandler.init();
+        BlockEntityInfoHandler.init();
 
         RadSources.refreshRadSources(false);
         RadArmor.init();

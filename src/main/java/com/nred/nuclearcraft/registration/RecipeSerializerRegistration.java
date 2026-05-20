@@ -46,6 +46,7 @@ public class RecipeSerializerRegistration {
     public static final DeferredHolder<RecipeSerializer<?>, FissionHeatingRecipe.Serializer> FISSION_HEATING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_heating_recipe", FissionHeatingRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, FissionIrradiatorRecipe.Serializer> FISSION_IRRADIATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_irradiator_recipe", FissionIrradiatorRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, FissionCoolantHeaterRecipe.Serializer> FISSION_COOLANT_HEATER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_heater_recipe", FissionCoolantHeaterRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, PebbleFissionCoolerRecipe.Serializer> FISSION_COOLER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_cooler_recipe", PebbleFissionCoolerRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, FissionEmergencyCoolingRecipe.Serializer> FISSION_EMERGENCY_COOLING_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("fission_emergency_cooling_recipe", FissionEmergencyCoolingRecipe.Serializer::new);
 
     public static final DeferredHolder<RecipeSerializer<?>, CondenserRecipe.Serializer> CONDENSER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("condenser_recipe", CondenserRecipe.Serializer::new);

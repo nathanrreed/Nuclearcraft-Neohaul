@@ -16,9 +16,9 @@ import java.util.List;
 import static com.nred.nuclearcraft.datagen.ModFluidTagProvider.*;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.tags;
+import static com.nred.nuclearcraft.info.Names.GAS_COOLANTS;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
-import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
-import static com.nred.nuclearcraft.registration.FluidRegistration.MOLTEN_MAP;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 public class FluidInfuserProvider {
@@ -31,6 +31,12 @@ public class FluidInfuserProvider {
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(DUST_MAP.get("zirconium"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(DUST_MAP.get("zirconia"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("tin"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(INGOT_MAP.get("tin_oxide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.25, 0.5).addItemInput(Ingredient.of(Items.ICE, Items.PACKED_ICE), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 50).addItemResult(SUPERCOLD_ICE, 1).save(recipeOutput);
+
+        // Fission Pebble Coolers
+        for (String coolant : GAS_COOLANTS) {
+            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_gas_cooler_port"), 1).addFluidInput(GAS_MAP.get(coolant), 1000).addItemResult(FISSION_REACTOR_MAP.get(coolant + "_fission_gas_cooler_port"), 1).save(recipeOutput);
+            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_gas_cooler"), 1).addFluidInput(GAS_MAP.get(coolant), 1000).addItemResult(FISSION_REACTOR_MAP.get(coolant + "_fission_gas_cooler"), 1).save(recipeOutput);
+        }
 
         // Fission Heater Port
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_nitrogen"), 1000).addItemResult(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_coolant_heater_port"), 1).save(recipeOutput);

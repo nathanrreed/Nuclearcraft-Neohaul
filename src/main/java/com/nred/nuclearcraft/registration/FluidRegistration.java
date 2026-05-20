@@ -6,8 +6,11 @@ import com.nred.nuclearcraft.block.fluid.SuperFluidBlock;
 import com.nred.nuclearcraft.fluid.CoriumFluid;
 import com.nred.nuclearcraft.fluid.PlasmaFluid;
 import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.util.ColorHelper;
 import net.minecraft.util.FastColor;
+import org.apache.commons.lang3.tuple.Triple;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,21 +38,27 @@ public class FluidRegistration {
         map.put("tritium", new Fluids("tritium", 0xFF5DBBD6, Fluids.GAS_TYPE));
         map.put("helium_3", new Fluids("helium_3", 0xFFCBBB67, Fluids.GAS_TYPE));
         map.put("helium", new Fluids("helium", 0xFFC57B81, Fluids.GAS_TYPE));
+
         map.put("nitrogen", new Fluids("nitrogen", 0xFF7CC37B, Fluids.GAS_TYPE));
         map.put("fluorine", new Fluids("fluorine", 0xFFD3C75D, Fluids.GAS_TYPE));
+
+        map.put("methane", new Fluids("methane", 0xFFD9AFB3, Fluids.GAS_TYPE));
         map.put("carbon_dioxide", new Fluids("carbon_dioxide", 0xFF5C635A, Fluids.GAS_TYPE));
         map.put("carbon_monoxide", new Fluids("carbon_monoxide", 0xFF4C5649, Fluids.GAS_TYPE));
-        map.put("ethylene", new Fluids("ethylene", 0xFFFFE4A3, Fluids.GAS_TYPE));
-        map.put("acetylene", new Fluids("acetylene", 0xFFFFE442, Fluids.GAS_TYPE));
+        map.put("ethene", new Fluids("ethene", 0xFFFFE4A3, Fluids.GAS_TYPE));
+        map.put("ethyne", new Fluids("ethyne", 0xFFFFE442, Fluids.GAS_TYPE));
+
         map.put("fluoromethane", new Fluids("fluoromethane", 0xFF424C05, Fluids.GAS_TYPE));
         map.put("ammonia", new Fluids("ammonia", 0xFF7AC3A0, Fluids.GAS_TYPE));
         map.put("oxygen_difluoride", new Fluids("oxygen_difluoride", 0xFFEA1B01, Fluids.GAS_TYPE));
         map.put("diborane", new Fluids("diborane", 0xFFCC6E8C, Fluids.GAS_TYPE));
         map.put("sulfur_dioxide", new Fluids("sulfur_dioxide", 0xFFC3BC7A, Fluids.GAS_TYPE));
         map.put("sulfur_trioxide", new Fluids("sulfur_trioxide", 0xFFD3AE5D, Fluids.GAS_TYPE));
+        map.put("sulfur_hexafluoride", new Fluids("sulfur_hexafluoride", 0xFFC6FC46, Fluids.GAS_TYPE));
         map.put("tetrafluoroethene", new Fluids("tetrafluoroethene", 0xFF7EA542, Fluids.GAS_TYPE));
         map.put("hydrogen_sulfide", new Fluids("hydrogen_sulfide", 0xFF785830, Fluids.GAS_TYPE));
         map.put("depleted_hydrogen_sulfide", new Fluids("depleted_hydrogen_sulfide", 0xFF59514E, Fluids.GAS_TYPE));
+
         return map;
     }
 
@@ -59,30 +68,46 @@ public class FluidRegistration {
         map.put("boron_11", new Fluids("boron_11", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
         map.put("lithium_6", new Fluids("lithium_6", 0xFFEFEFEF, Fluids.MOLTEN_TYPE));
         map.put("lithium_7", new Fluids("lithium_7", 0xFFEFEFEF, Fluids.MOLTEN_TYPE));
+
         map.put("steel", new Fluids("steel", 0xFF7B7B7B, Fluids.MOLTEN_TYPE));
         map.put("ferroboron", new Fluids("ferroboron", 0xFF4A4A4A, Fluids.MOLTEN_TYPE));
         map.put("tough", new Fluids("tough", 0xFF150F21, Fluids.MOLTEN_TYPE));
         map.put("hard_carbon", new Fluids("hard_carbon", 0xFF202020, Fluids.MOLTEN_TYPE));
         map.put("coal", new Fluids("coal", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
+
         map.put("beryllium", new Fluids("beryllium", 0xFFD4DBC2, Fluids.MOLTEN_TYPE));
         map.put("zirconium", new Fluids("zirconium", 0xFFE0E0B8, Fluids.MOLTEN_TYPE));
         map.put("manganese_dioxide", new Fluids("manganese_dioxide", 0xFF28211E, Fluids.MOLTEN_TYPE));
         map.put("sulfur", new Fluids("sulfur", 0xFFDEDE7A, Fluids.MOLTEN_TYPE));
+
         map.put("lead_platinum", new Fluids("lead_platinum", 0xFF415B60, Fluids.MOLTEN_TYPE));
         map.put("enderium", new Fluids("enderium", 0xFF0B5B5C, Fluids.MOLTEN_TYPE));
+
         map.put("lif", new Fluids("lif", 0xFFCDCDCB, Fluids.MOLTEN_TYPE));
         map.put("bef2", new Fluids("bef2", 0xFFBEC6AA, Fluids.MOLTEN_TYPE));
         map.put("flibe", new Fluids("flibe", 0xFFC1C8B0, Fluids.MOLTEN_TYPE));
         map.put("naoh", new Fluids("naoh", 0xFFC2B7BB, Fluids.MOLTEN_TYPE));
         map.put("koh", new Fluids("koh", 0xFFB8C6B0, Fluids.MOLTEN_TYPE));
+
+        map.put("dfdps", new Fluids("dfdps", 0xFFB4B3A7, Fluids.MOLTEN_TYPE));
+        map.put("polyphenylene_sulfide", new Fluids("polyphenylene_sulfide", 0xFF3F3D3E, Fluids.MOLTEN_TYPE));
+        map.put("polydimethylsilylene", new Fluids("polydimethylsilylene", 0xFF774F60, Fluids.MOLTEN_TYPE));
+        map.put("polymethylsilylene_methylene", new Fluids("polymethylsilylene_methylene", 0xFF5A5246, Fluids.MOLTEN_TYPE));
+        map.put("polyethersulfone", new Fluids("polyethersulfone", 0xFFC9B8A6, Fluids.MOLTEN_TYPE));
+        map.put("polytetrafluoroethene", new Fluids("polytetrafluoroethene", 0xFF7F9F4D, Fluids.MOLTEN_TYPE));
+
         map.put("sodium", new Fluids("sodium", 0xFFC1898C, Fluids.MOLTEN_TYPE));
         map.put("potassium", new Fluids("potassium", 0xFFB8C503, Fluids.MOLTEN_TYPE));
+
         map.put("sodium_sulfide", new Fluids("sodium_sulfide", 0xFF9A8B0B, Fluids.MOLTEN_TYPE));
         map.put("potassium_sulfide", new Fluids("potassium_sulfide", 0xFF917C34, Fluids.MOLTEN_TYPE));
+
         map.put("silicon", new Fluids("silicon", 0xFF676767, Fluids.MOLTEN_TYPE));
         map.put("bas", new Fluids("bas", 0xFF9B9B89, Fluids.MOLTEN_TYPE));
+
         map.put("alugentum", new Fluids("alugentum", 0xFFB5C9CB, Fluids.MOLTEN_TYPE));
         map.put("alumina", new Fluids("alumina", 0xFF919880, Fluids.MOLTEN_TYPE));
+
         map.put("iron", new Fluids("iron", 0xFF8D1515, Fluids.MOLTEN_TYPE));
         map.put("redstone", new Fluids("redstone", 0xFFAB1C09, Fluids.MOLTEN_TYPE));
         map.put("quartz", new Fluids("quartz", 0xFFECE9E2, Fluids.MOLTEN_TYPE));
@@ -109,14 +134,9 @@ public class FluidRegistration {
         map.put("fluorite", new Fluids("fluorite", 0xFF8AB492, Fluids.MOLTEN_TYPE));
         map.put("villiaumite", new Fluids("villiaumite", 0xFFB06C56, Fluids.MOLTEN_TYPE));
         map.put("carobbiite", new Fluids("carobbiite", 0xFF95A251, Fluids.MOLTEN_TYPE));
-        map.put("dfdps", new Fluids("dfdps", 0xFFB4B3A7, Fluids.MOLTEN_TYPE));
-        map.put("polyphenylene_sulfide", new Fluids("polyphenylene_sulfide", 0xFF3F3D3E, Fluids.MOLTEN_TYPE));
-        map.put("polydimethylsilylene", new Fluids("polydimethylsilylene", 0xFF774F60, Fluids.MOLTEN_TYPE));
-        map.put("polymethylsilylene_methylene", new Fluids("polymethylsilylene_methylene", 0xFF5A5246, Fluids.MOLTEN_TYPE));
-        map.put("polyethersulfone", new Fluids("polyethersulfone", 0xFFC9B8A6, Fluids.MOLTEN_TYPE));
-        map.put("polytetrafluoroethene", new Fluids("polytetrafluoroethene", 0xFF7F9F4D, Fluids.MOLTEN_TYPE));
-        map.put("thorium", new Fluids("thorium", 0xFF242424, Fluids.MOLTEN_TYPE));
-        map.put("uranium", new Fluids("uranium", 0xFF375437, Fluids.MOLTEN_TYPE));
+
+        map.put("thorium", new Fluids("thorium", 0xFF242424, Fluids.FISSION_TYPE));
+        map.put("uranium", new Fluids("uranium", 0xFF375437, Fluids.FISSION_TYPE));
         return map;
     }
 
@@ -133,7 +153,7 @@ public class FluidRegistration {
         map.put("plasma", new Fluids("plasma", -1, Fluids.PLASMA_TYPE, PlasmaFluid.Source::new, PlasmaFluid.Flowing::new));
         map.put("radaway", new Fluids("radaway", false, -1, LiquidFluidBlock::new));
         map.put("radaway_slow", new Fluids("radaway_slow", false, -1, LiquidFluidBlock::new));
-        map.put("corium", new Fluids("corium", 0xFF7C7C6F, new Fluids.TypeInfo(Fluids.MOLTEN_TYPE,CoriumFluidBlock::new), CoriumFluid.Source::new, CoriumFluid.Flowing::new));
+        map.put("corium", new Fluids("corium", 0xFF7C7C6F, new Fluids.TypeInfo(Fluids.MOLTEN_TYPE, CoriumFluidBlock::new), CoriumFluid.Source::new, CoriumFluid.Flowing::new));
         map.put("ice", new Fluids("ice", "liquid", false, false, 0xFFAFF1FF, 1000, 250, 2000, 0, LiquidFluidBlock::new));
         map.put("slurry_ice", new Fluids("slurry_ice", "liquid", false, false, 0xFF7EAEB7, 950, 270, 4000, 0, LiquidFluidBlock::new));
         map.put("emergency_coolant", new Fluids("emergency_coolant", "liquid", false, false, 0xFF6DD0E7, 2000, 100, 2000, 0, LiquidFluidBlock::new));
@@ -262,6 +282,29 @@ public class FluidRegistration {
         Map<String, Fluids> map = new java.util.HashMap<>();
         map.put("arsenic", new Fluids("arsenic", 0xFF818475, Fluids.HOT_GAS_TYPE));
         map.put("sic_vapor", new Fluids("sic_vapor", 0xFF78746A, Fluids.HOT_GAS_TYPE));
+
+        for (Triple<String, Float, Integer> triple : Arrays.asList(Triple.of("hot", 4F, 1000), Triple.of("exhaust", 3F, 900), Triple.of("lq", 2F, 800))) {
+            String suffix = triple.getLeft();
+            Float saturation = triple.getMiddle();
+            Integer temp = triple.getRight();
+
+            map.put("oxygen_" + suffix, new Fluids("oxygen_" + suffix, ColorHelper.saturate(0xFF7E8CC8, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("hydrogen_" + suffix, new Fluids("hydrogen_" + suffix, ColorHelper.saturate(0xFFB37AC4, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("helium_" + suffix, new Fluids("helium_" + suffix, ColorHelper.saturate(0xFFC57B81, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("nitrogen_" + suffix, new Fluids("nitrogen_" + suffix, ColorHelper.saturate(0xFF7CC37B, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("fluorine_" + suffix, new Fluids("fluorine_" + suffix, ColorHelper.saturate(0xFFD3C75D, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("methane_" + suffix, new Fluids("methane_" + suffix, ColorHelper.saturate(0xFFD9AFB3, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("carbon_dioxide_" + suffix, new Fluids("carbon_dioxide_" + suffix, ColorHelper.saturate(0xFF5C635A, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("carbon_monoxide_" + suffix, new Fluids("carbon_monoxide_" + suffix, ColorHelper.saturate(0xFF4C5649, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("ethene_" + suffix, new Fluids("ethene_" + suffix, ColorHelper.saturate(0xFFFFE4A3, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("ethyne_" + suffix, new Fluids("ethyne_" + suffix, ColorHelper.saturate(0xFFFFE442, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("fluoromethane_" + suffix, new Fluids("fluoromethane_" + suffix, ColorHelper.saturate(0xFF424C05, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("ammonia_" + suffix, new Fluids("ammonia_" + suffix, ColorHelper.saturate(0xFF7AC3A0, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("diborane_" + suffix, new Fluids("diborane_" + suffix, ColorHelper.saturate(0xFFCC6E8C, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("sulfur_dioxide_" + suffix, new Fluids("sulfur_dioxide_" + suffix, ColorHelper.saturate(0xFFC3BC7A, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("sulfur_trioxide_" + suffix, new Fluids("sulfur_trioxide_" + suffix, ColorHelper.saturate(0xFFD3AE5D, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("sulfur_hexafluoride_" + suffix, new Fluids("sulfur_hexafluoride_" + suffix, ColorHelper.saturate(0xFFC6FC46, saturation), Fluids.HOT_GAS_TYPE, temp));
+        }
 
         return map;
     }

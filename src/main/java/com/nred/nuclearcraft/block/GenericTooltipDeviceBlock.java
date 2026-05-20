@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block_entity.fission.AbstractFissionEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
+import com.nred.nuclearcraft.multiblock.internal.MultiblockValidationError;
 import com.nred.nuclearcraft.render.BlockHighlightTracker;
 import com.nred.nuclearcraft.util.BlockHelper;
 import com.nred.nuclearcraft.util.NCMath;
@@ -63,8 +64,10 @@ public class GenericTooltipDeviceBlock<Controller extends IMultiblockController<
             Optional<IMultiblockPart<Controller>> part = WorldHelper.getMultiblockPartFrom(level, pos);
             if (player.isCrouching()) {
                 Optional<Controller> controller = part.flatMap(IMultiblockPart::getMultiblockController);
-                ValidationError error = controller.isEmpty() ? ValidationError.VALIDATION_ERROR_NOT_CONNECTED : controller.filter(IMultiblockValidator::hasLastError).flatMap(IMultiblockValidator::getLastError).orElse((ValidationError) null);
-                if (null != error && error.getPosition() != null) {
+                ValidationError error = controller.isEmpty() ? ValidationError.VALIDATION_ERROR_NOT_CONNECTED : controller.filter(IMultiblockValidator::hasLastError).flatMap(IMultiblockValidator::getLastError).orElse(null);
+                if (error instanceof MultiblockValidationError multiError && multiError.getPositions() != null) {
+                    BlockHighlightTracker.sendPacket((ServerPlayer) player, multiError.getPositions(), 5000);
+                } else if (error != null && error.getPosition() != null) {
                     BlockHighlightTracker.sendPacket((ServerPlayer) player, error.getPosition(), 5000);
                 }
             }

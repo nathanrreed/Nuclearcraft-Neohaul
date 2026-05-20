@@ -5,7 +5,6 @@ import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionHeaterPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionVesselPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
@@ -14,6 +13,7 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionEmergencyCoolingRecipe;
 import com.nred.nuclearcraft.util.NCMath;
@@ -35,19 +35,18 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.fission_overheat;
 import static com.nred.nuclearcraft.config.NCConfig.fission_sparsity_penalty_params;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
 
 public class SaltFissionLogic extends FissionReactorLogic {
     public final List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_emergency_cooling.getValidFluids(getWorld(), 0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
 
     public RecipeInfo<FissionEmergencyCoolingRecipe> emergencyCoolingRecipeInfo;
 
-    public int heaterCount = 0;
     public double meanHeatingSpeedMultiplier = 0D, totalHeatingSpeedMultiplier = 0D;
 
     public SaltFissionLogic(FissionReactorLogic oldLogic) {
         super(oldLogic.multiblock);
         if (oldLogic instanceof SaltFissionLogic oldMoltenSaltLogic) {
-            heaterCount = oldMoltenSaltLogic.heaterCount;
             meanHeatingSpeedMultiplier = oldMoltenSaltLogic.meanHeatingSpeedMultiplier;
             totalHeatingSpeedMultiplier = oldMoltenSaltLogic.totalHeatingSpeedMultiplier;
         }
@@ -60,7 +59,6 @@ public class SaltFissionLogic extends FissionReactorLogic {
 
     @Override
     public void onResetStats() {
-        heaterCount = 0;
         meanHeatingSpeedMultiplier = totalHeatingSpeedMultiplier = 0D;
     }
 
@@ -74,14 +72,24 @@ public class SaltFissionLogic extends FissionReactorLogic {
 
     @Override
     public boolean isMachineWhole() {
-        return !containsBlacklistedPart();
+        return !containsBlacklistedPart() && !isMissingSorption();
     }
 
-    public static final List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> MOLTEN_SALT_PART_BLACKLIST = Lists.newArrayList(Pair.of(SolidFissionCellEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_cells"), Pair.of(SolidFissionHeatSinkEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_sinks"));
+    public static final List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> MOLTEN_SALT_PART_BLACKLIST = Lists.newArrayList(
+            Pair.of(PebbleFissionChamberEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_chambers"),
+            Pair.of(PebbleFissionCoolerEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_coolers"),
+            Pair.of(SolidFissionCellEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_cells"),
+            Pair.of(SolidFissionHeatSinkEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_sinks")
+    );
 
     @Override
     public List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> getPartBlacklist() {
         return MOLTEN_SALT_PART_BLACKLIST;
+    }
+
+    public boolean isMissingSorption() {
+        return super.isMissingSorption()
+                || isMissingSorption(FissionVesselPortEntity.class, SaltFissionVesselEntity.class, FISSION_REACTOR_MAP.get("fission_fuel_vessel_port").get().getDescriptionId());
     }
 
     @Override
@@ -101,8 +109,8 @@ public class SaltFissionLogic extends FissionReactorLogic {
 
     @Override
     public void incrementClusterStatsFromComponents(FissionCluster cluster, boolean simulate) {
-        for (FissionFuelBunch bunch : fuelBunches) {
-            bunch.statsRetrieved = false;
+        for (FissionFuelBunch fuelBunch : fuelBunches) {
+            fuelBunch.statsRetrieved = false;
         }
 
         for (IFissionComponent component : cluster.getComponentMap().values()) {
@@ -153,7 +161,7 @@ public class SaltFissionLogic extends FissionReactorLogic {
         multiblock.usefulPartCount += multiblock.passiveModeratorCache.size() + multiblock.activeModeratorCache.size() + multiblock.activeReflectorCache.size();
         double usefulPartRatio = (double) multiblock.usefulPartCount / (double) multiblock.getInteriorVolume();
         multiblock.sparsityEfficiencyMult = usefulPartRatio >= fission_sparsity_penalty_params[1] ? 1D : (1D - fission_sparsity_penalty_params[0]) * Math.sin(usefulPartRatio * Math.PI / (2D * fission_sparsity_penalty_params[1])) + fission_sparsity_penalty_params[0];
-        // effectiveHeating *= sparsityEfficiencyMult;
+        // effectiveHeating *= multiblock.sparsityEfficiencyMult;
         multiblock.totalEfficiency *= multiblock.sparsityEfficiencyMult;
         multiblock.meanHeatMult = multiblock.fuelComponentCount == 0 ? 0D : (double) multiblock.totalHeatMult / (double) multiblock.fuelComponentCount;
         multiblock.meanEfficiency = multiblock.fuelComponentCount == 0 ? 0D : multiblock.totalEfficiency / multiblock.fuelComponentCount;
@@ -323,13 +331,19 @@ public class SaltFissionLogic extends FissionReactorLogic {
         return multiblock.isAssembled() ? tanks : backupTanks;
     }
 
+    // Client
+
+    @Override
+    public void onUpdateClient() {
+        super.onUpdateClient();
+    }
+
     // NBT
 
     @Override
     public void writeToLogicTag(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
         super.writeToLogicTag(data, registries, syncReason);
         writeTanks(tanks, data, registries, "tanks");
-        data.putInt("heaterCount", heaterCount);
         data.putDouble("meanHeatingSpeedMultiplier", meanHeatingSpeedMultiplier);
         data.putDouble("totalHeatingSpeedMultiplier", totalHeatingSpeedMultiplier);
     }
@@ -338,7 +352,6 @@ public class SaltFissionLogic extends FissionReactorLogic {
     public void readFromLogicTag(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
         super.readFromLogicTag(data, registries, syncReason);
         readTanks(tanks, data, registries, "tanks");
-        heaterCount = data.getInt("heaterCount");
         meanHeatingSpeedMultiplier = data.getDouble("meanHeatingSpeedMultiplier");
         totalHeatingSpeedMultiplier = data.getDouble("totalHeatingSpeedMultiplier");
     }
@@ -347,7 +360,7 @@ public class SaltFissionLogic extends FissionReactorLogic {
 
     @Override
     public SaltFissionUpdatePacket getMultiblockUpdatePacket() {
-        return new SaltFissionUpdatePacket(multiblock.controller.getTilePos(), multiblock.isReactorOn, multiblock.heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.totalHeatMult, multiblock.meanHeatMult, multiblock.fuelComponentCount, multiblock.usefulPartCount, multiblock.totalEfficiency, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, meanHeatingSpeedMultiplier, totalHeatingSpeedMultiplier);
+        return new SaltFissionUpdatePacket(multiblock.controller.getTilePos(), multiblock.isReactorOn, heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.totalHeatMult, multiblock.meanHeatMult, multiblock.fuelComponentCount, multiblock.usefulPartCount, multiblock.totalEfficiency, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, meanHeatingSpeedMultiplier, totalHeatingSpeedMultiplier);
     }
 
     @Override

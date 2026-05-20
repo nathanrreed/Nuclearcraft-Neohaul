@@ -17,8 +17,9 @@ public class MenuRegistration {
     public static final HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?>>>> PROCESSOR_MENU_TYPES = createProcessors();
 
     // Controllers
-    public static final DeferredHolder<MenuType<?>, MenuType<SaltFissionControllerMenu>> SALT_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("salt_fission_controller", () -> IMenuTypeExtension.create(SaltFissionControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<SolidFissionControllerMenu>> SOLID_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("solid_fission_controller", () -> IMenuTypeExtension.create(SolidFissionControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<PebbleFissionControllerMenu>> PEBBLE_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("pebple_fission_controller", () -> IMenuTypeExtension.create(PebbleFissionControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<SaltFissionControllerMenu>> SALT_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("salt_fission_controller", () -> IMenuTypeExtension.create(SaltFissionControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<TurbineControllerMenu>> TURBINE_CONTROLLER_MENU_TYPE = MENUS.register("turbine_controller", () -> IMenuTypeExtension.create(TurbineControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<HeatExchangerControllerMenu>> HX_CONTROLLER_MENU_TYPE = MENUS.register("hx_controller", () -> IMenuTypeExtension.create(HeatExchangerControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<CondenserControllerMenu>> CONDENSER_CONTROLLER_MENU_TYPE = MENUS.register("condenser_controller", () -> IMenuTypeExtension.create(CondenserControllerMenu::new));
@@ -28,14 +29,16 @@ public class MenuRegistration {
 
     // Ports
     public static final DeferredHolder<MenuType<?>, MenuType<FissionCellPortMenu>> FISSION_CELL_PORT_MENU_TYPE = MENUS.register("turbine_cell", () -> IMenuTypeExtension.create(FissionCellPortMenu::new));
-    public static final DeferredHolder<MenuType<?>, MenuType<FissionCoolerPortMenu>> FISSION_COOLER_PORT_MENU_TYPE = MENUS.register("fission_cooler_port", () -> IMenuTypeExtension.create(FissionCoolerPortMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<FissionHeaterPortMenu>> FISSION_HEATER_PORT_MENU_TYPE = MENUS.register("fission_heater_port", () -> IMenuTypeExtension.create(FissionHeaterPortMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<FissionIrradiatorPortMenu>> FISSION_IRRADIATOR_PORT_MENU_TYPE = MENUS.register("fission_irradiator_port", () -> IMenuTypeExtension.create(FissionIrradiatorPortMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<FissionVesselPortMenu>> FISSION_VESSEL_PORT_MENU_TYPE = MENUS.register("fission_vessel_port", () -> IMenuTypeExtension.create(FissionVesselPortMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<FissionCoolerPortMenu>> FISSION_COOLER_PORT_MENU_TYPE = MENUS.register("fission_cooler_port", () -> IMenuTypeExtension.create(FissionCoolerPortMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<FissionChamberPortMenu>> FISSION_CHAMBER_PORT_MENU_TYPE = MENUS.register("fission_chamber_port", () -> IMenuTypeExtension.create(FissionChamberPortMenu::new));
 
     // Parts
     public static final DeferredHolder<MenuType<?>, MenuType<FissionIrradiatorMenu>> FISSION_IRRADIATOR_MENU_TYPE = MENUS.register("fission_irradiator", () -> IMenuTypeExtension.create(FissionIrradiatorMenu::new));
-    public static final DeferredHolder<MenuType<?>, MenuType<FissionCoolerMenu>> FISSION_COOLER_MENU_TYPE = MENUS.register("fission_cooler", () -> IMenuTypeExtension.create(FissionCoolerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<PebbleFissionChamberMenu>> FISSION_CHAMBER_MENU_TYPE = MENUS.register("fission_chamber", () -> IMenuTypeExtension.create(PebbleFissionChamberMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<PebbleFissionCoolerMenu>> FISSION_COOLER_MENU_TYPE = MENUS.register("fission_cooler", () -> IMenuTypeExtension.create(PebbleFissionCoolerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<SolidFissionCellMenu>> FISSION_SOLID_CELL_MENU_TYPE = MENUS.register("fission_cell", () -> IMenuTypeExtension.create(SolidFissionCellMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<SaltFissionVesselMenu>> FISSION_SALT_VESSEL_MENU_TYPE = MENUS.register("fission_vessel", () -> IMenuTypeExtension.create(SaltFissionVesselMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<SaltFissionHeaterMenu>> FISSION_SALT_HEATER_MENU_TYPE = MENUS.register("fission_heater", () -> IMenuTypeExtension.create(SaltFissionHeaterMenu::new));

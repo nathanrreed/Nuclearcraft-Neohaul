@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.function.BiFunction;
 
 public abstract class UpgradableProcessorContainerInfoBuilder<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO>, BUILDER extends UpgradableProcessorContainerInfoBuilder<TILE, PACKET, INFO, BUILDER>> extends ProcessorContainerInfoBuilder<TILE, PACKET, INFO, BUILDER> {
-    protected int[] speedUpgradeGuiXYWH = ContainerInfoHelper.standardSlot(132, 64);
-    protected int[] energyUpgradeGuiXYWH = ContainerInfoHelper.standardSlot(152, 64);
+    public int[] speedUpgradeGuiXYWH = ContainerInfoHelper.standardSlot(132, 64);
+    public int[] energyUpgradeGuiXYWH = ContainerInfoHelper.standardSlot(152, 64);
 
     protected UpgradableProcessorContainerInfoBuilder(String name, Class<TILE> menuClass, BiFunction<BlockPos, BlockState, TILE> tileSupplier, MenuFunction<TILE> menuFunction) {
         super(name, menuClass, tileSupplier, menuFunction);

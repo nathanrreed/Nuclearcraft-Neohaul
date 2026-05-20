@@ -186,6 +186,7 @@ class ModBlockStateProvider extends BlockStateProvider {
     private void fission() {
         directionalMachine("controller", FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), "fission/solid", ACTIVE);
         directionalMachine("controller", FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), "fission/salt", ACTIVE);
+        directionalMachine("controller", FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"), "fission/pebble", ACTIVE);
         booleanBlock("frame", "wall", FISSION_REACTOR_MAP.get("fission_casing"), "fission/casing", FRAME);
         blockWithItemCutout("glass", FISSION_REACTOR_MAP.get("fission_glass"), "fission");
         vent("vent", "_output", "_input", FISSION_REACTOR_MAP.get("fission_vent"), "fission", ACTIVE);
@@ -203,8 +204,13 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem("cell", FISSION_REACTOR_MAP.get("fission_fuel_cell"), "fission/solid");
         booleanBlock("", true, "", true, "", "cell_out", "cell_in", FISSION_REACTOR_MAP.get("fission_fuel_cell_port"), "fission/port", ACTIVE, Axis);
 
-        blockWithItem("cooler", FISSION_REACTOR_MAP.get("fission_cooler"), "fission");
-        booleanBlock("", true, "", true, "", "cooler_out", "cooler_in", FISSION_REACTOR_MAP.get("fission_cooler_port"), "fission/port", ACTIVE, Axis);
+        blockWithItem("chamber", FISSION_REACTOR_MAP.get("fission_fuel_chamber"), "fission/pebble");
+        booleanBlock("", true, "", true, "", "chamber_out", "chamber_in", FISSION_REACTOR_MAP.get("fission_fuel_chamber_port"), "fission/port", ACTIVE, Axis);
+
+        for (String name : GAS_COOLANTS) {
+            blockWithItem(name, FISSION_REACTOR_MAP.get(name + "_fission_gas_cooler"), "fission/pebble/cooler");
+            axisBooleanBlockOverlay(name, "out", "in", FISSION_REACTOR_MAP.get(name + "_fission_gas_cooler_port"), "fission/port", "fission/port/cooler", ACTIVE);
+        }
 
         blockWithItem("irradiator", FISSION_REACTOR_MAP.get("fission_irradiator"), "fission");
         booleanBlock("", true, "", true, "", "irradiator_out", "irradiator_in", FISSION_REACTOR_MAP.get("fission_irradiator_port"), "fission/port", ACTIVE, Axis);

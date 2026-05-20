@@ -1,6 +1,9 @@
 StartupEvents.registry('fluid', event => {
     global["test_nak"] = event.create("test_nak", "nuclearcraftneohaul:nak").tint(0xff0000).id
     global["test_hot_nak"] = event.create("test_hot_nak", "nuclearcraftneohaul:hot_nak").tint(0xff1100).id
+
+    global["test_gas"] = event.create("test_gas", "nuclearcraftneohaul:gas").tint(0xff00ff).id
+    global["test_gas_hot"] = event.create("test_gas_hot", "nuclearcraftneohaul:hot_gas").tint(0xff11ff).id
 })
 
 StartupEvents.registry('block', event => {
@@ -13,6 +16,7 @@ StartupEvents.registry('block', event => {
     event.create("test_shield", "nuclearcraftneohaul:fission_shield").setShieldData(0.9, 1.2)
     event.create("test_sink", "nuclearcraftneohaul:fission_heat_sink").setHeatSinkData(116, "one moderator", "%s valid test sink", "%s valid test sinks")
     global["test_heater"] = event.create("test_coolant_heater", "nuclearcraftneohaul:fission_coolant_heater_and_port").setCoolantHeaterData(116, global["test_nak"], "one moderator", "%s functional test heater", "%s functional test heaters").id
+    global["test_cooler"] = event.create("test_cooler", "nuclearcraftneohaul:fission_cooler_and_port").setCoolerData(116, global["test_gas"], "one chamber", "%s functional test_gas cooler", "%s functional test_gas coolers").id
 
     event.create("test_rtg", "nuclearcraftneohaul:rtg").setRTGData(2400000, 0.09)
     event.create("test_hx_tube", "nuclearcraftneohaul:hx_tube").setHXTubeData(0.9, 0.09)

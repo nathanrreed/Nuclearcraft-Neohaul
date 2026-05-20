@@ -10,7 +10,8 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
+import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.NBTHelper;
@@ -55,7 +56,7 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
 
     public FissionItemPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, BasicRecipeHandler<?> recipeHandler) {
         super(type, pos, blockState, portClass);
-        info = TileInfoHandler.getTileContainerInfo(name);
+        info = BlockEntityInfoHandler.getTileContainerInfo(name);
         this.recipeHandler = recipeHandler;
     }
 
@@ -74,6 +75,31 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
     @Override
     public Object getFilterKey() {
         return getFilterStacks().get(0).isEmpty() ? 0 : RecipeHelper.pack(getFilterStacks().get(0));
+    }
+
+    @Override
+    public boolean canReceive() {
+        for (Direction facing : Direction.values()) {
+            if (getItemSorption(facing, 0).canReceive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canExtract() {
+        for (Direction facing : Direction.values()) {
+            if (getItemSorption(facing, 1).canExtract()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public SorptionKey getSorptionKey() {
+        return new SorptionKey(getClass(), getFilterKey());
     }
 
     @Override
@@ -250,7 +276,8 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
     @Override
     public boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level worldIn, Direction facing, BlockPos hitPos) {
         if (!player.isCrouching()) {
-            if (getMultiblockController().isPresent()) {
+            FissionReactor multiblock = getMultiblockController().orElse(null);
+            if (multiblock != null && !multiblock.isAssembled()) {
                 if (getItemSorption(facing, 0) != ItemSorption.IN) {
                     for (Direction side : Direction.values()) {
                         setItemSorption(side, 0, ItemSorption.IN);

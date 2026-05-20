@@ -93,4 +93,12 @@ public class SaltFissionControllerScreen extends LogicMultiblockControllerScreen
         int h = NCMath.toInt(Math.round((double) logic.heatBuffer.getHeatStored() / (double) logic.heatBuffer.getHeatCapacity() * 164));
         guiGraphics.blitSprite(getGuiTexture(), 256, 256, 3, 114, getGuiLeft() + 6, getGuiTop() + 102, h, 6);
     }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        super.drawGuiContainerBackgroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
+
+        int h = NCMath.toInt(Math.round((double) logic.heatBuffer.getHeatStored() / (double) logic.heatBuffer.getHeatCapacity() * 164));
+        guiGraphics.blitSprite(getGuiTexture(), 256, 256, 3, 114, leftPos + 6, topPos + 102, h, 6);
+    }
 }

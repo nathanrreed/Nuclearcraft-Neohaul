@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.util;
 
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -114,6 +115,10 @@ public class NCMath {
 
     public static double tan_d(double deg) {
         return Math.tan(Math.toRadians(deg));
+    }
+
+    public static double sigmoid(double number) {
+        return 1D / (1D + Math.exp(-number));
     }
 
     public static double[] cartesianFromSpherical(double r, double theta, double phi) {
@@ -272,6 +277,19 @@ public class NCMath {
         }
     }
 
+    public static Vec3 normalize(Vec3 vec, double epsilon) {
+        double abs = abs(vec);
+        return abs <= epsilon ? Vec3.ZERO : vec.scale(1D / abs);
+    }
+
+    public static Vec3 normalize(Vec3 vec) {
+        return normalize(vec, EPSILON);
+    }
+
+    public static double abs(Vec3 vec) {
+        return vec == null ? 0D : Math.sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+    }
+
     public static String sigFigs(double number, int sigFigs) {
         if (number == (long) number) {
             return Long.toString((long) number);
@@ -311,9 +329,13 @@ public class NCMath {
         return value <= leeway ? 0 : value >= max - leeway ? 15 : toInt(1D + 14D * value / max);
     }
 
-    public static double getNextFP(double currentFP, double prev, double next) {
+    public static double getNextFP(double current, double next) {
+        return current + 0.25D * (next - current);
+    }
+
+    public static double getNextFP(double current, double prev, double next) {
         double diff = Math.abs(prev - next);
-        double roundingFactor = Math.max(0D, 1.5D * Math.log1p(next / (1D + diff)));
-        return (roundingFactor * currentFP + next) / (1D + roundingFactor);
+        double alpha = 1D / (1D + Math.max(2D, 0.25D * diff));
+        return current + Math.clamp(alpha, 0.125D, 0.25D) * (next - current);
     }
 }

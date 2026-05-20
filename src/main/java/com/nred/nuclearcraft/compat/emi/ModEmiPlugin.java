@@ -74,6 +74,9 @@ public class ModEmiPlugin implements EmiPlugin {
     private static final EmiStack SOLID_FISSION_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"));
     public static final EmiRecipeCategory EMI_SOLID_FISSION_CATEGORY = new EmiRecipeCategory(ncLoc("solid_fission"), SOLID_FISSION_WORKSTATION);
 
+    private static final EmiStack PEBBLE_FISSION_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"));
+    public static final EmiRecipeCategory EMI_PEBBLE_FISSION_CATEGORY = new EmiRecipeCategory(ncLoc("pebble_fission"), PEBBLE_FISSION_WORKSTATION);
+
     private static final EmiStack SALT_FISSION_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("molten_salt_fission_controller"));
     public static final EmiRecipeCategory EMI_SALT_FISSION_CATEGORY = new EmiRecipeCategory(ncLoc("salt_fission"), SALT_FISSION_WORKSTATION);
 
@@ -88,6 +91,9 @@ public class ModEmiPlugin implements EmiPlugin {
 
     private static final EmiStack SALT_COOLING_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"));
     public static final EmiRecipeCategory EMI_SALT_COOLING_CATEGORY = new EmiRecipeCategory(ncLoc("salt_cooling"), SALT_COOLING_WORKSTATION);
+
+    private static final EmiStack PEBBLE_COOLER_WORKSTATION = EmiStack.of(FISSION_REACTOR_MAP.get("oxygen_fission_gas_cooler"));
+    public static final EmiRecipeCategory EMI_PEBBLE_COOLER_CATEGORY = new EmiRecipeCategory(ncLoc("gas_cooling"), PEBBLE_COOLER_WORKSTATION);
 
     private static final EmiStack HEAT_EXCHANGER_WORKSTATION = EmiStack.of(HX_MAP.get("heat_exchanger_controller"));
     public static final EmiRecipeCategory EMI_HEAT_EXCHANGER_CATEGORY = new EmiRecipeCategory(ncLoc("heat_exchanger"), HEAT_EXCHANGER_WORKSTATION);
@@ -234,6 +240,13 @@ public class ModEmiPlugin implements EmiPlugin {
             registry.addRecipe(new EmiSaltFissionRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
         }
 
+        registry.addCategory(EMI_PEBBLE_FISSION_CATEGORY);
+        addWorkstations(registry, EMI_PEBBLE_FISSION_CATEGORY, List.of(PEBBLE_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_fuel_chamber"))));
+        registry.addRecipeHandler(PEBBLE_FISSION_CONTROLLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_PEBBLE_FISSION_CATEGORY));
+        for (RecipeHolder<PebbleFissionRecipe> recipe : manager.getAllRecipesFor(PEBBLE_FISSION_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiPebbleFissionRecipe(recipe.id(), getEmiItemIngredient(recipe.value().getItemIngredient()), getEmiItemIngredient(recipe.value().getItemProduct()), recipe.value()));
+        }
+
         createBlockDataMapCategory(registry, FISSION_MODERATOR_DATA, "fission_moderator", HEAVY_WATER_MODERATOR);
         createBlockDataMapCategory(registry, FISSION_REFLECTOR_DATA, "fission_reflector", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"));
 
@@ -249,6 +262,13 @@ public class ModEmiPlugin implements EmiPlugin {
         for (RecipeHolder<FissionCoolantHeaterRecipe> recipe : manager.getAllRecipesFor(COOLANT_HEATER_RECIPE_TYPE.get())) {
             registry.addRecipe(new EmiSaltCoolingRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
             registry.addWorkstation(EMI_SALT_COOLING_CATEGORY, EmiStack.of(recipe.value().getHeater()));
+        }
+
+        registry.addCategory(EMI_PEBBLE_COOLER_CATEGORY);
+        registry.addRecipeHandler(FISSION_COOLER_MENU_TYPE.get(), new SimpleRecipeHandler<>(EMI_PEBBLE_COOLER_CATEGORY));
+        for (RecipeHolder<PebbleFissionCoolerRecipe> recipe : manager.getAllRecipesFor(COOLER_RECIPE_TYPE.get())) {
+            registry.addRecipe(new EmiPebbleCoolerRecipe(recipe.id(), getEmiFluidIngredient(recipe.value().getFluidIngredient()), getEmiFluidIngredient(recipe.value().getFluidProduct()), recipe.value()));
+            registry.addWorkstation(EMI_PEBBLE_COOLER_CATEGORY, EmiStack.of(recipe.value().getCooler()));
         }
 
         registry.addCategory(EMI_EMERGENCY_COOLING_CATEGORY);

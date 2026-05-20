@@ -59,11 +59,13 @@ public class ModJeiPlugin implements IModPlugin {
     public static IRecipeCategory<CollectorRecipe> JEI_COLLECTOR_CATEGORY;
     public static IRecipeCategory<TurbineRecipe> JEI_TURBINE_CATEGORY;
     public static IRecipeCategory<SolidFissionRecipe> JEI_SOLID_FISSION_CATEGORY;
+    public static IRecipeCategory<PebbleFissionRecipe> JEI_PEBBLE_FISSION_CATEGORY;
     public static IRecipeCategory<SaltFissionRecipe> JEI_SALT_FISSION_CATEGORY;
     public static IRecipeCategory<FissionIrradiatorRecipe> JEI_IRRADIATOR_CATEGORY;
     public static IRecipeCategory<FissionHeatingRecipe> JEI_VENT_CATEGORY;
     public static IRecipeCategory<FissionEmergencyCoolingRecipe> JEI_EMERGENCY_COOLING_CATEGORY;
     public static IRecipeCategory<FissionCoolantHeaterRecipe> JEI_SALT_COOLING_CATEGORY;
+    public static IRecipeCategory<PebbleFissionCoolerRecipe> JEI_GAS_COOLING_CATEGORY;
     public static IRecipeCategory<HeatExchangerRecipe> JEI_HEAT_EXCHANGER_CATEGORY;
     public static IRecipeCategory<CondenserRecipe> JEI_CONDENSER_CATEGORY;
     public static IRecipeCategory<IJeiBasicInfoRecipe> JEI_CONDENSER_DISSIPATION_CATEGORY;
@@ -99,6 +101,8 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(JEI_TURBINE_CATEGORY);
         JEI_SOLID_FISSION_CATEGORY = new JeiSolidFissionCategory(helper);
         registration.addRecipeCategories(JEI_SOLID_FISSION_CATEGORY);
+        JEI_PEBBLE_FISSION_CATEGORY = new JeiPebbleFissionCategory(helper);
+        registration.addRecipeCategories(JEI_PEBBLE_FISSION_CATEGORY);
         JEI_SALT_FISSION_CATEGORY = new JeiSaltFissionCategory(helper);
         registration.addRecipeCategories(JEI_SALT_FISSION_CATEGORY);
         JEI_IRRADIATOR_CATEGORY = new JeiFissionIrradiatorCategory(helper);
@@ -109,6 +113,8 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(JEI_EMERGENCY_COOLING_CATEGORY);
         JEI_SALT_COOLING_CATEGORY = new JeiSaltCoolingCategory(helper);
         registration.addRecipeCategories(JEI_SALT_COOLING_CATEGORY);
+        JEI_GAS_COOLING_CATEGORY = new JeiGasCoolingCategory(helper);
+        registration.addRecipeCategories(JEI_GAS_COOLING_CATEGORY);
         JEI_MODERATOR_CATEGORY = new JeiBasicInfoCategory(helper, "fission_moderator", HEAVY_WATER_MODERATOR);
         registration.addRecipeCategories(JEI_MODERATOR_CATEGORY);
         JEI_REFLECTOR_CATEGORY = new JeiBasicInfoCategory(helper, "fission_reflector", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"));
@@ -150,12 +156,14 @@ public class ModJeiPlugin implements IModPlugin {
 
         registration.addRecipeCatalysts(JEI_COLLECTOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, COLLECTOR_MAP.values().stream().map(DeferredBlock::toStack).toList());
         registration.addRecipeCatalysts(JEI_TURBINE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(TURBINE_MAP.get("turbine_controller").toStack()));
-        registration.addRecipeCatalysts(JEI_SOLID_FISSION_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").toStack()));
-        registration.addRecipeCatalysts(JEI_SALT_FISSION_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("molten_salt_fission_controller").toStack()));
+        registration.addRecipeCatalysts(JEI_SOLID_FISSION_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").toStack(), FISSION_REACTOR_MAP.get("fission_fuel_cell").toStack()));
+        registration.addRecipeCatalysts(JEI_PEBBLE_FISSION_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("pebble_bed_fission_controller").toStack(), FISSION_REACTOR_MAP.get("fission_fuel_chamber").toStack()));
+        registration.addRecipeCatalysts(JEI_SALT_FISSION_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("molten_salt_fission_controller").toStack(), FISSION_REACTOR_MAP.get("fission_fuel_vessel").toStack()));
         registration.addRecipeCatalysts(JEI_IRRADIATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("fission_irradiator").toStack()));
         registration.addRecipeCatalysts(JEI_VENT_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("fission_vent").toStack()));
         registration.addRecipeCatalysts(JEI_EMERGENCY_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(FISSION_REACTOR_MAP.get("fission_vent").toStack()));
-        registration.addRecipeCatalysts(JEI_SALT_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, Stream.concat(FISSION_ENTITY_TYPE.get("coolant_heater").get().getValidBlocks().stream().map(e -> e.asItem().getDefaultInstance()), Stream.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").toStack())).toList());
+        registration.addRecipeCatalysts(JEI_SALT_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, FISSION_ENTITY_TYPE.get("coolant_heater").get().getValidBlocks().stream().map(e -> e.asItem().getDefaultInstance()).toList());
+        registration.addRecipeCatalysts(JEI_GAS_COOLING_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, FISSION_ENTITY_TYPE.get("cooler").get().getValidBlocks().stream().map(e -> e.asItem().getDefaultInstance()).toList());
         registration.addRecipeCatalysts(JEI_MODERATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.BLOCK.getDataMap(FISSION_MODERATOR_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e)).asItem().getDefaultInstance()).toList());
         registration.addRecipeCatalysts(JEI_REFLECTOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, BuiltInRegistries.BLOCK.getDataMap(FISSION_REFLECTOR_DATA).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e)).asItem().getDefaultInstance()).toList());
         Stream<ItemStack> hx_tubes = HX_ENTITY_TYPE.get("tube").get().getValidBlocks().stream().map(e -> e.asItem().getDefaultInstance());
@@ -193,11 +201,13 @@ public class ModJeiPlugin implements IModPlugin {
 
         registration.addRecipes(JEI_TURBINE_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(TURBINE_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_SOLID_FISSION_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(SOLID_FISSION_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(JEI_PEBBLE_FISSION_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(PEBBLE_FISSION_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_SALT_FISSION_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(SALT_FISSION_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_IRRADIATOR_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(FISSION_IRRADIATOR_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_VENT_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(FISSION_HEATING_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_EMERGENCY_COOLING_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(FISSION_EMERGENCY_COOLING_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         registration.addRecipes(JEI_SALT_COOLING_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(COOLANT_HEATER_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
+        registration.addRecipes(JEI_GAS_COOLING_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(COOLER_RECIPE_TYPE.get()).stream().map(RecipeHolder::value).toList());
         createItemDataMapCategory(registration, JEI_MODERATOR_CATEGORY, FISSION_MODERATOR_DATA);
         createItemDataMapCategory(registration, JEI_REFLECTOR_CATEGORY, FISSION_REFLECTOR_DATA);
 

@@ -81,44 +81,43 @@ public class NBTHelper {
     // Inventory
 
     @SafeVarargs
-    public static CompoundTag writeAllItems(CompoundTag tag, HolderLookup.Provider registries, NonNullList<ItemStack>... lists) {
-        return writeAllItems(tag, registries, "Items", lists);
+    public static CompoundTag writeAllItems(CompoundTag tag, HolderLookup.Provider registries, NonNullList<ItemStack>... stackLists) {
+        return writeAllItems(tag, registries, "Items", stackLists);
     }
 
     @SafeVarargs
-    public static CompoundTag writeAllItems(CompoundTag tag, HolderLookup.Provider registries, String name, NonNullList<ItemStack>... lists) {
-        if (lists.length == 0) {
+    public static CompoundTag writeAllItems(CompoundTag tag, HolderLookup.Provider registries, String name, NonNullList<ItemStack>... stackLists) {
+        if (stackLists.length == 0) {
             return tag;
         }
-        ListTag nbttaglist = new ListTag();
+        ListTag tagList = new ListTag();
 
-        for (NonNullList<ItemStack> list : lists) {
-            CompoundTag nbttagcompound = new CompoundTag();
-            ContainerHelper.saveAllItems(nbttagcompound, list, registries);
-            nbttaglist.add(nbttagcompound);
+        for (NonNullList<ItemStack> stackList : stackLists) {
+            CompoundTag stackTag = new CompoundTag();
+            ContainerHelper.saveAllItems(stackTag, stackList, registries);
+            tagList.add(stackTag);
         }
 
-        tag.put(name, nbttaglist);
+        tag.put(name, tagList);
 
         return tag;
     }
 
     @SafeVarargs
-    public static void readAllItems(CompoundTag tag, HolderLookup.Provider registries, NonNullList<ItemStack>... lists) {
-        readAllItems(tag, registries, "Items", lists);
+    public static void readAllItems(CompoundTag tag, HolderLookup.Provider registries, NonNullList<ItemStack>... stackLists) {
+        readAllItems(tag, registries, "Items", stackLists);
     }
 
     @SafeVarargs
-    public static void readAllItems(CompoundTag tag, HolderLookup.Provider registries, String name, NonNullList<ItemStack>... lists) {
-        if (lists.length == 0) {
+    public static void readAllItems(CompoundTag tag, HolderLookup.Provider registries, String name, NonNullList<ItemStack>... stackLists) {
+        if (stackLists.length == 0) {
             return;
         }
-        ListTag nbttaglist = tag.getList(name, 10);
+        ListTag tagList = tag.getList(name, 10);
 
-        int n = 0;
-        for (int i = 0; i < nbttaglist.size(); ++i) {
-            CompoundTag nbttagcompound = nbttaglist.getCompound(i);
-            ContainerHelper.loadAllItems(nbttagcompound, lists[i], registries);
+        for (int tagIndex = 0; tagIndex < tagList.size(); ++tagIndex) {
+            CompoundTag stackTag = tagList.getCompound(tagIndex);
+            ContainerHelper.loadAllItems(stackTag, stackLists[tagIndex], registries);
         }
     }
 

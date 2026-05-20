@@ -34,7 +34,7 @@ import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
-import static com.nred.nuclearcraft.handler.TileInfoHandler.TILE_CONTAINER_INFO_MAP;
+import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.TILE_CONTAINER_INFO_MAP;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getTimeString;
@@ -123,7 +123,7 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
         guiGraphics.blit(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 176, 3, (int) (((double) System.currentTimeMillis() / 100 / recipe.getProcessTimeMultiplier()) % 37), 38);
 
         if (new ScreenRectangle(recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2).containsPoint((int) mouseX, (int) mouseY)) {
-            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", Component.literal(getTimeString(recipe.getBaseProcessTime(info.getDefaultProcessTime()))).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", Component.literal(getFEString(recipe.getBaseProcessPower(info.getDefaultProcessPower()), true)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE)), Optional.empty(), (int) mouseX, (int) mouseY);
+            guiGraphics.renderTooltip(Minecraft.getInstance().font, List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", Component.literal(getTimeString(recipe.getBaseProcessTime(info.getDefaultProcessTime()))).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", Component.literal(getFEString(recipe.getBaseProcessPower(info.getDefaultProcessPower()), true) + "/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE)), Optional.empty(), (int) mouseX, (int) mouseY);
         }
     }
 }

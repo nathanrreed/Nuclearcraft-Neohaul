@@ -2,15 +2,15 @@
   "type": "nuclearcraftneohaul:alloy_furnace_recipe",
   "itemIngredients": [
     {
-      "count": 15,
-      "ingredient": {
-        "item": "nuclearcraftneohaul:molybdenum_dust"
-      }
-    },
-    {
       "count": 1,
       "ingredient": {
         "item": "nuclearcraftneohaul:zirconium_ingot"
+      }
+    },
+    {
+      "count": 15,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:molybdenum_dust"
       }
     }
   ],

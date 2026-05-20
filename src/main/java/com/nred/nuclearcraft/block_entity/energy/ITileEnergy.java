@@ -163,13 +163,17 @@ public interface ITileEnergy extends ITile {
         if (hasConfigurableEnergyConnections()) {
             for (int i = 0; i < 6; ++i) {
                 if (nbt.contains("energyConnections" + i)) {
-                    getEnergyConnections()[i] = EnergyConnection.values()[nbt.getInt("energyConnections" + i)];
+                    setEnergyConnection(EnergyConnection.values()[nbt.getInt("energyConnections" + i)], Direction.from3DDataValue(i));
                 }
             }
         }
+
+        if (getTile().hasLevel()) {
+            markDirtyAndNotify(true);
+        }
     }
 
-//    // Capabilities
+    // Capabilities
 
     default boolean hasEnergySideCapability(@Nullable Direction side) {
         return side == null || getEnergyConnection(side).canConnect();

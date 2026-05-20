@@ -1,11 +1,18 @@
 package com.nred.nuclearcraft.multiblock;
 
-import com.nred.nuclearcraft.block_entity.*;
+import com.nred.nuclearcraft.block_entity.ITileFiltered;
 import com.nred.nuclearcraft.block_entity.fission.FissionShieldEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.block_entity.multiblock.ITileLogicMultiblockPart;
+import com.nred.nuclearcraft.block_entity.multiblock.ITileSorptionPart;
+import com.nred.nuclearcraft.block_entity.multiblock.ITileSorptionPart.SorptionKey;
+import com.nred.nuclearcraft.block_entity.multiblock.manager.ITileManager;
+import com.nred.nuclearcraft.block_entity.multiblock.manager.ITileManagerListener;
+import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePort;
+import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePortTarget;
 import com.nred.nuclearcraft.util.PosHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.*;
@@ -16,6 +23,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,6 +32,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogicMultiblock<MULTIBLOCK, LOGIC>, LOGIC extends MultiblockLogic<MULTIBLOCK, LOGIC>> implements IMultiblockLogic<MULTIBLOCK, LOGIC> {
     public final MULTIBLOCK multiblock;
@@ -109,6 +119,8 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
 
     public abstract List<Pair<Class<? extends IMultiblockPart<MULTIBLOCK>>, String>> getPartBlacklist();
 
+    // Utility Methods
+
     public boolean containsBlacklistedPart() {
         for (Pair<Class<? extends IMultiblockPart<MULTIBLOCK>>, String> pair : getPartBlacklist()) {
             for (long posLong : multiblock.getPartMap(pair.getLeft()).keySet()) {
@@ -117,6 +129,51 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
             }
         }
         return false;
+    }
+
+    public static class SorptionInfo {
+        public int inputCount = 0;
+        public int outputCount = 0;
+    }
+
+    public <PART extends ITileSorptionPart<MULTIBLOCK> & ITileLogicMultiblockPart<MULTIBLOCK, LOGIC>> Object2ObjectMap<SorptionKey, SorptionInfo> getSorptionDataMap(Class<PART> partClass) {
+        Map<Long, PART> partMap = getPartMap(partClass);
+        Object2ObjectMap<SorptionKey, SorptionInfo> dataMap = new Object2ObjectOpenHashMap<>();
+
+        for (PART part : partMap.values()) {
+            SorptionKey key = part.getSorptionKey();
+            SorptionInfo info = dataMap.get(key);
+            if (info == null) {
+                info = new SorptionInfo();
+                dataMap.put(key, info);
+            }
+            if (part.canReceive()) {
+                ++info.inputCount;
+            }
+            if (part.canExtract()) {
+                ++info.outputCount;
+            }
+        }
+
+        return dataMap;
+    }
+
+    public <PART extends ITileSorptionPart<MULTIBLOCK> & ITileLogicMultiblockPart<MULTIBLOCK, LOGIC>> boolean isMissingSorption(Class<PART> partClass, String partName) {
+        Object2ObjectMap<SorptionKey, SorptionInfo> dataMap = this.getSorptionDataMap(partClass);
+        for (Object2ObjectMap.Entry<SorptionKey, SorptionInfo> entry : dataMap.object2ObjectEntrySet()) {
+            SorptionInfo info = entry.getValue();
+            if (info.inputCount <= 0 || info.outputCount <= 0) {
+                Map<Long, PART> partMap = getPartMap(partClass);
+                String suffix = info.inputCount > 0 ? "output" : (info.outputCount > 0 ? "input" : "both");
+                multiblock.setLastError(MODID + ".multiblock_validation.sorption.missing_" + suffix, partMap.keySet(), Component.translatable(partName));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public <PART extends ITileSorptionPart<MULTIBLOCK> & ITileLogicMultiblockPart<MULTIBLOCK, LOGIC>, TARGET extends ITileLogicMultiblockPart<MULTIBLOCK, LOGIC>> boolean isMissingSorption(Class<PART> partClass, Class<TARGET> targetClass, String partName) {
+        return !getPartMap(targetClass).isEmpty() && isMissingSorption(partClass, partName);
     }
 
     // Multiblock Part Helpers

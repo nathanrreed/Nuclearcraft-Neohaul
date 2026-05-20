@@ -105,6 +105,13 @@ public class FissionCoolantHeaterType implements StringRepresentable, IMultibloc
     }
 
     public ResourceLocation getCoolantId() {
+        if (coolantId == null) {
+            if (this.id == 0) {
+                coolantId = BuiltInRegistries.FLUID.getKey(COOLANT_MAP.get("nak").still.value());
+            } else if (!name.contains(":")) {
+                coolantId = BuiltInRegistries.FLUID.getKey(COOLANT_MAP.get(getName() + "_nak").still.value());
+            }
+        }
         return coolantId;
     }
 
@@ -124,13 +131,6 @@ public class FissionCoolantHeaterType implements StringRepresentable, IMultibloc
 
     @Override
     public int getId() {
-        if (coolantId == null) {
-            if (this.id == 0) {
-                coolantId = BuiltInRegistries.FLUID.getKey(COOLANT_MAP.get("nak").still.value());
-            } else if (!name.contains(":")) {
-                coolantId = BuiltInRegistries.FLUID.getKey(COOLANT_MAP.get(getName() + "_nak").still.value());
-            }
-        }
         return this.id;
     }
 

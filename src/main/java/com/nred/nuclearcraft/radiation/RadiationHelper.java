@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.radiation;
 
-import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.block_entity.dummy.TileDummy;
 import com.nred.nuclearcraft.block_entity.radiation.ITileRadiationEnvironment;
 import com.nred.nuclearcraft.capability.radiation.IRadiation;
@@ -189,7 +189,7 @@ public class RadiationHelper {
             rawRadiation += radiationSource.getRadiationLevel();
         }
 
-        if (blockEntity instanceof TilePartAbstract<?> part) {
+        if (blockEntity instanceof AbstractPartBlockEntity<?> part) {
             IRadiationSource multiblockSource = part.getMultiblockRadiationSource();
             if (multiblockSource != null) {
                 rawRadiation += multiblockSource.getRadiationLevel();

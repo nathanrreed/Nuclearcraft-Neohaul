@@ -1,0 +1,20 @@
+{
+  "type": "nuclearcraftneohaul:condenser_recipe",
+  "coolingRequired": 32.0,
+  "flowDirectionBonus": 0.0,
+  "fluidIngredient": {
+    "amount": 2,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:fluoromethane_exhaust"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:fluoromethane"
+    }
+  },
+  "inputTemp": 900,
+  "outputTemp": 300,
+  "preferredFlowDir": 0
+}

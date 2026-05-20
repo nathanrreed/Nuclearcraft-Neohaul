@@ -1,7 +1,7 @@
 {
   "type": "nuclearcraftneohaul:condenser_recipe",
   "coolingRequired": 32.0,
-  "flowDirectionBonus": 0.5,
+  "flowDirectionBonus": 1.0,
   "fluidIngredient": {
     "amount": 16,
     "ingredient": {

@@ -11,7 +11,7 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.FissionIrradiatorMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -52,14 +52,12 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
-    protected final @Nonnull NonNullList<ItemStack> consumedStacks;
 
     protected final @Nonnull NonNullList<ItemStack> filterStacks;
 
     protected @Nonnull InventoryConnection[] inventoryConnections;
 
     protected final @Nonnull List<Tank> tanks;
-    protected final @Nonnull List<Tank> consumedTanks;
 
     protected @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(Collections.emptyList());
 
@@ -70,7 +68,7 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     public long minFluxPerTick = 0, maxFluxPerTick = -1;
 
     public double time, resetTime;
-    public boolean isProcessing, canProcessInputs, hasConsumed;
+    public boolean isProcessing, canProcessInputs;
     public boolean isRunningSimulated;
 
     protected RecipeInfo<FissionIrradiatorRecipe> recipeInfo = null;
@@ -89,17 +87,15 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
 
     public FissionIrradiatorEntity(BlockPos pos, BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("irradiator").get(), pos, blockState);
-        info = TileInfoHandler.getProcessorContainerInfo("fission_irradiator");
+        info = BlockEntityInfoHandler.getProcessorContainerInfo("fission_irradiator");
 
         inventoryStacks = info.getInventoryStacks();
-        consumedStacks = info.getConsumedStacks();
 
         filterStacks = info.getInventoryStacks();
 
         inventoryConnections = ITileInventory.inventoryConnectionAll(info.nonItemSorptions());
 
         tanks = Collections.emptyList();
-        consumedTanks = info.getConsumedTanks();
     }
 
     @Override
@@ -174,7 +170,6 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
             isProcessing = isProcessing(checkCluster, simulate);
             isRunningSimulated = false;
         }
-        hasConsumed = hasConsumed();
     }
 
     @Override
@@ -358,12 +353,12 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @Nonnull NonNullList<ItemStack> getConsumedStacks() {
-        return consumedStacks;
+        return getInventoryStacks();
     }
 
     @Override
     public @Nonnull List<Tank> getConsumedTanks() {
-        return consumedTanks;
+        return getTanks();
     }
 
     @Override
@@ -427,12 +422,11 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
 
     @Override
     public boolean getHasConsumed() {
-        return hasConsumed;
+        return false;
     }
 
     @Override
     public void setHasConsumed(boolean hasConsumed) {
-        this.hasConsumed = hasConsumed;
     }
 
     @Override
@@ -463,7 +457,7 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     }
 
     public boolean readyToProcess(boolean checkCluster) {
-        return canProcessInputs && hasConsumed && isMachineAssembled() && (!checkCluster || cluster != null);
+        return canProcessInputs && isMachineAssembled() && (!checkCluster || cluster != null);
     }
 
     @Override
@@ -538,13 +532,6 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     @Override
     public int getMaxStackSize() {
         return !DEFAULT_NON.equals(masterPortPos) ? masterPort.getMaxStackSize() : IBasicProcessor.super.getMaxStackSize();
-    }
-
-    @Override
-    public void clearAllSlots() {
-        Collections.fill(inventoryStacks, ItemStack.EMPTY);
-        Collections.fill(consumedStacks, ItemStack.EMPTY);
-        refreshAll();
     }
 
     @Override
@@ -717,13 +704,13 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
 
     @Override
     public CompoundTag writeInventory(CompoundTag nbt, HolderLookup.Provider registries) {
-        NBTHelper.writeAllItems(nbt, registries, inventoryStacks, filterStacks, consumedStacks);
+        NBTHelper.writeAllItems(nbt, registries, inventoryStacks, filterStacks);
         return nbt;
     }
 
     @Override
     public void readInventory(CompoundTag nbt, HolderLookup.Provider registries) {
-        NBTHelper.readAllItems(nbt, registries, inventoryStacks, filterStacks, consumedStacks);
+        NBTHelper.readAllItems(nbt, registries, inventoryStacks, filterStacks);
     }
 
     // ComputerCraft

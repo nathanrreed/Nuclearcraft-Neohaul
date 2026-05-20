@@ -76,7 +76,7 @@ public class SolidFissionControllerScreen extends LogicMultiblockControllerScree
         Component efficiency = NCUtil.isModifierKeyDown() ? Component.translatable(MODID + ".tooltip.fission_controller.heat_mult", NCMath.pcDecimalPlaces(multiblock.meanHeatMult, 1)) : Component.translatable(MODID + ".tooltip.fission_controller.efficiency", NCMath.pcDecimalPlaces(multiblock.meanEfficiency, 1));
         guiGraphics.drawCenteredString(this.font, efficiency, middle_x, getGuiTop() + 34, fontColor);
 
-        Component outputRate = Component.translatable(MODID + ".tooltip.solid_fission_controller.output_rate", UnitHelper.prefix(getLogic().heatingOutputRateFP, 5, "B/t", -1));
+        Component outputRate = Component.translatable(MODID + ".tooltip.solid_fission_controller.output_rate", UnitHelper.prefix(Math.round(getLogic().heatingOutputRateFP), 5, "B/t", -1));
         guiGraphics.drawCenteredString(this.font, outputRate, middle_x, getGuiTop() + 46, fontColor);
 
         Component usefulParts = NCUtil.isModifierKeyDown() ? Component.translatable(MODID + ".tooltip.fission_controller.sparsity", NCMath.pcDecimalPlaces(multiblock.sparsityEfficiencyMult, 1)) : Component.translatable(MODID + ".tooltip.fission_controller.useful_parts", multiblock.usefulPartCount + "/" + multiblock.getInteriorVolume());
@@ -92,5 +92,13 @@ public class SolidFissionControllerScreen extends LogicMultiblockControllerScree
 
         int h = NCMath.toInt(Math.round((double) logic.heatBuffer.getHeatStored() / (double) logic.heatBuffer.getHeatCapacity() * 164));
         guiGraphics.blitSprite(getGuiTexture(), 256, 256, 3, 114, getGuiLeft() + 6, getGuiTop() + 102, h, 6);
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        super.drawGuiContainerBackgroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
+
+        int h = NCMath.toInt(Math.round((double) logic.heatBuffer.getHeatStored() / (double) logic.heatBuffer.getHeatCapacity() * 164));
+        guiGraphics.blitSprite(getGuiTexture(), 256, 256, 3, 114, leftPos + 6, topPos + 102, h, 6);
     }
 }

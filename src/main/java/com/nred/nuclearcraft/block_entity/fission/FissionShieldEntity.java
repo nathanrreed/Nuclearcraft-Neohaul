@@ -165,10 +165,6 @@ public class FissionShieldEntity extends AbstractFissionEntity implements IFissi
     }
 
     @Override
-    public void onAddedToModeratorCache(ModeratorBlockInfo thisInfo) {
-    }
-
-    @Override
     public void onModeratorLineComplete(ModeratorLine line, ModeratorBlockInfo thisInfo, Direction dir) {
         inCompleteModeratorLine = true;
         if (validActiveModeratorPos[dir.ordinal()]) {

@@ -7,6 +7,8 @@ import com.nred.nuclearcraft.render.BlockHighlightTracker;
 import com.nred.nuclearcraft.util.NBTHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.ints.*;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import it.unimi.dsi.fastutil.objects.ObjectSet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -834,11 +836,13 @@ public abstract class QuantumComputerGateEntity extends AbstractQuantumComputerE
     protected void highlightQubits(ServerPlayer player, IntCollection n) {
         QuantumComputer qc = getMultiblockController().orElse(null);
         if (qc != null) {
+            ObjectSet<BlockPos> posSet = new ObjectOpenHashSet<>();
             for (QuantumComputerQubitEntity qubit : qc.getQubits()) {
                 if (n.contains(qubit.id)) {
-                    BlockHighlightTracker.sendPacket(player, qubit.getBlockPos(), 5000);
+                    posSet.add(qubit.getBlockPos());
                 }
             }
+            BlockHighlightTracker.sendPacket(player, posSet, 5000);
         }
     }
 

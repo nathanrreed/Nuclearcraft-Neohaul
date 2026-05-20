@@ -26,7 +26,7 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
-import static com.nred.nuclearcraft.handler.TileInfoHandler.TILE_CONTAINER_INFO_MAP;
+import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.TILE_CONTAINER_INFO_MAP;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.removeBarriers;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getTimeString;
@@ -112,6 +112,6 @@ public class EmiProcessorRecipe extends BasicEmiRecipe {
             }
         }
 
-        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 3, (int) (time * 10.0), true, false, false).tooltipText(List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", Component.literal(getTimeString(time)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", Component.literal(getFEString(power, true)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE)));
+        widgets.addAnimatedTexture(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 37, recipeViewerInfo.rect().height() - recipeViewerInfo.progress().y() * 2, 176, 3, (int) (time * 10.0), true, false, false).tooltipText(List.of(Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_time", Component.literal(getTimeString(time)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN), Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.process_power", Component.literal(getFEString(power, true) + "/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE)));
     }
 }

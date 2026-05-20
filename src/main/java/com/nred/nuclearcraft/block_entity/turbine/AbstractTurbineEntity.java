@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.turbine;
 
-import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.multiblock.turbine.ITurbinePart;
 import com.nred.nuclearcraft.multiblock.turbine.ITurbinePartType;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class AbstractTurbineEntity extends TilePartAbstract<Turbine> implements IMultiblockPartTypeProvider<Turbine, ITurbinePartType>, ITurbinePart {
+public class AbstractTurbineEntity extends AbstractPartBlockEntity<Turbine> implements IMultiblockPartTypeProvider<Turbine, ITurbinePartType>, ITurbinePart {
     public AbstractTurbineEntity(final BlockEntityType<?> type, final BlockPos position, final BlockState blockState) {
         super(type, position, blockState);
     }

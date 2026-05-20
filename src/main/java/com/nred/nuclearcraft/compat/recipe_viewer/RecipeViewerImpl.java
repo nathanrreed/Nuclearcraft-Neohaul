@@ -70,7 +70,7 @@ public class RecipeViewerImpl {
             ArrayList<Component> list = new ArrayList<>(2);
 
             list.add(Component.translatable(MODID + ".recipe_viewer.decay_gen_lifetime", Component.literal(UnitHelper.applyTimeUnitShort(recipe.getDecayGeneratorLifetime(), 3, 1))).withStyle(ChatFormatting.WHITE).withStyle(ChatFormatting.GREEN));
-            list.add(Component.translatable(MODID + ".recipe_viewer.decay_gen_power", Component.literal(UnitHelper.prefix(recipe.getDecayGeneratorPower(), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            list.add(Component.translatable(MODID + ".recipe_viewer.decay_gen_power", Component.literal(UnitHelper.prefix(recipe.getDecayGeneratorPower(), 5, "FE/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
 
 
             double radiation = recipe.getDecayGeneratorRadiation();
@@ -120,7 +120,7 @@ public class RecipeViewerImpl {
         public List<Component> progressTooltips(int x, int y) {
             ArrayList<Component> list = new ArrayList<>(2);
             list.addAll(List.of(
-                    Component.translatable(MODID + ".recipe_viewer.turbine_energy_density", Component.literal(NCMath.decimalPlaces(recipe.getTurbinePowerPerMB(), 2) + " RF/mB").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Component.translatable(MODID + ".recipe_viewer.turbine_energy_density", Component.literal(NCMath.decimalPlaces(recipe.getTurbinePowerPerMB(), 2) + " FE/mB").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.translatable(MODID + ".recipe_viewer.turbine_expansion", Component.literal(NCMath.pcDecimalPlaces(recipe.getTurbineExpansionLevel(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY)));
             if (recipe.getTurbineSpinUpMultiplier() != 1.0)
                 list.add(Component.translatable(MODID + ".recipe_viewer.turbine_spin_up_multiplier", Component.literal(NCMath.pcDecimalPlaces(recipe.getTurbineSpinUpMultiplier(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
@@ -144,7 +144,10 @@ public class RecipeViewerImpl {
             list.add(Component.translatable(MODID + ".info.fission_fuel.base_heat", Component.literal(UnitHelper.prefix(recipe.getFissionFuelHeat(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
             list.add(Component.translatable(MODID + ".info.fission_fuel.base_efficiency", Component.literal(NCMath.pcDecimalPlaces(recipe.getFissionFuelEfficiency(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
             list.add(Component.translatable(MODID + ".info.fission_fuel.criticality", Component.literal(recipe.getFissionFuelCriticality() + " N/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.RED));
-
+            int intrinsicFlux = recipe.getFissionFuelIntrinsicFlux();
+            if (intrinsicFlux > 0) {
+                list.add(Component.translatable(MODID + ".info.fission_fuel.intrinsic_flux", Component.literal(intrinsicFlux + " N/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA));
+            }
             if (fission_decay_mechanics) {
                 list.add(Component.translatable(MODID + ".info.fission_fuel.decay_factor", Component.literal(NCMath.pcDecimalPlaces(recipe.getFissionFuelDecayFactor(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
             }
@@ -154,7 +157,43 @@ public class RecipeViewerImpl {
 
             double radiation = recipe.getFissionFuelRadiation();
             if (radiation > 0D) {
-                list.add(Component.translatable(MODID + ".recipe_viewer.radiation_per_flux", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+                list.add(Component.translatable(MODID + ".recipe_viewer.base_depletion_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+            }
+
+            return list;
+        }
+
+        public int getProgressTime() {
+            return NCMath.toInt(recipe.getFissionFuelTime() * 16.0);
+        }
+    }
+
+    public static class PebbleFissionRecipeViewer extends RecipeViewer<PebbleFissionRecipe> {
+        public PebbleFissionRecipeViewer(PebbleFissionRecipe recipe) {
+            super(recipe);
+        }
+
+        public List<Component> progressTooltips(int x, int y) {
+            ArrayList<Component> list = new ArrayList<>(4);
+
+            list.add(Component.translatable(MODID + ".info.fission_fuel.base_time", Component.literal(UnitHelper.applyTimeUnitShort(recipe.getFissionFuelTime(), 3)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
+            list.add(Component.translatable(MODID + ".info.fission_fuel.base_heat", Component.literal(UnitHelper.prefix(recipe.getFissionFuelHeat(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
+            list.add(Component.translatable(MODID + ".info.fission_fuel.base_efficiency", Component.literal(NCMath.pcDecimalPlaces(recipe.getFissionFuelEfficiency(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            list.add(Component.translatable(MODID + ".info.fission_fuel.criticality", Component.literal(recipe.getFissionFuelCriticality() + " N/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.RED));
+            int intrinsicFlux = recipe.getFissionFuelIntrinsicFlux();
+            if (intrinsicFlux > 0) {
+                list.add(Component.translatable(MODID + ".info.fission_fuel.intrinsic_flux", Component.literal(intrinsicFlux + " N/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA));
+            }
+            if (fission_decay_mechanics) {
+                list.add(Component.translatable(MODID + ".info.fission_fuel.decay_factor", Component.literal(NCMath.pcDecimalPlaces(recipe.getFissionFuelDecayFactor(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
+            }
+            if (recipe.getFissionFuelSelfPriming()) {
+                list.add(Component.translatable(MODID + ".info.fission_fuel.self_priming").withStyle(ChatFormatting.DARK_AQUA));
+            }
+
+            double radiation = recipe.getFissionFuelRadiation();
+            if (radiation > 0D) {
+                list.add(Component.translatable(MODID + ".recipe_viewer.base_depletion_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
             }
 
             return list;
@@ -178,7 +217,10 @@ public class RecipeViewerImpl {
             list.add(Component.translatable(MODID + ".info.fission_fuel.base_heat", Component.literal(UnitHelper.prefix(recipe.getFissionFuelHeat(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
             list.add(Component.translatable(MODID + ".info.fission_fuel.base_efficiency", Component.literal(NCMath.pcDecimalPlaces(recipe.getFissionFuelEfficiency(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
             list.add(Component.translatable(MODID + ".info.fission_fuel.criticality", Component.literal(recipe.getFissionFuelCriticality() + " N/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.RED));
-
+            int intrinsicFlux = recipe.getFissionFuelIntrinsicFlux();
+            if (intrinsicFlux > 0) {
+                list.add(Component.translatable(MODID + ".info.fission_fuel.intrinsic_flux", Component.literal(intrinsicFlux + " N/t").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA));
+            }
             if (fission_decay_mechanics) {
                 list.add(Component.translatable(MODID + ".info.fission_fuel.decay_factor", Component.literal(NCMath.pcDecimalPlaces(recipe.getFissionFuelDecayFactor(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
             }
@@ -188,7 +230,7 @@ public class RecipeViewerImpl {
 
             double radiation = recipe.getFissionFuelRadiation();
             if (radiation > 0D) {
-                list.add(Component.translatable(MODID + ".recipe_viewer.radiation_per_flux", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+                list.add(Component.translatable(MODID + ".recipe_viewer.base_depletion_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
             }
 
             return list;
@@ -196,7 +238,7 @@ public class RecipeViewerImpl {
 
         @Override
         public int getProgressTime() {
-            return NCMath.toInt(recipe.getSaltFissionFuelTime() * 9.0);
+            return NCMath.toInt(recipe.getSaltFissionFuelTime() * 144.0);
         }
     }
 
@@ -209,9 +251,34 @@ public class RecipeViewerImpl {
         public List<Component> progressTooltips(int x, int y) {
             ArrayList<Component> list = new ArrayList<>(2);
 
-            list.add(Component.translatable(MODID + ".recipe_viewer.coolant_heater_rate", Component.literal(UnitHelper.prefix(recipe.getCoolantHeaterCoolingRate(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.BLUE));
+            list.add(Component.translatable(MODID + ".recipe_viewer.cooling_rate", Component.literal(UnitHelper.prefix(recipe.getFissionCoolingRate(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.BLUE));
+            list.add(Component.translatable(MODID + ".recipe_viewer.fission_heating_required", Component.literal(UnitHelper.prefix(recipe.getFissionCoolingRate(), 5, "H")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
 
-            String coolantHeaterInfo = FissionPlacement.TOOLTIP_MAP.getOrDefault(recipe.getCoolantHeaterPlacementRule(), "");
+            String coolantHeaterInfo = FissionPlacement.TOOLTIP_MAP.getOrDefault(recipe.getFissionCoolingPlacementRule(), "");
+            if (!coolantHeaterInfo.isEmpty()) {
+                list.add(Component.literal(coolantHeaterInfo).withStyle(ChatFormatting.AQUA));
+            }
+            return list;
+        }
+
+        @Override
+        public int getProgressTime() {
+            return 2000;
+        }
+    }
+
+    public static class PebbleFissionCoolerRecipeViewer extends RecipeViewer<PebbleFissionCoolerRecipe> {
+        public PebbleFissionCoolerRecipeViewer(PebbleFissionCoolerRecipe recipe) {
+            super(recipe);
+        }
+
+        @Override
+        public List<Component> progressTooltips(int x, int y) {
+            ArrayList<Component> list = new ArrayList<>(2);
+
+            list.add(Component.translatable(MODID + ".recipe_viewer.cooling_rate", Component.literal(UnitHelper.prefix(recipe.getFissionCoolingRate(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.BLUE));
+            list.add(Component.translatable(MODID + ".recipe_viewer.fission_heating_required", Component.literal(UnitHelper.prefix(fission_cooler_coolant_heat_per_mb, 5, "H")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
+            String coolantHeaterInfo = FissionPlacement.TOOLTIP_MAP.getOrDefault(recipe.getFissionCoolingPlacementRule(), "");
             if (!coolantHeaterInfo.isEmpty()) {
                 list.add(Component.literal(coolantHeaterInfo).withStyle(ChatFormatting.AQUA));
             }
@@ -233,7 +300,7 @@ public class RecipeViewerImpl {
         public List<Component> progressTooltips(int x, int y) {
             ArrayList<Component> list = new ArrayList<>(3);
             list.add(Component.translatable(MODID + ".recipe_viewer.scrubber_process_time", Component.literal(UnitHelper.applyTimeUnitShort(recipe.getScrubberProcessTime(), 3)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
-            list.add(Component.translatable(MODID + ".recipe_viewer.scrubber_process_power", Component.literal(UnitHelper.prefix(recipe.getScrubberProcessPower(), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            list.add(Component.translatable(MODID + ".recipe_viewer.scrubber_process_power", Component.literal(UnitHelper.prefix(recipe.getScrubberProcessPower(), 5, "FE/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
             list.add(Component.translatable(MODID + ".recipe_viewer.scrubber_process_efficiency", Component.literal(NCMath.pcDecimalPlaces(recipe.getScrubberProcessEfficiency(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.RED));
             return list;
         }
@@ -254,7 +321,7 @@ public class RecipeViewerImpl {
             ArrayList<Component> list = new ArrayList<>(2);
 
             list.add(Component.translatable(MODID + ".tooltip.process_time", Component.literal(UnitHelper.applyTimeUnitShort(recipe.getBaseProcessTime(machine_infiltrator_time), 3)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
-            list.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(recipe.getBaseProcessPower(machine_infiltrator_power), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            list.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(recipe.getBaseProcessPower(machine_infiltrator_power), 5, "FE/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
 
             double heatingBonus = recipe.getInfiltratorHeatingFactor();
             if (heatingBonus != 0D) {
@@ -288,7 +355,7 @@ public class RecipeViewerImpl {
             ArrayList<Component> list = new ArrayList<>(3);
 
             list.add(Component.translatable(MODID + ".tooltip.process_time", Component.literal(UnitHelper.applyTimeUnitShort(recipe.getBaseProcessTime(machine_electrolyzer_time), 3)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
-            list.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(recipe.getBaseProcessPower(machine_electrolyzer_power), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            list.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(recipe.getBaseProcessPower(machine_electrolyzer_power), 5, "FE/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
 
             double radiation = recipe.getBaseProcessRadiation();
             if (radiation > 0D) {
@@ -332,7 +399,7 @@ public class RecipeViewerImpl {
             ArrayList<Component> list = new ArrayList<>(3);
 
             list.add(Component.translatable(MODID + ".tooltip.process_time", Component.literal(UnitHelper.applyTimeUnitShort(recipe.getBaseProcessTime(machine_distiller_time), 3))).withStyle(ChatFormatting.WHITE).withStyle(ChatFormatting.GREEN));
-            list.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(recipe.getBaseProcessPower(machine_distiller_power), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            list.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(recipe.getBaseProcessPower(machine_distiller_power), 5, "FE/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
             list.add(Component.translatable(MODID + ".recipe_viewer.distiller_sieve_tray_count", Component.literal(recipe.getDistillerSieveTrayCount() + "").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GRAY));
 
             double radiation = recipe.getBaseProcessRadiation();

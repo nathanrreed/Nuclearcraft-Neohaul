@@ -92,6 +92,8 @@ public class ModAdvancementProvider extends AdvancementProvider {
             craft(SOLAR_MAP.get("solar_panel_basic"), ncLoc("decay_generator"), saver, existingFileHelper);
 
             // Fission
+            craft(FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"), ncLoc("separator"), saver, existingFileHelper);
+            assembled("pebble_fission_reactor_assembled", FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"), ncLoc("pebble_bed_fission_controller"), PEBBLE_FISSION_ASSEMBLED, saver, existingFileHelper);
             craft(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), ncLoc("separator"), saver, existingFileHelper);
             assembled("solid_fission_reactor_assembled", FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), ncLoc("solid_fuel_fission_controller"), SOLID_FISSION_ASSEMBLE_TRIGGER, saver, existingFileHelper);
             craft(FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), ncLoc("solid_fission_reactor_assembled"), saver, existingFileHelper);

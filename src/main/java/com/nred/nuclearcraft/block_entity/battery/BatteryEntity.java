@@ -1,12 +1,12 @@
 package com.nred.nuclearcraft.block_entity.battery;
 
 import com.nred.nuclearcraft.block_entity.ITickable;
-import com.nred.nuclearcraft.block_entity.TilePartAbstract;
 import com.nred.nuclearcraft.block_entity.dummy.IInterfaceable;
 import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyTileWrapper;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.multiblock.battery.BatteryMultiblock;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
 import com.nred.nuclearcraft.property.ISidedEnergy;
@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.BATTERY_ENTITY_TYPE;
 
-public class BatteryEntity extends TilePartAbstract<BatteryMultiblock> implements ITickable, ITileEnergy, IInterfaceable {
+public class BatteryEntity extends AbstractPartBlockEntity<BatteryMultiblock> implements ITickable, ITileEnergy, IInterfaceable {
     public final BatteryType batteryType;
 
     protected final EnergyStorage backupStorage = new EnergyStorage(0L);
@@ -112,32 +112,18 @@ public class BatteryEntity extends TilePartAbstract<BatteryMultiblock> implement
 
     @Override
     public void onPreMachineAssembled(BatteryMultiblock controller) {
-
     }
 
     @Override
     public void onPostMachineAssembled(BatteryMultiblock controller) {
-
     }
 
     @Override
     public void onPreMachineBroken() {
-
     }
 
     @Override
     public void onPostMachineBroken() {
-
-    }
-
-    @Override
-    public void onMachineActivated() {
-
-    }
-
-    @Override
-    public void onMachineDeactivated() {
-
     }
 
     @Override
@@ -166,8 +152,7 @@ public class BatteryEntity extends TilePartAbstract<BatteryMultiblock> implement
 
     @Override
     public EnergyStorage getEnergyStorage() {
-        BatteryMultiblock multiblock = getMultiblockController().orElse(null);
-        return multiblock != null ? multiblock.getEnergyStorage() : backupStorage;
+        return evalOnController(BatteryMultiblock::getEnergyStorage, backupStorage);
     }
 
     @Override
@@ -203,29 +188,32 @@ public class BatteryEntity extends TilePartAbstract<BatteryMultiblock> implement
     public void setEnergyConnection(@NotNull EnergyConnection energyConnection, @NotNull Direction side) {
         ITileEnergy.super.setEnergyConnection(energyConnection, side);
 
-        getTileWorld().setBlock(getTilePos(), getTile().getBlockState().setValue(switch (side) {
-            case DOWN -> ISidedEnergy.ENERGY_DOWN;
-            case UP -> ISidedEnergy.ENERGY_UP;
-            case NORTH -> ISidedEnergy.ENERGY_NORTH;
-            case SOUTH -> ISidedEnergy.ENERGY_SOUTH;
-            case WEST -> ISidedEnergy.ENERGY_WEST;
-            case EAST -> ISidedEnergy.ENERGY_EAST;
-        }, energyConnection), 2);
+        if (level != null) {
+            level.setBlock(getTilePos(), getTile().getBlockState().setValue(switch (side) {
+                case DOWN -> ISidedEnergy.ENERGY_DOWN;
+                case UP -> ISidedEnergy.ENERGY_UP;
+                case NORTH -> ISidedEnergy.ENERGY_NORTH;
+                case SOUTH -> ISidedEnergy.ENERGY_SOUTH;
+                case WEST -> ISidedEnergy.ENERGY_WEST;
+                case EAST -> ISidedEnergy.ENERGY_EAST;
+            }, energyConnection), 2);
+        }
     }
 
     // NBT
 
     @Override
-    protected void saveAdditional(CompoundTag data, HolderLookup.Provider registries) {
-        super.saveAdditional(data, registries);
+    public CompoundTag writeAll(CompoundTag data, HolderLookup.Provider registries) {
+        super.writeAll(data, registries);
         writeEnergyConnections(data, registries);
         data.putLong("waitingEnergy", waitingEnergy);
         data.putByteArray("ignoreSide", NCMath.booleansToBytes(ignoreSide));
+        return data;
     }
 
     @Override
-    public void loadAdditional(CompoundTag data, HolderLookup.Provider registries) {
-        super.loadAdditional(data, registries);
+    public void readAll(CompoundTag data, HolderLookup.Provider registries) {
+        super.readAll(data, registries);
         readEnergyConnections(data, registries);
         waitingEnergy = data.getLong("waitingEnergy");
         boolean[] arr = NCMath.bytesToBooleans(data.getByteArray("ignoreSide"));

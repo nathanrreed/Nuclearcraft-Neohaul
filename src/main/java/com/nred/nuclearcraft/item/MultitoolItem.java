@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.item;
 
 import com.nred.nuclearcraft.config.NCConfig;
-import com.nred.nuclearcraft.block_entity.IMultitoolLogic;
+import com.nred.nuclearcraft.block_entity.multiblock.IMultitoolLogic;
 import com.nred.nuclearcraft.util.NBTHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.SoundHelper;

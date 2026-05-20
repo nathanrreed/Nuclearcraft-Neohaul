@@ -7,37 +7,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-
 public abstract class ContainerInfoBuilder<BUILDER extends ContainerInfoBuilder<BUILDER>> {
     public final String name;
 
-    protected String recipeHandlerName;
+    public String recipeHandlerName;
 
-    protected int[] guiWH = new int[]{176, 166};
+    public int[] guiWH = new int[]{176, 166};
 
-    protected List<int[]> itemInputGuiXYWH = new ArrayList<>();
-    protected List<int[]> fluidInputGuiXYWH = new ArrayList<>();
-    protected List<int[]> itemOutputGuiXYWH = new ArrayList<>();
-    protected List<int[]> fluidOutputGuiXYWH = new ArrayList<>();
+    public List<int[]> itemInputGuiXYWH = new ArrayList<>();
+    public List<int[]> fluidInputGuiXYWH = new ArrayList<>();
+    public List<int[]> itemOutputGuiXYWH = new ArrayList<>();
+    public List<int[]> fluidOutputGuiXYWH = new ArrayList<>();
 
-    protected int[] playerGuiXY = new int[]{8, 84};
+    public int[] playerGuiXY = new int[]{8, 84};
 
-    protected int[] progressBarGuiXYWHUV = new int[]{74, 35, 37, 16, 176, 3};
-    protected int[] energyBarGuiXYWHUV = new int[]{8, 6, 16, 74, 176, 90};
+    public int[] progressBarGuiXYWHUV = new int[]{74, 35, 37, 16, 176, 3};
+    public int[] energyBarGuiXYWHUV = new int[]{8, 6, 16, 74, 176, 90};
 
-    protected int[] machineConfigGuiXY = new int[]{27, 63};
-    protected int[] redstoneControlGuiXY = new int[]{47, 63};
+    public int[] machineConfigGuiXY = new int[]{27, 63};
+    public int[] redstoneControlGuiXY = new int[]{47, 63};
 
-    protected boolean jeiCategoryEnabled = true;
+    public boolean jeiCategoryEnabled = true;
 
-    protected String jeiCategoryUid;
-    protected String jeiTitle;
-    protected String jeiTexture;
-
-    protected int[] jeiBackgroundXYWH = new int[]{51, 30, 86, 26};
-    protected int[] jeiTooltipXYWH = new int[]{73, 34, 38, 18};
-    protected int[] jeiClickAreaXYWH = new int[]{73, 34, 38, 18};
+    public int[] jeiBackgroundXYWH = new int[]{51, 30, 86, 26};
+    public int[] jeiTooltipXYWH = new int[]{73, 34, 38, 18};
+    public int[] jeiClickAreaXYWH = new int[]{73, 34, 38, 18};
 
     protected ContainerInfoBuilder(String name) {
         this.name = name;
@@ -109,55 +103,6 @@ public abstract class ContainerInfoBuilder<BUILDER extends ContainerInfoBuilder<
     public BUILDER setRecipeHandlerName(String recipeHandlerName) {
         this.recipeHandlerName = recipeHandlerName;
 
-        jeiCategoryUid = MODID + "_" + recipeHandlerName;
-        jeiTitle = "tile." + MODID + "." + recipeHandlerName + ".name";
-        jeiTexture = MODID + ":textures/gui/container/" + recipeHandlerName + ".png";
-
-        return getThis();
-    }
-
-    public BUILDER setJeiCategoryEnabled(boolean jeiCategoryEnabled) {
-        this.jeiCategoryEnabled = jeiCategoryEnabled;
-        return getThis();
-    }
-
-    public BUILDER setJeiCategoryUid(String jeiCategoryUid) {
-        this.jeiCategoryUid = jeiCategoryUid;
-        return getThis();
-    }
-
-    public BUILDER setJeiTitle(String jeiTitle) {
-        this.jeiTitle = jeiTitle;
-        return getThis();
-    }
-
-    public BUILDER setJeiTexture(String jeiTexture) {
-        this.jeiTexture = jeiTexture;
-        return getThis();
-    }
-
-    public BUILDER setJeiBackgroundXYWH(int x, int y, int w, int h) {
-        jeiBackgroundXYWH = new int[]{x, y, w, h};
-        return getThis();
-    }
-
-    public BUILDER setJeiTooltipXYWH(int x, int y, int w, int h) {
-        jeiTooltipXYWH = new int[]{x, y, w, h};
-        return getThis();
-    }
-
-    public BUILDER setJeiClickAreaXYWH(int x, int y, int w, int h) {
-        jeiClickAreaXYWH = new int[]{x, y, w, h};
-        return getThis();
-    }
-
-    public BUILDER setStandardJeiAlternateTitle() {
-        jeiTitle = MODID + "." + recipeHandlerName + ".jei_name";
-        return getThis();
-    }
-
-    public BUILDER setStandardJeiAlternateTexture() {
-        jeiTexture = MODID + ":textures/gui/container/" + recipeHandlerName + "_jei.png";
         return getThis();
     }
 

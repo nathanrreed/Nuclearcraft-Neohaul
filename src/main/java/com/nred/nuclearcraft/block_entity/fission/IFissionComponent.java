@@ -92,6 +92,10 @@ public interface IFissionComponent extends IFissionPart {
         }
     }
 
+    default void addToComponentFailCache(final Long2ObjectMap<IFissionComponent> componentFailCache) {
+        componentFailCache.put(getTilePos().asLong(), this);
+    }
+
     long getHeatStored();
 
     void setHeatStored(long heat);

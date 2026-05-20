@@ -1,9 +1,8 @@
 package com.nred.nuclearcraft.compat.kubejs;
 
-import com.nred.nuclearcraft.compat.kubejs.fission.FissionCoolantHeaterAndPortBuilder;
-import com.nred.nuclearcraft.compat.kubejs.fission.FissionHeatSinkBuilder;
-import com.nred.nuclearcraft.compat.kubejs.fission.FissionShieldBuilder;
-import com.nred.nuclearcraft.compat.kubejs.fission.FissionSourceBuilder;
+import com.nred.nuclearcraft.compat.kubejs.fission.*;
+import com.nred.nuclearcraft.compat.kubejs.fluid.FluidGasBuilder;
+import com.nred.nuclearcraft.compat.kubejs.fluid.FluidHotGasBuilder;
 import com.nred.nuclearcraft.compat.kubejs.fluid.FluidHotNakBuilder;
 import com.nred.nuclearcraft.compat.kubejs.fluid.FluidNakBuilder;
 import com.nred.nuclearcraft.compat.kubejs.turbine.DynamoCoilBuilder;
@@ -28,6 +27,7 @@ public class ModKubeJSPlugin implements KubeJSPlugin {
             reg.add(ncLoc("fission_shield"), FissionShieldBuilder.class, FissionShieldBuilder::new);
             reg.add(ncLoc("fission_heat_sink"), FissionHeatSinkBuilder.class, FissionHeatSinkBuilder::new);
             reg.add(ncLoc("fission_coolant_heater_and_port"), FissionCoolantHeaterAndPortBuilder.class, FissionCoolantHeaterAndPortBuilder::new);
+            reg.add(ncLoc("fission_cooler_and_port"), FissionCoolerAndPortBuilder.class, FissionCoolerAndPortBuilder::new);
 
             reg.add(ncLoc("rtg"), RTGBuilder.class, RTGBuilder::new);
             reg.add(ncLoc("hx_tube"), HXTubeBuilder.class, HXTubeBuilder::new);
@@ -37,6 +37,9 @@ public class ModKubeJSPlugin implements KubeJSPlugin {
         registry.of(Registries.FLUID, reg -> {
             reg.add(ncLoc("nak"), FluidNakBuilder.class, FluidNakBuilder::new);
             reg.add(ncLoc("hot_nak"), FluidHotNakBuilder.class, FluidHotNakBuilder::new);
+
+            reg.add(ncLoc("gas"), FluidGasBuilder.class, FluidGasBuilder::new);
+            reg.add(ncLoc("hot_gas"), FluidHotGasBuilder.class, FluidHotGasBuilder::new);
         });
 
         // TODO add Fission Fuels

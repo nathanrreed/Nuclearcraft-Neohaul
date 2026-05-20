@@ -1,12 +1,19 @@
 package com.nred.nuclearcraft.payload.render;
 
+import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.payload.NCPacket;
+import it.unimi.dsi.fastutil.longs.LongCollection;
+import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
+import it.unimi.dsi.fastutil.longs.LongSets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+
+import java.util.Collection;
+import java.util.Objects;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
@@ -15,16 +22,25 @@ public class BlockHighlightUpdatePacket extends NCPacket {
     public static final StreamCodec<RegistryFriendlyByteBuf, BlockHighlightUpdatePacket> STREAM_CODEC = StreamCodec.ofMember(
             BlockHighlightUpdatePacket::toBytes, BlockHighlightUpdatePacket::fromBytes
     );
-    protected long posLong, highlightTimeMillis;
 
-    public BlockHighlightUpdatePacket(BlockPos pos, long highlightTimeMillis) {
-        this.posLong = pos.asLong();
+    protected LongCollection posLongCollection;
+    protected long highlightTimeMillis;
+
+    public BlockHighlightUpdatePacket(LongCollection posLongCollection, long highlightTimeMillis) {
+        this.posLongCollection = posLongCollection == null ? LongSets.EMPTY_SET : posLongCollection;
         this.highlightTimeMillis = highlightTimeMillis;
     }
 
     public BlockHighlightUpdatePacket(long posLong, long highlightTimeMillis) {
-        this.posLong = posLong;
-        this.highlightTimeMillis = highlightTimeMillis;
+        this(LongSets.singleton(posLong), highlightTimeMillis);
+    }
+
+    public BlockHighlightUpdatePacket(Collection<BlockPos> posCollection, long highlightTimeMillis) {
+        this(new LongOpenHashSet(posCollection.stream().filter(Objects::nonNull).mapToLong(BlockPos::asLong).iterator()), highlightTimeMillis);
+    }
+
+    public BlockHighlightUpdatePacket(BlockPos pos, long highlightTimeMillis) {
+        this(pos == null ? null : Lists.newArrayList(pos), highlightTimeMillis);
     }
 
     @Override
@@ -33,21 +49,21 @@ public class BlockHighlightUpdatePacket extends NCPacket {
     }
 
     public static BlockHighlightUpdatePacket fromBytes(RegistryFriendlyByteBuf buf) {
-        long posLong = buf.readLong();
+        LongCollection posLongCollection = readLongs(buf);
         long highlightTimeMillis = buf.readLong();
-        return new BlockHighlightUpdatePacket(posLong, highlightTimeMillis);
+        return new BlockHighlightUpdatePacket(posLongCollection, highlightTimeMillis);
     }
 
     @Override
     public void toBytes(RegistryFriendlyByteBuf buf) {
-        buf.writeLong(posLong);
+        writeLongs(buf, posLongCollection);
         buf.writeLong(highlightTimeMillis);
     }
 
     public static class Handler {
         public static void handleOnClient(BlockHighlightUpdatePacket payload, IPayloadContext context) {
             context.enqueueWork(() -> {
-                NuclearcraftNeohaul.blockOverlayTracker.highlightBlock(payload.posLong, payload.highlightTimeMillis);
+                NuclearcraftNeohaul.blockOverlayTracker.highlightBlocks(payload.posLongCollection, payload.highlightTimeMillis);
             });
         }
     }

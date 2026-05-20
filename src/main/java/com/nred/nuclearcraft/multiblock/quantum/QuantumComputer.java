@@ -4,6 +4,8 @@ import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerControllerEntit
 import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerQubitEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.multiblock.Multiblock;
+import com.nred.nuclearcraft.quantum.Gate;
+import com.nred.nuclearcraft.quantum.State;
 import com.nred.nuclearcraft.util.IOHelper;
 import com.nred.nuclearcraft.util.NCUtil;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
@@ -30,6 +32,7 @@ import java.nio.DoubleBuffer;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -38,7 +41,7 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 public class QuantumComputer extends Multiblock<QuantumComputer> {
     protected QuantumComputerControllerEntity controller;
 
-    public QuantumState state;
+    public State state;
 
     public final Queue<QuantumOperationWrapper> queue = new ConcurrentLinkedQueue<>();
 
@@ -47,7 +50,7 @@ public class QuantumComputer extends Multiblock<QuantumComputer> {
 
     public QuantumComputer(Level level) {
         super(level);
-        state = new QuantumState(0);
+        state = new State(0);
     }
 
     @Override
@@ -142,12 +145,13 @@ public class QuantumComputer extends Multiblock<QuantumComputer> {
             return false;
         }
 
-        if (getPartMap(QuantumComputerControllerEntity.class).isEmpty()) {
+        Map<Long, QuantumComputerControllerEntity> controllerMap = getPartMap(QuantumComputerControllerEntity.class);
+        if (controllerMap.isEmpty()) {
             setLastError(MODID + ".multiblock_validation.no_controller");
             return false;
         }
-        if (getPartCount(QuantumComputerControllerEntity.class) > 1) {
-            setLastError(MODID + ".multiblock_validation.too_many_controllers");
+        if (controllerMap.size() > 1) {
+            setLastError(MODID + ".multiblock_validation.too_many_controllers", controllerMap.keySet());
             return false;
         }
 
@@ -157,7 +161,7 @@ public class QuantumComputer extends Multiblock<QuantumComputer> {
             return false;
         }
 
-        for (QuantumComputerControllerEntity contr : getParts(QuantumComputerControllerEntity.class)) {
+        for (QuantumComputerControllerEntity contr : controllerMap.values()) {
             controller = contr;
             break;
         }
@@ -220,7 +224,7 @@ public class QuantumComputer extends Multiblock<QuantumComputer> {
         if (data.contains("size")) {
             int size = data.getInt("size");
             if (size <= NCConfig.quantum_max_qubits) {
-                state = new QuantumState(size);
+                state = new State(size);
                 ByteBuffer.wrap(data.getByteArray("vector")).asDoubleBuffer().get(state.vector);
             }
         }
@@ -278,21 +282,21 @@ public class QuantumComputer extends Multiblock<QuantumComputer> {
     public void refreshState() {
         int qubits = getQubitCount();
         if (state.size != qubits) {
-            state = new QuantumState(qubits);
+            state = new State(qubits);
         }
     }
 
     public void measure(int[] targets) {
         refreshState();
-        setQubitsRedstone(targets, state.measure(targets, true));
+        setQubitsRedstone(targets, state.measure(targets));
         markQubitsDirty();
     }
 
     public void reset() {
-        state = new QuantumState(getQubitCount());
+        state = new State(getQubitCount());
     }
 
-    public void gate(QuantumGate gate) {
+    public void gate(Gate gate) {
         refreshState();
         state.update(gate);
     }

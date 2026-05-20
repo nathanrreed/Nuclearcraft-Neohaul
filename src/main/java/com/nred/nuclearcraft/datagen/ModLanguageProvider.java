@@ -50,9 +50,7 @@ public class ModLanguageProvider extends LanguageProvider {
         heat_exchanger();
         machine();
         ponder();
-
-        add(MODID + ".multiblock.validation.reactor.invalid_frame_block", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's frame");
-        add(MODID + ".multiblock.validation.invalid_part_for_interior", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's interior");
+        multiblock_validation();
 
         add(SUPERCOLD_ICE.asItem(), capitalize(SUPERCOLD_ICE.getId().getPath()));
         add(TRITIUM_LAMP.asItem(), capitalize(TRITIUM_LAMP.getId().getPath()));
@@ -218,6 +216,9 @@ public class ModLanguageProvider extends LanguageProvider {
         add("advancement." + MODID + ".molten_salt_fission_controller.title", "Next Gen Nuclear [1/2]");
         add("advancement." + MODID + ".molten_salt_fission_controller.description", "Craft a Molten Salt Fission Controller");
 
+        add("advancement." + MODID + ".pebble_fission_controller.title", "Watch For Roentgen Rocks [1/2]");
+        add("advancement." + MODID + ".pebble_fission_controller.description", "Craft a Pebble Bed Fission Controller");
+
         add("advancement." + MODID + ".heat_exchanger_controller.title", "Thermal Contact [1/2]");
         add("advancement." + MODID + ".heat_exchanger_controller.description", "Craft a Heat Exchanger Controller");
 
@@ -241,6 +242,9 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add("advancement." + MODID + ".salt_fission_reactor_assembled.title", "Next Gen Nuclear [2/2]");
         add("advancement." + MODID + ".salt_fission_reactor_assembled.description", "Build a Molten Salt Fission Reactor");
+
+        add("advancement." + MODID + ".pebble_fission_reactor_assembled.title", "Watch For Roentgen Rocks [2/2]");
+        add("advancement." + MODID + ".pebble_fission_reactor_assembled.description", "Build a Pebble Bed Fission Reactor");
 
         add("advancement." + MODID + ".heat_exchanger_assembled.title", "Thermal Contact [2/2]");
         add("advancement." + MODID + ".heat_exchanger_assembled.description", "Build a Heat Exchanger");
@@ -296,6 +300,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".info.fission_fuel.base_heat", "Base Heat Gen: %s");
         add(MODID + ".info.fission_fuel.base_efficiency", "Efficiency Multiplier: %s");
         add(MODID + ".info.fission_fuel.criticality", "Criticality Factor: %s");
+        add(MODID + ".info.fission_fuel.intrinsic_flux", "Intrinsic Flux: %s");
         add(MODID + ".info.fission_fuel.decay_factor", "Decay Factor: %s");
         add(MODID + ".info.fission_fuel.self_priming", "Self-priming!");
 
@@ -333,20 +338,14 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".recipe_viewer.turbine_energy_density", "Base Energy Density: %s");
         add(MODID + ".recipe_viewer.turbine_expansion", "Fluid Expansion: %s");
         add(MODID + ".recipe_viewer.turbine_spin_up_multiplier", "Spin-up Multiplier: %s");
-
-        add(MODID + ".multiblock_validation.turbine.need_bearings", "There must be two sets of rotor bearings in opposing walls of the multiblock for it to form");
-        add(MODID + ".multiblock_validation.turbine.bearings_side_square", "The walls housing the rotor bearings must be square for the multiblock to form");
-        add(MODID + ".multiblock_validation.turbine.valve_wrong_wall", "Inlets and outlets must be installed opposite each other on the walls housing the rotor bearings for the multiblock to form");
-        add(MODID + ".multiblock_validation.turbine.bearings_center_and_square", "The sets of rotor bearings must be square and centered in the middle of each opposing wall for the multiblock to form");
-        add(MODID + ".multiblock_validation.turbine.shaft_center", "The rotor shaft must be fully connected to each set of rotor bearings for the multiblock to form");
-        add(MODID + ".multiblock_validation.turbine.space_between_blades", "The space between the sets of rotor blades and stators must be empty for the multiblock to form");
-        add(MODID + ".multiblock_validation.turbine.different_type_blades", "The rotor blades or stators about each section of the rotor shaft must be of the same type for the multiblock to form");
-        add(MODID + ".multiblock_validation.turbine.missing_blades", "Each section of the rotor shaft must have rotor blades or stators of the same type extend fully to the wall for the multiblock to form");
     }
 
     private void fission_reactor() {
         add(MODID + ".tooltip.solid_fission_sink.cooling_rate", "Cooling Rate: %s H/t");
         add(MODID + ".tooltip.salt_fission_heater.cooling_rate", "Cooling Rate: %s H/t");
+        add(MODID + ".tooltip.pebble_fission_cooler.cooling_rate", "Cooling Rate: %s H/t");
+
+        add(MODID + ".tooltip.pebble_fission_controller", "Pebble Bed Reactor");
 
         add(MODID + ".tooltip.solid_fission_controller", "Solid Fuel Reactor");
         add(MODID + ".tooltip.solid_fission_controller.output_rate", "Production Rate: %s");
@@ -377,11 +376,6 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".fission_reactor_source.no_target", "Has no target!");
         add(MODID + ".fission_reactor_source.target", "Targeting %4$s at [%1$d, %2$d, %3$d]");
 
-        add(MODID + ".multiblock_validation.fission_reactor.prohibit_cells", "This is not a solid fuel reactor - there must be no cells for it to form");
-        add(MODID + ".multiblock_validation.fission_reactor.prohibit_sinks", "This is not a solid fuel reactor - there must be no sinks for it to form");
-        add(MODID + ".multiblock_validation.fission_reactor.prohibit_vessels", "This is not a molten salt reactor - there must be no vessels for it to form");
-        add(MODID + ".multiblock_validation.fission_reactor.prohibit_heaters", "This is not a molten salt reactor - there must be no heaters for it to form");
-
         add(MODID + ".recipe_viewer.irradiator_flux_required", "Total Flux Required: %s");
         add(MODID + ".recipe_viewer.irradiator_heat_per_flux", "Heat Gen Per Flux: %s");
         add(MODID + ".recipe_viewer.irradiator_process_efficiency", "Efficiency Bonus: %s");
@@ -389,23 +383,13 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".recipe_viewer.irradiator_valid_flux_maximum", "Maximum Valid Flux: %s");
         add(MODID + ".recipe_viewer.irradiator_valid_flux_range", "Valid Flux Range: %s");
         add(MODID + ".recipe_viewer.radiation_per_flux", "Radiation Per Flux: %s");
-        add(MODID + ".recipe_viewer.coolant_heater_rate", "Cooling Rate: %s");
+        add(MODID + ".recipe_viewer.base_depletion_radiation", "Base Depletion Radiation: %s");
+        add(MODID + ".recipe_viewer.cooling_rate", "Cooling Rate: %s");
         add(MODID + ".recipe_viewer.fission_emergency_cooling_heating_required", "Heating Required: %s");
         add(MODID + ".recipe_viewer.fission_heating_required", "Heating Required: %s");
     }
 
     private void heat_exchanger() {
-        add(MODID + ".multiblock_validation.heat_exchanger.invalid_shell", "Shell must have at least one inlet and one outlet for the heat exchanger to form");
-        add(MODID + ".multiblock_validation.heat_exchanger.blocked_inlet", "Shell inlet must not be blocked by baffle for the heat exchanger to form");
-        add(MODID + ".multiblock_validation.heat_exchanger.blocked_outlet", "Shell outlet must not be blocked by baffle for the heat exchanger to form");
-        add(MODID + ".multiblock_validation.heat_exchanger.dangling_tube", "Tubes must not have dangling connections for the heat exchanger to form");
-        add(MODID + ".multiblock_validation.heat_exchanger.invalid_network", "Tube networks must have at least one inlet and one outlet for the heat exchanger to form");
-        add(MODID + ".multiblock_validation.heat_exchanger.blocked_shell", "Each shell inlet must have an available shell outlet for the heat exchanger to form");
-
-        add(MODID + ".multiblock_validation.condenser.dangling_tube", "Tubes must not have dangling connections for the condenser to form");
-        add(MODID + ".multiblock_validation.condenser.invalid_network", "Tube networks must have at least one inlet and one outlet for the condenser to form");
-        add(MODID + ".multiblock_validation.condenser.blocked_shell", "Shell interior must be completely connected for the condenser to form");
-
         add(MODID + ".tooltip.heat_exchanger_controller", "Heat Exchanger");
         add(MODID + ".tooltip.condenser_controller", "Condenser");
 
@@ -441,17 +425,6 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void machine() {
-        add(MODID + ".multiblock_validation.electrolyzer.invalid_cathode_terminal", "Cathode terminals must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form");
-        add(MODID + ".multiblock_validation.electrolyzer.invalid_anode_terminal", "Anode terminals must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form");
-        add(MODID + ".multiblock_validation.electrolyzer.invalid_cathode_recipe", "Opposing cathode terminals must be connected by valid cathode blocks for the electrolyzer to form");
-        add(MODID + ".multiblock_validation.electrolyzer.invalid_anode_recipe", "Opposing anode terminals must be connected by valid anode blocks for the electrolyzer to form");
-        add(MODID + ".multiblock_validation.electrolyzer.short_circuit", "Cathodes and anodes must be installed in different diaphragm-separated regions of the electrolyzer for it to form");
-
-        add(MODID + ".multiblock_validation.distiller.invalid_sieve_recipe", "Sieve trays must have valid sieve assembly blocks above them for the distiller to form");
-        add(MODID + ".multiblock_validation.distiller.invalid_reflux_unit", "Reflux units must be installed in the top layer of the distiller for it to form");
-        add(MODID + ".multiblock_validation.distiller.invalid_reboiling_unit", "Reboiling units must be installed in the bottom layer of the distiller for it to form");
-        add(MODID + ".multiblock_validation.distiller.invalid_liquid_distributor", "Liquid Distributors must be installed in the top layer of the distiller for it to form");
-
         add(MODID + ".tooltip.machine_controller.rate", "Process Rate: %s");
         add(MODID + ".tooltip.machine_controller.power", "Power Use: %s");
         addTooltip(MACHINE_MAP.get("large_machine_computer_port"), "Used to access the machine via CC: Tweaked.");
@@ -488,6 +461,8 @@ public class ModLanguageProvider extends LanguageProvider {
     private void string_formatting() {
         add("nc.sf.plural_rule", "1,1:0");
 
+        add("nc.sf.chamber0", "%s functional fuel chamber");
+        add("nc.sf.chamber1", "%s functional fuel chambers");
         add("nc.sf.zero", "zero");
         add("nc.sf.one", "one");
         add("nc.sf.two", "two");
@@ -546,6 +521,41 @@ public class ModLanguageProvider extends LanguageProvider {
         add("nc.sf.irradiator1", "%s functional irradiators");
         add("nc.sf.shield0", "%s valid open shield");
         add("nc.sf.shield1", "%s valid open shields");
+
+        add("nc.sf.any_cooler0", "%s cooler of any type");
+        add("nc.sf.any_cooler1", "%s coolers of any type");
+        add("nc.sf.oxygen_cooler0", "%s valid oxygen cooler");
+        add("nc.sf.oxygen_cooler1", "%s valid oxygen coolers");
+        add("nc.sf.hydrogen_cooler0", "%s valid hydrogen cooler");
+        add("nc.sf.hydrogen_cooler1", "%s valid hydrogen coolers");
+        add("nc.sf.helium_cooler0", "%s valid helium cooler");
+        add("nc.sf.helium_cooler1", "%s valid helium coolers");
+        add("nc.sf.nitrogen_cooler0", "%s valid nitrogen cooler");
+        add("nc.sf.nitrogen_cooler1", "%s valid nitrogen coolers");
+        add("nc.sf.fluorine_cooler0", "%s valid fluorine cooler");
+        add("nc.sf.fluorine_cooler1", "%s valid fluorine coolers");
+        add("nc.sf.methane_cooler0", "%s valid methane cooler");
+        add("nc.sf.methane_cooler1", "%s valid methane coolers");
+        add("nc.sf.carbon_dioxide_cooler0", "%s valid carbon dioxide cooler");
+        add("nc.sf.carbon_dioxide_cooler1", "%s valid carbon dioxide coolers");
+        add("nc.sf.carbon_monoxide_cooler0", "%s valid carbon monoxide cooler");
+        add("nc.sf.carbon_monoxide_cooler1", "%s valid carbon monoxide coolers");
+        add("nc.sf.ethene_cooler0", "%s valid ethylene cooler");
+        add("nc.sf.ethene_cooler1", "%s valid ethylene coolers");
+        add("nc.sf.ethyne_cooler0", "%s valid acetylene cooler");
+        add("nc.sf.ethyne_cooler1", "%s valid acetylene coolers");
+        add("nc.sf.fluoromethane_cooler0", "%s valid fluoromethane cooler");
+        add("nc.sf.fluoromethane_cooler1", "%s valid fluoromethane coolers");
+        add("nc.sf.ammonia_cooler0", "%s valid ammonia cooler");
+        add("nc.sf.ammonia_cooler1", "%s valid ammonia coolers");
+        add("nc.sf.diborane_cooler0", "%s valid diborane cooler");
+        add("nc.sf.diborane_cooler1", "%s valid diborane coolers");
+        add("nc.sf.sulfur_dioxide_cooler0", "%s valid sulfur dioxide cooler");
+        add("nc.sf.sulfur_dioxide_cooler1", "%s valid sulfur dioxide coolers");
+        add("nc.sf.sulfur_trioxide_cooler0", "%s valid sulfur trioxide cooler");
+        add("nc.sf.sulfur_trioxide_cooler1", "%s valid sulfur trioxide coolers");
+        add("nc.sf.sulfur_hexafluoride_cooler0", "%s valid sulfur hexafluoride cooler");
+        add("nc.sf.sulfur_hexafluoride_cooler1", "%s valid sulfur hexafluoride coolers");
 
         add("nc.sf.any_sink0", "%s sink of any type");
         add("nc.sf.any_sink1", "%s sinks of any type");
@@ -1279,6 +1289,7 @@ public class ModLanguageProvider extends LanguageProvider {
     }
 
     private void menus() {
+        // Processors
         add(MODID + ".menu.title.alloy_furnace", "Alloy Furnace");
         add(MODID + ".menu.title.assembler", "Assembler");
         add(MODID + ".menu.title.centrifuge", "Centrifuge");
@@ -1313,20 +1324,78 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".menu.turbine_controller.fluid_rate", "Input: %s");
         add(MODID + ".menu.turbine_controller.power_bonus", "Rate Power Bonus: %s");
 
-        add(MODID + ".multiblock_validation.invalid_block", "%4$s is not a valid block at [%1$d, %2$d, %3$d]");
-        add(MODID + ".multiblock_validation.no_controller", "There must be a controller for the multiblock to form");
-        add(MODID + ".multiblock_validation.too_many_controllers", "There must only be one controller for the multiblock to form");
-
-        add(MODID + ".multiblock_validation.invalid_axial_symmetry", "Block at %1$d, %2$d, %3$d breaks the multiblock's internal %4$s-axis symmetry");
-        add(MODID + ".multiblock_validation.invalid_planar_symmetry", "Block at %1$d, %2$d, %3$d breaks the multiblock's internal %4$s-plane symmetry");
-
-        add(MODID + ".multiblock_validation.quantum_computer.server_disabled", "The quantum computer must be enabled in the server's configs to form");
-        add(MODID + ".multiblock_validation.quantum_computer.too_many_qubits", "There are %s qubits connected to this quantum computer - there can only be %s at most for it to form");
-
         add(MODID + ".menu.fission.no_cluster", "No cluster!");
 
         add(MODID + ".menu.fission_heater.title", "Fission Coolant Heater");
         add(MODID + ".menu.fission_heater_port.title", "Fission Coolant Heater Port");
+    }
+
+    private void multiblock_validation() {
+        // General
+        add(MODID + ".multiblock_validation.invalid_block", "%4$s is not a valid block at [%1$d, %2$d, %3$d]");
+        add(MODID + ".multiblock_validation.no_controller", "There must be a controller for the multiblock to form");
+        add(MODID + ".multiblock_validation.too_many_controllers", "There must only be one controller for the multiblock to form");
+        add(MODID + ".multiblock_validation.invalid_frame_block", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's frame");
+        add(MODID + ".multiblock_validation.invalid_part_for_interior", "Block at %1$d, %2$d, %3$d is not valid for use in the multiblock's interior");
+
+        add(MODID + ".multiblock_validation.invalid_axial_symmetry", "Block at %1$d, %2$d, %3$d breaks the multiblock's internal %4$s-axis symmetry");
+        add(MODID + ".multiblock_validation.invalid_planar_symmetry", "Block at %1$d, %2$d, %3$d breaks the multiblock's internal %4$s-plane symmetry");
+
+        add(MODID + ".multiblock_validation.sorption.missing_input", "There must be at least one %s in §9INPUT§r mode for the multiblock to form - right click with a §nmultitool§r to toggle its setting");
+        add(MODID + ".multiblock_validation.sorption.missing_output", "There must be at least one %s in §6OUTPUT§r mode for the multiblock to form - right click with a §nmultitool§r to toggle its setting");
+        add(MODID + ".multiblock_validation.sorption.missing_both", "There must be at least one %1$s in §9INPUT§r mode and one %1$s in §6OUTPUT§r mode for the multiblock to form - right click with a §nmultitool§r to toggle their settings");
+
+        // Quantum
+        add(MODID + ".multiblock_validation.quantum_computer.server_disabled", "The quantum computer must be enabled in the server's configs to form");
+        add(MODID + ".multiblock_validation.quantum_computer.too_many_qubits", "There are %s qubits connected to this quantum computer - there can only be %s at most for it to form");
+
+        // Heat Exchanger
+        add(MODID + ".multiblock_validation.heat_exchanger.invalid_shell", "Shell must have at least one inlet and one outlet for the heat exchanger to form");
+        add(MODID + ".multiblock_validation.heat_exchanger.blocked_inlet", "Shell inlet must not be blocked by baffle for the heat exchanger to form");
+        add(MODID + ".multiblock_validation.heat_exchanger.blocked_outlet", "Shell outlet must not be blocked by baffle for the heat exchanger to form");
+        add(MODID + ".multiblock_validation.heat_exchanger.dangling_tube", "Tubes must not have dangling connections for the heat exchanger to form");
+        add(MODID + ".multiblock_validation.heat_exchanger.invalid_network", "Tube networks must have at least one inlet and one outlet for the heat exchanger to form");
+        add(MODID + ".multiblock_validation.heat_exchanger.blocked_shell", "Each shell inlet must have an available shell outlet for the heat exchanger to form");
+
+        // Condenser
+        add(MODID + ".multiblock_validation.condenser.dangling_tube", "Tubes must not have dangling connections for the condenser to form");
+        add(MODID + ".multiblock_validation.condenser.invalid_network", "Tube networks must have at least one inlet and one outlet for the condenser to form");
+        add(MODID + ".multiblock_validation.condenser.blocked_shell", "Shell interior must be completely connected for the condenser to form");
+
+        // Machine
+        add(MODID + ".multiblock_validation.machine.invalid_reservoir_port", "There must be no reservoir ports for this type of machine to form");
+
+        // Electrolyzer
+        add(MODID + ".multiblock_validation.electrolyzer.invalid_cathode_terminal", "Cathode terminals must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form");
+        add(MODID + ".multiblock_validation.electrolyzer.invalid_anode_terminal", "Anode terminals must be installed opposite each other in the top and bottom layers of the electrolyzer for it to form");
+        add(MODID + ".multiblock_validation.electrolyzer.invalid_cathode_recipe", "Opposing cathode terminals must be connected by valid cathode blocks for the electrolyzer to form");
+        add(MODID + ".multiblock_validation.electrolyzer.invalid_anode_recipe", "Opposing anode terminals must be connected by valid anode blocks for the electrolyzer to form");
+        add(MODID + ".multiblock_validation.electrolyzer.short_circuit", "Cathodes and anodes must be installed in different diaphragm-separated regions of the electrolyzer for it to form");
+
+        // Distiller
+        add(MODID + ".multiblock_validation.distiller.invalid_sieve_recipe", "Sieve trays must have valid sieve assembly blocks above them for the distiller to form");
+        add(MODID + ".multiblock_validation.distiller.invalid_reflux_unit", "Reflux units must be installed in the top layer of the distiller for it to form");
+        add(MODID + ".multiblock_validation.distiller.invalid_reboiling_unit", "Reboiling units must be installed in the bottom layer of the distiller for it to form");
+        add(MODID + ".multiblock_validation.distiller.invalid_liquid_distributor", "Liquid Distributors must be installed in the top layer of the distiller for it to form");
+
+        // Fission
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_cells", "This is not a solid fuel reactor - there must be no cells for it to form");
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_sinks", "This is not a solid fuel reactor - there must be no sinks for it to form");
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_vessels", "This is not a molten salt reactor - there must be no vessels for it to form");
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_heaters", "This is not a molten salt reactor - there must be no heaters for it to form");
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_chambers", "This is not a pebble bed reactor - there must be no chambers for it to form");
+        add(MODID + ".multiblock_validation.fission_reactor.prohibit_coolers", "This is not a pebble bed reactor - there must be no coolers for it to form");
+
+        // Turbine
+        add(MODID + ".multiblock_validation.turbine.need_bearings", "There must be two sets of rotor bearings in opposing walls of the multiblock for it to form");
+        add(MODID + ".multiblock_validation.turbine.bearings_side_square", "The walls housing the rotor bearings must be square for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.valve_wrong_wall", "Inlets and outlets must be installed opposite each other on the walls housing the rotor bearings for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.bearings_center_and_square", "The sets of rotor bearings must be square and centered in the middle of each opposing wall for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.shaft_center", "The rotor shaft must be fully connected to each set of rotor bearings for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.space_between_blades", "The space between the sets of rotor blades and stators must be empty for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.different_type_blades", "The rotor blades or stators about each section of the rotor shaft must be of the same type for the multiblock to form");
+        add(MODID + ".multiblock_validation.turbine.missing_blades", "Each section of the rotor shaft must have rotor blades or stators of the same type extend fully to the wall for the multiblock to form");
+
     }
 
     private void creativeTabs() {
@@ -1379,7 +1448,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.processor_time", "Processing Times");
         add(MODID + ".configuration.processor_time.tooltip", "Base ticks per process.");
         add(MODID + ".configuration.processor_power", "Processing Power Use");
-        add(MODID + ".configuration.processor_power.tooltip", "Base RF/t use during processing.");
+        add(MODID + ".configuration.processor_power.tooltip", "Base FE/t use during processing.");
 
         add(MODID + ".configuration.processor_order", "Manufactory, Separator, Decay Hastener, Fuel Reprocessor, Alloy Furnace, Fluid Infuser, Melter, Supercooler, Electrolyzer, Assembler, Ingot Former, Pressurizer, Chemical Reactor, Fluid Mixer, Crystallizer, Fluid Enricher, Fluid Extractor, Centrifuge, Rock Crusher, Electric Furnace");
         add(MODID + ".configuration.speed_upgrade_fp_order", "Processor Time, Processor Power, Generator Time, Generator Power");
@@ -1404,6 +1473,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.fission_decay_daughter_multipliers_order", "Iodine, Poison");
         add(MODID + ".configuration.fission_decay_term_multipliers_order", "Exponential, Linear");
         add(MODID + ".configuration.hx_tube_order", "Copper, Hard Carbon, Thermoconducting Alloy");
+        add(MODID + ".configuration.fission_cooler_order", "Oxygen, Hydrogen, Helium, Nitrogen, Fluorine, Methane, Carbon Dioxide, Carbon Monoxide, Ethylene, Acetylene, Fluoromethane, Ammonia, Diborane, Sulfur Dioxide, Sulfur Trioxide, Sulfur Hexafluoride");
 
         add(MODID + ".configuration.speed_upgrade_power_laws_fp", "Speed Upgrade Power Laws");
         add(MODID + ".configuration.speed_upgrade_power_laws_fp.tooltip", "Power laws for speed upgrades.");
@@ -1426,7 +1496,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.passive_push", "Passive Pushing");
         add(MODID + ".configuration.passive_push.tooltip", "Will passive machines that produce materials automatically push to adjacent inventories and fluid handlers?");
         add(MODID + ".configuration.cobble_gen_power", "Cobble Gen Power Use");
-        add(MODID + ".configuration.cobble_gen_power.tooltip", "RF/t required for Cobblestone Generator to run.");
+        add(MODID + ".configuration.cobble_gen_power.tooltip", "FE/t required for Cobblestone Generator to run.");
 
         add(MODID + ".configuration.smart_processor_input", "Smart Processor Input");
         add(MODID + ".configuration.smart_processor_input.tooltip", "Will a machine's valid inputs depend on the stacks already present as well as its possible recipes?");
@@ -1438,22 +1508,22 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.generator.tooltip", "Configure generators.");
 
         add(MODID + ".configuration.rtg_power", "RTG Power Gen");
-        add(MODID + ".configuration.rtg_power.tooltip", "RF/t generated.");
+        add(MODID + ".configuration.rtg_power.tooltip", "FE/t generated.");
         add(MODID + ".configuration.solar_power", "Solar Panel Power Gen");
-        add(MODID + ".configuration.solar_power.tooltip", "RF/t generated.");
+        add(MODID + ".configuration.solar_power.tooltip", "FE/t generated.");
 
 
         add(MODID + ".configuration.energy_storage", "Energy Storage Configs");
         add(MODID + ".configuration.energy_storage.tooltip", "Configure energy storages.");
 
         add(MODID + ".configuration.battery_block_capacity", "Battery Block Capacities");
-        add(MODID + ".configuration.battery_block_capacity.tooltip", "Maximum RF storable.");
+        add(MODID + ".configuration.battery_block_capacity.tooltip", "Maximum FE storable.");
         add(MODID + ".configuration.battery_block_max_transfer", "Battery Block Transfer Rates");
-        add(MODID + ".configuration.battery_block_max_transfer.tooltip", "Maximum RF transferable per tick.");
+        add(MODID + ".configuration.battery_block_max_transfer.tooltip", "Maximum FE transferable per tick.");
         add(MODID + ".configuration.battery_item_capacity", "Battery Item Capacities");
-        add(MODID + ".configuration.battery_item_capacity.tooltip", "Maximum RF storable.");
+        add(MODID + ".configuration.battery_item_capacity.tooltip", "Maximum FE storable.");
         add(MODID + ".configuration.battery_item_max_transfer", "Battery Item Transfer Rates");
-        add(MODID + ".configuration.battery_item_max_transfer.tooltip", "Maximum RF transferable per tick.");
+        add(MODID + ".configuration.battery_item_max_transfer.tooltip", "Maximum FE transferable per tick.");
 
         add(MODID + ".configuration.machine", "Large Machine Configs");
         add(MODID + ".configuration.machine.tooltip", "Configure large machines.");
@@ -1466,21 +1536,21 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.machine_electrolyzer_time", "Electrolyzer Process Time");
         add(MODID + ".configuration.machine_electrolyzer_time.tooltip", "Base ticks per electrolyzer process.");
         add(MODID + ".configuration.machine_electrolyzer_power", "Electrolyzer Process Power Use");
-        add(MODID + ".configuration.machine_electrolyzer_power.tooltip", "Base RF/t use during electrolysis.");
+        add(MODID + ".configuration.machine_electrolyzer_power.tooltip", "Base FE/t use during electrolysis.");
         add(MODID + ".configuration.machine_electrolyzer_sound_volume", "Electrolyzer Sound Volume");
         add(MODID + ".configuration.machine_electrolyzer_sound_volume.tooltip", "Modifier for the volume of electrolyzer sound effects.");
 
         add(MODID + ".configuration.machine_distiller_time", "Distiller Process Time");
         add(MODID + ".configuration.machine_distiller_time.tooltip", "Base ticks per distiller process.");
         add(MODID + ".configuration.machine_distiller_power", "Distiller Process Power Use");
-        add(MODID + ".configuration.machine_distiller_power.tooltip", "Base RF/t use during distilling.");
+        add(MODID + ".configuration.machine_distiller_power.tooltip", "Base FE/t use during distilling.");
         add(MODID + ".configuration.machine_distiller_sound_volume", "Distiller Sound Volume");
         add(MODID + ".configuration.machine_distiller_sound_volume.tooltip", "Modifier for the volume of distiller sound effects.");
 
         add(MODID + ".configuration.machine_infiltrator_time", "Infiltrator Process Time");
         add(MODID + ".configuration.machine_infiltrator_time.tooltip", "Base ticks per infiltrator process.");
         add(MODID + ".configuration.machine_infiltrator_power", "Infiltrator Process Power Use");
-        add(MODID + ".configuration.machine_infiltrator_power.tooltip", "Base RF/t use during infiltrating.");
+        add(MODID + ".configuration.machine_infiltrator_power.tooltip", "Base FE/t use during infiltrating.");
         add(MODID + ".configuration.machine_infiltrator_sound_volume", "Infiltrator Sound Volume");
         add(MODID + ".configuration.machine_infiltrator_sound_volume.tooltip", "Modifier for the volume of infiltrator sound effects.");
 
@@ -1501,6 +1571,10 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.fission_fuel_radiation_multiplier.tooltip", "Modifies the radiation levels of fuels in fission reactors.");
         add(MODID + ".configuration.fission_source_efficiency", "Neutron Source Efficiencies");
         add(MODID + ".configuration.fission_source_efficiency.tooltip", "Efficiency multiplier for neutron sources of this type.");
+        add(MODID + ".configuration.fission_cooler_cooling_rat", "Gas Cooler Cooling Rates");
+        add(MODID + ".configuration.fission_cooler_cooling_rate.tooltip", "Heat removed per tick by valid gas coolers of this type. ");
+        add(MODID + ".configuration.fission_cooler_rule", "Gas Cooler Placement Rules");
+        add(MODID + ".configuration.fission_cooler_rule.tooltip", "Placement rule to be parsed for gas coolers of this type.");
         add(MODID + ".configuration.fission_sink_cooling_rate", "Heat Sink Cooling Rates");
         add(MODID + ".configuration.fission_sink_cooling_rate.tooltip", "Heat removed per tick by valid heat sinks of this type.");
         add(MODID + ".configuration.fission_sink_rule", "Heat Sink Placement Rules");
@@ -1509,6 +1583,12 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.fission_heater_cooling_rate.tooltip", "Heat removed per tick by functional coolant heaters of this type.");
         add(MODID + ".configuration.fission_heater_rule", "Coolant Heater Placement Rules");
         add(MODID + ".configuration.fission_heater_rule.tooltip", "Placement rule to be parsed for coolant heaters of this type.");
+        add(MODID + ".configuration.fission_chamber_intrinsic_flux_efficiency", "Chamber Intrinsic Flux Efficiency Multiplier");
+        add(MODID + ".configuration.fission_chamber_intrinsic_flux_efficiency.tooltip", "Efficiency multiplier for non-zero intrinsic flux from fuel chambers.");
+        add(MODID + ".configuration.fission_cell_intrinsic_flux_efficiency", "Cell Intrinsic Flux Efficiency Multiplier");
+        add(MODID + ".configuration.fission_cell_intrinsic_flux_efficiency.tooltip", "Efficiency multiplier for non-zero intrinsic flux from fuel cells.");
+        add(MODID + ".configuration.fission_vessel_intrinsic_flux_efficiency", "Vessel Intrinsic Flux Efficiency Multiplier");
+        add(MODID + ".configuration.fission_vessel_intrinsic_flux_efficiency.tooltip", "Efficiency multiplier for non-zero intrinsic flux from fuel vessels.");
         add(MODID + ".configuration.fission_shield_heat_per_flux", "Neutron Shield Heat Per Flux");
         add(MODID + ".configuration.fission_shield_heat_per_flux.tooltip", "Heat generated per unit flux for neutron shields of this type.");
         add(MODID + ".configuration.fission_shield_efficiency", "Neutron Shield Efficiency Multipliers");
@@ -1517,6 +1597,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.fission_cooling_efficiency_leniency.tooltip", "Determines the leniency for the difference between the actual and ideal cooling rate at which a cluster will begin to be given an overcooling efficiency penalty.");
         add(MODID + ".configuration.fission_sparsity_penalty_params", "Sparsity Efficiency Parameters");
         add(MODID + ".configuration.fission_sparsity_penalty_params.tooltip", "Parameters used for the sparsity efficiency factor. The first determines the minimum value of the multiplier, while the second determines the fraction of functional components at which there is no penalty.");
+        add(MODID + ".configuration.fission_cooler_coolant_heat_per_mb", "PBR Coolant Heat Per mB");
+        add(MODID + ".configuration.fission_cooler_coolant_heat_per_mb.tooltip", "Sets the amount of heat absorbed per mB of gas coolant when used to cool a pebble bed reactor.");
         add(MODID + ".configuration.fission_heating_coolant_heat_mult", "SFR NaK Heating Multiplier");
         add(MODID + ".configuration.fission_heating_coolant_heat_mult.tooltip", "Modifies the amount of heat absorbed per mB of NaK coolant when used to cool a solid fuel reactor.");
 
@@ -1582,7 +1664,7 @@ public class ModLanguageProvider extends LanguageProvider {
         //  add(MODID + ".configuration.fusion_radiation", "Fusion Fuel Combo Radiation");
         //  add(MODID + ".configuration.fusion_radiation.tooltip", "Base radiation the fuel combos produce while processing. Order: H-H, H-D, H-T, H-He3, H-Li6, H-Li7, H-B11, D-D, D-T, D-He3, ..., D-B11, T-T, ..., T-B11, ..., B11-B11.");
         //  add(MODID + ".configuration.fusion_electromagnet_power", "Electromagnet Power");
-        //  add(MODID + ".configuration.fusion_electromagnet_power.tooltip", "RF/t required to keep an electromagnet active.");
+        //  add(MODID + ".configuration.fusion_electromagnet_power.tooltip", "FE/t required to keep an electromagnet active.");
 
         add(MODID + ".configuration.heat_exchanger", "Heat Exchanger Configs");
         add(MODID + ".configuration.heat_exchanger.tooltip", "Configure aspects of heat exchangers.");
@@ -1633,14 +1715,18 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.turbine_tension_leniency.tooltip", "Determines the leniency for the ratio of actual throughput to ideal throughput at which bearing tension will begin to increase.");
         add(MODID + ".configuration.turbine_power_bonus_multiplier", "Power Bonus Multiplier");
         add(MODID + ".configuration.turbine_power_bonus_multiplier.tooltip", "Multiplier for the input rate power output bonus.");
+        add(MODID + ".configuration.turbine_base_energy_capacity", "Base Energy Capacity");
+        add(MODID + ".configuration.turbine_base_energy_capacity.tooltip", "Base multiplier for the energy storage of turbine multiblocks.");
         add(MODID + ".configuration.turbine_sound_volume", "Turbine Sound Volume");
         add(MODID + ".configuration.turbine_sound_volume.tooltip", "Modifier for the volume of turbine sound effects.");
         add(MODID + ".configuration.turbine_particles", "Particle Spawn Rate");
-        add(MODID + ".configuration.turbine_particles.tooltip", "Multiplier for the rate of steam particles spawned in the turbine.");
+        add(MODID + ".configuration.turbine_particles.tooltip", "Multiplier for the rate of particles spawned in the turbine.");
         add(MODID + ".configuration.turbine_render_blade_width", "Rotor Blade Width");
         add(MODID + ".configuration.turbine_render_blade_width.tooltip", "Multiplier for the width of rendered rotor blades and stators.");
+        add(MODID + ".configuration.turbine_render_blade_fast", "Rotor Blade Fast Render");
+        add(MODID + ".configuration.turbine_render_blade_fast.tooltip", "If enabled, rotor blades are given a simpler, faster render.");
         add(MODID + ".configuration.turbine_render_rotor_expansion", "Rotor Render Expansion");
-        add(MODID + ".configuration.turbine_render_rotor_expansion.tooltip", "Parameter determining the rate of expansion of the size of turbine rotors along the direction of steam flow.");
+        add(MODID + ".configuration.turbine_render_rotor_expansion.tooltip", "Parameter determining the rate of expansion of the size of turbine rotors along the direction of flow.");
         add(MODID + ".configuration.turbine_render_rotor_speed", "Rotor Speed Multiplier");
         add(MODID + ".configuration.turbine_render_rotor_speed.tooltip", "Multiplier for the maximum rotation speed of rendered turbine rotors.");
 

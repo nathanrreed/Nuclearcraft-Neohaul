@@ -14,8 +14,7 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.NCRecipes;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SaltFissionHeaterMenu;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
@@ -24,9 +23,11 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionHeaterUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
+import com.nred.nuclearcraft.util.InventoryStackList;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
@@ -40,13 +41,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -62,13 +63,9 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> info;
 
-    protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
-    protected final @Nonnull NonNullList<ItemStack> consumedStacks;
-
     protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
 
     protected final @Nonnull List<Tank> tanks;
-    protected final @Nonnull List<Tank> consumedTanks;
 
     protected final @Nonnull List<Tank> filterTanks;
 
@@ -82,7 +79,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     public double heatingSpeedMultiplier; // Based on the cluster efficiency, but with heat/cooling taken into account
 
     public double time, resetTime;
-    public boolean isProcessing, canProcessInputs, hasConsumed;
+    public boolean isProcessing, canProcessInputs;
     public boolean isRunningSimulated;
 
     protected RecipeInfo<FissionCoolantHeaterRecipe> recipeInfo = null;
@@ -100,17 +97,13 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     public SaltFissionHeaterEntity(final BlockPos position, final BlockState blockState, FissionCoolantHeaterType heaterType) {
         super(FISSION_ENTITY_TYPE.get("coolant_heater").get(), position, blockState);
-        info = TileInfoHandler.getProcessorContainerInfo("salt_fission_heater");
+        info = BlockEntityInfoHandler.getProcessorContainerInfo("salt_fission_heater");
 
         this.heaterType = heaterType;
 
-        inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
-        consumedStacks = info.getConsumedStacks();
-
-        tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, Collections.singleton(heaterType.getCoolantId())), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
-        consumedTanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
-
-        filterTanks = Lists.newArrayList(new Tank(1000, Collections.singleton(heaterType.getCoolantId())), new Tank(1000, new ObjectOpenHashSet<>()));
+        Set<ResourceLocation> validFluids = Collections.singleton(heaterType.getCoolantId());
+        tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
+        filterTanks = Lists.newArrayList(new Tank(1000, validFluids), new Tank(1000, new ObjectOpenHashSet<>()));
 
         fluidConnections = ITileFluid.fluidConnectionAll(info.nonTankSorptions());
     }
@@ -200,7 +193,6 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
             isProcessing = isProcessing(checkValid, simulate);
             isRunningSimulated = false;
         }
-        hasConsumed = hasConsumed();
     }
 
     @Override
@@ -215,7 +207,6 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public void onClusterMeltdown(Iterator<IFissionComponent> componentIterator) {
-
     }
 
     @Override
@@ -233,10 +224,6 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     @Override
     public ModeratorBlockInfo getModeratorBlockInfo(Direction dir, boolean activeModeratorPos) {
         return new ModeratorBlockInfo(worldPosition, this, false, false, 0, 0D);
-    }
-
-    @Override
-    public void onAddedToModeratorCache(ModeratorBlockInfo thisInfo) {
     }
 
     // IFissionPortTarget
@@ -277,7 +264,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     @Override
     public void onLoad() {
         super.onLoad();
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             refreshMasterPort();
             refreshAll();
         }
@@ -285,7 +272,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public void update() {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             Optional<FissionReactor> reactor = getMultiblockController();
             boolean shouldRefresh = reactor.isPresent() && reactor.get().isReactorOn && (cluster == null || !isInValidPosition) && isProcessing(false, false);
 
@@ -307,11 +294,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public void refreshRecipe() {
-        boolean hasConsumed = getHasConsumed();
-        recipeInfo = NCRecipes.coolant_heater.getRecipeInfoFromHeaterInputs(level, heaterType, getFluidInputs(hasConsumed));
-        if (info.consumesInputs) {
-            consumeInputs();
-        }
+        recipeInfo = NCRecipes.coolant_heater.getRecipeInfoFromHeaterInputs(level, heaterType, getFluidInputs(false));
     }
 
     @Override
@@ -348,8 +331,8 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     @Override
     public void setRecipeStats(@Nullable BasicRecipe basic) {
         if (basic instanceof FissionCoolantHeaterRecipe recipe) {
-            baseProcessCooling = recipe.getCoolantHeaterCoolingRate();
-            placementRule = FissionPlacement.RULE_MAP.get(recipe.getCoolantHeaterPlacementRule());
+            baseProcessCooling = recipe.getFissionCoolingRate();
+            placementRule = FissionPlacement.RULE_MAP.get(recipe.getFissionCoolingPlacementRule());
         } else {
             baseProcessCooling = 0;
             placementRule = FissionPlacement.RULE_MAP.get("");
@@ -358,12 +341,12 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @Nonnull NonNullList<ItemStack> getConsumedStacks() {
-        return consumedStacks;
+        return getInventoryStacks();
     }
 
     @Override
     public @Nonnull List<Tank> getConsumedTanks() {
-        return consumedTanks;
+        return getTanks();
     }
 
     @Override
@@ -426,12 +409,11 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public boolean getHasConsumed() {
-        return hasConsumed;
+        return false;
     }
 
     @Override
     public void setHasConsumed(boolean hasConsumed) {
-        this.hasConsumed = hasConsumed;
     }
 
     @Override
@@ -459,7 +441,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     }
 
     public boolean readyToProcess(boolean checkValid) {
-        return canProcessInputs && hasConsumed && isMachineAssembled() && (!checkValid || (cluster != null && isInValidPosition));
+        return canProcessInputs && isMachineAssembled() && (!checkValid || (cluster != null && isInValidPosition));
     }
 
     @Override
@@ -489,7 +471,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {
-        return inventoryStacks;
+        return InventoryStackList.EMPTY_LIST;
     }
 
     @Override
@@ -574,17 +556,6 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     @Override
     public boolean hasConfigurableFluidConnections() {
         return false;
-    }
-
-    @Override
-    public void clearAllTanks() {
-        for (Tank tank : tanks) {
-            tank.setFluidStored(FluidStack.EMPTY);
-        }
-        for (Tank tank : consumedTanks) {
-            tank.setFluidStored(FluidStack.EMPTY);
-        }
-        refreshAll();
     }
 
     // ITileFilteredFluid
@@ -681,9 +652,6 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
         for (int i = 0; i < filterTanks.size(); ++i) {
             filterTanks.get(i).writeToNBT(nbt, registries, "filterTanks" + i);
         }
-        for (int i = 0; i < consumedTanks.size(); ++i) {
-            consumedTanks.get(i).writeToNBT(nbt, registries, "consumedTanks" + i);
-        }
         return nbt;
     }
 
@@ -694,9 +662,6 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
         }
         for (int i = 0; i < filterTanks.size(); ++i) {
             filterTanks.get(i).readFromNBT(nbt, registries, "filterTanks" + i);
-        }
-        for (int i = 0; i < consumedTanks.size(); ++i) {
-            consumedTanks.get(i).readFromNBT(nbt, registries, "consumedTanks" + i);
         }
     }
     // ComputerCraft

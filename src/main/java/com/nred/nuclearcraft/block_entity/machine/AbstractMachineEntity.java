@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.machine;
 
-import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.multiblock.machine.IMachinePartType;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public abstract class AbstractMachineEntity extends TilePartAbstract<Machine> implements IMultiblockPartTypeProvider<Machine, IMachinePartType>, IMachinePart {
+public abstract class AbstractMachineEntity extends AbstractPartBlockEntity<Machine> implements IMultiblockPartTypeProvider<Machine, IMachinePartType>, IMachinePart {
     public AbstractMachineEntity(final BlockEntityType<?> type, final BlockPos position, final BlockState blockState) {
         super(type, position, blockState);
     }

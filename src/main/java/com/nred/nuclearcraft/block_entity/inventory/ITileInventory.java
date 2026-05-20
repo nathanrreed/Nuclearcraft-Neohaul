@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.block_entity.inventory;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.ITile;
-import com.nred.nuclearcraft.block_entity.ITilePort;
+import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePort;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerPart;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemHandler;

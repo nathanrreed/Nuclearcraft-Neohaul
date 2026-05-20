@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.fission.manager;
 
-import com.nred.nuclearcraft.block_entity.ITileManager;
+import com.nred.nuclearcraft.block_entity.multiblock.manager.ITileManager;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 

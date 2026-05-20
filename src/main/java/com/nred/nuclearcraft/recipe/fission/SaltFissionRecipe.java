@@ -22,35 +22,37 @@ import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SA
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SALT_FISSION_RECIPE_TYPE;
 
 public class SaltFissionRecipe extends BasicRecipe {
-    private final int time;
+    private final double time;
     private final int heat;
     private final double efficiency;
     private final int criticality;
     private final double decayFactor;
     private final boolean selfPriming;
     private final double radiation;
+    private final int intrinsic_flux;
 
-    public SaltFissionRecipe(SizedChanceFluidIngredient ingredient, SizedChanceFluidIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
+    public SaltFissionRecipe(SizedChanceFluidIngredient ingredient, SizedChanceFluidIngredient product, double time, int heat, double efficiency, int criticality, int intrinsic_flux, double decayFactor, boolean selfPriming, double radiation) {
         super(List.of(), List.of(ingredient), List.of(), List.of(product));
         this.time = time;
         this.heat = heat;
         this.efficiency = efficiency;
         this.criticality = criticality;
+        this.intrinsic_flux = intrinsic_flux;
         this.decayFactor = decayFactor;
         this.selfPriming = selfPriming;
         this.radiation = radiation;
     }
 
     public SaltFissionRecipe(String fuelType, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
-        this(sizedIngredient(FISSION_FUEL_MAP.get(fuelType + "_fluoride_flibe"), 1), sizedIngredient(FISSION_FUEL_MAP.get("depleted_" + fuelType + "_fluoride_flibe"), 1), time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+        this(sizedIngredient(FISSION_FUEL_MAP.get(fuelType + "_fluoride_flibe"), 1), sizedIngredient(FISSION_FUEL_MAP.get("depleted_" + fuelType + "_fluoride_flibe"), 1), time / 144.0, heat, efficiency, criticality, 0, decayFactor, selfPriming, radiation);
     }
 
-    public int getSaltFissionFuelTimeRaw() {
-        return NCMath.toInt(time);
+    public double getSaltFissionFuelTimeRaw() {
+        return time;
     }
 
-    public int getSaltFissionFuelTime() {
-        return NCMath.toInt(fission_fuel_time_multiplier * time);
+    public double getSaltFissionFuelTime() {
+        return fission_fuel_time_multiplier * time;
     }
 
     public int getFissionFuelHeatRaw() {
@@ -71,6 +73,10 @@ public class SaltFissionRecipe extends BasicRecipe {
 
     public int getFissionFuelCriticality() {
         return criticality;
+    }
+
+    public int getFissionFuelIntrinsicFlux() {
+        return intrinsic_flux;
     }
 
     public double getFissionFuelDecayFactor() {
@@ -103,10 +109,11 @@ public class SaltFissionRecipe extends BasicRecipe {
         public static MapCodec<SaltFissionRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(SaltFissionRecipe::getFluidIngredient),
                 SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(SaltFissionRecipe::getFluidProduct),
-                Codec.INT.fieldOf("time").forGetter(SaltFissionRecipe::getSaltFissionFuelTimeRaw),
+                Codec.DOUBLE.fieldOf("time").forGetter(SaltFissionRecipe::getSaltFissionFuelTimeRaw),
                 Codec.INT.fieldOf("heat").forGetter(SaltFissionRecipe::getFissionFuelHeatRaw),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(SaltFissionRecipe::getFissionFuelEfficiencyRaw),
                 Codec.INT.fieldOf("criticality").forGetter(SaltFissionRecipe::getFissionFuelCriticality),
+                Codec.INT.optionalFieldOf("intrinsic_flux", 0).forGetter(SaltFissionRecipe::getFissionFuelIntrinsicFlux),
                 Codec.DOUBLE.fieldOf("decayFactor").forGetter(SaltFissionRecipe::getFissionFuelDecayFactor),
                 Codec.BOOL.fieldOf("selfPriming").forGetter(SaltFissionRecipe::getFissionFuelSelfPriming),
                 Codec.DOUBLE.fieldOf("radiation").forGetter(SaltFissionRecipe::getFissionFuelRadiationRaw)
@@ -115,10 +122,11 @@ public class SaltFissionRecipe extends BasicRecipe {
         public static StreamCodec<RegistryFriendlyByteBuf, SaltFissionRecipe> STREAM_CODEC = StreamCodecsHelper.composite(
                 SizedChanceFluidIngredient.STREAM_CODEC, SaltFissionRecipe::getFluidIngredient,
                 SizedChanceFluidIngredient.STREAM_CODEC, SaltFissionRecipe::getFluidProduct,
-                ByteBufCodecs.INT, SaltFissionRecipe::getSaltFissionFuelTimeRaw,
+                ByteBufCodecs.DOUBLE, SaltFissionRecipe::getSaltFissionFuelTimeRaw,
                 ByteBufCodecs.INT, SaltFissionRecipe::getFissionFuelHeatRaw,
                 ByteBufCodecs.DOUBLE, SaltFissionRecipe::getFissionFuelEfficiencyRaw,
                 ByteBufCodecs.INT, SaltFissionRecipe::getFissionFuelCriticality,
+                ByteBufCodecs.INT, SaltFissionRecipe::getFissionFuelIntrinsicFlux,
                 ByteBufCodecs.DOUBLE, SaltFissionRecipe::getFissionFuelDecayFactor,
                 ByteBufCodecs.BOOL, SaltFissionRecipe::getFissionFuelSelfPriming,
                 ByteBufCodecs.DOUBLE, SaltFissionRecipe::getFissionFuelRadiationRaw,

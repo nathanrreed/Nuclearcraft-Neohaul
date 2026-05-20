@@ -66,12 +66,14 @@ public class EmiLangProvider extends LanguageProvider {
 
         add("emi.category." + EMI_SOLID_FISSION_CATEGORY.getId().toLanguageKey(), "Solid Fuel Fission");
         add("emi.category." + EMI_SALT_FISSION_CATEGORY.getId().toLanguageKey(), "Molten Salt Fission");
+        add("emi.category." + EMI_PEBBLE_FISSION_CATEGORY.getId().toLanguageKey(), "Pebble Bed Fission");
         add("emi.category." + ncLoc("fission_moderator").toLanguageKey(), "Fission Moderator");
         add("emi.category." + ncLoc("fission_reflector").toLanguageKey(), "Fission Reflector");
         add("emi.category." + EMI_IRRADIATOR_CATEGORY.getId().toLanguageKey(), "Fission Irradiator");
         add("emi.category." + EMI_VENT_CATEGORY.getId().toLanguageKey(), "Fission Vent Heating");
         add("emi.category." + EMI_EMERGENCY_COOLING_CATEGORY.getId().toLanguageKey(), "Fission Emergency Cooling");
         add("emi.category." + EMI_SALT_COOLING_CATEGORY.getId().toLanguageKey(), "Molten Salt Cooling");
+        add("emi.category." + EMI_PEBBLE_COOLER_CATEGORY.getId().toLanguageKey(), "Pebble Bed Cooling");
 
         add("emi.category." + EMI_CONDENSER_CATEGORY.getId().toLanguageKey(), "Condenser");
         add("emi.category." + EMI_CONDENSER_DISSIPATION_CATEGORY.getId().toLanguageKey(), "Condenser Dissipation");

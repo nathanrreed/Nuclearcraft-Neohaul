@@ -22,20 +22,20 @@ public abstract class ProcessorContainerInfoBuilder<TILE extends BlockEntity & I
     public final MenuFunction<TILE> menuFunction;
     public final BiFunction<BlockPos, BlockState, TILE> tileSupplier;
 
-    protected List<String> particles = new ArrayList<>();
+    public List<String> particles = new ArrayList<>();
 
-    protected int inputTankCapacity = 16000;
-    protected int outputTankCapacity = 16000;
+    public int inputTankCapacity = 16000;
+    public int outputTankCapacity = 16000;
 
-    protected Supplier<Integer> defaultProcessTime = () -> 1;
-    protected Supplier<Integer> defaultProcessPower = () -> 0;
+    public Supplier<Integer> defaultProcessTime = () -> 1;
+    public Supplier<Integer> defaultProcessPower = () -> 0;
 
-    protected boolean isGenerator = false;
+    public boolean isGenerator = false;
 
-    protected boolean consumesInputs = false;
-    protected boolean losesProgress = false;
+    public boolean consumesInputs = false;
+    public boolean losesProgress = false;
 
-    protected String ccComponentName;
+    public String ccComponentName;
 
     protected ProcessorContainerInfoBuilder(String name, Class<TILE> tileClass, BiFunction<BlockPos, BlockState, TILE> tileSupplier, MenuFunction<TILE> menuFunction) {
         super(name);

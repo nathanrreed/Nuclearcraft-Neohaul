@@ -32,6 +32,7 @@ public abstract class MultiblockControllerScreen<MULTIBLOCK extends Multiblock<M
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         guiGraphics.blitSprite(getGuiTexture(), 256, 256, 0, 0, getGuiLeft(), getGuiTop(), imageWidth, imageHeight);
         clearAllButton.visible = NCUtil.isModifierKeyDown();
+        super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
     }
 
     protected abstract ResourceLocation getGuiTexture(); // TODO REMOVE?

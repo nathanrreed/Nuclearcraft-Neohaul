@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.NCInfo;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.datamap.*;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
+import com.nred.nuclearcraft.multiblock.fisson.pebble.FissionCoolerType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbinePartType;
@@ -82,6 +83,8 @@ public class TooltipHandler {
                 rule = coil.getTooltipRule();
             } else if (block.getMultiblockVariant().get() instanceof FissionCoolantHeaterType heater) {
                 rule = heater.getTooltipRule();
+            } else if (block.getMultiblockVariant().get() instanceof FissionCoolerType cooler) {
+                rule = cooler.getTooltipRule();
             } else if (block.getMultiblockVariant().get() instanceof FissionHeatSinkType sink) {
                 rule = sink.getTooltipRule();
             }
@@ -135,12 +138,12 @@ public class TooltipHandler {
 
         recipe = itemRecipe.apply(NCRecipes.solid_fission);
         if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((ItemFissionRecipe) recipe));
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.AQUA, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((ItemFissionRecipe) recipe));
         }
 
         recipe = itemRecipe.apply(NCRecipes.pebble_fission);
         if (recipe != null) {
-            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((ItemFissionRecipe) recipe));
+            InfoHelper.infoFull(tooltips, new ChatFormatting[]{ChatFormatting.UNDERLINE, ChatFormatting.GREEN, ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED, ChatFormatting.AQUA, ChatFormatting.GRAY, ChatFormatting.DARK_AQUA}, NCInfo.fissionFuelInfo((ItemFissionRecipe) recipe));
         }
     }
 

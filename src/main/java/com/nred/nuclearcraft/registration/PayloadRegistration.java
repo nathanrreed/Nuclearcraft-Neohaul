@@ -56,13 +56,15 @@ public class PayloadRegistration {
         registrar.playToClient(FluidPortUpdatePacket.TYPE, FluidPortUpdatePacket.STREAM_CODEC, FluidPortUpdatePacket.Handler::handleOnClient);
 
         registrar.playToClient(FissionIrradiatorUpdatePacket.TYPE, FissionIrradiatorUpdatePacket.STREAM_CODEC, FissionIrradiatorUpdatePacket.Handler::handleOnClient);
-        registrar.playToClient(FissionCoolerUpdatePacket.TYPE, FissionCoolerUpdatePacket.STREAM_CODEC, FissionCoolerUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(SolidFissionCellUpdatePacket.TYPE, SolidFissionCellUpdatePacket.STREAM_CODEC, SolidFissionCellUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(SaltFissionVesselUpdatePacket.TYPE, SaltFissionVesselUpdatePacket.STREAM_CODEC, SaltFissionVesselUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(SaltFissionHeaterUpdatePacket.TYPE, SaltFissionHeaterUpdatePacket.STREAM_CODEC, SaltFissionHeaterUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(PebbleFissionChamberUpdatePacket.TYPE, PebbleFissionChamberUpdatePacket.STREAM_CODEC, PebbleFissionChamberUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(PebbleFissionCoolerUpdatePacket.TYPE, PebbleFissionCoolerUpdatePacket.STREAM_CODEC, PebbleFissionCoolerUpdatePacket.Handler::handleOnClient);
 
         registrar.playToClient(SolidFissionUpdatePacket.TYPE, SolidFissionUpdatePacket.STREAM_CODEC, SolidFissionUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(SaltFissionUpdatePacket.TYPE, SaltFissionUpdatePacket.STREAM_CODEC, SaltFissionUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(PebbleFissionUpdatePacket.TYPE, PebbleFissionUpdatePacket.STREAM_CODEC, PebbleFissionUpdatePacket.Handler::handleOnClient);
 
         registrar.playToClient(HeatExchangerUpdatePacket.TYPE, HeatExchangerUpdatePacket.STREAM_CODEC, HeatExchangerUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(HeatExchangerRenderPacket.TYPE, HeatExchangerRenderPacket.STREAM_CODEC, HeatExchangerRenderPacket.Handler::handleOnClient);

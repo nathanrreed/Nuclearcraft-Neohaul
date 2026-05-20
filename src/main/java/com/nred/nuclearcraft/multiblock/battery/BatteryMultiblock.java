@@ -56,7 +56,6 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
 
     @Override
     protected void onMachineDisassembled() {
-        int i = 0;
     }
 
     @Override

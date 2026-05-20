@@ -12,7 +12,7 @@ import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SolidFissionCellMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -67,16 +67,13 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     protected @Nonnull InventoryConnection[] inventoryConnections;
 
-    protected final @Nonnull List<Tank> tanks;
-    protected final @Nonnull List<Tank> consumedTanks;
-
     protected @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(Collections.emptyList());
 
     protected @Nonnull FluidTileWrapper[] fluidSides = ITileFluid.getDefaultFluidSides(this);
     protected @Nonnull ChemicalTileWrapper[] chemicalSides = ITileFluid.getDefaultChemicalSides(this);
 
     public double baseProcessTime = 1D, baseProcessEfficiency = 0D, baseProcessDecayFactor = 0D, baseProcessRadiation = 0D;
-    public int baseProcessHeat = 0, baseProcessCriticality = 1;
+    public int baseProcessHeat = 0, baseProcessCriticality = 1, intrinsicFlux = 0;
     protected boolean selfPriming = false;
 
     public double time, resetTime;
@@ -116,7 +113,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     public SolidFissionCellEntity(final BlockPos position, final BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("cell").get(), position, blockState);
-        info = TileInfoHandler.getProcessorContainerInfo("solid_fission_cell");
+        info = BlockEntityInfoHandler.getProcessorContainerInfo("solid_fission_cell");
 
         inventoryStacks = info.getInventoryStacks();
         consumedStacks = info.getConsumedStacks();
@@ -124,9 +121,6 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
         filterStacks = info.getInventoryStacks();
 
         inventoryConnections = ITileInventory.inventoryConnectionAll(info.nonItemSorptions());
-
-        tanks = Collections.emptyList();
-        consumedTanks = info.getConsumedTanks();
     }
 
     @Override
@@ -232,6 +226,11 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     @Override
     public void addToPrimedCache(final ObjectSet<IFissionFuelComponent> primedCache) {
         primedCache.add(this);
+    }
+
+    @Override
+    public void addToPrimedFailCache(final Long2ObjectMap<IFissionFuelComponent> primedFailCache) {
+        primedFailCache.put(worldPosition.asLong(), this);
     }
 
     @Override
@@ -377,6 +376,16 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     }
 
     @Override
+    public long getIntrinsicFlux() {
+        return intrinsicFlux;
+    }
+
+    @Override
+    public double getIntrinsicFluxEfficiencyFactor() {
+        return fission_cell_intrinsic_flux_efficiency;
+    }
+
+    @Override
     public double getFluxEfficiencyFactor() {
         return (1D + Math.exp(-2D * getFloatingPointCriticality())) / (1D + Math.exp(2D * (flux - 2D * getFloatingPointCriticality())));
     }
@@ -476,8 +485,8 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     @Override
     public void refreshMasterPort() {
-        Optional<FissionReactor> multiblock = getMultiblockController();
-        masterPort = multiblock.map(fissionReactor -> fissionReactor.getPartMap(FissionCellPortEntity.class).get(masterPortPos.asLong())).orElse(null);
+        FissionReactor multiblock = getMultiblockController().orElse(null);
+        masterPort = multiblock == null ? null : multiblock.getPartMap(FissionCellPortEntity.class).get(masterPortPos.asLong());
         if (masterPort == null) {
             masterPortPos = DEFAULT_NON;
         }
@@ -493,7 +502,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     @Override
     public void onLoad() {
         super.onLoad();
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             refreshMasterPort();
             refreshAll();
         }
@@ -501,7 +510,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     @Override
     public void update() {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             Optional<FissionReactor> reactor = getMultiblockController();
             boolean shouldRefresh = reactor.isPresent() && reactor.get().isReactorOn && cluster == null && isProcessing(false, false);
 
@@ -659,6 +668,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
             baseProcessHeat = recipe.getFissionFuelHeat();
             baseProcessEfficiency = recipe.getFissionFuelEfficiency();
             baseProcessCriticality = recipe.getFissionFuelCriticality();
+            intrinsicFlux = recipe.getFissionFuelIntrinsicFlux();
             selfPriming = recipe.getFissionFuelSelfPriming();
             baseProcessRadiation = recipe.getFissionFuelRadiation();
             decayProcessHeat = baseProcessHeat;
@@ -668,6 +678,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
             baseProcessHeat = 0;
             baseProcessEfficiency = 0D;
             baseProcessCriticality = 1;
+            intrinsicFlux = 0;
             selfPriming = false;
             baseProcessRadiation = 0D;
         }
@@ -680,7 +691,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     @Override
     public @Nonnull List<Tank> getConsumedTanks() {
-        return consumedTanks;
+        return Collections.emptyList();
     }
 
     @Override
@@ -865,13 +876,6 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     }
 
     @Override
-    public void clearAllSlots() {
-        Collections.fill(inventoryStacks, ItemStack.EMPTY);
-        Collections.fill(consumedStacks, ItemStack.EMPTY);
-        refreshAll();
-    }
-
-    @Override
     public @Nonnull InventoryConnection[] getInventoryConnections() {
         return inventoryConnections;
     }
@@ -916,7 +920,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     @Override
     public @Nonnull List<Tank> getTanks() {
-        return tanks;
+        return Collections.emptyList();
     }
 
     @Override
@@ -1008,6 +1012,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
         nbt.putInt("baseProcessHeat", baseProcessHeat);
         nbt.putDouble("baseProcessEfficiency", baseProcessEfficiency);
         nbt.putInt("baseProcessCriticality", baseProcessCriticality);
+        nbt.putInt("intrinsicFlux", intrinsicFlux);
         nbt.putDouble("baseProcessDecayFactor", baseProcessDecayFactor);
         nbt.putBoolean("selfPriming", selfPriming);
 
@@ -1035,6 +1040,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
         baseProcessHeat = nbt.getInt("baseProcessHeat");
         baseProcessEfficiency = nbt.getDouble("baseProcessEfficiency");
         baseProcessCriticality = nbt.getInt("baseProcessCriticality");
+        intrinsicFlux = nbt.getInt("intrinsicFlux");
         baseProcessDecayFactor = nbt.getDouble("baseProcessDecayFactor");
         selfPriming = nbt.getBoolean("selfPriming");
 
@@ -1078,8 +1084,13 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
         entry.put("is_processing", getIsProcessing());
         entry.put("current_time", getCurrentTime());
         entry.put("base_process_time", getBaseProcessTime());
-        entry.put("base_process_criticality", baseProcessCriticality);
+        entry.put("base_process_heat", getBaseProcessHeat());
         entry.put("base_process_efficiency", baseProcessEfficiency);
+        entry.put("base_process_criticality", baseProcessCriticality);
+        entry.put("intrinsic_flux", intrinsicFlux);
+        entry.put("base_process_decay_factor", baseProcessDecayFactor);
+        entry.put("is_self_priming", selfPriming);
+        entry.put("base_process_radiation", baseProcessRadiation);
         entry.put("is_primed", isPrimed(false));
         entry.put("efficiency", getEfficiency(false));
         entry.put("flux", getFlux());

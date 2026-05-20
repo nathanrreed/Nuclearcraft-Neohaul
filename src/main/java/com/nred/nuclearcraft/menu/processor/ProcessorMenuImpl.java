@@ -304,13 +304,24 @@ public class ProcessorMenuImpl {
         }
     }
 
-    public static class FissionCoolerMenu extends BasicProcessorMenu<FissionCoolerEntity, FissionCoolerUpdatePacket> {
-        public FissionCoolerMenu(int containerId, Inventory inventory, FissionCoolerEntity cooler) {
+    public static class PebbleFissionChamberMenu extends BasicProcessorMenu<PebbleFissionChamberEntity, PebbleFissionChamberUpdatePacket> {
+        public PebbleFissionChamberMenu(int containerId, Inventory inventory, PebbleFissionChamberEntity chamber) {
+            super(FISSION_CHAMBER_MENU_TYPE.get(), containerId, inventory, chamber);
+        }
+
+        // Client Constructor
+        public PebbleFissionChamberMenu(int containerId, Inventory inventory, FriendlyByteBuf extraData) {
+            this(containerId, inventory, AbstractModBlockEntity.getGuiClientBlockEntity(extraData));
+        }
+    }
+
+    public static class PebbleFissionCoolerMenu extends BasicProcessorMenu<PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket> {
+        public PebbleFissionCoolerMenu(int containerId, Inventory inventory, PebbleFissionCoolerEntity cooler) {
             super(FISSION_COOLER_MENU_TYPE.get(), containerId, inventory, cooler);
         }
 
         // Client Constructor
-        public FissionCoolerMenu(int containerId, Inventory inventory, FriendlyByteBuf extraData) {
+        public PebbleFissionCoolerMenu(int containerId, Inventory inventory, FriendlyByteBuf extraData) {
             this(containerId, inventory, AbstractModBlockEntity.getGuiClientBlockEntity(extraData));
         }
     }

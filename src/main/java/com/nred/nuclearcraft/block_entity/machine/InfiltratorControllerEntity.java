@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.machine;
 
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.controller.InfiltratorControllerMenu;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -22,7 +22,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class InfiltratorControllerEntity extends AbstractMachineEntity implements IMachineController<InfiltratorControllerEntity> {
-    protected final BlockEntityMenuInfo<InfiltratorControllerEntity> info = TileInfoHandler.getTileContainerInfo("infiltrator_controller");
+    protected final BlockEntityMenuInfo<InfiltratorControllerEntity> info = BlockEntityInfoHandler.getTileContainerInfo("infiltrator_controller");
 
     protected boolean isRenderer = false;
 

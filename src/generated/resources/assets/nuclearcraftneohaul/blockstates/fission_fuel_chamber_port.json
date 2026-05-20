@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "axis=x,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_fuel_chamber_port_chamber_in",
+      "y": 90
+    },
+    "axis=x,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_fuel_chamber_port_chamber_out",
+      "y": 90
+    },
+    "axis=y,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_fuel_chamber_port_chamber_in",
+      "x": 90
+    },
+    "axis=y,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_fuel_chamber_port_chamber_out",
+      "x": 90
+    },
+    "axis=z,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/fission_fuel_chamber_port_chamber_in"
+    },
+    "axis=z,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/fission_fuel_chamber_port_chamber_out"
+    }
+  }
+}

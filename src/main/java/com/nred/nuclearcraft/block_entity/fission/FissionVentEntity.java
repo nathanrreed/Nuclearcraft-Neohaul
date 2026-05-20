@@ -1,10 +1,11 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
 import com.google.common.collect.Lists;
+import com.nred.nuclearcraft.block_entity.ITickable;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
+import com.nred.nuclearcraft.block_entity.multiblock.ITileSorptionPart;
 import com.nred.nuclearcraft.block_entity.passive.ITilePassive;
-import com.nred.nuclearcraft.block_entity.ITickable;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -34,7 +35,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 import static net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 import static net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.SIMULATE;
 
-public class FissionVentEntity extends AbstractFissionEntity implements ITickable, ITileFluid {
+public class FissionVentEntity extends AbstractFissionEntity implements ITickable, ITileFluid, ITileSorptionPart<FissionReactor> {
     private final @Nonnull List<Tank> backupTanks = Collections.emptyList();
 
     private @Nonnull FluidConnection[] fluidConnections = ITileFluid.fluidConnectionAll(Lists.newArrayList(TankSorption.IN, TankSorption.NON));
@@ -74,6 +75,30 @@ public class FissionVentEntity extends AbstractFissionEntity implements ITickabl
         }
     }
 
+    @Override
+    public boolean canReceive() {
+        for (Direction facing : Direction.values()) {
+            if (getTankSorption(facing, 0).canFill()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canExtract() {
+        for (Direction facing : Direction.values()) {
+            if (getTankSorption(facing, 1).canDrain()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public SorptionKey getSorptionKey() {
+        return new SorptionKey("vent");
+    }
     // Fluids
 
     @Override
@@ -165,7 +190,8 @@ public class FissionVentEntity extends AbstractFissionEntity implements ITickabl
     @Override
     public boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level level, Direction facing, BlockPos hitPos) {
         if (!player.isCrouching()) {
-            if (getMultiblockController().isPresent()) {
+            FissionReactor multiblock = getMultiblockController().orElse(null);
+            if (multiblock != null && !multiblock.isAssembled()) {
                 if (getTankSorption(facing, 0) != TankSorption.IN) {
                     for (Direction side : Direction.values()) {
                         setTankSorption(side, 0, TankSorption.IN);

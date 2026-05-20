@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block_entity.fission.SolidFissionCellEntity;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.IFissionPartType;
+import com.nred.nuclearcraft.util.NCInventoryHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -12,6 +13,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -44,5 +46,16 @@ public class SolidFissionCellBlock extends GenericTooltipDeviceBlock<FissionReac
             }
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!keepInventory) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof SolidFissionCellEntity cell) {
+                NCInventoryHelper.dropInventoryItems(level, pos, cell.getInventoryStacksInternal());
+            }
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 }

@@ -14,7 +14,7 @@ import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SaltFissionVesselMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
@@ -26,6 +26,7 @@ import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
+import com.nred.nuclearcraft.util.InventoryStackList;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
@@ -47,7 +48,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -62,9 +62,6 @@ import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 public class SaltFissionVesselEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket>, ITileFilteredFluid, IFissionFuelBunchComponent, IFissionPortTarget<FissionVesselPortEntity, SaltFissionVesselEntity> {
     protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> info;
 
-    protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
-    protected final @Nonnull NonNullList<ItemStack> consumedStacks;
-
     protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
 
     protected final @Nonnull List<Tank> tanks;
@@ -78,7 +75,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     protected @Nonnull ChemicalTileWrapper[] chemicalSides = ITileFluid.getDefaultChemicalSides(this);
 
     public double baseProcessTime = 1D, baseProcessEfficiency = 0D, baseProcessDecayFactor = 0D, baseProcessRadiation = 0D;
-    public int baseProcessHeat = 0, baseProcessCriticality = 1;
+    public int baseProcessHeat = 0, baseProcessCriticality = 1, intrinsicFlux = 0;
     protected boolean selfPriming = false;
 
     public double time, resetTime;
@@ -121,10 +118,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     public SaltFissionVesselEntity(final BlockPos position, final BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("vessel").get(), position, blockState);
 
-        info = TileInfoHandler.getProcessorContainerInfo("salt_fission_vessel");
-
-        inventoryStacks = NonNullList.withSize(0, ItemStack.EMPTY);
-        consumedStacks = info.getConsumedStacks();
+        info = BlockEntityInfoHandler.getProcessorContainerInfo("salt_fission_vessel");
 
         Set<ResourceLocation> validFluids = NCRecipes.salt_fission.getValidFluids(level, 0);
         tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
@@ -251,6 +245,11 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     @Override
     public void addToPrimedCache(final ObjectSet<IFissionFuelComponent> primedCache) {
         primedCache.addAll(fuelBunch.fuelComponentMap.values());
+    }
+
+    @Override
+    public void addToPrimedFailCache(final Long2ObjectMap<IFissionFuelComponent> primedFailCache) {
+        primedFailCache.putAll(getFuelBunch().fuelComponentMap);
     }
 
     @Override
@@ -391,9 +390,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
         return isRunning(simulate) ? baseProcessHeat * fuelBunch.getHeatMultiplier(simulate) / getFuelBunchSize() : 0L;
     }
 
-    /**
-     * DON'T USE IN REACTOR LOGIC!
-     */
+
     @Override
     public long getRawHeatingIgnoreCoolingPenalty(boolean simulate) {
         return isRunning(simulate) ? 0L : getDecayHeating();
@@ -415,6 +412,16 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     @Override
     public long getHeatMultiplier(boolean simulate) {
         return fuelBunch.getHeatMultiplier(simulate) / getFuelBunchSize();
+    }
+
+    @Override
+    public long getIntrinsicFlux() {
+        return intrinsicFlux;
+    }
+
+    @Override
+    public double getIntrinsicFluxEfficiencyFactor() {
+        return fission_vessel_intrinsic_flux_efficiency;
     }
 
     @Override
@@ -702,19 +709,21 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     @Override
     public void setRecipeStats(@javax.annotation.Nullable BasicRecipe basic) {
         if (basic instanceof SaltFissionRecipe recipe) {
-            decayProcessHeat = baseProcessHeat;
-            baseProcessDecayFactor = recipe.getFissionFuelDecayFactor();
             baseProcessTime = recipe.getSaltFissionFuelTime();
             baseProcessHeat = recipe.getFissionFuelHeat();
             baseProcessEfficiency = recipe.getFissionFuelEfficiency();
             baseProcessCriticality = recipe.getFissionFuelCriticality();
+            intrinsicFlux = recipe.getFissionFuelIntrinsicFlux();
             selfPriming = recipe.getFissionFuelSelfPriming();
             baseProcessRadiation = recipe.getFissionFuelRadiation();
+            decayProcessHeat = baseProcessHeat;
+            baseProcessDecayFactor = recipe.getFissionFuelDecayFactor();
         } else {
             baseProcessTime = 1D;
             baseProcessHeat = 0;
             baseProcessEfficiency = 0D;
             baseProcessCriticality = 1;
+            intrinsicFlux = 0;
             selfPriming = false;
             baseProcessRadiation = 0D;
         }
@@ -722,7 +731,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @Nonnull NonNullList<ItemStack> getConsumedStacks() {
-        return consumedStacks;
+        return InventoryStackList.EMPTY_LIST;
     }
 
     @Override
@@ -871,7 +880,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
 
     @Override
     public @Nonnull NonNullList<ItemStack> getInventoryStacks() {
-        return inventoryStacks;
+        return InventoryStackList.EMPTY_LIST;
     }
 
     @Override
@@ -958,17 +967,6 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
         return false;
     }
 
-    @Override
-    public void clearAllTanks() {
-        for (Tank tank : tanks) {
-            tank.setFluidStored(FluidStack.EMPTY);
-        }
-        for (Tank tank : consumedTanks) {
-            tank.setFluidStored(FluidStack.EMPTY);
-        }
-        refreshAll();
-    }
-
     // ITileFilteredFluid
 
     @Override
@@ -1032,6 +1030,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
         nbt.putInt("baseProcessHeat", baseProcessHeat);
         nbt.putDouble("baseProcessEfficiency", baseProcessEfficiency);
         nbt.putInt("baseProcessCriticality", baseProcessCriticality);
+        nbt.putInt("intrinsicFlux", intrinsicFlux);
         nbt.putDouble("baseProcessDecayFactor", baseProcessDecayFactor);
         nbt.putBoolean("selfPriming", selfPriming);
 
@@ -1058,6 +1057,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
         baseProcessHeat = nbt.getInt("baseProcessHeat");
         baseProcessEfficiency = nbt.getDouble("baseProcessEfficiency");
         baseProcessCriticality = nbt.getInt("baseProcessCriticality");
+        intrinsicFlux = nbt.getInt("intrinsicFlux");
         baseProcessDecayFactor = nbt.getDouble("baseProcessDecayFactor");
         selfPriming = nbt.getBoolean("selfPriming");
 
@@ -1117,8 +1117,13 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
         entry.put("is_processing", getIsProcessing());
         entry.put("current_time", getCurrentTime());
         entry.put("base_process_time", getBaseProcessTime());
-        entry.put("base_process_criticality", baseProcessCriticality);
+        entry.put("base_process_heat", getBaseProcessHeat());
         entry.put("base_process_efficiency", baseProcessEfficiency);
+        entry.put("base_process_criticality", baseProcessCriticality);
+        entry.put("intrinsic_flux", intrinsicFlux);
+        entry.put("base_process_decay_factor", baseProcessDecayFactor);
+        entry.put("is_self_priming", selfPriming);
+        entry.put("base_process_radiation", baseProcessRadiation);
         entry.put("is_primed", isPrimed(false));
         entry.put("efficiency", getEfficiency(false));
         entry.put("flux", getFlux());

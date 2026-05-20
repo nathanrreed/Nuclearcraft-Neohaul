@@ -65,7 +65,7 @@ public class DistillerControllerScreen extends LogicMultiblockControllerScreen<M
         Component rate = Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(logic.getProcessTimeFP(), 5));
         guiGraphics.drawCenteredString(this.font, rate, middle_x, getGuiTop() + 58, fontColor);
 
-        Component power = Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "RF/t"));
+        Component power = Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "FE/t"));
         guiGraphics.drawCenteredString(this.font, power, middle_x, getGuiTop() + 70, fontColor);
     }
 }

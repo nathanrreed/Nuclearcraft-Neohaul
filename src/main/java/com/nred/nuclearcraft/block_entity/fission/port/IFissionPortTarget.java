@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.fission.port;
 
-import com.nred.nuclearcraft.block_entity.ITilePortTarget;
+import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePortTarget;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 

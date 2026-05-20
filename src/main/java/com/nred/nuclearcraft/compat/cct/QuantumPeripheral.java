@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.cct;
 
 import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerPortEntity;
-import com.nred.nuclearcraft.multiblock.quantum.QuantumState;
+import com.nred.nuclearcraft.quantum.State;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import org.jspecify.annotations.Nullable;
@@ -35,7 +35,7 @@ public record QuantumPeripheral(QuantumComputerPortEntity entity) implements IPe
         if (!test()) {
             return new Object[]{new double[][]{{1D, 0D}}};
         } else {
-            QuantumState state = entity.getMultiblockController().get().state;
+            State state = entity.getMultiblockController().get().state;
             double[] vector = state.vector;
             return new Object[]{IntStream.range(0, state.dim).mapToObj(i -> {
                 int x = i << 1;

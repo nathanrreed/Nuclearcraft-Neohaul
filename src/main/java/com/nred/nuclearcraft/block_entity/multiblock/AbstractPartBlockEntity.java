@@ -1,0 +1,209 @@
+package com.nred.nuclearcraft.block_entity.multiblock;
+
+import com.nred.nuclearcraft.NuclearcraftNeohaul;
+import com.nred.nuclearcraft.block_entity.ITile;
+import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
+import com.nred.nuclearcraft.capability.radiation.source.RadiationSource;
+import it.zerono.mods.zerocore.lib.data.nbt.INestedSyncableEntity;
+import it.zerono.mods.zerocore.lib.data.nbt.ISyncableEntity;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockController;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.AbstractCuboidMultiblockPart;
+import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
+import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+
+import javax.annotation.Nullable;
+import java.util.Optional;
+
+public abstract class AbstractPartBlockEntity<MULTIBLOCK extends AbstractCuboidMultiblockController<MULTIBLOCK>> extends AbstractCuboidMultiblockPart<MULTIBLOCK> implements ITile, INestedSyncableEntity {
+    private boolean isRedstonePowered = false, alternateComparator = false, redstoneControl = false;
+
+    private final IRadiationSource radiation;
+
+    public AbstractPartBlockEntity(final BlockEntityType<?> type, final BlockPos position, final BlockState blockState) {
+        super(type, position, blockState);
+        radiation = new RadiationSource(0D);
+    }
+
+    @Override
+    public void onLoad() {
+        if (level.isClientSide()) {
+            refreshIsRedstonePowered(level, worldPosition);
+            setChanged();
+            updateComparatorOutputLevel();
+        }
+    }
+
+    @Override
+    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
+        // Most Reactor parts are not allowed on the Frame an inside the Reactor so reject those positions and allow all the other ones
+
+        final BlockPos coordinates = this.getWorldPosition();
+
+        if (position.isFrame()) {
+            validatorCallback.setLastError(coordinates, NuclearcraftNeohaul.MODID + ".multiblock_validation.invalid_frame_block", coordinates.getX(), coordinates.getY(), coordinates.getZ());
+            return false;
+        } else if (PartPosition.Interior == position) {
+            validatorCallback.setLastError(coordinates, NuclearcraftNeohaul.MODID + ".multiblock_validation.invalid_part_for_interior", coordinates.getX(), coordinates.getY(), coordinates.getZ());
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onMachineActivated() {
+    }
+
+    @Override
+    public void onMachineDeactivated() {
+    }
+
+    @Override
+    public BlockEntity getTile() {
+        return this;
+    }
+
+    @Override
+    public Level getTileWorld() {
+        return level;
+    }
+
+    @Override
+    public BlockPos getTilePos() {
+        return worldPosition;
+    }
+
+    @Override
+    public Block getTileBlockType() {
+        return getBlockState().getBlock();
+    }
+
+    public IRadiationSource getRadiationSource() {
+        return radiation;
+    }
+
+    public boolean isUseableByPlayer(Player entityplayer) {
+        if (level.getBlockEntity(worldPosition) != this) {
+            return false;
+        }
+        return entityplayer.distanceToSqr(worldPosition.getX() + 0.5D, worldPosition.getY() + 0.5D, worldPosition.getZ() + 0.5D) <= 64D;
+    }
+
+    @Override
+    public final void markTileDirty() {
+        setChanged();
+    }
+
+    @Override
+    public void setChanged() {
+        super.setChanged();
+        if (level != null && !level.isClientSide()) {
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        }
+    }
+
+    // Redstone
+
+    @Override
+    public boolean getIsRedstonePowered() {
+        return isRedstonePowered;
+    }
+
+    @Override
+    public void setIsRedstonePowered(boolean isRedstonePowered) {
+        this.isRedstonePowered = isRedstonePowered;
+    }
+
+    @Override
+    public boolean getAlternateComparator() {
+        return alternateComparator;
+    }
+
+    @Override
+    public void setAlternateComparator(boolean alternate) {
+        alternateComparator = alternate;
+    }
+
+    @Override
+    public boolean getRedstoneControl() {
+        return redstoneControl;
+    }
+
+    @Override
+    public void setRedstoneControl(boolean redstoneControl) {
+        this.redstoneControl = redstoneControl;
+    }
+
+    // NBT
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        writeAll(tag, registries);
+    }
+
+    public CompoundTag writeAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        nbt.putBoolean("isRedstonePowered", isRedstonePowered);
+        nbt.putBoolean("alternateComparator", alternateComparator);
+        nbt.putBoolean("redstoneControl", redstoneControl);
+        if (shouldSaveRadiation()) {
+            writeRadiation(nbt, registries);
+        }
+        return nbt;
+    }
+
+    public CompoundTag writeRadiation(CompoundTag nbt, HolderLookup.Provider registries) {
+        nbt.putDouble("radiationLevel", getRadiationSource().getRadiationLevel());
+        return nbt;
+    }
+
+    @Override
+    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        readAll(tag, registries);
+    }
+
+    public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
+        isRedstonePowered = nbt.getBoolean("isRedstonePowered");
+        alternateComparator = nbt.getBoolean("alternateComparator");
+        redstoneControl = nbt.getBoolean("redstoneControl");
+        if (shouldSaveRadiation()) {
+            readRadiation(nbt, registries);
+        }
+    }
+
+    public void readRadiation(CompoundTag nbt, HolderLookup.Provider registries) {
+        if (nbt.contains("radiationLevel")) {
+            getRadiationSource().setRadiationLevel(nbt.getDouble("radiationLevel"));
+        }
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag tag = super.getUpdateTag(registries);
+        saveAdditional(tag, registries);
+        return tag;
+    }
+
+    @Override
+    public Optional<ISyncableEntity> getNestedSyncableEntity() { // TODO find out if this should be here
+        return this.getMultiblockController().map(c -> c);
+    }
+
+    public @Nullable IRadiationSource getMultiblockRadiationSource() {
+        return isMultiblockSaveDelegate() && isConnected() ? getMultiblockRadiationSourceInternal() : null;
+    }
+
+    protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
+        return null;
+    }
+}

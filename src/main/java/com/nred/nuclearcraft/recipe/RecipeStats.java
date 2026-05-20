@@ -4,7 +4,7 @@ import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.datamap.FissionModeratorData;
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes.BasicProcessorRecipeHandler;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -31,7 +31,7 @@ public class RecipeStats {
     }
 
     private static void setBasicProcessorMaxStats(RecipeManager recipeManager) {
-        for (BlockEntityMenuInfo<?> info : TileInfoHandler.TILE_CONTAINER_INFO_MAP.values()) {
+        for (BlockEntityMenuInfo<?> info : BlockEntityInfoHandler.TILE_CONTAINER_INFO_MAP.values()) {
             if (info instanceof ProcessorMenuInfo<?, ?, ?> processorInfo) {
                 if (processorInfo.getRecipeHandler() instanceof BasicProcessorRecipeHandler processorRecipeHandler) {
                     List<ProcessorRecipe> recipeList = processorRecipeHandler.getRecipeList(recipeManager);
@@ -67,7 +67,7 @@ public class RecipeStats {
     }
 
     private static void setScrubberMaxStats(RecipeManager recipeManager) {
-        ProcessorMenuInfo<?, ?, ?> info = TileInfoHandler.getProcessorContainerInfo("radiation_scrubber");
+        ProcessorMenuInfo<?, ?, ?> info = BlockEntityInfoHandler.getProcessorContainerInfo("radiation_scrubber");
         info.maxBaseProcessTime = 1D;
         info.maxBaseProcessPower = 0D;
         for (BasicRecipe recipe : info.getRecipeHandler().getRecipeList(recipeManager)) {

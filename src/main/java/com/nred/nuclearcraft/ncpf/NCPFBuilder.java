@@ -13,7 +13,6 @@ import com.nred.nuclearcraft.block.turbine.TurbineDynamoCoilBlock;
 import com.nred.nuclearcraft.block.turbine.TurbineRotorBladeBlock;
 import com.nred.nuclearcraft.block.turbine.TurbineRotorStatorBlock;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.CoolantHeaterRecipes;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.multiblock.Multiblock;
@@ -33,6 +32,7 @@ import com.nred.nuclearcraft.ncpf.value.NCPFPlacementRule;
 import com.nred.nuclearcraft.ncpf.value.NCPFPlacementRuleType;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.recipe.NCRecipes.CoolantHeaterRecipes;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import it.zerono.mods.zerocore.lib.multiblock.AbstractMultiblockPart;
@@ -432,7 +432,7 @@ public class NCPFBuilder {
                 }
 
                 Map<String, Object> heater = new HashMap<>();
-                heater.put("cooling", coolantHeaterRecipe.getCoolantHeaterCoolingRate());
+                heater.put("cooling", coolantHeaterRecipe.getFissionCoolingRate());
                 heater.put("output", translateFluidIngredient(recipe.getFluidProducts().get(0)));
                 element.modules.put("nuclearcraft:overhaul_msr:heater_stats", heater);
             }

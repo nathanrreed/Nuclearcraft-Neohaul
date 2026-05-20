@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "axis=x,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/helium_fission_gas_cooler_port_in",
+      "y": 90
+    },
+    "axis=x,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/helium_fission_gas_cooler_port_out",
+      "y": 90
+    },
+    "axis=y,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/helium_fission_gas_cooler_port_in",
+      "x": 90
+    },
+    "axis=y,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/helium_fission_gas_cooler_port_out",
+      "x": 90
+    },
+    "axis=z,nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/helium_fission_gas_cooler_port_in"
+    },
+    "axis=z,nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/helium_fission_gas_cooler_port_out"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:empty_gas_cooler_port"
+    },
+    {
+      "item": "nuclearcraftneohaul:carbon_dioxide_bucket"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:carbon_dioxide_fission_gas_cooler_port"
+  }
+}

@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.block_entity.fluid;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.ITile;
-import com.nred.nuclearcraft.block_entity.ITilePort;
+import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePort;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerPart;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.machine.IMachinePart;

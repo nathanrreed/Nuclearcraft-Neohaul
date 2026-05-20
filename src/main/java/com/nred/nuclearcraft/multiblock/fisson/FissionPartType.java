@@ -21,6 +21,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 public enum FissionPartType implements IFissionPartType {
     SolidFuelController(() -> FISSION_ENTITY_TYPE.get("solid_fuel_fission_controller")::get, FissionControllerBlock::new),
     MoltenSaltController(() -> FISSION_ENTITY_TYPE.get("molten_salt_fission_controller")::get, FissionControllerBlock::new),
+    PebbleController(() -> FISSION_ENTITY_TYPE.get("pebble_fission_controller")::get, FissionControllerBlock::new),
     Casing(() -> FISSION_ENTITY_TYPE.get("casing")::get, FissionCasingBlock::new),
     Glass(() -> FISSION_ENTITY_TYPE.get("glass")::get, GlassBlock::new, GlassBlock::addGlassProperties),
     Vent(() -> FISSION_ENTITY_TYPE.get("vent")::get, FissionVentBlock::new),
@@ -29,14 +30,17 @@ public enum FissionPartType implements IFissionPartType {
     Shield(() -> FISSION_ENTITY_TYPE.get("shield")::get, FissionShieldBlock::new),
     Source(() -> FISSION_ENTITY_TYPE.get("source")::get, FissionSourceBlock::new),
 
+    Irradiator(() -> FISSION_ENTITY_TYPE.get("irradiator")::get, FissionIrradiatorBlock::new),
+    IrradiatorPort(() -> FISSION_ENTITY_TYPE.get("irradiator_port")::get, FissionIrradiatorPortBlock::new),
+
     Cell(() -> FISSION_ENTITY_TYPE.get("cell")::get, SolidFissionCellBlock::new),
     CellPort(() -> FISSION_ENTITY_TYPE.get("cell_port")::get, FissionCellPortBlock::new),
 
-    Cooler(() -> FISSION_ENTITY_TYPE.get("cooler")::get, FissionCoolerBlock::new),
+    Cooler(() -> FISSION_ENTITY_TYPE.get("cooler")::get, PebbleFissionCoolerBlock::new),
     CoolerPort(() -> FISSION_ENTITY_TYPE.get("cooler_port")::get, FissionCoolerPortBlock::new),
 
-    Irradiator(() -> FISSION_ENTITY_TYPE.get("irradiator")::get, FissionIrradiatorBlock::new),
-    IrradiatorPort(() -> FISSION_ENTITY_TYPE.get("irradiator_port")::get, FissionIrradiatorPortBlock::new),
+    Chamber(() -> FISSION_ENTITY_TYPE.get("chamber")::get, PebbleFissionChamberBlock::new),
+    ChamberPort(() -> FISSION_ENTITY_TYPE.get("chamber_port")::get, FissionChamberPortBlock::new),
 
     Vessel(() -> FISSION_ENTITY_TYPE.get("vessel")::get, SaltFissionVesselBlock::new),
     VesselPort(() -> FISSION_ENTITY_TYPE.get("vessel_port")::get, FissionVesselPortBlock::new),

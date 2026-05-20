@@ -8,6 +8,7 @@ import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.SaltFissionLogic;
+import com.nred.nuclearcraft.multiblock.fisson.pebble.PebbleBedFissionLogic;
 import com.nred.nuclearcraft.multiblock.fisson.solid.SolidFuelFissionLogic;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -28,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.UnaryOperator;
 
@@ -78,6 +80,7 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
         UnaryOperator<FissionReactorLogic> constructor = switch (logicID) {
             case "solid_fuel" -> SolidFuelFissionLogic::new;
             case "molten_salt" -> SaltFissionLogic::new;
+            case "pebble_bed" -> PebbleBedFissionLogic::new;
             default -> throw new IllegalStateException("Unexpected logicID: " + logicID);
         };
 
@@ -147,16 +150,18 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
     }
 
     public boolean setLogic(FissionReactor multiblock) {
-        if (getPartMap(IFissionController.class).isEmpty()) {
+        @SuppressWarnings("rawtypes") Map<Long, IFissionController> controllerMap = getPartMap(IFissionController.class);
+
+        if (controllerMap.isEmpty()) {
             multiblock.setLastError(MODID + ".multiblock_validation.no_controller");
             return false;
         }
-        if (getPartCount(IFissionController.class) > 1) {
-            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers");
+        if (controllerMap.size() > 1) {
+            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers", controllerMap.keySet());
             return false;
         }
 
-        for (IFissionController<?> contr : getParts(IFissionController.class)) {
+        for (IFissionController<?> contr : controllerMap.values()) {
             controller = contr;
             break;
         }

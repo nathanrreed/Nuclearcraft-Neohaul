@@ -4,6 +4,7 @@
   "decayFactor": 0.1,
   "efficiency": 1.8,
   "heat": 288,
+  "intrinsic_flux": 10,
   "itemIngredient": {
     "count": 1,
     "ingredient": {

@@ -2,13 +2,12 @@ package com.nred.nuclearcraft.block_entity.processor.info;
 
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
-import com.nred.nuclearcraft.menu.MenuFunction;
+import com.nred.nuclearcraft.block_entity.processor.info.builder.UpgradableProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.util.ContainerInfoHelper;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public abstract class UpgradableProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO>> extends ProcessorMenuInfo<TILE, PACKET, INFO> {
     public final int speedUpgradeSlot;
@@ -23,14 +22,14 @@ public abstract class UpgradableProcessorMenuInfo<TILE extends BlockEntity & IPr
     public final int speedUpgradeSorptionButtonID;
     public final int energyUpgradeSorptionButtonID;
 
-    protected UpgradableProcessorMenuInfo(String name, Class<TILE> tileClass, MenuFunction<TILE> menuFunction, String recipeHandlerName, int inputTankCapacity, int outputTankCapacity, Supplier<Integer> defaultProcessTime, Supplier<Integer> defaultProcessPower, boolean isGenerator, boolean consumesInputs, boolean losesProgress, String ccComponentName, int[] guiWH, List<int[]> itemInputGuiXYWH, List<int[]> fluidInputGuiXYWH, List<int[]> itemOutputGuiXYWH, List<int[]> fluidOutputGuiXYWH, int[] playerGuiXY, int[] progressBarGuiXYWHUV, int[] energyBarGuiXYWHUV, int[] machineConfigGuiXY, int[] redstoneControlGuiXY, int[] speedUpgradeGuiXYWH, int[] energyUpgradeGuiXYWH) {
-        super(name, tileClass, menuFunction, recipeHandlerName, inputTankCapacity, outputTankCapacity, defaultProcessTime, defaultProcessPower, isGenerator, consumesInputs, losesProgress, ccComponentName, guiWH, itemInputGuiXYWH, fluidInputGuiXYWH, itemOutputGuiXYWH, fluidOutputGuiXYWH, playerGuiXY, progressBarGuiXYWHUV, energyBarGuiXYWHUV, machineConfigGuiXY, redstoneControlGuiXY);
+    protected UpgradableProcessorMenuInfo(UpgradableProcessorContainerInfoBuilder<TILE, PACKET, INFO, ?> builder) {
+        super(builder);
 
         speedUpgradeSlot = itemInputSize + itemOutputSize;
         energyUpgradeSlot = speedUpgradeSlot + 1;
 
-        this.speedUpgradeGuiXYWH = speedUpgradeGuiXYWH;
-        this.energyUpgradeGuiXYWH = energyUpgradeGuiXYWH;
+        this.speedUpgradeGuiXYWH = builder.speedUpgradeGuiXYWH;
+        this.energyUpgradeGuiXYWH = builder.energyUpgradeGuiXYWH;
 
         speedUpgradeStackXY = ContainerInfoHelper.stackXY(speedUpgradeGuiXYWH);
         energyUpgradeStackXY = ContainerInfoHelper.stackXY(energyUpgradeGuiXYWH);

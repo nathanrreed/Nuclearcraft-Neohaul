@@ -1,0 +1,20 @@
+{
+  "type": "nuclearcraftneohaul:condenser_recipe",
+  "coolingRequired": 2.0,
+  "flowDirectionBonus": 0.0,
+  "fluidIngredient": {
+    "amount": 4,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:sulfur_hexafluoride_lq"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:sulfur_hexafluoride"
+    }
+  },
+  "inputTemp": 800,
+  "outputTemp": 300,
+  "preferredFlowDir": 0
+}

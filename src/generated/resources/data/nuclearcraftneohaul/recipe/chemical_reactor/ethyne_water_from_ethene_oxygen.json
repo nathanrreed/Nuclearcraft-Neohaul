@@ -1,0 +1,35 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethene"
+      }
+    },
+    {
+      "amount": 500,
+      "ingredient": {
+        "tag": "c:oxygen"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:ethyne"
+      }
+    },
+    {
+      "amount": 100,
+      "chancePercent": 500,
+      "ingredient": {
+        "fluid": "minecraft:water"
+      }
+    }
+  ],
+  "powerModifier": 2.0,
+  "radiation": 0.0,
+  "timeModifier": 1.5
+}

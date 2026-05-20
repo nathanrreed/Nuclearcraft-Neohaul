@@ -16,12 +16,12 @@ import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.PE
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PEBBLE_FISSION_RECIPE_TYPE;
 
 public class PebbleFissionRecipe extends ItemFissionRecipe {
-    public PebbleFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
-        super(ingredient, product, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+    public PebbleFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, int intrinsic_flux, double decayFactor, boolean selfPriming, double radiation) {
+        super(ingredient, product, time, heat, efficiency, criticality, intrinsic_flux, decayFactor, selfPriming, radiation);
     }
 
-    public PebbleFissionRecipe(ItemLike input, ItemLike output, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
-        this(SizedChanceItemIngredient.of(input.asItem(), 1), SizedChanceItemIngredient.of(output.asItem(), 1), time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+    public PebbleFissionRecipe(ItemLike input, ItemLike output, int time, int heat, double efficiency, int criticality, int intrinsic_flux, double decayFactor, boolean selfPriming, double radiation) {
+        this(SizedChanceItemIngredient.of(input.asItem(), 1), SizedChanceItemIngredient.of(output.asItem(), 1), time, heat, efficiency, criticality, intrinsic_flux, decayFactor, selfPriming, radiation);
     }
 
     @Override
@@ -42,6 +42,7 @@ public class PebbleFissionRecipe extends ItemFissionRecipe {
                 Codec.INT.fieldOf("heat").forGetter(PebbleFissionRecipe::getFissionFuelHeatRaw),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(PebbleFissionRecipe::getFissionFuelEfficiencyRaw),
                 Codec.INT.fieldOf("criticality").forGetter(PebbleFissionRecipe::getFissionFuelCriticality),
+                Codec.INT.optionalFieldOf("intrinsic_flux", 0).forGetter(PebbleFissionRecipe::getFissionFuelIntrinsicFlux),
                 Codec.DOUBLE.fieldOf("decayFactor").forGetter(PebbleFissionRecipe::getFissionFuelDecayFactor),
                 Codec.BOOL.fieldOf("selfPriming").forGetter(PebbleFissionRecipe::getFissionFuelSelfPriming),
                 Codec.DOUBLE.fieldOf("radiation").forGetter(PebbleFissionRecipe::getFissionFuelRadiationRaw)
@@ -54,6 +55,7 @@ public class PebbleFissionRecipe extends ItemFissionRecipe {
                 ByteBufCodecs.INT, PebbleFissionRecipe::getFissionFuelHeatRaw,
                 ByteBufCodecs.DOUBLE, PebbleFissionRecipe::getFissionFuelEfficiencyRaw,
                 ByteBufCodecs.INT, PebbleFissionRecipe::getFissionFuelCriticality,
+                ByteBufCodecs.INT, PebbleFissionRecipe::getFissionFuelIntrinsicFlux,
                 ByteBufCodecs.DOUBLE, PebbleFissionRecipe::getFissionFuelDecayFactor,
                 ByteBufCodecs.BOOL, PebbleFissionRecipe::getFissionFuelSelfPriming,
                 ByteBufCodecs.DOUBLE, PebbleFissionRecipe::getFissionFuelRadiationRaw,

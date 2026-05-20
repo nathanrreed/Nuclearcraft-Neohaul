@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
+import static com.nred.nuclearcraft.info.Names.GAS_COOLANTS;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 
 public class ModFluidTagProvider extends FluidTagsProvider {
@@ -38,10 +39,10 @@ public class ModFluidTagProvider extends FluidTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         tag(CRYOTHEUM_TAG).add(CUSTOM_FLUID_MAP.get("cryotheum").still.get());
         tag(STEAM_TAG).add(STEAM_MAP.get("steam").still.get());
-        tag(OXYGEN_TAG).add(GAS_MAP.get("oxygen").still.get());
-        tag(NITROGEN_TAG).add(GAS_MAP.get("nitrogen").still.get());
         tag(TRITIUM_TAG).add(GAS_MAP.get("tritium").still.get());
-        tag(HYDROGEN_TAG).add(GAS_MAP.get("hydrogen").still.get());
-        tag(HELIUM_TAG).add(GAS_MAP.get("helium").still.get());
+
+        for (String gas : GAS_COOLANTS) {
+            tag(FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", gas))).add(GAS_MAP.get(gas).still.get());
+        }
     }
 }

@@ -56,7 +56,7 @@ public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine,
         String underline = StringHelper.charLine('-', Mth.ceil((double) this.font.width(title) / this.font.width("-")));
         guiGraphics.drawString(FONT, underline, middle_x - this.font.width(underline) / 2, getGuiTop() + 12, fontColor);
 
-        Component power = Component.translatable(MODID + ".menu.turbine_controller.power", UnitHelper.prefix(Math.round(multiblock.power), 5, "RF/t"));
+        Component power = Component.translatable(MODID + ".menu.turbine_controller.power", UnitHelper.prefix(Math.round(multiblock.power), 5, "FE/t"));
         guiGraphics.drawString(FONT, power, middle_x - this.font.width(power) / 2, getGuiTop() + 22, fontColor);
 
         int bearingCount = multiblock.getPartCount(TurbineRotorBearingEntity.class);

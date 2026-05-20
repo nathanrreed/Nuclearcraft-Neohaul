@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.block.tile;
 
 import com.nred.nuclearcraft.block.tile.info.SimpleTileInfoBlock;
 import com.nred.nuclearcraft.block_entity.ITickable;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -18,7 +18,7 @@ public class SimpleTileBlock<TILE extends BlockEntity> extends BlockTile {
 
     public SimpleTileBlock(String name, boolean hasTicker) {
         super(p -> p.mapColor(MapColor.METAL));
-        tileInfo = TileInfoHandler.getBlockSimpleTileInfo(name);
+        tileInfo = BlockEntityInfoHandler.getBlockSimpleTileInfo(name);
         this.hasTicker = hasTicker;
     }
 

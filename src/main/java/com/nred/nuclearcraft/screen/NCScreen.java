@@ -14,6 +14,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -70,7 +71,8 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
     public void renderGuiTank(GuiGraphics guiGraphics, Tank tank, int x, int y, int w, int h, float alpha) {
         if (!tank.isEmpty()) {
             guiGraphics.setColor(1, 1, 1, alpha);
-            blitTile(guiGraphics, Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(IClientFluidTypeExtensions.of(tank.getFluid().getFluid()).getStillTexture()), x, y, w, h, 16, 16, IClientFluidTypeExtensions.of(tank.getFluid().getFluid()).getTintColor());
+            int height = Mth.ceil(h * (tank.getFluidAmount() / (float) tank.getCapacity()));
+            blitTile(guiGraphics, Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(IClientFluidTypeExtensions.of(tank.getFluid().getFluid()).getStillTexture()), x, y + h - height, w, height, 16, 16, IClientFluidTypeExtensions.of(tank.getFluid().getFluid()).getTintColor());
             guiGraphics.setColor(1, 1, 1, 1);
         }
     }
@@ -85,11 +87,11 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
             case UP -> top;
             case DOWN -> bottom;
             case NORTH, SOUTH -> side;
-            case WEST->ncLoc("block/processor/" + ((ProcessorMenu<?, ?, ?>) menu).info.name + "_front" + (state.getValue(ACTIVE) ? "_on" : "_off"));
+            case WEST -> ncLoc("block/processor/" + ((ProcessorMenu<?, ?, ?>) menu).info.name + "_front" + (state.getValue(ACTIVE) ? "_on" : "_off"));
             case EAST -> back;
         };
 
-        guiGraphics.blit(leftPos + x, topPos + y, 1, w, h, Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(texture), 1f, 1f, 1f,1f);
+        guiGraphics.blit(leftPos + x, topPos + y, 1, w, h, Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(texture), 1f, 1f, 1f, 1f);
 
     }
 
@@ -158,7 +160,7 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
     }
 
     protected List<Component> energyInfo(IEnergyStorage energyStorage) {
-        String energy = UnitHelper.prefix(energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored(), 5, "RF");
+        String energy = UnitHelper.prefix(energyStorage.getEnergyStored(), energyStorage.getMaxEnergyStored(), 5, "FE");
         return Lists.newArrayList(Component.translatable(MODID + ".tooltip.energy_stored", Component.literal(energy).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 

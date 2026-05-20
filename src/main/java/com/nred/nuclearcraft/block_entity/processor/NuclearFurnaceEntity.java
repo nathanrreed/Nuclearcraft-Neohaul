@@ -90,7 +90,6 @@ public class NuclearFurnaceEntity extends AbstractFurnaceBlockEntity implements 
         };
     }
 
-
     @Override
     public boolean canPlaceItem(int index, ItemStack stack) {
         if (index == 2) {
@@ -157,7 +156,6 @@ public class NuclearFurnaceEntity extends AbstractFurnaceBlockEntity implements 
 
     @Override
     public void setIsRedstonePowered(boolean isRedstonePowered) {
-
     }
 
     @Override

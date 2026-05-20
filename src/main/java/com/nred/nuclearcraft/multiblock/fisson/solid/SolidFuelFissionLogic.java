@@ -1,20 +1,20 @@
 package com.nred.nuclearcraft.multiblock.fisson.solid;
 
 import com.google.common.collect.Lists;
-import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.SolidFissionUpdatePacket;
+import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionHeatingRecipe;
 import com.nred.nuclearcraft.util.NCMath;
+import com.nred.nuclearcraft.util.ValueTracker;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
 import it.zerono.mods.zerocore.lib.data.nbt.ISyncableEntity.SyncReason;
@@ -30,8 +30,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.fission_overheat;
 import static com.nred.nuclearcraft.config.NCConfig.fission_sparsity_penalty_params;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
 
 public class SolidFuelFissionLogic extends FissionReactorLogic {
     public List<Tank> tanks = Lists.newArrayList(new Tank(FissionReactor.BASE_TANK_CAPACITY, NCRecipes.fission_heating.getValidFluids(getWorld(), 0)), new Tank(FissionReactor.BASE_TANK_CAPACITY, null));
@@ -40,6 +42,8 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 
     public int heatingOutputRate = 0;
     public double effectiveHeating = 0D, reservedEffectiveHeat = 0D, heatingRecipeRate = 0D, heatingOutputRateFP = 0D;
+
+    public final ValueTracker heatingOutputRateTracker = new ValueTracker();
 
     public SolidFuelFissionLogic(FissionReactorLogic oldLogic) {
         super(oldLogic.multiblock);
@@ -73,14 +77,25 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
 
     @Override
     public boolean isMachineWhole() {
-        return !containsBlacklistedPart();
+        return !containsBlacklistedPart() && !isMissingSorption();
     }
 
-    public static final List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> SOLID_FUEL_PART_BLACKLIST = Lists.newArrayList(Pair.of(SaltFissionVesselEntity.class, NuclearcraftNeohaul.MODID + ".multiblock_validation.fission_reactor.prohibit_vessels"), Pair.of(SaltFissionHeaterEntity.class, NuclearcraftNeohaul.MODID + ".multiblock_validation.fission_reactor.prohibit_heaters"));
+    public static final List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> SOLID_FUEL_PART_BLACKLIST = Lists.newArrayList(
+            Pair.of(PebbleFissionChamberEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_chambers"),
+            Pair.of(PebbleFissionCoolerEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_coolers"),
+            Pair.of(SaltFissionVesselEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_vessels"),
+            Pair.of(SaltFissionHeaterEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_heaters")
+    );
 
     @Override
     public List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> getPartBlacklist() {
         return SOLID_FUEL_PART_BLACKLIST;
+    }
+
+    public boolean isMissingSorption() {
+        return super.isMissingSorption()
+                || isMissingSorption(FissionCellPortEntity.class, SolidFissionCellEntity.class, FISSION_REACTOR_MAP.get("fission_fuel_cell_port").get().getDescriptionId())
+                || isMissingSorption(FissionVentEntity.class, FISSION_REACTOR_MAP.get("fission_vent").get().getDescriptionId());
     }
 
     @Override
@@ -213,7 +228,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
         Tank inputTank = tanks.get(0), outputTank = tanks.get(1);
 
         double usedInput = Math.min(inputTank.getFluidAmount(), getEffectiveHeat() / heatPerMB);
-        heatingRecipeRate = heatingOutputRateFP = NCMath.toInt(Math.min((double) (outputTank.getCapacity() - outputTank.getFluidAmount()) / productSize, usedInput / inputSize));
+        heatingRecipeRate = NCMath.toInt(Math.min((double) (outputTank.getCapacity() - outputTank.getFluidAmount()) / productSize, usedInput / inputSize));
         reservedEffectiveHeat += (heatingRecipeRate - NCMath.toInt(heatingRecipeRate)) * inputSize * heatPerMB;
 
         int extraRecipeRate = NCMath.toInt(Math.min(Integer.MAX_VALUE - heatingRecipeRate, reservedEffectiveHeat / (heatPerMB * inputSize)));
@@ -250,11 +265,9 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
                 heatingOutputRate = heatingRecipeRateInt * stackSize;
                 outputTank.changeFluidAmount(heatingOutputRate);
             }
-            heatingOutputRateFP *= stackSize;
-            if (heatingOutputRateFP > stackSize) {
-                heatingOutputRateFP = Math.round(heatingOutputRateFP);
-            }
         }
+
+        heatingOutputRateFP = heatingOutputRateTracker.update(heatingOutputRate);
 
         long heatRemoval = (long) (multiblock.rawHeating / effectiveHeating * heatingRecipeRate * inputSize * recipe.getFissionHeatingHeatPerInputMB());
         heatBuffer.changeHeatStored(-heatRemoval);
@@ -298,6 +311,11 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
     @Override
     public void refreshFuelComponentModerators(IFissionFuelComponent fuelComponent, final Long2ObjectMap<IFissionComponent> currentComponentFailCache, final Long2ObjectMap<IFissionComponent> currentAssumedValidCache, boolean simulate) {
         fuelComponent.defaultRefreshModerators(componentFailCache, assumedValidCache, simulate);
+    }
+
+    @Override
+    public boolean isShieldActiveModerator(FissionShieldEntity shield, boolean activeModeratorPos) {
+        return super.isShieldActiveModerator(shield, activeModeratorPos);
     }
 
     @Override

@@ -96,11 +96,11 @@ public abstract class BlockTile extends NCBlock implements EntityBlock {
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock()) && !keepInventory) {
-            BlockEntity tileentity = level.getBlockEntity(pos);
+            BlockEntity blockEntity = level.getBlockEntity(pos);
 
             Container inv = null;
-            if (tileentity instanceof Container) {
-                inv = (Container) tileentity;
+            if (blockEntity instanceof Container) {
+                inv = (Container) blockEntity;
             }
 
             if (inv != null) {

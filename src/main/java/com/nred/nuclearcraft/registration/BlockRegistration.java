@@ -19,6 +19,8 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterPortType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
+import com.nred.nuclearcraft.multiblock.fisson.pebble.FissionCoolerPortType;
+import com.nred.nuclearcraft.multiblock.fisson.pebble.FissionCoolerType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerPartType;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeType;
@@ -159,7 +161,7 @@ public class BlockRegistration {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         ObjIntFunction<Block, BlockItem> cobbleGenFn = (x, y) -> {
             Supplier<String> rateString = () -> NCMath.sigFigs(processor_passive_rate[0] * y, 5) + " C/t";
-            return new NCItemBlock(x, cobble_gen_power > 0 ? Component.translatable(MODID + ".tooltip.cobblestone_generator_req_power", rateString, UnitHelper.prefix(cobble_gen_power * y, 5, "RF/t")) : Component.translatable(MODID + ".tooltip.cobblestone_generator_no_req_power", rateString));
+            return new NCItemBlock(x, cobble_gen_power > 0 ? Component.translatable(MODID + ".tooltip.cobblestone_generator_req_power", rateString, UnitHelper.prefix(cobble_gen_power * y, 5, "FE/t")) : Component.translatable(MODID + ".tooltip.cobblestone_generator_no_req_power", rateString));
         };
         map.put("cobblestone_generator", registerBlockItemWithTooltip("cobblestone_generator", () -> new SimpleTileBlock<>("cobblestone_generator"), x -> cobbleGenFn.apply(x, 1)));
         map.put("cobblestone_generator_compact", registerBlockItemWithTooltip("cobblestone_generator_compact", () -> new SimpleTileBlock<>("cobblestone_generator_compact"), x -> cobbleGenFn.apply(x, 8)));
@@ -263,6 +265,7 @@ public class BlockRegistration {
     public static final BiFunction<Block, FissionNeutronShieldType, BlockItem> SHIELD_FUNCTION = (block, type) -> new NCItemBlock(block, new ChatFormatting[]{ChatFormatting.YELLOW, ChatFormatting.LIGHT_PURPLE}, NCInfo.neutronShieldFixedInfo(type), true, ChatFormatting.AQUA, false, NCInfo.neutronShieldInfo());
     public static final BiFunction<Block, FissionHeatSinkType, BlockItem> HEAT_SINK_FUNCTION = (block, type) -> new NCItemBlock(block, ChatFormatting.BLUE, NCInfo.sinkCoolingRateFixedInfo(type), true, ChatFormatting.AQUA, false);
     public static final BiFunction<Block, FissionCoolantHeaterType, BlockItem> COOLANT_HEATER_FUNCTION = (block, type) -> new NCItemBlock(block, ChatFormatting.BLUE, NCInfo.heaterCoolingRateFixedInfo(type), true, ChatFormatting.AQUA, false);
+    public static final BiFunction<Block, FissionCoolerType, BlockItem> COOLER_FUNCTION = (block, type) -> new NCItemBlock(block, ChatFormatting.BLUE, NCInfo.gasCoolingRateFixedInfo(type), true, ChatFormatting.AQUA, false);
 
     private static HashMap<String, DeferredBlock<Block>> createFissionParts() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
@@ -272,19 +275,22 @@ public class BlockRegistration {
         map.put("fission_monitor", registerBlockItem("fission_monitor", FissionPartType.Monitor::createBlock));
         map.put("beryllium_carbon_reflector", registerBlockItem("beryllium_carbon_reflector", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
         map.put("lead_steel_reflector", registerBlockItem("lead_steel_reflector", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK))));
+
         map.put("fission_vent", registerBlockItem("fission_vent", FissionPartType.Vent::createBlock));
         map.put("fission_irradiator", registerBlockItem("fission_irradiator", FissionPartType.Irradiator::createBlock));
-        map.put("fission_cooler", registerBlockItem("fission_cooler", FissionPartType.Cooler::createBlock));
+        map.put("fission_irradiator_port", registerBlockItem("fission_irradiator_port", FissionPartType.IrradiatorPort::createBlock));
+        map.put("fission_computer_port", registerBlockItemWithTooltip("fission_computer_port", FissionPartType.ComputerPort::createBlock, false));
+
         map.put("radium_beryllium_source", registerBlockItemWithTooltip("radium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.RADIUM_BERYLLIUM), x -> SOURCE_FUNCTION.apply(x, FissionSourceType.RADIUM_BERYLLIUM)));
         map.put("polonium_beryllium_source", registerBlockItemWithTooltip("polonium_beryllium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.POLONIUM_BERYLLIUM), x -> SOURCE_FUNCTION.apply(x, FissionSourceType.POLONIUM_BERYLLIUM)));
         map.put("californium_source", registerBlockItemWithTooltip("californium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.CALIFORNIUM), x -> SOURCE_FUNCTION.apply(x, FissionSourceType.CALIFORNIUM)));
+
         map.put("boron_silver_shield", registerBlockItemWithTooltip("boron_silver_shield", () -> FissionPartType.Shield.createBlock(BORON_SILVER), x -> SHIELD_FUNCTION.apply(x, BORON_SILVER)));
-        map.put("fission_computer_port", registerBlockItemWithTooltip("fission_computer_port", FissionPartType.ComputerPort::createBlock, false));
-        map.put("fission_irradiator_port", registerBlockItem("fission_irradiator_port", FissionPartType.IrradiatorPort::createBlock));
-        map.put("fission_cooler_port", registerBlockItem("fission_cooler_port", FissionPartType.CoolerPort::createBlock));
+
         map.put("fission_shield_manager", registerBlockItem("fission_shield_manager", FissionPartType.ShieldManager::createBlock));
         map.put("fission_source_manager", registerBlockItem("fission_source_manager", FissionPartType.SourceManager::createBlock));
         map.put("fission_power_port", registerBlockItem("fission_power_port", FissionPartType.PowerPort::createBlock));
+
         // Solid
         map.put("solid_fuel_fission_controller", registerBlockItem("solid_fuel_fission_controller", FissionPartType.SolidFuelController::createBlock));
         map.put("fission_fuel_cell", registerBlockItem("fission_fuel_cell", FissionPartType.Cell::createBlock));
@@ -293,6 +299,7 @@ public class BlockRegistration {
         for (FissionHeatSinkType type : FissionHeatSinkType.default_values()) {
             map.put(type + "_fission_heat_sink", registerBlockItemWithTooltip(type + "_fission_heat_sink", () -> FissionPartType.HeatSink.createBlock(type), x -> HEAT_SINK_FUNCTION.apply(x, type)));
         }
+
         // Salt
         map.put("molten_salt_fission_controller", registerBlockItem("molten_salt_fission_controller", FissionPartType.MoltenSaltController::createBlock));
         map.put("fission_fuel_vessel", registerBlockItem("fission_fuel_vessel", FissionPartType.Vessel::createBlock));
@@ -303,6 +310,18 @@ public class BlockRegistration {
         }
         for (FissionCoolantHeaterPortType type : FissionCoolantHeaterPortType.default_values()) {
             map.put(type + "_fission_coolant_heater_port", registerBlockItem(type + "_fission_coolant_heater_port", () -> FissionPartType.HeaterPort.createBlock(type)));
+        }
+
+        // Pebble
+        map.put("pebble_bed_fission_controller", registerBlockItem("pebble_bed_fission_controller", FissionPartType.PebbleController::createBlock));
+        map.put("fission_fuel_chamber", registerBlockItem("fission_fuel_chamber", FissionPartType.Chamber::createBlock));
+        map.put("fission_fuel_chamber_port", registerBlockItem("fission_fuel_chamber_port", FissionPartType.ChamberPort::createBlock));
+
+        for (FissionCoolerType type : FissionCoolerType.default_values()) {
+            map.put(type + "_fission_gas_cooler", registerBlockItemWithTooltip(type + "_fission_gas_cooler", () -> FissionPartType.Cooler.createBlock(type), x -> COOLER_FUNCTION.apply(x, type)));
+        }
+        for (FissionCoolerPortType type : FissionCoolerPortType.default_values()) {
+            map.put(type + "_fission_gas_cooler_port", registerBlockItem(type + "_fission_gas_cooler_port", () -> FissionPartType.CoolerPort.createBlock(type)));
         }
         return map;
     }

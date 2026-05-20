@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block_entity.hx;
 
-import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchanger;
 import com.nred.nuclearcraft.multiblock.hx.IHeatExchangerPartType;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartTypeProvider;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractHeatExchangerEntity extends TilePartAbstract<HeatExchanger> implements IMultiblockPartTypeProvider<HeatExchanger, IHeatExchangerPartType>, IHeatExchangerPart {
+public abstract class AbstractHeatExchangerEntity extends AbstractPartBlockEntity<HeatExchanger> implements IMultiblockPartTypeProvider<HeatExchanger, IHeatExchangerPartType>, IHeatExchangerPart {
     public AbstractHeatExchangerEntity(final BlockEntityType<?> type, final BlockPos position, final BlockState blockState) {
         super(type, position, blockState);
     }

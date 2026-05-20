@@ -1,10 +1,15 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 
 import javax.annotation.Nullable;
 
 public interface IFissionFuelBunchComponent extends IFissionFuelComponent {
+    @Override
+    default void addToComponentFailCache(final Long2ObjectMap<IFissionComponent> componentFailCache) {
+        componentFailCache.putAll(getFuelBunch().fuelComponentMap);
+    }
 
     @Nullable
     FissionFuelBunch getFuelBunch();

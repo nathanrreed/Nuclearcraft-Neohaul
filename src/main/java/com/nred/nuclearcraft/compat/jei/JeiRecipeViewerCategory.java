@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
+import com.nred.nuclearcraft.recipe.fission.PebbleFissionCoolerRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -36,6 +37,9 @@ public abstract class JeiRecipeViewerCategory<RECIPE extends BasicRecipe> extend
         if (recipe instanceof FissionCoolantHeaterRecipe coolantHeaterRecipe) { // Coolant Heaters need to be added separately
             ScreenPosition position = recipeViewerInfo.item_inputs().getFirst();
             builder.addInputSlot(position.x() + 1, position.y() + 1).addItemStack(coolantHeaterRecipe.getHeater());
+        } else if (recipe instanceof PebbleFissionCoolerRecipe coolerRecipe) { // Coolers need to be added separately
+            ScreenPosition position = recipeViewerInfo.item_inputs().getFirst();
+            builder.addInputSlot(position.x() + 1, position.y() + 1).addItemStack(coolerRecipe.getCooler());
         } else {
             for (int i = 0; i < recipe.itemIngredients.size(); i++) {
                 ScreenPosition position = recipeViewerInfo.item_inputs().get(i);

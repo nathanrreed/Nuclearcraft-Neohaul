@@ -1,0 +1,20 @@
+{
+  "type": "nuclearcraftneohaul:fission_cooler_recipe",
+  "cooler": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:oxygen_fission_gas_cooler"
+  },
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "tag": "c:oxygen"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:oxygen_hot"
+    }
+  },
+  "placementRule": "oxygen_cooler"
+}

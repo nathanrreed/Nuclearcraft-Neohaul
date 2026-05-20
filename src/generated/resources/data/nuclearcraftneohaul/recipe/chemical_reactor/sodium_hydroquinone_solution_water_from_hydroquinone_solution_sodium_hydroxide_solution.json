@@ -8,7 +8,7 @@
       }
     },
     {
-      "amount": 1000,
+      "amount": 666,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:sodium_hydroxide_solution"
       }
@@ -29,7 +29,7 @@
       }
     }
   ],
-  "powerModifier": 2.0,
+  "powerModifier": 1.0,
   "radiation": 0.0,
-  "timeModifier": 2.0
+  "timeModifier": 1.0
 }

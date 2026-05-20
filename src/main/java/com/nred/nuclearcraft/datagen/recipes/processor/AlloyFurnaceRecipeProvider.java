@@ -31,7 +31,7 @@ public class AlloyFurnaceRecipeProvider {
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 4, 1).addItemInput(ingotDusts("zirconium", 7, "tin", 1)).addItemResult(ALLOY_MAP.get("zircaloy"), 8).save(recipeOutput);
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 2, 2).addItemInput(List.of(SizedChanceItemIngredient.of(tag(Tags.Items.GEMS, "silicon"), 1), ingotDust("graphite", 1))).addItemResult(ALLOY_MAP.get("silicon_carbide"), 2).save(recipeOutput);
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 8, 2).addItemInput(List.of(ingotDust("iron", 15), new SizedChanceItemIngredient(Ingredient.of(COMPOUND_MAP.get("c_mn_blend")), 1))).addItemResult(ALLOY_MAP.get("hsla_steel"), 16).save(recipeOutput);
-        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 8, 2).addItemInput(List.of(new SizedChanceItemIngredient(Ingredient.of(FISSION_DUST_MAP.get("molybdenum")), 15), new SizedChanceItemIngredient(Ingredient.of(INGOT_MAP.get("zirconium")), 1))).addItemResult(ALLOY_MAP.get("zirconium_molybdenum"), 16).save(recipeOutput);
+        new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 8, 2).addItemInput(List.of(new SizedChanceItemIngredient(Ingredient.of(INGOT_MAP.get("zirconium")), 1), new SizedChanceItemIngredient(Ingredient.of(FISSION_DUST_MAP.get("molybdenum")), 15))).addItemResult(ALLOY_MAP.get("zirconium_molybdenum"), 16).save(recipeOutput);
 
         for (String isotope : List.of("241", "242", "243")) {
             new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(List.of(SizedChanceItemIngredient.of(AMERICIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(AMERICIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "americium_" + isotope + "_from_za");

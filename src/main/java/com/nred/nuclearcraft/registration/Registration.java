@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.util.ModCheck;
 import net.neoforged.bus.api.IEventBus;
@@ -19,7 +19,7 @@ public class Registration {
         EntityRegistration.init();
 
         PlacementRule.preInit();
-        TileInfoHandler.preInit();
+        BlockEntityInfoHandler.preInit();
 
         BlockEntityRegistration.init();
         RecipeSerializerRegistration.init();

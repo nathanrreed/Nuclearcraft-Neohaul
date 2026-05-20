@@ -1,13 +1,13 @@
 package com.nred.nuclearcraft.compat.cct;
 
-import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import dan200.computercraft.api.lua.LuaFunction;
 
 public class MultiblockPeripheral<MULTIBLOCK extends Multiblock<MULTIBLOCK>> {
-    public final TilePartAbstract<MULTIBLOCK> computerPort;
+    public final AbstractPartBlockEntity<MULTIBLOCK> computerPort;
 
-    public MultiblockPeripheral(TilePartAbstract<MULTIBLOCK> computerPort) {
+    public MultiblockPeripheral(AbstractPartBlockEntity<MULTIBLOCK> computerPort) {
         this.computerPort = computerPort;
     }
 

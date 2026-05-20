@@ -117,8 +117,8 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
 
         if (!getWorld().isClientSide) {
             int mult = multiblock.getExteriorVolume();
-            multiblock.energyStorage.setStorageCapacity((long) Turbine.BASE_MAX_ENERGY * mult);
-            multiblock.energyStorage.setMaxTransfer((long) Turbine.BASE_MAX_ENERGY * mult);
+            multiblock.energyStorage.setStorageCapacity((long) turbine_base_energy_capacity * mult);
+            multiblock.energyStorage.setMaxTransfer((long) turbine_base_energy_capacity * mult);
             multiblock.tanks.get(0).setCapacity(Turbine.BASE_MAX_INPUT * mult);
             multiblock.tanks.get(1).setCapacity(Turbine.BASE_MAX_OUTPUT * mult);
         }
@@ -711,7 +711,6 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
         refreshRecipe();
 
         double prevRawPower = multiblock.rawPower;
-        int prevInputRate = multiblock.recipeInputRate;
 
         Tank inputTank = multiblock.tanks.get(0);
         int maxRecipeRateMultiplier = getMaxRecipeRateMultiplier();
@@ -744,7 +743,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             multiblock.recipeInputRate = 0;
         }
 
-        multiblock.recipeInputRateFP = NCMath.getNextFP(multiblock.recipeInputRateFP, prevInputRate, multiblock.recipeInputRate);
+        multiblock.recipeInputRateFP = multiblock.recipeInputRateTracker.update(multiblock.recipeInputRate);
 
         if (wasProcessing != multiblock.isProcessing && multiblock.controller != null) {
             multiblock.sendMultiblockUpdatePacketToAll();

@@ -27,8 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import static com.nred.nuclearcraft.config.NCConfig.turbine_render_blade_width;
-import static com.nred.nuclearcraft.config.NCConfig.turbine_render_rotor_expansion;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 import static it.zerono.mods.zerocore.lib.CodeHelper.getSystemTime;
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.ONE_PIXEL;
 import static it.zerono.mods.zerocore.lib.client.render.ModRenderHelper.bindBlocksTexture;
@@ -120,15 +119,18 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
     public void renderRotor(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, int brightness, BlockState shaftState, Direction flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int depth) {
         double depthScale = Math.pow(turbine_render_rotor_expansion, (double) (1 + depth - flowLength) / (double) flowLength);
 
-        poseStack.pushPose();
-
         if (turbine.renderPosArray.length < 1 + 4 * flowLength * shaftWidth + depth) {
             return;
         }
 
+        poseStack.pushPose();
+
         Vector3f renderPos = turbine.renderPosArray[4 * flowLength * shaftWidth + depth];
         poseStack.translate(renderPos.x + 0.5D, renderPos.y + 0.5D, renderPos.z + 0.5D);
-        poseStack.scale((float) (flowDir.getAxis() == Axis.X ? 1D : depthScale), (float) (flowDir.getAxis() == Axis.Y ? 1D : depthScale), (float) (flowDir.getAxis() == Axis.Z ? 1D : depthScale));
+
+        Axis flowAxis = flowDir.getAxis();
+        poseStack.scale((float) (flowAxis == Axis.X ? 1D : depthScale), (float) (flowAxis == Axis.Y ? 1D : depthScale), (float) (flowAxis == Axis.Z ? 1D : depthScale));
+
         poseStack.translate(-renderPos.x - 0.5D, -renderPos.y - 0.5D, -renderPos.z - 0.5D);
 
         renderShaft(turbine, poseStack, bufferSource, brightness, shaftState, flowDir, flowLength, shaftWidth, depth);
@@ -140,15 +142,17 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
     }
 
     public void renderShaft(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, int brightness, BlockState shaftState, Direction flowDir, int flowLength, int shaftWidth, int depth) {
-        poseStack.pushPose();
-
         if (turbine.renderPosArray.length < 1 + 4 * flowLength * shaftWidth + depth) {
             return;
         }
 
+        poseStack.pushPose();
+
         Vector3f renderPos = turbine.renderPosArray[4 * flowLength * shaftWidth + depth];
-        poseStack.translate(renderPos.x + 0.5D + (turbine.flowDir.getAxis() == Axis.Z ? 1D : 0), renderPos.y + 0.5D, renderPos.z + 0.5D);
-        poseStack.scale(flowDir.getAxis() == Axis.X ? (float) 1D : shaftWidth, flowDir.getAxis() == Axis.Y ? (float) 1D : shaftWidth, flowDir.getAxis() == Axis.Z ? (float) 1D : shaftWidth);
+
+        Axis flowAxis = flowDir.getAxis();
+        poseStack.translate(renderPos.x + 0.5D + (flowAxis == Axis.Z ? 1D : 0), renderPos.y + 0.5D, renderPos.z + 0.5D);
+        poseStack.scale(flowAxis == Axis.X ? (float) 1D : shaftWidth, flowAxis == Axis.Y ? (float) 1D : shaftWidth, flowAxis == Axis.Z ? (float) 1D : shaftWidth);
 
         poseStack.translate(-0.5D, -0.5D, -0.5D);
 
@@ -161,28 +165,40 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
     }
 
     public void renderBlades(Turbine turbine, PoseStack poseStack, MultiBufferSource bufferSource, int brightness, Direction flowDir, int flowLength, int bladeLength, int shaftWidth, double bladeWidth, int jMult, int depth) {
-        Vector3f renderPos;
-        BlockState rotorState;
-        TurbinePartDir bladeDir;
-        PlaneDir planeDir;
-
-        int i = jMult + depth;
+        final int i = jMult + depth;
 
         if (turbine.rotorStateArray.length < i + 1) {
             return;
         }
 
-        for (int w = 0; w < shaftWidth; ++w) {
+        Vector3f renderPos;
+        BlockState rotorState;
+        TurbinePartDir rotorDir;
+        PlaneDir planeDir = (i < flowLength || i >= 3 * flowLength) ? PlaneDir.V : PlaneDir.U;
+        Axis flowAxis = flowDir.getAxis();
+
+        if (turbine_render_blade_fast) {
+            bladeWidth *= shaftWidth;
+        }
+
+        for (int w = 0, end = turbine_render_blade_fast ? 1 : shaftWidth; w < end; ++w) {
             poseStack.pushPose();
 
-            renderPos = turbine.renderPosArray[w + i * shaftWidth];
-            rotorState = turbine.rotorStateArray[i];
-            bladeDir = rotorState.getValue(TurbineRotorBladeUtil.DIR);
-            planeDir = (i < flowLength || i >= 3 * flowLength) ? PlaneDir.V : PlaneDir.U;
+            if (turbine_render_blade_fast) {
+                Vector3f first = turbine.renderPosArray[i * shaftWidth];
+                Vector3f last = turbine.renderPosArray[(i + 1) * shaftWidth - 1];
+                renderPos = new Vector3f(0.5F * (first.x + last.x), 0.5F * (first.y + last.y), 0.5F * (first.z + last.z));
+            } else {
+                renderPos = turbine.renderPosArray[w + i * shaftWidth];
+            }
 
-            poseStack.translate(renderPos.x + 0.5D - (turbine.flowDir.getAxis() == Axis.X ? 1D : 0), renderPos.y + 0.5D, renderPos.z + 0.5D);
-            poseStack.scale((float) (flowDir.getAxis() == Axis.X ? 1D : (turbine.getBladeDir(planeDir) == TurbinePartDir.X ? bladeLength : bladeWidth)), (float) (flowDir.getAxis() == Axis.Y ? 1D : (turbine.getBladeDir(planeDir) == TurbinePartDir.Y ? bladeLength : bladeWidth)), (float) (flowDir.getAxis() == Axis.Z ? 1D : (turbine.getBladeDir(planeDir) == TurbinePartDir.Z ? bladeLength : bladeWidth)));
-            poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(turbine.bladeAngleArray[i] * (flowDir.getAxisDirection() == Direction.AxisDirection.POSITIVE ^ flowDir.getAxis() == Axis.X ? 1F : -1F)), bladeDir == TurbinePartDir.X ? 1F : 0F, bladeDir == TurbinePartDir.Y ? 1F : 0F, bladeDir == TurbinePartDir.Z ? 1F : 0F));
+            rotorState = turbine.rotorStateArray[i];
+            rotorDir = rotorState.getValue(TurbineRotorBladeUtil.DIR);
+            TurbinePartDir bladeDir = turbine.getBladeDir(planeDir);
+
+            poseStack.translate(renderPos.x + 0.5D - (flowAxis == Axis.X ? 1D : 0), renderPos.y + 0.5D, renderPos.z + 0.5D);
+            poseStack.scale((float) (flowAxis == Axis.X ? 1D : (bladeDir == TurbinePartDir.X ? bladeLength : bladeWidth)), (float) (flowAxis == Axis.Y ? 1D : (bladeDir == TurbinePartDir.Y ? bladeLength : bladeWidth)), (float) (flowDir.getAxis() == Axis.Z ? 1D : (bladeDir == TurbinePartDir.Z ? bladeLength : bladeWidth)));
+            poseStack.mulPose(new Quaternionf().setAngleAxis(Math.toRadians(turbine.bladeAngleArray[i] * (flowDir.getAxisDirection() == Direction.AxisDirection.POSITIVE ^ flowAxis == Axis.X ? 1F : -1F)), rotorDir == TurbinePartDir.X ? 1F : 0F, rotorDir == TurbinePartDir.Y ? 1F : 0F, rotorDir == TurbinePartDir.Z ? 1F : 0F));
 
             poseStack.translate(-0.5D, -0.5D, -0.5D);
 

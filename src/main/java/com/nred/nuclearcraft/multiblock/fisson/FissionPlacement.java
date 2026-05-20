@@ -20,8 +20,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static com.nred.nuclearcraft.config.NCConfig.fission_heater_rule;
-import static com.nred.nuclearcraft.config.NCConfig.fission_sink_rule;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
 import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_MODERATOR_DATA;
 import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_REFLECTOR_DATA;
@@ -61,6 +60,23 @@ public abstract class FissionPlacement {
 
     public static void init() {
         RULE_MAP.put("", new PlacementRule.Or<>(new ArrayList<>()));
+
+        addRule("oxygen_cooler", fission_cooler_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("oxygen_fission_gas_cooler"), 1));
+        addRule("hydrogen_cooler", fission_cooler_rule[1], new ItemStack(FISSION_REACTOR_MAP.get("hydrogen_fission_gas_cooler"), 1));
+        addRule("helium_cooler", fission_cooler_rule[2], new ItemStack(FISSION_REACTOR_MAP.get("helium_fission_gas_cooler"), 1));
+        addRule("nitrogen_cooler", fission_cooler_rule[3], new ItemStack(FISSION_REACTOR_MAP.get("nitrogen_fission_gas_cooler"), 1));
+        addRule("fluorine_cooler", fission_cooler_rule[4], new ItemStack(FISSION_REACTOR_MAP.get("fluorine_fission_gas_cooler"), 1));
+        addRule("methane_cooler", fission_cooler_rule[5], new ItemStack(FISSION_REACTOR_MAP.get("methane_fission_gas_cooler"), 1));
+        addRule("carbon_dioxide_cooler", fission_cooler_rule[6], new ItemStack(FISSION_REACTOR_MAP.get("carbon_dioxide_fission_gas_cooler"), 1));
+        addRule("carbon_monoxide_cooler", fission_cooler_rule[7], new ItemStack(FISSION_REACTOR_MAP.get("carbon_monoxide_fission_gas_cooler"), 1));
+        addRule("ethene_cooler", fission_cooler_rule[8], new ItemStack(FISSION_REACTOR_MAP.get("ethene_fission_gas_cooler"), 1));
+        addRule("ethyne_cooler", fission_cooler_rule[9], new ItemStack(FISSION_REACTOR_MAP.get("ethyne_fission_gas_cooler"), 1));
+        addRule("fluoromethane_cooler", fission_cooler_rule[10], new ItemStack(FISSION_REACTOR_MAP.get("fluoromethane_fission_gas_cooler"), 1));
+        addRule("ammonia_cooler", fission_cooler_rule[11], new ItemStack(FISSION_REACTOR_MAP.get("ammonia_fission_gas_cooler"), 1));
+        addRule("diborane_cooler", fission_cooler_rule[12], new ItemStack(FISSION_REACTOR_MAP.get("diborane_fission_gas_cooler"), 1));
+        addRule("sulfur_dioxide_cooler", fission_cooler_rule[13], new ItemStack(FISSION_REACTOR_MAP.get("sulfur_dioxide_fission_gas_cooler"), 1));
+        addRule("sulfur_trioxide_cooler", fission_cooler_rule[14], new ItemStack(FISSION_REACTOR_MAP.get("sulfur_trioxide_fission_gas_cooler"), 1));
+        addRule("sulfur_hexafluoride_cooler", fission_cooler_rule[15], new ItemStack(FISSION_REACTOR_MAP.get("sulfur_hexafluoride_fission_gas_cooler"), 1));
 
         addRule("water_sink", fission_sink_rule[0], new ItemStack(FISSION_REACTOR_MAP.get("water_fission_heat_sink"), 1));
         addRule("iron_sink", fission_sink_rule[1], new ItemStack(FISSION_REACTOR_MAP.get("iron_fission_heat_sink"), 1));
@@ -219,6 +235,15 @@ public abstract class FissionPlacement {
                                 return null;
                             }
                         }
+                        case "chamber", "chambers" -> rule = "chamber";
+                        case "cooler", "coolers" -> {
+                            rule = "cooler";
+                            if (i > 0) {
+                                type = split[i - 1];
+                            } else {
+                                return null;
+                            }
+                        }
                     }
                 }
             }
@@ -237,6 +262,8 @@ public abstract class FissionPlacement {
                 case "reflector" -> new AdjacentReflector(amount, countType, adjType);
                 case "irradiator" -> new AdjacentIrradiator(amount, countType, adjType);
                 case "shield" -> new AdjacentShield(amount, countType, adjType);
+                case "chamber" -> new AdjacentChamber(amount, countType, adjType);
+                case "cooler" -> new AdjacentCooler(amount, countType, adjType, type);
                 case "cell" -> new AdjacentCell(amount, countType, adjType);
                 case "sink" -> new AdjacentSink(amount, countType, adjType, type);
                 case "vessel" -> new AdjacentVessel(amount, countType, adjType);
@@ -318,6 +345,39 @@ public abstract class FissionPlacement {
         @Override
         public boolean satisfied(AbstractFissionEntity part, Direction dir, boolean simulate) {
             return isFunctionalShield(part.getMultiblockController(), part.getBlockPos().relative(dir), simulate);
+        }
+    }
+
+    public static class AdjacentChamber extends Adjacent {
+        public AdjacentChamber(int amount, CountType countType, AdjacencyType adjType) {
+            super("chamber", amount, countType, adjType);
+        }
+
+        @Override
+        public boolean satisfied(AbstractFissionEntity part, Direction dir, boolean simulate) {
+            return isFunctionalChamber(part.getMultiblockController(), part.getBlockPos().relative(dir), simulate);
+        }
+    }
+
+    public static class AdjacentCooler extends Adjacent {
+        public final String coolerType;
+
+        public AdjacentCooler(int amount, CountType countType, AdjacencyType adjType, String coolerType) {
+            super(coolerType + "_cooler", amount, countType, adjType);
+            this.coolerType = coolerType;
+        }
+
+        @Override
+        public void checkIsRuleAllowed(String ruleID) {
+            super.checkIsRuleAllowed(ruleID);
+            if (countType != CountType.AT_LEAST && coolerType.equals("any")) {
+                throw new IllegalArgumentException((countType == CountType.EXACTLY ? "Exact 'any cooler'" : "'At most n of any cooler'") + " placement rule with ID \"" + ruleID + "\" is disallowed due to potential ambiguity during rule checks!");
+            }
+        }
+
+        @Override
+        public boolean satisfied(AbstractFissionEntity part, Direction dir, boolean simulate) {
+            return isValidCooler(part.getMultiblockController(), part.getBlockPos().relative(dir), coolerType, simulate);
         }
     }
 
@@ -420,6 +480,18 @@ public abstract class FissionPlacement {
         if (reactor.isEmpty()) return false;
         FissionShieldEntity shield = reactor.get().getPartMap(FissionShieldEntity.class).get(pos.asLong());
         return shield != null && shield.isFunctional(simulate);
+    }
+
+    public static boolean isFunctionalChamber(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {
+        if (reactor.isEmpty()) return false;
+        PebbleFissionChamberEntity chamber = reactor.get().getPartMap(PebbleFissionChamberEntity.class).get(pos.asLong());
+        return chamber != null && chamber.isFunctional(simulate);
+    }
+
+    public static boolean isValidCooler(Optional<FissionReactor> reactor, BlockPos pos, String coolerType, boolean simulate) {
+        if (reactor.isEmpty()) return false;
+        PebbleFissionCoolerEntity cooler = reactor.get().getPartMap(PebbleFissionCoolerEntity.class).get(pos.asLong());
+        return cooler != null && cooler.isFunctional(simulate) && (coolerType.equals("any") || cooler.coolerType.getName().equals(coolerType));
     }
 
     public static boolean isFunctionalCell(Optional<FissionReactor> reactor, BlockPos pos, boolean simulate) {

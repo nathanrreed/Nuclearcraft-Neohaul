@@ -6,7 +6,8 @@ import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
+import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.ChatFormatting;
@@ -53,7 +54,7 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
 
     public FissionFluidPortEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, Class<PORT> portClass, int capacity, Function<Level, Set<ResourceLocation>> validFluidsFunc, BasicRecipeHandler<?> recipeHandler) {
         super(type, pos, blockState, portClass);
-        info = TileInfoHandler.getTileContainerInfo(name);
+        info = BlockEntityInfoHandler.getTileContainerInfo(name);
 
         Set<ResourceLocation> validFluids = validFluidsFunc.apply(level);
         tanks = Lists.newArrayList(new Tank(capacity, validFluids), new Tank(capacity, new ObjectOpenHashSet<>()));
@@ -86,6 +87,31 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
     @Override
     public Object getFilterKey() {
         return getFilterTanks().get(0).getFluidName();
+    }
+
+    @Override
+    public boolean canReceive() {
+        for (Direction facing : Direction.values()) {
+            if (getTankSorption(facing, 0).canFill()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean canExtract() {
+        for (Direction facing : Direction.values()) {
+            if (getTankSorption(facing, 1).canDrain()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public SorptionKey getSorptionKey() {
+        return new SorptionKey(getClass(), getFilterKey());
     }
 
     @Override
@@ -234,7 +260,8 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
     @Override
     public boolean onUseMultitool(ItemStack multitool, ServerPlayer player, Level level, Direction facing, BlockPos hitPos) {
         if (!player.isCrouching()) {
-            if (getMultiblockController().isPresent()) {
+            FissionReactor multiblock = getMultiblockController().orElse(null);
+            if (multiblock != null && !multiblock.isAssembled()) {
                 if (getTankSorption(facing, 0) != TankSorption.IN) {
                     for (Direction side : Direction.values()) {
                         setTankSorption(side, 0, TankSorption.IN);

@@ -5,7 +5,6 @@ import com.nred.nuclearcraft.block_entity.fission.FissionSourceEntity.PrimingTar
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
 import com.nred.nuclearcraft.block_entity.fission.manager.FissionShieldManagerEntity;
 import com.nred.nuclearcraft.block_entity.fission.manager.FissionSourceManagerEntity;
-import com.nred.nuclearcraft.block_entity.fission.port.FissionCoolerPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionIrradiatorPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
@@ -38,6 +37,7 @@ import java.util.*;
 import java.util.function.BiPredicate;
 
 import static com.nred.nuclearcraft.config.NCConfig.*;
+import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
 
 public class FissionReactorLogic extends MultiblockLogic<FissionReactor, FissionReactorLogic> implements IPacketMultiblockLogic<FissionReactor, FissionReactorLogic, FissionUpdatePacket> {
     public final HeatBuffer heatBuffer = new HeatBuffer(FissionReactor.BASE_MAX_HEAT);
@@ -135,6 +135,10 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
         return false;
     }
 
+    public boolean isMissingSorption() {
+        return isMissingSorption(FissionIrradiatorPortEntity.class, FissionIrradiatorEntity.class, FISSION_REACTOR_MAP.get("fission_irradiator_port").get().getDescriptionId());
+    }
+
     @Override
     public List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> getPartBlacklist() {
         return Collections.emptyList();
@@ -153,7 +157,6 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
         refreshManagers(FissionSourceManagerEntity.class);
         refreshManagers(FissionShieldManagerEntity.class);
         refreshFilteredPorts(FissionIrradiatorPortEntity.class, FissionIrradiatorEntity.class);
-        refreshFilteredPorts(FissionCoolerPortEntity.class, FissionCoolerEntity.class);
     }
 
 
@@ -202,8 +205,8 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
             }
         }
 
-        for (FissionFuelBunch bunch : fuelBunches) {
-            bunch.init();
+        for (FissionFuelBunch fuelBunch : fuelBunches) {
+            fuelBunch.init();
         }
     }
 
@@ -302,7 +305,7 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
             primedComponent.unprime(simulate);
 
             if (!primedComponent.isFunctional(simulate)) {
-                primedFailCache.put(primedComponent.getWorldPosition().asLong(), primedComponent);
+                primedComponent.addToPrimedFailCache(primedFailCache);
                 multiblock.refreshFlag = true;
             }
         }
@@ -341,7 +344,7 @@ public class FissionReactorLogic extends MultiblockLogic<FissionReactor, Fission
 
         for (IFissionComponent component : assumedValidCache.values()) {
             if (!component.isFunctional(simulate)) {
-                componentFailCache.put(component.getWorldPosition().asLong(), component);
+                component.addToComponentFailCache(componentFailCache);
                 multiblock.refreshFlag = true;
             }
         }

@@ -1,9 +1,11 @@
 package com.nred.nuclearcraft.recipe;
 
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.CoolantHeaterRecipes;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
+import com.nred.nuclearcraft.multiblock.fisson.pebble.FissionCoolerType;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
@@ -92,6 +94,7 @@ public class NCRecipes {
         putHandler(new MultiblockInfiltratorRecipes());
         putHandler(new FissionIrradiatorRecipes());
         putHandler(new PebbleFissionRecipes());
+        putHandler(new GasCoolerRecipes());
         putHandler(new SolidFissionRecipes());
         putHandler(new FissionHeatingRecipes());
         putHandler(new SaltFissionRecipes());
@@ -138,6 +141,7 @@ public class NCRecipes {
     public static MultiblockInfiltratorRecipes multiblock_infiltrator;
     public static FissionIrradiatorRecipes fission_irradiator;
     public static PebbleFissionRecipes pebble_fission;
+    public static GasCoolerRecipes gas_cooler;
     public static SolidFissionRecipes solid_fission;
     public static FissionHeatingRecipes fission_heating;
     public static SaltFissionRecipes salt_fission;
@@ -178,6 +182,7 @@ public class NCRecipes {
         multiblock_infiltrator = getHandler("multiblock_infiltrator");
         fission_irradiator = getHandler("fission_irradiator");
         pebble_fission = getHandler("pebble_fission");
+        gas_cooler = getHandler("gas_cooler");
         solid_fission = getHandler("solid_fission");
         fission_heating = getHandler("fission_heating");
         salt_fission = getHandler("salt_fission");
@@ -449,6 +454,46 @@ public class NCRecipes {
     public static class RadiationBlockPurification extends BasicRecipeHandler<RadiationBlockPurificationRecipe> {
         public RadiationBlockPurification() {
             super("radiation_block_purification", 1, 0, 1, 0);
+        }
+    }
+
+    public static class CoolantHeaterRecipes extends BasicRecipeHandler<FissionCoolantHeaterRecipe> {
+        public CoolantHeaterRecipes() {
+            super("coolant_heater", 1, 1, 0, 1);
+        }
+
+        public @Nullable RecipeInfo<FissionCoolantHeaterRecipe> getRecipeInfoFromHeaterInputs(Level level, FissionCoolantHeaterType heaterType, List<Tank> fluidInputs) {
+//        long hash = 31L * (heaterType + "_heater").hashCode() + RecipeHelper.hashMaterialsRaw(Collections.emptyList(), fluidInputs);
+            RecipeInfo<FissionCoolantHeaterRecipe> temp = NCRecipes.coolant_heater.getRecipeInfoFromInputs(level, List.of(), fluidInputs);
+            if (temp != null && temp.recipe.getFissionCoolingPlacementRule().equals(heaterType.getName() + (heaterType.getName().contains(":") ? "" : "_heater"))) {
+                return temp; // TODO add caching
+            }
+//        if (recipeCache.containsKey(hash)) {
+//            ObjectSet<BasicRecipe> set = recipeCache.get(hash);
+//            for (BasicRecipe recipe : set) {
+//                if (recipe instanceof CoolantHeaterRecipe heaterRecipe) {
+//                    RecipeMatchResult matchResult = heaterRecipe.matchHeaterInputs(heaterType, fluidInputs);
+//                    if (matchResult.isMatch) {
+//                        return new RecipeInfo<>(heaterRecipe, matchResult);
+//                    }
+//                }
+//            }
+//        }
+            return null;
+        }
+    }
+
+    public static class GasCoolerRecipes extends BasicRecipeHandler<PebbleFissionCoolerRecipe> {
+        public GasCoolerRecipes() {
+            super("gas_cooler", 1, 1, 0, 1);
+        }
+
+        public @Nullable RecipeInfo<PebbleFissionCoolerRecipe> getRecipeInfoFromCoolerInputs(Level level, FissionCoolerType coolerType, List<Tank> fluidInputs) {
+            RecipeInfo<PebbleFissionCoolerRecipe> temp = NCRecipes.gas_cooler.getRecipeInfoFromInputs(level, List.of(), fluidInputs);
+            if (temp != null && temp.recipe.getFissionCoolingPlacementRule().equals(coolerType.getName() + (coolerType.getName().contains(":") ? "" : "_cooler"))) {
+                return temp; // TODO add caching
+            }
+            return null;
         }
     }
 }

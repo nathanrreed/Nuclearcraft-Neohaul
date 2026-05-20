@@ -11,6 +11,7 @@ import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.machine.IMachineController;
 import com.nred.nuclearcraft.block_entity.machine.MachineProcessPortEntity;
 import com.nred.nuclearcraft.block_entity.machine.MachineRedstonePortEntity;
+import com.nred.nuclearcraft.block_entity.machine.MachineReservoirPortEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.SoundHandler;
@@ -43,15 +44,14 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> implements IPacketMultiblockLogic<Machine, MachineLogic, MachineUpdatePacket> {
     public MachineLogic(Machine machine) {
@@ -312,6 +312,14 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
             return false;
         }
 
+        if (reservoirTankCount() == 0) {
+            Map<Long, MachineReservoirPortEntity> reservoirPortMap = getPartMap(MachineReservoirPortEntity.class);
+            if (!reservoirPortMap.isEmpty()) {
+                multiblock.setLastError(MODID + ".multiblock_validation.machine.invalid_reservoir_port", reservoirPortMap.keySet());
+                return false;
+            }
+        }
+
         for (IMachineController<?> controller : getParts(IMachineController.class)) {
             controller.setIsRenderer(false);
         }
@@ -354,6 +362,10 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
 
     @Override
     public boolean onUpdateServer() {
+        if (multiblock.machineActivityCooldown > 0) {
+            --multiblock.machineActivityCooldown;
+        }
+
         boolean shouldUpdate = multiblock.processor.onTick(getWorld());
 
         if (multiblock.controller != null) {
@@ -368,9 +380,14 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
     }
 
     public void setIsMachineOn(boolean isMachineOn) {
+        if (multiblock.machineActivityCooldown > 0) {
+            return;
+        }
+
         boolean oldIsMachineOn = multiblock.isMachineOn;
         multiblock.isMachineOn = isMachineOn;
         if (multiblock.isMachineOn != oldIsMachineOn) {
+            multiblock.machineActivityCooldown = NCConfig.machine_update_rate;
             if (multiblock.controller != null) {
                 setActivity(multiblock.isMachineOn);
                 multiblock.sendMultiblockUpdatePacketToAll();

@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.datamap.*;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
+import com.nred.nuclearcraft.multiblock.fisson.pebble.FissionCoolerType;
 import com.nred.nuclearcraft.multiblock.fisson.solid.FissionHeatSinkType;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeType;
 import com.nred.nuclearcraft.multiblock.rtg.RTGType;
@@ -68,13 +69,13 @@ public class NCInfo {
     // RTG
 
     public static Component rtgInfo(RTGType type) {
-        return Component.translatable(MODID + ".tooltip.rtg", (Supplier<String>) () -> UnitHelper.prefix(type.getPower(), 5, "RF/t"));
+        return Component.translatable(MODID + ".tooltip.rtg", (Supplier<String>) () -> UnitHelper.prefix(type.getPower(), 5, "FE/t"));
     }
 
     // Solar Panel
 
     public static Component solarPanelInfo(Supplier<Integer> power) {
-        return Component.translatable(MODID + ".tooltip.solar", (Supplier<String>) () -> UnitHelper.prefix(power.get(), 5, "RF/t"));
+        return Component.translatable(MODID + ".tooltip.solar", (Supplier<String>) () -> UnitHelper.prefix(power.get(), 5, "FE/t"));
     }
 
     // Battery
@@ -87,6 +88,10 @@ public class NCInfo {
 
     public static Component[] fissionFuelInfo(ItemFissionRecipe recipe) {
         List<Component> list = Lists.newArrayList(Component.translatable(MODID + ".info.fission_fuel"), Component.translatable(MODID + ".info.fission_fuel.base_time", UnitHelper.applyTimeUnit(recipe.getFissionFuelTime(), 3)), Component.translatable(MODID + ".info.fission_fuel.base_heat", UnitHelper.prefix(recipe.getFissionFuelHeat(), 5, "H/t")), Component.translatable(MODID + ".info.fission_fuel.base_efficiency", NCMath.pcDecimalPlaces(recipe.getFissionFuelEfficiency(), 1)), Component.translatable(MODID + ".info.fission_fuel.criticality", recipe.getFissionFuelCriticality() + " N/t"));
+        int intrinsicFlux = recipe.getFissionFuelIntrinsicFlux();
+        if (intrinsicFlux > 0) {
+            list.add(Component.translatable(MODID + ".info.fission_fuel.intrinsic_flux", intrinsicFlux + " N/t"));
+        }
         if (fission_decay_mechanics) {
             list.add(Component.translatable(MODID + ".info.fission_fuel.decay_factor", NCMath.pcDecimalPlaces(recipe.getFissionFuelDecayFactor(), 1)));
         }
@@ -100,6 +105,10 @@ public class NCInfo {
 
     public static Component[] sinkCoolingRateFixedInfo(FissionHeatSinkType type) {
         return new Component[]{Component.translatable(MODID + ".tooltip.solid_fission_sink.cooling_rate", (Supplier<Integer>) type::getCoolingRate)};
+    }
+
+    public static Component[] gasCoolingRateFixedInfo(FissionCoolerType type) {
+        return new Component[]{Component.translatable(MODID + ".tooltip.pebble_fission_cooler.cooling_rate", (Supplier<Integer>) type::getCoolingRate)};
     }
 
     public static Component[] heaterCoolingRateFixedInfo(FissionCoolantHeaterType type) {

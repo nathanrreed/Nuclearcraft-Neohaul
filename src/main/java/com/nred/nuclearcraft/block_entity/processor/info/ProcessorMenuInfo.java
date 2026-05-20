@@ -5,9 +5,9 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
+import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilder;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
-import com.nred.nuclearcraft.menu.MenuFunction;
 import com.nred.nuclearcraft.menu.slot.ProcessorSlot;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.NCRecipes;
@@ -101,15 +101,15 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
     public double maxBaseProcessTime = 1D;
     public double maxBaseProcessPower = 0D;
 
-    protected ProcessorMenuInfo(String name, Class<TILE> tileClass, MenuFunction<TILE> menuFunction, String recipeHandlerName, int inputTankCapacity, int outputTankCapacity, Supplier<Integer> defaultProcessTime, Supplier<Integer> defaultProcessPower, boolean isGenerator, boolean consumesInputs, boolean losesProgress, String ccComponentName, int[] guiWH, List<int[]> itemInputGuiXYWH, List<int[]> fluidInputGuiXYWH, List<int[]> itemOutputGuiXYWH, List<int[]> fluidOutputGuiXYWH, int[] playerGuiXY, int[] progressBarGuiXYWHUV, int[] energyBarGuiXYWHUV, int[] machineConfigGuiXY, int[] redstoneControlGuiXY) {
-        super(name, tileClass, menuFunction);
+    protected ProcessorMenuInfo(ProcessorContainerInfoBuilder<TILE, PACKET, INFO, ?> builder) {
+        super(builder.name, builder.tileClass, builder.menuFunction);
 
-        this.recipeHandlerName = recipeHandlerName;
+        this.recipeHandlerName = builder.recipeHandlerName;
 
-        itemInputSize = itemInputGuiXYWH.size();
-        fluidInputSize = fluidInputGuiXYWH.size();
-        itemOutputSize = itemOutputGuiXYWH.size();
-        fluidOutputSize = fluidOutputGuiXYWH.size();
+        itemInputSize = builder.itemInputGuiXYWH.size();
+        fluidInputSize = builder.fluidInputGuiXYWH.size();
+        itemOutputSize = builder.itemOutputGuiXYWH.size();
+        fluidOutputSize = builder.fluidOutputGuiXYWH.size();
 
         itemInputSlots = CollectionHelper.increasingArray(itemInputSize);
         itemOutputSlots = CollectionHelper.increasingArray(itemInputSize, itemOutputSize);
@@ -117,26 +117,26 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
         fluidInputTanks = CollectionHelper.increasingArray(fluidInputSize);
         fluidOutputTanks = CollectionHelper.increasingArray(fluidInputSize, fluidOutputSize);
 
-        this.inputTankCapacity = inputTankCapacity;
-        this.outputTankCapacity = outputTankCapacity;
+        this.inputTankCapacity = builder.inputTankCapacity;
+        this.outputTankCapacity = builder.outputTankCapacity;
 
-        this.defaultProcessTime = defaultProcessTime;
-        this.defaultProcessPower = defaultProcessPower;
+        this.defaultProcessTime = builder.defaultProcessTime;
+        this.defaultProcessPower = builder.defaultProcessPower;
 
-        this.isGenerator = isGenerator;
+        this.isGenerator = builder.isGenerator;
 
-        this.consumesInputs = consumesInputs;
-        this.losesProgress = losesProgress;
+        this.consumesInputs = builder.consumesInputs;
+        this.losesProgress = builder.losesProgress;
 
-        this.ccComponentName = ccComponentName;
+        this.ccComponentName = builder.ccComponentName;
 
-        guiWidth = guiWH[0];
-        guiHeight = guiWH[1];
+        guiWidth = builder.guiWH[0];
+        guiHeight = builder.guiWH[1];
 
-        this.itemInputGuiXYWH = itemInputGuiXYWH;
-        this.fluidInputGuiXYWH = fluidInputGuiXYWH;
-        this.itemOutputGuiXYWH = itemOutputGuiXYWH;
-        this.fluidOutputGuiXYWH = fluidOutputGuiXYWH;
+        this.itemInputGuiXYWH = builder.itemInputGuiXYWH;
+        this.fluidInputGuiXYWH = builder.fluidInputGuiXYWH;
+        this.itemOutputGuiXYWH = builder.itemOutputGuiXYWH;
+        this.fluidOutputGuiXYWH = builder.fluidOutputGuiXYWH;
 
         itemInputStackXY = ContainerInfoHelper.stackXYList(itemInputGuiXYWH);
         itemOutputStackXY = ContainerInfoHelper.stackXYList(itemOutputGuiXYWH);
@@ -146,28 +146,28 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
         itemOutputSorptionButtonID = CollectionHelper.increasingArray(itemInputSize + fluidInputSize, itemOutputSize);
         fluidOutputSorptionButtonID = CollectionHelper.increasingArray(itemInputSize + fluidInputSize + itemOutputSize, fluidOutputSize);
 
-        playerGuiX = playerGuiXY[0];
-        playerGuiY = playerGuiXY[1];
+        playerGuiX = builder.playerGuiXY[0];
+        playerGuiY = builder.playerGuiXY[1];
 
-        progressBarGuiX = progressBarGuiXYWHUV[0];
-        progressBarGuiY = progressBarGuiXYWHUV[1];
-        progressBarGuiW = progressBarGuiXYWHUV[2];
-        progressBarGuiH = progressBarGuiXYWHUV[3];
-        progressBarGuiU = progressBarGuiXYWHUV[4];
-        progressBarGuiV = progressBarGuiXYWHUV[5];
+        progressBarGuiX = builder.progressBarGuiXYWHUV[0];
+        progressBarGuiY = builder.progressBarGuiXYWHUV[1];
+        progressBarGuiW = builder.progressBarGuiXYWHUV[2];
+        progressBarGuiH = builder.progressBarGuiXYWHUV[3];
+        progressBarGuiU = builder.progressBarGuiXYWHUV[4];
+        progressBarGuiV = builder.progressBarGuiXYWHUV[5];
 
-        energyBarGuiX = energyBarGuiXYWHUV[0];
-        energyBarGuiY = energyBarGuiXYWHUV[1];
-        energyBarGuiW = energyBarGuiXYWHUV[2];
-        energyBarGuiH = energyBarGuiXYWHUV[3];
-        energyBarGuiU = energyBarGuiXYWHUV[4];
-        energyBarGuiV = energyBarGuiXYWHUV[5];
+        energyBarGuiX = builder.energyBarGuiXYWHUV[0];
+        energyBarGuiY = builder.energyBarGuiXYWHUV[1];
+        energyBarGuiW = builder.energyBarGuiXYWHUV[2];
+        energyBarGuiH = builder.energyBarGuiXYWHUV[3];
+        energyBarGuiU = builder.energyBarGuiXYWHUV[4];
+        energyBarGuiV = builder.energyBarGuiXYWHUV[5];
 
-        machineConfigGuiX = machineConfigGuiXY[0];
-        machineConfigGuiY = machineConfigGuiXY[1];
+        machineConfigGuiX = builder.machineConfigGuiXY[0];
+        machineConfigGuiY = builder.machineConfigGuiXY[1];
 
-        redstoneControlGuiX = redstoneControlGuiXY[0];
-        redstoneControlGuiY = redstoneControlGuiXY[1];
+        redstoneControlGuiX = builder.redstoneControlGuiXY[0];
+        redstoneControlGuiY = builder.redstoneControlGuiXY[1];
     }
 
     public BasicRecipeHandler<ProcessorRecipe> getRecipeHandler() {

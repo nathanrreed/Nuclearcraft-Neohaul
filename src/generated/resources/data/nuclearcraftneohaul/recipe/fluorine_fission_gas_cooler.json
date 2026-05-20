@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:empty_gas_cooler"
+    },
+    {
+      "item": "nuclearcraftneohaul:fluorine_bucket"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:fluorine_fission_gas_cooler"
+  }
+}

@@ -87,14 +87,20 @@ public class NCConfig {
     public static double fission_fuel_efficiency_multiplier; // Default: 1
     public static double fission_fuel_radiation_multiplier; // Default: 1
     public static double[] fission_source_efficiency;
+    public static int[] fission_cooler_cooling_rate;
+    public static String[] fission_cooler_rule;
     public static int[] fission_sink_cooling_rate;
     public static String[] fission_sink_rule;
     public static int[] fission_heater_cooling_rate;
     public static String[] fission_heater_rule;
+    public static double fission_chamber_intrinsic_flux_efficiency;
+    public static double fission_cell_intrinsic_flux_efficiency;
+    public static double fission_vessel_intrinsic_flux_efficiency;
     public static double[] fission_shield_heat_per_flux;
     public static double[] fission_shield_efficiency;
     public static int fission_cooling_efficiency_leniency;
     public static double[] fission_sparsity_penalty_params; // Multiplier, threshold
+    public static double fission_cooler_coolant_heat_per_mb;
     public static double fission_heating_coolant_heat_mult;
 
     public static boolean fission_decay_mechanics;
@@ -152,9 +158,11 @@ public class NCConfig {
     public static double turbine_tension_throughput_factor;
     public static double turbine_tension_leniency;
     public static double turbine_power_bonus_multiplier;
+    public static int turbine_base_energy_capacity;
     public static double turbine_sound_volume;
     public static double turbine_particles;
     public static double turbine_render_blade_width;
+    public static boolean turbine_render_blade_fast;
     public static double turbine_render_rotor_expansion;
     public static double turbine_render_rotor_speed;
 
@@ -321,14 +329,20 @@ public class NCConfig {
         fission_fuel_efficiency_multiplier = FISSION_FUEL_EFFICIENCY_MULTIPLIER.getAsDouble();
         fission_fuel_radiation_multiplier = FISSION_FUEL_RADIATION_MULTIPLIER.getAsDouble();
         fission_source_efficiency = syncDoubles(FISSION_SOURCE_EFFICIENCY, ARRAY);
+        fission_cooler_cooling_rate = syncInts(FISSION_COOLER_COOLING_RATE, ARRAY);
+        fission_cooler_rule = syncStrings(FISSION_COOLER_RULE, ARRAY);
         fission_sink_cooling_rate = syncInts(FISSION_SINK_COOLING_RATE, ARRAY);
         fission_sink_rule = syncStrings(FISSION_SINK_RULE, ARRAY);
         fission_heater_cooling_rate = syncInts(FISSION_HEATER_COOLING_RATE, ARRAY);
         fission_heater_rule = syncStrings(FISSION_HEATER_RULE, ARRAY);
+        fission_chamber_intrinsic_flux_efficiency = FISSION_CHAMBER_INTRINSIC_FLUX_EFFICIENCY.getAsDouble();
+        fission_cell_intrinsic_flux_efficiency = FISSION_CELL_INTRINSIC_FLUX_EFFICIENCY.getAsDouble();
+        fission_vessel_intrinsic_flux_efficiency = FISSION_VESSEL_INTRINSIC_FLUX_EFFICIENCY.getAsDouble();
         fission_shield_heat_per_flux = syncDoubles(FISSION_SHIELD_HEAT_PER_FLUX, ARRAY);
         fission_shield_efficiency = syncDoubles(FISSION_SHIELD_EFFICIENCY, ARRAY);
         fission_cooling_efficiency_leniency = FISSION_COOLING_EFFICIENCY_LENIENCY.getAsInt();
         fission_sparsity_penalty_params = syncDoubles(FISSION_SPARSITY_PENALTY_PARAMS, ARRAY);
+        fission_cooler_coolant_heat_per_mb = FISSION_COOLER_COOLANT_HEAT_PER_MB.getAsDouble();
         fission_heating_coolant_heat_mult = FISSION_HEATING_COOLANT_HEAT_MULT.getAsDouble();
 
         fission_decay_mechanics = FISSION_DECAY_MECHANICS.getAsBoolean();
@@ -385,9 +399,11 @@ public class NCConfig {
         turbine_tension_throughput_factor = TURBINE_TENSION_THROUGHPUT_FACTOR.getAsDouble();
         turbine_tension_leniency = TURBINE_TENSION_LENIENCY.getAsDouble();
         turbine_power_bonus_multiplier = TURBINE_POWER_BONUS_MULTIPLIER.getAsDouble();
+        turbine_base_energy_capacity = TURBINE_BASE_ENERGY_CAPACITY.getAsInt();
         turbine_sound_volume = TURBINE_SOUND_VOLUME.getAsDouble();
         turbine_particles = TURBINE_PARTICLES.getAsDouble();
         turbine_render_blade_width = TURBINE_RENDER_BLADE_WIDTH.getAsDouble();
+        turbine_render_blade_fast = TURBINE_RENDER_BLADE_FAST.getAsBoolean();
         turbine_render_rotor_expansion = TURBINE_RENDER_ROTOR_EXPANSION.getAsDouble();
         turbine_render_rotor_speed = TURBINE_RENDER_ROTOR_SPEED.getAsDouble();
 
@@ -546,15 +562,22 @@ public class NCConfig {
     private static final ModConfigSpec.DoubleValue FISSION_FUEL_EFFICIENCY_MULTIPLIER = add(CATEGORY_FISSION, "fission_fuel_efficiency_multiplier", 1D, 0D, 255D);
     private static final ModConfigSpec.DoubleValue FISSION_FUEL_RADIATION_MULTIPLIER = add(CATEGORY_FISSION, "fission_fuel_radiation_multiplier", 1D, 0D, 255D);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SOURCE_EFFICIENCY = add(CATEGORY_FISSION, "fission_source_efficiency", List.of(0.9D, 0.95D, 1D), 0D, 255D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_COOLER_COOLING_RATE = add(CATEGORY_FISSION, "fission_cooler_cooling_rate", List.of(60, 110, 125, 115, 75, 100, 120, 105, 85, 80, 65, 95, 70, 50, 55, 90), 0, 32767, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_COOLER_RULE = addString(CATEGORY_FISSION, "fission_cooler_rule", List.of("one chamber", "exactly two chambers", "three chambers", "exactly two oxygen coolers", "one moderator", "two axial moderators", "three moderators", "exactly one oxygen cooler", "exactly one methane cooler", "one ethene cooler && exactly one moderator", "one fluorine cooler", "exactly two nitrogen coolers && one casing", "two hydrogen coolers", "one reflector", "one sulfur_dioxide cooler", "two axial sulfur_trioxide coolers && one casing"), ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_SINK_COOLING_RATE = add(CATEGORY_FISSION, "fission_sink_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_SINK_RULE = addString(CATEGORY_FISSION, "fission_sink_rule", List.of("one cell", "one moderator", "one cell && one moderator", "one redstone sink", "two axial glowstone sinks", "one obsidian sink", "two moderators", "one cell && one casing", "exactly two iron sinks", "two water sinks", "exactly one water sink && two lead sinks", "one reflector", "one reflector && one iron sink", "one cell && one gold sink", "one moderator && one prismarine sink", "one water sink", "two axial lapis sinks", "one iron sink", "exactly one quartz sink && one casing", "exactly two axial lead sinks && one casing", "exactly one moderator && one casing", "two cells", "one quartz sink && one lapis sink", "two glowstone sinks && one tin sink", "one gold sink && one prismarine sink", "one redstone sink && one end_stone sink", "one end_stone sink && one copper sink", "two axial reflectors", "two copper sinks && one purpur sink", "exactly two redstone sinks", "three moderators", "three cells"), ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_HEATER_COOLING_RATE = add(CATEGORY_FISSION, "fission_heater_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_HEATER_RULE = addString(CATEGORY_FISSION, "fission_heater_rule", List.of("one vessel", "one moderator", "one vessel && one moderator", "one redstone heater", "two axial glowstone heaters", "one obsidian heater", "two moderators", "one vessel && one casing", "exactly two iron heaters", "two standard heaters", "exactly one standard heater && two lead heaters", "one reflector", "one reflector && one iron heater", "one vessel && one gold heater", "one moderator && one prismarine heater", "one standard heater", "two axial lapis heaters", "one iron heater", "exactly one quartz heater && one casing", "exactly two axial lead heaters && one casing", "exactly one moderator && one casing", "two vessels", "one quartz heater && one lapis heater", "two glowstone heaters && one tin heater", "one gold heater && one prismarine heater", "one redstone heater && one end_stone heater", "one end_stone heater && one copper heater", "two axial reflectors", "two copper heaters && one purpur heater", "exactly two redstone heaters", "three moderators", "three vessels"), ARRAY);
+    private static final ModConfigSpec.DoubleValue FISSION_CHAMBER_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_chamber_intrinsic_flux_efficiency", 1D, 0D, 255D);
+    private static final ModConfigSpec.DoubleValue FISSION_CELL_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_cell_intrinsic_flux_efficiency", 1D, 0D, 255D);
+    private static final ModConfigSpec.DoubleValue FISSION_VESSEL_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_vessel_intrinsic_flux_efficiency", 1D, 0D, 255D);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D), 0D, 32767D, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D), 0D, 255D, ARRAY);
     private static final ModConfigSpec.IntValue FISSION_COOLING_EFFICIENCY_LENIENCY = add(CATEGORY_FISSION, "fission_cooling_efficiency_leniency", 10, 0, 32767);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SPARSITY_PENALTY_PARAMS = add(CATEGORY_FISSION, "fission_sparsity_penalty_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
+    private static final ModConfigSpec.DoubleValue FISSION_COOLER_COOLANT_HEAT_PER_MB = add(CATEGORY_FISSION, "fission_cooler_coolant_heat_per_mb", 32D, 0.001D, Integer.MAX_VALUE);
     private static final ModConfigSpec.DoubleValue FISSION_HEATING_COOLANT_HEAT_MULT = add(CATEGORY_FISSION, "fission_heating_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
+
     private static final ModConfigSpec.BooleanValue FISSION_DECAY_MECHANICS = add(CATEGORY_FISSION, "fission_decay_mechanics", false);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_BUILD_UP_TIMES = add(CATEGORY_FISSION, "fission_decay_build_up_times", List.of(24000D, 24000D, 24000D), 0D, Integer.MAX_VALUE, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_LIFETIMES = add(CATEGORY_FISSION, "fission_decay_lifetimes", List.of(6000D, 8000D, 12000D), 0D, Integer.MAX_VALUE, ARRAY);
@@ -611,14 +634,16 @@ public class NCConfig {
     private static final ModConfigSpec.DoubleValue TURBINE_TENSION_THROUGHPUT_FACTOR = add(CATEGORY_TURBINE, "turbine_tension_throughput_factor", 2D, 1D, 255D);
     private static final ModConfigSpec.DoubleValue TURBINE_TENSION_LENIENCY = add(CATEGORY_TURBINE, "turbine_tension_leniency", 0.05D, 0D, 1D);
     private static final ModConfigSpec.DoubleValue TURBINE_POWER_BONUS_MULTIPLIER = add(CATEGORY_TURBINE, "turbine_power_bonus_multiplier", 1D, 0D, 255D);
+    private static final ModConfigSpec.IntValue TURBINE_BASE_ENERGY_CAPACITY = add(CATEGORY_TURBINE, "turbine_base_energy_capacity", 16000, 1, Integer.MAX_VALUE);
     private static final ModConfigSpec.DoubleValue TURBINE_SOUND_VOLUME = add(CATEGORY_TURBINE, "turbine_sound_volume", 1D, 0D, 15D);
     private static final ModConfigSpec.DoubleValue TURBINE_PARTICLES = add(CATEGORY_TURBINE, "turbine_particles", 0.025D, 0D, 1D);
     private static final ModConfigSpec.DoubleValue TURBINE_RENDER_BLADE_WIDTH = add(CATEGORY_TURBINE, "turbine_render_blade_width", NCMath.SQRT2, 0.01D, 4D);
+    private static final ModConfigSpec.BooleanValue TURBINE_RENDER_BLADE_FAST = add(CATEGORY_TURBINE, "turbine_render_blade_fast", false);
     private static final ModConfigSpec.DoubleValue TURBINE_RENDER_ROTOR_EXPANSION = add(CATEGORY_TURBINE, "turbine_render_rotor_expansion", 4D, 1D, 15D);
     private static final ModConfigSpec.DoubleValue TURBINE_RENDER_ROTOR_SPEED = add(CATEGORY_TURBINE, "turbine_render_rotor_speed", 1D, 0D, 15D);
 
     private static final ModConfigSpec.BooleanValue QUANTUM_DEDICATED_SERVER = add(CATEGORY_QUANTUM, "quantum_dedicated_server", false);
-    private static final ModConfigSpec.IntValue QUANTUM_MAX_QUBITS = add(CATEGORY_QUANTUM, "quantum_max_qubits", 16, 1, 24);
+    private static final ModConfigSpec.IntValue QUANTUM_MAX_QUBITS = add(CATEGORY_QUANTUM, "quantum_max_qubits", 16, 1, 28);
     private static final ModConfigSpec.IntValue QUANTUM_ANGLE_PRECISION = add(CATEGORY_QUANTUM, "quantum_angle_precision", 16, 4, 1024);
 
     private static final ModConfigSpec.IntValue ENTITY_TRACKING_RANGE = add(CATEGORY_ENTITY, "entity_tracking_range", 8, 1, 255);

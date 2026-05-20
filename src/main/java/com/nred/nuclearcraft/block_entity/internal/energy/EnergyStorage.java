@@ -99,7 +99,6 @@ public class EnergyStorage implements IEnergyStorage {
      */
     public void setStorageCapacity(long newCapacity) {
         energyCapacity = newCapacity;
-        // cullEnergyStored();
     }
 
     public void setMaxTransfer(long newMaxTransfer) {

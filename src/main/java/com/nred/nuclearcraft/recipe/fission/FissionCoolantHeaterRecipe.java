@@ -38,11 +38,11 @@ public class FissionCoolantHeaterRecipe extends BasicRecipe {
         return COOLANT_HEATER_RECIPE_TYPE.get();
     }
 
-    public int getCoolantHeaterCoolingRate() {
+    public int getFissionCoolingRate() {
         return FissionCoolantHeaterType.getType(coolantHeaterPlacementRule).getCoolingRate();
     }
 
-    public String getCoolantHeaterPlacementRule() {
+    public String getFissionCoolingPlacementRule() {
         return coolantHeaterPlacementRule;
     }
 
@@ -56,14 +56,14 @@ public class FissionCoolantHeaterRecipe extends BasicRecipe {
                         ItemStack.CODEC.fieldOf("heater").forGetter(FissionCoolantHeaterRecipe::getHeater),
                         SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(FissionCoolantHeaterRecipe::getFluidIngredient),
                         SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(FissionCoolantHeaterRecipe::getFluidProduct),
-                        Codec.STRING.fieldOf("placementRule").forGetter(FissionCoolantHeaterRecipe::getCoolantHeaterPlacementRule)
+                        Codec.STRING.fieldOf("placementRule").forGetter(FissionCoolantHeaterRecipe::getFissionCoolingPlacementRule)
                 ).apply(inst, FissionCoolantHeaterRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, FissionCoolantHeaterRecipe> STREAM_CODEC = StreamCodec.composite(
                 ItemStack.STREAM_CODEC, FissionCoolantHeaterRecipe::getHeater,
                 SizedChanceFluidIngredient.STREAM_CODEC, FissionCoolantHeaterRecipe::getFluidIngredient,
                 SizedChanceFluidIngredient.STREAM_CODEC, FissionCoolantHeaterRecipe::getFluidProduct,
-                ByteBufCodecs.STRING_UTF8, FissionCoolantHeaterRecipe::getCoolantHeaterPlacementRule,
+                ByteBufCodecs.STRING_UTF8, FissionCoolantHeaterRecipe::getFissionCoolingPlacementRule,
                 FissionCoolantHeaterRecipe::new
         );
 

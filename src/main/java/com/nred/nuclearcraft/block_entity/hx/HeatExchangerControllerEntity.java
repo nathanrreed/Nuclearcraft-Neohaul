@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.hx;
 
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.controller.HeatExchangerControllerMenu;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchanger;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerLogic;
@@ -23,7 +23,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.HX_ENTI
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
 public class HeatExchangerControllerEntity extends AbstractHeatExchangerEntity implements IHeatExchangerController<HeatExchangerControllerEntity> {
-    protected final BlockEntityMenuInfo<HeatExchangerControllerEntity> info = TileInfoHandler.getTileContainerInfo("heat_exchanger_controller");
+    protected final BlockEntityMenuInfo<HeatExchangerControllerEntity> info = BlockEntityInfoHandler.getTileContainerInfo("heat_exchanger_controller");
 
     protected boolean isRenderer = false;
 

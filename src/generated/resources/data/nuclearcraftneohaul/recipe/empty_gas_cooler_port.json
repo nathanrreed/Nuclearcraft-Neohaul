@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "nuclearcraftneohaul:pyrolytic_carbon"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:servomechanism"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:advanced_plating"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "PMP",
+    "CSC",
+    "PSP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:empty_gas_cooler_port"
+  }
+}

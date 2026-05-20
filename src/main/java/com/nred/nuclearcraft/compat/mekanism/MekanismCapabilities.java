@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.compat.mekanism;
 
-import com.nred.nuclearcraft.block_entity.fission.FissionCoolerEntity;
+import com.nred.nuclearcraft.block_entity.fission.PebbleFissionCoolerEntity;
 import com.nred.nuclearcraft.block_entity.fission.FissionVentEntity;
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionHeaterEntity;
 import com.nred.nuclearcraft.block_entity.fission.SaltFissionVesselEntity;
@@ -31,7 +31,7 @@ public class MekanismCapabilities {
             event.registerBlockEntity(CHEMICAL, TURBINE_ENTITY_TYPE.get("inlet").get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) ((TurbineInletEntity) entity).getChemicalCapability(direction));
             event.registerBlockEntity(CHEMICAL, TURBINE_ENTITY_TYPE.get("outlet").get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) ((TurbineOutletEntity) entity).getChemicalCapability(direction));
             // Fission
-            event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("cooler").get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) ((FissionCoolerEntity) entity).getChemicalCapability(direction));
+            event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("cooler").get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) ((PebbleFissionCoolerEntity) entity).getChemicalCapability(direction));
             event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("coolant_heater").get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) ((SaltFissionHeaterEntity) entity).getChemicalCapability(direction));
             event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vent").get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) ((FissionVentEntity) entity).getChemicalCapability(direction));
             event.registerBlockEntity(CHEMICAL, FISSION_ENTITY_TYPE.get("vessel").get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) ((SaltFissionVesselEntity) entity).getChemicalCapability(direction));

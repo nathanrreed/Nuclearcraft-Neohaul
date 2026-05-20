@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.item;
 
+import com.google.common.collect.Streams;
 import com.mojang.datafixers.util.Pair;
 import com.nred.nuclearcraft.util.InfoHelper;
 import net.minecraft.ChatFormatting;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +41,7 @@ public class SpaxelhoeItem extends TieredItem {
     private final ChatFormatting infoColor;
 
     public SpaxelhoeItem(Tier tier, Properties properties, ChatFormatting infoColor) {
-        super(tier, properties.component(DataComponents.TOOL, tier.createToolProperties(MINEABLE_WITH_SPAXELHOE)).component(DataComponents.TOOL, SwordItem.createToolProperties()));
+        super(tier, properties.component(DataComponents.TOOL, SpaxelhoeItem.createToolProperties(tier)));
         this.infoColor = infoColor;
     }
 
@@ -56,6 +58,10 @@ public class SpaxelhoeItem extends TieredItem {
                         EquipmentSlotGroup.MAINHAND
                 )
                 .build();
+    }
+
+    public static Tool createToolProperties(Tier tier) {
+        return new Tool(Streams.concat(tier.createToolProperties(MINEABLE_WITH_SPAXELHOE).rules().stream(), SwordItem.createToolProperties().rules().stream()).toList(), 1.0F, 2);
     }
 
     @Override

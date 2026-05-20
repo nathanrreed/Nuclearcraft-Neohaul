@@ -1,0 +1,20 @@
+{
+  "type": "nuclearcraftneohaul:fission_cooler_recipe",
+  "cooler": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:ammonia_fission_gas_cooler"
+  },
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "tag": "c:ammonia"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:ammonia_hot"
+    }
+  },
+  "placementRule": "ammonia_cooler"
+}

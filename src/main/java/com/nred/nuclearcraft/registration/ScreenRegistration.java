@@ -48,18 +48,21 @@ public class ScreenRegistration {
         event.register(TURBINE_CONTROLLER_MENU_TYPE.get(), TurbineControllerScreen::new);
         event.register(SOLID_FISSION_CONTROLLER_MENU_TYPE.get(), SolidFissionControllerScreen::new);
         event.register(SALT_FISSION_CONTROLLER_MENU_TYPE.get(), SaltFissionControllerScreen::new);
+        event.register(PEBBLE_FISSION_CONTROLLER_MENU_TYPE.get(), PebbleFissionControllerScreen::new);
 
         event.register(FISSION_CELL_PORT_MENU_TYPE.get(), FissionCellPortScreen::new);
-        event.register(FISSION_COOLER_PORT_MENU_TYPE.get(), FissionCoolerPortScreen::new);
         event.register(FISSION_HEATER_PORT_MENU_TYPE.get(), FissionHeaterPortScreen::new);
         event.register(FISSION_IRRADIATOR_PORT_MENU_TYPE.get(), FissionIrradiatorPortScreen::new);
         event.register(FISSION_VESSEL_PORT_MENU_TYPE.get(), FissionVesselPortScreen::new);
+        event.register(FISSION_COOLER_PORT_MENU_TYPE.get(), FissionCoolerPortScreen::new);
+        event.register(FISSION_CHAMBER_PORT_MENU_TYPE.get(), FissionChamberPortScreen::new);
 
         event.register(FISSION_SOLID_CELL_MENU_TYPE.get(), SolidFissionCellScreen::new);
-        event.register(FISSION_COOLER_MENU_TYPE.get(), FissionCoolerScreen::new);
         event.register(FISSION_SALT_HEATER_MENU_TYPE.get(), SaltFissionHeaterScreen::new);
         event.register(FISSION_IRRADIATOR_MENU_TYPE.get(), FissionIrradiatorScreen::new);
         event.register(FISSION_SALT_VESSEL_MENU_TYPE.get(), SaltFissionVesselScreen::new);
+        event.register(FISSION_COOLER_MENU_TYPE.get(), PebbleFissionCoolerScreen::new);
+        event.register(FISSION_CHAMBER_MENU_TYPE.get(), PebbleFissionChamberScreen::new);
 
         event.register(HX_CONTROLLER_MENU_TYPE.get(), HeatExchangerControllerScreen::new);
         event.register(CONDENSER_CONTROLLER_MENU_TYPE.get(), CondenserControllerScreen::new);

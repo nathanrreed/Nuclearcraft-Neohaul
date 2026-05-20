@@ -1,15 +1,14 @@
 package com.nred.nuclearcraft.multiblock.hx;
 
-import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
-import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.longs.LongSet;
-import it.unimi.dsi.fastutil.objects.*;
+import it.unimi.dsi.fastutil.longs.*;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import it.unimi.dsi.fastutil.objects.ObjectSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.function.BiPredicate;
@@ -17,30 +16,51 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class HeatExchangerFlowHelper {
+
     public static Long2ObjectMap<ObjectSet<Vec3>> getFlowMap(LongSet inletPosLongSet, LongSet outletPosLongSet, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate, BiPredicate<BlockPos, Direction> spacePredicate, Predicate<BlockPos> outletPredicate) {
         Long2ObjectMap<ObjectSet<Vec3>> flowMap = new Long2ObjectOpenHashMap<>();
 
+        if (inletPosLongSet.isEmpty() || outletPosLongSet.isEmpty()) {
+            return flowMap;
+        }
+
+        Long2ObjectMap<Long2IntMap> inletDistanceMap = new Long2ObjectOpenHashMap<>();
+        Long2ObjectMap<Long2IntMap> outletDistanceMap = new Long2ObjectOpenHashMap<>();
+
+        for (long inletPosLong : inletPosLongSet) {
+            inletDistanceMap.put(inletPosLong, getDistanceMap(BlockPos.of(inletPosLong), connectionsFunction, openPredicate, spacePredicate));
+        }
+
+        for (long outletPosLong : outletPosLongSet) {
+            outletDistanceMap.put(outletPosLong, getReverseDistanceMap(BlockPos.of(outletPosLong), connectionsFunction, openPredicate, spacePredicate));
+        }
+
         for (long inletPosLong : inletPosLongSet) {
             BlockPos inletPos = BlockPos.of(inletPosLong);
-            Object2ObjectMap<BlockPos, ObjectSet<BlockPos>> flowBFSMap = getFlowBFSMap(inletPos, connectionsFunction, openPredicate, spacePredicate, outletPredicate);
+            Long2IntMap fromInlet = inletDistanceMap.get(inletPosLong);
+
+            if (fromInlet == null || fromInlet.isEmpty()) {
+                continue;
+            }
 
             for (long outletPosLong : outletPosLongSet) {
                 BlockPos outletPos = BlockPos.of(outletPosLong);
-                if (flowBFSMap.containsKey(outletPos)) {
-                    List<List<BlockPos>> flowPaths = getFlowPaths(flowBFSMap, outletPos);
-                    for (List<BlockPos> flowPath : flowPaths) {
-                        for (int i = 1, end = flowPath.size() - 1; i < end; ++i) {
-                            long posLong = flowPath.get(i).asLong();
-                            ObjectSet<Vec3> vecs = flowMap.get(posLong);
-                            if (vecs == null) {
-                                vecs = new ObjectOpenHashSet<>();
-                                flowMap.put(posLong, vecs);
-                            }
+                Long2IntMap toOutlet = outletDistanceMap.get(outletPosLong);
 
-                            BlockPos flowDir = flowPath.get(i + 1).subtract(flowPath.get(i - 1));
-                            vecs.add(new Vec3(flowDir.getX(), flowDir.getY(), flowDir.getZ()).normalize());
-                        }
+                if (toOutlet == null || toOutlet.isEmpty()) {
+                    continue;
+                }
+
+                int shortestPathLength = Integer.MAX_VALUE;
+                for (Long2IntMap.Entry entry : fromInlet.long2IntEntrySet()) {
+                    long posLong = entry.getLongKey();
+                    if (toOutlet.containsKey(posLong)) {
+                        shortestPathLength = Math.min(shortestPathLength, entry.getIntValue() + toOutlet.get(posLong));
                     }
+                }
+
+                if (shortestPathLength != Integer.MAX_VALUE) {
+                    addShortestPathDirs(flowMap, inletPos, outletPos, fromInlet, toOutlet, shortestPathLength, connectionsFunction, openPredicate, spacePredicate);
                 }
             }
         }
@@ -48,71 +68,172 @@ public class HeatExchangerFlowHelper {
         return flowMap;
     }
 
-    public static Object2ObjectMap<BlockPos, ObjectSet<BlockPos>> getFlowBFSMap(BlockPos inletPos, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate, BiPredicate<BlockPos, Direction> spacePredicate, Predicate<BlockPos> outletPredicate) {
-        Object2ObjectMap<BlockPos, ObjectSet<BlockPos>> bfsMap = new Object2ObjectOpenHashMap<>();
-        bfsMap.put(inletPos, new ObjectOpenHashSet<>());
+    private static Long2IntMap getDistanceMap(BlockPos inletPos, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate, BiPredicate<BlockPos, Direction> spacePredicate) {
+        Long2IntMap distanceMap = new Long2IntOpenHashMap();
+        distanceMap.defaultReturnValue(-1);
 
-        Object2IntMap<BlockPos> distMap = new Object2IntOpenHashMap<>();
-        distMap.put(inletPos, 0);
+        Queue<BlockPos> queue = new ArrayDeque<>();
 
-        Queue<BlockPos> queue = new LinkedList<>();
-        queue.add(inletPos);
-
-        boolean begin = true;
+        for (Direction dir : Direction.values()) {
+            if (isTraversableDir(inletPos, dir, connectionsFunction, openPredicate, spacePredicate)) {
+                BlockPos offsetPos = inletPos.relative(dir);
+                long offsetPosLong = offsetPos.asLong();
+                if (!distanceMap.containsKey(offsetPosLong)) {
+                    distanceMap.put(offsetPosLong, 1);
+                    queue.add(offsetPos);
+                }
+            }
+        }
 
         while (!queue.isEmpty()) {
             BlockPos pos = queue.poll();
-            HeatExchangerTubeSetting[] connections = connectionsFunction.apply(pos);
+            int dist = distanceMap.get(pos.asLong());
 
-            for (int i = 0; i < 6; ++i) {
-                if (connections == null || openPredicate.test(connections[i])) {
-                    Direction dir = Direction.values()[i];
+            for (Direction dir : Direction.values()) {
+                if (isTraversableDir(pos, dir, connectionsFunction, openPredicate, spacePredicate)) {
                     BlockPos offsetPos = pos.relative(dir);
-
-                    ObjectSet<BlockPos> offsetBFS = bfsMap.get(offsetPos);
-                    int dist = distMap.getInt(pos) + 1;
-
-                    if (offsetBFS == null) {
-                        boolean spaceExists = spacePredicate.test(offsetPos, dir);
-
-                        if (spaceExists || (!begin && outletPredicate.test(offsetPos))) {
-                            ObjectSet<BlockPos> posBFS = new ObjectOpenHashSet<>();
-                            posBFS.add(pos);
-                            bfsMap.put(offsetPos, posBFS);
-                            distMap.put(offsetPos, dist);
-                        }
-
-                        if (spaceExists) {
-                            queue.add(offsetPos);
-                        }
-                    } else if (distMap.getInt(offsetPos) == dist) {
-                        offsetBFS.add(pos);
+                    long offsetPosLong = offsetPos.asLong();
+                    if (!distanceMap.containsKey(offsetPosLong)) {
+                        distanceMap.put(offsetPosLong, dist + 1);
+                        queue.add(offsetPos);
                     }
                 }
             }
-
-            begin = false;
         }
 
-        return bfsMap;
+        return distanceMap;
     }
 
-    public static List<List<BlockPos>> getFlowPaths(Object2ObjectMap<BlockPos, ObjectSet<BlockPos>> flowBFSMap, BlockPos outletPos) {
-        List<List<BlockPos>> allPaths = new ArrayList<>();
-        reconstructFlowPaths(flowBFSMap, outletPos, allPaths, new LinkedList<>());
-        return allPaths;
-    }
+    private static Long2IntMap getReverseDistanceMap(BlockPos outletPos, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate, BiPredicate<BlockPos, Direction> spacePredicate) {
+        Long2IntMap distanceMap = new Long2IntOpenHashMap();
+        distanceMap.defaultReturnValue(-1);
 
-    public static void reconstructFlowPaths(Object2ObjectMap<BlockPos, ObjectSet<BlockPos>> flowBFSMap, BlockPos pos, List<List<BlockPos>> allPaths, LinkedList<BlockPos> path) {
-        path.addFirst(pos);
-        ObjectSet<BlockPos> posBFS = flowBFSMap.get(pos);
-        if (posBFS.isEmpty()) {
-            allPaths.add(new ArrayList<>(path));
-        } else {
-            for (BlockPos offsetPos : posBFS) {
-                reconstructFlowPaths(flowBFSMap, offsetPos, allPaths, path);
+        Queue<BlockPos> queue = new ArrayDeque<>();
+
+        for (Direction dirFromOutletToSpace : Direction.values()) {
+            BlockPos spacePos = outletPos.relative(dirFromOutletToSpace);
+            Direction dirFromSpaceToOutlet = dirFromOutletToSpace.getOpposite();
+
+            if (spacePredicate.test(spacePos, dirFromOutletToSpace) && isOpenDir(spacePos, dirFromSpaceToOutlet, connectionsFunction, openPredicate)) {
+                long spacePosLong = spacePos.asLong();
+                if (!distanceMap.containsKey(spacePosLong)) {
+                    distanceMap.put(spacePosLong, 1);
+                    queue.add(spacePos);
+                }
             }
         }
-        path.removeFirst();
+
+        while (!queue.isEmpty()) {
+            BlockPos pos = queue.poll();
+            int dist = distanceMap.get(pos.asLong());
+
+            for (Direction dirFromPosToPrevious : Direction.values()) {
+                BlockPos previousPos = pos.relative(dirFromPosToPrevious);
+                Direction dirFromPreviousToPos = dirFromPosToPrevious.getOpposite();
+
+                if (spacePredicate.test(previousPos, dirFromPosToPrevious) && isTraversableDir(previousPos, dirFromPreviousToPos, connectionsFunction, openPredicate, spacePredicate)) {
+                    long previousPosLong = previousPos.asLong();
+                    if (!distanceMap.containsKey(previousPosLong)) {
+                        distanceMap.put(previousPosLong, dist + 1);
+                        queue.add(previousPos);
+                    }
+                }
+            }
+        }
+
+        return distanceMap;
+    }
+
+    private static void addShortestPathDirs(Long2ObjectMap<ObjectSet<Vec3>> flowMap, BlockPos inletPos, BlockPos outletPos, Long2IntMap fromInlet, Long2IntMap toOutlet, int shortestPathLength, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate, BiPredicate<BlockPos, Direction> spacePredicate) {
+        for (Long2IntMap.Entry entry : fromInlet.long2IntEntrySet()) {
+            long posLong = entry.getLongKey();
+            int inletDist = entry.getIntValue();
+            int outletDist = toOutlet.get(posLong);
+
+            if (outletDist == -1 || inletDist + outletDist != shortestPathLength) {
+                continue;
+            }
+
+            BlockPos pos = BlockPos.of(posLong);
+            List<BlockPos> incomingPosList = getIncomingPosList(pos, inletPos, fromInlet, toOutlet, connectionsFunction, openPredicate, spacePredicate);
+            List<BlockPos> outgoingPosList = getOutgoingPosList(pos, outletPos, fromInlet, toOutlet, connectionsFunction, openPredicate, spacePredicate);
+
+            if (incomingPosList.isEmpty() || outgoingPosList.isEmpty()) {
+                continue;
+            }
+
+            ObjectSet<Vec3> vecs = flowMap.get(posLong);
+            if (vecs == null) {
+                vecs = new ObjectOpenHashSet<>();
+                flowMap.put(posLong, vecs);
+            }
+
+            for (BlockPos incomingPos : incomingPosList) {
+                for (BlockPos outgoingPos : outgoingPosList) {
+                    BlockPos flowDir = outgoingPos.subtract(incomingPos);
+                    vecs.add(new Vec3(flowDir.getX(), flowDir.getY(), flowDir.getZ()).normalize());
+                }
+            }
+        }
+    }
+
+    private static List<BlockPos> getIncomingPosList(BlockPos pos, BlockPos inletPos, Long2IntMap fromInlet, Long2IntMap toOutlet, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate, BiPredicate<BlockPos, Direction> spacePredicate) {
+        List<BlockPos> incomingPosList = new ArrayList<>();
+        long posLong = pos.asLong();
+        int inletDist = fromInlet.get(posLong);
+        int outletDist = toOutlet.get(posLong);
+
+        for (Direction dirFromPosToIncoming : Direction.values()) {
+            BlockPos incomingPos = pos.relative(dirFromPosToIncoming);
+            Direction dirFromIncomingToPos = dirFromPosToIncoming.getOpposite();
+
+            if (incomingPos.equals(inletPos)) {
+                if (inletDist == 1 && isTraversableDir(incomingPos, dirFromIncomingToPos, connectionsFunction, openPredicate, spacePredicate)) {
+                    incomingPosList.add(incomingPos);
+                }
+                continue;
+            }
+
+            long incomingPosLong = incomingPos.asLong();
+            if (fromInlet.get(incomingPosLong) == inletDist - 1 && toOutlet.get(incomingPosLong) == outletDist + 1 && isTraversableDir(incomingPos, dirFromIncomingToPos, connectionsFunction, openPredicate, spacePredicate)) {
+                incomingPosList.add(incomingPos);
+            }
+        }
+
+        return incomingPosList;
+    }
+
+    private static List<BlockPos> getOutgoingPosList(BlockPos pos, BlockPos outletPos, Long2IntMap fromInlet, Long2IntMap toOutlet, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate, BiPredicate<BlockPos, Direction> spacePredicate) {
+        List<BlockPos> outgoingPosList = new ArrayList<>();
+        long posLong = pos.asLong();
+        int inletDist = fromInlet.get(posLong);
+        int outletDist = toOutlet.get(posLong);
+
+        for (Direction dirFromPosToOutgoing : Direction.values()) {
+            BlockPos outgoingPos = pos.relative(dirFromPosToOutgoing);
+
+            if (outgoingPos.equals(outletPos)) {
+                if (outletDist == 1 && isOpenDir(pos, dirFromPosToOutgoing, connectionsFunction, openPredicate)) {
+                    outgoingPosList.add(outgoingPos);
+                }
+                continue;
+            }
+
+            long outgoingPosLong = outgoingPos.asLong();
+            if (fromInlet.get(outgoingPosLong) == inletDist + 1 && toOutlet.get(outgoingPosLong) == outletDist - 1 && isTraversableDir(pos, dirFromPosToOutgoing, connectionsFunction, openPredicate, spacePredicate)) {
+                outgoingPosList.add(outgoingPos);
+            }
+        }
+
+        return outgoingPosList;
+    }
+
+    private static boolean isTraversableDir(BlockPos pos, Direction dir, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate, BiPredicate<BlockPos, Direction> spacePredicate) {
+        return isOpenDir(pos, dir, connectionsFunction, openPredicate) && spacePredicate.test(pos.relative(dir), dir);
+    }
+
+    private static boolean isOpenDir(BlockPos pos, Direction dir, Function<BlockPos, HeatExchangerTubeSetting[]> connectionsFunction, Predicate<HeatExchangerTubeSetting> openPredicate) {
+        HeatExchangerTubeSetting[] connections = connectionsFunction.apply(pos);
+        return connections == null || openPredicate.test(connections[dir.ordinal()]);
     }
 }

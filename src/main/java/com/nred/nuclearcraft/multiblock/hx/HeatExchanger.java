@@ -13,6 +13,7 @@ import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.util.PosHelper;
+import com.nred.nuclearcraft.util.ValueTracker;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.UnaryOperator;
@@ -62,6 +64,8 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
     public double shellInputRate = 0D, shellInputRateFP = 0D;
     public double heatTransferRate = 0D, heatTransferRateFP = 0D;
     public double totalTempDiff = 0D;
+
+    public final ValueTracker tubeInputRateTracker = new ValueTracker(), shellInputRateTracker = new ValueTracker(), heatTransferRateTracker = new ValueTracker();
 
     public boolean shouldSpecialRender = false;
 
@@ -146,16 +150,17 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
     }
 
     public boolean setLogic(HeatExchanger multiblock) {
-        if (getPartMap(IHeatExchangerController.class).isEmpty()) {
+        @SuppressWarnings("rawtypes") Map<Long, IHeatExchangerController> controllerMap = getPartMap(IHeatExchangerController.class);
+        if (controllerMap.isEmpty()) {
             multiblock.setLastError(MODID + ".multiblock_validation.no_controller");
             return false;
         }
-        if (getPartCount(IHeatExchangerController.class) > 1) {
-            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers");
+        if (controllerMap.size() > 1) {
+            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers", controllerMap.keySet());
             return false;
         }
 
-        for (IHeatExchangerController<?> contr : getParts(IHeatExchangerController.class)) {
+        for (IHeatExchangerController<?> contr : controllerMap.values()) {
             controller = contr;
             break;
         }

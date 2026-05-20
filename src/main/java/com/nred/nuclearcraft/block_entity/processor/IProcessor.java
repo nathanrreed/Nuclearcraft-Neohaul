@@ -671,8 +671,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
     @Override
     default void clearAllSlots() {
         ITileInventory.super.clearAllSlots();
-        @Nonnull NonNullList<ItemStack> consumedStacks = getConsumedStacks();
-        Collections.fill(consumedStacks, ItemStack.EMPTY);
+        Collections.fill(getConsumedStacks(), ItemStack.EMPTY);
         refreshAll();
     }
 

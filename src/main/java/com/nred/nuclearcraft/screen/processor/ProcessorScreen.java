@@ -287,7 +287,7 @@ public abstract class ProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, IN
     @Override
     protected List<Component> energyInfo(IEnergyStorage energyStorage) {
         List<Component> info = super.energyInfo(energyStorage);
-        info.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(tile.getProcessPower(), 5, "RF/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
+        info.add(Component.translatable(MODID + ".tooltip.process_power", Component.literal(UnitHelper.prefix(tile.getProcessPower(), 5, "FE/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE));
         return info;
     }
 

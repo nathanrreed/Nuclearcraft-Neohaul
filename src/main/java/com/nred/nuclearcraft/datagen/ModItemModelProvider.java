@@ -80,7 +80,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItems(PLUTONIUM_MAP, "plutonium");
         simpleItems(URANIUM_MAP, "uranium");
 
-        simpleBlocks(List.of("empty_frame", "empty_heat_sink"), PART_BLOCK_MAP, "part");
+        simpleBlocks(List.of("empty_frame", "empty_heat_sink", "empty_gas_cooler", "empty_gas_cooler_port"), PART_BLOCK_MAP, "part");
 
         basicItem(PORTABLE_ENDER_CHEST.get());
         basicItem(LITHIUM_ION_CELL.get());

@@ -11,7 +11,7 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.payload.processor.EnergyProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
@@ -70,7 +70,7 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     public boolean fullHalt = false;
 
     protected EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name) {
-        this(type, pos, blockState, name, TileInfoHandler.getProcessorContainerInfo(name));
+        this(type, pos, blockState, name, BlockEntityInfoHandler.getProcessorContainerInfo(name));
     }
 
     private EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, INFO info) {
@@ -413,7 +413,7 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     @Override
     public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
         if (info == null && nbt.contains("infoName")) {
-            initFromInfo(TileInfoHandler.getProcessorContainerInfo(nbt.getString("infoName")), true);
+            initFromInfo(BlockEntityInfoHandler.getProcessorContainerInfo(nbt.getString("infoName")), true);
         }
         super.readAll(nbt, registries);
         readProcessorNBT(nbt, registries);

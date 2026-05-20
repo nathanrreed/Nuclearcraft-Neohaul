@@ -16,12 +16,12 @@ import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SO
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SOLID_FISSION_RECIPE_TYPE;
 
 public class SolidFissionRecipe extends ItemFissionRecipe {
-    public SolidFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
-        super(ingredient, product, time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+    public SolidFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, int intrinsic_flux, double decayFactor, boolean selfPriming, double radiation) {
+        super(ingredient, product, time, heat, efficiency, criticality, intrinsic_flux, decayFactor, selfPriming, radiation);
     }
 
     public SolidFissionRecipe(ItemLike input, ItemLike output, int time, int heat, double efficiency, int criticality, double decayFactor, boolean selfPriming, double radiation) {
-        this(SizedChanceItemIngredient.of(input.asItem(), 1), SizedChanceItemIngredient.of(output.asItem(), 1), time, heat, efficiency, criticality, decayFactor, selfPriming, radiation);
+        this(SizedChanceItemIngredient.of(input.asItem(), 1), SizedChanceItemIngredient.of(output.asItem(), 1), time, heat, efficiency, criticality, 0, decayFactor, selfPriming, radiation);
     }
 
     @Override
@@ -42,6 +42,7 @@ public class SolidFissionRecipe extends ItemFissionRecipe {
                 Codec.INT.fieldOf("heat").forGetter(SolidFissionRecipe::getFissionFuelHeatRaw),
                 Codec.DOUBLE.fieldOf("efficiency").forGetter(SolidFissionRecipe::getFissionFuelEfficiencyRaw),
                 Codec.INT.fieldOf("criticality").forGetter(SolidFissionRecipe::getFissionFuelCriticality),
+                Codec.INT.optionalFieldOf("intrinsic_flux", 0).forGetter(SolidFissionRecipe::getFissionFuelIntrinsicFlux),
                 Codec.DOUBLE.fieldOf("decayFactor").forGetter(SolidFissionRecipe::getFissionFuelDecayFactor),
                 Codec.BOOL.fieldOf("selfPriming").forGetter(SolidFissionRecipe::getFissionFuelSelfPriming),
                 Codec.DOUBLE.fieldOf("radiation").forGetter(SolidFissionRecipe::getFissionFuelRadiationRaw)
@@ -54,6 +55,7 @@ public class SolidFissionRecipe extends ItemFissionRecipe {
                 ByteBufCodecs.INT, SolidFissionRecipe::getFissionFuelHeatRaw,
                 ByteBufCodecs.DOUBLE, SolidFissionRecipe::getFissionFuelEfficiencyRaw,
                 ByteBufCodecs.INT, SolidFissionRecipe::getFissionFuelCriticality,
+                ByteBufCodecs.INT, SolidFissionRecipe::getFissionFuelIntrinsicFlux,
                 ByteBufCodecs.DOUBLE, SolidFissionRecipe::getFissionFuelDecayFactor,
                 ByteBufCodecs.BOOL, SolidFissionRecipe::getFissionFuelSelfPriming,
                 ByteBufCodecs.DOUBLE, SolidFissionRecipe::getFissionFuelRadiationRaw,

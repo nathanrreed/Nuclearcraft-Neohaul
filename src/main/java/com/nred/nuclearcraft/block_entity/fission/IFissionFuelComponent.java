@@ -19,12 +19,13 @@ import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION
 
 
 public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeatingComponent {
-
     void tryPriming(FissionReactor sourceReactor, boolean fromSource, boolean simulate);
 
     boolean isPrimed(boolean simulate);
 
     void addToPrimedCache(final ObjectSet<IFissionFuelComponent> primedCache);
+
+    void addToPrimedFailCache(final Long2ObjectMap<IFissionFuelComponent> primedFailCache);
 
     void unprime(boolean simulate);
 
@@ -72,6 +73,10 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
     double getBaseProcessEfficiency();
 
     long getHeatMultiplier(boolean simulate);
+
+    long getIntrinsicFlux();
+
+    double getIntrinsicFluxEfficiencyFactor();
 
     default double getModeratorEfficiencyFactor() {
         int count = 0;
@@ -130,21 +135,59 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
     default void defaultDistributeFlux(final ObjectSet<IFissionFuelComponent> fluxSearchCache, final Long2ObjectMap<IFissionComponent> componentFailCache, final Long2ObjectMap<IFissionComponent> assumedValidCache, boolean simulate) {
         dirLoop:
         for (Direction dir : Direction.values()) {
+            int index = dir.ordinal(), oppositeIndex = dir.getOpposite().ordinal();
             BlockPos offPos = getWorldPosition().relative(dir);
-            ModeratorBlockInfo activeInfo = componentFailCache.containsKey(offPos.asLong()) ? null : getModeratorBlockInfo(offPos, dir, canSupportActiveModerator(true, simulate));
+
+            long intrinsicFlux = getIntrinsicFlux();
+
+            if (intrinsicFlux > 0L) {
+                final IFissionFuelComponent fuelComponent = getLogic().getNextFuelComponent(this, offPos);
+                if (fuelComponent != null) {
+                    final ModeratorLine line = new ModeratorLine(new ArrayList<>(), this);
+                    line.flux = intrinsicFlux;
+                    line.fluxSink = fuelComponent;
+
+                    fuelComponent.addFlux(line.flux);
+                    fuelComponent.getModeratorLineFluxes()[oppositeIndex] = line.flux;
+                    fuelComponent.getModeratorLineEfficiencies()[oppositeIndex] = getIntrinsicFluxEfficiencyFactor();
+                    fuelComponent.incrementHeatMultiplier();
+
+                    updateModeratorLine(fuelComponent, dir, line, componentFailCache, assumedValidCache, simulate);
+
+                    fuelComponent.addToFluxSearchCache(fluxSearchCache);
+                    continue;
+                } else {
+                    final IFissionComponent component = getMultiblockController().get().getPartMap(IFissionComponent.class).get(offPos.asLong());
+                    if (component instanceof IFissionFluxSink fluxSink) {
+                        if (fluxSink.isAcceptingFlux(dir.getOpposite(), simulate)) {
+                            final ModeratorLine line = new ModeratorLine(new ArrayList<>(), this);
+                            line.flux = intrinsicFlux;
+                            line.fluxSink = fluxSink;
+
+                            fluxSink.addFlux(line.flux);
+                            getModeratorLineFluxes()[index] = line.flux;
+                            getModeratorLineEfficiencies()[index] = fluxSink.moderatorLineEfficiencyFactor() * getIntrinsicFluxEfficiencyFactor();
+                            incrementHeatMultiplier();
+
+                            updateModeratorLine(fluxSink, dir, line, componentFailCache, assumedValidCache, simulate);
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            final ModeratorBlockInfo activeInfo = componentFailCache.containsKey(offPos.asLong()) ? null : getModeratorBlockInfo(offPos, dir, canSupportActiveModerator(true, simulate));
 
             if (activeInfo != null && !activeInfo.blockingFlux) {
-                int index = dir.ordinal(), oppositeIndex = dir.getOpposite().ordinal();
-
                 final ModeratorLine line = new ModeratorLine(new ArrayList<>(), this);
                 line.info.add(activeInfo);
 
-                line.flux = activeInfo.fluxFactor;
+                line.flux = intrinsicFlux + activeInfo.fluxFactor;
                 double moderatorEfficiency = activeInfo.efficiency;
 
                 for (int i = 2; i <= fission_neutron_reach + 1; ++i) {
                     offPos = getWorldPosition().relative(dir, i);
-                    ModeratorBlockInfo info = componentFailCache.containsKey(offPos.asLong()) ? null : getModeratorBlockInfo(offPos, dir, canSupportActiveModerator(false, simulate));
+                    final ModeratorBlockInfo info = componentFailCache.containsKey(offPos.asLong()) ? null : getModeratorBlockInfo(offPos, dir, canSupportActiveModerator(false, simulate));
                     if (info != null) {
                         if (info.blockingFlux) {
                             continue dirLoop;
@@ -154,7 +197,7 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
                         line.flux += info.fluxFactor;
                         moderatorEfficiency += info.efficiency;
                     } else {
-                        IFissionFuelComponent fuelComponent = getLogic().getNextFuelComponent(this, offPos);
+                        final IFissionFuelComponent fuelComponent = getLogic().getNextFuelComponent(this, offPos);
                         if (fuelComponent != null) {
                             line.fluxSink = fuelComponent;
                             fuelComponent.addFlux(line.flux);
@@ -166,7 +209,7 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
 
                             fuelComponent.addToFluxSearchCache(fluxSearchCache);
                         } else {
-                            IFissionComponent component = getMultiblockController().get().getPartMap(IFissionComponent.class).get(offPos.asLong());
+                            final IFissionComponent component = getMultiblockController().get().getPartMap(IFissionComponent.class).get(offPos.asLong());
                             if (component instanceof IFissionFluxSink fluxSink) {
                                 if (fluxSink.isAcceptingFlux(dir.getOpposite(), simulate)) {
                                     line.fluxSink = fluxSink;
@@ -178,8 +221,7 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
                                     updateModeratorLine(fluxSink, dir, line, componentFailCache, assumedValidCache, simulate);
                                 }
                             } else if (i - 1 <= fission_neutron_reach / 2) {
-
-                                FissionReflectorData reflectorData = DataMapHelper.getData(getTileWorld().getBlockState(offPos), FISSION_REFLECTOR_DATA);
+                                final FissionReflectorData reflectorData = DataMapHelper.getData(getTileWorld().getBlockState(offPos), FISSION_REFLECTOR_DATA);
                                 if (reflectorData != null) {
                                     line.reflectorData = reflectorData;
                                     line.flux = (long) Math.floor(2D * line.flux * reflectorData.reflectivity());
@@ -317,7 +359,9 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
 
     default void updateModeratorLine(IFissionFluxSink fluxSink, Direction dir, ModeratorLine line, final Long2ObjectMap<IFissionComponent> componentFailCache, final Long2ObjectMap<IFissionComponent> assumedValidCache, boolean simulate) {
         fluxSink.onEndModeratorLine(simulate);
-        line.info.get(line.info.size() - 1).updateModeratorPosValidity(fluxSink.canSupportActiveModerator(true, simulate));
+        if (!line.info.isEmpty()) {
+            line.info.get(line.info.size() - 1).updateModeratorPosValidity(fluxSink.canSupportActiveModerator(true, simulate));
+        }
 
         int index = dir.ordinal();
         if (isFunctional(simulate) && fluxSink.isFunctional(simulate)) {

@@ -33,7 +33,8 @@ public class BlockEntityTypeAddBlocksForKubeJS {
                     TurbinePlacement.addRule(resourceLocation.toString(), PLACEMENT_RULE_MAP.get(resourceLocation), new ItemStack(BuiltInRegistries.BLOCK.get(resourceLocation)));
                 }
             }
-            if (entry.getKey() == FISSION_ENTITY_TYPE.get("heat_sink").getId() || entry.getKey() == FISSION_ENTITY_TYPE.get("coolant_heater").getId()) {
+
+            if (entry.getKey() == FISSION_ENTITY_TYPE.get("heat_sink").getId() || entry.getKey() == FISSION_ENTITY_TYPE.get("coolant_heater").getId() || entry.getKey() == FISSION_ENTITY_TYPE.get("cooler").getId()) {
                 for (ResourceLocation resourceLocation : entry.getValue()) {
                     FissionPlacement.addRule(resourceLocation.toString(), PLACEMENT_RULE_MAP.get(resourceLocation), new ItemStack(BuiltInRegistries.BLOCK.get(resourceLocation)));
                 }

@@ -35,10 +35,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.UnaryOperator;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -71,6 +68,8 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
     public RecipeUnitInfo recipeUnitInfo = RecipeUnitInfo.DEFAULT;
 
     public boolean isMachineOn, fullHalt;
+
+    public int machineActivityCooldown = 0;
 
     @OnlyIn(Dist.CLIENT)
     protected Object2ObjectMap<BlockPos, SoundInstance> soundMap;
@@ -309,16 +308,17 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
     }
 
     public boolean setLogic(Machine multiblock) {
-        if (getPartMap(IMachineController.class).isEmpty()) {
+        @SuppressWarnings("rawtypes") Map<Long, IMachineController> controllerMap = getPartMap(IMachineController.class);
+        if (controllerMap.isEmpty()) {
             multiblock.setLastError(MODID + ".multiblock_validation.no_controller");
             return false;
         }
-        if (getPartCount(IMachineController.class) > 1) {
-            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers");
+        if (controllerMap.size() > 1) {
+            multiblock.setLastError(MODID + ".multiblock_validation.too_many_controllers", controllerMap.keySet());
             return false;
         }
 
-        for (IMachineController<?> contr : getParts(IMachineController.class)) {
+        for (IMachineController<?> contr : controllerMap.values()) {
             controller = contr;
             break;
         }

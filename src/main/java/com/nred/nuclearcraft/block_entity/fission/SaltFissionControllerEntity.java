@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.controller.SaltFissionControllerMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -25,7 +25,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
 
 public class SaltFissionControllerEntity extends AbstractFissionEntity implements IFissionController<SaltFissionControllerEntity>, MenuProvider {
-    protected final BlockEntityMenuInfo<SaltFissionControllerEntity> info = TileInfoHandler.getTileContainerInfo("salt_fission_controller");
+    protected final BlockEntityMenuInfo<SaltFissionControllerEntity> info = BlockEntityInfoHandler.getTileContainerInfo("salt_fission_controller");
 
     public SaltFissionControllerEntity(BlockPos pos, BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("molten_salt_fission_controller").get(), pos, blockState);

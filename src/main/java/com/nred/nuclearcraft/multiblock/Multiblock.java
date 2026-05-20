@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
+import com.nred.nuclearcraft.multiblock.internal.MultiblockValidationError;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.PosHelper;
 import com.nred.nuclearcraft.util.StackHelper;
@@ -28,10 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3f;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -51,6 +49,10 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
         int x = pos.getX(), y = pos.getY(), z = pos.getZ();
         BlockPos min = getMinimumCoord().get(), max = getMaximumCoord().get();
         return x >= min.getX() + 1 && x <= max.getX() - 1 && y >= min.getY() + 1 && y <= max.getY() - 1 && z >= min.getZ() + 1 && z <= max.getZ() - 1;
+    }
+
+    public void setLastError(String messageFormatStringResourceKey, Collection<Long> positions, Object... messageParameters) {
+        setLastError(new MultiblockValidationError(positions.stream().map(BlockPos::of).toList(), messageFormatStringResourceKey, messageParameters));
     }
 
     @Override

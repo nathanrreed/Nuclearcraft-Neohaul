@@ -3,7 +3,11 @@ package com.nred.nuclearcraft.payload;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.recipe.RecipeUnitInfo;
 import com.nred.nuclearcraft.util.PosHelper;
+import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.longs.LongArrayList;
+import it.unimi.dsi.fastutil.longs.LongCollection;
+import it.unimi.dsi.fastutil.longs.LongList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -84,6 +88,22 @@ public abstract class NCPacket implements CustomPacketPayload {
 
     protected static void writeInts(RegistryFriendlyByteBuf buf, IntList ints) {
         ByteBufCodecs.INT.apply(ByteBufCodecs.list()).encode(buf, ints);
+    }
+
+    protected static LongList readLongs(ByteBuf buf) {
+        int count = buf.readInt();
+        LongList longList = new LongArrayList();
+        for (int i = 0; i < count; ++i) {
+            longList.add(buf.readLong());
+        }
+        return longList;
+    }
+
+    protected static void writeLongs(ByteBuf buf, LongCollection longs) {
+        buf.writeInt(longs.size());
+        for (long l : longs) {
+            buf.writeLong(l);
+        }
     }
 
     protected static ItemStack readStack(RegistryFriendlyByteBuf buf) {

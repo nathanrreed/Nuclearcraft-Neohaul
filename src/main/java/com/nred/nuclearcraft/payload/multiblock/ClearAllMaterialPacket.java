@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.payload.multiblock;
 
-import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.payload.NCPacket;
 import net.minecraft.core.BlockPos;
@@ -46,7 +46,7 @@ public class ClearAllMaterialPacket extends NCPacket {
                     return;
                 }
                 BlockEntity tile = context.player().level().getBlockEntity(payload.pos);
-                if (tile instanceof TilePartAbstract<?> part) {
+                if (tile instanceof AbstractPartBlockEntity<?> part) {
                     part.getMultiblockController().ifPresent(multiblock -> ((Multiblock<?>) multiblock).clearAllMaterial());
                 }
             });

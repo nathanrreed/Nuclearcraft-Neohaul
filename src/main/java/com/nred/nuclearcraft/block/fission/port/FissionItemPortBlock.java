@@ -60,12 +60,6 @@ public abstract class FissionItemPortBlock<PORT extends FissionItemPortEntity<PO
             if (portClass.isInstance(tile)) {
                 PORT port = portClass.cast(tile);
                 NCInventoryHelper.dropInventoryItems(level, pos, port.getInventoryStacksInternal());
-                // world.updateComparatorOutputLevel(pos, this);
-                // FissionReactor reactor = port.getMultiblock();
-                // world.removeTileEntity(pos);
-				/*if (reactor != null) {
-					reactor.getLogic().refreshPorts();
-				}*/
             }
         }
         super.onRemove(state, level, pos, newState, movedByPiston);

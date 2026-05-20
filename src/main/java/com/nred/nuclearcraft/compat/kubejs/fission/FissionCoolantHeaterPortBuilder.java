@@ -34,10 +34,10 @@ public class FissionCoolantHeaterPortBuilder extends BlockBuilder {
         ResourceLocation modelActive = newID("block/", "_on");
         ResourceLocation modelInactive = newID("block/", "_off");
 
-        bs.variant("axis=y,nuclearcraftneohaul_active=false", v -> v.model(modelInactive).y(90));
-        bs.variant("axis=y,nuclearcraftneohaul_active=true", v -> v.model(modelActive).y(90));
-        bs.variant("axis=x,nuclearcraftneohaul_active=false", v -> v.model(modelInactive).x(90));
-        bs.variant("axis=x,nuclearcraftneohaul_active=true", v -> v.model(modelActive).x(90));
+        bs.variant("axis=x,nuclearcraftneohaul_active=false", v -> v.model(modelInactive).y(90));
+        bs.variant("axis=x,nuclearcraftneohaul_active=true", v -> v.model(modelActive).y(90));
+        bs.variant("axis=y,nuclearcraftneohaul_active=false", v -> v.model(modelInactive).x(90));
+        bs.variant("axis=y,nuclearcraftneohaul_active=true", v -> v.model(modelActive).x(90));
         bs.variant("axis=z,nuclearcraftneohaul_active=false", v -> v.model(modelInactive));
         bs.variant("axis=z,nuclearcraftneohaul_active=true", v -> v.model(modelActive));
     }

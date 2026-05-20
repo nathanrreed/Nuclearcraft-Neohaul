@@ -20,7 +20,7 @@ public class ProcessorContainerInfoBuilderImpl {
 
         @Override
         public BasicProcessorMenuInfo<TILE, PACKET> buildContainerInfo() {
-            return new BasicProcessorMenuInfo<>(name, tileClass, menuFunction, recipeHandlerName, inputTankCapacity, outputTankCapacity, defaultProcessTime, defaultProcessPower, isGenerator, consumesInputs, losesProgress, ccComponentName, guiWH, itemInputGuiXYWH, fluidInputGuiXYWH, itemOutputGuiXYWH, fluidOutputGuiXYWH, playerGuiXY, progressBarGuiXYWHUV, energyBarGuiXYWHUV, machineConfigGuiXY, redstoneControlGuiXY);
+            return new BasicProcessorMenuInfo<>(this);
         }
     }
 
@@ -31,7 +31,7 @@ public class ProcessorContainerInfoBuilderImpl {
 
         @Override
         public BasicUpgradableProcessorMenuInfo<TILE, PACKET> buildContainerInfo() {
-            return new BasicUpgradableProcessorMenuInfo<>(name, tileClass, menuFunction, recipeHandlerName, inputTankCapacity, outputTankCapacity, defaultProcessTime, defaultProcessPower, isGenerator, consumesInputs, losesProgress, ccComponentName, guiWH, itemInputGuiXYWH, fluidInputGuiXYWH, itemOutputGuiXYWH, fluidOutputGuiXYWH, playerGuiXY, progressBarGuiXYWHUV, energyBarGuiXYWHUV, machineConfigGuiXY, redstoneControlGuiXY, speedUpgradeGuiXYWH, energyUpgradeGuiXYWH);
+            return new BasicUpgradableProcessorMenuInfo<>(this);
         }
     }
 }

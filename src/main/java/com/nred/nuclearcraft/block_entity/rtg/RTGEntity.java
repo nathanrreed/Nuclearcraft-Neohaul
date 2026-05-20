@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.rtg;
 
 import com.nred.nuclearcraft.block_entity.ITickable;
-import com.nred.nuclearcraft.block_entity.TilePartAbstract;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.block_entity.energy.ITileEnergy;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.RTG_ENTITY_TYPE;
 
-public class RTGEntity extends TilePartAbstract<RTGMultiblock> implements ITickable, ITileEnergy {
+public class RTGEntity extends AbstractPartBlockEntity<RTGMultiblock> implements ITickable, ITileEnergy {
     private final EnergyStorage backupStorage = new EnergyStorage(0L);
 
     private @Nonnull

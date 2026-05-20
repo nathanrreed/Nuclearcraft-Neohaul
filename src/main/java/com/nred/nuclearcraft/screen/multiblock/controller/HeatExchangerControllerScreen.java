@@ -65,10 +65,10 @@ public class HeatExchangerControllerScreen extends LogicMultiblockControllerScre
         }
 
         if (NCUtil.isModifierKeyDown()) {
-            Component shellInputRate = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.shell_input", UnitHelper.prefix(Math.round(multiblock.shellInputRateFP), 5, "B/t", -1));
+            Component shellInputRate = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.shell_input", UnitHelper.prefix(multiblock.shellInputRateFP, 5, "B/t", -1));
             guiGraphics.drawCenteredString(this.font, shellInputRate, middle_x, getGuiTop() + 34, fontColor);
         } else {
-            Component tubeInputRate = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.tube_input", UnitHelper.prefix(Math.round(multiblock.tubeInputRateFP), 5, "B/t", -1));
+            Component tubeInputRate = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.tube_input", UnitHelper.prefix(multiblock.tubeInputRateFP, 5, "B/t", -1));
             guiGraphics.drawCenteredString(this.font, tubeInputRate, middle_x, getGuiTop() + 34, fontColor);
         }
 

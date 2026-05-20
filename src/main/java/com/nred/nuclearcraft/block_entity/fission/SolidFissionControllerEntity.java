@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.block_entity.fission;
 
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.multiblock.controller.SolidFissionControllerMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
@@ -25,7 +25,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
 
 public class SolidFissionControllerEntity extends AbstractFissionEntity implements IFissionController<SolidFissionControllerEntity>, MenuProvider {
-    protected final BlockEntityMenuInfo<SolidFissionControllerEntity> info = TileInfoHandler.getTileContainerInfo("solid_fission_controller");
+    protected final BlockEntityMenuInfo<SolidFissionControllerEntity> info = BlockEntityInfoHandler.getTileContainerInfo("solid_fission_controller");
 
     public SolidFissionControllerEntity(BlockPos pos, BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("solid_fuel_fission_controller").get(), pos, blockState);
@@ -42,7 +42,7 @@ public class SolidFissionControllerEntity extends AbstractFissionEntity implemen
     }
 
     @Override
-    public BlockEntityMenuInfo getContainerInfo() {
+    public BlockEntityMenuInfo<SolidFissionControllerEntity> getContainerInfo() {
         return info;
     }
 
@@ -66,7 +66,7 @@ public class SolidFissionControllerEntity extends AbstractFissionEntity implemen
     @Override
     public void onPreMachineAssembled(FissionReactor controller) {
         super.onPreMachineAssembled(controller);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             Optional<Direction> facing = getPartPosition().getDirection();
             facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_ALL, direction), 2));
         }

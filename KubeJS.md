@@ -105,7 +105,7 @@ setHeatSinkData(coolingRate, placement_rule, singular, plural)
 event.create("test_sink", "nuclearcraftneohaul:fission_heat_sink").setHeatSinkData(116, "one moderator", "%s valid test sink", "%s valid test sinks")
 ```
 
-#### Fission Coolant Heater
+#### Salt Fission Coolant Heater
 
 Creates both the coolant heater and coolant heater port. It requires a nak type to be created and is needed in the coolant heater recipe
 
@@ -133,23 +133,72 @@ Finally the recipe:
 
 ```js
     event.custom({
-    "type": "nuclearcraftneohaul:fission_heater_recipe",
-    "fluidIngredient": {
-        "amount": 1,
-        "ingredient": {
-            "fluid": global["test_nak"].toString()
-        }
-    },
-    "fluidProduct": {
-        "amount": 1,
-        "ingredient": {
-            "fluid": global["test_hot_nak"].toString()
-        }
-    },
-    "heater": {
-        "count": 1,
-        "id": global["test_heater"].toString()
-    },
-    "placementRule": global["test_heater"].toString()
+        "type": "nuclearcraftneohaul:fission_heater_recipe",
+        "fluidIngredient": {
+            "amount": 1,
+            "ingredient": {
+                "fluid": global["test_nak"].toString()
+            }
+        },
+        "fluidProduct": {
+            "amount": 1,
+            "ingredient": {
+                "fluid": global["test_hot_nak"].toString()
+            }
+        },
+        "heater": {
+            "count": 1,
+            "id": global["test_heater"].toString()
+        },
+        "placementRule": global["test_heater"].toString()
+    })
+```
+
+#### Pebble Fission Gas Cooler
+
+Creates both the cooler and cooler port. It requires a gas type to be created and is needed in the cooler recipe
+
+``` js
+/*
+setCoolerData(coolingRate, fluid_id, placement_rule, singular, plural)
+global["test_cooler"]: The cooler's id to be used in the recipe
+global["test_gas"]: The gas's id
+*/
+event.create("test_cooler", "nuclearcraftneohaul:fission_cooler_and_port").setCoolerData(116, "kubejs:test_gas", "one chamber", "%s functional test_gas cooler", "%s functional test_gas coolers").id
+// To use the ids created more easily:
+global["test_cooler"] = event.create("test_cooler", "nuclearcraftneohaul:fission_cooler_and_port").setCoolerData(116, global["test_gas"], "one chamber", "%s functional test_gas cooler", "%s functional test_gas coolers").id
+```
+
+The gas can be created as follows:
+
+```js
+StartupEvents.registry('fluid', event => {
+    global["test_gas"] = event.create("test_gas", "nuclearcraftneohaul:gas").tint(0xff00ff).id
+    global["test_gas_hot"] = event.create("test_gas_hot", "nuclearcraftneohaul:hot_gas").tint(0xff11ff).id
 })
+```
+
+Finally the recipe:
+
+```js
+    event.custom({
+        "type": "nuclearcraftneohaul:fission_cooler_recipe",
+        "fluidIngredient": {
+            "amount": 1,
+            "ingredient": {
+                "fluid": global["test_gas"].toString()
+            }
+        },
+        "fluidProduct": {
+            "amount": 1,
+            "ingredient": {
+                "fluid": global["test_gas_hot"].toString()
+            }
+        },
+        "cooler": {
+            "count": 1,
+            "id": global["test_cooler"].toString()
+        },
+        "placementRule": global["test_cooler"].toString()
+    })
 ```

@@ -38,8 +38,7 @@ import static com.nred.nuclearcraft.helpers.Location.cLoc;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
-import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
-import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_MAP;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 
@@ -150,6 +149,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new SolidFissionProvider(recipeOutput);
         new SaltFissionProvider(recipeOutput);
         new PebbleFissionProvider(recipeOutput);
+        new PebbleFissionCoolerProvider(recipeOutput);
         new FissionIrradiatorProvider(recipeOutput);
         new FissionEmergencyCoolingProvider(recipeOutput);
         new FissionHeatingProvider(recipeOutput);
@@ -408,6 +408,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         ShapedRecipeBuilder.shaped(MISC, PART_BLOCK_MAP.get("empty_heat_sink"), 8).pattern("PSP").pattern("T T").pattern("PSP")
                 .define('S', tag(Tags.Items.INGOTS, "steel")).define('P', PART_MAP.get("advanced_plating")).define('T', ALLOY_MAP.get("tough"))
+                .unlockedBy(getHasName(PART_MAP.get("advanced_plating")), has(PART_MAP.get("advanced_plating"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, PART_BLOCK_MAP.get("empty_gas_cooler"), 8).pattern("PCP").pattern("TST").pattern("PCP")
+                .define('S', PART_BLOCK_MAP.get("steel_chassis")).define('C', PART_MAP.get("pyrolytic_carbon")).define('P', PART_MAP.get("advanced_plating")).define('T', ALLOY_MAP.get("tough"))
+                .unlockedBy(getHasName(PART_MAP.get("advanced_plating")), has(PART_MAP.get("advanced_plating"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, PART_BLOCK_MAP.get("empty_gas_cooler_port"), 4).pattern("PMP").pattern("CSC").pattern("PSP")
+                .define('S', tag(Tags.Items.INGOTS, "steel")).define('C', PART_MAP.get("pyrolytic_carbon")).define('P', PART_MAP.get("advanced_plating")).define('M', PART_MAP.get("servomechanism"))
                 .unlockedBy(getHasName(PART_MAP.get("advanced_plating")), has(PART_MAP.get("advanced_plating"))).save(recipeOutput);
     }
 
@@ -687,6 +695,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), 1).pattern("PZP").pattern("ESE").pattern("PZP")
                 .define('P', PART_MAP.get("advanced_plating")).define('Z', ALLOY_MAP.get("zirconium_molybdenum")).define('E', ALLOY_MAP.get("extreme")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"), 1).pattern("PCP").pattern("TST").pattern("PCP")
+                .define('P', PART_MAP.get("advanced_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('C', PART_MAP.get("pyrolytic_carbon")).define('T', ALLOY_MAP.get("tough"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_casing"), 8).pattern(" P ").pattern("PSP").pattern(" P ")
                 .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
@@ -826,6 +838,21 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_source_manager"), 4).pattern("PEP").pattern("RSR").pattern("PEP")
                 .define('P', PART_MAP.get("basic_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('E', COMPOUND_MAP.get("energetic_blend")).define('R', Items.REPEATER)
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        for (String gas : GAS_COOLANTS) {
+            ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get(gas + "_fission_gas_cooler"), 1).requires(PART_BLOCK_MAP.get("empty_gas_cooler")).requires(GAS_MAP.get(gas).bucket)
+                    .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_gas_cooler")), has(PART_BLOCK_MAP.get("empty_gas_cooler"))).save(recipeOutput);
+            ShapelessRecipeBuilder.shapeless(MISC, FISSION_REACTOR_MAP.get(gas + "_fission_gas_cooler_port"), 1).requires(PART_BLOCK_MAP.get("empty_gas_cooler_port")).requires(GAS_MAP.get(gas).bucket)
+                    .unlockedBy(getHasName(PART_BLOCK_MAP.get("empty_gas_cooler_port")), has(PART_BLOCK_MAP.get("empty_gas_cooler_port"))).save(recipeOutput);
+        }
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_fuel_chamber"), 4).pattern("PCP").pattern("ZSZ").pattern("PCP")
+                .define('P', PART_MAP.get("advanced_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('C', PART_MAP.get("pyrolytic_carbon")).define('Z', ALLOY_MAP.get("zircaloy"))
+                .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_fuel_chamber_port"), 4).pattern("PHP").pattern("CSC").pattern("PHP")
+                .define('P', PART_MAP.get("advanced_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('C', PART_MAP.get("pyrolytic_carbon")).define('H', Items.HOPPER)
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
     }
 

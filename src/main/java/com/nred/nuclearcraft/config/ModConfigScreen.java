@@ -46,6 +46,8 @@ public class ModConfigScreen extends ConfigurationScreen.ConfigurationSectionScr
         map.put("battery_item_capacity", MODID + ".configuration.battery_item_order");
         map.put("battery_item_max_transfer", MODID + ".configuration.battery_item_order");
         map.put("fission_source_efficiency", MODID + ".configuration.fission_source_order");
+        map.put("fission_cooler_cooling_rate", MODID + ".configuration.fission_cooler_order");
+        map.put("fission_cooler_rule", MODID + ".configuration.fission_cooler_order");
         map.put("fission_sink_cooling_rate", MODID + ".configuration.heat_sink_order");
         map.put("fission_sink_rule", MODID + ".configuration.heat_sink_order");
         map.put("fission_heater_cooling_rate", MODID + ".configuration.heater_order");
@@ -70,6 +72,7 @@ public class ModConfigScreen extends ConfigurationScreen.ConfigurationSectionScr
 
         map.put("heat_exchanger_heat_transfer_coefficient", MODID + ".configuration.hx_tube_order");
         map.put("heat_exchanger_heat_retention_mult", MODID + ".configuration.hx_tube_order");
+
         return map;
     }
 

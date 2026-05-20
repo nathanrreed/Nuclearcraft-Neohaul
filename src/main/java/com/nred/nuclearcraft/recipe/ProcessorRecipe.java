@@ -6,7 +6,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
-import com.nred.nuclearcraft.handler.TileInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -72,7 +72,7 @@ public abstract class ProcessorRecipe extends BasicRecipe {
 
         @Override
         public MapCodec<ProcessorRecipe> codec() {
-            var info = TileInfoHandler.getProcessorContainerInfo(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()).replace("_recipe", ""));
+            var info = BlockEntityInfoHandler.getProcessorContainerInfo(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()).replace("_recipe", ""));
             return RecordCodecBuilder.mapCodec(inst ->
                     inst.group(
                             SizedChanceItemIngredient.FLAT_CODEC.listOf(0, info.itemInputSize).lenientOptionalFieldOf("itemIngredients", List.of()).forGetter(ProcessorRecipe::getItemIngredients),
