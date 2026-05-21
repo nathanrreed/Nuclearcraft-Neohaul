@@ -1,15 +1,19 @@
 package com.nred.nuclearcraft.multiblock.hx;
 
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity;
+import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity.InletProcessorElement;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerOutletEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerTubeEntity;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.payload.multiblock.CondenserRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.CondenserUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.longs.LongList;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
@@ -25,6 +29,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.LongSupplier;
 import java.util.stream.Collectors;
@@ -46,11 +51,6 @@ public class CondenserLogic extends HeatExchangerLogic {
     @Override
     public String getID() {
         return "condenser";
-    }
-
-    @Override
-    public boolean isCondenser() {
-        return true;
     }
 
     @Override
@@ -227,6 +227,77 @@ public class CondenserLogic extends HeatExchangerLogic {
     @Override
     public @Nonnull List<Tank> getOutletTanks(HeatExchangerTubeNetwork network) {
         return network == null ? getInletTanks(network) : super.getOutletTanks(network);
+    }
+
+    @Override
+    public BasicRecipeHandler<CondenserRecipe> getInletRecipeHandler(HeatExchangerInletEntity inlet) {
+        return NCRecipes.condenser;
+    }
+
+    @Override
+    public void setInletRecipeStats(HeatExchangerInletEntity inlet, @Nullable BasicRecipe basicRecipe) {
+        if (basicRecipe instanceof CondenserRecipe recipe) {
+            inlet.processor.baseProcessTime = recipe.getCondenserCoolingRequired();
+            inlet.inputTemperature = recipe.getCondenserInputTemperature();
+            inlet.outputTemperature = recipe.getCondenserOutputTemperature();
+        } else {
+            inlet.processor.baseProcessTime = 1D;
+            inlet.inputTemperature = 300;
+            inlet.outputTemperature = 300;
+        }
+        inlet.isHeating = false;
+    }
+
+    @Override
+    public double getInletSpeedMultiplier(HeatExchangerInletEntity inlet) {
+        if (inlet.isMasterShellInlet()) {
+            return multiblock.shellSpeedMultiplier;
+        }
+
+        if (inlet.isHeating || multiblock.shellRecipe == null) {
+            return 0D;
+        }
+
+        int shellTemperature = multiblock.shellTanks.getFirst().getFluid().getFluidType().getTemperature();
+        if (inlet.outputTemperature < shellTemperature) {
+            return 0D;
+        }
+
+        double absMeanTempDiff = HeatExchanger.getAbsMeanTempDiff(inlet.inputTemperature - shellTemperature, inlet.outputTemperature - shellTemperature);
+        multiblock.totalTempDiff += absMeanTempDiff * inlet.network.usefulTubeCount;
+
+        multiblock.activeContactCount += inlet.network.usefulTubeCount;
+
+        ++multiblock.activeNetworkCount;
+        multiblock.activeTubeCount += inlet.network.usefulTubeCount;
+
+        double tubeFlowDirectionMultiplier = ((CondenserRecipe) inlet.processor.recipeInfo.recipe).getCondenserFlowDirectionMultiplier(inlet.network.tubeFlow);
+
+        double heatTransferMultiplier = absMeanTempDiff * tubeFlowDirectionMultiplier * multiblock.shellTanks.get(0).getFluidAmountFraction();
+        return inlet.processor.heatTransferRate = heatTransferMultiplier * inlet.network.baseCoolingMultiplier;
+    }
+
+    @Override
+    public void inletProcess(HeatExchangerInletEntity inlet) {
+        InletProcessorElement processor = inlet.processor;
+
+        processor.heatTransferRate = processor.shellSpeedMultiplier = 0D;
+
+        double speedMultiplier = processor.getSpeedMultiplier();
+        double maxProcessCount = speedMultiplier / processor.baseProcessTime;
+
+        processor.time += speedMultiplier;
+
+        int processCount = 0;
+        while (processor.time >= processor.baseProcessTime) {
+            processor.finishProcess(inlet.getLevel());
+            ++processCount;
+        }
+
+        if (multiblock != null) {
+            multiblock.heatTransferRate += processor.heatTransferRate * (processCount == 0 ? 1D : processCount / maxProcessCount);
+            multiblock.shellSpeedMultiplier += processor.shellSpeedMultiplier * processCount / maxProcessCount;
+        }
     }
 
     // Packets

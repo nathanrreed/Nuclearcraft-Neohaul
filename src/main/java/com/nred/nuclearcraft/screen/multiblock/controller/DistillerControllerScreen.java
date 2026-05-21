@@ -22,6 +22,12 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public class DistillerControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, DistillerControllerEntity, BlockEntityMenuInfo<DistillerControllerEntity>, DistillerLogic, DistillerControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "distiller_controller");
 
+    StringCenteringOperator refluxBonusText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.distiller_controller.reflux_bonus", NCMath.pcDecimalPlaces(getLogic().refluxUnitBonus, 1)));
+    StringCenteringOperator reboilingBonusText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.distiller_controller.reboiling_bonus", NCMath.pcDecimalPlaces(getLogic().reboilingUnitBonus, 1)));
+    StringCenteringOperator distributionBonusText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.distiller_controller.distribution_bonus", NCMath.pcDecimalPlaces(getLogic().liquidDistributorBonus, 1)));
+    StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(logic.getProcessTimeFP(), 5)));
+    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "RF/t")));
+
     public DistillerControllerScreen(DistillerControllerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, gui_texture);
         imageWidth = 176;
@@ -53,19 +59,14 @@ public class DistillerControllerScreen extends LogicMultiblockControllerScreen<M
         String underline = StringHelper.charLine('-', Mth.ceil((double) this.font.width(title) / this.font.width("-")));
         guiGraphics.drawCenteredString(this.font, underline, middle_x, getGuiTop() + 12, fontColor);
 
-        Component refluxBonus = Component.translatable(MODID + ".tooltip.distiller_controller.reflux_bonus", NCMath.pcDecimalPlaces(getLogic().refluxUnitBonus, 1));
-        guiGraphics.drawCenteredString(this.font, refluxBonus, middle_x, getGuiTop() + 22, fontColor);
+        refluxBonusText.apply(guiGraphics, 22, fontColor);
 
-        Component reboilingBonus = Component.translatable(MODID + ".tooltip.distiller_controller.reboiling_bonus", NCMath.pcDecimalPlaces(getLogic().reboilingUnitBonus, 1));
-        guiGraphics.drawCenteredString(this.font, reboilingBonus, middle_x, getGuiTop() + 34, fontColor);
+        reboilingBonusText.apply(guiGraphics, 34, fontColor);
 
-        Component distributionBonus = Component.translatable(MODID + ".tooltip.distiller_controller.distribution_bonus", NCMath.pcDecimalPlaces(getLogic().liquidDistributorBonus, 1));
-        guiGraphics.drawCenteredString(this.font, distributionBonus, middle_x, getGuiTop() + 46, fontColor);
+        distributionBonusText.apply(guiGraphics, 46, fontColor);
 
-        Component rate = Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(logic.getProcessTimeFP(), 5));
-        guiGraphics.drawCenteredString(this.font, rate, middle_x, getGuiTop() + 58, fontColor);
+        rateText.apply(guiGraphics, 58, fontColor);
 
-        Component power = Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "FE/t"));
-        guiGraphics.drawCenteredString(this.font, power, middle_x, getGuiTop() + 70, fontColor);
+        powerText.apply(guiGraphics, 70, fontColor);
     }
 }

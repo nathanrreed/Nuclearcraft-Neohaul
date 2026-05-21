@@ -52,7 +52,7 @@ public class RecipeViewerImpl {
 
         public List<Component> progressTooltips(int x, int y) {
             ArrayList<Component> list = new ArrayList<>(1);
-            list.add(Component.translatable(MODID + ".recipe_viewer.fission_emergency_cooling_heating_required", Component.literal(UnitHelper.prefix(recipe.getEmergencyCoolingHeatPerInputMB(), 5, "H")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
+            list.add(Component.translatable(MODID + ".recipe_viewer.fission_emergency_cooling_heating_required", Component.literal(UnitHelper.prefix(recipe.getEmergencyCoolingHeatPerInputMB(), 5, "H/mB")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
             return list;
         }
 
@@ -252,7 +252,7 @@ public class RecipeViewerImpl {
             ArrayList<Component> list = new ArrayList<>(2);
 
             list.add(Component.translatable(MODID + ".recipe_viewer.cooling_rate", Component.literal(UnitHelper.prefix(recipe.getFissionCoolingRate(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.BLUE));
-            list.add(Component.translatable(MODID + ".recipe_viewer.fission_heating_required", Component.literal(UnitHelper.prefix(recipe.getFissionCoolingRate(), 5, "H")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
+            list.add(Component.translatable(MODID + ".recipe_viewer.fission_heating_required", Component.literal(UnitHelper.prefix(fission_heater_coolant_heat_per_mb, 5, "H/mB")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
 
             String coolantHeaterInfo = FissionPlacement.TOOLTIP_MAP.getOrDefault(recipe.getFissionCoolingPlacementRule(), "");
             if (!coolantHeaterInfo.isEmpty()) {
@@ -277,7 +277,7 @@ public class RecipeViewerImpl {
             ArrayList<Component> list = new ArrayList<>(2);
 
             list.add(Component.translatable(MODID + ".recipe_viewer.cooling_rate", Component.literal(UnitHelper.prefix(recipe.getFissionCoolingRate(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.BLUE));
-            list.add(Component.translatable(MODID + ".recipe_viewer.fission_heating_required", Component.literal(UnitHelper.prefix(fission_cooler_coolant_heat_per_mb, 5, "H")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
+            list.add(Component.translatable(MODID + ".recipe_viewer.fission_heating_required", Component.literal(UnitHelper.prefix(fission_cooler_coolant_heat_per_mb, 5, "H/mB")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
             String coolantHeaterInfo = FissionPlacement.TOOLTIP_MAP.getOrDefault(recipe.getFissionCoolingPlacementRule(), "");
             if (!coolantHeaterInfo.isEmpty()) {
                 list.add(Component.literal(coolantHeaterInfo).withStyle(ChatFormatting.AQUA));
@@ -379,7 +379,7 @@ public class RecipeViewerImpl {
         @Override
         public List<Component> progressTooltips(int x, int y) {
             ArrayList<Component> list = new ArrayList<>(1);
-            list.add(Component.translatable(MODID + ".recipe_viewer.fission_heating_required", Component.literal(UnitHelper.prefix(recipe.getFissionHeatingHeatPerInputMB(), 5, "H")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
+            list.add(Component.translatable(MODID + ".recipe_viewer.fission_heating_required", Component.literal(UnitHelper.prefix(recipe.getFissionHeatingHeatPerInputMB(), 5, "H/mB")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
             return list;
         }
 

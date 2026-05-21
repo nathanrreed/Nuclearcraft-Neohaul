@@ -32,7 +32,7 @@ public class EnergyItemBlock extends NCItemBlock implements IChargeableItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        InfoHelper.infoLine(tooltip, ChatFormatting.LIGHT_PURPLE, Component.translatable(MODID + ".tooltip.energy_stored", UnitHelper.getFormattedFraction(IChargeableItem.getEnergyStored(stack), getMaxEnergyStored(stack), "FE")));
+        InfoHelper.infoLine(tooltip, ChatFormatting.LIGHT_PURPLE, Component.translatable(MODID + ".tooltip.energy_stored", UnitHelper.prefix(IChargeableItem.getEnergyStored(stack), getMaxEnergyStored(stack), 5, "FE")));
         super.appendHoverText(stack, context, tooltip, tooltipFlag);
     }
 

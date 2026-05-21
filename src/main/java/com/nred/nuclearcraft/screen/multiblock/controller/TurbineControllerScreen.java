@@ -25,6 +25,22 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine, TurbineUpdatePacket, TurbineControllerEntity, BlockEntityMenuInfo<TurbineControllerEntity>, TurbineControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "turbine_controller");
 
+    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.turbine_controller.power", UnitHelper.prefix(multiblock.power, 5, "RF/t")));
+    StringCenteringOperator coilCountText = centeredTracker(() -> {
+        int bearingCount = multiblock.getPartCount(TurbineRotorBearingEntity.class);
+        return Component.translatable(MODID + ".tooltip.turbine_controller.dynamo_coil_count", (bearingCount == 0 ? "0/0, 0/0" : multiblock.dynamoCoilCount + "/" + bearingCount / 2 + ", " + multiblock.dynamoCoilCountOpposite + "/" + bearingCount / 2));
+    });
+    StringCenteringOperator dynamoEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.turbine_controller.dynamo_efficiency", NCMath.pcDecimalPlaces(multiblock.conductivity, 1)));
+    StringCenteringOperator expansionLevelText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.turbine_controller.expansion_level", (multiblock.idealTotalExpansionLevel <= 0D ? "0%" : NCMath.pcDecimalPlaces(multiblock.totalExpansionLevel, 1) + " [" + NCMath.decimalPlaces(multiblock.idealTotalExpansionLevel, 1) + " x " + NCMath.pcDecimalPlaces(multiblock.totalExpansionLevel / multiblock.idealTotalExpansionLevel, 1) + "]")));
+    StringCenteringOperator rotorEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.turbine_controller.rotor_efficiency", NCMath.pcDecimalPlaces(multiblock.rotorEfficiency, 1)));
+    StringCenteringOperator powerBonusText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.turbine_controller.power_bonus", NCMath.pcDecimalPlaces(multiblock.powerBonus, 1)));
+    StringCenteringOperator recipeInputRateText = centeredTracker(() -> {
+        double maxRecipeRateMultiplierFP = multiblock.getLogic().getMaxRecipeRateMultiplier();
+        double rateRatio = (double) multiblock.recipeInputRate / maxRecipeRateMultiplierFP;
+        double rateRatioFP = multiblock.recipeInputRateFP / maxRecipeRateMultiplierFP;
+        return Component.translatable(MODID + ".tooltip.turbine_controller.fluid_rate", UnitHelper.prefix(multiblock.recipeInputRateFP, 5, "B/t", -1) + " [" + NCMath.pcDecimalPlaces(rateRatioFP, 1) + (rateRatio > 1D ? "] [!]" : "]"));
+    });
+
     public TurbineControllerScreen(TurbineControllerMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, gui_texture);
         imageWidth = 176;
@@ -56,25 +72,25 @@ public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine,
         String underline = StringHelper.charLine('-', Mth.ceil((double) this.font.width(title) / this.font.width("-")));
         guiGraphics.drawString(FONT, underline, middle_x - this.font.width(underline) / 2, getGuiTop() + 12, fontColor);
 
-        Component power = Component.translatable(MODID + ".menu.turbine_controller.power", UnitHelper.prefix(Math.round(multiblock.power), 5, "FE/t"));
-        guiGraphics.drawString(FONT, power, middle_x - this.font.width(power) / 2, getGuiTop() + 22, fontColor);
+        powerText.apply(guiGraphics, 22, fontColor);
 
-        int bearingCount = multiblock.getPartCount(TurbineRotorBearingEntity.class);
-        Component coils = NCUtil.isModifierKeyDown() ? Component.translatable(MODID + ".menu.turbine_controller.dynamo_coil_count", (bearingCount == 0 ? "0/0, 0/0" : multiblock.dynamoCoilCount + "/" + bearingCount / 2 + ", " + multiblock.dynamoCoilCountOpposite + "/" + bearingCount / 2)) : Component.translatable(MODID + ".menu.turbine_controller.dynamo_efficiency", NCMath.pcDecimalPlaces(multiblock.conductivity, 1));
-        guiGraphics.drawString(FONT, coils, middle_x - this.font.width(coils) / 2, getGuiTop() + 34, fontColor);
-
-        Component rotor = NCUtil.isModifierKeyDown() ? Component.translatable(MODID + ".menu.turbine_controller.expansion_level", (multiblock.idealTotalExpansionLevel <= 0D ? "0%" : NCMath.pcDecimalPlaces(multiblock.totalExpansionLevel, 1) + " [" + NCMath.decimalPlaces(multiblock.idealTotalExpansionLevel, 1) + " x " + NCMath.pcDecimalPlaces(multiblock.totalExpansionLevel / multiblock.idealTotalExpansionLevel, 1) + "]")) : Component.translatable(MODID + ".menu.turbine_controller.rotor_efficiency", NCMath.pcDecimalPlaces(multiblock.rotorEfficiency, 1));
-        guiGraphics.drawString(FONT, rotor, middle_x - this.font.width(rotor) / 2, getGuiTop() + 46, fontColor);
-
-        Component inputRate;
         if (NCUtil.isModifierKeyDown()) {
-            inputRate = Component.translatable(MODID + ".menu.turbine_controller.power_bonus", NCMath.pcDecimalPlaces(multiblock.powerBonus, 1));
+            coilCountText.apply(guiGraphics, 34, fontColor);
         } else {
-            double maxRecipeRateMultiplierFP = multiblock.getLogic().getMaxRecipeRateMultiplier();
-            double rateRatio = (double) multiblock.recipeInputRate / maxRecipeRateMultiplierFP;
-            double rateRatioFP = multiblock.recipeInputRateFP / maxRecipeRateMultiplierFP;
-            inputRate = Component.translatable(MODID + ".menu.turbine_controller.fluid_rate", UnitHelper.prefix(Math.round(multiblock.recipeInputRateFP), 5, "B/t", -1), " [" + NCMath.pcDecimalPlaces(rateRatioFP, 1) + (rateRatio > 1D ? "] [!]" : "]"));
+            dynamoEfficiencyText.apply(guiGraphics, 34, fontColor);
         }
-        guiGraphics.drawString(FONT, inputRate, middle_x - this.font.width(inputRate) / 2, getGuiTop() + 58, multiblock.bearingTension <= 0D ? fontColor : multiblock.isTurbineOn ? 0xFFFFFF - NCMath.toInt((255D * Mth.clamp(2D * multiblock.bearingTension, 0D, 1D))) - 256 * NCMath.toInt((255D * Mth.clamp(2D * multiblock.bearingTension - 1D, 0D, 1D))) : FastColor.ARGB32.lerp((float) multiblock.bearingTension, 15641088, 0xFF0000));
+
+        if (NCUtil.isModifierKeyDown()) {
+            expansionLevelText.apply(guiGraphics, 46, fontColor);
+        } else {
+            rotorEfficiencyText.apply(guiGraphics, 46, fontColor);
+        }
+
+        int tensionColor = multiblock.bearingTension <= 0D ? fontColor : multiblock.isTurbineOn ? 0xFFFFFF - NCMath.toInt((255D * Mth.clamp(2D * multiblock.bearingTension, 0D, 1D))) - 256 * NCMath.toInt((255D * Mth.clamp(2D * multiblock.bearingTension - 1D, 0D, 1D))) : FastColor.ARGB32.lerp((float) multiblock.bearingTension, 15641088, 0xFF0000);
+        if (NCUtil.isModifierKeyDown()) {
+            powerBonusText.apply(guiGraphics, 58, tensionColor);
+        } else {
+            recipeInputRateText.apply(guiGraphics, 58, tensionColor);
+        }
     }
 }

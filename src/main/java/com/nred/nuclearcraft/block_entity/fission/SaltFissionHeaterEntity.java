@@ -54,6 +54,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.config.NCConfig.fission_heater_coolant_heat_per_mb;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
@@ -418,7 +419,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public double getSpeedMultiplier() {
-        return heatingSpeedMultiplier;
+        return (heatingSpeedMultiplier * baseProcessCooling) / fission_heater_coolant_heat_per_mb;
     }
 
     @Override

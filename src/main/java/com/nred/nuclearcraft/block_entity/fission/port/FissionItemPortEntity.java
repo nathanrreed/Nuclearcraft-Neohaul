@@ -16,6 +16,7 @@ import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.util.NBTHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import it.zerono.mods.zerocore.lib.multiblock.registry.MultiblockRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -294,6 +295,7 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
                     player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.out_config").withStyle(ChatFormatting.GOLD)));
                 }
                 markDirtyAndNotify(true);
+                MultiblockRegistry.INSTANCE.get().addDirtyController(multiblock);
                 return true;
             }
         }

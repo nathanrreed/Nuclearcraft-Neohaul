@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import com.nred.nuclearcraft.menu.slot.FilteredSlot;
+import com.nred.nuclearcraft.util.PixelTracker;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -27,6 +28,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.GuiHelper.blitTile;
@@ -178,5 +180,22 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
 
     public List<Component> noClusterInfo() {
         return Lists.newArrayList(Component.translatable(MODID + ".menu.fission.no_cluster").withStyle(ChatFormatting.RED));
+    }
+
+    protected int centeredWidth(Component str) {
+        return width / 2 - font.width(str) / 2;
+    }
+
+    protected StringCenteringOperator centeredTracker(Supplier<Component> supplier) {
+        PixelTracker tracker = new PixelTracker(40);
+        return (guiGraphics, y, color) -> {
+            Component component = supplier.get();
+            return guiGraphics.drawString(font, component, tracker.update(centeredWidth(component)), getGuiTop() + y, color);
+        };
+    }
+
+    @FunctionalInterface
+    public interface StringCenteringOperator {
+        int apply(GuiGraphics guiGraphics, int left, int right);
     }
 }

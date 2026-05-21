@@ -1,6 +1,5 @@
 {
   "type": "nuclearcraftneohaul:heat_exchanger_recipe",
-  "coolantHeater": "boron",
   "flowDirectionBonus": 0.0,
   "fluidIngredient": {
     "amount": 1,
@@ -17,5 +16,6 @@
   "inputTemp": 800,
   "isHeating": false,
   "outputTemp": 400,
-  "preferredFlowDir": 0
+  "preferredFlowDir": 0,
+  "recipeType": "hot_nak"
 }

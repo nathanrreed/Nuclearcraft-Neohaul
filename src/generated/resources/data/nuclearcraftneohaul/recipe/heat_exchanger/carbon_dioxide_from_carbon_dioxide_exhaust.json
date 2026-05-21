@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:heat_exchanger_recipe",
+  "flowDirectionBonus": 0.0,
+  "fluidIngredient": {
+    "amount": 4,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:carbon_dioxide_exhaust"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:carbon_dioxide"
+    }
+  },
+  "heatDifference": 0.5,
+  "inputTemp": 800,
+  "isHeating": false,
+  "outputTemp": 300,
+  "preferredFlowDir": 0,
+  "recipeType": "hot_gas"
+}

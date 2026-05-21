@@ -1,16 +1,19 @@
 package com.nred.nuclearcraft.multiblock.hx;
 
 import com.nred.nuclearcraft.block_entity.hx.*;
+import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity.InletProcessorElement;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankOutputSetting;
-import com.nred.nuclearcraft.block_entity.internal.processor.AbstractProcessorElement;
+import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
 import com.nred.nuclearcraft.multiblock.MultiblockLogic;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.util.LambdaHelper;
 import it.unimi.dsi.fastutil.longs.*;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
@@ -28,6 +31,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.LongSupplier;
 import java.util.stream.Stream;
@@ -50,8 +54,8 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
         return "heat_exchanger";
     }
 
-    public boolean isCondenser() {
-        return false;
+    protected boolean isHX() {
+        return getID().equals("heat_exchanger");
     }
 
     protected int getShellInputTankDensity() {
@@ -366,17 +370,10 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
             return false;
         }
 
-        Long2ObjectMap<ObjectSet<Vec3>> flowMap = HeatExchangerFlowHelper.getFlowMap(
-                shellInletPosLongSet,
-                shellOutletPosLongSet,
-                x -> LambdaHelper.let(x.asLong(), y -> tubeMap.containsKey(y) ? tubeMap.get(y).settings : null),
-                x -> !x.isBaffle(),
-                (x, y) -> {
-                    long posLong = x.asLong();
-                    return shellPosLongSet.contains(posLong) && (!tubeMap.containsKey(posLong) || !tubeMap.get(posLong).getTubeSetting(y.getOpposite()).isBaffle());
-                },
-                x -> shellOutletPosLongSet.contains(x.asLong())
-        );
+        Long2ObjectMap<ObjectSet<Vec3>> flowMap = HeatExchangerFlowHelper.getFlowMap(shellInletPosLongSet, shellOutletPosLongSet, x -> LambdaHelper.let(x.asLong(), y -> tubeMap.containsKey(y) ? tubeMap.get(y).settings : null), x -> !x.isBaffle(), (x, y) -> {
+            long posLong = x.asLong();
+            return shellPosLongSet.contains(posLong) && (!tubeMap.containsKey(posLong) || !tubeMap.get(posLong).getTubeSetting(y.getOpposite()).isBaffle());
+        }, x -> shellOutletPosLongSet.contains(x.asLong()));
 
         for (Long2ObjectMap.Entry<ObjectSet<Vec3>> entry : flowMap.long2ObjectEntrySet()) {
             long posLong = entry.getLongKey();
@@ -421,25 +418,7 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
         multiblock.refreshFlag = false;
         multiblock.packetFlag = 0;
 
-        multiblock.activeNetworkCount = 0;
-        multiblock.activeTubeCount = 0;
-        multiblock.activeContactCount = 0;
-        multiblock.shellSpeedMultiplier = 0D;
-        multiblock.tubeInputRate = 0D;
-        multiblock.shellInputRate = 0D;
-        multiblock.heatTransferRate = 0D;
-        multiblock.totalTempDiff = 0D;
-
-        if (!isCondenser()) {
-            prepareExchangerGrants();
-        }
-
-        int[] inletUpdates = multiblock.getMasterInlets().mapToInt(x -> x.processor.onTick(getWorld()) ? 1 : 0).toArray();
-        boolean shouldUpdate = multiblock.refreshFlag || Arrays.stream(inletUpdates).anyMatch(x -> x != 0);
-
-        multiblock.tubeInputRateFP = multiblock.tubeInputRateTracker.update(multiblock.tubeInputRate);
-        multiblock.shellInputRateFP = multiblock.shellInputRateTracker.update(multiblock.shellInputRate);
-        multiblock.heatTransferRateFP = multiblock.heatTransferRateTracker.update(multiblock.heatTransferRate);
+        boolean shouldUpdate = onUpdateServerInternal();
 
         if (shouldUpdate) {
             refreshAll();
@@ -454,6 +433,30 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
         if (multiblock.controller != null) {
             multiblock.sendRenderPacketToAll();
         }
+
+        return shouldUpdate;
+    }
+
+    protected boolean onUpdateServerInternal() {
+        multiblock.activeNetworkCount = 0;
+        multiblock.activeTubeCount = 0;
+        multiblock.activeContactCount = 0;
+        multiblock.shellSpeedMultiplier = 0D;
+        multiblock.tubeInputRate = 0D;
+        multiblock.shellInputRate = 0D;
+        multiblock.heatTransferRate = 0D;
+        multiblock.totalTempDiff = 0D;
+
+        if (isHX()) {
+            prepareTransferProposals();
+        }
+
+        int[] inletUpdates = multiblock.getMasterInlets().mapToInt(x -> x.processor.onTick(getWorld()) ? 1 : 0).toArray();
+        boolean shouldUpdate = multiblock.refreshFlag || Arrays.stream(inletUpdates).anyMatch(x -> x != 0);
+
+        multiblock.tubeInputRateFP = multiblock.tubeInputRateTracker.update(multiblock.tubeInputRate);
+        multiblock.shellInputRateFP = multiblock.shellInputRateTracker.update(multiblock.shellInputRate);
+        multiblock.heatTransferRateFP = multiblock.heatTransferRateTracker.update(multiblock.heatTransferRate);
 
         return shouldUpdate;
     }
@@ -499,67 +502,143 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
         return tanks.size() < 2 ? Collections.emptyList() : tanks.subList(1, 2);
     }
 
+    public void setNetworkTubeFlows(HeatExchangerTubeNetwork network, Map<Long, HeatExchangerTubeEntity> tubeMap) {
+        Long2ObjectMap<ObjectSet<Vec3>> flowMap = HeatExchangerFlowHelper.getFlowMap(network.inletPosLongSet, network.outletPosLongSet, x -> LambdaHelper.let(x.asLong(), y -> network.tubePosLongSet.contains(y) ? tubeMap.get(y).settings : null), HeatExchangerTubeSetting::isOpen, (x, y) -> network.tubePosLongSet.contains(x.asLong()), x -> network.outletPosLongSet.contains(x.asLong()));
 
-    protected void prepareExchangerGrants() {
-        multiblock.getMasterInlets().forEach(HeatExchangerInletEntity::resetExchangerGrants);
+        for (Long2ObjectMap.Entry<ObjectSet<Vec3>> entry : flowMap.long2ObjectEntrySet()) {
+            HeatExchangerTubeEntity tube = tubeMap.get(entry.getLongKey());
+            tube.tubeFlow = entry.getValue().stream().reduce(Vec3.ZERO, Vec3::add).normalize();
+        }
+    }
+
+    public void setNetworkFlowStats(HeatExchangerTubeNetwork network, Map<Long, HeatExchangerTubeEntity> tubeMap) {
+        network.usefulTubeCount = 0;
+        network.tubeFlow = Vec3.ZERO;
+        network.shellFlow = Vec3.ZERO;
+        network.flowCosine = 0D;
+        network.baseHeatingMultiplier = 0D;
+        network.baseCoolingMultiplier = 0D;
+
+        for (long tubePosLong : network.tubePosLongSet) {
+            HeatExchangerTubeEntity tube = tubeMap.get(tubePosLong);
+            if (tube.tubeFlow != null && (tube.shellFlow != null || !isHX())) {
+                ++network.usefulTubeCount;
+                network.tubeFlow = network.tubeFlow.add(tube.tubeFlow);
+                if (tube.shellFlow != null) {
+                    network.shellFlow = network.shellFlow.add(tube.shellFlow);
+                    network.flowCosine += tube.tubeFlow.dot(tube.shellFlow);
+                }
+                network.baseHeatingMultiplier += tube.tubeType.getHeatTransferCoefficient() * tube.tubeType.getHeatRetentionMultiplier();
+                network.baseCoolingMultiplier += tube.tubeType.getHeatTransferCoefficient();
+            }
+        }
+
+        if (network.usefulTubeCount > 0) {
+            network.tubeFlow = network.tubeFlow.scale(1D / network.usefulTubeCount);
+            network.shellFlow = network.shellFlow.scale(1D / network.usefulTubeCount);
+            network.flowCosine /= network.usefulTubeCount;
+        }
+    }
+
+    public BasicRecipeHandler getInletRecipeHandler(HeatExchangerInletEntity inlet) {
+        return NCRecipes.heat_exchanger;
+    }
+
+    public void setInletRecipeStats(HeatExchangerInletEntity inlet, @Nullable BasicRecipe basicRecipe) {
+        if (basicRecipe instanceof HeatExchangerRecipe recipe) {
+            inlet.processor.baseProcessTime = recipe.getHeatExchangerHeatDifference();
+            inlet.inputTemperature = recipe.getHeatExchangerInputTemperature();
+            inlet.outputTemperature = recipe.getHeatExchangerOutputTemperature();
+            inlet.isHeating = recipe.getHeatExchangerIsHeating();
+        } else {
+            inlet.processor.baseProcessTime = 1D;
+            inlet.inputTemperature = 300;
+            inlet.outputTemperature = 300;
+            inlet.isHeating = false;
+        }
+    }
+
+    public double getInletSpeedMultiplier(HeatExchangerInletEntity inlet) {
+        return inlet.speedMultiplierProposal;
+    }
+
+    public void inletProcess(HeatExchangerInletEntity inlet) {
+        InletProcessorElement processor = inlet.processor;
+
+        double speedMultiplier = inlet.speedMultiplierProposal;
+        double maxProcessCount = processor.baseProcessTime <= 0D ? 0D : speedMultiplier / processor.baseProcessTime;
+
+        processor.time += speedMultiplier;
+
+        int processCount = 0;
+        while (processor.time >= processor.baseProcessTime) {
+            processor.finishProcess(inlet.getLevel());
+            ++processCount;
+        }
+
+        multiblock.heatTransferRate += inlet.heatTransferRateProposal * (processCount == 0 || maxProcessCount <= 0D ? 1D : processCount / maxProcessCount);
+    }
+
+    protected void prepareTransferProposals() {
+        multiblock.getMasterInlets().forEach(x -> x.speedMultiplierProposal = x.heatTransferRateProposal = 0D);
 
         HeatExchangerInletEntity shellInlet = multiblock.masterShellInlet;
         if (shellInlet == null || shellInlet.processor.recipeInfo == null || !shellInlet.processor.readyToProcess()) {
             return;
         }
 
-        List<HeatExchangerInletEntity.ExchangerRateProposal> proposals = new ArrayList<>();
+        List<HeatExchangerTransferProposal> proposals = new ArrayList<>();
         for (HeatExchangerTubeNetwork network : multiblock.networks) {
-            HeatExchangerInletEntity inlet = network.masterInlet;
-            if (inlet == null || inlet.processor.recipeInfo == null || !inlet.processor.readyToProcess()) {
+            HeatExchangerInletEntity tubeInlet = network.masterInlet;
+            if (tubeInlet == null || tubeInlet.processor.recipeInfo == null || !tubeInlet.processor.readyToProcess()) {
                 continue;
             }
 
-            HeatExchangerInletEntity.ExchangerRateProposal proposal = inlet.getExchangerRateProposal();
+            HeatExchangerTransferProposal proposal = getInletTransferProposal(tubeInlet);
             if (proposal == null) {
                 continue;
             }
 
-            double maxTubeSpeed = getMaxAdditionalSpeedThisTick(inlet);
-            if (maxTubeSpeed <= 0D || proposal.tubeProcessSpeedScale <= 0D) {
+            double maxTubeTransferRate = getInletMaxLatentTransferRate(tubeInlet);
+            if (maxTubeTransferRate <= 0D || proposal.tubeRecipeRateMultiplier <= 0D) {
                 continue;
             }
 
-            double cappedCommonTransfer = Math.min(proposal.commonTransfer, maxTubeSpeed / proposal.tubeProcessSpeedScale);
-            if (cappedCommonTransfer <= 0D) {
+            double cappedSharedTransferRate = Math.min(proposal.sharedTransferRate, maxTubeTransferRate / proposal.tubeRecipeRateMultiplier);
+            if (cappedSharedTransferRate <= 0D) {
                 continue;
             }
 
-            proposals.add(proposal.withCommonTransfer(cappedCommonTransfer));
+            proposals.add(proposal.withSharedTransferRate(cappedSharedTransferRate));
         }
 
         if (proposals.isEmpty()) {
             return;
         }
 
-        double maxShellSpeed = getMaxAdditionalSpeedThisTick(shellInlet);
-        if (maxShellSpeed <= 0D) {
+        double maxShellTransferRate = getInletMaxLatentTransferRate(shellInlet);
+        if (maxShellTransferRate <= 0D) {
             return;
         }
 
-        double totalShellDemand = 0D;
-        for (HeatExchangerInletEntity.ExchangerRateProposal proposal : proposals) {
-            totalShellDemand += proposal.commonTransfer * proposal.shellProcessSpeedScale;
+        double totalShellDemandRate = 0D;
+        for (HeatExchangerTransferProposal proposal : proposals) {
+            totalShellDemandRate += proposal.sharedTransferRate * proposal.shellRecipeRateMultiplier;
         }
-        if (totalShellDemand <= 0D) {
+        if (totalShellDemandRate <= 0D) {
             return;
         }
 
-        double shellScale = Math.min(1D, maxShellSpeed / totalShellDemand);
-        for (HeatExchangerInletEntity.ExchangerRateProposal proposal : proposals) {
-            double grantedCommonTransfer = proposal.commonTransfer * shellScale;
-            if (grantedCommonTransfer <= 0D) {
+        double shellRateFactor = Math.min(1D, maxShellTransferRate / totalShellDemandRate);
+        for (HeatExchangerTransferProposal proposal : proposals) {
+            double sharedTransferProposal = proposal.sharedTransferRate * shellRateFactor;
+            if (sharedTransferProposal <= 0D) {
                 continue;
             }
 
-            proposal.inlet.exchangerGrantedSpeedMultiplier = grantedCommonTransfer * proposal.tubeProcessSpeedScale;
-            proposal.inlet.exchangerGrantedHeatTransferRate = grantedCommonTransfer * proposal.heatTransferRateScale;
-            shellInlet.exchangerGrantedSpeedMultiplier += grantedCommonTransfer * proposal.shellProcessSpeedScale;
+            proposal.inlet.speedMultiplierProposal = sharedTransferProposal * proposal.tubeRecipeRateMultiplier;
+            proposal.inlet.heatTransferRateProposal = sharedTransferProposal * proposal.heatTransferRateMultiplier;
+            shellInlet.speedMultiplierProposal += sharedTransferProposal * proposal.shellRecipeRateMultiplier;
 
             multiblock.totalTempDiff += proposal.absMeanTempDiff * proposal.usefulTubeCount;
             multiblock.activeContactCount += proposal.usefulTubeCount;
@@ -568,22 +647,22 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
         }
     }
 
-    protected double getMaxAdditionalSpeedThisTick(HeatExchangerInletEntity inlet) {
-        AbstractProcessorElement processor = inlet.processor;
+    protected double getInletMaxLatentTransferRate(HeatExchangerInletEntity inlet) {
+        InletProcessorElement processor = inlet.processor;
         if (processor.recipeInfo == null || !processor.readyToProcess() || processor.baseProcessTime <= 0D) {
             return 0D;
         }
 
-        int maxProcessCount = getMaxProcessCountThisTick(inlet);
-        if (maxProcessCount <= 0) {
+        int maxRecipeRate = getInletMaxRecipeRate(inlet);
+        if (maxRecipeRate <= 0) {
             return 0D;
         }
 
-        return Math.max(0D, maxProcessCount * processor.baseProcessTime - processor.time);
+        return Math.max(0D, maxRecipeRate * processor.baseProcessTime - processor.time);
     }
 
-    protected int getMaxProcessCountThisTick(HeatExchangerInletEntity inlet) {
-        AbstractProcessorElement processor = inlet.processor;
+    protected int getInletMaxRecipeRate(HeatExchangerInletEntity inlet) {
+        InletProcessorElement processor = inlet.processor;
         if (processor.recipeInfo == null || !processor.readyToProcess()) {
             return 0;
         }
@@ -598,32 +677,32 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
         Tank inputTank = tanks.get(inputIndex);
         Tank outputTank = tanks.get(outputIndex);
 
-        int inputPerProcess = 0;
+        int recipeInputSize = 0;
         if (processor.hasConsumed && !processor.consumedTanks.isEmpty() && !processor.consumedTanks.get(0).isEmpty()) {
-            inputPerProcess = processor.consumedTanks.get(0).getFluidAmount();
+            recipeInputSize = processor.consumedTanks.get(0).getFluidAmount();
         }
-        if (inputPerProcess <= 0) {
+        if (recipeInputSize <= 0) {
             SizedChanceFluidIngredient ingredient = processor.getFluidIngredients().get(0);
-            inputPerProcess = ingredient.amount();
+            recipeInputSize = ingredient.amount();
         }
-        if (inputPerProcess <= 0) {
+        if (recipeInputSize <= 0) {
             return 0;
         }
 
-        int reservedInput = processor.hasConsumed && !processor.consumedTanks.isEmpty() && !processor.consumedTanks.get(0).isEmpty() ? processor.consumedTanks.get(0).getFluidAmount() : 0;
-        int availableInputProcesses = (reservedInput + inputTank.getFluidAmount()) / inputPerProcess;
-        if (availableInputProcesses <= 0) {
+        int consumedInputSize = processor.hasConsumed && !processor.consumedTanks.isEmpty() && !processor.consumedTanks.get(0).isEmpty() ? processor.consumedTanks.get(0).getFluidAmount() : 0;
+        int maxInputRecipeRate = (consumedInputSize + inputTank.getFluidAmount()) / recipeInputSize;
+        if (maxInputRecipeRate <= 0) {
             return 0;
         }
 
         if (processor.getTankOutputSetting(outputIndex) == TankOutputSetting.VOID) {
-            return availableInputProcesses;
+            return maxInputRecipeRate;
         }
 
         SizedChanceFluidIngredient product = processor.getFluidProducts().get(0);
-        int outputPerProcess = product.amount();
-        if (outputPerProcess <= 0) {
-            return availableInputProcesses;
+        int recipeOutputSize = product.amount();
+        if (recipeOutputSize <= 0) {
+            return maxInputRecipeRate;
         }
 
         FluidStack productStack = product.getStack();
@@ -631,16 +710,66 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
             return 0;
         }
 
-        int availableOutputProcesses;
+        int maxOutputRecipeRate;
         if (outputTank.isEmpty()) {
-            availableOutputProcesses = processor.getFluidProductCapacity(outputTank, productStack) / outputPerProcess;
+            maxOutputRecipeRate = processor.getFluidProductCapacity(outputTank, productStack) / recipeOutputSize;
         } else if (!FluidStack.isSameFluid(outputTank.getFluid(), productStack)) {
             return 0;
         } else {
-            availableOutputProcesses = (processor.getFluidProductCapacity(outputTank, productStack) - outputTank.getFluidAmount()) / outputPerProcess;
+            maxOutputRecipeRate = (processor.getFluidProductCapacity(outputTank, productStack) - outputTank.getFluidAmount()) / recipeOutputSize;
         }
 
-        return Math.min(availableInputProcesses, availableOutputProcesses);
+        return Math.min(maxInputRecipeRate, maxOutputRecipeRate);
+    }
+
+    public @Nullable HeatExchangerTransferProposal getInletTransferProposal(HeatExchangerInletEntity inlet) {
+        if (inlet.isMasterShellInlet() || inlet.network == null || inlet.processor.recipeInfo == null || multiblock.masterShellInlet == null || multiblock.masterShellInlet.processor.recipeInfo == null) {
+            return null;
+        }
+
+        HeatExchangerRecipe shellRecipe = (HeatExchangerRecipe) multiblock.masterShellInlet.processor.recipeInfo.recipe;
+        boolean shellIsHeating = shellRecipe.getHeatExchangerIsHeating();
+        if (inlet.isHeating == shellIsHeating) {
+            return null;
+        }
+
+        int shellInputTemperature = shellRecipe.getHeatExchangerInputTemperature();
+        int shellOutputTemperature = shellRecipe.getHeatExchangerOutputTemperature();
+
+        boolean contraflow = inlet.network.isContraflow();
+        int inputEndShellTemperature = contraflow ? shellOutputTemperature : shellInputTemperature;
+        int outputEndShellTemperature = contraflow ? shellInputTemperature : shellOutputTemperature;
+
+        int inletTemperatureDiff = inlet.inputTemperature - inputEndShellTemperature;
+        int outletTemperatureDiff = inlet.outputTemperature - outputEndShellTemperature;
+        int sumTempDiff = inletTemperatureDiff + outletTemperatureDiff;
+        if (sumTempDiff == 0) {
+            return null;
+        }
+
+        boolean heating = sumTempDiff < 0;
+        if (inlet.isHeating != heating) {
+            return null;
+        }
+
+        if ((inletTemperatureDiff > 0 && outletTemperatureDiff < 0) || (inletTemperatureDiff < 0 && outletTemperatureDiff > 0)) {
+            return null;
+        }
+
+        double absMeanTempDiff = HeatExchanger.getAbsMeanTempDiff(inletTemperatureDiff, outletTemperatureDiff);
+
+        double tubeFlowDirectionMultiplier = ((HeatExchangerRecipe) inlet.processor.recipeInfo.recipe).getHeatExchangerFlowDirectionMultiplier(inlet.network.tubeFlow);
+        double shellFlowDirectionMultiplier = shellRecipe.getHeatExchangerFlowDirectionMultiplier(inlet.network.shellFlow);
+        double sharedTransferRate = absMeanTempDiff * tubeFlowDirectionMultiplier * shellFlowDirectionMultiplier;
+        if (sharedTransferRate <= 0D) {
+            return null;
+        }
+
+        double tubeRecipeRateMultiplier = heating ? inlet.network.baseHeatingMultiplier : inlet.network.baseCoolingMultiplier;
+        double shellRecipeRateMultiplier = heating ? inlet.network.baseCoolingMultiplier : inlet.network.baseHeatingMultiplier;
+        double heatTransferRateMultiplier = inlet.network.baseCoolingMultiplier;
+
+        return new HeatExchangerTransferProposal(inlet, sharedTransferRate, tubeRecipeRateMultiplier, shellRecipeRateMultiplier, heatTransferRateMultiplier, absMeanTempDiff, inlet.network.usefulTubeCount);
     }
 
     // Client

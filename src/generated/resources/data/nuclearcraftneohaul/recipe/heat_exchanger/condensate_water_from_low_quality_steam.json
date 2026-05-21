@@ -17,5 +17,6 @@
   "inputTemp": 350,
   "isHeating": false,
   "outputTemp": 350,
-  "preferredFlowDir": -1
+  "preferredFlowDir": -1,
+  "recipeType": "other"
 }

@@ -22,6 +22,11 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public class ElectrolyzerControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, ElectrolyzerControllerEntity, BlockEntityMenuInfo<ElectrolyzerControllerEntity>, ElectrolyzerLogic, ElectrolyzerControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "electrolyzer_controller");
 
+    StringCenteringOperator electrodeEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.electrolyzer_controller.electrode_efficiency", NCMath.pcDecimalPlaces(multiblock.basePowerMultiplier <= 0D ? 0D : 8D * multiblock.baseSpeedMultiplier / multiblock.basePowerMultiplier, 1)));
+    StringCenteringOperator electrolyteEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.electrolyzer_controller.electrolyte_efficiency", NCMath.pcDecimalPlaces(getLogic().electrolyteEfficiency, 1)));
+    StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(logic.getProcessTimeFP(), 5)));
+    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "RF/t")));
+
     public ElectrolyzerControllerScreen(ElectrolyzerControllerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, gui_texture);
         imageWidth = 176;
@@ -53,16 +58,12 @@ public class ElectrolyzerControllerScreen extends LogicMultiblockControllerScree
         String underline = StringHelper.charLine('-', Mth.ceil((double) this.font.width(title) / this.font.width("-")));
         guiGraphics.drawCenteredString(this.font, underline, middle_x, getGuiTop() + 12, fontColor);
 
-        Component electrodeEfficiency = Component.translatable(MODID + ".tooltip.electrolyzer_controller.electrode_efficiency", NCMath.pcDecimalPlaces(multiblock.basePowerMultiplier <= 0D ? 0D : 8D * multiblock.baseSpeedMultiplier / multiblock.basePowerMultiplier, 1));
-        guiGraphics.drawCenteredString(this.font, electrodeEfficiency, middle_x, getGuiTop() + 22, fontColor);
+        electrodeEfficiencyText.apply(guiGraphics, 22, fontColor);
 
-        Component electrolyteEfficiency = Component.translatable(MODID + ".tooltip.electrolyzer_controller.electrolyte_efficiency", NCMath.pcDecimalPlaces(getLogic().electrolyteEfficiency, 1));
-        guiGraphics.drawCenteredString(this.font, electrolyteEfficiency, middle_x, getGuiTop() + 34, fontColor);
+        electrolyteEfficiencyText.apply(guiGraphics, 34, fontColor);
 
-        Component rate = Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(logic.getProcessTimeFP(), 5));
-        guiGraphics.drawCenteredString(this.font, rate, middle_x, getGuiTop() + 46, fontColor);
+        rateText.apply(guiGraphics, 46, fontColor);
 
-        Component power = Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "FE/t"));
-        guiGraphics.drawCenteredString(this.font, power, middle_x, getGuiTop() + 58, fontColor);
+        powerText.apply(guiGraphics, 58, fontColor);
     }
 }

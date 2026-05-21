@@ -26,6 +26,12 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public class PebbleFissionControllerScreen extends LogicMultiblockControllerScreen<FissionReactor, FissionReactorLogic, FissionUpdatePacket, PebbleFissionControllerEntity, BlockEntityMenuInfo<PebbleFissionControllerEntity>, PebbleBedFissionLogic, PebbleFissionControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "pebble_fission_controller");
 
+    StringCenteringOperator heatMultText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.heat_mult", NCMath.pcDecimalPlaces(multiblock.meanHeatMult, 1)));
+    StringCenteringOperator efficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.efficiency", NCMath.pcDecimalPlaces(multiblock.meanEfficiency, 1)));
+    StringCenteringOperator sparsityText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.sparsity", NCMath.pcDecimalPlaces(multiblock.sparsityEfficiencyMult, 1)));
+    StringCenteringOperator usefulPartCountText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.useful_parts", multiblock.usefulPartCount + "/" + multiblock.getInteriorVolume()));
+    StringCenteringOperator netClusterHeatingText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.net_cluster_heating", UnitHelper.prefix(getLogic().getNetClusterHeating(), 5, "H/t")));
+
     public PebbleFissionControllerScreen(PebbleFissionControllerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, gui_texture);
         imageWidth = 176;
@@ -73,21 +79,23 @@ public class PebbleFissionControllerScreen extends LogicMultiblockControllerScre
         Component clusters = Component.translatable(MODID + ".tooltip.fission_controller.clusters", multiblock.clusterCount);
         guiGraphics.drawCenteredString(this.font, clusters, middle_x, getGuiTop() + 22, fontColor);
 
-        Component efficiency = NCUtil.isModifierKeyDown() ? Component.translatable(MODID + ".tooltip.fission_controller.heat_mult", NCMath.pcDecimalPlaces(multiblock.meanHeatMult, 1)) : Component.translatable(MODID + ".tooltip.fission_controller.efficiency", NCMath.pcDecimalPlaces(multiblock.meanEfficiency, 1));
-        guiGraphics.drawCenteredString(this.font, efficiency, middle_x, getGuiTop() + 34, fontColor);
+        if (NCUtil.isModifierKeyDown()) {
+            heatMultText.apply(guiGraphics, 34, fontColor);
+        } else {
+            efficiencyText.apply(guiGraphics, 34, fontColor);
+        }
 
-//        Component outputRate = Component.translatable(MODID + ".tooltip.pebble_fission_controller.output_rate", UnitHelper.prefix(getLogic().heatingOutputRateFP, 5, "B/t", -1));
-//        guiGraphics.drawCenteredString(this.font, outputRate, middle_x, getGuiTop() + 46, fontColor);
-
-        Component usefulParts = NCUtil.isModifierKeyDown() ? Component.translatable(MODID + ".tooltip.fission_controller.sparsity", NCMath.pcDecimalPlaces(multiblock.sparsityEfficiencyMult, 1)) : Component.translatable(MODID + ".tooltip.fission_controller.useful_parts", multiblock.usefulPartCount + "/" + multiblock.getInteriorVolume());
-        guiGraphics.drawCenteredString(this.font, usefulParts, middle_x, getGuiTop() + 58, fontColor);
+        if (NCUtil.isModifierKeyDown()) {
+            sparsityText.apply(guiGraphics, 58, fontColor);
+        } else {
+            usefulPartCountText.apply(guiGraphics, 58, fontColor);
+        }
 
         Component temperature = Component.translatable(MODID + ".tooltip.fission_controller.temperature", (NCUtil.isModifierKeyDown() ? Math.round(logic.getTemperature() - 273.15D) + " C" : Math.round(logic.getTemperature()) + " K"));
         guiGraphics.drawCenteredString(this.font, temperature, middle_x, getGuiTop() + (NCUtil.isModifierKeyDown() ? 70 : 76), fontColor);
 
         if (!NCUtil.isModifierKeyDown()) {
-            String netClusterHeating = Lang.localize(MODID + ".tooltip.fission_controller.net_cluster_heating", UnitHelper.prefix(getLogic().getNetClusterHeating(), 5, "H/t"));
-            guiGraphics.drawCenteredString(this.font, netClusterHeating, middle_x, getGuiTop() + 88, fontColor);
+            netClusterHeatingText.apply(guiGraphics, 88, fontColor);
         }
     }
 

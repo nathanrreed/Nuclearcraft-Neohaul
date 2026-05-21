@@ -386,7 +386,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".recipe_viewer.base_depletion_radiation", "Base Depletion Radiation: %s");
         add(MODID + ".recipe_viewer.cooling_rate", "Cooling Rate: %s");
         add(MODID + ".recipe_viewer.fission_emergency_cooling_heating_required", "Heating Required: %s");
-        add(MODID + ".recipe_viewer.fission_heating_required", "Heating Required: %s");
+        add(MODID + ".recipe_viewer.fission_heating_required", "Base Heating Required: %s");
     }
 
     private void heat_exchanger() {
@@ -1597,10 +1597,14 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.fission_cooling_efficiency_leniency.tooltip", "Determines the leniency for the difference between the actual and ideal cooling rate at which a cluster will begin to be given an overcooling efficiency penalty.");
         add(MODID + ".configuration.fission_sparsity_penalty_params", "Sparsity Efficiency Parameters");
         add(MODID + ".configuration.fission_sparsity_penalty_params.tooltip", "Parameters used for the sparsity efficiency factor. The first determines the minimum value of the multiplier, while the second determines the fraction of functional components at which there is no penalty.");
-        add(MODID + ".configuration.fission_cooler_coolant_heat_per_mb", "PBR Coolant Heat Per mB");
+        add(MODID + ".configuration.fission_cooler_coolant_heat_per_mb", "PBR Gas Coolant Heat Per mB");
         add(MODID + ".configuration.fission_cooler_coolant_heat_per_mb.tooltip", "Sets the amount of heat absorbed per mB of gas coolant when used to cool a pebble bed reactor.");
-        add(MODID + ".configuration.fission_heating_coolant_heat_mult", "SFR NaK Heating Multiplier");
-        add(MODID + ".configuration.fission_heating_coolant_heat_mult.tooltip", "Modifies the amount of heat absorbed per mB of NaK coolant when used to cool a solid fuel reactor.");
+        add(MODID + ".configuration.fission_heater_coolant_heat_per_mb", "MSR NaK Coolant Heat Per mB");
+        add(MODID + ".configuration.fission_heater_coolant_heat_per_mb.tooltip", "Sets the amount of heat absorbed per mB of NaK coolant when used to cool a molten salt reactor.");
+        add(MODID + ".configuration.fission_heating_gas_coolant_heat_mult", "SFR Gas Heating Multiplier");
+        add(MODID + ".configuration.fission_heating_gas_coolant_heat_mult.tooltip", "Modifies the amount of heat absorbed per mB of gas coolant when used to cool a solid fuel reactor.");
+        add(MODID + ".configuration.fission_heating_nak_coolant_heat_mult", "SFR NaK Heating Multiplier");
+        add(MODID + ".configuration.fission_heating_nak_coolant_heat_mult.tooltip", "Modifies the amount of heat absorbed per mB of NaK coolant when used to cool a solid fuel reactor.");
 
         add(MODID + ".configuration.fission_decay_mechanics", "Enable Decay Mechanics");
         add(MODID + ".configuration.fission_decay_mechanics.tooltip", "Enable fission reactor decay mechanics?");
@@ -1677,8 +1681,10 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.heat_exchanger_heat_transfer_coefficient.tooltip", "Multiplier for the heat transfer rate from this type of tube.");
         add(MODID + ".configuration.heat_exchanger_heat_retention_mult", "Tube Heat Retention Multiplier");
         add(MODID + ".configuration.heat_exchanger_heat_retention_mult.tooltip", "Multiplier for the contribution to the heating rate from this type of tube.");
-        add(MODID + ".configuration.heat_exchanger_coolant_heat_mult", "Coolant Heat Multiplier");
-        add(MODID + ".configuration.heat_exchanger_coolant_heat_mult.tooltip", "Multiplier for the heat removal required to cool hot coolant.");
+        add(MODID + ".configuration.heat_exchanger_gas_coolant_heat_mult", "Gas Coolant Heat Multiplier");
+        add(MODID + ".configuration.heat_exchanger_gas_coolant_heat_mult.tooltip", "Multiplier for the heat removal required to cool hot gas coolant.");
+        add(MODID + ".configuration.heat_exchanger_nak_coolant_heat_mult", "NaK Coolant Heat Multiplier");
+        add(MODID + ".configuration.heat_exchanger_nak_coolant_heat_mult.tooltip", "Multiplier for the heat removal required to cool hot NaK coolant.");
         add(MODID + ".configuration.heat_exchanger_lmtd", "Use LMTD");
         add(MODID + ".configuration.heat_exchanger_lmtd.tooltip", "Will LMTD be used instead of an arithmetic mean temperature difference?");
 

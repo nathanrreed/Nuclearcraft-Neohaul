@@ -4,56 +4,74 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+import java.util.function.IntFunction;
 
-import static com.nred.nuclearcraft.config.NCConfig.fission_heating_coolant_heat_mult;
+import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.FISSION_HEATING_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FISSION_HEATING_RECIPE_TYPE;
 
 public class FissionHeatingRecipe extends BasicRecipe {
     private final int heatPerInputMB;
-    private final String coolantType;
+    private final RecipeHeatingType recipeHeatingType;
+
+    public FissionHeatingRecipe(SizedChanceFluidIngredient fluidIngredient, SizedChanceFluidIngredient fluidProduct, RecipeHeatingType recipeHeatingType, int heatPerInputMB) {
+        super(List.of(), List.of(fluidIngredient), List.of(), List.of(fluidProduct));
+        this.heatPerInputMB = heatPerInputMB;
+        this.recipeHeatingType = recipeHeatingType;
+    }
 
     public FissionHeatingRecipe(SizedChanceFluidIngredient fluidIngredient, SizedChanceFluidIngredient fluidProduct, int heatPerInputMB) {
-        super(List.of(), List.of(fluidIngredient), List.of(), List.of(fluidProduct));
-        this.heatPerInputMB = heatPerInputMB;
-        this.coolantType = "";
+        this(fluidIngredient, fluidProduct, RecipeHeatingType.OTHER, heatPerInputMB);
     }
 
-    public FissionHeatingRecipe(SizedChanceFluidIngredient fluidIngredient, SizedChanceFluidIngredient fluidProduct, String coolantType) {
-        super(List.of(), List.of(fluidIngredient), List.of(), List.of(fluidProduct));
-        this.heatPerInputMB = 0;
-        this.coolantType = coolantType;
+    public FissionHeatingRecipe(SizedChanceFluidIngredient fluidIngredient, SizedChanceFluidIngredient fluidProduct, RecipeHeatingType recipeHeatingType) {
+        this(fluidIngredient, fluidProduct, recipeHeatingType, 0);
     }
 
-    private FissionHeatingRecipe(SizedChanceFluidIngredient fluidIngredient, SizedChanceFluidIngredient fluidProduct, int heatPerInputMB, String coolantType) {
-        super(List.of(), List.of(fluidIngredient), List.of(), List.of(fluidProduct));
-        this.heatPerInputMB = heatPerInputMB;
-        this.coolantType = coolantType;
+    public enum RecipeHeatingType implements StringRepresentable {
+        OTHER, GAS, NAK;
+
+        public static final StringRepresentable.StringRepresentableCodec<RecipeHeatingType> CODEC = StringRepresentable.fromEnum(RecipeHeatingType::values);
+        private static final IntFunction<RecipeHeatingType> BY_ID = ByIdMap.continuous(RecipeHeatingType::ordinal, values(), ByIdMap.OutOfBoundsStrategy.ZERO);
+        public static final StreamCodec<ByteBuf, RecipeHeatingType> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Enum::ordinal);
+
+        public int getFissionHeatingHeatPerInputMB(FissionHeatingRecipe recipe) {
+            return switch (this) {
+                case OTHER -> recipe.heatPerInputMB;
+                case GAS -> (int) (fission_cooler_coolant_heat_per_mb * fission_heating_gas_coolant_heat_mult);
+                case NAK -> (int) (fission_heater_coolant_heat_per_mb * fission_heating_nak_coolant_heat_mult);
+            };
+
+        }
+
+        @Override
+        public @NonNull String getSerializedName() {
+            return name().toLowerCase();
+        }
+    }
+
+    public RecipeHeatingType getHeatingType() {
+        return recipeHeatingType;
     }
 
     public int getFissionHeatingHeatPerInputMB() {
-        if (!coolantType.isEmpty()) {
-            return (int) (FissionCoolantHeaterType.getType(coolantType).getCoolingRate() * fission_heating_coolant_heat_mult);
-        } else {
-            return heatPerInputMB;
-        }
+        return this.recipeHeatingType.getFissionHeatingHeatPerInputMB(this);
     }
 
     public int getFissionHeatingHeatPerInputMBRaw() {
         return heatPerInputMB;
-    }
-
-    public String getCoolantType() {
-        return coolantType;
     }
 
     @Override
@@ -70,15 +88,15 @@ public class FissionHeatingRecipe extends BasicRecipe {
         public static MapCodec<FissionHeatingRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidIngredient").forGetter(FissionHeatingRecipe::getFluidIngredient),
                 SizedChanceFluidIngredient.FLAT_CODEC.fieldOf("fluidProduct").forGetter(FissionHeatingRecipe::getFluidProduct),
-                Codec.INT.optionalFieldOf("heatPerInputMB", 0).forGetter(FissionHeatingRecipe::getFissionHeatingHeatPerInputMBRaw),
-                Codec.STRING.optionalFieldOf("coolantHeater", "").forGetter(FissionHeatingRecipe::getCoolantType)
+                RecipeHeatingType.CODEC.fieldOf("recipeType").forGetter(FissionHeatingRecipe::getHeatingType),
+                Codec.INT.optionalFieldOf("heatPerInputMB", 0).forGetter(FissionHeatingRecipe::getFissionHeatingHeatPerInputMBRaw)
         ).apply(inst, FissionHeatingRecipe::new));
 
         public static StreamCodec<RegistryFriendlyByteBuf, FissionHeatingRecipe> STREAM_CODEC = StreamCodec.composite(
                 SizedChanceFluidIngredient.STREAM_CODEC, FissionHeatingRecipe::getFluidIngredient,
                 SizedChanceFluidIngredient.STREAM_CODEC, FissionHeatingRecipe::getFluidProduct,
+                RecipeHeatingType.STREAM_CODEC, FissionHeatingRecipe::getHeatingType,
                 ByteBufCodecs.INT, FissionHeatingRecipe::getFissionHeatingHeatPerInputMBRaw,
-                ByteBufCodecs.STRING_UTF8, FissionHeatingRecipe::getCoolantType,
                 FissionHeatingRecipe::new
         );
 

@@ -22,6 +22,11 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public class InfiltratorControllerScreen extends LogicMultiblockControllerScreen<Machine, MachineLogic, MachineUpdatePacket, InfiltratorControllerEntity, BlockEntityMenuInfo<InfiltratorControllerEntity>, InfiltratorLogic, InfiltratorControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "infiltrator_controller");
 
+    StringCenteringOperator pressureChamberEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.infiltrator_controller.pressure_chamber_efficiency", NCMath.pcDecimalPlaces(multiblock.basePowerMultiplier <= 0D ? 0D : multiblock.baseSpeedMultiplier * (1D + getLogic().heatingBonus) / multiblock.basePowerMultiplier, 1)));
+    StringCenteringOperator pressureFluidEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.infiltrator_controller.pressure_fluid_efficiency", NCMath.pcDecimalPlaces(getLogic().pressureFluidEfficiency, 1)));
+    StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(logic.getProcessTimeFP(), 5)));
+    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "RF/t")));
+
     public InfiltratorControllerScreen(InfiltratorControllerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, gui_texture);
         imageWidth = 176;
@@ -53,16 +58,12 @@ public class InfiltratorControllerScreen extends LogicMultiblockControllerScreen
         String underline = StringHelper.charLine('-', Mth.ceil((double) this.font.width(title) / this.font.width("-")));
         guiGraphics.drawCenteredString(this.font, underline, middle_x, getGuiTop() + 12, fontColor);
 
-        Component pressureChamberEfficiency = Component.translatable(MODID + ".tooltip.infiltrator_controller.pressure_chamber_efficiency", NCMath.pcDecimalPlaces(multiblock.basePowerMultiplier <= 0D ? 0D : multiblock.baseSpeedMultiplier * (1D + getLogic().heatingBonus) / multiblock.basePowerMultiplier, 1));
-        guiGraphics.drawCenteredString(this.font, pressureChamberEfficiency, middle_x, getGuiTop() + 22, fontColor);
+        pressureChamberEfficiencyText.apply(guiGraphics, 22, fontColor);
 
-        Component pressureFluidEfficiency = Component.translatable(MODID + ".tooltip.infiltrator_controller.pressure_fluid_efficiency", NCMath.pcDecimalPlaces(getLogic().pressureFluidEfficiency, 1));
-        guiGraphics.drawCenteredString(this.font, pressureFluidEfficiency, middle_x, getGuiTop() + 34, fontColor);
+        pressureFluidEfficiencyText.apply(guiGraphics, 34, fontColor);
 
-        Component rate = Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(logic.getProcessTimeFP(), 5));
-        guiGraphics.drawCenteredString(this.font, rate, middle_x, getGuiTop() + 46, fontColor);
+        rateText.apply(guiGraphics, 46, fontColor);
 
-        Component power = Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "FE/t"));
-        guiGraphics.drawCenteredString(this.font, power, middle_x, getGuiTop() + 58, fontColor);
+        powerText.apply(guiGraphics, 58, fontColor);
     }
 }

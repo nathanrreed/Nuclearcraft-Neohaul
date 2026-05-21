@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.radiation;
 
-import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.block_entity.dummy.TileDummy;
+import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.block_entity.radiation.ITileRadiationEnvironment;
 import com.nred.nuclearcraft.capability.radiation.IRadiation;
 import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.ContainerEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.ChunkAccess;
@@ -168,7 +169,7 @@ public class RadiationHelper {
         double rawRadiation = 0D;
         if (radiation_hardcore_containers > 0D) {
             IItemHandler inventory = getTileInventory(blockEntity, side);
-            if (inventory != null) {
+            if (inventory != null && !(blockEntity instanceof ContainerEntity lootContainer && lootContainer.getLootTable() != null)) {
                 for (int i = 0; i < inventory.getSlots(); ++i) {
                     ItemStack stack = inventory.getStackInSlot(i);
                     rawRadiation += getRadiationFromStack(stack, radiation_hardcore_containers);

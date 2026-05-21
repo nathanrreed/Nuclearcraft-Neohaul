@@ -1,6 +1,5 @@
 {
   "type": "nuclearcraftneohaul:fission_heating_recipe",
-  "coolantHeater": "arsenic",
   "fluidIngredient": {
     "amount": 1,
     "ingredient": {
@@ -12,5 +11,6 @@
     "ingredient": {
       "fluid": "nuclearcraftneohaul:arsenic_nak_hot"
     }
-  }
+  },
+  "recipeType": "nak"
 }

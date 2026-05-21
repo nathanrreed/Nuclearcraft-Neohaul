@@ -5,11 +5,12 @@ import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.port.FluidPortUpdatePacket;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import it.zerono.mods.zerocore.lib.multiblock.registry.MultiblockRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -278,6 +279,7 @@ public abstract class FissionFluidPortEntity<PORT extends FissionFluidPortEntity
                     player.sendSystemMessage(Component.translatable(MODID + ".tooltip.port_toggle", Component.translatable(MODID + ".tooltip.out_config").withStyle(ChatFormatting.RED)));
                 }
                 markDirtyAndNotify(true);
+                MultiblockRegistry.INSTANCE.get().addDirtyController(multiblock);
                 return true;
             }
         }

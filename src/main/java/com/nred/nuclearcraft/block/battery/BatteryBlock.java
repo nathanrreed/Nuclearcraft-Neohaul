@@ -47,7 +47,7 @@ public class BatteryBlock extends GenericTooltipDeviceBlock<BatteryMultiblock, I
             if (tile instanceof BatteryEntity battery) {
                 if (!level.isClientSide()) {
                     EnergyStorage storage = battery.getEnergyStorage();
-                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.energy_stored", UnitHelper.getFormattedFraction(storage.getEnergyStoredLong(), storage.getMaxEnergyStoredLong(), "FE")));
+                    player.sendSystemMessage(Component.translatable(MODID + ".tooltip.energy_stored", UnitHelper.prefix(storage.getEnergyStoredLong(), storage.getMaxEnergyStoredLong(), 5,  "FE")));
                 }
                 return ItemInteractionResult.CONSUME;
             }

@@ -101,7 +101,9 @@ public class NCConfig {
     public static int fission_cooling_efficiency_leniency;
     public static double[] fission_sparsity_penalty_params; // Multiplier, threshold
     public static double fission_cooler_coolant_heat_per_mb;
-    public static double fission_heating_coolant_heat_mult;
+    public static double fission_heater_coolant_heat_per_mb;
+    public static double fission_heating_gas_coolant_heat_mult;
+    public static double fission_heating_nak_coolant_heat_mult;
 
     public static boolean fission_decay_mechanics;
     public static double[] fission_decay_build_up_times; // Decay heat, iodine, poison
@@ -140,7 +142,8 @@ public class NCConfig {
     public static int heat_exchanger_max_size; // Default: 24
     public static double[] heat_exchanger_heat_transfer_coefficient;
     public static double[] heat_exchanger_heat_retention_mult;
-    public static double heat_exchanger_coolant_heat_mult;
+    public static double heat_exchanger_gas_coolant_heat_mult;
+    public static double heat_exchanger_nak_coolant_heat_mult;
     public static boolean heat_exchanger_lmtd;
 
     public static int turbine_min_size; // Default: 1
@@ -343,7 +346,9 @@ public class NCConfig {
         fission_cooling_efficiency_leniency = FISSION_COOLING_EFFICIENCY_LENIENCY.getAsInt();
         fission_sparsity_penalty_params = syncDoubles(FISSION_SPARSITY_PENALTY_PARAMS, ARRAY);
         fission_cooler_coolant_heat_per_mb = FISSION_COOLER_COOLANT_HEAT_PER_MB.getAsDouble();
-        fission_heating_coolant_heat_mult = FISSION_HEATING_COOLANT_HEAT_MULT.getAsDouble();
+        fission_heater_coolant_heat_per_mb = FISSION_HEATER_COOLANT_HEAT_PER_MB.getAsDouble();
+        fission_heating_gas_coolant_heat_mult = FISSION_HEATING_GAS_COOLANT_HEAT_MULT.getAsDouble();
+        fission_heating_nak_coolant_heat_mult = FISSION_HEATING_NAK_COOLANT_HEAT_MULT.getAsDouble();
 
         fission_decay_mechanics = FISSION_DECAY_MECHANICS.getAsBoolean();
         fission_decay_build_up_times = syncDoubles(FISSION_DECAY_BUILD_UP_TIMES, ARRAY);
@@ -381,7 +386,8 @@ public class NCConfig {
         heat_exchanger_max_size = HEAT_EXCHANGER_MAX_SIZE.getAsInt();
         heat_exchanger_heat_transfer_coefficient = syncDoubles(HEAT_EXCHANGER_HEAT_TRANSFER_COEFFICIENT, ARRAY);
         heat_exchanger_heat_retention_mult = syncDoubles(HEAT_EXCHANGER_HEAT_RETENTION_MULT, ARRAY);
-        heat_exchanger_coolant_heat_mult = HEAT_EXCHANGER_COOLANT_HEAT_MULT.getAsDouble();
+        heat_exchanger_gas_coolant_heat_mult = HEAT_EXCHANGER_GAS_COOLANT_HEAT_MULT.getAsDouble();
+        heat_exchanger_nak_coolant_heat_mult = HEAT_EXCHANGER_NAK_COOLANT_HEAT_MULT.getAsDouble();
         heat_exchanger_lmtd = HEAT_EXCHANGER_LMTD.getAsBoolean();
 
         turbine_min_size = TURBINE_MIN_SIZE.getAsInt();
@@ -576,7 +582,9 @@ public class NCConfig {
     private static final ModConfigSpec.IntValue FISSION_COOLING_EFFICIENCY_LENIENCY = add(CATEGORY_FISSION, "fission_cooling_efficiency_leniency", 10, 0, 32767);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SPARSITY_PENALTY_PARAMS = add(CATEGORY_FISSION, "fission_sparsity_penalty_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
     private static final ModConfigSpec.DoubleValue FISSION_COOLER_COOLANT_HEAT_PER_MB = add(CATEGORY_FISSION, "fission_cooler_coolant_heat_per_mb", 32D, 0.001D, Integer.MAX_VALUE);
-    private static final ModConfigSpec.DoubleValue FISSION_HEATING_COOLANT_HEAT_MULT = add(CATEGORY_FISSION, "fission_heating_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue FISSION_HEATER_COOLANT_HEAT_PER_MB = add(CATEGORY_FISSION, "fission_heater_coolant_heat_per_mb", 128D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue FISSION_HEATING_GAS_COOLANT_HEAT_MULT = add(CATEGORY_FISSION, "fission_heating_gas_coolant_heat_mult", 1.5D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue FISSION_HEATING_NAK_COOLANT_HEAT_MULT = add(CATEGORY_FISSION, "fission_heating_nak_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
 
     private static final ModConfigSpec.BooleanValue FISSION_DECAY_MECHANICS = add(CATEGORY_FISSION, "fission_decay_mechanics", false);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_BUILD_UP_TIMES = add(CATEGORY_FISSION, "fission_decay_build_up_times", List.of(24000D, 24000D, 24000D), 0D, Integer.MAX_VALUE, ARRAY);
@@ -615,7 +623,8 @@ public class NCConfig {
     private static final ModConfigSpec.IntValue HEAT_EXCHANGER_MAX_SIZE = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_max_size", 24, 2, 255);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_TRANSFER_COEFFICIENT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_transfer_coefficient", List.of(16D, 24D, 32D), 0.001D, Integer.MAX_VALUE, ARRAY);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_RETENTION_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_retention_mult", List.of(0.9D, 0.95D, 1D), 0.01D, 1D, ARRAY);
-    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_COOLANT_HEAT_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_coolant_heat_mult", 4.0, 0.001, Double.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_GAS_COOLANT_HEAT_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_gas_coolant_heat_mult", 1D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_NAK_COOLANT_HEAT_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_nak_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
 
     private static final ModConfigSpec.BooleanValue HEAT_EXCHANGER_LMTD = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_lmtd", false);
 

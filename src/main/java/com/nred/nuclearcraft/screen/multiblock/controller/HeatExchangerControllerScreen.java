@@ -25,6 +25,13 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public class HeatExchangerControllerScreen extends LogicMultiblockControllerScreen<HeatExchanger, HeatExchangerLogic, HeatExchangerUpdatePacket, HeatExchangerControllerEntity, BlockEntityMenuInfo<HeatExchangerControllerEntity>, HeatExchangerLogic, HeatExchangerControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "heat_exchanger_controller");
 
+    StringCenteringOperator networkCountText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.heat_exchanger_controller.active_network_count", multiblock.activeNetworkCount + "/" + multiblock.totalNetworkCount));
+    StringCenteringOperator tubeCountText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.heat_exchanger_controller.active_tube_count", multiblock.activeTubeCount + "/" + multiblock.getPartCount(HeatExchangerTubeEntity.class)));
+    StringCenteringOperator shellInputRateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.heat_exchanger_controller.shell_input", UnitHelper.prefix(multiblock.shellInputRateFP, 5, "B/t", -1)));
+    StringCenteringOperator tubeInputRateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.heat_exchanger_controller.tube_input", UnitHelper.prefix(multiblock.tubeInputRateFP, 5, "B/t", -1)));
+    StringCenteringOperator heatTransferRateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.heat_exchanger_controller.heat_transfer_rate", UnitHelper.prefix(multiblock.heatTransferRateFP, 5, "H/t")));
+    StringCenteringOperator meanTempDiffText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.heat_exchanger_controller.mean_temp_diff", UnitHelper.prefix(multiblock.activeContactCount == 0 ? 0D : multiblock.totalTempDiff / multiblock.activeContactCount, 5, "K")));
+
     public HeatExchangerControllerScreen(HeatExchangerControllerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, gui_texture);
         imageWidth = 176;
@@ -57,25 +64,19 @@ public class HeatExchangerControllerScreen extends LogicMultiblockControllerScre
         guiGraphics.drawCenteredString(this.font, underline, middle_x, getGuiTop() + 12, fontColor);
 
         if (NCUtil.isModifierKeyDown()) {
-            Component networkCount = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.active_network_count", multiblock.activeNetworkCount + "/" + multiblock.totalNetworkCount);
-            guiGraphics.drawCenteredString(this.font, networkCount, middle_x, getGuiTop() + 22, fontColor);
+            networkCountText.apply(guiGraphics, 22, fontColor);
         } else {
-            Component tubeCount = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.active_tube_count", multiblock.activeTubeCount + "/" + multiblock.getPartCount(HeatExchangerTubeEntity.class));
-            guiGraphics.drawCenteredString(this.font, tubeCount, middle_x, getGuiTop() + 22, fontColor);
+            tubeCountText.apply(guiGraphics, 22, fontColor);
         }
 
         if (NCUtil.isModifierKeyDown()) {
-            Component shellInputRate = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.shell_input", UnitHelper.prefix(multiblock.shellInputRateFP, 5, "B/t", -1));
-            guiGraphics.drawCenteredString(this.font, shellInputRate, middle_x, getGuiTop() + 34, fontColor);
+            shellInputRateText.apply(guiGraphics, 34, fontColor);
         } else {
-            Component tubeInputRate = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.tube_input", UnitHelper.prefix(multiblock.tubeInputRateFP, 5, "B/t", -1));
-            guiGraphics.drawCenteredString(this.font, tubeInputRate, middle_x, getGuiTop() + 34, fontColor);
+            tubeInputRateText.apply(guiGraphics, 34, fontColor);
         }
 
-        Component heatTransferRate = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.heat_transfer_rate", UnitHelper.prefix(Math.round(multiblock.heatTransferRateFP), 5, "H/t"));
-        guiGraphics.drawCenteredString(this.font, heatTransferRate, middle_x, getGuiTop() + 46, fontColor);
+        heatTransferRateText.apply(guiGraphics, 46, fontColor);
 
-        Component meanTempDiff = Component.translatable(MODID + ".tooltip.heat_exchanger_controller.mean_temp_diff", UnitHelper.prefix(multiblock.activeContactCount == 0 ? 0D : Math.round(multiblock.totalTempDiff / multiblock.activeContactCount), 5, "K"));
-        guiGraphics.drawCenteredString(this.font, meanTempDiff, middle_x, getGuiTop() + 58, fontColor);
+        meanTempDiffText.apply(guiGraphics, 58, fontColor);
     }
 }

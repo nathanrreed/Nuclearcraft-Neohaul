@@ -9,6 +9,7 @@ import com.nred.nuclearcraft.block_entity.passive.ITilePassive;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
+import it.zerono.mods.zerocore.lib.multiblock.registry.MultiblockRegistry;
 import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -208,6 +209,7 @@ public class FissionVentEntity extends AbstractFissionEntity implements ITickabl
                     player.sendSystemMessage(Component.translatable(MODID + ".tooltip.vent_toggle", Component.translatable(MODID + ".tooltip.out_config").withStyle(ChatFormatting.RED)));
                 }
                 markDirtyAndNotify(true);
+                MultiblockRegistry.INSTANCE.get().addDirtyController(multiblock);
                 return true;
             }
         }

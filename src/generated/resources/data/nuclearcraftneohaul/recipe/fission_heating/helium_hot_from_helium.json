@@ -1,0 +1,16 @@
+{
+  "type": "nuclearcraftneohaul:fission_heating_recipe",
+  "fluidIngredient": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:helium"
+    }
+  },
+  "fluidProduct": {
+    "amount": 2,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:helium_hot"
+    }
+  },
+  "recipeType": "gas"
+}

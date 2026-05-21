@@ -12,5 +12,6 @@
       "fluid": "nuclearcraftneohaul:high_pressure_steam"
     }
   },
-  "heatPerInputMB": 32
+  "heatPerInputMB": 32,
+  "recipeType": "other"
 }

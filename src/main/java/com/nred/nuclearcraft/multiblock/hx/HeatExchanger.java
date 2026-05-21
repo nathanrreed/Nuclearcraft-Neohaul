@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerInletEntity;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
@@ -196,6 +197,14 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
         return Stream.concat(networks.stream().map(x -> x.masterInlet), Stream.of(masterShellInlet)).filter(Objects::nonNull);
     }
 
+    public static double getAbsMeanTempDiff(int inTemperatureDiff, int outTemperatureDiff) {
+        if (NCConfig.heat_exchanger_lmtd && inTemperatureDiff != outTemperatureDiff) {
+            int absInTemperatureDiff = Math.abs(inTemperatureDiff), absOutTemperatureDiff = Math.abs(outTemperatureDiff);
+            return (absInTemperatureDiff - absOutTemperatureDiff) / Math.log((double) absInTemperatureDiff / (double) absOutTemperatureDiff);
+        } else {
+            return Math.abs(0.5D * (inTemperatureDiff + outTemperatureDiff));
+        }
+    }
     // Client
 
     @Override

@@ -1,6 +1,5 @@
 {
   "type": "nuclearcraftneohaul:fission_heating_recipe",
-  "coolantHeater": "silver",
   "fluidIngredient": {
     "amount": 1,
     "ingredient": {
@@ -12,5 +11,6 @@
     "ingredient": {
       "fluid": "nuclearcraftneohaul:silver_nak_hot"
     }
-  }
+  },
+  "recipeType": "nak"
 }

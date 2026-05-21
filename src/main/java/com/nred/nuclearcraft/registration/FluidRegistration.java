@@ -283,7 +283,7 @@ public class FluidRegistration {
         map.put("arsenic", new Fluids("arsenic", 0xFF818475, Fluids.HOT_GAS_TYPE));
         map.put("sic_vapor", new Fluids("sic_vapor", 0xFF78746A, Fluids.HOT_GAS_TYPE));
 
-        for (Triple<String, Float, Integer> triple : Arrays.asList(Triple.of("hot", 4F, 1000), Triple.of("exhaust", 3F, 900), Triple.of("lq", 2F, 800))) {
+        for (Triple<String, Float, Integer> triple : Arrays.asList(Triple.of("hot", 4F, 1000), Triple.of("exhaust", 2F, 800))) {
             String suffix = triple.getLeft();
             Float saturation = triple.getMiddle();
             Integer temp = triple.getRight();
