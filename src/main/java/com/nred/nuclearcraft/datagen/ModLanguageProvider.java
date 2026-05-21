@@ -58,7 +58,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add(UNIVERSAL_BIN.asItem(), capitalize(UNIVERSAL_BIN.getId().getPath()));
         add(DECAY_GENERATOR.asItem(), capitalize(DECAY_GENERATOR.getId().getPath()));
         add(MACHINE_INTERFACE.asItem(), capitalize(MACHINE_INTERFACE.getId().getPath()));
-        add(SOLIDIFIED_CORIUM.asItem(), capitalize(SOLIDIFIED_CORIUM.getId().getPath()));
+
+        add(DISTRIBUTOR_INLET.asItem(), capitalize(DISTRIBUTOR_INLET.getId().getPath()));
+        add(DISTRIBUTOR_OUTLET.asItem(), capitalize(DISTRIBUTOR_OUTLET.getId().getPath()));
+        add(DISTRIBUTOR_BUFFER.asItem(), capitalize(DISTRIBUTOR_BUFFER.getId().getPath()));
+
         add(LITHIUM_ION_CELL.asItem(), capitalize(LITHIUM_ION_CELL.getId().getPath()));
         add(MODID + ".recipe_viewer.chance_output", "Output: %s-%s [Mean: %s]");
 

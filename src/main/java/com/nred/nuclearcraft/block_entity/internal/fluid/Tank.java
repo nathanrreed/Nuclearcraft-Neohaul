@@ -27,7 +27,11 @@ public class Tank extends FluidTank {
     // FluidTank
 
     public void setAllowedFluids(Set<ResourceLocation> allowedFluids) {
-        setValidator(e -> allowedFluids.contains(BuiltInRegistries.FLUID.getKey(e.getFluid())));
+        if (allowedFluids != null) {
+            setValidator(e -> allowedFluids.contains(BuiltInRegistries.FLUID.getKey(e.getFluid())));
+        } else {
+            setValidator(e -> true);
+        }
     }
 
     // Tank Methods

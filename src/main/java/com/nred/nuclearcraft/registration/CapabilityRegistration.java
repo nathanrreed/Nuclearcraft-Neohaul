@@ -143,6 +143,14 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_ENTITY_TYPE.get("reservoir_port").get(), (entity, direction) -> ((MachineReservoirPortEntity) entity).getFluidSideCapability(direction));
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_ENTITY_TYPE.get("power_port").get(), (entity, direction) -> ((MachinePowerPortEntity) entity).getEnergySideCapability(direction));
 
+        // Distributor
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, DISTRIBUTOR_INLET_ENTITY_TYPE.get(), ITileInventory::getItemSideCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, DISTRIBUTOR_INLET_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, DISTRIBUTOR_INLET_ENTITY_TYPE.get(), ITileEnergy::getEnergySideCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, DISTRIBUTOR_OUTLET_ENTITY_TYPE.get(), ITileInventory::getItemSideCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, DISTRIBUTOR_OUTLET_ENTITY_TYPE.get(), ITileFluid::getFluidSideCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, DISTRIBUTOR_OUTLET_ENTITY_TYPE.get(), ITileEnergy::getEnergySideCapability);
+
         radiation_capabilities(event);
 
         items(event);

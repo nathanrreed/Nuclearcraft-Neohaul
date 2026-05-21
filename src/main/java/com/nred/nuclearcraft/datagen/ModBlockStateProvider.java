@@ -65,6 +65,9 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(SOLIDIFIED_CORIUM);
         blockWithItem(UNIVERSAL_BIN);
         blockWithItem(MACHINE_INTERFACE);
+        blockWithItem("inlet", DISTRIBUTOR_INLET, "distributor");
+        blockWithItem("outlet", DISTRIBUTOR_OUTLET, "distributor");
+        blockWithItem("buffer", DISTRIBUTOR_BUFFER, "distributor");
         blockWithItem(DECAY_GENERATOR);
         blockWithItem(TRITIUM_LAMP);
         blockWithItem(WASTELAND_EARTH);

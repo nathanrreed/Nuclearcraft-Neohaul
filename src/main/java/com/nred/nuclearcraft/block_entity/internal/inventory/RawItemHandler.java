@@ -1,13 +1,12 @@
-package com.nred.nuclearcraft.handler;
+package com.nred.nuclearcraft.block_entity.internal.inventory;
 
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
-import com.nred.nuclearcraft.block_entity.internal.inventory.ItemHandler;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
-public class PortItemHandler<T extends ITileInventory> extends ItemHandler<T> {
+public class RawItemHandler<T extends ITileInventory> extends ItemHandler<T> {
 
-    public PortItemHandler(T tile, Direction side) {
+    public RawItemHandler(T tile, Direction side) {
         super(tile, side);
     }
 

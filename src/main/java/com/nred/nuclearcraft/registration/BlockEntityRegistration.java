@@ -2,6 +2,9 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.block_entity.UniversalBinEntity;
 import com.nred.nuclearcraft.block_entity.battery.BatteryEntity;
+import com.nred.nuclearcraft.block_entity.distributor.DistributorBufferEntity;
+import com.nred.nuclearcraft.block_entity.distributor.DistributorInletEntity;
+import com.nred.nuclearcraft.block_entity.distributor.DistributorOutletEntity;
 import com.nred.nuclearcraft.block_entity.dummy.MachineInterfaceEntity;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.manager.FissionShieldManagerEntity;
@@ -81,6 +84,10 @@ public class BlockEntityRegistration {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends NuclearFurnaceEntity>> NUCLEAR_FURNACE_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("nuclear_furnace", () -> BlockEntityType.Builder.of(NuclearFurnaceEntity::new, NUCLEAR_FURNACE.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends RTGEntity>> RTG_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("rtg", () -> BlockEntityType.Builder.of((pos, state) -> new RTGEntity(pos, state, ((RTGType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), RTG_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new)).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BatteryEntity>> BATTERY_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("battery", () -> BlockEntityType.Builder.of((pos, state) -> new BatteryEntity(pos, state, ((BatteryType) ((MultiblockPartBlock<?, ?>) state.getBlock()).getMultiblockVariant().get())), BATTERY_MAP.values().stream().map(DeferredHolder::get).toArray(Block[]::new)).build(null));
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends DistributorInletEntity>> DISTRIBUTOR_INLET_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("distributor_inlet", () -> BlockEntityType.Builder.of(DistributorInletEntity::new, DISTRIBUTOR_INLET.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends DistributorOutletEntity>> DISTRIBUTOR_OUTLET_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("distributor_outlet", () -> BlockEntityType.Builder.of(DistributorOutletEntity::new, DISTRIBUTOR_OUTLET.get()).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends DistributorBufferEntity>> DISTRIBUTOR_BUFFER_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("distributor_buffer", () -> BlockEntityType.Builder.of(DistributorBufferEntity::new, DISTRIBUTOR_BUFFER.get()).build(null));
 
     private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> createProcessors() {
         Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> map = new HashMap<>();

@@ -14,6 +14,7 @@ import com.nred.nuclearcraft.block.tile.SimpleTileBlock;
 import com.nred.nuclearcraft.block.tile.dummy.MachineInterfaceBlock;
 import com.nred.nuclearcraft.multiblock.battery.BatteryPartType;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
+import com.nred.nuclearcraft.multiblock.distributor.DistributorPartType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPartType;
 import com.nred.nuclearcraft.multiblock.fisson.FissionSourceType;
@@ -103,6 +104,11 @@ public class BlockRegistration {
     public static final DeferredBlock<Block> SOLIDIFIED_CORIUM = registerBlockItem("solidified_corium", SolidifiedCoriumBlock::new);
     public static final DeferredBlock<Block> UNIVERSAL_BIN = registerBlockItemWithTooltip("universal_bin", () -> new SimpleTileBlock<>("bin", false), false);
     public static final DeferredBlock<Block> MACHINE_INTERFACE = registerBlockItemWithTooltip("machine_interface", () -> new MachineInterfaceBlock("machine_interface"), false);
+
+    public static final DeferredBlock<Block> DISTRIBUTOR_INLET = registerBlockItem("distributor_inlet", DistributorPartType.Inlet::createBlock);
+    public static final DeferredBlock<Block> DISTRIBUTOR_OUTLET = registerBlockItem("distributor_outlet", DistributorPartType.Outlet::createBlock);
+    public static final DeferredBlock<Block> DISTRIBUTOR_BUFFER = registerBlockItem("distributor_buffer", DistributorPartType.Buffer::createBlock);
+
     public static final DeferredBlock<Block> NUCLEAR_FURNACE = registerBlockItemWithTooltip("nuclear_furnace", () -> new NuclearFurnaceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FURNACE)), false);
     public static final DeferredBlock<Block> DECAY_GENERATOR = registerBlockItem("decay_generator", () -> new SimpleTileBlock<>("decay_generator"));
 

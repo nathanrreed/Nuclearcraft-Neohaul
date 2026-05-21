@@ -55,6 +55,10 @@ public class MekanismCapabilities {
             for (String typeName : PROCESSOR_MAP.keySet()) {
                 event.registerBlockEntity(CHEMICAL, PROCESSOR_ENTITY_TYPE.get(typeName).get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) entity.getChemicalCapability(direction));
             }
+            // Distributor
+            event.registerBlockEntity(CHEMICAL, DISTRIBUTOR_INLET_ENTITY_TYPE.get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) entity.getChemicalCapability(direction));
+            event.registerBlockEntity(CHEMICAL, DISTRIBUTOR_OUTLET_ENTITY_TYPE.get(), (entity, direction) -> (com.nred.nuclearcraft.block_entity.internal.fluid.ChemicalTile) entity.getChemicalCapability(direction));
+
         });
     }
 }

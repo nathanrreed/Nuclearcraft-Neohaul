@@ -1,3 +1,4 @@
-- Updated from NCO v2o.9.2 to v2o.9.4
+- Updated from NCO v2o.9.2 to v2o.9.5
 - Added Pebble Bed Reactor
+- Added distributor
 - Lots of bug fixes

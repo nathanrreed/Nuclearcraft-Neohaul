@@ -5,12 +5,13 @@ import com.nred.nuclearcraft.block_entity.ITileGui;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
+import com.nred.nuclearcraft.block_entity.internal.inventory.RawItemHandler;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
+import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.port.ItemPortUpdatePacket;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
@@ -30,9 +31,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
@@ -359,5 +362,10 @@ public abstract class FissionItemPortEntity<PORT extends FissionItemPortEntity<P
                 inventoryStacks.get(i).setCount(nbt.getInt("inventoryStackSize" + i));
             }
         }
+    }
+
+    @Override
+    public IItemHandler getItemHandler(@Nullable Direction side) {
+        return new RawItemHandler<>(this, side);
     }
 }

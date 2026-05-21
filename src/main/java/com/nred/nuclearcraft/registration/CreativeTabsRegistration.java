@@ -49,6 +49,9 @@ public class CreativeTabsRegistration {
             .icon(() -> FISSION_REACTOR_MAP.get("solid_fuel_fission_controller").asItem().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.acceptAll(blockStackValues(MACHINE_MAP, RTG_MAP, BATTERY_MAP, FISSION_REACTOR_MAP, HX_MAP, TURBINE_MAP, QUANTUM_MAP));
+                output.accept(DISTRIBUTOR_INLET);
+                output.accept(DISTRIBUTOR_OUTLET);
+                output.accept(DISTRIBUTOR_BUFFER);
             }).build());
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RADIATION_TAB = CREATIVE_MODE_TABS.register("radiation_tab", () -> CreativeModeTab.builder()

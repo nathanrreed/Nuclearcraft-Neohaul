@@ -90,7 +90,7 @@ public abstract class TilePassiveAbstract extends TileEnergyFluidSidedInventory 
 
     @Override
     public void update() {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             boolean wasActive = isActive, shouldUpdate = false;
             energyBool = changeEnergy(false);
             itemBool = changeStack(false);
