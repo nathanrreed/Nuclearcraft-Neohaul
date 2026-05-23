@@ -12,7 +12,7 @@
 </div>
 <br />
 
-A remake of Nuclearcraft Overhaul to Neoforge 1.21.1, the original for on MC 1.12.2 and earlier can be found [here](https://github.com/tomdodd4598/NuclearCraft).
+A port of NuclearCraft: Overhauled to Neoforge 1.21.1, the original for on MC 1.12.2 and earlier can be found [here](https://github.com/tomdodd4598/NuclearCraft).
 
 For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https://github.com/igentuman/NuclearCraft-Neoteric)
 
@@ -30,33 +30,6 @@ For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https:
 - [CC: Tweaked](https://github.com/cc-tweaked/CC-Tweaked)
 - [Patchouli](https://github.com/VazkiiMods/Patchouli)
 - [KubeJS](https://github.com/KubeJS-Mods/KubeJS)
-
-### Current Status:
-
-#### Completed:
-- Ore generation
-- Collectors (Cobblestone, water and nitrogen)
-- Music Discs
-- Foods
-- Solar panels
-- RTGs
-- Processors
-- Turbines
-- Fission Reactors (SFR and MSR)
-- Multitool
-- Machine Interface
-- Heat exchanger
-- Multiblock Machines
-- Quantum Computer
-- Wasteland
-- CC: T Integration
-- Integrations with JEI, EMI, Mekanism, Jade
-- Radiation
-- Tools and Armour
-
-#### Currently Working on:
-- Testing and optimizing
-- Integrations with other mods (KubeJS / CraftTweaker
 
 ---
 

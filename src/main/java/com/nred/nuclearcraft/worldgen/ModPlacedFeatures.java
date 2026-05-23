@@ -27,8 +27,8 @@ public class ModPlacedFeatures {
     private static Map<String, ResourceKey<PlacedFeature>> ores() {
         Map<String, ResourceKey<PlacedFeature>> map = new java.util.HashMap<>(Map.of());
         for (String ore : ORES) {
-            map.put(ore + "_rare", registerKey(ore + "_placed_rare"));
-            map.put(ore + "_common", registerKey(ore + "_placed_common"));
+            map.put(ore + "_large", registerKey(ore + "_placed_large"));
+            map.put(ore + "_small", registerKey(ore + "_placed_small"));
         }
 
         return map;
@@ -42,10 +42,6 @@ public class ModPlacedFeatures {
         return orePlacement(CountPlacement.of(count), heightRange);
     }
 
-    private static List<PlacementModifier> rareOrePlacement(int chance, PlacementModifier heightRange) {
-        return orePlacement(RarityFilter.onAverageOnceEvery(chance / 2), heightRange);
-    }
-
     record OreInfo(int min_y, int max_y, int ore_rate, int ore_size) {
     }
 
@@ -57,15 +53,14 @@ public class ModPlacedFeatures {
             "boron", new OreInfo(-42, 28, 6, 4),
             "lithium", new OreInfo(-52, 28, 6, 4),
             "magnesium", new OreInfo(-64, 24, 4, 5)
-
     );
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
         for (String ore : ORES) {
-            register(context, ORE_PLACED_KEYS.get(ore + "_common"), configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_KEYS.get(ore + "_common")), commonOrePlacement(oreInfoMap.get(ore).ore_rate, HeightRangePlacement.triangle(VerticalAnchor.absolute(oreInfoMap.get(ore).min_y), VerticalAnchor.absolute(oreInfoMap.get(ore).max_y))));
-            register(context, ORE_PLACED_KEYS.get(ore + "_rare"), configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_KEYS.get(ore + "_rare")), rareOrePlacement(oreInfoMap.get(ore).ore_rate, HeightRangePlacement.uniform(VerticalAnchor.absolute(oreInfoMap.get(ore).min_y), VerticalAnchor.absolute(oreInfoMap.get(ore).max_y))));
+            register(context, ORE_PLACED_KEYS.get(ore + "_small"), configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_KEYS.get(ore + "_small")), commonOrePlacement((int) (oreInfoMap.get(ore).ore_rate * 1.5), HeightRangePlacement.uniform(VerticalAnchor.absolute(oreInfoMap.get(ore).min_y), VerticalAnchor.absolute(oreInfoMap.get(ore).max_y))));
+            register(context, ORE_PLACED_KEYS.get(ore + "_large"), configuredFeatures.getOrThrow(ModConfiguredFeatures.ORE_KEYS.get(ore + "_large")), commonOrePlacement(oreInfoMap.get(ore).ore_rate, HeightRangePlacement.triangle(VerticalAnchor.absolute(oreInfoMap.get(ore).min_y), VerticalAnchor.absolute(oreInfoMap.get(ore).max_y))));
         }
 
         register(context, GLOWING_MUSHROOM_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.GLOWING_MUSHROOM_KEY), VegetationPlacements.getMushroomPlacement(32, null));

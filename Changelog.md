@@ -1,4 +1,3 @@
-- Updated from NCO v2o.9.2 to v2o.9.5
-- Added Pebble Bed Reactor
-- Added distributor
-- Lots of bug fixes
+- Tweaked ore spawn rate
+- Adjusted manufactory dust creation rates
+- Added copper dust

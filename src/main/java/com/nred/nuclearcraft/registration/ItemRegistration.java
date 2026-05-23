@@ -31,7 +31,6 @@ import static com.nred.nuclearcraft.registration.EntityRegistration.FERAL_GHOUL;
 import static com.nred.nuclearcraft.registration.Registers.ITEMS;
 import static com.nred.nuclearcraft.registration.SoundRegistration.*;
 import static com.nred.nuclearcraft.registration.ToolMaterialRegistration.*;
-import static com.nred.nuclearcraft.registration.ToolMaterialRegistration.TOUGH_SPAXELHOE_TIER;
 import static net.minecraft.world.item.ArmorItem.Type.*;
 
 public class ItemRegistration {
@@ -123,6 +122,7 @@ public class ItemRegistration {
     public static final DeferredItem<Item> TOUGH_SPAXELHOE = ITEMS.register("tough_spaxelhoe", () -> new SpaxelhoeItem(TOUGH_SPAXELHOE_TIER, new Properties().attributes(SpaxelhoeItem.createAttributes(TOUGH_SPAXELHOE_TIER, 3.5F, -2.4F)), ChatFormatting.DARK_PURPLE));
 
     public static final DeferredItem<Item> FERAL_GHOUL_SPAWN_EGG = ITEMS.register("feral_ghoul_spawn_egg", () -> new DeferredSpawnEggItem(FERAL_GHOUL, 0xaf9890, 0x192124, new Properties()));
+    public static final DeferredItem<Item> COPPER_DUST = ITEMS.register("copper_dust", () -> new Item(new Properties()));
 
     public static final HashMap<String, DeferredItem<Item>> AMERICIUM_MAP = createItems(AMERICIUMS, "americium", "");
     public static final HashMap<String, DeferredItem<Item>> BERKELIUM_MAP = createItems(BERKELIUMS, "berkelium", "");

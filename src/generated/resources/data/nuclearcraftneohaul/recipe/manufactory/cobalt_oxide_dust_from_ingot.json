@@ -4,7 +4,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:cobalt_oxide_ingot"
+        "tag": "c:ingots/cobalt_oxide"
       }
     }
   ],

@@ -28,8 +28,8 @@ public class ModBiomeModifiers {
     private static Map<String, ResourceKey<BiomeModifier>> ores() {
         Map<String, ResourceKey<BiomeModifier>> map = new java.util.HashMap<>(Map.of());
         for (String ore : ORES) {
-            map.put(ore + "_rare", registerKey(ore + "_rare"));
-            map.put(ore + "_common", registerKey(ore + "_common"));
+            map.put(ore + "_large", registerKey(ore + "_large"));
+            map.put(ore + "_small", registerKey(ore + "_small"));
         }
         return map;
     }
@@ -39,8 +39,8 @@ public class ModBiomeModifiers {
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 
         for (String ore : ORES) {
-            context.register(ADD_ORES.get(ore + "_common"), new BiomeModifiers.AddFeaturesBiomeModifier(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), HolderSet.direct(placedFeature.getOrThrow(ModPlacedFeatures.ORE_PLACED_KEYS.get(ore + "_common"))), GenerationStep.Decoration.UNDERGROUND_ORES));
-            context.register(ADD_ORES.get(ore + "_rare"), new BiomeModifiers.AddFeaturesBiomeModifier(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), HolderSet.direct(placedFeature.getOrThrow(ModPlacedFeatures.ORE_PLACED_KEYS.get(ore + "_rare"))), GenerationStep.Decoration.UNDERGROUND_ORES));
+            context.register(ADD_ORES.get(ore + "_small"), new BiomeModifiers.AddFeaturesBiomeModifier(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), HolderSet.direct(placedFeature.getOrThrow(ModPlacedFeatures.ORE_PLACED_KEYS.get(ore + "_small"))), GenerationStep.Decoration.UNDERGROUND_ORES));
+            context.register(ADD_ORES.get(ore + "_large"), new BiomeModifiers.AddFeaturesBiomeModifier(biomes.getOrThrow(BiomeTags.IS_OVERWORLD), HolderSet.direct(placedFeature.getOrThrow(ModPlacedFeatures.ORE_PLACED_KEYS.get(ore + "_large"))), GenerationStep.Decoration.UNDERGROUND_ORES));
         }
 
         context.register(ADD_GLOWING_MUSHROOM, new BiomeModifiers.AddFeaturesBiomeModifier(HolderSet.direct(biomes.getOrThrow(WASTELAND_BIOME)), HolderSet.direct(placedFeature.getOrThrow(ModPlacedFeatures.GLOWING_MUSHROOM_PLACED_KEY)), GenerationStep.Decoration.VEGETAL_DECORATION));

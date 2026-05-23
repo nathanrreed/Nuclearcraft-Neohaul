@@ -4,7 +4,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:iridium_oxide_ingot"
+        "tag": "c:ingots/iridium_oxide"
       }
     }
   ],

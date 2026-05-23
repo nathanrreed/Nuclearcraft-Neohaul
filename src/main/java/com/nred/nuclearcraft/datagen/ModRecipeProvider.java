@@ -75,6 +75,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         for (String ingot : INGOTS) {
             smeltAndBlast(recipeOutput, List.of(Ingredient.of(DUST_MAP.get(ingot))), MISC, INGOT_MAP.get(ingot), 0.25f, 200, ingot, true);
         }
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(COPPER_DUST)), MISC, Items.COPPER_INGOT, 0.25f, 200, "copper", true);
+
 
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("manganese_dioxide"))), MISC, INGOT_MAP.get("manganese_oxide"), 0f, 200, "manganese_oxide", true);
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("manganese_oxide"))), MISC, INGOT_MAP.get("manganese"), 0f, 200, "manganese", true);

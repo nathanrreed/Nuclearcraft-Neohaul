@@ -4,16 +4,18 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:magnesium_raw"
+        "tag": "c:raw_materials/magnesium"
       }
     }
   ],
   "itemProducts": [
     {
-      "count": 1,
+      "chancePercent": 33,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:magnesium_dust"
-      }
+      },
+      "minStackSize": 1
     }
   ],
   "powerModifier": 1.0,

@@ -2,7 +2,7 @@
   "type": "nuclearcraftneohaul:melter_recipe",
   "fluidProducts": [
     {
-      "amount": 288,
+      "amount": 432,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:copper"
       }

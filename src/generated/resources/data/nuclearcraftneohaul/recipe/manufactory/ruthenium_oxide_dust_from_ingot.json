@@ -4,7 +4,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:ruthenium_oxide_ingot"
+        "tag": "c:ingots/ruthenium_oxide"
       }
     }
   ],

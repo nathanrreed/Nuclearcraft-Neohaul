@@ -6,10 +6,11 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.Tags;
 
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
 import static com.nred.nuclearcraft.info.Names.ORES;
 import static com.nred.nuclearcraft.registration.BlockRegistration.MATERIAL_BLOCK_MAP;
-import static com.nred.nuclearcraft.registration.BlockRegistration.ORE_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 public class ManufactoryRecipeProvider {
@@ -43,16 +44,19 @@ public class ManufactoryRecipeProvider {
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.FISHES, 1).addItemResult(FOOD_MAP.get("gelatin"), 4).save(recipeOutput, "gelatin_from_fish");
 
         for (String ore : ORES) {
-            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.25, 1).addItemInput(ORE_MAP.get(ore), 1).addItemResult(DUST_MAP.get(ore), 2).save(recipeOutput);
+            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.25, 1).addItemInput(tag(Tags.Items.ORES, ore), 1).addItemResult(DUST_MAP.get(ore), 3).save(recipeOutput, ore + "_dust_from_ore");
         }
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.25, 1).addItemInput(tag(Tags.Items.ORES, "copper"), 1).addItemResult(COPPER_DUST, 3).save(recipeOutput, "copper_dust_from_ore");
 
         for (String ingot : INGOT_MAP.keySet()) {
-            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(INGOT_MAP.get(ingot), 1).addItemResult(DUST_MAP.get(ingot), 1).save(recipeOutput, ingot + "_dust_from_ingot");
+            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.INGOTS, ingot), 1).addItemResult(DUST_MAP.get(ingot), 1).save(recipeOutput, ingot + "_dust_from_ingot");
         }
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.INGOTS, "copper"), 1).addItemResult(COPPER_DUST, 1).save(recipeOutput, "copper_dust_from_ingot");
 
         for (String raw : RAW_MAP.keySet()) {
-            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(RAW_MAP.get(raw), 1).addItemResult(DUST_MAP.get(raw), 1).save(recipeOutput, raw + "_dust_from_raw");
+            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, raw), 1).addItemResult(DUST_MAP.get(raw), 33, 2, 1).save(recipeOutput, raw + "_dust_from_raw");
         }
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, "copper"), 1).addItemResult(COPPER_DUST, 33, 2, 1).save(recipeOutput, "copper_dust_from_raw");
 
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.25, 0.5).addItemInput(ItemTags.PLANKS, 1).addItemResult(Items.STICK, 4).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.ACACIA_LOGS, 1).addItemResult(Blocks.ACACIA_PLANKS, 6).save(recipeOutput, "acacia_planks_from_logs");

@@ -4,7 +4,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:boron_ingot"
+        "tag": "c:ingots/boron"
       }
     }
   ],

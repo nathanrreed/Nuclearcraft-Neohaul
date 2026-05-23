@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.helpers;
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
@@ -13,6 +14,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -37,6 +40,18 @@ public class RecipeHelpers {
 
     public static TagKey<Item> tag(TagKey<Item> tag, String name) {
         return ItemTags.create(tag.location().withSuffix("/" + name));
+    }
+
+    public static RecipeOutput tagExists(RecipeOutput recipeOutput, TagKey<Item> tag) {
+        return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag)));
+    }
+
+    @SafeVarargs
+    public static RecipeOutput tagsExists(RecipeOutput recipeOutput, TagKey<Item>... tags) {
+        for (TagKey<Item> tag : tags) {
+            recipeOutput = recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag)));
+        }
+        return recipeOutput;
     }
 
     public static TagKey<Block> blockTag(TagKey<Block> tag, String name) {

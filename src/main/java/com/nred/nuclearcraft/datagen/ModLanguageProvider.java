@@ -765,6 +765,7 @@ public class ModLanguageProvider extends LanguageProvider {
         simpleItems(INGOTS, INGOT_MAP, " Ingot");
         simpleItems(GEMS, GEM_MAP, "");
         simpleItems(DUSTS, DUST_MAP, " Dust");
+        add(COPPER_DUST.get(), "Copper Dust");
         replaceItems(FISSION_DUSTS, FISSION_DUST_MAP, "", " Dust", Map.of("tbp", "Protactinium-Enriched Thorium Dust"));
         replaceItems(GEM_DUSTS, GEM_DUST_MAP, "Crushed ", "", Map.of("boron_nitride", "Hexagonal Boron Nitride", "sulfur", "Sulfur"));
         simpleItems(RAWS, RAW_MAP, "Raw ", "");
@@ -1575,7 +1576,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.fission_fuel_radiation_multiplier.tooltip", "Modifies the radiation levels of fuels in fission reactors.");
         add(MODID + ".configuration.fission_source_efficiency", "Neutron Source Efficiencies");
         add(MODID + ".configuration.fission_source_efficiency.tooltip", "Efficiency multiplier for neutron sources of this type.");
-        add(MODID + ".configuration.fission_cooler_cooling_rat", "Gas Cooler Cooling Rates");
+        add(MODID + ".configuration.fission_cooler_cooling_rate", "Gas Cooler Cooling Rates");
         add(MODID + ".configuration.fission_cooler_cooling_rate.tooltip", "Heat removed per tick by valid gas coolers of this type. ");
         add(MODID + ".configuration.fission_cooler_rule", "Gas Cooler Placement Rules");
         add(MODID + ".configuration.fission_cooler_rule.tooltip", "Placement rule to be parsed for gas coolers of this type.");

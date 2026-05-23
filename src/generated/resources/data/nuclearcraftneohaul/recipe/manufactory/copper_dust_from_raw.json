@@ -1,0 +1,24 @@
+{
+  "type": "nuclearcraftneohaul:manufactory_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:raw_materials/copper"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "chancePercent": 33,
+      "count": 2,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:copper_dust"
+      },
+      "minStackSize": 1
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

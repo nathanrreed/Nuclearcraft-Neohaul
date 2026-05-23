@@ -23,7 +23,7 @@ public class MelterProvider {
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(tags(List.of(tag(Tags.Items.INGOTS, name), tag(Tags.Items.RAW_MATERIALS, name), tag(Tags.Items.DUSTS, name)), 1)).addFluidResult(MOLTEN_MAP.get(name), 144).save(recipeOutput, "molten_" + name);
         new ProcessorRecipeBuilder(MelterRecipe.class, 9, 1).addItemInput(tags(List.of(tag(Tags.Items.STORAGE_BLOCKS, name), tag(Tags.Items.STORAGE_BLOCKS, "raw_" + name)), 1)).addFluidResult(MOLTEN_MAP.get(name), 1296).save(recipeOutput, "molten_" + name + "_from_block");
         new ProcessorRecipeBuilder(MelterRecipe.class, 1.0 / 9, 0.25).addItemInput(tag(Tags.Items.NUGGETS, name), 1).addFluidResult(MOLTEN_MAP.get(name), 16).save(recipeOutput, "molten_" + name + "_from_nugget");
-        new ProcessorRecipeBuilder(MelterRecipe.class, 1.25, 1.5).addItemInput(tag(Tags.Items.ORES, name), 1).addFluidResult(MOLTEN_MAP.get(name), 288).save(recipeOutput, "molten_" + name + "_from_ore");
+        new ProcessorRecipeBuilder(MelterRecipe.class, 1.25, 1.5).addItemInput(tag(Tags.Items.ORES, name), 1).addFluidResult(MOLTEN_MAP.get(name), 144 * 3).save(recipeOutput, "molten_" + name + "_from_ore");
     }
 
     public void createGemSet(RecipeOutput recipeOutput, String name) {

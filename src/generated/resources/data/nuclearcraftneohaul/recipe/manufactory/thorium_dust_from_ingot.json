@@ -4,7 +4,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:thorium_ingot"
+        "tag": "c:ingots/thorium"
       }
     }
   ],

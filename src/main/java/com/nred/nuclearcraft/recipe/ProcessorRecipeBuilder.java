@@ -98,6 +98,15 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
+    public ProcessorRecipeBuilder addItemResult(ItemLike output, int chancePercent, int count, int minStackSize) {
+        itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, minStackSize));
+        return this;
+    }
+    public ProcessorRecipeBuilder addItemResult(TagKey<Item> output, int chancePercent, int count, int minStackSize) {
+        itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, minStackSize));
+        return this;
+    }
+
     public ProcessorRecipeBuilder addItemResult(TagKey<Item> output, int count) {
         itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count));
         return this;

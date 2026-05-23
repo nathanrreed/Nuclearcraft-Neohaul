@@ -4,16 +4,18 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:thorium_raw"
+        "tag": "c:raw_materials/thorium"
       }
     }
   ],
   "itemProducts": [
     {
-      "count": 1,
+      "chancePercent": 33,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:thorium_dust"
-      }
+      },
+      "minStackSize": 1
     }
   ],
   "powerModifier": 1.0,

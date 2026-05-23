@@ -18,7 +18,9 @@ public class CreativeTabsRegistration {
             .displayItems((parameters, output) -> {
                 output.acceptAll(blockStackValues(ORE_MAP, INGOT_BLOCK_MAP, RAW_BLOCK_MAP, MATERIAL_BLOCK_MAP, FERTILE_ISOTOPE_MAP));
                 output.accept(SUPERCOLD_ICE);
-                output.acceptAll(itemStackValues(INGOT_MAP, NUGGET_MAP, RAW_MAP, DUST_MAP, GEM_MAP, GEM_DUST_MAP, ALLOY_MAP, COMPOUND_MAP, PART_MAP, PART_BLOCK_MAP, FISSION_DUST_MAP));
+                output.acceptAll(itemStackValues(INGOT_MAP, NUGGET_MAP, RAW_MAP, DUST_MAP));
+                output.accept(COPPER_DUST);
+                output.acceptAll(itemStackValues(GEM_MAP, GEM_DUST_MAP, ALLOY_MAP, COMPOUND_MAP, PART_MAP, PART_BLOCK_MAP, FISSION_DUST_MAP));
                 output.acceptAll(itemStackValues(URANIUM_MAP, NEPTUNIUM_MAP, PLUTONIUM_MAP, AMERICIUM_MAP, CURIUM_MAP, BERKELIUM_MAP, CALIFORNIUM_MAP));
                 output.acceptAll(itemStackValues(PELLET_THORIUM_MAP, PELLET_URANIUM_MAP, PELLET_NEPTUNIUM_MAP, PELLET_PLUTONIUM_MAP, PELLET_MIXED_MAP, PELLET_AMERICIUM_MAP, PELLET_CURIUM_MAP, PELLET_BERKELIUM_MAP, PELLET_CALIFORNIUM_MAP));
                 output.acceptAll(itemStackValues(FUEL_THORIUM_MAP, FUEL_URANIUM_MAP, FUEL_NEPTUNIUM_MAP, FUEL_PLUTONIUM_MAP, FUEL_MIXED_MAP, FUEL_AMERICIUM_MAP, FUEL_CURIUM_MAP, FUEL_BERKELIUM_MAP, FUEL_CALIFORNIUM_MAP));

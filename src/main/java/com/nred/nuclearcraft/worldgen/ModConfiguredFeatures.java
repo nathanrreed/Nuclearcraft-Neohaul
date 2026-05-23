@@ -39,8 +39,8 @@ public class ModConfiguredFeatures {
     private static Map<String, ResourceKey<ConfiguredFeature<?, ?>>> ores() {
         Map<String, ResourceKey<ConfiguredFeature<?, ?>>> map = new java.util.HashMap<>(Map.of());
         for (String ore : ORES) {
-            map.put(ore + "_common", registerKey(ore + "_common"));
-            map.put(ore + "_rare", registerKey(ore + "_rare"));
+            map.put(ore + "_small", registerKey(ore + "_small"));
+            map.put(ore + "_large", registerKey(ore + "_large"));
         }
 
         return map;
@@ -111,8 +111,8 @@ public class ModConfiguredFeatures {
 
         for (String ore : ORES) {
             List<OreConfiguration.@NotNull TargetBlockState> ores = List.of(OreConfiguration.target(stoneReplaceables, ORE_MAP.get(ore).get().defaultBlockState()), OreConfiguration.target(deepslateReplaceables, ORE_MAP.get(ore + "_deepslate").get().defaultBlockState()));
-            register(context, ORE_KEYS.get(ore + "_common"), Feature.ORE, new OreConfiguration(ores, oreInfoMap.get(ore).ore_size()));
-            register(context, ORE_KEYS.get(ore + "_rare"), Feature.ORE, new OreConfiguration(ores, oreInfoMap.get(ore).ore_size()));
+            register(context, ORE_KEYS.get(ore + "_small"), Feature.ORE, new OreConfiguration(ores, oreInfoMap.get(ore).ore_size()));
+            register(context, ORE_KEYS.get(ore + "_large"), Feature.ORE, new OreConfiguration(ores, (int) (oreInfoMap.get(ore).ore_size() * 1.5)));
         }
 
         register(context, GLOWING_MUSHROOM_KEY, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(GLOWING_MUSHROOM.get())), List.of(), 32));
