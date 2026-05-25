@@ -1,3 +1,4 @@
 - Tweaked ore spawn rate
 - Adjusted manufactory dust creation rates
 - Added copper dust
+- Added distributor recipes

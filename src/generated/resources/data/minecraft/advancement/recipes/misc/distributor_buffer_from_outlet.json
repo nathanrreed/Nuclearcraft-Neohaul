@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_distributor_outlet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:distributor_outlet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:distributor_buffer_from_outlet"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_distributor_outlet"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:distributor_buffer_from_outlet"
+    ]
+  }
+}

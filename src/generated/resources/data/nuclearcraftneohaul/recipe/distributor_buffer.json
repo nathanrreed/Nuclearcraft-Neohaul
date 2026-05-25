@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:copper_solenoid"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "BHB",
+    "PSP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:distributor_buffer"
+  }
+}

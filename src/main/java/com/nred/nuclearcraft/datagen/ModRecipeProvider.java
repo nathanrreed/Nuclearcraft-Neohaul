@@ -210,6 +210,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, DECAY_GENERATOR).pattern("LCL").pattern("CRC").pattern("LCL")
                 .define('R', Tags.Items.DUSTS_REDSTONE).define('C', Items.COBBLESTONE).define('L', tag(Tags.Items.INGOTS, "lead"))
                 .unlockedBy(getHasName(Items.REDSTONE), has(Items.REDSTONE)).save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(MISC, DISTRIBUTOR_BUFFER).pattern("PSP").pattern("BHB").pattern("PSP")
+                .define('P', PART_MAP.get("basic_plating")).define('S', PART_MAP.get("copper_solenoid")).define('H', Items.HOPPER).define('B', Items.BUCKET)
+                .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER)).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, DISTRIBUTOR_INLET).requires(DISTRIBUTOR_BUFFER).unlockedBy(getHasName(DISTRIBUTOR_BUFFER), has(DISTRIBUTOR_BUFFER)).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, DISTRIBUTOR_OUTLET).requires(DISTRIBUTOR_INLET).unlockedBy(getHasName(DISTRIBUTOR_INLET), has(DISTRIBUTOR_INLET)).save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(MISC, DISTRIBUTOR_BUFFER).requires(DISTRIBUTOR_OUTLET).unlockedBy(getHasName(DISTRIBUTOR_OUTLET), has(DISTRIBUTOR_OUTLET)).save(recipeOutput, "distributor_buffer_from_outlet");
+
     }
 
     private void batteries(RecipeOutput recipeOutput) {

@@ -12,7 +12,7 @@
 </div>
 <br />
 
-A port of NuclearCraft: Overhauled to Neoforge 1.21.1, the original for on MC 1.12.2 and earlier can be found [here](https://github.com/tomdodd4598/NuclearCraft).
+A port of NuclearCraft: Overhauled to Neoforge for 1.21.1, the original for on MC 1.12.2 and earlier can be found [here](https://github.com/tomdodd4598/NuclearCraft).
 
 For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https://github.com/igentuman/NuclearCraft-Neoteric)
 
@@ -28,11 +28,11 @@ For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https:
 #### Optional:
 - [Mekanism](https://github.com/mekanism/Mekanism)
 - [CC: Tweaked](https://github.com/cc-tweaked/CC-Tweaked)
-- [Patchouli](https://github.com/VazkiiMods/Patchouli)
+- [GuideME](https://github.com/AppliedEnergistics/GuideME) / [Patchouli](https://github.com/VazkiiMods/Patchouli)
 - [KubeJS](https://github.com/KubeJS-Mods/KubeJS)
 
 ---
 
 <p style="text-align: center; font-style: italic">
-No AI was or shall be use in this repository
+No AI has been or shall be use in this repository
 </p>
