@@ -36,7 +36,7 @@ public class FissionHeaterPortEntity extends FissionFluidPortEntity<FissionHeate
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable(MODID + ".menu.fission_heater_port.title");
+        return Component.translatable(MODID + ".menu.title.fission_heater_port");
     }
 
     @Override

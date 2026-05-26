@@ -123,7 +123,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable(MODID + ".menu.fission_heater.title");
+        return Component.translatable(MODID + ".menu.title.fission_heater");
     }
 
     @Override

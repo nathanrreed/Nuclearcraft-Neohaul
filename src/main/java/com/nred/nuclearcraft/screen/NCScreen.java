@@ -179,7 +179,7 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
     }
 
     public List<Component> noClusterInfo() {
-        return Lists.newArrayList(Component.translatable(MODID + ".menu.fission.no_cluster").withStyle(ChatFormatting.RED));
+        return Lists.newArrayList(Component.translatable(MODID + ".tooltip.fission.no_cluster").withStyle(ChatFormatting.RED));
     }
 
     protected int centeredWidth(Component str) {

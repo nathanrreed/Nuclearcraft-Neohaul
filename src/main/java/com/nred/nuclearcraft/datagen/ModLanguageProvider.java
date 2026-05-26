@@ -339,6 +339,15 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.turbine_dynamo_coil.conductivity", "Conductivity Multiplier: %s");
         addTooltip(TURBINE_MAP.get("turbine_computer_port"), "Used to access the turbine via CC: Tweaked.");
 
+        add(MODID + ".tooltip.turbine_controller", "%s*%s*%s Turbine");
+        add(MODID + ".tooltip.turbine_controller.power", "Power Output: %s");
+        add(MODID + ".tooltip.turbine_controller.dynamo_efficiency", "Dynamo Efficiency: %s");
+        add(MODID + ".tooltip.turbine_controller.dynamo_coil_count", "Coil Counts: %s");
+        add(MODID + ".tooltip.turbine_controller.expansion_level", "Expansion: %s");
+        add(MODID + ".tooltip.turbine_controller.rotor_efficiency", "Rotor Efficiency: %s");
+        add(MODID + ".tooltip.turbine_controller.fluid_rate", "Input: %s");
+        add(MODID + ".tooltip.turbine_controller.power_bonus", "Rate Power Bonus: %s");
+
         add(MODID + ".recipe_viewer.turbine_energy_density", "Base Energy Density: %s");
         add(MODID + ".recipe_viewer.turbine_expansion", "Fluid Expansion: %s");
         add(MODID + ".recipe_viewer.turbine_spin_up_multiplier", "Spin-up Multiplier: %s");
@@ -376,6 +385,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.fission_shield.heat_per_flux", "Heat Gen Per Flux: %s");
 
         add(MODID + ".tooltip.fission_component.heat_stored", "Cluster Heat Level: %s");
+
+        add(MODID + ".tooltip.fission.no_cluster", "No cluster!");
 
         add(MODID + ".fission_reactor_source.no_target", "Has no target!");
         add(MODID + ".fission_reactor_source.target", "Targeting %4$s at [%1$d, %2$d, %3$d]");
@@ -1319,20 +1330,8 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".menu.title.radiation_scrubber", "Radiation Scrubber");
 
-        // Turbine
-        add(MODID + ".menu.turbine_controller.title", "%s*%s*%s Turbine");
-        add(MODID + ".menu.turbine_controller.power", "Power Output: %s");
-        add(MODID + ".menu.turbine_controller.dynamo_efficiency", "Dynamo Efficiency: %s");
-        add(MODID + ".menu.turbine_controller.dynamo_coil_count", "Coil Counts: %s");
-        add(MODID + ".menu.turbine_controller.expansion_level", "Expansion: %s");
-        add(MODID + ".menu.turbine_controller.rotor_efficiency", "Rotor Efficiency: %s");
-        add(MODID + ".menu.turbine_controller.fluid_rate", "Input: %s");
-        add(MODID + ".menu.turbine_controller.power_bonus", "Rate Power Bonus: %s");
-
-        add(MODID + ".menu.fission.no_cluster", "No cluster!");
-
-        add(MODID + ".menu.fission_heater.title", "Fission Coolant Heater");
-        add(MODID + ".menu.fission_heater_port.title", "Fission Coolant Heater Port");
+        add(MODID + ".menu.title.fission_heater", "Fission Coolant Heater");
+        add(MODID + ".menu.title.fission_heater_port", "Fission Coolant Heater Port");
     }
 
     private void multiblock_validation() {

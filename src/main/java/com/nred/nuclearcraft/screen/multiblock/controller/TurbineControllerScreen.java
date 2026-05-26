@@ -66,7 +66,7 @@ public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine,
 
         int fontColor = multiblock.isTurbineOn ? -1 : 15641088;
         int middle_x = getGuiLeft() + imageWidth / 2;
-        Component title = Component.translatable(MODID + ".menu.turbine_controller.title", multiblock.getInteriorLengthX(), multiblock.getInteriorLengthY(), multiblock.getInteriorLengthZ());
+        Component title = Component.translatable(MODID + ".tooltip.turbine_controller", multiblock.getInteriorLengthX(), multiblock.getInteriorLengthY(), multiblock.getInteriorLengthZ());
         guiGraphics.drawString(font, title, middle_x - this.font.width(title) / 2, getGuiTop() + 6, fontColor);
 
         String underline = StringHelper.charLine('-', Mth.ceil((double) this.font.width(title) / this.font.width("-")));
