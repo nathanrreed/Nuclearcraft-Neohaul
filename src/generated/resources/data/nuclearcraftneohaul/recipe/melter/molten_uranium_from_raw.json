@@ -2,23 +2,20 @@
   "type": "nuclearcraftneohaul:melter_recipe",
   "fluidProducts": [
     {
-      "amount": 144,
+      "amount": 288,
+      "chancePercent": 33,
       "ingredient": {
-        "fluid": "nuclearcraftneohaul:manganese"
-      }
+        "fluid": "nuclearcraftneohaul:uranium"
+      },
+      "minStackSize": 144
     }
   ],
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/manganese"
-        },
-        {
-          "tag": "c:dusts/manganese"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:raw_materials/uranium"
+      }
     }
   ],
   "powerModifier": 1.0,

@@ -16,9 +16,6 @@
           "tag": "c:ingots/uranium"
         },
         {
-          "tag": "c:raw_materials/uranium"
-        },
-        {
           "tag": "c:dusts/uranium"
         }
       ]

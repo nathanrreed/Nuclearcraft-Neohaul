@@ -16,9 +16,6 @@
           "tag": "c:ingots/copper"
         },
         {
-          "tag": "c:raw_materials/copper"
-        },
-        {
           "tag": "c:dusts/copper"
         }
       ]
