@@ -201,4 +201,8 @@ public class Fluids {
     public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount) {
         return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, 0);
     }
+
+    public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount, int minStackSize) {
+        return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, minStackSize);
+    }
 }

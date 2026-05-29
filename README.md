@@ -1,7 +1,7 @@
 <div align="center">
 <h1>Nuclearcraft Neohaul</h1>
 
-<a href="https://www.curseforge.com/minecraft/mc-mods//nuclearcraft-neohaul">
+<a href="https://www.curseforge.com/minecraft/mc-mods/nuclearcraft-neohaul">
 <img src="https://img.shields.io/curseforge/dt/1523268?style=for-the-badge&logo=curseforge&logoSize=auto" alt="CurseForge Downloads" /></a>
 
 <a href="https://modrinth.com/mod/nuclearcraft-neohaul">

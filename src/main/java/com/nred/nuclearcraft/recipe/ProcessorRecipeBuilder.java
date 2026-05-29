@@ -102,6 +102,7 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, minStackSize));
         return this;
     }
+
     public ProcessorRecipeBuilder addItemResult(TagKey<Item> output, int chancePercent, int count, int minStackSize) {
         itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, minStackSize));
         return this;
@@ -134,6 +135,11 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
 
     public ProcessorRecipeBuilder addFluidResult(Fluids output, int chancePercent, int amount) {
         fluidResults.add(Fluids.sizedIngredient(output, chancePercent, amount));
+        return this;
+    }
+
+    public ProcessorRecipeBuilder addFluidResult(Fluids output, int chancePercent, int amount, int minStackSize) {
+        fluidResults.add(Fluids.sizedIngredient(output, chancePercent, amount, minStackSize));
         return this;
     }
 
