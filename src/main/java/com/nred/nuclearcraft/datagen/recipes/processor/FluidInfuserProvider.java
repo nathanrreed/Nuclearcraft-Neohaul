@@ -20,75 +20,76 @@ import static com.nred.nuclearcraft.info.Names.GAS_COOLANTS;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
+import static com.nred.nuclearcraft.util.FluidStackHelper.*;
 
 public class FluidInfuserProvider {
     public FluidInfuserProvider(RecipeOutput recipeOutput) {
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("manganese"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(INGOT_MAP.get("manganese_oxide"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(DUST_MAP.get("manganese"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(DUST_MAP.get("manganese_oxide"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("manganese_oxide"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(INGOT_MAP.get("manganese_dioxide"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(DUST_MAP.get("manganese_oxide"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(DUST_MAP.get("manganese_dioxide"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("zirconium"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(INGOT_MAP.get("zirconia"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(DUST_MAP.get("zirconium"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(DUST_MAP.get("zirconia"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("tin"), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(INGOT_MAP.get("tin_oxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("manganese"), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(INGOT_MAP.get("manganese_oxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(DUST_MAP.get("manganese"), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(DUST_MAP.get("manganese_oxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("manganese_oxide"), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(INGOT_MAP.get("manganese_dioxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(DUST_MAP.get("manganese_oxide"), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(DUST_MAP.get("manganese_dioxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("zirconium"), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(INGOT_MAP.get("zirconia"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(DUST_MAP.get("zirconium"), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(DUST_MAP.get("zirconia"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(INGOT_MAP.get("tin"), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(INGOT_MAP.get("tin_oxide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.25, 0.5).addItemInput(Ingredient.of(Items.ICE, Items.PACKED_ICE), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 50).addItemResult(SUPERCOLD_ICE, 1).save(recipeOutput);
 
         // Fission Pebble Coolers
         for (String coolant : GAS_COOLANTS) {
-            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_gas_cooler_port"), 1).addFluidInput(GAS_MAP.get(coolant), 1000).addItemResult(FISSION_REACTOR_MAP.get(coolant + "_fission_gas_cooler_port"), 1).save(recipeOutput);
-            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_gas_cooler"), 1).addFluidInput(GAS_MAP.get(coolant), 1000).addItemResult(FISSION_REACTOR_MAP.get(coolant + "_fission_gas_cooler"), 1).save(recipeOutput);
+            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_gas_cooler_port"), 1).addFluidInput(GAS_MAP.get(coolant), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get(coolant + "_fission_gas_cooler_port"), 1).save(recipeOutput);
+            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_gas_cooler"), 1).addFluidInput(GAS_MAP.get(coolant), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get(coolant + "_fission_gas_cooler"), 1).save(recipeOutput);
         }
 
         // Fission Heater Port
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_nitrogen"), 1000).addItemResult(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_coolant_heater_port"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 1000).addItemResult(FISSION_REACTOR_MAP.get("liquid_helium_fission_coolant_heater_port"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(MOLTEN_MAP.get("enderium"), 1000).addItemResult(FISSION_REACTOR_MAP.get("enderium_fission_coolant_heater_port"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("cryotheum"), 1000).addItemResult(FISSION_REACTOR_MAP.get("cryotheum_fission_coolant_heater_port"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_nitrogen"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_coolant_heater_port"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("liquid_helium_fission_coolant_heater_port"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(MOLTEN_MAP.get("enderium"), INGOT_VOLUME * 4).addItemResult(FISSION_REACTOR_MAP.get("enderium_fission_coolant_heater_port"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("cryotheum"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("cryotheum_fission_coolant_heater_port"), 1).save(recipeOutput);
 
         // Heat Sinks
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(Fluids.WATER, 1000).addItemResult(FISSION_REACTOR_MAP.get("water_fission_heat_sink"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_nitrogen"), 1000).addItemResult(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_heat_sink"), 1).save(recipeOutput, ncLoc("sink_from_liquid_nitrogen"));
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 1000).addItemResult(FISSION_REACTOR_MAP.get("liquid_helium_fission_heat_sink"), 1).save(recipeOutput, ncLoc("sink_from_liquid_helium"));
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(MOLTEN_MAP.get("enderium"), 1000).addItemResult(FISSION_REACTOR_MAP.get("enderium_fission_heat_sink"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("cryotheum"), 1000).addItemResult(FISSION_REACTOR_MAP.get("cryotheum_fission_heat_sink"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("water_fission_heat_sink"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_nitrogen"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_heat_sink"), 1).save(recipeOutput, ncLoc("sink_from_liquid_nitrogen"));
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("liquid_helium_fission_heat_sink"), 1).save(recipeOutput, ncLoc("sink_from_liquid_helium"));
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(MOLTEN_MAP.get("enderium"), INGOT_VOLUME * 4).addItemResult(FISSION_REACTOR_MAP.get("enderium_fission_heat_sink"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("cryotheum"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("cryotheum_fission_heat_sink"), 1).save(recipeOutput);
 
         // Heater
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_nitrogen"), 1000).addItemResult(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_coolant_heater"), 1).save(recipeOutput, ncLoc("heater_from_liquid_nitrogen"));
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 1000).addItemResult(FISSION_REACTOR_MAP.get("liquid_helium_fission_coolant_heater"), 1).save(recipeOutput, ncLoc("heater_from_helium_helium"));
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(MOLTEN_MAP.get("enderium"), 1000).addItemResult(FISSION_REACTOR_MAP.get("enderium_fission_coolant_heater"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("cryotheum"), 1000).addItemResult(FISSION_REACTOR_MAP.get("cryotheum_fission_coolant_heater"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_nitrogen"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("liquid_nitrogen_fission_coolant_heater"), 1).save(recipeOutput, ncLoc("heater_from_liquid_nitrogen"));
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("liquid_helium_fission_coolant_heater"), 1).save(recipeOutput, ncLoc("heater_from_helium_helium"));
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(MOLTEN_MAP.get("enderium"), INGOT_VOLUME * 4).addItemResult(FISSION_REACTOR_MAP.get("enderium_fission_coolant_heater"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(FISSION_REACTOR_MAP.get("standard_fission_coolant_heater"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("cryotheum"), BUCKET_VOLUME).addItemResult(FISSION_REACTOR_MAP.get("cryotheum_fission_coolant_heater"), 1).save(recipeOutput);
 
         // RadAway
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 0.5).addItemInput(PART_MAP.get("bioplastic"), 2).addFluidInput(CUSTOM_FLUID_MAP.get("radaway"), 250).addItemResult(RADAWAY, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 0.5).addItemInput(PART_MAP.get("bioplastic"), 2).addFluidInput(CUSTOM_FLUID_MAP.get("radaway_slow"), 250).addItemResult(RADAWAY_SLOW, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 0.5).addItemInput(RADAWAY, 1).addFluidInput(MOLTEN_MAP.get("redstone"), 200).addItemResult(RADAWAY_SLOW, 1).save(recipeOutput, ncLoc("radaway_slow_from_radaway"));
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 0.5).addItemInput(PART_MAP.get("bioplastic"), 2).addFluidInput(CUSTOM_FLUID_MAP.get("radaway"), BUCKET_VOLUME / 4).addItemResult(RADAWAY, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 0.5).addItemInput(PART_MAP.get("bioplastic"), 2).addFluidInput(CUSTOM_FLUID_MAP.get("radaway_slow"), BUCKET_VOLUME / 4).addItemResult(RADAWAY_SLOW, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 0.5).addItemInput(RADAWAY, 1).addFluidInput(MOLTEN_MAP.get("redstone"), REDSTONE_DUST_VOLUME * 2).addItemResult(RADAWAY_SLOW, 1).save(recipeOutput, ncLoc("radaway_slow_from_radaway"));
 
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("heavy_water"), 1000).addItemResult(HEAVY_WATER_MODERATOR, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(CUSTOM_FLUID_MAP.get("heavy_water"), BUCKET_VOLUME).addItemResult(HEAVY_WATER_MODERATOR, 1).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(Fluids.WATER, 2000).addItemResult(COLLECTOR_MAP.get("water_source"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(COLLECTOR_MAP.get("water_source"), 1).addFluidInput(Fluids.LAVA, 1000).addItemResult(COLLECTOR_MAP.get("cobblestone_generator"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Tags.Items.GLASS_BLOCKS, 1).addFluidInput(TRITIUM_TAG, 1000).addItemResult(TRITIUM_LAMP, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(tags(List.of(Tags.Items.SANDS, Tags.Items.SANDSTONE_BLOCKS), 1)).addFluidInput(CUSTOM_FLUID_MAP.get("ender"), 250).addItemResult(Items.END_STONE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(PART_BLOCK_MAP.get("empty_frame"), 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME * 2).addItemResult(COLLECTOR_MAP.get("water_source"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(COLLECTOR_MAP.get("water_source"), 1).addFluidInput(Fluids.LAVA, BUCKET_VOLUME).addItemResult(COLLECTOR_MAP.get("cobblestone_generator"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Tags.Items.GLASS_BLOCKS, 1).addFluidInput(TRITIUM_TAG, BUCKET_VOLUME).addItemResult(TRITIUM_LAMP, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(tags(List.of(Tags.Items.SANDS, Tags.Items.SANDSTONE_BLOCKS), 1)).addFluidInput(CUSTOM_FLUID_MAP.get("ender"), BUCKET_VOLUME / 4).addItemResult(Items.END_STONE, 1).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.WHITE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.WHITE_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.ORANGE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.ORANGE_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.MAGENTA_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.MAGENTA_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.LIGHT_BLUE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.LIGHT_BLUE_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.YELLOW_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.YELLOW_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.LIME_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.LIME_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.PINK_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.PINK_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.GRAY_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.GRAY_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.LIGHT_GRAY_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.LIGHT_GRAY_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.CYAN_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.CYAN_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.PURPLE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.PURPLE_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.BLUE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.BLUE_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.BROWN_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.BROWN_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.GREEN_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.GREEN_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.RED_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.RED_CONCRETE, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.BLACK_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, 1000).addItemResult(Items.BLACK_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.WHITE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.WHITE_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.ORANGE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.ORANGE_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.MAGENTA_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.MAGENTA_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.LIGHT_BLUE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.LIGHT_BLUE_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.YELLOW_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.YELLOW_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.LIME_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.LIME_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.PINK_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.PINK_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.GRAY_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.GRAY_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.LIGHT_GRAY_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.LIGHT_GRAY_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.CYAN_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.CYAN_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.PURPLE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.PURPLE_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.BLUE_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.BLUE_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.BROWN_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.BROWN_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.GREEN_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.GREEN_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.RED_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.RED_CONCRETE, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 0.5, 0.5).addItemInput(Items.BLACK_CONCRETE_POWDER, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addItemResult(Items.BLACK_CONCRETE, 1).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Ingredient.of(Items.DIRT, Items.GRASS_BLOCK), 1).addFluidInput(Fluids.WATER, 2000).addItemResult(Items.CLAY, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Items.BRICK, 1).addFluidInput(Fluids.WATER, 2000).addItemResult(Items.CLAY_BALL, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 2, 1).addItemInput(Items.TERRACOTTA, 1).addFluidInput(Fluids.WATER, 4000).addItemResult(Items.CLAY, 1).save(recipeOutput, "clay_from_terracotta");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Ingredient.of(Items.DIRT, Items.GRASS_BLOCK), 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME * 2).addItemResult(Items.CLAY, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(Items.BRICK, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME * 2).addItemResult(Items.CLAY_BALL, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 2, 1).addItemInput(Items.TERRACOTTA, 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME * 4).addItemResult(Items.CLAY, 1).save(recipeOutput, "clay_from_terracotta");
 
         nitrogenOxygenPair(recipeOutput, List.of("233", "235", "238"), URANIUM_MAP, "uranium_");
         nitrogenOxygenPair(recipeOutput, List.of("236", "237"), NEPTUNIUM_MAP, "neptunium_");
@@ -101,8 +102,8 @@ public class FluidInfuserProvider {
 
     private void nitrogenOxygenPair(RecipeOutput recipeOutput, List<String> types, HashMap<String, DeferredItem<Item>> map, String name) {
         for (String type : types) {
-            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(map.get(type), 1).addFluidInput(NITROGEN_TAG, 1000).addItemResult(map.get(type + "_ni"), 1).save(recipeOutput, name + type + "_from_ni");
-            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(map.get(type), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(map.get(type + "_ox"), 1).save(recipeOutput, name + type + "_from_ox");
+            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(map.get(type), 1).addFluidInput(NITROGEN_TAG, BUCKET_VOLUME).addItemResult(map.get(type + "_ni"), 1).save(recipeOutput, name + type + "_from_ni");
+            new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(map.get(type), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(map.get(type + "_ox"), 1).save(recipeOutput, name + type + "_from_ox");
         }
     }
 }

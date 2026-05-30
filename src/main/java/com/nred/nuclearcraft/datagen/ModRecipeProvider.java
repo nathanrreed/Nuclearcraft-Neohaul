@@ -40,6 +40,8 @@ import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
+import static com.nred.nuclearcraft.util.FluidStackHelper.BUCKET_VOLUME;
+import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_VOLUME;
 import static net.minecraft.data.recipes.RecipeCategory.*;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
@@ -329,12 +331,12 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("graphite"), DUST_MAP.get("graphite")), 1).addItemResult(pelletMap.get(prefix + minor + "_c"), 1).save(recipeOutput, prefix + minor + "_from_c");
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addItemInput(Ingredient.of(INGOT_MAP.get("zirconium"), DUST_MAP.get("zirconium")), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_za"), 1).save(recipeOutput, prefix + minor + "_from_za");
 
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(NITROGEN_TAG, 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ni"), 1).save(recipeOutput, prefix + minor + "_from_ni");
-        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(OXYGEN_TAG, 1000).addItemResult(fuelTypeMap.get(prefix + minor + "_ox"), 1).save(recipeOutput, prefix + minor + "_from_ox");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(NITROGEN_TAG, BUCKET_VOLUME).addItemResult(fuelTypeMap.get(prefix + minor + "_ni"), 1).save(recipeOutput, prefix + minor + "_from_ni");
+        new ProcessorRecipeBuilder(FluidInfuserRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME).addItemResult(fuelTypeMap.get(prefix + minor + "_ox"), 1).save(recipeOutput, prefix + minor + "_from_ox");
 
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get(prefix + minor), 144).addItemResult(pelletMap.get(prefix + minor), 1).save(recipeOutput, prefix + minor);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get(prefix + minor), INGOT_VOLUME).addItemResult(pelletMap.get(prefix + minor), 1).save(recipeOutput, prefix + minor);
 
-        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidResult(FISSION_FUEL_MAP.get(prefix + minor), 144).save(recipeOutput, prefix + minor);
+        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidResult(FISSION_FUEL_MAP.get(prefix + minor), INGOT_VOLUME).save(recipeOutput, prefix + minor);
 
         new ProcessorRecipeBuilder(AssemblerRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor + "_c"), 9).addItemInput(DUST_MAP.get("graphite"), 1).addItemInput(PART_MAP.get("pyrolytic_carbon"), 1).addItemInput(ALLOY_MAP.get("silicon_carbide"), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_tr"), 9).save(recipeOutput, prefix + minor);
     }

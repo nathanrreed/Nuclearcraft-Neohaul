@@ -2,7 +2,7 @@
   "type": "nuclearcraftneohaul:infuser_recipe",
   "fluidIngredients": [
     {
-      "amount": 1000,
+      "amount": 576,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:enderium"
       }

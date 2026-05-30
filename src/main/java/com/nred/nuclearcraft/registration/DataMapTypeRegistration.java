@@ -17,10 +17,10 @@ public class DataMapTypeRegistration {
     public static final DataMapType<Block, MachineSieveAssemblyData> MACHINE_SIEVE_ASSEMBLY_DATA = DataMapType.builder(ncLoc("sieve_assembly_data"), Registries.BLOCK, MachineSieveAssemblyData.CODEC).synced(MachineSieveAssemblyData.CODEC, true).build();
     public static final DataMapType<Block, ElectrolyzerCathodeData> ELECTROLYZER_CATHODE_DATA = DataMapType.builder(ncLoc("electrolyzer_cathode_data"), Registries.BLOCK, ElectrolyzerCathodeData.CODEC).synced(ElectrolyzerCathodeData.CODEC, true).build();
     public static final DataMapType<Block, ElectrolyzerAnodeData> ELECTROLYZER_ANODE_DATA = DataMapType.builder(ncLoc("electrolyzer_anode_data"), Registries.BLOCK, ElectrolyzerAnodeData.CODEC).synced(ElectrolyzerAnodeData.CODEC, true).build();
-    public static final DataMapType<Fluid, ElectrolyzerElectrolyteData> ELECTROLYZER_ELECTROLYTE_DATA = DataMapType.builder(ncLoc("electrolyzer_electrolyte_data"), Registries.FLUID, ElectrolyzerElectrolyteData.CODEC).synced(ElectrolyzerElectrolyteData.CODEC, true).build();
-    public static final DataMapType<Fluid, InfiltratorPressureData> INFILTRATOR_PRESSURE_DATA = DataMapType.builder(ncLoc("infiltrator_pressure_data"), Registries.FLUID, InfiltratorPressureData.CODEC).synced(InfiltratorPressureData.CODEC, true).build();
     public static final DataMapType<Block, FissionModeratorData> FISSION_MODERATOR_DATA = DataMapType.builder(ncLoc("fission_moderator_data"), Registries.BLOCK, FissionModeratorData.CODEC).synced(FissionModeratorData.CODEC, true).build();
     public static final DataMapType<Block, FissionReflectorData> FISSION_REFLECTOR_DATA = DataMapType.builder(ncLoc("fission_reflector_data"), Registries.BLOCK, FissionReflectorData.CODEC).synced(FissionReflectorData.CODEC, true).build();
+    public static final DataMapType<Fluid, ElectrolyzerElectrolyteData> ELECTROLYZER_ELECTROLYTE_DATA = DataMapType.builder(ncLoc("electrolyzer_electrolyte_data"), Registries.FLUID, ElectrolyzerElectrolyteData.CODEC).synced(ElectrolyzerElectrolyteData.CODEC, true).build();
+    public static final DataMapType<Fluid, InfiltratorPressureData> INFILTRATOR_PRESSURE_DATA = DataMapType.builder(ncLoc("infiltrator_pressure_data"), Registries.FLUID, InfiltratorPressureData.CODEC).synced(InfiltratorPressureData.CODEC, true).build();
 
     @SubscribeEvent
     public static void registerDataMapTypes(RegisterDataMapTypesEvent event) {

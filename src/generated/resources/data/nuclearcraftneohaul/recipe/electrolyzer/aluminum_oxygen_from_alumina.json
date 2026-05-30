@@ -10,7 +10,7 @@
   ],
   "fluidProducts": [
     {
-      "amount": 144,
+      "amount": 72,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:aluminum"
       }
