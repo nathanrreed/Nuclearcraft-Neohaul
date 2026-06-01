@@ -5,26 +5,19 @@ import com.nred.nuclearcraft.recipe.fission.FissionIrradiatorRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FISSION_IRRADIATOR_RECIPE_TYPE;
 
 public class JeiFissionIrradiatorCategory extends JeiRecipeViewerCategory<FissionIrradiatorRecipe> {
-    protected static final ResourceLocation UID = ncLoc("fission_irradiator");
-    private static final RecipeType<FissionIrradiatorRecipe> TYPE = new RecipeType<>(UID, FissionIrradiatorRecipe.class);
+    protected static final String UID = ncLoc("fission_irradiator").getPath();
 
     public JeiFissionIrradiatorCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), FissionIrradiatorRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<FissionIrradiatorRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, FissionIrradiatorRecipeViewer.class, FISSION_IRRADIATOR_RECIPE_TYPE.get());
     }
 
     @Override

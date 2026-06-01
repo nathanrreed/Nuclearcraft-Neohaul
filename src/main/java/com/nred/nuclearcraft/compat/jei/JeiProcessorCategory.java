@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.jei;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
 import com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfo;
 import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
@@ -19,13 +19,12 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -35,34 +34,30 @@ import java.util.Optional;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
 import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.TILE_CONTAINER_INFO_MAP;
-import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getFEString;
 import static com.nred.nuclearcraft.helpers.SimpleHelper.getTimeString;
 import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 
-public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeCategory<T> {
+public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeCategory<RecipeHolder<T>> {
+
     private final IGuiHelper helper;
     private final String type;
-    private final RecipeType<T> TYPE;
-    private final ResourceLocation UID;
+    private final RecipeType<RecipeHolder<T>> recipeType;
     private final RecipeViewerInfo recipeViewerInfo;
-    private final BasicUpgradableProcessorMenuInfo<?, ?> info;
-    private static final Font font = Minecraft.getInstance().font;
+    private final ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo<?, ?> info;
 
 
-    public JeiProcessorCategory(IGuiHelper helper, String type, Class<T> clazz) {
+    public JeiProcessorCategory(IGuiHelper helper, String type, net.minecraft.world.item.crafting.RecipeType<T> recipeType) {
         this.helper = helper;
         this.type = type;
         this.recipeViewerInfo = RECIPE_VIEWER_MAP.get(type);
-        this.info = (BasicUpgradableProcessorMenuInfo<?, ?>) TILE_CONTAINER_INFO_MAP.get(type);
-
-        UID = ncLoc(type);
-        TYPE = new RecipeType<>(UID, clazz);
+        this.info = (ProcessorMenuInfoImpl.BasicUpgradableProcessorMenuInfo<?, ?>) TILE_CONTAINER_INFO_MAP.get(type);
+        this.recipeType = RecipeType.createFromVanilla(recipeType);
     }
 
     @Override
-    public RecipeType<T> getRecipeType() {
-        return TYPE;
+    public RecipeType<RecipeHolder<T>> getRecipeType() {
+        return recipeType;
     }
 
     @Override
@@ -86,7 +81,9 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<T> holder, IFocusGroup focuses) {
+        final var recipe = holder.value();
+
         for (int i = 0; i < recipe.itemIngredients.size(); i++) {
             ScreenPosition position = recipeViewerInfo.item_inputs().get(i);
             builder.addInputSlot(position.x() + 1, position.y() + 1).addItemStacks(Arrays.stream(recipe.itemIngredients.get(i).getItemsRaw()).toList());
@@ -118,7 +115,9 @@ public class JeiProcessorCategory<T extends ProcessorRecipe> implements IRecipeC
     }
 
     @Override
-    public void draw(T recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<T> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        final var recipe = holder.value();
+
         guiGraphics.blit(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top(), recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height());
         guiGraphics.blit(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 176, 3, (int) (((double) System.currentTimeMillis() / 100 / recipe.getProcessTimeMultiplier()) % 37), 38);
 

@@ -5,26 +5,19 @@ import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.MACHINE_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.MULTIBLOCK_INFILTRATOR_RECIPE_TYPE;
 
 public class JeiMultiblockInfiltratorCategory extends JeiRecipeViewerCategory<MultiblockInfiltratorRecipe> {
-    protected static final ResourceLocation UID = ncLoc("multiblock_infiltrator");
-    private static final RecipeType<MultiblockInfiltratorRecipe> TYPE = new RecipeType<>(UID, MultiblockInfiltratorRecipe.class);
+    protected static final String UID = ncLoc("multiblock_infiltrator").getPath();
 
     public JeiMultiblockInfiltratorCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), MultiblockInfiltratorRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<MultiblockInfiltratorRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, MultiblockInfiltratorRecipeViewer.class, MULTIBLOCK_INFILTRATOR_RECIPE_TYPE.get());
     }
 
     @Override

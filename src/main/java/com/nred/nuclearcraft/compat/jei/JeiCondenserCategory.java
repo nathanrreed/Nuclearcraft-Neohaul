@@ -5,26 +5,19 @@ import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.HX_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.CONDENSER_RECIPE_TYPE;
 
 public class JeiCondenserCategory extends JeiRecipeViewerCategory<CondenserRecipe> {
-    protected static final ResourceLocation UID = ncLoc("condenser");
-    private static final RecipeType<CondenserRecipe> TYPE = new RecipeType<>(UID, CondenserRecipe.class);
+    protected static final String UID = ncLoc("condenser").getPath();
 
     public JeiCondenserCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), CondenserRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<CondenserRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, CondenserRecipeViewer.class, CONDENSER_RECIPE_TYPE.get());
     }
 
     @Override
