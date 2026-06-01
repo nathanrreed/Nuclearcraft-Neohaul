@@ -230,7 +230,3 @@ Global: `nuclearSupercooler`
 nuclearSupercooler.addRecipe(name as string, input as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double, powerModifier as double, radiation as double);
 nuclearSupercooler.addRecipe(name as string, input as CTFluidIngredient, output as IFluidStack, outputChance as int, timeModifier as double, powerModifier as double, radiation as double);
 ```
-
-## Addons
-
-TODO
