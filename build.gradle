@@ -181,6 +181,10 @@ dependencies {
     runtimeOnly("org.appliedenergistics:guideme:${guideme_version}")
 
     compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${minecraft_version}:${sable_companion_version}")
+
+    compileOnly("com.blamejared.crafttweaker:CraftTweaker-neoforge-${minecraft_version}:${crafttweaker_version}")
+    runtimeOnly("com.blamejared.crafttweaker:CraftTweaker-neoforge-${minecraft_version}:${crafttweaker_version}")
+
 }
 
 tasks.withType(ProcessResources).configureEach {
