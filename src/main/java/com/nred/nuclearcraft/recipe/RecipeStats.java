@@ -3,7 +3,6 @@ package com.nred.nuclearcraft.recipe;
 import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.datamap.FissionModeratorData;
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.recipe.NCRecipes.BasicProcessorRecipeHandler;
 import com.nred.nuclearcraft.util.NCMath;

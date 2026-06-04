@@ -22,7 +22,7 @@ public class MelterProvider {
     public void createSet(RecipeOutput recipeOutput, String name) {
         if (!MOLTEN_MAP.containsKey(name)) return;
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(tags(List.of(tag(Tags.Items.INGOTS, name), tag(Tags.Items.DUSTS, name)), 1)).addFluidResult(MOLTEN_MAP.get(name), INGOT_VOLUME).save(recipeOutput, "molten_" + name);
-        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, name), 1).addFluidResult(MOLTEN_MAP.get(name), 33, INGOT_VOLUME * 2, INGOT_VOLUME).save(recipeOutput, "molten_" + name + "_from_raw");
+        new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, name), 1).addFluidResult(MOLTEN_MAP.get(name), 33, INGOT_VOLUME * 2, INGOT_VOLUME, INGOT_VOLUME / 4).save(recipeOutput, "molten_" + name + "_from_raw");
         new ProcessorRecipeBuilder(MelterRecipe.class, 9, 1).addItemInput(tags(List.of(tag(Tags.Items.STORAGE_BLOCKS, name), tag(Tags.Items.STORAGE_BLOCKS, "raw_" + name)), 1)).addFluidResult(MOLTEN_MAP.get(name), INGOT_BLOCK_VOLUME).save(recipeOutput, "molten_" + name + "_from_block");
         new ProcessorRecipeBuilder(MelterRecipe.class, 1.0 / 9, 0.25).addItemInput(tag(Tags.Items.NUGGETS, name), 1).addFluidResult(MOLTEN_MAP.get(name), NUGGET_VOLUME).save(recipeOutput, "molten_" + name + "_from_nugget");
         new ProcessorRecipeBuilder(MelterRecipe.class, 1.25, 1.5).addItemInput(tag(Tags.Items.ORES, name), 1).addFluidResult(MOLTEN_MAP.get(name), INGOT_VOLUME * 3).save(recipeOutput, "molten_" + name + "_from_ore");

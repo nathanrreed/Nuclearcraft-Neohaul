@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.helpers;
 
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.data.recipes.RecipeOutput;

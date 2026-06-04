@@ -1,8 +1,6 @@
 package com.nred.nuclearcraft.recipe;
 
 import com.google.common.base.CaseFormat;
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -138,8 +136,8 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ProcessorRecipeBuilder addFluidResult(Fluids output, int chancePercent, int amount, int minStackSize) {
-        fluidResults.add(Fluids.sizedIngredient(output, chancePercent, amount, minStackSize));
+    public ProcessorRecipeBuilder addFluidResult(Fluids output, int chancePercent, int amount, int minStackSize, int increment) {
+        fluidResults.add(Fluids.sizedIngredient(output, chancePercent, amount, minStackSize, increment));
         return this;
     }
 

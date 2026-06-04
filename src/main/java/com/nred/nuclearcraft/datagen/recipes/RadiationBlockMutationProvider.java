@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes;
 
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipeBuilder;
 import com.nred.nuclearcraft.recipe.RadiationBlockMutationRecipe;
 import net.minecraft.data.recipes.RecipeOutput;

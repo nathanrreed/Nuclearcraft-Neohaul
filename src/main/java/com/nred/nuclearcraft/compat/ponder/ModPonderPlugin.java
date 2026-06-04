@@ -11,20 +11,17 @@ import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.registries.datamaps.DataMapsUpdatedEvent;
-
-import java.util.Objects;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_MODERATOR_DATA;
-import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.FISSION_REFLECTOR_DATA;
 import static com.nred.nuclearcraft.registration.ItemRegistration.PELLET_URANIUM_MAP;
 import static net.minecraft.world.level.block.LeverBlock.POWERED;
 import static net.neoforged.neoforge.registries.datamaps.DataMapsUpdatedEvent.UpdateCause.CLIENT_SYNC;
@@ -37,8 +34,8 @@ public class ModPonderPlugin implements PonderPlugin {
 
     @Override
     public void registerScenes(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        BuiltInRegistries.BLOCK.getDataMap(FISSION_MODERATOR_DATA).forEach((key, value) -> helper.addStoryBoard(key.location(), ncLoc("basic"), ((scene, util) -> moderator(scene, util, Objects.requireNonNull(BuiltInRegistries.BLOCK.get(key)), value))));
-        BuiltInRegistries.BLOCK.getDataMap(FISSION_REFLECTOR_DATA).forEach((key, value) -> helper.addStoryBoard(key.location(), ncLoc("basic"), ((scene, util) -> reflector(scene, util, Objects.requireNonNull(BuiltInRegistries.BLOCK.get(key)), value))));
+//        BuiltInRegistries.BLOCK.getDataMap(FISSION_MODERATOR_DATA).forEach((key, value) -> helper.addStoryBoard(key.location(), ncLoc("basic"), ((scene, util) -> moderator(scene, util, Objects.requireNonNull(BuiltInRegistries.BLOCK.get(key)), value))));
+//        BuiltInRegistries.BLOCK.getDataMap(FISSION_REFLECTOR_DATA).forEach((key, value) -> helper.addStoryBoard(key.location(), ncLoc("basic"), ((scene, util) -> reflector(scene, util, Objects.requireNonNull(BuiltInRegistries.BLOCK.get(key)), value))));
     }
 
     public static void moderator(SceneBuilder scene, SceneBuildingUtil util, Block moderator, FissionModeratorData data) {
@@ -51,6 +48,9 @@ public class ModPonderPlugin implements PonderPlugin {
         scene.world().setBlock(util.grid().at(3, 1, 2), moderator.defaultBlockState(), false);
         scene.world().setBlock(util.grid().at(1, 1, 1), FISSION_REACTOR_MAP.get("radium_beryllium_source").get().defaultBlockState().setValue(FACING_HORIZONTAL, Direction.SOUTH).setValue(ACTIVE, true), false);
         scene.world().setBlock(util.grid().at(1, 1, 0), Blocks.LEVER.defaultBlockState().setValue(POWERED, true), false);
+
+        scene.overlay().showBigLine(PonderPalette.BLUE, new Vec3(1.5, 2.1, 1.5), new Vec3(1.5, 2.1, 2.5), 100);
+        scene.overlay().showBigLine(PonderPalette.BLUE, new Vec3(1.5, 2.1, 2.5), new Vec3(3.5, 2.1, 2.5), 100);
 
         scene.overlay().showControls(util.grid().at(1, 1, 2).getCenter(), Pointing.UP, 45).withItem(PELLET_URANIUM_MAP.get("leu_235").toStack());
         scene.overlay().showOutlineWithText(util.select().position(2, 1, 2), 20).sharedText("moderator.active").colored(PonderPalette.INPUT);

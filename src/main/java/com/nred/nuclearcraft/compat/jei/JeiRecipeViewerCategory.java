@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.compat.jei;
 
 import com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.RecipeViewer;
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;

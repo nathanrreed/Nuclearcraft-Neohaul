@@ -1,4 +1,4 @@
-package com.nred.nuclearcraft.handler;
+package com.nred.nuclearcraft.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -8,6 +8,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -25,7 +26,9 @@ public class SizedChanceFluidIngredient {
                     FluidIngredient.CODEC.fieldOf("ingredient").forGetter(SizedChanceFluidIngredient::ingredient),
                     NeoForgeExtraCodecs.optionalFieldAlwaysWrite(ExtraCodecs.NON_NEGATIVE_INT, "amount", FluidType.BUCKET_VOLUME).forGetter(SizedChanceFluidIngredient::amount),
                     ExtraCodecs.POSITIVE_INT.optionalFieldOf("chancePercent", 100).forGetter(SizedChanceFluidIngredient::chancePercent),
-                    ExtraCodecs.POSITIVE_INT.optionalFieldOf("minStackSize", 0).forGetter(SizedChanceFluidIngredient::minStackSize))
+                    ExtraCodecs.POSITIVE_INT.optionalFieldOf("minStackSize", 0).forGetter(SizedChanceFluidIngredient::minStackSize),
+                    ExtraCodecs.POSITIVE_INT.optionalFieldOf("increment", 1).forGetter(SizedChanceFluidIngredient::increment)
+            )
             .apply(instance, SizedChanceFluidIngredient::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SizedChanceFluidIngredient> STREAM_CODEC = StreamCodec.composite(
@@ -33,11 +36,13 @@ public class SizedChanceFluidIngredient {
             ByteBufCodecs.VAR_INT, SizedChanceFluidIngredient::amount,
             ByteBufCodecs.VAR_INT, SizedChanceFluidIngredient::chancePercent,
             ByteBufCodecs.VAR_INT, SizedChanceFluidIngredient::minStackSize,
+            ByteBufCodecs.VAR_INT, SizedChanceFluidIngredient::increment,
             SizedChanceFluidIngredient::new);
 
     private final FluidIngredient ingredient;
     private final int amount;
     private final int chancePercent;
+    private final int increment;
     private final int minStackSize;
 
     public static final SizedChanceFluidIngredient EMPTY = new SizedChanceFluidIngredient(FluidIngredient.empty(), 0);
@@ -45,18 +50,26 @@ public class SizedChanceFluidIngredient {
     @Nullable
     private FluidStack[] cachedStacks;
 
-    public SizedChanceFluidIngredient(FluidIngredient ingredient, int amount, int chancePercent, int minStackSize) {
+    public SizedChanceFluidIngredient(FluidIngredient ingredient, int amount, int chancePercent, int minStackSize, int increment) {
         if (chancePercent <= 0) {
-            throw new IllegalArgumentException("Chance must be positive");
+            throw new IllegalArgumentException("Chance must be greater than 0");
         }
         if (minStackSize < 0) {
             throw new IllegalArgumentException("Min size must be positive");
+        }
+        if (increment < 1) {
+            throw new IllegalArgumentException("Increment must be greater than 1");
         }
 
         this.ingredient = ingredient;
         this.amount = amount;
         this.chancePercent = chancePercent;
+        this.increment = increment;
         this.minStackSize = minStackSize;
+    }
+
+    public SizedChanceFluidIngredient(FluidIngredient ingredient, int amount, int chancePercent, int minStackSize) {
+        this(ingredient, amount, chancePercent, minStackSize, 1);
     }
 
     public SizedChanceFluidIngredient(FluidIngredient ingredient, int amount) {
@@ -64,6 +77,7 @@ public class SizedChanceFluidIngredient {
         this.amount = amount;
         this.chancePercent = 100;
         this.minStackSize = 0;
+        this.increment = 1;
     }
 
     public static SizedChanceFluidIngredient of(Fluid fluid, int amount) {
@@ -72,6 +86,10 @@ public class SizedChanceFluidIngredient {
 
     public static SizedChanceFluidIngredient of(Fluid fluid, int amount, int chancePercent, int minStackSize) {
         return new SizedChanceFluidIngredient(FluidIngredient.of(fluid), amount, chancePercent, minStackSize);
+    }
+
+    public static SizedChanceFluidIngredient of(Fluid fluid, int amount, int chancePercent, int minStackSize, int increment) {
+        return new SizedChanceFluidIngredient(FluidIngredient.of(fluid), amount, chancePercent, minStackSize, increment);
     }
 
     public static SizedChanceFluidIngredient of(FluidStack stack) {
@@ -110,6 +128,10 @@ public class SizedChanceFluidIngredient {
         return chancePercent;
     }
 
+    public int increment() {
+        return increment;
+    }
+
     public int minStackSize() {
         return minStackSize;
     }
@@ -121,7 +143,8 @@ public class SizedChanceFluidIngredient {
     public FluidStack[] getFluids() {
         getFluidsRaw();
         if (chancePercent < 100) {
-            return Arrays.stream(cachedStacks).map(s -> s.copyWithAmount(minStackSize + NCMath.getBinomial(amount, chancePercent))).toArray(FluidStack[]::new);
+            int incrSteps = (amount - this.minStackSize) / this.increment;
+            return Arrays.stream(cachedStacks).map(s -> s.copyWithAmount(Mth.clamp(minStackSize + this.increment * NCMath.getBinomial(incrSteps, chancePercent), minStackSize, amount))).toArray(FluidStack[]::new);
         }
         return cachedStacks;
     }
@@ -152,11 +175,11 @@ public class SizedChanceFluidIngredient {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ingredient, amount, chancePercent, minStackSize);
+        return Objects.hash(ingredient, amount, chancePercent, minStackSize, increment);
     }
 
     @Override
     public String toString() {
-        return amount + "x " + ingredient + " [ " + chancePercent + "%, min: " + minStackSize + " ]";
+        return amount + "x " + Arrays.stream(this.ingredient.getStacks()).findAny().orElse(FluidStack.EMPTY).getFluid() + " [ " + chancePercent + "%, min: " + minStackSize + ", incr: " + increment + " ]";
     }
 }

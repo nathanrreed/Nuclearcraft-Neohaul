@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.util;
 
 import com.mojang.datafixers.util.*;
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.fluids.FluidStack;

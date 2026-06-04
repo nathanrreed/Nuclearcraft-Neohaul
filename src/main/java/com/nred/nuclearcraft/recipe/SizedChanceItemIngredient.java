@@ -1,4 +1,4 @@
-package com.nred.nuclearcraft.handler;
+package com.nred.nuclearcraft.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -117,7 +117,7 @@ public class SizedChanceItemIngredient {
     public ItemStack[] getItems() {
         getItemsRaw();
         if (chancePercent < 100) {
-            return Arrays.stream(cachedStacks).map(s -> s.copyWithCount(minStackSize + NCMath.getBinomial(count, chancePercent))).toArray(ItemStack[]::new);
+            return Arrays.stream(cachedStacks).map(s -> s.copyWithCount(minStackSize + NCMath.getBinomial(count - minStackSize, chancePercent))).toArray(ItemStack[]::new);
         }
         return cachedStacks;
     }
@@ -149,6 +149,6 @@ public class SizedChanceItemIngredient {
 
     @Override
     public String toString() {
-        return count + "x " + ingredient + " [ " + chancePercent + "%, min: " + minStackSize + " ]";
+        return count + "x " + Arrays.stream(ingredient.getItems()).findAny().orElse(ItemStack.EMPTY).getItem() + " [ " + chancePercent + "%, min: " + minStackSize + " ]";
     }
 }

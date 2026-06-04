@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenu;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes.processor;
 
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.AlloyFurnaceRecipe;
 import net.minecraft.data.recipes.RecipeOutput;

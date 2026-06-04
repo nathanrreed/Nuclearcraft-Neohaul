@@ -1,6 +1,5 @@
 package com.nred.nuclearcraft.recipe;
 
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeBuilder;
@@ -42,7 +41,7 @@ abstract class SimpleRecipeBuilder implements RecipeBuilder {
     }
 
     public static ResourceLocation getDefaultRecipeId(List<SizedChanceFluidIngredient> inputs, List<SizedChanceFluidIngredient> outputs, String append) {
-        return ncLoc((outputs.stream().map(SimpleRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid) + "_from_" + inputs.stream().map(SimpleRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid)).replaceAll("__", "_").replaceFirst("^_", "") + append);
+        return ncLoc((outputs.stream().map(SimpleRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid) + "_from_" + inputs.stream().map(SimpleRecipeBuilder::getKey).reduce("", (string, fluid) -> string + "_" + fluid)).replace("__", "_").replaceFirst("^_", "") + append);
     }
 
     public static ResourceLocation getDefaultRecipeId(List<SizedChanceFluidIngredient> inputs, List<SizedChanceFluidIngredient> outputs) {

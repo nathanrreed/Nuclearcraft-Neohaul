@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.info;
 import com.nred.nuclearcraft.block.fluid.*;
 import com.nred.nuclearcraft.fluid.GasFluid;
 import com.nred.nuclearcraft.fluid.NCSourceFluid;
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BucketItem;
@@ -204,5 +204,8 @@ public class Fluids {
 
     public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount, int minStackSize) {
         return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, minStackSize);
+    }
+    public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount, int minStackSize, int increment) {
+        return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, minStackSize, increment);
     }
 }

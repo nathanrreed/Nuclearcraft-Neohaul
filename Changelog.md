@@ -1,1 +1,3 @@
 - Updated melter recipes
+- Added increment to SizedChanceFluidIngredient
+- Updated readme

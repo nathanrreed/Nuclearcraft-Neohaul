@@ -7,14 +7,16 @@
 <a href="https://modrinth.com/mod/nuclearcraft-neohaul">
 <img src="https://img.shields.io/modrinth/dt/nuclearcraft-neohaul?style=for-the-badge&logo=modrinth&logoSize=auto" alt="Modrinth Downloads" /></a>
 
-<a href="https://github.com/nathanrreed/Nuclearcraft-Neohaul/releases/latest">
-<img src="https://img.shields.io/github/downloads/nathanrreed/Nuclearcraft-Neohaul/total?style=for-the-badge&logo=github&logoSize=auto" alt="GitHub Downloads" /></a>
 </div>
 <br />
 
 A port of NuclearCraft: Overhauled to Neoforge for 1.21.1, the original for on MC 1.12.2 and earlier can be found [here](https://github.com/tomdodd4598/NuclearCraft).
 
 For a remake of the Nuclearcraft pre-overhaul see [NuclearCraft-Neoteric](https://github.com/igentuman/NuclearCraft-Neoteric)
+
+For Customization information see [Customization.md](Customization.md)
+
+For Commands see [Commands.md](Commands.md)
 
 ### Dependencies:
 #### Required:
