@@ -7,7 +7,15 @@ import org.jspecify.annotations.Nullable;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public record RadiationScrubberPeripheral(RadiationScrubberEntity entity) implements IPeripheral {
+@SuppressWarnings("unused")
+public class RadiationScrubberPeripheral extends ProcessorPeripheral {
+    private final RadiationScrubberEntity entity;
+
+    public RadiationScrubberPeripheral(RadiationScrubberEntity processorEntity) {
+        super(processorEntity);
+        this.entity = processorEntity;
+    }
+
     @LuaFunction(mainThread = true)
     public double getRadiationRemovalRate() {
         return entity.getRawScrubberRate();

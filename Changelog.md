@@ -1,3 +1,4 @@
 - Updated melter recipes
 - Added increment to SizedChanceFluidIngredient
+- Added energy values to processors for CC:T
 - Updated readme

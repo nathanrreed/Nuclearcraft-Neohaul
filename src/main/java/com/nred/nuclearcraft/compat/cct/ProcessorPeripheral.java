@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.compat.cct;
 
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
-import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.BasicUpgradableEnergyProcessorEntity;
+import com.nred.nuclearcraft.block_entity.processor.EnergyProcessorEntity;
 import com.nred.nuclearcraft.util.CCHelper;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
@@ -11,7 +11,14 @@ import org.jspecify.annotations.Nullable;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public record ProcessorPeripheral(BasicUpgradableEnergyProcessorEntity<?> processorEntity) implements IPeripheral {
+@SuppressWarnings("unused")
+public class ProcessorPeripheral implements IPeripheral {
+    public final EnergyProcessorEntity<?, ?> processorEntity;
+
+    public ProcessorPeripheral(EnergyProcessorEntity<?, ?> processorEntity) {
+        this.processorEntity = processorEntity;
+    }
+
     @LuaFunction(mainThread = true)
     public String getComponentName() {
         return processorEntity.getContainerInfo().ccComponentName;
@@ -37,6 +44,15 @@ public record ProcessorPeripheral(BasicUpgradableEnergyProcessorEntity<?> proces
         return processorEntity.getBaseProcessPower();
     }
 
+    @LuaFunction(mainThread = true)
+    public long getEnergy() {
+        return processorEntity.getEnergyStoredLong();
+    }
+
+    @LuaFunction(mainThread = true)
+    public long getEnergyCapacity() {
+        return processorEntity.getEnergyCapacity();
+    }
 
     @LuaFunction(mainThread = true)
     public Object[] getItemInputs() {
