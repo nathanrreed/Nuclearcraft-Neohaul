@@ -3,18 +3,18 @@ package com.nred.nuclearcraft.compat.crafttweaker.recipe_managers;
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker.api.item.IItemStack;
-import com.blamejared.crafttweaker.api.util.random.Percentaged;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
+import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.processor.DecayHastenerRecipe;
 import org.openzen.zencode.java.ZenCodeGlobals;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
-@ZenCodeType.Name("mods.nuclearcraft.recipe.manager.DecayHastenerRecipeManager")
+@ZenCodeType.Name("mods.nuclearcraft.DecayHastener")
 @Document("mods/nuclearcraft/recipe/manager/DecayHastenerRecipeManager")
 public class DecayHastenerRecipeManager extends BasicNuclearRecipeManager<DecayHastenerRecipe> {
 
-    @ZenCodeGlobals.Global("nuclearDecayHastener")
+    @ZenCodeGlobals.Global("mods.nuclearcraft.DecayHastener")
     public static final DecayHastenerRecipeManager INSTANCE = new DecayHastenerRecipeManager();
 
     public DecayHastenerRecipeManager() {
@@ -25,19 +25,20 @@ public class DecayHastenerRecipeManager extends BasicNuclearRecipeManager<DecayH
     public void addRecipe(String name,
                           IIngredientWithAmount input,
                           IItemStack output,
-                          double timeModifier,
-                          double powerModifier,
-                          double radiation) {
+                          @ZenCodeType.OptionalDouble(1D) double timeModifier,
+                          @ZenCodeType.OptionalDouble(1D) double powerModifier,
+                          @ZenCodeType.OptionalDouble(0D) double radiation) {
         addRecipeInternal(name, compact(input), compact(output), null, null, timeModifier, powerModifier, radiation);
     }
 
     @ZenCodeType.Method
-    public void addRecipeWithChance(String name,
+    public void addRecipe(String name,
                           IIngredientWithAmount input,
-                          Percentaged<IItemStack> output,
-                          double timeModifier,
-                          double powerModifier,
-                          double radiation) {
+                          CTChanceItemIngredient output,
+                          @ZenCodeType.OptionalDouble(1D) double timeModifier,
+                          @ZenCodeType.OptionalDouble(1D) double powerModifier,
+                          @ZenCodeType.OptionalDouble(0D) double radiation) {
         addRecipeInternal(name, compact(input), compact(output), null, null, timeModifier, powerModifier, radiation);
     }
 }
+

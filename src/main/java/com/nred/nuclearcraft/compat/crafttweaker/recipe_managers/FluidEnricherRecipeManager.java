@@ -10,11 +10,11 @@ import org.openzen.zencode.java.ZenCodeGlobals;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
-@ZenCodeType.Name("mods.nuclearcraft.recipe.manager.FluidEnricherRecipeManager")
+@ZenCodeType.Name("mods.nuclearcraft.Enricher")
 @Document("mods/nuclearcraft/recipe/manager/FluidEnricherRecipeManager")
 public class FluidEnricherRecipeManager extends BasicNuclearRecipeManager<FluidEnricherRecipe> {
 
-    @ZenCodeGlobals.Global("nuclearFluidEnricher")
+    @ZenCodeGlobals.Global("mods.nuclearcraft.Enricher")
     public static final FluidEnricherRecipeManager INSTANCE = new FluidEnricherRecipeManager();
 
     public FluidEnricherRecipeManager() {
@@ -26,9 +26,9 @@ public class FluidEnricherRecipeManager extends BasicNuclearRecipeManager<FluidE
                           IIngredientWithAmount itemInput,
                           CTFluidIngredient fluidInput,
                           CTFluidIngredient output,
-                          double timeModifier,
-                          double powerModifier,
-                          double radiation) {
+                          @ZenCodeType.OptionalDouble(1D) double timeModifier,
+                          @ZenCodeType.OptionalDouble(1D) double powerModifier,
+                          @ZenCodeType.OptionalDouble(0D) double radiation) {
         addRecipeInternal(name, compact(itemInput), (IIngredientWithAmount[]) null, compact(fluidInput), compact(output), timeModifier, powerModifier, radiation);
     }
 
@@ -38,9 +38,9 @@ public class FluidEnricherRecipeManager extends BasicNuclearRecipeManager<FluidE
                           CTFluidIngredient fluidInput,
                           IFluidStack output,
                           @ZenCodeType.OptionalInt(100) int outputChance,
-                          double timeModifier,
-                          double powerModifier,
-                          double radiation) {
+                          @ZenCodeType.OptionalDouble(1D) double timeModifier,
+                          @ZenCodeType.OptionalDouble(1D) double powerModifier,
+                          @ZenCodeType.OptionalDouble(0D) double radiation) {
         addRecipeInternal(name, compact(itemInput), (IIngredientWithAmount[]) null, compact(fluidInput), compact(output), new int[] { outputChance }, timeModifier, powerModifier, radiation);
     }
 }

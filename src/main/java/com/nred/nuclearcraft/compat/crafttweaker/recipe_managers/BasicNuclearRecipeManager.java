@@ -3,9 +3,8 @@ package com.nred.nuclearcraft.compat.crafttweaker.recipe_managers;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
-import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.recipe.manager.base.IRecipeManager;
-import com.blamejared.crafttweaker.api.util.random.Percentaged;
+import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceItemIngredient;
 import com.nred.nuclearcraft.compat.crafttweaker.utils.CTProcessorRecipeWrapper;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -46,7 +45,7 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
 
     protected final void addRecipeInternal(String name,
                                            @Nullable IIngredientWithAmount[] itemInputs,
-                                           @Nullable Percentaged<IItemStack>[] itemOutputs,
+                                           @Nullable Object[] itemOutputs,
                                            @Nullable CTFluidIngredient[] fluidInputs,
                                            @Nullable CTFluidIngredient[] fluidOutputs,
                                            double timeModifier,
@@ -57,7 +56,7 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
                 itemInputs,
                 unwrapItemOutputs(itemOutputs),
                 unwrapItemOutputChances(itemOutputs),
-                null,
+                unwrapItemOutputMinStackSizes(itemOutputs),
                 fluidInputs,
                 fluidOutputs,
                 null,
@@ -95,7 +94,7 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
 
     protected final void addRecipeInternal(String name,
                                            @Nullable IIngredientWithAmount[] itemInputs,
-                                           @Nullable Percentaged<IItemStack>[] itemOutputs,
+                                           @Nullable Object[] itemOutputs,
                                            @Nullable CTFluidIngredient[] fluidInputs,
                                            @Nullable IFluidStack[] fluidOutputs,
                                            @Nullable int[] fluidOutputChances,
@@ -107,7 +106,7 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
                 itemInputs,
                 unwrapItemOutputs(itemOutputs),
                 unwrapItemOutputChances(itemOutputs),
-                null,
+                unwrapItemOutputMinStackSizes(itemOutputs),
                 fluidInputs,
                 asFluidIngredients(fluidOutputs),
                 fluidOutputChances,
@@ -162,29 +161,57 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
     }
 
     @Nullable
-    private static IIngredientWithAmount[] unwrapItemOutputs(@Nullable Percentaged<IItemStack>[] itemOutputs) {
+    private static IIngredientWithAmount[] unwrapItemOutputs(@Nullable Object[] itemOutputs) {
         if (itemOutputs == null) {
             return null;
         }
 
         IIngredientWithAmount[] outputs = new IIngredientWithAmount[itemOutputs.length];
         for (int i = 0; i < itemOutputs.length; i++) {
-            outputs[i] = itemOutputs[i].getData();
+            outputs[i] = parseItemOutput(itemOutputs[i]).ingredient();
         }
         return outputs;
     }
 
     @Nullable
-    private static int[] unwrapItemOutputChances(@Nullable Percentaged<IItemStack>[] itemOutputs) {
+    private static int[] unwrapItemOutputChances(@Nullable Object[] itemOutputs) {
         if (itemOutputs == null) {
             return null;
         }
 
         int[] chances = new int[itemOutputs.length];
         for (int i = 0; i < itemOutputs.length; i++) {
-            chances[i] = (int) Math.floor(itemOutputs[i].getPercentage() * 100D);
+            chances[i] = parseItemOutput(itemOutputs[i]).chancePercent();
         }
         return chances;
+    }
+
+    @Nullable
+    private static int[] unwrapItemOutputMinStackSizes(@Nullable Object[] itemOutputs) {
+        if (itemOutputs == null) {
+            return null;
+        }
+
+        int[] minStackSizes = new int[itemOutputs.length];
+        for (int i = 0; i < itemOutputs.length; i++) {
+            minStackSizes[i] = parseItemOutput(itemOutputs[i]).minStackSize();
+        }
+        return minStackSizes;
+    }
+
+    private static ParsedItemOutput parseItemOutput(Object output) {
+        if (output instanceof CTChanceItemIngredient chanceItemIngredient) {
+            return new ParsedItemOutput(
+                    chanceItemIngredient.getInternalIngredient(),
+                    chanceItemIngredient.getChancePercent(),
+                    chanceItemIngredient.getMinStackSize()
+            );
+        }
+        if (output instanceof IIngredientWithAmount ingredient) {
+            return new ParsedItemOutput(ingredient, 100, 0);
+        }
+
+        throw new IllegalArgumentException("Unsupported item output type: " + output.getClass().getName());
     }
 
     @Nullable
@@ -198,5 +225,8 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
             outputs[i] = fluidOutputs[i].asFluidIngredient();
         }
         return outputs;
+    }
+
+    private record ParsedItemOutput(IIngredientWithAmount ingredient, int chancePercent, int minStackSize) {
     }
 }

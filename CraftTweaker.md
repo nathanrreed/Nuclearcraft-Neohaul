@@ -1,232 +1,290 @@
-## CraftTweaker
+## NuclearCraft CraftTweaker Integration
 
 Examples: `crafttweaker_examples/nuclearcraft_processors.zs`
 
-### Notes
+All processor recipes involve five groups of data: item inputs, fluid inputs, item outputs, fluid outputs and extra
+recipe info. The first four are the actual ingredients and products. The extra recipe info contains values such as
+`timeModifier`, `powerModifier` and `radiation`.
 
-- All processor managers are exposed as global CraftTweaker objects.
-- `?` means the argument is optional / nullable.
-- For guaranteed item outputs use `addRecipe(..., output as IItemStack, ...)`.
-- For chance item outputs use `addRecipeWithChance(..., output as Percentaged<IItemStack>, ...)`, for example:
+Recipe extras follow the old 1.12.2 style defaults:
 
 ```zenscript
-<item:minecraft:diamond>.percent(35)
+timeModifier = 1D
+powerModifier = 1D
+radiation = 0D
 ```
 
-- For guaranteed fluid outputs use `CTFluidIngredient`.
-- For chance fluid outputs use `IFluidStack` plus a separate `int` chance right after that output, for example:
+If you specify optional extras, they must be passed in order.
+
+## Chance Ingredients
+
+Item outputs can use NuclearCraft's chance ingredient wrapper.
+
+### ChanceItemIngredient
+
+```zenscript
+mods.nuclearcraft.ChanceItemIngredient.create(ingredient as IIngredientWithAmount, chancePercent as int, minStackSize as int = 0);
+```
+
+Examples:
+
+```zenscript
+mods.nuclearcraft.ChanceItemIngredient.create(<item:minecraft:coal> * 2, 25);
+mods.nuclearcraft.ChanceItemIngredient.create(<item:minecraft:glowstone_dust> * 3, 60, 2);
+```
+
+Extra methods:
+
+```zenscript
+getInternalIngredient() as IIngredientWithAmount
+getChancePercent() as int
+getMinStackSize() as int
+```
+
+Fluid outputs can also use chance data. For fluids, the chance is passed as a separate integer argument right after the
+fluid output:
 
 ```zenscript
 <fluid:minecraft:water> * 1000, 35
 ```
 
+## Recipe Addition
+
+Item inputs can be:
+
+- `IIngredientWithAmount`
+- `null` for optional item slots
+
+Fluid inputs can be:
+
+- `CTFluidIngredient`
+- `null` for optional fluid slots
+
+Item outputs can be:
+
+- `IItemStack`
+- `mods.nuclearcraft.ChanceItemIngredient`
+- `null` for optional output slots
+
+Fluid outputs can be:
+
+- `CTFluidIngredient`
+- `IFluidStack, chancePercent`
+- `null` for optional output slots
+
+Be sure to use a decimal when a `double` is required and you want to pass a whole number, for example `1D` or `1.0`.
+
+## Recipe Removal
+
+Recipe removal methods are not implemented yet in this integration layer.
+
 ## Globals
 
 ```zenscript
-nuclearAlloyFurnace
-nuclearAssembler
-nuclearCentrifuge
-nuclearChemicalReactor
-nuclearCrystallizer
-nuclearDecayHastener
-nuclearElectricFurnace
-nuclearElectrolyzer
-nuclearFluidEnricher
-nuclearFluidExtractor
-nuclearFluidInfuser
-nuclearFluidMixer
-nuclearFuelReprocessor
-nuclearIngotFormer
-nuclearManufactory
-nuclearMelter
-nuclearPressurizer
-nuclearRockCrusher
-nuclearSeparator
-nuclearSupercooler
+mods.nuclearcraft.AlloyFurnace
+mods.nuclearcraft.Assembler
+mods.nuclearcraft.Centrifuge
+mods.nuclearcraft.ChemicalReactor
+mods.nuclearcraft.Crystallizer
+mods.nuclearcraft.DecayHastener
+mods.nuclearcraft.ElectricFurnace
+mods.nuclearcraft.Electrolyzer
+mods.nuclearcraft.Enricher
+mods.nuclearcraft.Extractor
+mods.nuclearcraft.Infuser
+mods.nuclearcraft.SaltMixer
+mods.nuclearcraft.FuelReprocessor
+mods.nuclearcraft.IngotFormer
+mods.nuclearcraft.Manufactory
+mods.nuclearcraft.Melter
+mods.nuclearcraft.Pressurizer
+mods.nuclearcraft.RockCrusher
+mods.nuclearcraft.Separator
+mods.nuclearcraft.Supercooler
 ```
 
 ## Signatures
 
 ### Alloy Furnace
 
-Global: `nuclearAlloyFurnace`
+Global: `mods.nuclearcraft.AlloyFurnace`
 
 ```zenscript
-nuclearAlloyFurnace.addRecipe(name as string, left as IIngredientWithAmount, right as IIngredientWithAmount, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearAlloyFurnace.addRecipeWithChance(name as string, left as IIngredientWithAmount, right as IIngredientWithAmount, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.AlloyFurnace.addRecipe(name as string, left as IIngredientWithAmount, right as IIngredientWithAmount, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.AlloyFurnace.addRecipe(name as string, left as IIngredientWithAmount, right as IIngredientWithAmount, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Assembler
 
-Global: `nuclearAssembler`
+Global: `mods.nuclearcraft.Assembler`
 
 ```zenscript
-nuclearAssembler.addRecipe(name as string, input1 as IIngredientWithAmount, input2 as IIngredientWithAmount?, input3 as IIngredientWithAmount?, input4 as IIngredientWithAmount?, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearAssembler.addRecipeWithChance(name as string, input1 as IIngredientWithAmount, input2 as IIngredientWithAmount?, input3 as IIngredientWithAmount?, input4 as IIngredientWithAmount?, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Assembler.addRecipe(name as string, input1 as IIngredientWithAmount, input2 as IIngredientWithAmount?, input3 as IIngredientWithAmount?, input4 as IIngredientWithAmount?, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Assembler.addRecipe(name as string, input1 as IIngredientWithAmount, input2 as IIngredientWithAmount?, input3 as IIngredientWithAmount?, input4 as IIngredientWithAmount?, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Centrifuge
 
-Global: `nuclearCentrifuge`
+Global: `mods.nuclearcraft.Centrifuge`
 
 ```zenscript
-nuclearCentrifuge.addRecipe(name as string, input as CTFluidIngredient, output1 as CTFluidIngredient, output2 as CTFluidIngredient?, output3 as CTFluidIngredient?, output4 as CTFluidIngredient?, output5 as CTFluidIngredient?, output6 as CTFluidIngredient?, timeModifier as double, powerModifier as double, radiation as double);
-nuclearCentrifuge.addRecipe(name as string, input as CTFluidIngredient, output1 as IFluidStack, output1Chance as int, output2 as IFluidStack?, output2Chance as int, output3 as IFluidStack?, output3Chance as int, output4 as IFluidStack?, output4Chance as int, output5 as IFluidStack?, output5Chance as int, output6 as IFluidStack?, output6Chance as int, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Centrifuge.addRecipe(name as string, input as CTFluidIngredient, output1 as CTFluidIngredient, output2 as CTFluidIngredient?, output3 as CTFluidIngredient?, output4 as CTFluidIngredient?, output5 as CTFluidIngredient?, output6 as CTFluidIngredient?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Centrifuge.addRecipe(name as string, input as CTFluidIngredient, output1 as IFluidStack, output1Chance as int, output2 as IFluidStack?, output2Chance as int, output3 as IFluidStack?, output3Chance as int, output4 as IFluidStack?, output4Chance as int, output5 as IFluidStack?, output5Chance as int, output6 as IFluidStack?, output6Chance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Chemical Reactor
 
-Global: `nuclearChemicalReactor`
+Global: `mods.nuclearcraft.ChemicalReactor`
 
 ```zenscript
-nuclearChemicalReactor.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output1 as CTFluidIngredient, output2 as CTFluidIngredient?, timeModifier as double, powerModifier as double, radiation as double);
-nuclearChemicalReactor.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output1 as IFluidStack, output1Chance as int, output2 as IFluidStack?, output2Chance as int, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.ChemicalReactor.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output1 as CTFluidIngredient, output2 as CTFluidIngredient?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.ChemicalReactor.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output1 as IFluidStack, output1Chance as int, output2 as IFluidStack?, output2Chance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Crystallizer
 
-Global: `nuclearCrystallizer`
+Global: `mods.nuclearcraft.Crystallizer`
 
 Actual machine format: `1 fluid -> 1 item`
 
 ```zenscript
-nuclearCrystallizer.addRecipe(name as string, input as CTFluidIngredient, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearCrystallizer.addRecipeWithChance(name as string, input as CTFluidIngredient, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Crystallizer.addRecipe(name as string, input as CTFluidIngredient, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Crystallizer.addRecipe(name as string, input as CTFluidIngredient, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Decay Hastener
 
-Global: `nuclearDecayHastener`
+Global: `mods.nuclearcraft.DecayHastener`
 
 ```zenscript
-nuclearDecayHastener.addRecipe(name as string, input as IIngredientWithAmount, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearDecayHastener.addRecipeWithChance(name as string, input as IIngredientWithAmount, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.DecayHastener.addRecipe(name as string, input as IIngredientWithAmount, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.DecayHastener.addRecipe(name as string, input as IIngredientWithAmount, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Electric Furnace
 
-Global: `nuclearElectricFurnace`
+Global: `mods.nuclearcraft.ElectricFurnace`
 
 ```zenscript
-nuclearElectricFurnace.addRecipe(name as string, input as IIngredientWithAmount, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearElectricFurnace.addRecipeWithChance(name as string, input as IIngredientWithAmount, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.ElectricFurnace.addRecipe(name as string, input as IIngredientWithAmount, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.ElectricFurnace.addRecipe(name as string, input as IIngredientWithAmount, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Electrolyzer
 
-Global: `nuclearElectrolyzer`
+Global: `mods.nuclearcraft.Electrolyzer`
 
 ```zenscript
-nuclearElectrolyzer.addRecipe(name as string, input as CTFluidIngredient, output1 as CTFluidIngredient, output2 as CTFluidIngredient?, output3 as CTFluidIngredient?, output4 as CTFluidIngredient?, timeModifier as double, powerModifier as double, radiation as double);
-nuclearElectrolyzer.addRecipe(name as string, input as CTFluidIngredient, output1 as IFluidStack, output1Chance as int, output2 as IFluidStack?, output2Chance as int, output3 as IFluidStack?, output3Chance as int, output4 as IFluidStack?, output4Chance as int, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Electrolyzer.addRecipe(name as string, input as CTFluidIngredient, output1 as CTFluidIngredient, output2 as CTFluidIngredient?, output3 as CTFluidIngredient?, output4 as CTFluidIngredient?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Electrolyzer.addRecipe(name as string, input as CTFluidIngredient, output1 as IFluidStack, output1Chance as int, output2 as IFluidStack?, output2Chance as int, output3 as IFluidStack?, output3Chance as int, output4 as IFluidStack?, output4Chance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fluid Enricher
 
-Global: `nuclearFluidEnricher`
+Global: `mods.nuclearcraft.Enricher`
 
 ```zenscript
-nuclearFluidEnricher.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double, powerModifier as double, radiation as double);
-nuclearFluidEnricher.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as IFluidStack, outputChance as int, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Enricher.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Enricher.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as IFluidStack, outputChance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fluid Extractor
 
-Global: `nuclearFluidExtractor`
+Global: `mods.nuclearcraft.Extractor`
 
 ```zenscript
-nuclearFluidExtractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as IItemStack, fluidOutput as CTFluidIngredient, timeModifier as double, powerModifier as double, radiation as double);
-nuclearFluidExtractor.addRecipeWithChance(name as string, input as IIngredientWithAmount, itemOutput as Percentaged<IItemStack>, fluidOutput as CTFluidIngredient, timeModifier as double, powerModifier as double, radiation as double);
-nuclearFluidExtractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as IItemStack, fluidOutput as IFluidStack, fluidOutputChance as int, timeModifier as double, powerModifier as double, radiation as double);
-nuclearFluidExtractor.addRecipeWithChance(name as string, input as IIngredientWithAmount, itemOutput as Percentaged<IItemStack>, fluidOutput as IFluidStack, fluidOutputChance as int, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Extractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as IItemStack, fluidOutput as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Extractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as mods.nuclearcraft.ChanceItemIngredient, fluidOutput as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Extractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as IItemStack, fluidOutput as IFluidStack, fluidOutputChance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Extractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as mods.nuclearcraft.ChanceItemIngredient, fluidOutput as IFluidStack, fluidOutputChance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fluid Infuser
 
-Global: `nuclearFluidInfuser`
+Global: `mods.nuclearcraft.Infuser`
 
 ```zenscript
-nuclearFluidInfuser.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearFluidInfuser.addRecipeWithChance(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Infuser.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Infuser.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fluid Mixer
 
-Global: `nuclearFluidMixer`
+Global: `mods.nuclearcraft.SaltMixer`
 
 ```zenscript
-nuclearFluidMixer.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double, powerModifier as double, radiation as double);
-nuclearFluidMixer.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output as IFluidStack, outputChance as int, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.SaltMixer.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.SaltMixer.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output as IFluidStack, outputChance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fuel Reprocessor
 
-Global: `nuclearFuelReprocessor`
+Global: `mods.nuclearcraft.FuelReprocessor`
 
 ```zenscript
-nuclearFuelReprocessor.addRecipe(name as string, input as IIngredientWithAmount, output1 as IItemStack, output2 as IItemStack?, output3 as IItemStack?, output4 as IItemStack?, output5 as IItemStack?, output6 as IItemStack?, output7 as IItemStack?, output8 as IItemStack?, timeModifier as double, powerModifier as double, radiation as double);
-nuclearFuelReprocessor.addRecipeWithChance(name as string, input as IIngredientWithAmount, output1 as Percentaged<IItemStack>, output2 as Percentaged<IItemStack>?, output3 as Percentaged<IItemStack>?, output4 as Percentaged<IItemStack>?, output5 as Percentaged<IItemStack>?, output6 as Percentaged<IItemStack>?, output7 as Percentaged<IItemStack>?, output8 as Percentaged<IItemStack>?, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.FuelReprocessor.addRecipe(name as string, input as IIngredientWithAmount, output1 as IItemStack, output2 as IItemStack?, output3 as IItemStack?, output4 as IItemStack?, output5 as IItemStack?, output6 as IItemStack?, output7 as IItemStack?, output8 as IItemStack?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FuelReprocessor.addRecipe(name as string, input as IIngredientWithAmount, output1 as mods.nuclearcraft.ChanceItemIngredient, output2 as mods.nuclearcraft.ChanceItemIngredient?, output3 as mods.nuclearcraft.ChanceItemIngredient?, output4 as mods.nuclearcraft.ChanceItemIngredient?, output5 as mods.nuclearcraft.ChanceItemIngredient?, output6 as mods.nuclearcraft.ChanceItemIngredient?, output7 as mods.nuclearcraft.ChanceItemIngredient?, output8 as mods.nuclearcraft.ChanceItemIngredient?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Ingot Former
 
-Global: `nuclearIngotFormer`
+Global: `mods.nuclearcraft.IngotFormer`
 
 ```zenscript
-nuclearIngotFormer.addRecipe(name as string, input as CTFluidIngredient, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearIngotFormer.addRecipeWithChance(name as string, input as CTFluidIngredient, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.IngotFormer.addRecipe(name as string, input as CTFluidIngredient, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.IngotFormer.addRecipe(name as string, input as CTFluidIngredient, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Manufactory
 
-Global: `nuclearManufactory`
+Global: `mods.nuclearcraft.Manufactory`
 
 ```zenscript
-nuclearManufactory.addRecipe(name as string, input as IIngredientWithAmount, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearManufactory.addRecipeWithChance(name as string, input as IIngredientWithAmount, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Manufactory.addRecipe(name as string, input as IIngredientWithAmount, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Manufactory.addRecipe(name as string, input as IIngredientWithAmount, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Melter
 
-Global: `nuclearMelter`
+Global: `mods.nuclearcraft.Melter`
 
 ```zenscript
-nuclearMelter.addRecipe(name as string, input as IIngredientWithAmount, output as CTFluidIngredient, timeModifier as double, powerModifier as double, radiation as double);
-nuclearMelter.addRecipe(name as string, input as IIngredientWithAmount, output as IFluidStack, outputChance as int, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Melter.addRecipe(name as string, input as IIngredientWithAmount, output as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Melter.addRecipe(name as string, input as IIngredientWithAmount, output as IFluidStack, outputChance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Pressurizer
 
-Global: `nuclearPressurizer`
+Global: `mods.nuclearcraft.Pressurizer`
 
 ```zenscript
-nuclearPressurizer.addRecipe(name as string, input as IIngredientWithAmount, output as IItemStack, timeModifier as double, powerModifier as double, radiation as double);
-nuclearPressurizer.addRecipeWithChance(name as string, input as IIngredientWithAmount, output as Percentaged<IItemStack>, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Pressurizer.addRecipe(name as string, input as IIngredientWithAmount, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Pressurizer.addRecipe(name as string, input as IIngredientWithAmount, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Rock Crusher
 
-Global: `nuclearRockCrusher`
+Global: `mods.nuclearcraft.RockCrusher`
 
 ```zenscript
-nuclearRockCrusher.addRecipe(name as string, input as IIngredientWithAmount, output1 as IItemStack, output2 as IItemStack?, output3 as IItemStack?, timeModifier as double, powerModifier as double, radiation as double);
-nuclearRockCrusher.addRecipeWithChance(name as string, input as IIngredientWithAmount, output1 as Percentaged<IItemStack>, output2 as Percentaged<IItemStack>?, output3 as Percentaged<IItemStack>?, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.RockCrusher.addRecipe(name as string, input as IIngredientWithAmount, output1 as IItemStack, output2 as IItemStack?, output3 as IItemStack?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.RockCrusher.addRecipe(name as string, input as IIngredientWithAmount, output1 as mods.nuclearcraft.ChanceItemIngredient, output2 as mods.nuclearcraft.ChanceItemIngredient?, output3 as mods.nuclearcraft.ChanceItemIngredient?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Separator
 
-Global: `nuclearSeparator`
+Global: `mods.nuclearcraft.Separator`
 
 ```zenscript
-nuclearSeparator.addRecipe(name as string, input as IIngredientWithAmount, output1 as IItemStack, output2 as IItemStack?, timeModifier as double, powerModifier as double, radiation as double);
-nuclearSeparator.addRecipeWithChance(name as string, input as IIngredientWithAmount, output1 as Percentaged<IItemStack>, output2 as Percentaged<IItemStack>?, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Separator.addRecipe(name as string, input as IIngredientWithAmount, output1 as IItemStack, output2 as IItemStack?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Separator.addRecipe(name as string, input as IIngredientWithAmount, output1 as mods.nuclearcraft.ChanceItemIngredient, output2 as mods.nuclearcraft.ChanceItemIngredient?, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Supercooler
 
-Global: `nuclearSupercooler`
+Global: `mods.nuclearcraft.Supercooler`
 
 ```zenscript
-nuclearSupercooler.addRecipe(name as string, input as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double, powerModifier as double, radiation as double);
-nuclearSupercooler.addRecipe(name as string, input as CTFluidIngredient, output as IFluidStack, outputChance as int, timeModifier as double, powerModifier as double, radiation as double);
+mods.nuclearcraft.Supercooler.addRecipe(name as string, input as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.Supercooler.addRecipe(name as string, input as CTFluidIngredient, output as IFluidStack, outputChance as int, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```

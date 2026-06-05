@@ -10,11 +10,11 @@ import org.openzen.zencode.java.ZenCodeGlobals;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
-@ZenCodeType.Name("mods.nuclearcraft.recipe.manager.MelterRecipeManager")
+@ZenCodeType.Name("mods.nuclearcraft.Melter")
 @Document("mods/nuclearcraft/recipe/manager/MelterRecipeManager")
 public class MelterRecipeManager extends BasicNuclearRecipeManager<MelterRecipe> {
 
-    @ZenCodeGlobals.Global("nuclearMelter")
+    @ZenCodeGlobals.Global("mods.nuclearcraft.Melter")
     public static final MelterRecipeManager INSTANCE = new MelterRecipeManager();
 
     public MelterRecipeManager() {
@@ -25,9 +25,9 @@ public class MelterRecipeManager extends BasicNuclearRecipeManager<MelterRecipe>
     public void addRecipe(String name,
                           IIngredientWithAmount input,
                           CTFluidIngredient output,
-                          double timeModifier,
-                          double powerModifier,
-                          double radiation) {
+                          @ZenCodeType.OptionalDouble(1D) double timeModifier,
+                          @ZenCodeType.OptionalDouble(1D) double powerModifier,
+                          @ZenCodeType.OptionalDouble(0D) double radiation) {
         addRecipeInternal(name, compact(input), (IIngredientWithAmount[]) null, null, compact(output), timeModifier, powerModifier, radiation);
     }
 
@@ -36,9 +36,9 @@ public class MelterRecipeManager extends BasicNuclearRecipeManager<MelterRecipe>
                           IIngredientWithAmount input,
                           IFluidStack output,
                           @ZenCodeType.OptionalInt(100) int outputChance,
-                          double timeModifier,
-                          double powerModifier,
-                          double radiation) {
+                          @ZenCodeType.OptionalDouble(1D) double timeModifier,
+                          @ZenCodeType.OptionalDouble(1D) double powerModifier,
+                          @ZenCodeType.OptionalDouble(0D) double radiation) {
         addRecipeInternal(name, compact(input), (IIngredientWithAmount[]) null, null, compact(output), new int[] { outputChance }, timeModifier, powerModifier, radiation);
     }
 }
