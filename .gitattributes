@@ -1,1 +1,4 @@
-* text eol=lf
+src/generated/**/.cache/cache text eol=lf
+src/generated/**/*.json text eol=lf
+*.java text eol=lf
+*.md text eol=lf
