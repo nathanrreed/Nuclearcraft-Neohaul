@@ -7,6 +7,7 @@ import org.jspecify.annotations.Nullable;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
+@SuppressWarnings("unused")
 public record GeigerCounterPeripheral(GeigerCounterEntity entity) implements IPeripheral {
     @LuaFunction(mainThread = true)
     public double getChunkRadiationLevel() {

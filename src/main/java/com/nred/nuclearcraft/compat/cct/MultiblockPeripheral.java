@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import dan200.computercraft.api.lua.LuaFunction;
 
+@SuppressWarnings({"unused", "OptionalGetWithoutIsPresent"})
 public class MultiblockPeripheral<MULTIBLOCK extends Multiblock<MULTIBLOCK>> {
     public final AbstractPartBlockEntity<MULTIBLOCK> computerPort;
 

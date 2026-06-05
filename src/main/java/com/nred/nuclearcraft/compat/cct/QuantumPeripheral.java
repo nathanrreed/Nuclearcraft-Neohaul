@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
+@SuppressWarnings({"unused", "OptionalGetWithoutIsPresent"})
 public record QuantumPeripheral(QuantumComputerPortEntity entity) implements IPeripheral {
     private boolean test() {
         return entity.isMachineAssembled() && entity.getMultiblockController().isPresent();

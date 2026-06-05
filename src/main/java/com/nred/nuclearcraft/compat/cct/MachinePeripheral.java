@@ -9,6 +9,7 @@ import org.jspecify.annotations.Nullable;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
+@SuppressWarnings("unused")
 public final class MachinePeripheral extends MultiblockPeripheral<Machine> implements IPeripheral {
     public MachinePeripheral(MachineComputerPortEntity computerPort) {
         super(computerPort);
