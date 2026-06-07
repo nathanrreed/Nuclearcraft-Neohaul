@@ -175,8 +175,6 @@ dependencies {
 
     implementation "maven.modrinth:fusion-connected-textures:${fusion_version}-neoforge-mc${minecraft_version}"
 
-    implementation("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}") // TODO REMOVE
-
     compileOnly("org.appliedenergistics:guideme:${guideme_version}:api")
     runtimeOnly("org.appliedenergistics:guideme:${guideme_version}")
 
@@ -249,7 +247,7 @@ modrinth {
         optional.project "kubejs"
         optional.project "mekanism"
         optional.project "fusion-connected-textures"
-//        TODO optional.project "create"
+        optional.project "guideme"
     }
     changelog = rootProject.file("Changelog.md").text
 }
@@ -269,7 +267,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
 
     mainFile.addRequirement("zerocore", "terrablender-neoforge")
-    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm") // TODO , "create"
+    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "guideme")
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.

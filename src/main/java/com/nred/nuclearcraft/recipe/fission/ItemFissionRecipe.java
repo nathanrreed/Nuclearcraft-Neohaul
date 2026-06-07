@@ -1,33 +1,15 @@
 package com.nred.nuclearcraft.recipe.fission;
 
 import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 
 import java.util.List;
 
 import static com.nred.nuclearcraft.config.NCConfig.*;
 
-public abstract class ItemFissionRecipe extends BasicRecipe {
-    private final int time;
-    private final int heat;
-    private final double efficiency;
-    private final int criticality;
-    private final int intrinsic_flux;
-    private final double decayFactor;
-    private final boolean selfPriming;
-    private final double radiation;
-
+public abstract class ItemFissionRecipe extends BasicFissionRecipe {
     public ItemFissionRecipe(SizedChanceItemIngredient ingredient, SizedChanceItemIngredient product, int time, int heat, double efficiency, int criticality, int intrinsic_flux, double decayFactor, boolean selfPriming, double radiation) {
-        super(List.of(ingredient), List.of(), List.of(product), List.of());
-        this.time = time;
-        this.heat = heat;
-        this.efficiency = efficiency;
-        this.criticality = criticality;
-        this.intrinsic_flux = intrinsic_flux;
-        this.decayFactor = decayFactor;
-        this.selfPriming = selfPriming;
-        this.radiation = radiation;
+        super(List.of(ingredient), List.of(), List.of(product), List.of(), time, heat, efficiency, criticality, intrinsic_flux, decayFactor, selfPriming, radiation);
     }
 
     public int getFissionFuelTimeRaw() {

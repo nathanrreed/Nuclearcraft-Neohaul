@@ -34,7 +34,6 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 
@@ -76,8 +75,13 @@ public class RadiationHandler {
                 return;
             }
 
-            if (give_guidebook && ModCheck.patchouliLoaded() && playerRads.getGiveGuidebook()) {
-                boolean success = player.getInventory().add(PatchouliAPI.get().getBookStack(ncLoc("guide")));
+            if (give_guidebook && playerRads.getGiveGuidebook()) {
+                boolean success = false;
+                if (ModCheck.guidemeLoaded()) {
+                    success = player.getInventory().add(guideme.Guides.createGuideItem(ncLoc("guide")));
+                } else if (ModCheck.patchouliLoaded()) {
+                    success = player.getInventory().add(vazkii.patchouli.api.PatchouliAPI.get().getBookStack(ncLoc("guide")));
+                }
                 if (success) {
                     playerRads.setGiveGuidebook(false);
                 }

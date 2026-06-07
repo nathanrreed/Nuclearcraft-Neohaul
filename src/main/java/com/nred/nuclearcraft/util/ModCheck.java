@@ -11,7 +11,7 @@ public class ModCheck {
     private static boolean ccLoaded = false;
     private static boolean patchouliLoaded = false;
     private static boolean curiosLoaded = false;
-    private static boolean ponderLoaded = false;
+    private static boolean guidemeLoaded = false;
     private static boolean sableLoaded = false;
 
     public static void init() {
@@ -27,7 +27,7 @@ public class ModCheck {
         curiosLoaded = loader.isLoaded("curios");
         ccLoaded = loader.isLoaded("computercraft");
         patchouliLoaded = loader.isLoaded("patchouli");
-        ponderLoaded = loader.isLoaded("ponder");
+        guidemeLoaded = loader.isLoaded("guideme");
         sableLoaded = loader.isLoaded("sable"); // For Create Aeronautics
     }
 
@@ -55,9 +55,10 @@ public class ModCheck {
         return ccLoaded;
     }
 
-    public static boolean ponderLoaded() { // TODO should this be replaced with GuideME?
-        return ponderLoaded;
+    public static boolean guidemeLoaded() {
+        return guidemeLoaded;
     }
+
     public static boolean sableLoaded() {
         return sableLoaded;
     }

@@ -50,7 +50,6 @@ public class ModLanguageProvider extends LanguageProvider {
         fission_reactor();
         heat_exchanger();
         machine();
-        ponder();
         multiblock_validation();
 
         add(SUPERCOLD_ICE.asItem(), capitalize(SUPERCOLD_ICE.getId().getPath()));
@@ -464,14 +463,6 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".recipe_viewer.electrolyte", "Electrolyte: %s");
         add(MODID + ".recipe_viewer.distiller_sieve_tray_count", "Minimum Sieve Tray Count: %s");
         add(MODID + ".recipe_viewer.infiltrator_pressure_fluid_efficiency", "Efficiency Multiplier: %s");
-    }
-
-    private void ponder() {
-//        add(MODID + ".ponder.moderator.header", "Moderator"); TODO
-//        add(MODID + ".ponder.shared.moderator.active", "Active Moderator(s)");
-//        add(MODID + ".ponder.shared.moderator.inactive", "Inactive Moderator(s)");
-//
-//        add(MODID + ".ponder.reflector.header", "Reflector");
     }
 
     private void string_formatting() {

@@ -1,1 +1,2 @@
 - Updated translations
+- Added basic GuideME integration
