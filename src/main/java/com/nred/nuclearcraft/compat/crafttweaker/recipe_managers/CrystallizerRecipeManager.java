@@ -7,16 +7,13 @@ import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.processor.CrystallizerRecipe;
-import org.openzen.zencode.java.ZenCodeGlobals;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
-@ZenCodeType.Name("mods.nuclearcraft.Crystallizer")
+@ZenCodeType.Name("mods.nuclearcraft.recipe.manager.CrystallizerRecipeManager")
 @Document("mods/nuclearcraft/recipe/manager/CrystallizerRecipeManager")
 public class CrystallizerRecipeManager extends BasicNuclearRecipeManager<CrystallizerRecipe> {
-
-    @ZenCodeGlobals.Global("mods.nuclearcraft.Crystallizer")
-    public static final CrystallizerRecipeManager INSTANCE = new CrystallizerRecipeManager();
+    static final CrystallizerRecipeManager INSTANCE = new CrystallizerRecipeManager();
 
     public CrystallizerRecipeManager() {
         super("crystallizer", CrystallizerRecipe.class);
@@ -29,7 +26,7 @@ public class CrystallizerRecipeManager extends BasicNuclearRecipeManager<Crystal
                           @ZenCodeType.OptionalDouble(1D) double timeModifier,
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
-        addRecipeInternal(name, null, compact(output), compact(input), null, timeModifier, powerModifier, radiation);
+        INSTANCE.addRecipeInternal(name, null, compact(output), compact(input), null, timeModifier, powerModifier, radiation);
     }
 
     @ZenCodeType.Method
@@ -39,7 +36,7 @@ public class CrystallizerRecipeManager extends BasicNuclearRecipeManager<Crystal
                           @ZenCodeType.OptionalDouble(1D) double timeModifier,
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
-        addRecipeInternal(name, null, compact(output), compact(input), null, timeModifier, powerModifier, radiation);
+        INSTANCE.addRecipeInternal(name, null, compact(output), compact(input), null, timeModifier, powerModifier, radiation);
     }
 }
 

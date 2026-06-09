@@ -7,16 +7,13 @@ import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.processor.FluidInfuserRecipe;
-import org.openzen.zencode.java.ZenCodeGlobals;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
-@ZenCodeType.Name("mods.nuclearcraft.Infuser")
+@ZenCodeType.Name("mods.nuclearcraft.recipe.manager.FluidInfuserRecipeManager")
 @Document("mods/nuclearcraft/recipe/manager/FluidInfuserRecipeManager")
 public class FluidInfuserRecipeManager extends BasicNuclearRecipeManager<FluidInfuserRecipe> {
-
-    @ZenCodeGlobals.Global("mods.nuclearcraft.Infuser")
-    public static final FluidInfuserRecipeManager INSTANCE = new FluidInfuserRecipeManager();
+    static final FluidInfuserRecipeManager INSTANCE = new FluidInfuserRecipeManager();
 
     public FluidInfuserRecipeManager() {
         super("fluid_infuser", FluidInfuserRecipe.class);
@@ -30,7 +27,7 @@ public class FluidInfuserRecipeManager extends BasicNuclearRecipeManager<FluidIn
                           @ZenCodeType.OptionalDouble(1D) double timeModifier,
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
-        addRecipeInternal(name, compact(itemInput), compact(output), compact(fluidInput), null, timeModifier, powerModifier, radiation);
+        INSTANCE.addRecipeInternal(name, compact(itemInput), compact(output), compact(fluidInput), null, timeModifier, powerModifier, radiation);
     }
 
     @ZenCodeType.Method
@@ -41,7 +38,7 @@ public class FluidInfuserRecipeManager extends BasicNuclearRecipeManager<FluidIn
                           @ZenCodeType.OptionalDouble(1D) double timeModifier,
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
-        addRecipeInternal(name, compact(itemInput), compact(output), compact(fluidInput), null, timeModifier, powerModifier, radiation);
+        INSTANCE.addRecipeInternal(name, compact(itemInput), compact(output), compact(fluidInput), null, timeModifier, powerModifier, radiation);
     }
 }
 

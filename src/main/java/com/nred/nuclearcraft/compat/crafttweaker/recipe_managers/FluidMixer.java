@@ -6,38 +6,33 @@ import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceFluidIngredient;
-import com.nred.nuclearcraft.recipe.processor.FluidMixerRecipe;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
-@ZenCodeType.Name("mods.nuclearcraft.recipe.manager.FluidMixerRecipeManager")
+@ZenCodeType.Name("mods.nuclearcraft.FluidMixer")
 @Document("mods/nuclearcraft/recipe/manager/FluidMixerRecipeManager")
-public class FluidMixerRecipeManager extends BasicNuclearRecipeManager<FluidMixerRecipe> {
-    static final FluidMixerRecipeManager INSTANCE = new FluidMixerRecipeManager();
-
-    public FluidMixerRecipeManager() {
-        super("fluid_mixer", FluidMixerRecipe.class);
-    }
+public final class FluidMixer {
+    private FluidMixer() {}
 
     @ZenCodeType.Method
-    public void addRecipe(String name,
+    public static void addRecipe(String name,
                           CTFluidIngredient left,
                           CTFluidIngredient right,
                           CTFluidIngredient output,
                           @ZenCodeType.OptionalDouble(1D) double timeModifier,
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
-        INSTANCE.addRecipeInternal(name, null, (IIngredientWithAmount[]) null, compact(left, right), compact(output), timeModifier, powerModifier, radiation);
+        FluidMixerRecipeManager.INSTANCE.addRecipe(name, left, right, output, timeModifier, powerModifier, radiation);
     }
 
     @ZenCodeType.Method
-    public void addRecipe(String name,
+    public static void addRecipe(String name,
                           CTFluidIngredient left,
                           CTFluidIngredient right,
                           CTChanceFluidIngredient output,
                           @ZenCodeType.OptionalDouble(1D) double timeModifier,
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
-        INSTANCE.addRecipeInternal(name, null, (IIngredientWithAmount[]) null, compact(left, right), compact(output), timeModifier, powerModifier, radiation);
+        FluidMixerRecipeManager.INSTANCE.addRecipe(name, left, right, output, timeModifier, powerModifier, radiation);
     }
 }

@@ -4,6 +4,7 @@ import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
 import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker.api.recipe.manager.base.IRecipeManager;
+import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceFluidIngredient;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceItemIngredient;
 import com.nred.nuclearcraft.compat.crafttweaker.utils.CTProcessorRecipeWrapper;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
@@ -71,8 +72,7 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
                                            @Nullable IIngredientWithAmount[] itemInputs,
                                            @Nullable IIngredientWithAmount[] itemOutputs,
                                            @Nullable CTFluidIngredient[] fluidInputs,
-                                           @Nullable IFluidStack[] fluidOutputs,
-                                           @Nullable int[] fluidOutputChances,
+                                           @Nullable Object[] fluidOutputs,
                                            double timeModifier,
                                            double powerModifier,
                                            double radiation) {
@@ -83,9 +83,9 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
                 null,
                 null,
                 fluidInputs,
-                asFluidIngredients(fluidOutputs),
-                fluidOutputChances,
-                null,
+                unwrapFluidOutputs(fluidOutputs),
+                unwrapFluidOutputChances(fluidOutputs),
+                unwrapFluidOutputMinStackSizes(fluidOutputs),
                 timeModifier,
                 powerModifier,
                 radiation
@@ -96,8 +96,7 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
                                            @Nullable IIngredientWithAmount[] itemInputs,
                                            @Nullable Object[] itemOutputs,
                                            @Nullable CTFluidIngredient[] fluidInputs,
-                                           @Nullable IFluidStack[] fluidOutputs,
-                                           @Nullable int[] fluidOutputChances,
+                                           @Nullable Object[] fluidOutputs,
                                            double timeModifier,
                                            double powerModifier,
                                            double radiation) {
@@ -108,9 +107,9 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
                 unwrapItemOutputChances(itemOutputs),
                 unwrapItemOutputMinStackSizes(itemOutputs),
                 fluidInputs,
-                asFluidIngredients(fluidOutputs),
-                fluidOutputChances,
-                null,
+                unwrapFluidOutputs(fluidOutputs),
+                unwrapFluidOutputChances(fluidOutputs),
+                unwrapFluidOutputMinStackSizes(fluidOutputs),
                 timeModifier,
                 powerModifier,
                 radiation
@@ -215,18 +214,65 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
     }
 
     @Nullable
-    private static CTFluidIngredient[] asFluidIngredients(@Nullable IFluidStack[] fluidOutputs) {
+    private static CTFluidIngredient[] unwrapFluidOutputs(@Nullable Object[] fluidOutputs) {
         if (fluidOutputs == null) {
             return null;
         }
 
         CTFluidIngredient[] outputs = new CTFluidIngredient[fluidOutputs.length];
         for (int i = 0; i < fluidOutputs.length; i++) {
-            outputs[i] = fluidOutputs[i].asFluidIngredient();
+            outputs[i] = parseFluidOutput(fluidOutputs[i]).ingredient();
         }
         return outputs;
     }
 
+    @Nullable
+    private static int[] unwrapFluidOutputChances(@Nullable Object[] fluidOutputs) {
+        if (fluidOutputs == null) {
+            return null;
+        }
+
+        int[] chances = new int[fluidOutputs.length];
+        for (int i = 0; i < fluidOutputs.length; i++) {
+            chances[i] = parseFluidOutput(fluidOutputs[i]).chancePercent();
+        }
+        return chances;
+    }
+
+    @Nullable
+    private static int[] unwrapFluidOutputMinStackSizes(@Nullable Object[] fluidOutputs) {
+        if (fluidOutputs == null) {
+            return null;
+        }
+
+        int[] minStackSizes = new int[fluidOutputs.length];
+        for (int i = 0; i < fluidOutputs.length; i++) {
+            minStackSizes[i] = parseFluidOutput(fluidOutputs[i]).minStackSize();
+        }
+        return minStackSizes;
+    }
+
+    private static ParsedFluidOutput parseFluidOutput(Object output) {
+        if (output instanceof CTChanceFluidIngredient chanceFluidIngredient) {
+            return new ParsedFluidOutput(
+                    chanceFluidIngredient.getInternalIngredient().asFluidIngredient(),
+                    chanceFluidIngredient.getChancePercent(),
+                    chanceFluidIngredient.getMinStackSize()
+            );
+        }
+        if (output instanceof IFluidStack fluidStack) {
+            return new ParsedFluidOutput(fluidStack.asFluidIngredient(), 100, 0);
+        }
+        if (output instanceof CTFluidIngredient fluidIngredient) {
+            return new ParsedFluidOutput(fluidIngredient, 100, 0);
+        }
+
+        throw new IllegalArgumentException("Unsupported fluid output type: " + output.getClass().getName());
+    }
+
     private record ParsedItemOutput(IIngredientWithAmount ingredient, int chancePercent, int minStackSize) {
+    }
+
+    private record ParsedFluidOutput(CTFluidIngredient ingredient, int chancePercent, int minStackSize) {
     }
 }

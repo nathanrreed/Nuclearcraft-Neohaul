@@ -6,38 +6,31 @@ import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceFluidIngredient;
-import com.nred.nuclearcraft.recipe.processor.FluidMixerRecipe;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
-@ZenCodeType.Name("mods.nuclearcraft.recipe.manager.FluidMixerRecipeManager")
-@Document("mods/nuclearcraft/recipe/manager/FluidMixerRecipeManager")
-public class FluidMixerRecipeManager extends BasicNuclearRecipeManager<FluidMixerRecipe> {
-    static final FluidMixerRecipeManager INSTANCE = new FluidMixerRecipeManager();
-
-    public FluidMixerRecipeManager() {
-        super("fluid_mixer", FluidMixerRecipe.class);
-    }
+@ZenCodeType.Name("mods.nuclearcraft.Supercooler")
+@Document("mods/nuclearcraft/recipe/manager/SupercoolerRecipeManager")
+public final class Supercooler {
+    private Supercooler() {}
 
     @ZenCodeType.Method
-    public void addRecipe(String name,
-                          CTFluidIngredient left,
-                          CTFluidIngredient right,
+    public static void addRecipe(String name,
+                          CTFluidIngredient input,
                           CTFluidIngredient output,
                           @ZenCodeType.OptionalDouble(1D) double timeModifier,
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
-        INSTANCE.addRecipeInternal(name, null, (IIngredientWithAmount[]) null, compact(left, right), compact(output), timeModifier, powerModifier, radiation);
+        SupercoolerRecipeManager.INSTANCE.addRecipe(name, input, output, timeModifier, powerModifier, radiation);
     }
 
     @ZenCodeType.Method
-    public void addRecipe(String name,
-                          CTFluidIngredient left,
-                          CTFluidIngredient right,
+    public static void addRecipe(String name,
+                          CTFluidIngredient input,
                           CTChanceFluidIngredient output,
                           @ZenCodeType.OptionalDouble(1D) double timeModifier,
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
-        INSTANCE.addRecipeInternal(name, null, (IIngredientWithAmount[]) null, compact(left, right), compact(output), timeModifier, powerModifier, radiation);
+        SupercoolerRecipeManager.INSTANCE.addRecipe(name, input, output, timeModifier, powerModifier, radiation);
     }
 }

@@ -46,21 +46,21 @@ mods.nuclearcraft.IngotFormer.addRecipe("example_ingot_former", lava, mods.nucle
 
 // item + fluid -> item / fluid
 mods.nuclearcraft.Infuser.addRecipe("example_fluid_infuser", quartz, water, mods.nuclearcraft.ChanceItemIngredient.create(emerald, 25), 1.0, 1.0, 0.0);
-mods.nuclearcraft.Enricher.addRecipe("example_fluid_enricher", redstone, water, lava, 100, 1.0, 1.0, 0.0);
+mods.nuclearcraft.Enricher.addRecipe("example_fluid_enricher", redstone, water, mods.nuclearcraft.ChanceFluidIngredient.create(lava, 100), 1.0, 1.0, 0.0);
 
 // item -> item + fluid
-mods.nuclearcraft.Extractor.addRecipe("example_fluid_extractor", slimeBall, mods.nuclearcraft.ChanceItemIngredient.create(quartz, 50), water, 100, 1.0, 1.0, 0.0);
+mods.nuclearcraft.Extractor.addRecipe("example_fluid_extractor", slimeBall, mods.nuclearcraft.ChanceItemIngredient.create(quartz, 50), mods.nuclearcraft.ChanceFluidIngredient.create(water, 100), 1.0, 1.0, 0.0);
 
 // item -> fluid
-mods.nuclearcraft.Melter.addRecipe("example_melter", redstone, lava, 80, 1.0, 1.0, 0.0);
+mods.nuclearcraft.Melter.addRecipe("example_melter", redstone, mods.nuclearcraft.ChanceFluidIngredient.create(lava, 80), 1.0, 1.0, 0.0);
 
 // fluid -> fluid
-mods.nuclearcraft.Supercooler.addRecipe("example_supercooler", water, lava, 100, 1.0, 1.0, 0.0);
+mods.nuclearcraft.Supercooler.addRecipe("example_supercooler", water, mods.nuclearcraft.ChanceFluidIngredient.create(lava, 100), 1.0, 1.0, 0.0);
 
 // 2 fluid -> 1 or 2 fluid outputs
-mods.nuclearcraft.SaltMixer.addRecipe("example_fluid_mixer", water, lava, water, 100, 1.0, 1.0, 0.0);
-mods.nuclearcraft.ChemicalReactor.addRecipe("example_chemical_reactor", water, lava, water, 100, lava, 40, 1.0, 1.0, 0.0);
+mods.nuclearcraft.SaltMixer.addRecipe("example_fluid_mixer", water, lava, mods.nuclearcraft.ChanceFluidIngredient.create(water, 100), 1.0, 1.0, 0.0);
+mods.nuclearcraft.ChemicalReactor.addRecipe("example_chemical_reactor", water, lava, mods.nuclearcraft.ChanceFluidIngredient.create(water, 100), mods.nuclearcraft.ChanceFluidIngredient.create(lava, 40), 1.0, 1.0, 0.0);
 
 // 1 fluid -> multiple fluid outputs
-mods.nuclearcraft.Centrifuge.addRecipe("example_centrifuge", water, water, 100, lava, 25, null, 100, null, 100, null, 100, null, 100, 1.0, 1.0, 0.0);
-mods.nuclearcraft.Electrolyzer.addRecipe("example_electrolyzer", water, water, 100, lava, 50, null, 100, null, 100, 1.0, 1.0, 0.0);
+mods.nuclearcraft.Centrifuge.addRecipe("example_centrifuge", water, mods.nuclearcraft.ChanceFluidIngredient.create(water, 100), mods.nuclearcraft.ChanceFluidIngredient.create(lava, 25), null, null, null, null, 1.0, 1.0, 0.0);
+mods.nuclearcraft.Electrolyzer.addRecipe("example_electrolyzer", water, mods.nuclearcraft.ChanceFluidIngredient.create(water, 100), mods.nuclearcraft.ChanceFluidIngredient.create(lava, 50), null, null, 1.0, 1.0, 0.0);
