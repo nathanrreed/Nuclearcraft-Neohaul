@@ -102,7 +102,7 @@ description='''${mod_description}'''
     side="CLIENT"
 
 [[dependencies.${mod_id}]]
-    modId="ponder"
+    modId="guideme"
     type="optional"
     versionRange="[1.0.0,)"
     ordering="NONE"

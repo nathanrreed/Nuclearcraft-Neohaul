@@ -12,6 +12,9 @@ double getCurrentTime()
 double getBaseProcessTime()
 double getBaseProcessPower()
 
+long getEnergy()
+long getEnergyCapacity()
+
 Table[] getItemInputs() -> {{stackSize, itemID}, ...}
 Table[] getFluidInputs() -> {{fluidAmount, fluidName}, ...}
 Table[] getItemOutputs() -> {{stackSize, itemID}, ...}
@@ -179,4 +182,15 @@ int getStateDim()
 
 Complex[] getStateVector()
 double[] getProbs()
+```
+
+### Geiger Counter
+```lua
+double getChunkRadiationLevel()
+```
+
+### Radiation Scrubber
+```lua
+double getRadiationRemovalRate()
+double getEfficiency()
 ```

@@ -6,7 +6,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
@@ -67,9 +66,16 @@ public class PlayerRespawnHandler {
             return;
         }
 
-        if (give_guidebook && ModCheck.patchouliLoaded() && playerRads.getGiveGuidebook()) {
-            ItemStack stack = PatchouliAPI.get().getBookStack(ncLoc("guide"));
-            if (!player.getInventory().hasAnyMatching(stack1 -> ItemStack.isSameItemSameComponents(stack, stack1))) {
+        if (give_guidebook && playerRads.getGiveGuidebook()) {
+            ItemStack stack;
+            if (ModCheck.guidemeLoaded()) {
+                stack = guideme.Guides.createGuideItem(ncLoc("guide"));
+            } else if (ModCheck.patchouliLoaded()) {
+                stack = vazkii.patchouli.api.PatchouliAPI.get().getBookStack(ncLoc("guide"));
+            } else {
+                stack = null;
+            }
+            if (stack != null && !player.getInventory().hasAnyMatching(stack1 -> ItemStack.isSameItemSameComponents(stack, stack1))) {
                 boolean success = player.getInventory().add(stack);
                 if (success) {
                     playerRads.setGiveGuidebook(false);

@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-@SuppressWarnings("OptionalGetWithoutIsPresent")
+@SuppressWarnings("unused")
 public final class TurbinePeripheral extends MultiblockPeripheral<Turbine> implements IPeripheral {
     public TurbinePeripheral(TurbineComputerPortEntity computerPort) {
         super(computerPort);

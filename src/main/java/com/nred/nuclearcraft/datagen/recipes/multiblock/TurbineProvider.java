@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes.multiblock;
 
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.recipe.BasicRecipeBuilder;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;

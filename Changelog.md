@@ -1,1 +1,2 @@
-- Updated melter recipes
+- Updated translations
+- Added basic GuideME integration

@@ -2,11 +2,11 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistanceItem;
 import com.nred.nuclearcraft.command.CommandHandler;
-import com.nred.nuclearcraft.compat.ponder.ModPonderPlugin;
+import com.nred.nuclearcraft.compat.guideme.ModGuideMEPlugin;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.handler.EntityHandler;
 import com.nred.nuclearcraft.handler.ItemUseHandler;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
-import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
@@ -131,8 +131,8 @@ public class CommonSetup {
 
     @SubscribeEvent
     public static void onDataMapChanged(DataMapsUpdatedEvent event) {
-        if (ModCheck.ponderLoaded()) {
-            ModPonderPlugin.onDataMapChanged(event);
+        if (ModCheck.guidemeLoaded()) {
+            ModGuideMEPlugin.onDataMapChanged(event);
         }
     }
 

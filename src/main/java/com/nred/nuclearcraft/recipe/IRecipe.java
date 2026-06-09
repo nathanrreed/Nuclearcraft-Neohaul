@@ -1,8 +1,5 @@
 package com.nred.nuclearcraft.recipe;
 
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
-
 import java.util.List;
 
 public interface IRecipe {

@@ -2,8 +2,8 @@ package com.nred.nuclearcraft.compat.emi.part;
 
 import com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfo;
 import com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.RecipeViewer;
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import dev.emi.emi.api.recipe.BasicEmiRecipe;

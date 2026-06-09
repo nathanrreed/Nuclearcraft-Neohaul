@@ -3,8 +3,7 @@ package com.nred.nuclearcraft.recipe.fission;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.StreamCodecsHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -21,7 +20,7 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SALT_FISSION_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SALT_FISSION_RECIPE_TYPE;
 
-public class SaltFissionRecipe extends BasicRecipe {
+public class SaltFissionRecipe extends BasicFissionRecipe {
     private final double time;
     private final int heat;
     private final double efficiency;
@@ -32,7 +31,7 @@ public class SaltFissionRecipe extends BasicRecipe {
     private final int intrinsic_flux;
 
     public SaltFissionRecipe(SizedChanceFluidIngredient ingredient, SizedChanceFluidIngredient product, double time, int heat, double efficiency, int criticality, int intrinsic_flux, double decayFactor, boolean selfPriming, double radiation) {
-        super(List.of(), List.of(ingredient), List.of(), List.of(product));
+        super(List.of(), List.of(ingredient), List.of(), List.of(product), time, heat, efficiency, criticality, intrinsic_flux, decayFactor, selfPriming, radiation);
         this.time = time;
         this.heat = heat;
         this.efficiency = efficiency;

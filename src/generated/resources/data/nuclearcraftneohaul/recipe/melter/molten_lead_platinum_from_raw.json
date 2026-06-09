@@ -4,6 +4,7 @@
     {
       "amount": 288,
       "chancePercent": 33,
+      "increment": 36,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:lead_platinum"
       },

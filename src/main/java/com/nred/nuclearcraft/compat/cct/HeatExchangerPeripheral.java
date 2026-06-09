@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
+@SuppressWarnings("unused")
 public final class HeatExchangerPeripheral extends MultiblockPeripheral<HeatExchanger> implements IPeripheral {
     public HeatExchangerPeripheral(HeatExchangerComputerPortEntity computerPort) {
         super(computerPort);
