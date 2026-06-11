@@ -224,6 +224,15 @@ public class CondenserLogic extends HeatExchangerLogic {
         return Collections.emptyList();
     }
 
+    // Server
+
+    @Override
+    public boolean onUpdateServer() {
+        multiblock.shellRecipe = multiblock.shellTanks.getFirst().getFluid().getFluid();
+
+        return super.onUpdateServer();
+    }
+
     @Override
     public @Nonnull List<Tank> getOutletTanks(HeatExchangerTubeNetwork network) {
         return network == null ? getInletTanks(network) : super.getOutletTanks(network);
@@ -258,7 +267,7 @@ public class CondenserLogic extends HeatExchangerLogic {
             return 0D;
         }
 
-        int shellTemperature = multiblock.shellTanks.getFirst().getFluid().getFluidType().getTemperature();
+        int shellTemperature = multiblock.shellRecipe.getFluidType().getTemperature();
         if (inlet.outputTemperature < shellTemperature) {
             return 0D;
         }

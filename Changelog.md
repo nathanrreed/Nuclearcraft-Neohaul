@@ -1,2 +1,1 @@
-- Updated translations
-- Added basic GuideME integration
+- Fixed condensers not working

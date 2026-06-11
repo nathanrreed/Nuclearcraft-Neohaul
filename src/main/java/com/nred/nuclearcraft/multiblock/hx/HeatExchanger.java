@@ -10,9 +10,7 @@ import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.HeatExchangerUpdatePacket;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
-import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.util.PosHelper;
 import com.nred.nuclearcraft.util.ValueTracker;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -25,6 +23,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -55,7 +54,7 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
 
     public final @Nonnull List<Tank> shellTanks = Lists.newArrayList(new Tank(BASE_MAX_INPUT, NCRecipes.heat_exchanger.getValidFluids(getWorld(), 0)), new Tank(BASE_MAX_OUTPUT, null));
 
-    public RecipeInfo<BasicRecipe> shellRecipe;
+    public Fluid shellRecipe;
 
     public boolean isExchangerOn, computerActivated;
 
