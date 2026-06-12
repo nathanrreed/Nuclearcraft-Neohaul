@@ -19,6 +19,7 @@ import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -28,10 +29,11 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.COBBLE_GENERATOR_RECIPE_TYPE;
 
-public class JeiCollectorCategory implements IRecipeCategory<CollectorRecipe> {
+public class JeiCollectorCategory implements IRecipeCategory<RecipeHolder<CollectorRecipe>> {
     private static final ResourceLocation UID = ncLoc("collector");
-    private static final RecipeType<CollectorRecipe> TYPE = new RecipeType<>(UID, CollectorRecipe.class);
+    private static final RecipeType<RecipeHolder<CollectorRecipe>> TYPE = RecipeType.createFromVanilla(COBBLE_GENERATOR_RECIPE_TYPE.get());
 
     private final IGuiHelper helper;
     private RecipeViewerInfo recipeViewerInfo;
@@ -43,7 +45,7 @@ public class JeiCollectorCategory implements IRecipeCategory<CollectorRecipe> {
     }
 
     @Override
-    public RecipeType<CollectorRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<CollectorRecipe>> getRecipeType() {
         return TYPE;
     }
 
@@ -68,7 +70,8 @@ public class JeiCollectorCategory implements IRecipeCategory<CollectorRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, CollectorRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CollectorRecipe> holder, IFocusGroup focuses) {
+        final CollectorRecipe recipe = holder.value();
         ScreenPosition position = recipeViewerInfo.item_inputs().getFirst();
 
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY).setPosition(position.x() + 1, position.y() + 1).addItemStack(recipe.getToastSymbol());
@@ -85,7 +88,8 @@ public class JeiCollectorCategory implements IRecipeCategory<CollectorRecipe> {
     }
 
     @Override
-    public void draw(CollectorRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<CollectorRecipe> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        final CollectorRecipe recipe = holder.value();
         guiGraphics.blit(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top(), recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height());
         guiGraphics.blit(recipeViewerInfo.background(), recipeViewerInfo.progress().x(), recipeViewerInfo.progress().y(), 176, 3, (int) (((double) System.currentTimeMillis() / 75) % 37), 38);
 

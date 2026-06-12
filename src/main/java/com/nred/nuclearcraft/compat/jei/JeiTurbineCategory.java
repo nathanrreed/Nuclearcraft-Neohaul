@@ -6,25 +6,20 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.TURBINE_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.TURBINE_RECIPE_TYPE;
 
 public class JeiTurbineCategory extends JeiRecipeViewerCategory<TurbineRecipe> {
-    protected static final ResourceLocation UID = ncLoc("turbine");
-    private static final RecipeType<TurbineRecipe> TYPE = new RecipeType<>(UID, TurbineRecipe.class);
+    protected static final String UID = ncLoc("turbine").getPath();
 
     public JeiTurbineCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), TurbineRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<TurbineRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, TurbineRecipeViewer.class, TURBINE_RECIPE_TYPE.get());
     }
 
     @Override

@@ -14,26 +14,37 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
-public abstract class JeiRecipeViewerCategory<RECIPE extends BasicRecipe> extends JeiBasicCategory<RECIPE> {
+public abstract class JeiRecipeViewerCategory<RECIPE extends BasicRecipe> extends JeiBasicCategory<RecipeHolder<RECIPE>> {
     private final Class<? extends RecipeViewer<RECIPE>> clazz;
+    private final RecipeType<RecipeHolder<RECIPE>> recipeType;
 
-    public JeiRecipeViewerCategory(IGuiHelper helper, String name, Class<? extends RecipeViewer<RECIPE>> clazz) {
+    public JeiRecipeViewerCategory(IGuiHelper helper, String name, Class<? extends RecipeViewer<RECIPE>> clazz, net.minecraft.world.item.crafting.RecipeType<RECIPE> recipeType) {
         super(helper, name);
         this.clazz = clazz;
+        this.recipeType = RecipeType.createFromVanilla(recipeType);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RECIPE recipe, IFocusGroup focuses) {
+    public RecipeType<RecipeHolder<RECIPE>> getRecipeType() {
+        return recipeType;
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<RECIPE> holder, IFocusGroup focuses) {
+        final RECIPE recipe = holder.value();
+
         if (recipe instanceof FissionCoolantHeaterRecipe coolantHeaterRecipe) { // Coolant Heaters need to be added separately
             ScreenPosition position = recipeViewerInfo.item_inputs().getFirst();
             builder.addInputSlot(position.x() + 1, position.y() + 1).addItemStack(coolantHeaterRecipe.getHeater());
@@ -75,7 +86,9 @@ public abstract class JeiRecipeViewerCategory<RECIPE extends BasicRecipe> extend
     }
 
     @Override
-    public void draw(RECIPE recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<RECIPE> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        final RECIPE recipe = holder.value();
+
         guiGraphics.blit(recipeViewerInfo.background(), 0, 0, recipeViewerInfo.rect().left(), recipeViewerInfo.rect().top(), recipeViewerInfo.rect().width(), recipeViewerInfo.rect().height());
 
         RecipeViewer<RECIPE> recipeViewer;

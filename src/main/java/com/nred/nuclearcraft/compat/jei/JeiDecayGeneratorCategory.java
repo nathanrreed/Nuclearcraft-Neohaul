@@ -5,26 +5,19 @@ import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.DECAY_GENERATOR;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.DECAY_GENERATOR_RECIPE_TYPE;
 
 public class JeiDecayGeneratorCategory extends JeiRecipeViewerCategory<DecayGeneratorRecipe> {
-    protected static final ResourceLocation UID = ncLoc("decay_generator");
-    private static final RecipeType<DecayGeneratorRecipe> TYPE = new RecipeType<>(UID, DecayGeneratorRecipe.class);
+    protected static final String UID = ncLoc("decay_generator").getPath();
 
     public JeiDecayGeneratorCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), DecayGeneratorRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<DecayGeneratorRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, DecayGeneratorRecipeViewer.class, DECAY_GENERATOR_RECIPE_TYPE.get());
     }
 
     @Override

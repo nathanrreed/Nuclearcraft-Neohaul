@@ -5,26 +5,19 @@ import com.nred.nuclearcraft.recipe.fission.FissionEmergencyCoolingRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FISSION_EMERGENCY_COOLING_RECIPE_TYPE;
 
 public class JeiFissionEmergencyCoolingCategory extends JeiRecipeViewerCategory<FissionEmergencyCoolingRecipe> {
-    protected static final ResourceLocation UID = ncLoc("fission_emergency_cooling");
-    private static final RecipeType<FissionEmergencyCoolingRecipe> TYPE = new RecipeType<>(UID, FissionEmergencyCoolingRecipe.class);
+    protected static final String UID = ncLoc("fission_emergency_cooling").getPath();
 
     public JeiFissionEmergencyCoolingCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), FissionEmergencyCoolingRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<FissionEmergencyCoolingRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, FissionEmergencyCoolingRecipeViewer.class, FISSION_EMERGENCY_COOLING_RECIPE_TYPE.get());
     }
 
     @Override

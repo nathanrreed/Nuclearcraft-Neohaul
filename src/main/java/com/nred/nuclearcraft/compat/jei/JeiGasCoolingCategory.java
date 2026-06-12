@@ -5,26 +5,19 @@ import com.nred.nuclearcraft.recipe.fission.PebbleFissionCoolerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FISSION_REACTOR_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.COOLER_RECIPE_TYPE;
 
 public class JeiGasCoolingCategory extends JeiRecipeViewerCategory<PebbleFissionCoolerRecipe> {
-    protected static final ResourceLocation UID = ncLoc("gas_cooling");
-    private static final RecipeType<PebbleFissionCoolerRecipe> TYPE = new RecipeType<>(UID, PebbleFissionCoolerRecipe.class);
+    protected static final String UID = ncLoc("gas_cooling").getPath();
 
     public JeiGasCoolingCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), PebbleFissionCoolerRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<PebbleFissionCoolerRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, PebbleFissionCoolerRecipeViewer.class, COOLER_RECIPE_TYPE.get());
     }
 
     @Override

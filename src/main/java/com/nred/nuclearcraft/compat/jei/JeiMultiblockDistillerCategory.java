@@ -5,26 +5,19 @@ import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.MACHINE_MAP;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.MULTIBLOCK_DISTILLER_RECIPE_TYPE;
 
 public class JeiMultiblockDistillerCategory extends JeiRecipeViewerCategory<MultiblockDistillerRecipe> {
-    protected static final ResourceLocation UID = ncLoc("multiblock_distiller");
-    private static final RecipeType<MultiblockDistillerRecipe> TYPE = new RecipeType<>(UID, MultiblockDistillerRecipe.class);
+    protected static final String UID = ncLoc("multiblock_distiller").getPath();
 
     public JeiMultiblockDistillerCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), MultiblockDistillerRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<MultiblockDistillerRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, MultiblockDistillerRecipeViewer.class, MULTIBLOCK_DISTILLER_RECIPE_TYPE.get());
     }
 
     @Override

@@ -5,26 +5,19 @@ import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
-import org.jspecify.annotations.NonNull;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.BlockRegistration.RADIATION_SCRUBBER;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.RADIATION_SCRUBBER_RECIPE_TYPE;
 
 public class JeiRadiationScrubberCategory extends JeiRecipeViewerCategory<RadiationScrubberRecipe> {
-    protected static final ResourceLocation UID = ncLoc("radiation_scrubber");
-    private static final RecipeType<RadiationScrubberRecipe> TYPE = new RecipeType<>(UID, RadiationScrubberRecipe.class);
+    protected static final String UID = ncLoc("radiation_scrubber").getPath();
 
     public JeiRadiationScrubberCategory(IGuiHelper helper) {
-        super(helper, UID.getPath(), RadiationScrubberRecipeViewer.class);
-    }
-
-    @Override
-    public @NonNull RecipeType<RadiationScrubberRecipe> getRecipeType() {
-        return TYPE;
+        super(helper, UID, RadiationScrubberRecipeViewer.class, RADIATION_SCRUBBER_RECIPE_TYPE.get());
     }
 
     @Override
