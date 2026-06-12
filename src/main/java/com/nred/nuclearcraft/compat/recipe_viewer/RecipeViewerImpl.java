@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.compat.recipe_viewer;
 
+import com.nred.nuclearcraft.datamap.TemperatureData;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
@@ -31,7 +32,7 @@ import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.INFILTR
 
 public class RecipeViewerImpl {
     public static Function<FluidStack, Component> INFILTRATOR_PRESSURE_FLUID_TOOLTIP = (fluidStack) -> Component.translatable(MODID + ".recipe_viewer.infiltrator_pressure_fluid_efficiency", Component.literal(NCMath.pcDecimalPlaces(DataMapHelper.getData(fluidStack, INFILTRATOR_PRESSURE_DATA).efficiency(), 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.LIGHT_PURPLE);
-    public static Function<FluidStack, Component> CONDENSER_DISSIPATION_TOOLTIP = (fluidStack) -> Component.translatable(MODID + ".recipe_viewer.condenser_dissipation_fluid_temp", Component.literal(fluidStack.getFluidType().getTemperature() + "K").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA);
+    public static Function<FluidStack, Component> CONDENSER_DISSIPATION_TOOLTIP = (fluidStack) -> Component.translatable(MODID + ".recipe_viewer.condenser_dissipation_fluid_temp", Component.literal(TemperatureData.getTemperature(fluidStack.getFluid()) + "K").withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA);
 
     public abstract static class RecipeViewer<R extends BasicRecipe> {
         public final R recipe;

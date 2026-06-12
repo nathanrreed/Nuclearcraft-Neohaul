@@ -13,3 +13,4 @@ Fluid Data Maps:
 
 - infiltrator_pressure_data
 - electrolyzer_electrolyte_data
+- temperature_data (Overrides the Neoforge Fluid Temperature [Condenser Dissipation Fluid Temperature])

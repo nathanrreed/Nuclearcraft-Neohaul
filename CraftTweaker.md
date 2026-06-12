@@ -42,18 +42,20 @@ getMinStackSize() as int
 ```
 
 Fluid outputs can also use NuclearCraft's fluid chance wrapper.
+A ChanceFluidIngredient for an ingredient of size 500, with a increment of 150 and minimum stack size of 50, will produce 50, 200, 350 or 500 mB of the fluid
 
 ### ChanceFluidIngredient
 
 ```zenscript
-mods.nuclearcraft.ChanceFluidIngredient.create(ingredient as IFluidStack, chancePercent as int, minStackSize as int = 0);
+mods.nuclearcraft.ChanceFluidIngredient.create(ingredient as IFluidStack, chancePercent as int, minStackSize as int = 0, increment as int = 1);
+millibuckets of the fluid.
 ```
 
 Examples:
 
 ```zenscript
 mods.nuclearcraft.ChanceFluidIngredient.create(<fluid:minecraft:water> * 1000, 35);
-mods.nuclearcraft.ChanceFluidIngredient.create(<fluid:minecraft:lava> * 1000, 80, 250);
+mods.nuclearcraft.ChanceFluidIngredient.create(<fluid:minecraft:lava> * 1000, 80, 250, 16);
 ```
 
 Extra methods:
@@ -62,6 +64,7 @@ Extra methods:
 getInternalIngredient() as IFluidStack
 getChancePercent() as int
 getMinStackSize() as int
+getIncrement() as int
 ```
 
 ## Recipe Addition
@@ -123,10 +126,10 @@ mods.nuclearcraft.Crystallizer
 mods.nuclearcraft.DecayHastener
 mods.nuclearcraft.ElectricFurnace
 mods.nuclearcraft.Electrolyzer
-mods.nuclearcraft.Enricher
-mods.nuclearcraft.Extractor
-mods.nuclearcraft.Infuser
-mods.nuclearcraft.SaltMixer
+mods.nuclearcraft.FluidEnricher
+mods.nuclearcraft.FluidExtractor
+mods.nuclearcraft.FluidInfuser
+mods.nuclearcraft.FluidMixer
 mods.nuclearcraft.FuelReprocessor
 mods.nuclearcraft.IngotFormer
 mods.nuclearcraft.Manufactory
@@ -231,48 +234,48 @@ mods.nuclearcraft.Electrolyzer.addRecipe(name as string, input as CTFluidIngredi
 
 ### Fluid Enricher
 
-Old-style: `mods.nuclearcraft.Enricher`
+Old-style: `mods.nuclearcraft.FluidEnricher`
 
 RecipeType: `<recipetype:nuclearcraftneohaul:fluid_enricher>`
 
 ```zenscript
-mods.nuclearcraft.Enricher.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
-mods.nuclearcraft.Enricher.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as mods.nuclearcraft.ChanceFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidEnricher.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidEnricher.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as mods.nuclearcraft.ChanceFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fluid Extractor
 
-Old-style: `mods.nuclearcraft.Extractor`
+Old-style: `mods.nuclearcraft.FluidExtractor`
 
 RecipeType: `<recipetype:nuclearcraftneohaul:fluid_extractor>`
 
 ```zenscript
-mods.nuclearcraft.Extractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as IItemStack, fluidOutput as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
-mods.nuclearcraft.Extractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as mods.nuclearcraft.ChanceItemIngredient, fluidOutput as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
-mods.nuclearcraft.Extractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as IItemStack, fluidOutput as mods.nuclearcraft.ChanceFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
-mods.nuclearcraft.Extractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as mods.nuclearcraft.ChanceItemIngredient, fluidOutput as mods.nuclearcraft.ChanceFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidExtractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as IItemStack, fluidOutput as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidExtractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as mods.nuclearcraft.ChanceItemIngredient, fluidOutput as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidExtractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as IItemStack, fluidOutput as mods.nuclearcraft.ChanceFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidExtractor.addRecipe(name as string, input as IIngredientWithAmount, itemOutput as mods.nuclearcraft.ChanceItemIngredient, fluidOutput as mods.nuclearcraft.ChanceFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fluid Infuser
 
-Old-style: `mods.nuclearcraft.Infuser`
+Old-style: `mods.nuclearcraft.FluidInfuser`
 
 RecipeType: `<recipetype:nuclearcraftneohaul:fluid_infuser>`
 
 ```zenscript
-mods.nuclearcraft.Infuser.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
-mods.nuclearcraft.Infuser.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidInfuser.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as IItemStack, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidInfuser.addRecipe(name as string, itemInput as IIngredientWithAmount, fluidInput as CTFluidIngredient, output as mods.nuclearcraft.ChanceItemIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fluid Mixer
 
-Old-style: `mods.nuclearcraft.SaltMixer`
+Old-style: `mods.nuclearcraft.FluidMixer`
 
 RecipeType: `<recipetype:nuclearcraftneohaul:fluid_mixer>`
 
 ```zenscript
-mods.nuclearcraft.SaltMixer.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
-mods.nuclearcraft.SaltMixer.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output as mods.nuclearcraft.ChanceFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidMixer.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output as CTFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
+mods.nuclearcraft.FluidMixer.addRecipe(name as string, left as CTFluidIngredient, right as CTFluidIngredient, output as mods.nuclearcraft.ChanceFluidIngredient, timeModifier as double = 1D, powerModifier as double = 1D, radiation as double = 0D);
 ```
 
 ### Fuel Reprocessor

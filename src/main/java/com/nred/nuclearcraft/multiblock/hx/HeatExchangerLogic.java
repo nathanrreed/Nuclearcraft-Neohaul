@@ -26,6 +26,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
@@ -169,7 +170,7 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
         multiblock.masterShellInlet = null;
         multiblock.networks.clear();
 
-        multiblock.shellRecipe = null;
+        multiblock.shellRecipe = Fluids.EMPTY;
 
         multiblock.totalNetworkCount = multiblock.activeNetworkCount = 0;
         multiblock.activeTubeCount = multiblock.activeContactCount = 0;
@@ -191,7 +192,7 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
         multiblock.masterShellInlet = null;
         multiblock.networks.clear();
 
-        multiblock.shellRecipe = null;
+        multiblock.shellRecipe = Fluids.EMPTY;
 
         multiblock.totalNetworkCount = 0;
 

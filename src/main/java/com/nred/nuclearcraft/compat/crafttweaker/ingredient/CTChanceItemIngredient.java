@@ -3,7 +3,7 @@ package com.nred.nuclearcraft.compat.crafttweaker.ingredient;
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import org.openzen.zencode.java.ZenCodeType;
 
 @ZenRegister
@@ -40,12 +40,8 @@ public final class CTChanceItemIngredient {
         return minStackSize;
     }
 
+    @ZenCodeType.Method
     public SizedChanceItemIngredient asSizedChanceItemIngredient() {
-        return new SizedChanceItemIngredient(
-                internalIngredient.ingredient().asVanillaIngredient(),
-                internalIngredient.amount(),
-                chancePercent,
-                minStackSize
-        );
+        return new SizedChanceItemIngredient(internalIngredient.ingredient().asVanillaIngredient(), internalIngredient.amount(), chancePercent, minStackSize);
     }
 }

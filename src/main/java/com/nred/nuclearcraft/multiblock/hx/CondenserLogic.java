@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.block_entity.hx.HeatExchangerOutletEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerTubeEntity;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerController;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
+import com.nred.nuclearcraft.datamap.TemperatureData;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.payload.multiblock.CondenserRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.CondenserUpdatePacket;
@@ -25,6 +26,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -69,11 +71,11 @@ public class CondenserLogic extends HeatExchangerLogic {
     }
 
     private static Stream<Map.Entry<ResourceKey<Fluid>, Fluid>> getCondenserDissipationStream() {
-        return BuiltInRegistries.FLUID.entrySet().stream().filter(x -> x.getValue().getFluidType().getTemperature() <= 300 && x.getValue().isSource(x.getValue().defaultFluidState()));
+        return BuiltInRegistries.FLUID.entrySet().stream().filter(x -> TemperatureData.getTemperature(x.getValue()) <= 300 && x.getValue().isSource(x.getValue().defaultFluidState()));
     }
 
     public static List<FluidStack> getCondenserDissipationFluids() {
-        return getCondenserDissipationStream().map(x -> new FluidStack(x.getValue(), 1000)).filter(y -> !y.isEmpty()).sorted(Comparator.comparingInt(z -> z.getFluidType().getTemperature())).toList();
+        return getCondenserDissipationStream().map(x -> new FluidStack(x.getValue(), 1000)).filter(y -> !y.isEmpty()).sorted(Comparator.comparingInt(z -> TemperatureData.getTemperature(z.getFluid()))).toList();
     }
 
     protected Set<ResourceLocation> getTubeValidFluids() {
@@ -101,7 +103,7 @@ public class CondenserLogic extends HeatExchangerLogic {
         multiblock.masterShellInlet = null;
         multiblock.networks.clear();
 
-        multiblock.shellRecipe = null;
+        multiblock.shellRecipe = Fluids.EMPTY;
 
         multiblock.totalNetworkCount = 0;
 
@@ -263,17 +265,17 @@ public class CondenserLogic extends HeatExchangerLogic {
             return multiblock.shellSpeedMultiplier;
         }
 
-        if (inlet.isHeating || multiblock.shellRecipe == null) {
+        if (inlet.isHeating || multiblock.shellRecipe == Fluids.EMPTY) {
             return 0D;
         }
 
-        int shellTemperature = multiblock.shellRecipe.getFluidType().getTemperature();
+        int shellTemperature = TemperatureData.getTemperature(multiblock.shellRecipe);
         if (inlet.outputTemperature < shellTemperature) {
             return 0D;
         }
 
         double absMeanTempDiff = HeatExchanger.getAbsMeanTempDiff(inlet.inputTemperature - shellTemperature, inlet.outputTemperature - shellTemperature);
-        multiblock.totalTempDiff += absMeanTempDiff * inlet.network.usefulTubeCount;
+        multiblock.totalTempDiff += absMeanTempDiff * Objects.requireNonNull(inlet.network).usefulTubeCount;
 
         multiblock.activeContactCount += inlet.network.usefulTubeCount;
 

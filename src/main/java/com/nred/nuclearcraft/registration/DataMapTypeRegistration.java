@@ -22,6 +22,8 @@ public class DataMapTypeRegistration {
     public static final DataMapType<Fluid, ElectrolyzerElectrolyteData> ELECTROLYZER_ELECTROLYTE_DATA = DataMapType.builder(ncLoc("electrolyzer_electrolyte_data"), Registries.FLUID, ElectrolyzerElectrolyteData.CODEC).synced(ElectrolyzerElectrolyteData.CODEC, true).build();
     public static final DataMapType<Fluid, InfiltratorPressureData> INFILTRATOR_PRESSURE_DATA = DataMapType.builder(ncLoc("infiltrator_pressure_data"), Registries.FLUID, InfiltratorPressureData.CODEC).synced(InfiltratorPressureData.CODEC, true).build();
 
+    public static final DataMapType<Fluid, TemperatureData> TEMPERATURE_DATA = DataMapType.builder(ncLoc("temperature_data"), Registries.FLUID, TemperatureData.CODEC).synced(TemperatureData.CODEC, true).build();
+
     @SubscribeEvent
     public static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
         event.register(MACHINE_DIAPHRAGM_DATA);
@@ -32,5 +34,6 @@ public class DataMapTypeRegistration {
         event.register(INFILTRATOR_PRESSURE_DATA);
         event.register(FISSION_MODERATOR_DATA);
         event.register(FISSION_REFLECTOR_DATA);
+        event.register(TEMPERATURE_DATA);
     }
 }

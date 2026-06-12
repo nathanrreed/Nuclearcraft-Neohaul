@@ -5,7 +5,8 @@ There are 4 main ways to make changes to how things work
    - Found in game in the Mods Menu
    - Needs an overhaul
 2. Recipes
-    - Can be added manually or through KubeJS integration
+    - Can be modified through KubeJS (See [KubeJSWiki](https://kubejs.com/wiki/tutorials/recipes#custom-modded-json-recipes))
+    - Can be modified through [CraftTweaker](CraftTweaker.md)
     - For current recipes see [here](./src/generated/resources/data/nuclearcraftneohaul/recipe)
 3. DataMaps
     - Used to alter what blocks/fluids some machines can use

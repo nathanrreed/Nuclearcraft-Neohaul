@@ -7,8 +7,8 @@ import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker.api.recipe.manager.base.IRecipeManager;
 import com.blamejared.crafttweaker.api.util.random.Percentaged;
-import com.nred.nuclearcraft.handler.SizedChanceFluidIngredient;
-import com.nred.nuclearcraft.handler.SizedChanceItemIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
+import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -27,12 +27,12 @@ public record CTProcessorRecipeWrapper(List<SizedChanceItemIngredient> itemInput
 
     public static CTProcessorRecipeWrapper create(@Nullable IIngredientWithAmount[] itemInputs,
                                                   @Nullable IIngredientWithAmount[] itemResults,
-                                                  @Nullable int[] itemOutputChances,
-                                                  @Nullable int[] itemOutputMinStackSizes,
+                                                  int @Nullable [] itemOutputChances,
+                                                  int @Nullable [] itemOutputMinStackSizes,
                                                   @Nullable CTFluidIngredient[] fluidInputs,
                                                   @Nullable CTFluidIngredient[] fluidResults,
-                                                  @Nullable int[] fluidOutputChances,
-                                                  @Nullable int[] fluidOutputMinStackSizes) {
+                                                  int @Nullable [] fluidOutputChances,
+                                                  int @Nullable [] fluidOutputMinStackSizes) {
 
         List<SizedChanceItemIngredient> item_in = Collections.emptyList();
         List<SizedChanceItemIngredient> item_out = Collections.emptyList();
@@ -100,7 +100,7 @@ public record CTProcessorRecipeWrapper(List<SizedChanceItemIngredient> itemInput
             String name,
             Function<CTProcessorRecipeWrapper, T> recipeCreator
     ) {
-        if(itemInputs.isEmpty() && itemResults.isEmpty() && fluidInputs.isEmpty() && fluidResults.isEmpty()) return;
+        if (itemInputs.isEmpty() && itemResults.isEmpty() && fluidInputs.isEmpty() && fluidResults.isEmpty()) return;
 
         CraftTweakerAPI.apply(
                 new ActionAddRecipe<>(
@@ -113,7 +113,7 @@ public record CTProcessorRecipeWrapper(List<SizedChanceItemIngredient> itemInput
         );
     }
 
-    private static void validateArrayLengths(String label, @Nullable Object[] results, @Nullable int[] chances, @Nullable int[] minStackSizes) {
+    private static void validateArrayLengths(String label, @Nullable Object[] results, int @Nullable [] chances, int @Nullable [] minStackSizes) {
         if (results == null) {
             if (chances != null || minStackSizes != null) {
                 throw new IllegalArgumentException("Cannot set " + label + " metadata without " + label);
@@ -130,7 +130,7 @@ public record CTProcessorRecipeWrapper(List<SizedChanceItemIngredient> itemInput
         }
     }
 
-    private static int getOrDefault(@Nullable int[] values, int index, int defaultValue) {
+    private static int getOrDefault(int @Nullable [] values, int index, int defaultValue) {
         return values == null ? defaultValue : values[index];
     }
 
@@ -163,8 +163,7 @@ public record CTProcessorRecipeWrapper(List<SizedChanceItemIngredient> itemInput
         return data;
     }
 
-    @Nullable
-    private static int[] unwrapChances(@Nullable Percentaged<IIngredientWithAmount>[] itemResult) {
+    private static int @Nullable [] unwrapChances(@Nullable Percentaged<IIngredientWithAmount>[] itemResult) {
         if (itemResult == null) {
             return null;
         }
@@ -202,8 +201,7 @@ public record CTProcessorRecipeWrapper(List<SizedChanceItemIngredient> itemInput
         return wrapped;
     }
 
-    @Nullable
-    private static int[] unwrapFluidChances(@Nullable Percentaged<IFluidStack>[] fluidResult) {
+    private static int @Nullable [] unwrapFluidChances(@Nullable Percentaged<IFluidStack>[] fluidResult) {
         if (fluidResult == null) {
             return null;
         }
