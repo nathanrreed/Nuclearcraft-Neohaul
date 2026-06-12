@@ -173,16 +173,15 @@ dependencies {
     compileOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
     runtimeOnly("dev.latvian.mods:kubejs-neoforge:${kubejs_version}")
 
+    compileOnly("com.blamejared.crafttweaker:CraftTweaker-neoforge-${minecraft_version}:${crafttweaker_version}")
+    runtimeOnly("com.blamejared.crafttweaker:CraftTweaker-neoforge-${minecraft_version}:${crafttweaker_version}")
+
     implementation "maven.modrinth:fusion-connected-textures:${fusion_version}-neoforge-mc${minecraft_version}"
 
     compileOnly("org.appliedenergistics:guideme:${guideme_version}:api")
     runtimeOnly("org.appliedenergistics:guideme:${guideme_version}")
 
     compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${minecraft_version}:${sable_companion_version}")
-
-    def ctDep = "com.blamejared.crafttweaker:CraftTweaker-neoforge-${minecraft_version}:${crafttweaker_version}";
-    compileOnly(ctDep)
-    runtimeOnly(ctDep)
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -252,6 +251,7 @@ modrinth {
         optional.project "mekanism"
         optional.project "fusion-connected-textures"
         optional.project "guideme"
+        optional.project "crafttweaker"
     }
     changelog = rootProject.file("Changelog.md").text
 }
@@ -271,7 +271,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
 
     mainFile.addRequirement("zerocore", "terrablender-neoforge")
-    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "guideme")
+    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "guideme", "crafttweaker")
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
