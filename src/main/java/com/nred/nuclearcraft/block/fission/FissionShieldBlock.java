@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.fission;
 
 import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
+import com.nred.nuclearcraft.block.IActivatable;
 import com.nred.nuclearcraft.block_entity.fission.FissionShieldEntity;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.IFissionPartType;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 
-public class FissionShieldBlock extends GenericTooltipDeviceBlock<FissionReactor, IFissionPartType> implements INeverCauseRenderingSkip {
+public class FissionShieldBlock extends GenericTooltipDeviceBlock<FissionReactor, IFissionPartType> implements INeverCauseRenderingSkip, IActivatable {
     public FissionShieldBlock(@NotNull MultiblockPartProperties<IFissionPartType> iFissionPartTypeMultiblockPartProperties) {
         super(iFissionPartTypeMultiblockPartProperties.setBlockProperties(Properties.of().noOcclusion()));
         this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
