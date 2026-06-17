@@ -9,12 +9,15 @@ import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.nred.nuclearcraft.registration.Registers.MENUS;
 
 public class MenuRegistration {
-    public static final HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?>>>> PROCESSOR_MENU_TYPES = createProcessors();
+    public static final HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?, ?>>>> _PROCESSOR_MENU_TYPES = createProcessors();
+    public static final Map<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?, ?>>>> PROCESSOR_MENU_TYPES = Collections.synchronizedMap(_PROCESSOR_MENU_TYPES);
 
     // Controllers
     public static final DeferredHolder<MenuType<?>, MenuType<SolidFissionControllerMenu>> SOLID_FISSION_CONTROLLER_MENU_TYPE = MENUS.register("solid_fission_controller", () -> IMenuTypeExtension.create(SolidFissionControllerMenu::new));
@@ -47,8 +50,8 @@ public class MenuRegistration {
 
     public static final DeferredHolder<MenuType<?>, MenuType<RadiationScrubberMenu>> RADIATION_SCRUBBER_MENU_TYPE = MENUS.register("radiation_scrubber", () -> IMenuTypeExtension.create(RadiationScrubberMenu::new));
 
-    private static HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?>>>> createProcessors() {
-        HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?>>>> map = new HashMap<>();
+    private static HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?, ?>>>> createProcessors() {
+        HashMap<String, DeferredHolder<MenuType<?>, MenuType<? extends ProcessorMenu<?, ?, ?, ?>>>> map = new HashMap<>();
         map.put("alloy_furnace", MENUS.register("alloy_furnace", () -> IMenuTypeExtension.create(AlloyFurnaceMenu::new)));
         map.put("assembler", MENUS.register("assembler", () -> IMenuTypeExtension.create(AssemblerMenu::new)));
         map.put("centrifuge", MENUS.register("centrifuge", () -> IMenuTypeExtension.create(CentrifugeMenu::new)));

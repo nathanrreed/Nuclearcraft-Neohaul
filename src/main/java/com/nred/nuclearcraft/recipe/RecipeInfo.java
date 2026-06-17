@@ -6,13 +6,12 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class RecipeInfo<T extends IRecipe> {
-
-    public final @Nonnull T recipe;
+public class RecipeInfo<RECIPE extends IRecipe> {
+    public final @Nonnull RECIPE recipe;
 
     public final RecipeMatchResult matchResult;
 
-    public RecipeInfo(@Nonnull T recipe, RecipeMatchResult matchResult) {
+    public RecipeInfo(@Nonnull RECIPE recipe, RecipeMatchResult matchResult) {
         this.recipe = recipe;
         this.matchResult = matchResult;
     }

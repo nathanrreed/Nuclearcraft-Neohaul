@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.BiFunction;
 
-public class SimpleTileInfoBlock<TILE extends BlockEntity> extends TileInfoBlock<TILE> {
+public class SimpleTileInfoBlock<TILE extends BlockEntity> extends BlockEntityInfoBlock<TILE> {
     public SimpleTileInfoBlock(String name, Class<TILE> tileClass, BiFunction<BlockPos, BlockState, TILE> tileSupplier) {
         super(name, tileClass, tileSupplier);
     }

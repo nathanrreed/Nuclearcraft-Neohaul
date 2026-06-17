@@ -1,18 +1,18 @@
 package com.nred.nuclearcraft.compat.recipe_viewer;
 
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfo;
 import com.nred.nuclearcraft.datamap.TemperatureData;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
-import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
-import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
-import com.nred.nuclearcraft.recipe.RecipeStats;
+import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
 import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
 import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.NCMath;
@@ -20,6 +20,7 @@ import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.*;
+import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.getRecipeViewerCategoryInfo;
 import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.INFILTRATOR_PRESSURE_DATA;
 
 public class RecipeViewerImpl {
@@ -43,7 +45,11 @@ public class RecipeViewerImpl {
 
         public abstract List<Component> progressTooltips(int x, int y);
 
-        public abstract int getProgressTime();
+        public abstract int getProgressArrowTime();
+
+        public int[] getProgressArrowUVWH(int arrowU, int arrowV, int arrowW, int arrowH) {
+            return new int[]{arrowU, arrowV, arrowW, arrowH};
+        }
     }
 
     public static class FissionEmergencyCoolingRecipeViewer extends RecipeViewer<FissionEmergencyCoolingRecipe> {
@@ -57,7 +63,7 @@ public class RecipeViewerImpl {
             return list;
         }
 
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return NCMath.toInt(640.0 / recipe.getEmergencyCoolingHeatPerInputMB());
         }
     }
@@ -82,8 +88,8 @@ public class RecipeViewerImpl {
             return list;
         }
 
-        public int getProgressTime() {
-            return NCMath.toInt(20D * recipe.getDecayGeneratorLifetime());
+        public int getProgressArrowTime() {
+            return NCMath.toInt(Math.sqrt(recipe.getDecayGeneratorLifetime()));
         }
     }
 
@@ -108,7 +114,7 @@ public class RecipeViewerImpl {
             return list;
         }
 
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return NCMath.toInt(400D * recipe.getCondenserCoolingRequired());
         }
     }
@@ -128,7 +134,7 @@ public class RecipeViewerImpl {
             return list;
         }
 
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return 1200;
         }
     }
@@ -164,7 +170,7 @@ public class RecipeViewerImpl {
             return list;
         }
 
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return NCMath.toInt(recipe.getFissionFuelTime() * 16.0);
         }
     }
@@ -200,7 +206,7 @@ public class RecipeViewerImpl {
             return list;
         }
 
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return NCMath.toInt(recipe.getFissionFuelTime() * 16.0);
         }
     }
@@ -238,7 +244,7 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return NCMath.toInt(recipe.getSaltFissionFuelTime() * 144.0);
         }
     }
@@ -263,7 +269,7 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return 2000;
         }
     }
@@ -287,8 +293,178 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return 2000;
+        }
+    }
+
+    public static abstract class ProcessorRecipeViewer<T extends ProcessorRecipe> extends RecipeViewer<T> {
+        private final ProcessorMenuInfo<?, ?, ?, T> menuInfo;
+
+        public ProcessorRecipeViewer(T recipe, String type) {
+            super(recipe);
+
+            menuInfo = BlockEntityInfoHandler.getProcessorMenuInfo(type);
+        }
+
+        @Override
+        public List<Component> progressTooltips(int x, int y) {
+            ArrayList<Component> tooltips = new ArrayList<>(2);
+            tooltips.add(Component.translatable(MODID + ".tooltip.process_time", ChatFormatting.WHITE + UnitHelper.applyTimeUnitShort(recipe.getBaseProcessTime(menuInfo.getDefaultProcessTime()), 3)).withStyle(ChatFormatting.GREEN));
+            tooltips.add(Component.translatable(MODID + ".tooltip.process_power", ChatFormatting.WHITE + UnitHelper.prefix(recipe.getBaseProcessPower(menuInfo.getDefaultProcessPower()), 5, "RF/t")).withStyle(ChatFormatting.LIGHT_PURPLE));
+            double radiation = recipe.getBaseProcessRadiation();
+            if (radiation > 0D) {
+                tooltips.add(Component.translatable(MODID + ".tooltip.base_process_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));
+            }
+
+            return tooltips;
+        }
+
+        @Override
+        public int getProgressArrowTime() {
+            return Mth.clamp(NCMath.toInt(recipe.getBaseProcessTime(menuInfo.getDefaultProcessTime()) / 4D), 20, 500);
+        }
+    }
+
+    public static class AlloyFurnaceRecipeViewer extends ProcessorRecipeViewer<AlloyFurnaceRecipe> {
+        public AlloyFurnaceRecipeViewer(AlloyFurnaceRecipe recipe) {
+            super(recipe, "alloy_furnace");
+        }
+    }
+
+    public static class AssemblerRecipeViewer extends ProcessorRecipeViewer<AssemblerRecipe> {
+        public AssemblerRecipeViewer(AssemblerRecipe recipe) {
+            super(recipe, "assembler");
+        }
+    }
+
+    public static class CentrifugeRecipeViewer extends ProcessorRecipeViewer<CentrifugeRecipe> {
+        public CentrifugeRecipeViewer(CentrifugeRecipe recipe) {
+            super(recipe, "centrifuge");
+        }
+    }
+
+    public static class ChemicalReactorRecipeViewer extends ProcessorRecipeViewer<ChemicalReactorRecipe> {
+        public ChemicalReactorRecipeViewer(ChemicalReactorRecipe recipe) {
+            super(recipe, "chemical_reactor");
+        }
+    }
+
+    public static class CrystallizerRecipeViewer extends ProcessorRecipeViewer<CrystallizerRecipe> {
+        public CrystallizerRecipeViewer(CrystallizerRecipe recipe) {
+            super(recipe, "crystallizer");
+        }
+    }
+
+    public static class DecayHastenerRecipeViewer extends ProcessorRecipeViewer<DecayHastenerRecipe> {
+        public DecayHastenerRecipeViewer(DecayHastenerRecipe recipe) {
+            super(recipe, "decay_hastener");
+        }
+    }
+
+    public static class ElectricFurnaceRecipeViewer extends ProcessorRecipeViewer<ElectricFurnaceRecipe> {
+        public ElectricFurnaceRecipeViewer(ElectricFurnaceRecipe recipe) {
+            super(recipe, "electric_furnace");
+        }
+    }
+
+    public static class ElectrolyzerRecipeViewer extends ProcessorRecipeViewer<ElectrolyzerRecipe> {
+        public ElectrolyzerRecipeViewer(ElectrolyzerRecipe recipe) {
+            super(recipe, "electrolyzer");
+        }
+    }
+
+    public static class FluidEnricherRecipeViewer extends ProcessorRecipeViewer<FluidEnricherRecipe> {
+        public FluidEnricherRecipeViewer(FluidEnricherRecipe recipe) {
+            super(recipe, "fluid_enricher");
+        }
+    }
+
+    public static class FluidExtractorRecipeViewer extends ProcessorRecipeViewer<FluidExtractorRecipe> {
+        public FluidExtractorRecipeViewer(FluidExtractorRecipe recipe) {
+            super(recipe, "fluid_extractor");
+        }
+    }
+
+    public static class FluidInfuserRecipeViewer extends ProcessorRecipeViewer<FluidInfuserRecipe> {
+        public FluidInfuserRecipeViewer(FluidInfuserRecipe recipe) {
+            super(recipe, "fluid_infuser");
+        }
+    }
+
+    public static class FluidMixerRecipeViewer extends ProcessorRecipeViewer<FluidMixerRecipe> {
+        public FluidMixerRecipeViewer(FluidMixerRecipe recipe) {
+            super(recipe, "fluid_mixer");
+        }
+    }
+
+    public static class FuelReprocessorRecipeViewer extends ProcessorRecipeViewer<FuelReprocessorRecipe> {
+        public FuelReprocessorRecipeViewer(FuelReprocessorRecipe recipe) {
+            super(recipe, "fuel_reprocessor");
+        }
+    }
+
+    public static class IngotFormerRecipeViewer extends ProcessorRecipeViewer<IngotFormerRecipe> {
+        public IngotFormerRecipeViewer(IngotFormerRecipe recipe) {
+            super(recipe, "ingot_former");
+        }
+    }
+
+    public static class ManufactoryRecipeViewer extends ProcessorRecipeViewer<ManufactoryRecipe> {
+        public ManufactoryRecipeViewer(ManufactoryRecipe recipe) {
+            super(recipe, "manufactory");
+        }
+    }
+
+    public static class MelterRecipeViewer extends ProcessorRecipeViewer<MelterRecipe> {
+        public MelterRecipeViewer(MelterRecipe recipe) {
+            super(recipe, "melter");
+        }
+    }
+
+    public static class PressurizerRecipeViewer extends ProcessorRecipeViewer<PressurizerRecipe> {
+        public PressurizerRecipeViewer(PressurizerRecipe recipe) {
+            super(recipe, "pressurizer");
+        }
+    }
+
+    public static class RockCrusherRecipeViewer extends ProcessorRecipeViewer<RockCrusherRecipe> {
+        public RockCrusherRecipeViewer(RockCrusherRecipe recipe) {
+            super(recipe, "rock_crusher");
+        }
+    }
+
+    public static class SeparatorRecipeViewer extends ProcessorRecipeViewer<SeparatorRecipe> {
+        public SeparatorRecipeViewer(SeparatorRecipe recipe) {
+            super(recipe, "separator");
+        }
+    }
+
+    public static class SupercoolerRecipeViewer extends ProcessorRecipeViewer<SupercoolerRecipe> {
+        public SupercoolerRecipeViewer(SupercoolerRecipe recipe) {
+            super(recipe, "supercooler");
+        }
+    }
+
+    public static class ProcessorRecipeViewerDyn extends ProcessorRecipeViewer<ProcessorRecipeDyn> {
+        public ProcessorRecipeViewerDyn(ProcessorRecipeDyn recipe, String name) {
+            super(recipe, name);
+        }
+    }
+
+    public static class CollectorRecipeViewer extends RecipeViewer<CollectorRecipe> {
+        public CollectorRecipeViewer(CollectorRecipe recipe) {
+            super(recipe);
+        }
+
+        @Override
+        public List<Component> progressTooltips(int x, int y) {
+            return List.of(Component.translatable(MODID + ".tooltip.production_rate", ChatFormatting.WHITE + recipe.getCollectorProductionRate()).withStyle(ChatFormatting.GREEN));
+        }
+
+        @Override
+        public int getProgressArrowTime() {
+            return machine_update_rate;
         }
     }
 
@@ -307,7 +483,7 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return NCMath.toInt(recipe.getScrubberProcessTime() * 1.2);
         }
     }
@@ -338,8 +514,8 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
-            return NCMath.toInt(4D * recipe.getBaseProcessTime(machine_infiltrator_time));
+        public int getProgressArrowTime() {
+            return NCMath.toInt(recipe.getBaseProcessTime(machine_infiltrator_time));
         }
     }
 
@@ -348,7 +524,7 @@ public class RecipeViewerImpl {
             super(recipe);
         }
 
-        public static final ScreenRectangle electrolyte = new ScreenRectangle(50, 13, 18, 18);
+        public static final ScreenRectangle electrolyte = new ScreenRectangle(64 - getRecipeViewerCategoryInfo("multiblock_electrolyzer").getRecipeViewerBackgroundX(), 41 - getRecipeViewerCategoryInfo("multiblock_electrolyzer").getRecipeViewerBackgroundY(), 16, 16);
 
         @Override
         public List<Component> progressTooltips(int x, int y) {
@@ -367,8 +543,8 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
-            return NCMath.toInt(80D * recipe.getBaseProcessTime(machine_electrolyzer_time));
+        public int getProgressArrowTime() {
+            return NCMath.toInt(40D * recipe.getBaseProcessTime(machine_electrolyzer_time));
         }
     }
 
@@ -385,7 +561,7 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
+        public int getProgressArrowTime() {
             return NCMath.toInt(recipe.getFissionHeatingHeatPerInputMB() * 4.0);
         }
     }
@@ -412,8 +588,8 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
-            return NCMath.toInt(20D * recipe.getBaseProcessTime(machine_distiller_time));
+        public int getProgressArrowTime() {
+            return NCMath.toInt(4D * recipe.getBaseProcessTime(machine_distiller_time));
         }
     }
 
@@ -440,7 +616,13 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
+        public int[] getProgressArrowUVWH(int arrowU, int arrowV, int arrowW, int arrowH) {
+            boolean heating = recipe.getHeatExchangerIsHeating();
+            return new int[]{arrowU, arrowV + (heating ? 0 : 16), arrowW, arrowH};
+        }
+
+        @Override
+        public int getProgressArrowTime() {
             return NCMath.toInt(400D * recipe.getHeatExchangerHeatDifference());
         }
     }
@@ -481,8 +663,8 @@ public class RecipeViewerImpl {
         }
 
         @Override
-        public int getProgressTime() {
-            return NCMath.toInt(recipe.getIrradiatorFluxRequired() / 80);
+        public int getProgressArrowTime() {
+            return NCMath.toInt(recipe.getIrradiatorFluxRequired() * 8);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block.processor;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.nred.nuclearcraft.block.IActivatable;
 import com.nred.nuclearcraft.block_entity.processor.NuclearFurnaceEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.MenuProvider;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.NUCLEAR_FURNACE_ENTITY_TYPE;
 
-public class NuclearFurnaceBlock extends AbstractFurnaceBlock {
+public class NuclearFurnaceBlock extends AbstractFurnaceBlock implements IActivatable {
     public NuclearFurnaceBlock(Properties properties) {
         super(properties);
     }

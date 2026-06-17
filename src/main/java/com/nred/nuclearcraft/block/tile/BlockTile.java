@@ -63,7 +63,7 @@ public abstract class BlockTile extends NCBlock implements EntityBlock {
             }
             boolean accessedTanks = BlockHelper.accessTanks(player, hand, hitResult.getDirection(), tileFluid);
             if (accessedTanks) {
-                if (tile instanceof IProcessor<?, ?, ?> processor) {
+                if (tile instanceof IProcessor<?, ?, ?, ?> processor) {
                     processor.refreshRecipe();
                     processor.refreshActivity();
                 }
@@ -76,7 +76,7 @@ public abstract class BlockTile extends NCBlock implements EntityBlock {
                 return ItemInteractionResult.CONSUME;
             } else {
                 onGuiOpened(level, pos);
-                if (tile instanceof IProcessor<?, ?, ?> processor) {
+                if (tile instanceof IProcessor<?, ?, ?, ?> processor) {
                     processor.refreshRecipe();
                     processor.refreshActivity();
                 }

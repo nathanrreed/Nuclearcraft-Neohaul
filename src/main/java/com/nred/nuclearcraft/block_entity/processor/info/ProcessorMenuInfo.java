@@ -5,13 +5,13 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorContainerInfoBuilder;
+import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorMenuInfoBuilder;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.slot.ProcessorSlot;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
-import com.nred.nuclearcraft.recipe.ProcessorRecipe;
 import com.nred.nuclearcraft.util.CollectionHelper;
 import com.nred.nuclearcraft.util.ContainerInfoHelper;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 import static com.nred.nuclearcraft.config.NCConfig.processor_power_multiplier;
 import static com.nred.nuclearcraft.config.NCConfig.processor_time_multiplier;
 
-public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends BlockEntityMenuInfo<TILE> {
+public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends BlockEntityMenuInfo<TILE> {
     public final String recipeHandlerName;
 
     public final int itemInputSize;
@@ -49,8 +49,8 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
     public int inputTankCapacity;
     public int outputTankCapacity;
 
-    private final Supplier<Integer> defaultProcessTime;
-    private final Supplier<Integer> defaultProcessPower;
+    public final Supplier<Integer> defaultProcessTime;
+    public final Supplier<Integer> defaultProcessPower;
 
     public final boolean isGenerator;
 
@@ -98,10 +98,28 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
     public final int redstoneControlGuiX;
     public final int redstoneControlGuiY;
 
+    public final String recipeViewerTexture;
+    public final String screenTexture;
+
+    public final int recipeViewerBackgroundX;
+    public final int recipeViewerBackgroundY;
+    public final int recipeViewerBackgroundW;
+    public final int recipeViewerBackgroundH;
+
+    public final int jeiTooltipX;
+    public final int jeiTooltipY;
+    public final int jeiTooltipW;
+    public final int jeiTooltipH;
+
+    public final int jeiClickAreaX;
+    public final int jeiClickAreaY;
+    public final int jeiClickAreaW;
+    public final int jeiClickAreaH;
+
     public double maxBaseProcessTime = 1D;
     public double maxBaseProcessPower = 0D;
 
-    protected ProcessorMenuInfo(ProcessorContainerInfoBuilder<TILE, PACKET, INFO, ?> builder) {
+    protected ProcessorMenuInfo(ProcessorMenuInfoBuilder<TILE, PACKET, INFO, RECIPE, ?> builder) {
         super(builder.name, builder.tileClass, builder.menuFunction);
 
         this.recipeHandlerName = builder.recipeHandlerName;
@@ -168,9 +186,27 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
 
         redstoneControlGuiX = builder.redstoneControlGuiXY[0];
         redstoneControlGuiY = builder.redstoneControlGuiXY[1];
+
+        recipeViewerTexture = builder.recipeViewerTexture;
+        screenTexture = builder.screenTexture;
+
+        recipeViewerBackgroundX = builder.recipeViewerBackgroundXYWH[0];
+        recipeViewerBackgroundY = builder.recipeViewerBackgroundXYWH[1];
+        recipeViewerBackgroundW = builder.recipeViewerBackgroundXYWH[2];
+        recipeViewerBackgroundH = builder.recipeViewerBackgroundXYWH[3];
+
+        jeiTooltipX = builder.recipeViewerTooltipXYWH[0];
+        jeiTooltipY = builder.recipeViewerTooltipXYWH[1];
+        jeiTooltipW = builder.recipeViewerTooltipXYWH[2];
+        jeiTooltipH = builder.recipeViewerTooltipXYWH[3];
+
+        jeiClickAreaX = builder.recipeViewerClickAreaXYWH[0];
+        jeiClickAreaY = builder.recipeViewerClickAreaXYWH[1];
+        jeiClickAreaW = builder.recipeViewerClickAreaXYWH[2];
+        jeiClickAreaH = builder.recipeViewerClickAreaXYWH[3];
     }
 
-    public BasicRecipeHandler<ProcessorRecipe> getRecipeHandler() {
+    public BasicRecipeHandler<RECIPE> getRecipeHandler() {
         return NCRecipes.getHandler(recipeHandlerName);
     }
 

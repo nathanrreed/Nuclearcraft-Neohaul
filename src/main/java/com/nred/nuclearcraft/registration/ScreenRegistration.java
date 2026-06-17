@@ -4,8 +4,10 @@ import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.*;
 import com.nred.nuclearcraft.screen.multiblock.*;
 import com.nred.nuclearcraft.screen.multiblock.controller.*;
 import com.nred.nuclearcraft.screen.multiblock.port.*;
-import com.nred.nuclearcraft.screen.processor.ProcessorScreenImpl.*;
 import com.nred.nuclearcraft.screen.processor.NuclearFurnaceScreen;
+import com.nred.nuclearcraft.screen.processor.ProcessorScreenImpl.*;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,7 +15,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.getProcessorMenuUpgradable;
+import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.getRecipeViewerCategoryInfo;
 import static com.nred.nuclearcraft.registration.MenuRegistration.*;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_DYN_TYPES;
 
 @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
 public class ScreenRegistration {
@@ -40,6 +45,14 @@ public class ScreenRegistration {
         event.register((MenuType<SaltMixerMenu>) PROCESSOR_MENU_TYPES.get("fluid_mixer").get(), SaltMixerScreen::new);
         event.register((MenuType<SeparatorMenu>) PROCESSOR_MENU_TYPES.get("separator").get(), SeparatorScreen::new);
         event.register((MenuType<SupercoolerMenu>) PROCESSOR_MENU_TYPES.get("supercooler").get(), SupercoolerScreen::new);
+
+        for (String name : PROCESSOR_RECIPE_DYN_TYPES.keySet()) {
+            if (getProcessorMenuUpgradable(name)) {
+                event.register((MenuType<BasicUpgradableEnergyProcessorMenuDyn>) PROCESSOR_MENU_TYPES.get(name).get(), (MenuScreens.ScreenConstructor<BasicUpgradableEnergyProcessorMenuDyn, BasicUpgradableEnergyProcessorDynScreen>)(menu, inventory, title) -> new BasicUpgradableEnergyProcessorDynScreen(menu, inventory, title, ResourceLocation.parse(getRecipeViewerCategoryInfo(name).getScreenTexture())));
+            } else {
+                event.register((MenuType<BasicEnergyProcessorMenuDyn>) PROCESSOR_MENU_TYPES.get(name).get(), (MenuScreens.ScreenConstructor<BasicEnergyProcessorMenuDyn, BasicEnergyProcessorDynScreen>)(menu, inventory, title) -> new BasicEnergyProcessorDynScreen(menu, inventory, title, ResourceLocation.parse(getRecipeViewerCategoryInfo(name).getScreenTexture())));
+            }
+        }
 
         event.register(RADIATION_SCRUBBER_MENU_TYPE.get(), RadiationScrubberScreen::new);
 

@@ -61,6 +61,6 @@ public class ProcessorBlock<TILE extends BlockEntity> extends SidedTileBlock imp
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return level.isClientSide ? null : (level1, pos, state1, blockEntity) -> ((EnergyProcessorEntity<?, ?>) blockEntity).update();
+        return level.isClientSide ? null : (level1, pos, state1, blockEntity) -> ((EnergyProcessorEntity<?, ?, ?>) blockEntity).update();
     }
 }

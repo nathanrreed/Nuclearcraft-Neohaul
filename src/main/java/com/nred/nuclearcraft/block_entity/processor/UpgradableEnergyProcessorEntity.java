@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.block_entity.ITileInstallable;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.processor.info.UpgradableProcessorMenuInfo;
 import com.nred.nuclearcraft.payload.processor.EnergyProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -17,7 +18,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
-public abstract class UpgradableEnergyProcessorEntity<TILE extends UpgradableEnergyProcessorEntity<TILE, INFO>, INFO extends UpgradableProcessorMenuInfo<TILE, EnergyProcessorUpdatePacket, INFO>> extends EnergyProcessorEntity<TILE, INFO> implements ITileInstallable {
+public abstract class UpgradableEnergyProcessorEntity<TILE extends UpgradableEnergyProcessorEntity<TILE, INFO, RECIPE>, INFO extends UpgradableProcessorMenuInfo<TILE, EnergyProcessorUpdatePacket, INFO, RECIPE>, RECIPE extends BasicRecipe> extends EnergyProcessorEntity<TILE, INFO, RECIPE> implements ITileInstallable {
     protected UpgradableEnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name) {
         super(type, pos, blockState, name);
     }

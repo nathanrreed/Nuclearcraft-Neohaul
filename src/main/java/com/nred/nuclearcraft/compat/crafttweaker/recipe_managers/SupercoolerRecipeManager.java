@@ -2,12 +2,14 @@ package com.nred.nuclearcraft.compat.crafttweaker.recipe_managers;
 
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
-import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.processor.SupercoolerRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import org.openzen.zencode.java.ZenCodeType;
+
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SUPERCOOLER_RECIPE_TYPE;
 
 @ZenRegister
 @ZenCodeType.Name("mods.nuclearcraft.recipe.manager.SupercoolerRecipeManager")
@@ -37,5 +39,10 @@ public class SupercoolerRecipeManager extends BasicNuclearRecipeManager<Supercoo
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
         INSTANCE.addRecipeInternal(name, null, (IIngredientWithAmount[]) null, compact(input), compact(output), timeModifier, powerModifier, radiation);
+    }
+
+    @Override
+    public RecipeType<SupercoolerRecipe> getRecipeType() {
+        return SUPERCOOLER_RECIPE_TYPE.get();
     }
 }

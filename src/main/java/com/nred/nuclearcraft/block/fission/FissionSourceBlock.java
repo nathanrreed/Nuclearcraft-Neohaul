@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.block.fission;
 
 import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
+import com.nred.nuclearcraft.block.IActivatable;
 import com.nred.nuclearcraft.block_entity.fission.FissionSourceEntity;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.IFissionPartType;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZONTAL;
 
-public class FissionSourceBlock extends GenericHorizontalTooltipDeviceBlock<FissionReactor, IFissionPartType> {
+public class FissionSourceBlock extends GenericHorizontalTooltipDeviceBlock<FissionReactor, IFissionPartType> implements IActivatable {
     public FissionSourceBlock(@NotNull MultiblockPartProperties<IFissionPartType> iFissionPartTypeMultiblockPartProperties) {
         super(iFissionPartTypeMultiblockPartProperties);
         registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));

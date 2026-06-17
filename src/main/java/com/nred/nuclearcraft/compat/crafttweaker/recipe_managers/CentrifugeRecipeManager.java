@@ -2,12 +2,14 @@ package com.nred.nuclearcraft.compat.crafttweaker.recipe_managers;
 
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
-import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.processor.CentrifugeRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import org.openzen.zencode.java.ZenCodeType;
+
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.CENTRIFUGE_RECIPE_TYPE;
 
 @ZenRegister
 @ZenCodeType.Name("mods.nuclearcraft.recipe.manager.CentrifugeRecipeManager")
@@ -47,5 +49,10 @@ public class CentrifugeRecipeManager extends BasicNuclearRecipeManager<Centrifug
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
         INSTANCE.addRecipeInternal(name, null, (IIngredientWithAmount[]) null, compact(input), compact(output1, output2, output3, output4, output5, output6), timeModifier, powerModifier, radiation);
+    }
+
+    @Override
+    public RecipeType<CentrifugeRecipe> getRecipeType() {
+        return CENTRIFUGE_RECIPE_TYPE.get();
     }
 }

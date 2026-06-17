@@ -1,1 +1,3 @@
 - Fixed shield never appearing closed
+- Added Custom Processors to KubeJS
+- Rewrote JEI and EMI implementations

@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.gui.NCButton;
 import com.nred.nuclearcraft.gui.SorptionConfig;
 import com.nred.nuclearcraft.menu.InfoTileMenu;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -20,10 +21,9 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
-public abstract class UpgradableProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO>> extends ProcessorScreen<MENU, TILE, PACKET, INFO> {
+public abstract class UpgradableProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends ProcessorScreen<MENU, TILE, PACKET, INFO, RECIPE> {
     public UpgradableProcessorScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
         super(menu, inventory, title, textureLocation);
     }
@@ -43,7 +43,7 @@ public abstract class UpgradableProcessorScreen<MENU extends InfoTileMenu<TILE, 
 
     @Override
     protected void setConfigScreen() {
-        Minecraft.getInstance().setScreen(new SideConfigScreen(menu, this, menu.inventory, Component.empty(), ncLoc("screen/" + info.name)));
+        Minecraft.getInstance().setScreen(new SideConfigScreen(menu, this, menu.inventory, Component.empty(), ResourceLocation.parse(info.screenTexture)));
     }
 
     protected void drawUpgradeRenderers(GuiGraphics guiGraphics) {
@@ -88,7 +88,7 @@ public abstract class UpgradableProcessorScreen<MENU extends InfoTileMenu<TILE, 
         return Component.translatable(unloc, Component.literal(" x" + NCMath.decimalPlaces(mult, 2)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.AQUA);
     }
 
-    public class SideConfigScreen extends UpgradableProcessorScreen<MENU, TILE, PACKET, INFO> {
+    public class SideConfigScreen extends UpgradableProcessorScreen<MENU, TILE, PACKET, INFO, RECIPE> {
         private final Screen parent;
 
         public SideConfigScreen(MENU menu, Screen parent, Inventory inventory, Component title, ResourceLocation resourceLocation) {

@@ -3,12 +3,16 @@ package com.nred.nuclearcraft.helpers;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.nred.nuclearcraft.util.NCMath;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import org.joml.Matrix4f;
 
 import java.util.List;
@@ -90,6 +94,14 @@ public class GuiHelper {
         double sin = Math.sin(radAngle);
 
         return NCMath.toInt(Math.round(0.5D * height * (1 - cos * Math.abs(cos) + sin * Math.abs(sin))));
+    }
+
+    public static void renderGuiFluid(GuiGraphics guiGraphics, Fluid fluid, int x, int y, int w, int h, float alpha) {
+        if (!fluid.getFluidType().isAir()) {
+            guiGraphics.setColor(1, 1, 1, alpha);
+            blitTile(guiGraphics, Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(IClientFluidTypeExtensions.of(fluid).getStillTexture()), x, y, w, h, 16, 16, IClientFluidTypeExtensions.of(fluid).getTintColor());
+            guiGraphics.setColor(1, 1, 1, 1);
+        }
     }
 
     public static int getRenderPositionXFromAngle(int guiWidth, double angle, int width, int cushion) {

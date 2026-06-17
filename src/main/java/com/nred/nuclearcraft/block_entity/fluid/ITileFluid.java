@@ -2,10 +2,10 @@ package com.nred.nuclearcraft.block_entity.fluid;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.ITile;
-import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePort;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerPart;
 import com.nred.nuclearcraft.block_entity.internal.fluid.*;
 import com.nred.nuclearcraft.block_entity.machine.IMachinePart;
+import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePort;
 import com.nred.nuclearcraft.block_entity.passive.ITilePassive;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor.HandlerPair;
@@ -181,7 +181,7 @@ public interface ITileFluid extends ITile {
 
     default void onWrapperFill(int fillAmount, FluidAction doFill) {
         if (doFill == FluidAction.EXECUTE && fillAmount != 0) {
-            if (this instanceof IProcessor<?, ?, ?> processor) {
+            if (this instanceof IProcessor<?, ?, ?, ?> processor) {
                 processor.refreshRecipe();
                 processor.refreshActivity();
             } else if (this instanceof IMachinePart part) {
@@ -200,7 +200,7 @@ public interface ITileFluid extends ITile {
 
     default void onWrapperDrain(FluidStack drainStack, FluidAction doDrain) {
         if (doDrain == FluidAction.EXECUTE && drainStack != null && drainStack.getAmount() != 0) {
-            if (this instanceof IProcessor<?, ?, ?> processor) {
+            if (this instanceof IProcessor<?, ?, ?, ?> processor) {
                 processor.refreshActivity();
             } else if (this instanceof IMachinePart part) {
                 part.refreshMachineActivity();
@@ -216,7 +216,7 @@ public interface ITileFluid extends ITile {
 
     default void onWrapperReceiveGas(int receiveAmount, Action doTransfer) {
         if (doTransfer.execute() && receiveAmount != 0) {
-            if (this instanceof IProcessor<?, ?, ?> processor) {
+            if (this instanceof IProcessor<?, ?, ?, ?> processor) {
                 processor.refreshRecipe();
                 processor.refreshActivity();
             } else if (this instanceof IMachinePart part) {
@@ -235,7 +235,7 @@ public interface ITileFluid extends ITile {
 
     default void onWrapperDrawGas(ChemicalStack drawStack, Action doTransfer) {
         if (doTransfer.execute() && drawStack != null && drawStack.getAmount() != 0) {
-            if (this instanceof IProcessor<?, ?, ?> processor) {
+            if (this instanceof IProcessor<?, ?, ?, ?> processor) {
                 processor.refreshActivity();
             } else if (this instanceof IMachinePart part) {
                 part.refreshMachineActivity();
@@ -310,7 +310,7 @@ public interface ITileFluid extends ITile {
         }
 
         if (drained) {
-            if (this instanceof IProcessor<?, ?, ?> processor) {
+            if (this instanceof IProcessor<?, ?, ?, ?> processor) {
                 processor.refreshActivity();
             } else if (this instanceof IMachinePart part) {
                 part.refreshMachineActivity();

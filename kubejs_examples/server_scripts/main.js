@@ -40,5 +40,20 @@ ServerEvents.recipes(event => {
         },
         "placementRule": global["test_cooler"].toString()
     })
+
+    event.custom({
+        "type": "kubejs:test_generator",
+        "itemIngredients": [
+            {
+                "count": 1,
+                "ingredient": {
+                    "item": "minecraft:oak_log"
+                }
+            }
+        ],
+        "powerModifier": 1.0,
+        "radiation": 0.0,
+        "timeModifier": 1.0
+    })
 })
 

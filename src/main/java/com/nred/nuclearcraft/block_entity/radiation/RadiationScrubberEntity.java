@@ -1,12 +1,11 @@
 package com.nred.nuclearcraft.block_entity.radiation;
 
-import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.BasicEnergyProcessorEntity;
+import com.nred.nuclearcraft.block_entity.processor.ProcessorEntityImpl.BasicEnergyProcessorEntity;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.radiation.RadiationHandler;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.radiation.environment.RadiationEnvironmentHandler;
 import com.nred.nuclearcraft.radiation.environment.RadiationEnvironmentInfo;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
 import com.nred.nuclearcraft.util.FourPos;
 import com.nred.nuclearcraft.util.NBTHelper;
@@ -26,7 +25,7 @@ import java.util.concurrent.ConcurrentMap;
 import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.RADIATION_SCRUBBER_ENTITY_TYPE;
 
-public class RadiationScrubberEntity extends BasicEnergyProcessorEntity<RadiationScrubberEntity> implements ITileRadiationEnvironment {
+public class RadiationScrubberEntity extends BasicEnergyProcessorEntity<RadiationScrubberRecipe, RadiationScrubberEntity> implements ITileRadiationEnvironment {
     private double efficiency = 0D, scrubberFraction = 0D, currentChunkLevel = 0D, currentChunkBuffer = 0D;
 
     public final ConcurrentMap<BlockPos, Integer> occlusionMap = new ConcurrentHashMap<>();
@@ -68,15 +67,15 @@ public class RadiationScrubberEntity extends BasicEnergyProcessorEntity<Radiatio
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe basicRecipe) {
-        if (basicRecipe instanceof RadiationScrubberRecipe recipe) {
-            baseProcessTime = recipe.getScrubberProcessTime();
-            baseProcessPower = recipe.getScrubberProcessPower();
-            efficiency = recipe.getScrubberProcessEfficiency();
-        } else {
+    public void setRecipeStats(@Nullable RadiationScrubberRecipe recipe) {
+        if (recipe == null) {
             baseProcessTime = 1D;
             baseProcessPower = 0D;
             efficiency = 0D;
+        } else {
+            baseProcessTime = recipe.getScrubberProcessTime();
+            baseProcessPower = recipe.getScrubberProcessPower();
+            efficiency = recipe.getScrubberProcessEfficiency();
         }
     }
 

@@ -85,7 +85,7 @@ public class JadePlugin implements IWailaPlugin {
         }
 
         public @Nullable List<ViewGroup<CompoundTag>> getGroups(Accessor<?> accessor) {
-            if (accessor.getTarget() instanceof IProcessor<?, ?, ?> entity) {
+            if (accessor.getTarget() instanceof IProcessor<?, ?, ?, ?> entity) {
                 return List.of(new ViewGroup<>(List.of(ProgressView.create((float) (entity.getCurrentTime() / entity.getBaseProcessTime())))));
             } else {
                 return null;

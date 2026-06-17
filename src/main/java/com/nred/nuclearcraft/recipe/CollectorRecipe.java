@@ -21,7 +21,7 @@ import java.util.Optional;
 import static com.nred.nuclearcraft.config.NCConfig.processor_passive_rate;
 import static com.nred.nuclearcraft.registration.BlockRegistration.COLLECTOR_MAP;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.COLLECTOR_RECIPE_SERIALIZER;
-import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.*;
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.COLLECTOR_RECIPE_TYPE;
 import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_FLUID_INGREDIENT_LIST_STREAM_CODEC;
 import static com.nred.nuclearcraft.util.StreamCodecsHelper.SIZED_ITEM_INGREDIENT_LIST_STREAM_CODEC;
 
@@ -53,18 +53,7 @@ public class CollectorRecipe extends BasicRecipe { // TODO should this be a Data
 
     @Override
     public RecipeType<?> getType() {
-        return switch (this.typeName) {
-            case "cobblestone_generator" -> COBBLE_GENERATOR_RECIPE_TYPE.get();
-            case "cobblestone_generator_compact" -> COBBLE_GENERATOR_COMPACT_RECIPE_TYPE.get();
-            case "cobblestone_generator_dense" -> COBBLE_GENERATOR_DENSE_RECIPE_TYPE.get();
-            case "water_source" -> WATER_SOURCE_RECIPE_TYPE.get();
-            case "water_source_compact" -> WATER_SOURCE_COMPACT_RECIPE_TYPE.get();
-            case "water_source_dense" -> WATER_SOURCE_DENSE_RECIPE_TYPE.get();
-            case "nitrogen_collector" -> NITROGEN_COLLECTOR_RECIPE_TYPE.get();
-            case "nitrogen_collector_compact" -> NITROGEN_COLLECTOR_COMPACT_RECIPE_TYPE.get();
-            case "nitrogen_collector_dense" -> NITROGEN_COLLECTOR_DENSE_RECIPE_TYPE.get();
-            default -> throw new IllegalStateException("Unexpected value: " + this.typeName);
-        };
+        return COLLECTOR_RECIPE_TYPE.get();
     }
 
     @Override

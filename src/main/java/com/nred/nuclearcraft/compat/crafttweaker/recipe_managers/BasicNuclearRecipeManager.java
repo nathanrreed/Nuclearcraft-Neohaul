@@ -8,15 +8,12 @@ import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceFluidIngredi
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceItemIngredient;
 import com.nred.nuclearcraft.compat.crafttweaker.utils.CTProcessorRecipeWrapper;
 import com.nred.nuclearcraft.recipe.ProcessorRecipe;
-import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.PROCESSOR_RECIPE_TYPES;
 
 public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> implements IRecipeManager<T> {
     private final String processorName;
@@ -25,12 +22,6 @@ public abstract class BasicNuclearRecipeManager<T extends ProcessorRecipe> imple
     protected BasicNuclearRecipeManager(String processorName, Class<T> recipeClass) {
         this.processorName = processorName;
         this.recipeClass = recipeClass;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public RecipeType<T> getRecipeType() {
-        return (RecipeType<T>) PROCESSOR_RECIPE_TYPES.get(processorName).get();
     }
 
     protected final void addRecipeInternal(String name,

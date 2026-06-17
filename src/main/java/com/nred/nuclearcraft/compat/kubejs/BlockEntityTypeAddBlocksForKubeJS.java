@@ -22,7 +22,6 @@ public class BlockEntityTypeAddBlocksForKubeJS {
     private static final Map<ResourceLocation, String> _PLACEMENT_RULE_MAP = new HashMap<>();
     public static final Map<ResourceLocation, String> PLACEMENT_RULE_MAP = Collections.synchronizedMap(_PLACEMENT_RULE_MAP);
 
-
     @SubscribeEvent
     public static void AddBlocksForKubeJS(BlockEntityTypeAddBlocksEvent event) {
         for (Map.Entry<ResourceLocation, List<ResourceLocation>> entry : BLOCK_ENTITY_TYPES_MAP.entrySet()) {

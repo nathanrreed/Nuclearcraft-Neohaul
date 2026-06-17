@@ -11,7 +11,7 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicProcessorMenuInfo;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
@@ -21,7 +21,6 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionVesselUpdatePacket;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
@@ -49,6 +48,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -59,8 +59,8 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class SaltFissionVesselEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket>, ITileFilteredFluid, IFissionFuelBunchComponent, IFissionPortTarget<FissionVesselPortEntity, SaltFissionVesselEntity> {
-    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> info;
+public class SaltFissionVesselEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket, SaltFissionRecipe>, ITileFilteredFluid, IFissionFuelBunchComponent, IFissionPortTarget<FissionVesselPortEntity, SaltFissionVesselEntity> {
+    protected final BasicProcessorMenuInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket, SaltFissionRecipe> info;
 
     protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
 
@@ -118,7 +118,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     public SaltFissionVesselEntity(final BlockPos position, final BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("vessel").get(), position, blockState);
 
-        info = BlockEntityInfoHandler.getProcessorContainerInfo("salt_fission_vessel");
+        info = BlockEntityInfoHandler.getProcessorMenuInfo("salt_fission");
 
         Set<ResourceLocation> validFluids = NCRecipes.salt_fission.getValidFluids(level, 0);
         tanks = Lists.newArrayList(new Tank(INGOT_BLOCK_VOLUME, validFluids), new Tank(INGOT_BLOCK_VOLUME, new ObjectOpenHashSet<>()));
@@ -687,7 +687,7 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     // IProcessor
 
     @Override
-    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket> getContainerInfo() {
+    public BasicProcessorMenuInfo<SaltFissionVesselEntity, SaltFissionVesselUpdatePacket, SaltFissionRecipe> getContainerInfo() {
         return info;
     }
 
@@ -702,12 +702,12 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        this.recipeInfo = (RecipeInfo<SaltFissionRecipe>) recipeInfo;
+    public void setRecipeInfo(RecipeInfo<SaltFissionRecipe> recipeInfo) {
+        this.recipeInfo = recipeInfo;
     }
 
     @Override
-    public void setRecipeStats(@javax.annotation.Nullable BasicRecipe basic) {
+    public void setRecipeStats(@javax.annotation.Nullable @UnknownNullability SaltFissionRecipe basic) {
         if (basic instanceof SaltFissionRecipe recipe) {
             baseProcessTime = recipe.getSaltFissionFuelTime();
             baseProcessHeat = recipe.getFissionFuelHeat();

@@ -10,7 +10,7 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.PebbleFissionCoolerMenu;
@@ -20,7 +20,6 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.pebble.FissionCoolerType;
 import com.nred.nuclearcraft.payload.multiblock.PebbleFissionCoolerUpdatePacket;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.PebbleFissionCoolerRecipe;
@@ -57,10 +56,10 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class PebbleFissionCoolerEntity extends AbstractFissionEntity implements IBasicProcessor<PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket>, ITileFilteredFluid, IFissionCoolingComponent, IFissionPortTarget<FissionCoolerPortEntity, PebbleFissionCoolerEntity> {
+public class PebbleFissionCoolerEntity extends AbstractFissionEntity implements IBasicProcessor<PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket, PebbleFissionCoolerRecipe>, ITileFilteredFluid, IFissionCoolingComponent, IFissionPortTarget<FissionCoolerPortEntity, PebbleFissionCoolerEntity> {
     public FissionCoolerType coolerType;
 
-    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket> info;
+    protected final BasicProcessorMenuInfo<PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket, PebbleFissionCoolerRecipe> info;
 
     protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
 
@@ -96,7 +95,7 @@ public class PebbleFissionCoolerEntity extends AbstractFissionEntity implements 
 
     public PebbleFissionCoolerEntity(BlockPos pos, BlockState blockState, FissionCoolerType coolerType) {
         super(FISSION_ENTITY_TYPE.get("cooler").get(), pos, blockState);
-        info = BlockEntityInfoHandler.getProcessorContainerInfo("pebble_fission_cooler");
+        info = BlockEntityInfoHandler.getProcessorMenuInfo("pebble_fission_cooler");
 
         this.coolerType = coolerType;
         Set<ResourceLocation> validFluids = coolerType.validFluids();
@@ -299,7 +298,7 @@ public class PebbleFissionCoolerEntity extends AbstractFissionEntity implements 
     // IProcessor
 
     @Override
-    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket> getContainerInfo() {
+    public BasicProcessorMenuInfo<PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket, PebbleFissionCoolerRecipe> getContainerInfo() {
         return info;
     }
 
@@ -314,18 +313,18 @@ public class PebbleFissionCoolerEntity extends AbstractFissionEntity implements 
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        this.recipeInfo = (RecipeInfo<PebbleFissionCoolerRecipe>) recipeInfo;
+    public void setRecipeInfo(RecipeInfo<PebbleFissionCoolerRecipe> recipeInfo) {
+        this.recipeInfo = recipeInfo;
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe basic) {
-        if (basic instanceof PebbleFissionCoolerRecipe recipe) {
-            baseProcessCooling = recipe.getFissionCoolingRate();
-            placementRule = FissionPlacement.RULE_MAP.get(recipe.getFissionCoolingPlacementRule());
-        } else {
+    public void setRecipeStats(@Nullable PebbleFissionCoolerRecipe recipe) {
+        if (recipe == null) {
             baseProcessCooling = 0;
             placementRule = FissionPlacement.RULE_MAP.get("");
+        } else {
+            baseProcessCooling = recipe.getFissionCoolingRate();
+            placementRule = FissionPlacement.RULE_MAP.get(recipe.getFissionCoolingPlacementRule());
         }
     }
 

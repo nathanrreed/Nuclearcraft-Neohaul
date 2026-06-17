@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.PebbleFissionCoolerEntity;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.PebbleFissionCoolerMenu;
 import com.nred.nuclearcraft.payload.multiblock.PebbleFissionCoolerUpdatePacket;
+import com.nred.nuclearcraft.recipe.fission.PebbleFissionCoolerRecipe;
 import com.nred.nuclearcraft.screen.processor.ProcessorScreenImpl.BasicFilteredFluidProcessorScreen;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -17,7 +18,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class PebbleFissionCoolerScreen extends BasicFilteredFluidProcessorScreen<PebbleFissionCoolerMenu, PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket> {
+public class PebbleFissionCoolerScreen extends BasicFilteredFluidProcessorScreen<PebbleFissionCoolerMenu, PebbleFissionCoolerEntity, PebbleFissionCoolerUpdatePacket, PebbleFissionCoolerRecipe> {
     public PebbleFissionCoolerScreen(PebbleFissionCoolerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, ncLoc("screen/" + "pebble_fission_cooler"));
         titleLabelY = Integer.MIN_VALUE;

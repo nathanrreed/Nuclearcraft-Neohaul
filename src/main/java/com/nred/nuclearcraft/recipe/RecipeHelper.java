@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.util.CollectionHelper;
 import com.nred.nuclearcraft.util.StackHelper;
+import com.nred.nuclearcraft.util.StreamHelper;
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
@@ -168,5 +169,21 @@ public class RecipeHelper {
 
     public static double getDecayTimeMultiplier(double baseRads, double radiation, double scaleFactor) {
         return radiation > baseRads ? (Math.log1p(baseRads / scaleFactor) / Math.log1p(radiation / scaleFactor)) : (1D + (Math.log1p(scaleFactor / radiation) / Math.log1p(scaleFactor / baseRads) - 1D) * (baseRads / scaleFactor) * (Math.log1p(scaleFactor / baseRads) / Math.log1p(baseRads / scaleFactor)));
+    }
+
+    public static List<List<ItemStack>> getItemInputLists(List<SizedChanceItemIngredient> itemIngredientList) {
+        return StreamHelper.map(itemIngredientList, (e) -> Arrays.stream(e.getItemsRaw()).toList());
+    }
+
+    public static List<List<FluidStack>> getFluidInputLists(List<SizedChanceFluidIngredient> fluidIngredientList) {
+        return StreamHelper.map(fluidIngredientList, (e) -> Arrays.stream(e.getFluidsRaw()).toList());
+    }
+
+    public static List<List<ItemStack>> getItemOutputLists(List<SizedChanceItemIngredient> itemIngredientList) {
+        return StreamHelper.map(itemIngredientList, (e) -> Arrays.stream(e.getItemsRaw()).toList());
+    }
+
+    public static List<List<FluidStack>> getFluidOutputLists(List<SizedChanceFluidIngredient> fluidIngredientList) {
+        return StreamHelper.map(fluidIngredientList, (e) -> Arrays.stream(e.getFluidsRaw()).toList());
     }
 }

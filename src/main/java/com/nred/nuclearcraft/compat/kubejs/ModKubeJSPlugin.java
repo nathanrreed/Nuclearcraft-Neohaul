@@ -1,15 +1,21 @@
 package com.nred.nuclearcraft.compat.kubejs;
 
+import com.nred.nuclearcraft.compat.kubejs.custom_processor.CustomProcessorBuilder;
+import com.nred.nuclearcraft.compat.kubejs.custom_processor.CustomProcessorBuilder.NCSlots;
 import com.nred.nuclearcraft.compat.kubejs.fission.*;
 import com.nred.nuclearcraft.compat.kubejs.fluid.FluidGasBuilder;
 import com.nred.nuclearcraft.compat.kubejs.fluid.FluidHotGasBuilder;
 import com.nred.nuclearcraft.compat.kubejs.fluid.FluidHotNakBuilder;
 import com.nred.nuclearcraft.compat.kubejs.fluid.FluidNakBuilder;
+import com.nred.nuclearcraft.compat.kubejs.other.BatteryBuilder;
+import com.nred.nuclearcraft.compat.kubejs.other.HXTubeBuilder;
+import com.nred.nuclearcraft.compat.kubejs.other.RTGBuilder;
 import com.nred.nuclearcraft.compat.kubejs.turbine.DynamoCoilBuilder;
 import com.nred.nuclearcraft.compat.kubejs.turbine.RotorBladeBuilder;
 import com.nred.nuclearcraft.compat.kubejs.turbine.RotorStatorBuilder;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
 import dev.latvian.mods.kubejs.registry.BuilderTypeRegistry;
+import dev.latvian.mods.kubejs.script.BindingRegistry;
 import net.minecraft.core.registries.Registries;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
@@ -32,6 +38,9 @@ public class ModKubeJSPlugin implements KubeJSPlugin {
             reg.add(ncLoc("rtg"), RTGBuilder.class, RTGBuilder::new);
             reg.add(ncLoc("hx_tube"), HXTubeBuilder.class, HXTubeBuilder::new);
             reg.add(ncLoc("battery"), BatteryBuilder.class, BatteryBuilder::new);
+
+            reg.add(ncLoc("processor"), CustomProcessorBuilder.class, i -> new CustomProcessorBuilder(i, false));
+            reg.add(ncLoc("upgradable_processor"), CustomProcessorBuilder.class, i -> new CustomProcessorBuilder(i, true));
         });
 
         registry.of(Registries.FLUID, reg -> {
@@ -45,5 +54,10 @@ public class ModKubeJSPlugin implements KubeJSPlugin {
         // TODO add Fission Fuels
         registry.of(Registries.ITEM, reg -> {
         });
+    }
+
+    @Override
+    public void registerBindings(BindingRegistry bindings) {
+        bindings.add("NCSlots", NCSlots.class);
     }
 }

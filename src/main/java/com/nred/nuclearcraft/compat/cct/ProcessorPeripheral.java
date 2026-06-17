@@ -13,9 +13,9 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 @SuppressWarnings("unused")
 public class ProcessorPeripheral implements IPeripheral {
-    public final EnergyProcessorEntity<?, ?> processorEntity;
+    public final EnergyProcessorEntity<?, ?, ?> processorEntity;
 
-    public ProcessorPeripheral(EnergyProcessorEntity<?, ?> processorEntity) {
+    public ProcessorPeripheral(EnergyProcessorEntity<?, ?, ?> processorEntity) {
         this.processorEntity = processorEntity;
     }
 

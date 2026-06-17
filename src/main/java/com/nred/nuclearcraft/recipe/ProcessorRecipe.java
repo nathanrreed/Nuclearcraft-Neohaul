@@ -70,7 +70,7 @@ public abstract class ProcessorRecipe extends BasicRecipe {
 
         @Override
         public MapCodec<ProcessorRecipe> codec() {
-            var info = BlockEntityInfoHandler.getProcessorContainerInfo(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()).replace("_recipe", ""));
+            var info = BlockEntityInfoHandler.getProcessorMenuInfo(CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, clazz.getSimpleName()).replace("_recipe", ""));
             return RecordCodecBuilder.mapCodec(inst ->
                     inst.group(
                             SizedChanceItemIngredient.FLAT_CODEC.listOf(0, info.itemInputSize).lenientOptionalFieldOf("itemIngredients", List.of()).forGetter(ProcessorRecipe::getItemIngredients),

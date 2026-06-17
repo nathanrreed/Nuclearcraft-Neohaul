@@ -2,12 +2,14 @@ package com.nred.nuclearcraft.compat.crafttweaker.recipe_managers;
 
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
-import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.processor.MelterRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import org.openzen.zencode.java.ZenCodeType;
+
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.MELTER_RECIPE_TYPE;
 
 @ZenRegister
 @ZenCodeType.Name("mods.nuclearcraft.recipe.manager.MelterRecipeManager")
@@ -37,5 +39,10 @@ public class MelterRecipeManager extends BasicNuclearRecipeManager<MelterRecipe>
                           @ZenCodeType.OptionalDouble(1D) double powerModifier,
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
         INSTANCE.addRecipeInternal(name, compact(input), (IIngredientWithAmount[]) null, null, compact(output), timeModifier, powerModifier, radiation);
+    }
+
+    @Override
+    public RecipeType<MelterRecipe> getRecipeType() {
+        return MELTER_RECIPE_TYPE.get();
     }
 }

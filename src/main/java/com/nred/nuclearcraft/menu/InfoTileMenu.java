@@ -22,7 +22,7 @@ public abstract class InfoTileMenu<TILE extends BlockEntity & ITileGui<TILE, PAC
 
     @Override
     public @NotNull ItemStack quickMoveStack(Player player, int index) {
-        if (info instanceof ProcessorMenuInfoImpl.BasicProcessorMenuInfo<?, ?> basicProcessorContainerInfo) {
+        if (info instanceof ProcessorMenuInfoImpl.BasicProcessorMenuInfo<?, ?, ?> basicProcessorContainerInfo) {
             return MenuHelper.quickMoveStack(player, index, slots, this::moveItemStackTo, basicProcessorContainerInfo.itemInputSize + basicProcessorContainerInfo.itemOutputSize);
         }
         return MenuHelper.quickMoveStack(player, index, slots, this::moveItemStackTo, 0);

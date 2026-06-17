@@ -12,6 +12,10 @@ import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.nred.nuclearcraft.registration.Registers.RECIPE_SERIALIZERS;
 
 public class RecipeSerializerRegistration {
@@ -36,6 +40,9 @@ public class RecipeSerializerRegistration {
     public static final DeferredHolder<RecipeSerializer<?>, ProcessorRecipe.Serializer> FLUID_MIXER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("salt_mixer_recipe", () -> new ProcessorRecipe.Serializer(FluidMixerRecipe.class));
     public static final DeferredHolder<RecipeSerializer<?>, ProcessorRecipe.Serializer> SEPARATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("separator_recipe", () -> new ProcessorRecipe.Serializer(SeparatorRecipe.class));
     public static final DeferredHolder<RecipeSerializer<?>, ProcessorRecipe.Serializer> SUPERCOOLER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("supercooler_recipe", () -> new ProcessorRecipe.Serializer(SupercoolerRecipe.class));
+
+    public static final HashMap<String, DeferredHolder<RecipeSerializer<?>, ProcessorRecipeDyn.Serializer>> _PROCESSOR_RECIPE_SERIALIZERS_DYN = new HashMap<>();
+    public static final Map<String, DeferredHolder<RecipeSerializer<?>, ProcessorRecipeDyn.Serializer>> PROCESSOR_RECIPE_SERIALIZERS_DYN = Collections.synchronizedMap(_PROCESSOR_RECIPE_SERIALIZERS_DYN);
 
     public static final DeferredHolder<RecipeSerializer<?>, TurbineRecipe.Serializer> TURBINE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("turbine_recipe", TurbineRecipe.Serializer::new);
 

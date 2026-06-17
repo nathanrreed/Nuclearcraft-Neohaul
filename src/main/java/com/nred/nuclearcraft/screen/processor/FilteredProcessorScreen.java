@@ -10,6 +10,7 @@ import com.nred.nuclearcraft.gui.NCButton;
 import com.nred.nuclearcraft.menu.InfoTileMenu;
 import com.nred.nuclearcraft.payload.gui.ClearFilterTankPacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.NCUtil;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.NonNullList;
@@ -21,7 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.List;
 
-public class FilteredProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO> & ITileFiltered, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends ProcessorScreen<MENU, TILE, PACKET, INFO> {
+public class FilteredProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE> & ITileFiltered, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends ProcessorScreen<MENU, TILE, PACKET, INFO, RECIPE> {
     public FilteredProcessorScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
         super(menu, inventory, title, textureLocation);
     }

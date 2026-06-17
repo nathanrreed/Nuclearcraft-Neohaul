@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.compat.jei;
 
-import com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfo;
+import com.nred.nuclearcraft.compat.recipe_viewer.info.RecipeViewerCategoryInfo;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
@@ -8,32 +8,36 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerInfoMap.RECIPE_VIEWER_MAP;
+import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.RECIPE_VIEWER_CATEGORY_INFO_MAP;
 
 public abstract class JeiBasicCategory<T> implements IRecipeCategory<T> {
     protected final IGuiHelper helper;
     protected static final Font font = Minecraft.getInstance().font;
-    protected RecipeViewerInfo recipeViewerInfo;
+    public final RecipeViewerCategoryInfo categoryInfo;
     protected final String name;
 
     public JeiBasicCategory(IGuiHelper helper, String name) {
         this.helper = helper;
-        this.recipeViewerInfo = RECIPE_VIEWER_MAP.get(name);
+        this.categoryInfo = RECIPE_VIEWER_CATEGORY_INFO_MAP.get(name);
         this.name = name;
     }
 
     @Override
     public int getWidth() {
-        return recipeViewerInfo.rect().width();
+        return categoryInfo.getRecipeViewerBackgroundW();
     }
 
     @Override
     public int getHeight() {
-        return recipeViewerInfo.rect().height();
+        return categoryInfo.getRecipeViewerBackgroundH();
     }
 
     @Override
     public Component getTitle() {
-        return Component.translatable("emi.category." + MODID + "." + name);
+        if (name.contains(":")) {
+            return Component.translatable("emi.category." + name.replace(':', '.'));
+        } else {
+            return Component.translatable("emi.category." + MODID + "." + name);
+        }
     }
 }

@@ -4,42 +4,51 @@ import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.*;
+import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
+import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
+import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
-import static com.nred.nuclearcraft.registration.BlockRegistration.PROCESSOR_MAP;
 import static com.nred.nuclearcraft.registration.Registers.RECIPE_TYPES;
 
 public class RecipeTypeRegistration {
     private static <T extends Recipe<?>> DeferredHolder<RecipeType<?>, RecipeType<T>> register(final String identifier) {
-        return RECIPE_TYPES.register(identifier, registryName -> new RecipeType<>() {
-            @Override
-            public String toString() {
-                return registryName.toString();
-            }
-        });
+        return RECIPE_TYPES.register(identifier, RecipeType::simple);
     }
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> COBBLE_GENERATOR_RECIPE_TYPE = register("cobblestone_generator");
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> COBBLE_GENERATOR_COMPACT_RECIPE_TYPE = register("cobblestone_generator_compact");
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> COBBLE_GENERATOR_DENSE_RECIPE_TYPE = register("cobblestone_generator_dense");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> COLLECTOR_RECIPE_TYPE = register("collector");
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> WATER_SOURCE_RECIPE_TYPE = register("water_source");
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> WATER_SOURCE_COMPACT_RECIPE_TYPE = register("water_source_compact");
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> WATER_SOURCE_DENSE_RECIPE_TYPE = register("water_source_dense");
+public static final DeferredHolder<RecipeType<?>, RecipeType<AlloyFurnaceRecipe>>    ALLOY_FURNACE_RECIPE_TYPE    = register("alloy_furnace");
+public static final DeferredHolder<RecipeType<?>, RecipeType<AssemblerRecipe>>       ASSEMBLER_RECIPE_TYPE        = register("assembler");
+public static final DeferredHolder<RecipeType<?>, RecipeType<CentrifugeRecipe>>      CENTRIFUGE_RECIPE_TYPE       = register("centrifuge");
+public static final DeferredHolder<RecipeType<?>, RecipeType<ChemicalReactorRecipe>> CHEMICAL_REACTOR_RECIPE_TYPE = register("chemical_reactor");
+public static final DeferredHolder<RecipeType<?>, RecipeType<CrystallizerRecipe>>    CRYSTALLIZER_RECIPE_TYPE     = register("crystallizer");
+public static final DeferredHolder<RecipeType<?>, RecipeType<DecayHastenerRecipe>>   DECAY_HASTENER_RECIPE_TYPE   = register("decay_hastener");
+public static final DeferredHolder<RecipeType<?>, RecipeType<ElectricFurnaceRecipe>> ELECTRIC_FURNACE_RECIPE_TYPE = register("electric_furnace");
+public static final DeferredHolder<RecipeType<?>, RecipeType<ElectrolyzerRecipe>>    ELECTROLYZER_RECIPE_TYPE     = register("electrolyzer");
+public static final DeferredHolder<RecipeType<?>, RecipeType<FluidEnricherRecipe>>   FLUID_ENRICHER_RECIPE_TYPE   = register("fluid_enricher");
+public static final DeferredHolder<RecipeType<?>, RecipeType<FluidExtractorRecipe>>  FLUID_EXTRACTOR_RECIPE_TYPE  = register("fluid_extractor");
+public static final DeferredHolder<RecipeType<?>, RecipeType<FluidInfuserRecipe>>    FLUID_INFUSER_RECIPE_TYPE    = register("fluid_infuser");
+public static final DeferredHolder<RecipeType<?>, RecipeType<FluidMixerRecipe>>      FLUID_MIXER_RECIPE_TYPE      = register("fluid_mixer");
+public static final DeferredHolder<RecipeType<?>, RecipeType<FuelReprocessorRecipe>> FUEL_REPROCESSOR_RECIPE_TYPE = register("fuel_reprocessor");
+public static final DeferredHolder<RecipeType<?>, RecipeType<IngotFormerRecipe>>     INGOT_FORMER_RECIPE_TYPE     = register("ingot_former");
+public static final DeferredHolder<RecipeType<?>, RecipeType<ManufactoryRecipe>>     MANUFACTORY_RECIPE_TYPE      = register("manufactory");
+public static final DeferredHolder<RecipeType<?>, RecipeType<MelterRecipe>>          MELTER_RECIPE_TYPE           = register("melter");
+public static final DeferredHolder<RecipeType<?>, RecipeType<PressurizerRecipe>>     PRESSURIZER_RECIPE_TYPE      = register("pressurizer");
+public static final DeferredHolder<RecipeType<?>, RecipeType<RockCrusherRecipe>>     ROCK_CRUSHER_RECIPE_TYPE     = register("rock_crusher");
+public static final DeferredHolder<RecipeType<?>, RecipeType<SeparatorRecipe>>       SEPARATOR_RECIPE_TYPE        = register("separator");
+public static final DeferredHolder<RecipeType<?>, RecipeType<SupercoolerRecipe>>     SUPERCOOLER_RECIPE_TYPE      = register("supercooler");
 
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> NITROGEN_COLLECTOR_RECIPE_TYPE = register("nitrogen_collector");
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> NITROGEN_COLLECTOR_COMPACT_RECIPE_TYPE = register("nitrogen_collector_compact");
-    public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> NITROGEN_COLLECTOR_DENSE_RECIPE_TYPE = register("nitrogen_collector_dense");
-
-    public static final Map<String, DeferredHolder<RecipeType<?>, RecipeType<ProcessorRecipe>>> PROCESSOR_RECIPE_TYPES = PROCESSOR_MAP.keySet().stream().collect(Collectors.toMap(Function.identity(), RecipeTypeRegistration::register));
+    public static final HashMap<String, DeferredHolder<RecipeType<?>, RecipeType<ProcessorRecipeDyn>>> _PROCESSOR_RECIPE_DYN_TYPES = new HashMap<>();
+    public static final Map<String, DeferredHolder<RecipeType<?>, RecipeType<ProcessorRecipeDyn>>> PROCESSOR_RECIPE_DYN_TYPES = Collections.synchronizedMap(_PROCESSOR_RECIPE_DYN_TYPES);
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<TurbineRecipe>> TURBINE_RECIPE_TYPE = register("turbine");
 

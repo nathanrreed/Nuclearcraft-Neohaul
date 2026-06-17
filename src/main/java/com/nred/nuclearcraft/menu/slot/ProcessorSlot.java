@@ -13,6 +13,6 @@ public class ProcessorSlot extends Slot {
 
     @Override
     public boolean isActive() {
-        return !(Minecraft.getInstance().screen instanceof ItemSorptionsScreen<?,?,?> || Minecraft.getInstance().screen instanceof FluidSorptionsScreen<?,?,?>);
+        return !(Minecraft.getInstance().screen instanceof ItemSorptionsScreen<?, ?, ?, ?> || Minecraft.getInstance().screen instanceof FluidSorptionsScreen<?, ?, ?, ?>);
     }
 }

@@ -425,6 +425,12 @@ public class NCRecipes {
         }
     }
 
+    public static class BasicProcessorRecipeHandlerDyn extends BasicProcessorRecipeHandler {
+        public BasicProcessorRecipeHandlerDyn(@Nonnull String name, int itemInputSize, int fluidInputSize, int itemOutputSize, int fluidOutputSize) {
+            super(name, itemInputSize, fluidInputSize, itemOutputSize, fluidOutputSize);
+        }
+    }
+
     public static class CondenserRecipes extends BasicRecipeHandler<CondenserRecipe> {
         public CondenserRecipes() {
             super("condenser", 0, 1, 0, 1);

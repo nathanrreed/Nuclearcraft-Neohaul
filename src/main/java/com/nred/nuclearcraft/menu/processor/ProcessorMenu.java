@@ -7,6 +7,7 @@ import com.nred.nuclearcraft.menu.InfoTileMenu;
 import com.nred.nuclearcraft.menu.slot.ProcessorInputSlot;
 import com.nred.nuclearcraft.menu.slot.ProcessorResultSlot;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
@@ -14,9 +15,9 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public abstract class ProcessorMenu<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends InfoTileMenu<TILE, PACKET, INFO> {
+public abstract class ProcessorMenu<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends InfoTileMenu<TILE, PACKET, INFO> {
     protected final TILE tile;
-    protected final BasicRecipeHandler<?> recipeHandler;
+    protected final BasicRecipeHandler<RECIPE> recipeHandler;
 
     public ProcessorMenu(MenuType<?> menuType, int containerId, Inventory inventory, TILE tile) {
         super(menuType, containerId, inventory, tile);

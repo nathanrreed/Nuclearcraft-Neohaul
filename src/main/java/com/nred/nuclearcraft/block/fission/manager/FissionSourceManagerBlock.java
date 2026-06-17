@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class FissionSourceManagerBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends BlockFissionManager<Controller, PartType, FissionSourceManagerEntity, FissionSourceEntity> {
+public class FissionSourceManagerBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends FissionManagerBlock<Controller, PartType, FissionSourceManagerEntity, FissionSourceEntity> {
     public FissionSourceManagerBlock(MultiblockPartProperties<PartType> properties) {
         super(properties, FissionSourceManagerEntity.class);
     }

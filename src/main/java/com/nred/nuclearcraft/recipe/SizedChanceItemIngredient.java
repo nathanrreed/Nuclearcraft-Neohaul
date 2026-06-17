@@ -70,6 +70,10 @@ public class SizedChanceItemIngredient {
         return new SizedChanceItemIngredient(Ingredient.of(item), count);
     }
 
+    public static SizedChanceItemIngredient of(ItemStack item) {
+        return new SizedChanceItemIngredient(Ingredient.of(item.getItem()), item.getCount());
+    }
+
     public static SizedChanceItemIngredient of(ItemLike item, int count, int chancePercent) {
         return new SizedChanceItemIngredient(Ingredient.of(item), count, chancePercent, 0);
     }

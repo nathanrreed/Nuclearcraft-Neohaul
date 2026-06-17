@@ -65,6 +65,79 @@ setRTGData(power, radiation)
 event.create("test_rtg", "nuclearcraftneohaul:rtg").setRTGData(2400000, 0.09)
 ```
 
+### Custom Processors
+#### Constructors
+``` js
+event.create("test_processor", "nuclearcraftneohaul:upgradable_processor") // Has energy and speed upgrade slots
+event.create("test_processor", "nuclearcraftneohaul:processor") // Has not upgrade slots
+```
+
+#### Processor Slot Methods:
+```js
+/*
+// To be used in setItemInputSlots, etc.
+NCSlots.standardSlot(int x, int y)
+NCSlots.bigSlot(int x, int y)
+*/
+```
+
+#### Processor Builder Methods:
+```js
+/* 
+setGuiWH(int w, int h)
+
+setItemInputSlots(int[][] slots)
+setFluidInputSlots(int[][] slots)
+setItemOutputSlots(int[][] slots)
+setFluidOutputSlots(int[][] slots)
+
+setPlayerGuiXY(int x, int y)
+
+setProgressBarGuiXYWHUV(int x, int y, int w, int h, int u, int v)
+setEnergyBarGuiXYWHUV(int x, int y, int w, int h, int u, int v)
+
+setMachineConfigGuiXY(int x, int y)
+setRedstoneControlGuiXY(int x, int y)
+
+setRecipeHandlerName(String recipeHandlerName)
+
+setRecipeViewerTexture(String texture)
+
+setRecipeViewerBackgroundXYWH(int x, int y, int w, int h)
+setRecipeViewerTooltipXYWH(int x, int y, int w, int h)
+setRecipeViewerClickAreaXYWH(int x, int y, int w, int h)
+
+setMenuTitle(String name)
+setRecipeViewerTitle(String name)
+
+standardExtend(int x, int y)
+disableProgressBar()
+
+setCreativeTab(ICreativeTab tab)
+setParticles(String[] particles)
+
+setInputTankCapacity(int capacity)
+setOutputTankCapacity(int capacity)
+
+setDefaultProcessTime(double processTime)
+setDefaultProcessPower(double processPower)
+
+setIsGenerator(boolean isGenerator)
+setConsumesInputs(boolean consumesInputs)
+setLosesProgress(boolean losesProgress)
+
+// Only for upgradable
+setSpeedUpgradeSlot(int x, int y, int w, int h)
+setEnergyUpgradeSlot(int x, int y, int w, int h)
+*/
+
+event.create("test_generator", "processor")
+    .setDefaultProcessPower(40000)
+    .setDefaultProcessTime(1000)
+    .setItemInputSlots([NCSlots.standardSlot(56, 35)])
+    .setIsGenerator(true)
+```
+
 ### Heat Exchanger
 
 #### Heat Exchanger Tube
@@ -133,25 +206,25 @@ Finally the recipe:
 
 ```js
     event.custom({
-        "type": "nuclearcraftneohaul:fission_heater_recipe",
-        "fluidIngredient": {
-            "amount": 1,
-            "ingredient": {
-                "fluid": global["test_nak"].toString()
-            }
-        },
-        "fluidProduct": {
-            "amount": 1,
-            "ingredient": {
-                "fluid": global["test_hot_nak"].toString()
-            }
-        },
-        "heater": {
-            "count": 1,
-            "id": global["test_heater"].toString()
-        },
-        "placementRule": global["test_heater"].toString()
-    })
+    "type": "nuclearcraftneohaul:fission_heater_recipe",
+    "fluidIngredient": {
+        "amount": 1,
+        "ingredient": {
+            "fluid": global["test_nak"].toString()
+        }
+    },
+    "fluidProduct": {
+        "amount": 1,
+        "ingredient": {
+            "fluid": global["test_hot_nak"].toString()
+        }
+    },
+    "heater": {
+        "count": 1,
+        "id": global["test_heater"].toString()
+    },
+    "placementRule": global["test_heater"].toString()
+})
 ```
 
 #### Pebble Fission Gas Cooler
@@ -182,23 +255,23 @@ Finally the recipe:
 
 ```js
     event.custom({
-        "type": "nuclearcraftneohaul:fission_cooler_recipe",
-        "fluidIngredient": {
-            "amount": 1,
-            "ingredient": {
-                "fluid": global["test_gas"].toString()
-            }
-        },
-        "fluidProduct": {
-            "amount": 1,
-            "ingredient": {
-                "fluid": global["test_gas_hot"].toString()
-            }
-        },
-        "cooler": {
-            "count": 1,
-            "id": global["test_cooler"].toString()
-        },
-        "placementRule": global["test_cooler"].toString()
-    })
+    "type": "nuclearcraftneohaul:fission_cooler_recipe",
+    "fluidIngredient": {
+        "amount": 1,
+        "ingredient": {
+            "fluid": global["test_gas"].toString()
+        }
+    },
+    "fluidProduct": {
+        "amount": 1,
+        "ingredient": {
+            "fluid": global["test_gas_hot"].toString()
+        }
+    },
+    "cooler": {
+        "count": 1,
+        "id": global["test_cooler"].toString()
+    },
+    "placementRule": global["test_cooler"].toString()
+})
 ```

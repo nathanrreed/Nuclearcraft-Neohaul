@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.recipe.*;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -56,13 +57,13 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
 
     @SuppressWarnings("unchecked")
     public @Nullable RECIPE getRecipeFromIngredients(Level level, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients) {
-        return (RECIPE) getRecipeFromIngredients(level, (RecipeType<? extends BasicRecipe>) BuiltInRegistries.RECIPE_TYPE.get(ncLoc(getName())), itemIngredients, fluidIngredients);
+        return (RECIPE) getRecipeFromIngredients(level, (RecipeType<? extends BasicRecipe>) BuiltInRegistries.RECIPE_TYPE.get(getName().contains(":") ? ResourceLocation.parse(getName()) : ncLoc(getName())), itemIngredients, fluidIngredients);
     }
 
     @SuppressWarnings("unchecked")
     public void setRecipes(@NotNull RecipeManager recipeManager) {
         if (recipeList.isEmpty()) {
-            recipeList = recipeManager.getAllRecipesFor((RecipeType<RECIPE>) BuiltInRegistries.RECIPE_TYPE.get(ncLoc(getName()))).stream().map(RecipeHolder::value).toList();
+            recipeList = recipeManager.getAllRecipesFor((RecipeType<RECIPE>) BuiltInRegistries.RECIPE_TYPE.get(getName().contains(":") ? ResourceLocation.parse(getName()) : ncLoc(getName()))).stream().map(RecipeHolder::value).toList();
         }
     }
 

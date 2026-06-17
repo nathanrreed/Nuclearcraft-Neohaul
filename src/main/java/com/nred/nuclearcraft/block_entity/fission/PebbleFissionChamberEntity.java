@@ -9,7 +9,7 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicProcessorMenuInfo;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
@@ -19,7 +19,6 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.PebbleFissionChamberUpdatePacket;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
@@ -58,8 +57,8 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class PebbleFissionChamberEntity extends AbstractFissionEntity implements IBasicProcessor<PebbleFissionChamberEntity, PebbleFissionChamberUpdatePacket>, ITileFilteredInventory, IFissionFuelBunchComponent, IFissionPortTarget<FissionChamberPortEntity, PebbleFissionChamberEntity> {
-    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<PebbleFissionChamberEntity, PebbleFissionChamberUpdatePacket> info;
+public class PebbleFissionChamberEntity extends AbstractFissionEntity implements IBasicProcessor<PebbleFissionChamberEntity, PebbleFissionChamberUpdatePacket, PebbleFissionRecipe>, ITileFilteredInventory, IFissionFuelBunchComponent, IFissionPortTarget<FissionChamberPortEntity, PebbleFissionChamberEntity> {
+    protected final BasicProcessorMenuInfo<PebbleFissionChamberEntity, PebbleFissionChamberUpdatePacket, PebbleFissionRecipe> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
     protected final @Nonnull NonNullList<ItemStack> consumedStacks;
@@ -116,7 +115,7 @@ public class PebbleFissionChamberEntity extends AbstractFissionEntity implements
 
     public PebbleFissionChamberEntity(final BlockPos position, final BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("chamber").get(), position, blockState);
-        info = BlockEntityInfoHandler.getProcessorContainerInfo("pebble_fission_chamber");
+        info = BlockEntityInfoHandler.getProcessorMenuInfo("pebble_fission_chamber");
 
         inventoryStacks = info.getInventoryStacks();
         consumedStacks = info.getConsumedStacks();
@@ -682,7 +681,7 @@ public class PebbleFissionChamberEntity extends AbstractFissionEntity implements
     // IProcessor
 
     @Override
-    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<PebbleFissionChamberEntity, PebbleFissionChamberUpdatePacket> getContainerInfo() {
+    public BasicProcessorMenuInfo<PebbleFissionChamberEntity, PebbleFissionChamberUpdatePacket, PebbleFissionRecipe> getContainerInfo() {
         return info;
     }
 
@@ -697,13 +696,21 @@ public class PebbleFissionChamberEntity extends AbstractFissionEntity implements
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        this.recipeInfo = (RecipeInfo<PebbleFissionRecipe>) recipeInfo;
+    public void setRecipeInfo(RecipeInfo<PebbleFissionRecipe> recipeInfo) {
+        this.recipeInfo = recipeInfo;
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe basic) {
-        if (basic instanceof PebbleFissionRecipe recipe) {
+    public void setRecipeStats(@Nullable PebbleFissionRecipe recipe) {
+        if (recipe == null) {
+            baseProcessTime = 1D;
+            baseProcessHeat = 0;
+            baseProcessEfficiency = 0D;
+            baseProcessCriticality = 1;
+            intrinsicFlux = 0;
+            selfPriming = false;
+            baseProcessRadiation = 0D;
+        } else {
             baseProcessTime = recipe.getFissionFuelTime();
             baseProcessHeat = recipe.getFissionFuelHeat();
             baseProcessEfficiency = recipe.getFissionFuelEfficiency();
@@ -714,14 +721,6 @@ public class PebbleFissionChamberEntity extends AbstractFissionEntity implements
 
             decayProcessHeat = baseProcessHeat;
             baseProcessDecayFactor = recipe.getFissionFuelDecayFactor();
-        } else {
-            baseProcessTime = 1D;
-            baseProcessHeat = 0;
-            baseProcessEfficiency = 0D;
-            baseProcessCriticality = 1;
-            intrinsicFlux = 0;
-            selfPriming = false;
-            baseProcessRadiation = 0D;
         }
     }
 

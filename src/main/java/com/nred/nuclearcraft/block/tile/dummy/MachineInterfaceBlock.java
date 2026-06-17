@@ -42,7 +42,7 @@ public class MachineInterfaceBlock extends SimpleDummyBlock<MachineInterfaceEnti
             if (master instanceof ITileFluid tileFluid) {
                 boolean accessedTanks = BlockHelper.accessTanks(player, hand, hitResult.getDirection(), tileFluid);
                 if (accessedTanks) {
-                    if (master instanceof IProcessor<?, ?, ?> processor) {
+                    if (master instanceof IProcessor<?, ?, ?, ?> processor) {
                         processor.refreshRecipe();
                         processor.refreshActivity();
                     }

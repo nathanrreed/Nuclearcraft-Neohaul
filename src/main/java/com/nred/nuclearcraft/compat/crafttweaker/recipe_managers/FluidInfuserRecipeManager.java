@@ -7,7 +7,10 @@ import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.processor.FluidInfuserRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import org.openzen.zencode.java.ZenCodeType;
+
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FLUID_INFUSER_RECIPE_TYPE;
 
 @ZenRegister
 @ZenCodeType.Name("mods.nuclearcraft.recipe.manager.FluidInfuserRecipeManager")
@@ -40,5 +43,9 @@ public class FluidInfuserRecipeManager extends BasicNuclearRecipeManager<FluidIn
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
         INSTANCE.addRecipeInternal(name, compact(itemInput), compact(output), compact(fluidInput), null, timeModifier, powerModifier, radiation);
     }
-}
 
+    @Override
+    public RecipeType<FluidInfuserRecipe> getRecipeType() {
+        return FLUID_INFUSER_RECIPE_TYPE.get();
+    }
+}

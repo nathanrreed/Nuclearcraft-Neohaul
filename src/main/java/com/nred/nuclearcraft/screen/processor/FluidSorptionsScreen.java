@@ -14,6 +14,7 @@ import com.nred.nuclearcraft.payload.gui.ResetTankSorptionsPacket;
 import com.nred.nuclearcraft.payload.gui.ToggleTankOutputSettingPacket;
 import com.nred.nuclearcraft.payload.gui.ToggleTankSorptionPacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.screen.NCScreen;
 import com.nred.nuclearcraft.util.NCUtil;
 import net.minecraft.client.Minecraft;
@@ -27,7 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public abstract class FluidSorptionsScreen<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileFluid & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends NCScreen<ProcessorMenu<TILE, PACKET, INFO>> {
+public abstract class FluidSorptionsScreen<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileFluid & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends NCScreen<ProcessorMenu<TILE, PACKET, INFO, RECIPE>> {
     protected final NCScreen<?> parent;
     protected final TILE tile;
     protected final Direction[] dirs;
@@ -37,7 +38,7 @@ public abstract class FluidSorptionsScreen<TILE extends BlockEntity & ITileGui<T
     protected int[] a, b;
 
     public FluidSorptionsScreen(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot, TankSorption.Type sorptionType) {
-        super((ProcessorMenu<TILE, PACKET, INFO>) parent.getMenu(), parent.getMenu().inventory, Component.empty());
+        super((ProcessorMenu<TILE, PACKET, INFO, RECIPE>) parent.getMenu(), parent.getMenu().inventory, Component.empty());
 
         this.parent = parent;
         this.tile = tile;
@@ -107,7 +108,7 @@ public abstract class FluidSorptionsScreen<TILE extends BlockEntity & ITileGui<T
         }
     }
 
-    public static class Input<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileFluid & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends FluidSorptionsScreen<TILE, PACKET, INFO> {
+    public static class Input<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileFluid & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends FluidSorptionsScreen<TILE, PACKET, INFO, RECIPE> {
         public Input(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
             super(parent, tile, slot, TankSorption.Type.INPUT);
             gui_texture = ncLoc("side_config/fluid_input");
@@ -118,7 +119,7 @@ public abstract class FluidSorptionsScreen<TILE extends BlockEntity & ITileGui<T
         }
     }
 
-    public static class Output<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileFluid & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends FluidSorptionsScreen<TILE, PACKET, INFO> {
+    public static class Output<TILE extends BlockEntity & ITileGui<TILE, PACKET, INFO> & ITileFluid & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends FluidSorptionsScreen<TILE, PACKET, INFO, RECIPE> {
         public TankOutputSetting outputSetting;
 
         public Output(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {

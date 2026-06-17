@@ -10,6 +10,7 @@ import com.nred.nuclearcraft.menu.InfoTileMenu;
 import com.nred.nuclearcraft.payload.gui.ClearTankPacket;
 import com.nred.nuclearcraft.payload.gui.ToggleRedstoneControlPacket;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.screen.InfoTileScreen;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.NCUtil;
@@ -30,7 +31,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public abstract class ProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO>> extends InfoTileScreen<MENU, TILE, PACKET, INFO> {
+public abstract class ProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends InfoTileScreen<MENU, TILE, PACKET, INFO> {
     public ProcessorScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
         super(menu, inventory, title, textureLocation);
 
@@ -291,7 +292,7 @@ public abstract class ProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, IN
         return info;
     }
 
-    public class SideConfigScreen extends ProcessorScreen<MENU, TILE, PACKET, INFO> {
+    public class SideConfigScreen extends ProcessorScreen<MENU, TILE, PACKET, INFO, RECIPE> {
         private final Screen parent;
 
         public SideConfigScreen(MENU menu, Screen parent, Inventory inventory, Component title, ResourceLocation textureLocation) {

@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamHelper {
 
@@ -61,5 +62,23 @@ public class StreamHelper {
 
     public static <T> T[] flatten(T[][] array, IntFunction<T[]> generator) {
         return flatMap(array, Arrays::asList, generator);
+    }
+
+    @SafeVarargs
+    public static <T> List<? extends T> concatToList(Stream<? extends T>... streams) {
+        if (streams.length == 0) {
+            return List.of();
+        }
+        
+        Stream<? extends T> rtn = null;
+        for (Stream<? extends T> stream : streams) {
+            if (rtn == null) {
+                rtn = stream;
+            } else {
+                rtn = Stream.concat(rtn, stream);
+            }
+        }
+
+        return rtn.toList();
     }
 }

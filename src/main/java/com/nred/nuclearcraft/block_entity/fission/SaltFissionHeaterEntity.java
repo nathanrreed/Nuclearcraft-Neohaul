@@ -12,7 +12,7 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.SaltFissionHeaterMenu;
@@ -22,7 +22,6 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionPlacement;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.molten_salt.FissionCoolantHeaterType;
 import com.nred.nuclearcraft.payload.multiblock.SaltFissionHeaterUpdatePacket;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
 import com.nred.nuclearcraft.recipe.fission.FissionCoolantHeaterRecipe;
@@ -48,6 +47,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.UnknownNullability;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -59,10 +59,10 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket>, ITileFilteredFluid, IFissionCoolingComponent, IFissionPortTarget<FissionHeaterPortEntity, SaltFissionHeaterEntity> {
+public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IBasicProcessor<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket, FissionCoolantHeaterRecipe>, ITileFilteredFluid, IFissionCoolingComponent, IFissionPortTarget<FissionHeaterPortEntity, SaltFissionHeaterEntity> {
     public FissionCoolantHeaterType heaterType;
 
-    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> info;
+    protected final BasicProcessorMenuInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket, FissionCoolantHeaterRecipe> info;
 
     protected @Nonnull InventoryConnection[] inventoryConnections = ITileInventory.inventoryConnectionAll(Collections.emptyList());
 
@@ -98,7 +98,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     public SaltFissionHeaterEntity(final BlockPos position, final BlockState blockState, FissionCoolantHeaterType heaterType) {
         super(FISSION_ENTITY_TYPE.get("coolant_heater").get(), position, blockState);
-        info = BlockEntityInfoHandler.getProcessorContainerInfo("salt_fission_heater");
+        info = BlockEntityInfoHandler.getProcessorMenuInfo("salt_fission_heater");
 
         this.heaterType = heaterType;
 
@@ -310,7 +310,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     // IProcessor
 
     @Override
-    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket> getContainerInfo() {
+    public BasicProcessorMenuInfo<SaltFissionHeaterEntity, SaltFissionHeaterUpdatePacket, FissionCoolantHeaterRecipe> getContainerInfo() {
         return info;
     }
 
@@ -325,12 +325,12 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        this.recipeInfo = (RecipeInfo<FissionCoolantHeaterRecipe>) recipeInfo;
+    public void setRecipeInfo(RecipeInfo<FissionCoolantHeaterRecipe> recipeInfo) {
+        this.recipeInfo = recipeInfo;
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe basic) {
+    public void setRecipeStats(@Nullable @UnknownNullability FissionCoolantHeaterRecipe basic) {
         if (basic instanceof FissionCoolantHeaterRecipe recipe) {
             baseProcessCooling = recipe.getFissionCoolingRate();
             placementRule = FissionPlacement.RULE_MAP.get(recipe.getFissionCoolingPlacementRule());

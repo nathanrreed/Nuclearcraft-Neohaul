@@ -40,15 +40,16 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
 
     public NCScreen(MENU menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-
-        inventoryLabelY = Integer.MIN_VALUE;
-        titleLabelY = Integer.MIN_VALUE;
     }
 
     @Override
     public void init() {
         super.init();
         clearWidgets();
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
     }
 
     @Override
@@ -89,7 +90,7 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
             case UP -> top;
             case DOWN -> bottom;
             case NORTH, SOUTH -> side;
-            case WEST -> ncLoc("block/processor/" + ((ProcessorMenu<?, ?, ?>) menu).info.name + "_front" + (state.getValue(ACTIVE) ? "_on" : "_off"));
+            case WEST -> ncLoc("block/processor/" + ((ProcessorMenu<?, ?, ?, ?>) menu).info.name + "_front" + (state.getValue(ACTIVE) ? "_on" : "_off"));
             case EAST -> back;
         };
 

@@ -15,8 +15,9 @@ import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
 import com.nred.nuclearcraft.block_entity.hx.*;
 import com.nred.nuclearcraft.block_entity.machine.*;
 import com.nred.nuclearcraft.block_entity.passive.TilePassive;
+import com.nred.nuclearcraft.block_entity.processor.EnergyProcessorEntity;
 import com.nred.nuclearcraft.block_entity.processor.NuclearFurnaceEntity;
-import com.nred.nuclearcraft.block_entity.processor.TileProcessorImpl.*;
+import com.nred.nuclearcraft.block_entity.processor.ProcessorEntityImpl.*;
 import com.nred.nuclearcraft.block_entity.quantum.*;
 import com.nred.nuclearcraft.block_entity.radiation.GeigerCounterEntity;
 import com.nred.nuclearcraft.block_entity.radiation.RadiationScrubberEntity;
@@ -36,11 +37,13 @@ import com.nred.nuclearcraft.multiblock.rtg.RTGType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import it.zerono.mods.zerocore.lib.block.multiblock.MultiblockPartBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -52,7 +55,9 @@ import static com.nred.nuclearcraft.registration.Registers.BLOCK_ENTITY_TYPES;
 
 @SuppressWarnings("ALL")
 public class BlockEntityRegistration {
-    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> PROCESSOR_ENTITY_TYPE = createProcessors();
+    public static final HashMap<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends EnergyProcessorEntity<?, ?, ?>>>> _PROCESSOR_ENTITY_TYPE = createProcessors();
+    public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends EnergyProcessorEntity<?, ?, ?>>>> PROCESSOR_ENTITY_TYPE = Collections.synchronizedMap(_PROCESSOR_ENTITY_TYPE);
+
     public static final Map<Integer, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends TileSolarPanel>>> SOLAR_PANEL_ENTITY_TYPE = createSolarPanels();
 
     public static final Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends AbstractTurbineEntity>>> TURBINE_ENTITY_TYPE = createTurbine();
@@ -89,8 +94,8 @@ public class BlockEntityRegistration {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends DistributorOutletEntity>> DISTRIBUTOR_OUTLET_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("distributor_outlet", () -> BlockEntityType.Builder.of(DistributorOutletEntity::new, DISTRIBUTOR_OUTLET.get()).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends DistributorBufferEntity>> DISTRIBUTOR_BUFFER_ENTITY_TYPE = BLOCK_ENTITY_TYPES.register("distributor_buffer", () -> BlockEntityType.Builder.of(DistributorBufferEntity::new, DISTRIBUTOR_BUFFER.get()).build(null));
 
-    private static Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> createProcessors() {
-        Map<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends BasicUpgradableEnergyProcessorEntity<?>>>> map = new HashMap<>();
+    private static HashMap<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends EnergyProcessorEntity<?, ?, ? extends BasicRecipe>>>> createProcessors() {
+        HashMap<String, DeferredHolder<BlockEntityType<?>, BlockEntityType<? extends EnergyProcessorEntity<?, ?, ?>>>> map = new HashMap<>();
         map.put("alloy_furnace", BLOCK_ENTITY_TYPES.register("alloy_furnace", () -> BlockEntityType.Builder.of(AlloyFurnaceEntity::new, PROCESSOR_MAP.get("alloy_furnace").get()).build(null)));
         map.put("assembler", BLOCK_ENTITY_TYPES.register("assembler", () -> BlockEntityType.Builder.of(AssemblerEntity::new, PROCESSOR_MAP.get("assembler").get()).build(null)));
         map.put("centrifuge", BLOCK_ENTITY_TYPES.register("centrifuge", () -> BlockEntityType.Builder.of(CentrifugeEntity::new, PROCESSOR_MAP.get("centrifuge").get()).build(null)));

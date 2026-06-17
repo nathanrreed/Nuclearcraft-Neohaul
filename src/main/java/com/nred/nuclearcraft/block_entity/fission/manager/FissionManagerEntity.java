@@ -37,7 +37,7 @@ public abstract class FissionManagerEntity<MANAGER extends FissionManagerEntity<
     @Override
     public void onPreMachineAssembled(FissionReactor controller) {
         super.onPreMachineAssembled(controller);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             Optional<Direction> facing = getPartPosition().getDirection();
             facing.ifPresent(direction -> level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(FACING_ALL, direction), 2));
         }
@@ -62,7 +62,7 @@ public abstract class FissionManagerEntity<MANAGER extends FissionManagerEntity<
 
     @Override
     public void update() {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             if (refreshListenersFlag) {
                 refreshListeners();
             }

@@ -2,14 +2,15 @@ package com.nred.nuclearcraft.block_entity.processor.info;
 
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.builder.UpgradableProcessorContainerInfoBuilder;
+import com.nred.nuclearcraft.block_entity.processor.info.builder.UpgradableProcessorMenuInfoBuilder;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.ContainerInfoHelper;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.List;
 
-public abstract class UpgradableProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO>> extends ProcessorMenuInfo<TILE, PACKET, INFO> {
+public abstract class UpgradableProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE> {
     public final int speedUpgradeSlot;
     public final int energyUpgradeSlot;
 
@@ -22,7 +23,7 @@ public abstract class UpgradableProcessorMenuInfo<TILE extends BlockEntity & IPr
     public final int speedUpgradeSorptionButtonID;
     public final int energyUpgradeSorptionButtonID;
 
-    protected UpgradableProcessorMenuInfo(UpgradableProcessorContainerInfoBuilder<TILE, PACKET, INFO, ?> builder) {
+    protected UpgradableProcessorMenuInfo(UpgradableProcessorMenuInfoBuilder<TILE, PACKET, INFO, RECIPE, ?> builder) {
         super(builder);
 
         speedUpgradeSlot = itemInputSize + itemOutputSize;

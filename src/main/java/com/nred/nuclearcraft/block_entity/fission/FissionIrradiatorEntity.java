@@ -9,14 +9,17 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicProcessorMenuInfo;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.FissionIrradiatorMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.FissionIrradiatorUpdatePacket;
-import com.nred.nuclearcraft.recipe.*;
+import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.recipe.RecipeHelper;
+import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.recipe.fission.FissionIrradiatorRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import com.nred.nuclearcraft.util.NBTHelper;
@@ -48,8 +51,8 @@ import java.util.stream.IntStream;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class FissionIrradiatorEntity extends AbstractFissionEntity implements IBasicProcessor<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket>, ITileFilteredInventory, IFissionHeatingComponent, IFissionFluxSink, IFissionPortTarget<FissionIrradiatorPortEntity, FissionIrradiatorEntity> {
-    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> info;
+public class FissionIrradiatorEntity extends AbstractFissionEntity implements IBasicProcessor<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket, FissionIrradiatorRecipe>, ITileFilteredInventory, IFissionHeatingComponent, IFissionFluxSink, IFissionPortTarget<FissionIrradiatorPortEntity, FissionIrradiatorEntity> {
+    protected final BasicProcessorMenuInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket, FissionIrradiatorRecipe> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
 
@@ -87,7 +90,7 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
 
     public FissionIrradiatorEntity(BlockPos pos, BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("irradiator").get(), pos, blockState);
-        info = BlockEntityInfoHandler.getProcessorContainerInfo("fission_irradiator");
+        info = BlockEntityInfoHandler.getProcessorMenuInfo("fission_irradiator");
 
         inventoryStacks = info.getInventoryStacks();
 
@@ -313,7 +316,7 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     // IProcessor
 
     @Override
-    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket> getContainerInfo() {
+    public BasicProcessorMenuInfo<FissionIrradiatorEntity, FissionIrradiatorUpdatePacket, FissionIrradiatorRecipe> getContainerInfo() {
         return info;
     }
 
@@ -328,26 +331,26 @@ public class FissionIrradiatorEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        this.recipeInfo = (RecipeInfo<FissionIrradiatorRecipe>) recipeInfo;
+    public void setRecipeInfo(RecipeInfo<FissionIrradiatorRecipe> recipeInfo) {
+        this.recipeInfo = recipeInfo;
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe basic) {
-        if (basic instanceof FissionIrradiatorRecipe recipe) {
-            baseProcessTime = recipe.getIrradiatorFluxRequired();
-            baseProcessHeatPerFlux = recipe.getIrradiatorHeatPerFlux();
-            baseProcessEfficiency = recipe.getIrradiatorProcessEfficiency();
-            minFluxPerTick = recipe.getIrradiatorMinFluxPerTick();
-            maxFluxPerTick = recipe.getIrradiatorMaxFluxPerTick();
-            baseProcessRadiation = recipe.getIrradiatorBaseProcessRadiation();
-        } else {
+    public void setRecipeStats(@Nullable FissionIrradiatorRecipe recipe) {
+        if (recipe == null) {
             baseProcessTime = 1;
             baseProcessHeatPerFlux = 0;
             baseProcessEfficiency = 0;
             minFluxPerTick = 0;
             maxFluxPerTick = -1;
             baseProcessRadiation = 0;
+        } else {
+            baseProcessTime = recipe.getIrradiatorFluxRequired();
+            baseProcessHeatPerFlux = recipe.getIrradiatorHeatPerFlux();
+            baseProcessEfficiency = recipe.getIrradiatorProcessEfficiency();
+            minFluxPerTick = recipe.getIrradiatorMinFluxPerTick();
+            maxFluxPerTick = recipe.getIrradiatorMaxFluxPerTick();
+            baseProcessRadiation = recipe.getIrradiatorBaseProcessRadiation();
         }
     }
 

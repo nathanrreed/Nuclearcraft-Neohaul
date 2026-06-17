@@ -11,6 +11,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class DataMapHelper {
@@ -28,6 +30,10 @@ public class DataMapHelper {
     public static <T> Block getFirst(DataMapType<Block, T> dataMapType) {
         Optional<ResourceKey<Block>> block = BuiltInRegistries.BLOCK.getDataMap(dataMapType).keySet().stream().findAny();
         return block.isPresent() ? BuiltInRegistries.BLOCK.get(block.get()) : Blocks.AIR;
+    }
+
+    public static <T> List<Block> get(DataMapType<Block, T> dataMapType) {
+        return BuiltInRegistries.BLOCK.getDataMap(dataMapType).keySet().stream().map(e -> Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e))).toList();
     }
 
     public static <T> T getData(FluidStack stack, DataMapType<Fluid, T> dataMapType) {

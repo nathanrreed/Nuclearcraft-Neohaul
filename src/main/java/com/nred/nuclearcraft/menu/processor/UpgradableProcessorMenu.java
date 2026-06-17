@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.block_entity.processor.info.UpgradableProcessorMenuInfo;
 import com.nred.nuclearcraft.menu.slot.ProcessorSpecificInputSlot;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
+import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.util.Lazy;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import static com.nred.nuclearcraft.registration.ItemRegistration.UPGRADE_MAP;
 
-public abstract class UpgradableProcessorMenu<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO>> extends ProcessorMenu<TILE, PACKET, INFO> {
+public abstract class UpgradableProcessorMenu<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends UpgradableProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends ProcessorMenu<TILE, PACKET, INFO, RECIPE> {
     public UpgradableProcessorMenu(MenuType<?> menuType, int containerId, Inventory inventory, TILE tile) {
         super(menuType, containerId, inventory, tile);
     }

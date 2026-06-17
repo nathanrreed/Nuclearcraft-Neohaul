@@ -9,7 +9,7 @@ import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.inventory.ITileFilteredInventory;
 import com.nred.nuclearcraft.block_entity.inventory.ITileInventory;
 import com.nred.nuclearcraft.block_entity.processor.IBasicProcessor;
-import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl;
+import com.nred.nuclearcraft.block_entity.processor.info.ProcessorMenuInfoImpl.BasicProcessorMenuInfo;
 import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
@@ -18,11 +18,9 @@ import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.payload.multiblock.SolidFissionCellUpdatePacket;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
-import com.nred.nuclearcraft.recipe.fission.SaltFissionRecipe;
 import com.nred.nuclearcraft.recipe.fission.SolidFissionRecipe;
 import com.nred.nuclearcraft.util.CCHelper;
 import com.nred.nuclearcraft.util.NBTHelper;
@@ -47,6 +45,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -57,8 +56,8 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 import static com.nred.nuclearcraft.registration.FluidRegistration.CUSTOM_FLUID_MAP;
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
-public class SolidFissionCellEntity extends AbstractFissionEntity implements IBasicProcessor<SolidFissionCellEntity, SolidFissionCellUpdatePacket>, ITileFilteredInventory, IFissionFuelComponent, IFissionPortTarget<FissionCellPortEntity, SolidFissionCellEntity> {
-    protected final ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SolidFissionCellEntity, SolidFissionCellUpdatePacket> info;
+public class SolidFissionCellEntity extends AbstractFissionEntity implements IBasicProcessor<SolidFissionCellEntity, SolidFissionCellUpdatePacket, SolidFissionRecipe>, ITileFilteredInventory, IFissionFuelComponent, IFissionPortTarget<FissionCellPortEntity, SolidFissionCellEntity> {
+    protected final BasicProcessorMenuInfo<SolidFissionCellEntity, SolidFissionCellUpdatePacket, SolidFissionRecipe> info;
 
     protected final @Nonnull NonNullList<ItemStack> inventoryStacks;
     protected final @Nonnull NonNullList<ItemStack> consumedStacks;
@@ -82,7 +81,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     public double decayProcessHeat = 0D, decayHeatFraction = 0D, iodineFraction = 0D, poisonFraction = 0D;
 
-    protected RecipeInfo<SaltFissionRecipe> recipeInfo = null;
+    protected RecipeInfo<SolidFissionRecipe> recipeInfo = null;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
@@ -113,7 +112,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
 
     public SolidFissionCellEntity(final BlockPos position, final BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("cell").get(), position, blockState);
-        info = BlockEntityInfoHandler.getProcessorContainerInfo("solid_fission_cell");
+        info = BlockEntityInfoHandler.getProcessorMenuInfo("solid_fission");
 
         inventoryStacks = info.getInventoryStacks();
         consumedStacks = info.getConsumedStacks();
@@ -642,7 +641,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     // IProcessor
 
     @Override
-    public ProcessorMenuInfoImpl.BasicProcessorMenuInfo<SolidFissionCellEntity, SolidFissionCellUpdatePacket> getContainerInfo() {
+    public BasicProcessorMenuInfo<SolidFissionCellEntity, SolidFissionCellUpdatePacket, SolidFissionRecipe> getContainerInfo() {
         return info;
     }
 
@@ -652,17 +651,17 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     }
 
     @Override
-    public RecipeInfo<SaltFissionRecipe> getRecipeInfo() {
+    public RecipeInfo<SolidFissionRecipe> getRecipeInfo() {
         return recipeInfo;
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        this.recipeInfo = (RecipeInfo<SaltFissionRecipe>) recipeInfo;
+    public void setRecipeInfo(RecipeInfo<SolidFissionRecipe> recipeInfo) {
+        this.recipeInfo = recipeInfo;
     }
 
     @Override
-    public void setRecipeStats(@javax.annotation.Nullable BasicRecipe basic) {
+    public void setRecipeStats(@javax.annotation.Nullable @UnknownNullability SolidFissionRecipe basic) {
         if (basic instanceof SolidFissionRecipe recipe) {
             baseProcessTime = recipe.getFissionFuelTime();
             baseProcessHeat = recipe.getFissionFuelHeat();

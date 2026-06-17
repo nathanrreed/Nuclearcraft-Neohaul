@@ -49,7 +49,7 @@ import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
-public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<TILE, INFO>, INFO extends ProcessorMenuInfo<TILE, EnergyProcessorUpdatePacket, INFO>> extends TileEnergyFluidSidedInventory implements IProcessor<TILE, EnergyProcessorUpdatePacket, INFO>, IInterfaceable {
+public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<TILE, INFO, RECIPE>, INFO extends ProcessorMenuInfo<TILE, EnergyProcessorUpdatePacket, INFO, RECIPE>, RECIPE extends BasicRecipe> extends TileEnergyFluidSidedInventory implements IProcessor<TILE, EnergyProcessorUpdatePacket, INFO, RECIPE>, IInterfaceable {
     protected INFO info;
 
     protected @Nonnull NonNullList<ItemStack> consumedStacks = null;
@@ -60,8 +60,8 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     public double time, resetTime;
     public boolean isProcessing, canProcessInputs, hasConsumed;
 
-    protected BasicRecipeHandler<ProcessorRecipe> recipeHandler;
-    protected RecipeInfo<ProcessorRecipe> recipeInfo = null;
+    protected BasicRecipeHandler<RECIPE> recipeHandler;
+    protected RecipeInfo<RECIPE> recipeInfo = null;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
@@ -70,11 +70,11 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     public boolean fullHalt = false;
 
     protected EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name) {
-        this(type, pos, blockState, name, BlockEntityInfoHandler.getProcessorContainerInfo(name));
+        this(type, pos, blockState, name, BlockEntityInfoHandler.getProcessorMenuInfo(name));
     }
 
     private EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, INFO info) {
-        this(type, pos, blockState, name, info, ITileInventory.inventoryConnectionAll(info.defaultItemSorptions()), info.getEnergyCapacity(1D, 1D), ITileEnergy.energyConnectionAll(info.defaultEnergyConnection()), info.defaultTankCapacities(), e -> NCRecipes.getValidFluids(info.recipeHandlerName, e), ITileFluid.fluidConnectionAll(info.defaultTankSorptions()));
+        this(type, pos, blockState, name, info, ITileInventory.inventoryConnectionAll(info.defaultItemSorptions()), info.getEnergyCapacity(1D,1D), ITileEnergy.energyConnectionAll(info.defaultEnergyConnection()), info.defaultTankCapacities(), e -> NCRecipes.getValidFluids(info.recipeHandlerName, e), ITileFluid.fluidConnectionAll(info.defaultTankSorptions()));
     }
 
     private EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, INFO info, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, Function<Level, List<Set<ResourceLocation>>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
@@ -170,24 +170,28 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     }
 
     @Override
-    public BasicRecipeHandler<ProcessorRecipe> getRecipeHandler() {
+    public BasicRecipeHandler<RECIPE> getRecipeHandler() {
         return recipeHandler;
     }
 
     @Override
-    public RecipeInfo<ProcessorRecipe> getRecipeInfo() {
+    public RecipeInfo<RECIPE> getRecipeInfo() {
         return recipeInfo;
     }
 
     @Override
-    public void setRecipeInfo(RecipeInfo<? extends BasicRecipe> recipeInfo) {
-        this.recipeInfo = (RecipeInfo<ProcessorRecipe>) recipeInfo;
+    public void setRecipeInfo(RecipeInfo<RECIPE> recipeInfo) {
+        this.recipeInfo = recipeInfo;
     }
 
     @Override
-    public void setRecipeStats(@Nullable BasicRecipe recipe) {
-        IProcessor.super.setRecipeStats(recipe);
-        baseProcessRadiation = recipe == null ? 0D : ((ProcessorRecipe) recipe).getBaseProcessRadiation();
+    public void setRecipeStats(@Nullable RECIPE basic) {
+        IProcessor.super.setRecipeStats(basic);
+        if (basic instanceof ProcessorRecipe recipe) {
+            baseProcessRadiation = recipe.getBaseProcessRadiation();
+        } else {
+            baseProcessRadiation = 0D;
+        }
     }
 
     @Override
@@ -413,7 +417,7 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     @Override
     public void readAll(CompoundTag nbt, HolderLookup.Provider registries) {
         if (info == null && nbt.contains("infoName")) {
-            initFromInfo(BlockEntityInfoHandler.getProcessorContainerInfo(nbt.getString("infoName")), true);
+            initFromInfo(BlockEntityInfoHandler.getProcessorMenuInfo(nbt.getString("infoName")), true);
         }
         super.readAll(nbt, registries);
         readProcessorNBT(nbt, registries);

@@ -20,11 +20,11 @@ public class ProcessorInputSlot extends Slot {
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return recipeHandler.isValidItemInput(stack, ((IProcessor<?, ?, ?>) container).getTileWorld());
+        return recipeHandler.isValidItemInput(stack, ((IProcessor<?, ?, ?, ?>) container).getTileWorld());
     }
 
     @Override
     public boolean isActive() {
-        return !(Minecraft.getInstance().screen instanceof ProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof UpgradableProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof ItemSorptionsScreen<?, ?, ?> || Minecraft.getInstance().screen instanceof FluidSorptionsScreen<?, ?, ?>);
+        return !(Minecraft.getInstance().screen instanceof ProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof UpgradableProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof ItemSorptionsScreen<?, ?, ?, ?> || Minecraft.getInstance().screen instanceof FluidSorptionsScreen<?, ?, ?, ?>);
     }
 }

@@ -21,4 +21,10 @@ StartupEvents.registry('block', event => {
     event.create("test_rtg", "nuclearcraftneohaul:rtg").setRTGData(2400000, 0.09)
     event.create("test_hx_tube", "nuclearcraftneohaul:hx_tube").setHXTubeData(0.9, 0.09)
     event.create("test_battery", "nuclearcraftneohaul:battery").setBatteryData(1000, 5)
+
+    event.create("test_generator", "processor")
+        .setDefaultProcessPower(40000)
+        .setDefaultProcessTime(1000)
+        .setItemInputSlots([NCSlots.standardSlot(56, 35)])
+        .setIsGenerator(true)
 })

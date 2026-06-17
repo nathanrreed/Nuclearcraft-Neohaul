@@ -6,7 +6,10 @@ import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker_annotations.annotations.Document;
 import com.nred.nuclearcraft.compat.crafttweaker.ingredient.CTChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.processor.FuelReprocessorRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import org.openzen.zencode.java.ZenCodeType;
+
+import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.FUEL_REPROCESSOR_RECIPE_TYPE;
 
 @ZenRegister
 @ZenCodeType.Name("mods.nuclearcraft.recipe.manager.FuelReprocessorRecipeManager")
@@ -51,5 +54,9 @@ public class FuelReprocessorRecipeManager extends BasicNuclearRecipeManager<Fuel
                           @ZenCodeType.OptionalDouble(0D) double radiation) {
         INSTANCE.addRecipeInternal(name, compact(input), compact(output1, output2, output3, output4, output5, output6, output7, output8), null, null, timeModifier, powerModifier, radiation);
     }
-}
 
+    @Override
+    public RecipeType<FuelReprocessorRecipe> getRecipeType() {
+        return FUEL_REPROCESSOR_RECIPE_TYPE.get();
+    }
+}

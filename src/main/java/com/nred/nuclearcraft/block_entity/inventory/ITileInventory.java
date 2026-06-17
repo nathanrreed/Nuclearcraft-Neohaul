@@ -222,7 +222,7 @@ public interface ITileInventory extends ITile, WorldlyContainer {
         }
 
         if (pushed) {
-            if (this instanceof IProcessor<?, ?, ?> processor) {
+            if (this instanceof IProcessor<?, ?, ?, ?> processor) {
                 processor.refreshActivity();
             } else if (this instanceof IMachinePart part) {
                 part.refreshMachineActivity();
