@@ -3204,6 +3204,8 @@
   "nuclearcraftneohaul.menu.title.decay_hastener": "Decay Hastener",
   "nuclearcraftneohaul.menu.title.electric_furnace": "Electric Furnace",
   "nuclearcraftneohaul.menu.title.electrolyzer": "Electrolyzer",
+  "nuclearcraftneohaul.menu.title.fission_cooler": "Fission Gas Cooler",
+  "nuclearcraftneohaul.menu.title.fission_cooler_port": "Fission Gas Cooler Port",
   "nuclearcraftneohaul.menu.title.fission_heater": "Fission Coolant Heater",
   "nuclearcraftneohaul.menu.title.fission_heater_port": "Fission Coolant Heater Port",
   "nuclearcraftneohaul.menu.title.fluid_enricher": "Fluid Enricher",

@@ -98,7 +98,7 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
 
     public SaltFissionHeaterEntity(final BlockPos position, final BlockState blockState, FissionCoolantHeaterType heaterType) {
         super(FISSION_ENTITY_TYPE.get("coolant_heater").get(), position, blockState);
-        info = BlockEntityInfoHandler.getProcessorMenuInfo("salt_fission_heater");
+        info = BlockEntityInfoHandler.getProcessorMenuInfo("salt_cooling");
 
         this.heaterType = heaterType;
 

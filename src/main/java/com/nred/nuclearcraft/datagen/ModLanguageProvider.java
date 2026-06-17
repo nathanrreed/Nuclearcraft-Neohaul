@@ -1442,6 +1442,9 @@ public class ModLanguageProvider extends LanguageProvider {
 
         add(MODID + ".menu.title.radiation_scrubber", "Radiation Scrubber");
 
+        add(MODID + ".menu.title.fission_cooler", "Fission Gas Cooler");
+        add(MODID + ".menu.title.fission_cooler_port", "Fission Gas Cooler Port");
+
         add(MODID + ".menu.title.fission_heater", "Fission Coolant Heater");
         add(MODID + ".menu.title.fission_heater_port", "Fission Coolant Heater Port");
     }

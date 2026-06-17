@@ -51,6 +51,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.fission_cooler_coolant_heat_per_mb;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
@@ -119,7 +120,7 @@ public class PebbleFissionCoolerEntity extends AbstractFissionEntity implements 
 
     @Override
     public Component getDisplayName() {
-        return getTileBlockDisplayName();
+        return Component.translatable(MODID + ".menu.title.fission_cooler");
     }
 
     @Override

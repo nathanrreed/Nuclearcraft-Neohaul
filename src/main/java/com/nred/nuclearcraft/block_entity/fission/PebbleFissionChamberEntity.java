@@ -115,7 +115,7 @@ public class PebbleFissionChamberEntity extends AbstractFissionEntity implements
 
     public PebbleFissionChamberEntity(final BlockPos position, final BlockState blockState) {
         super(FISSION_ENTITY_TYPE.get("chamber").get(), position, blockState);
-        info = BlockEntityInfoHandler.getProcessorMenuInfo("pebble_fission_chamber");
+        info = BlockEntityInfoHandler.getProcessorMenuInfo("pebble_fission");
 
         inventoryStacks = info.getInventoryStacks();
         consumedStacks = info.getConsumedStacks();

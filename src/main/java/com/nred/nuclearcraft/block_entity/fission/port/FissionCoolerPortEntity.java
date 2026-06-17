@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.menu.multiblock.port.FissionCoolerPortMenu;
 import com.nred.nuclearcraft.multiblock.fisson.pebble.FissionCoolerPortType;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION_ENTITY_TYPE;
 import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_BLOCK_VOLUME;
 
@@ -28,6 +30,11 @@ public class FissionCoolerPortEntity extends FissionFluidPortEntity<FissionCoole
     @Override
     public @Nullable AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new FissionCoolerPortMenu(containerId, playerInventory, this);
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable(MODID + ".menu.title.fission_cooler_port");
     }
 
     @Override
