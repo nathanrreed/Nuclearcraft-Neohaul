@@ -29,7 +29,6 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import java.util.List;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public abstract class ProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INFO>, TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends InfoTileScreen<MENU, TILE, PACKET, INFO> {
     public ProcessorScreen(MENU menu, Inventory inventory, Component title, ResourceLocation textureLocation) {
@@ -179,7 +178,7 @@ public abstract class ProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, IN
     }
 
     protected void setConfigScreen() {
-        Minecraft.getInstance().setScreen(new SideConfigScreen(menu, this, menu.inventory, Component.empty(), ncLoc("screen/" + info.name)));
+        Minecraft.getInstance().setScreen(new SideConfigScreen(menu, this, menu.inventory, Component.empty(), info.getScreenTexture()));
     }
 
     protected boolean sorptionButtonActionPerformed(NCButton button, int pressed) {

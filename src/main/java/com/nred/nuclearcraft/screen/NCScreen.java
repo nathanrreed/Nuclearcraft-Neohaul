@@ -86,11 +86,11 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
     private static final ResourceLocation bottom = ncLoc("block/processor/bottom");
 
     public void renderGuiBlock(GuiGraphics guiGraphics, BlockState state, Direction facing, int x, int y, int w, int h) {
-        ResourceLocation texture = switch (facing) {
+        ResourceLocation texture = switch (facing) { // Weird order needed to get config pics correct
             case UP -> top;
             case DOWN -> bottom;
             case NORTH, SOUTH -> side;
-            case WEST -> ncLoc("block/processor/" + ((ProcessorMenu<?, ?, ?, ?>) menu).info.name + "_front" + (state.getValue(ACTIVE) ? "_on" : "_off"));
+            case WEST -> ((ProcessorMenu<?, ?, ?, ?>) menu).info.getFrontTexture().withSuffix((state.getValue(ACTIVE) ? "_on" : "_off"));
             case EAST -> back;
         };
 

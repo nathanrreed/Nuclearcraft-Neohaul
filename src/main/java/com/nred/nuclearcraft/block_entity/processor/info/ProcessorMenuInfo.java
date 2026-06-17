@@ -18,6 +18,7 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -31,6 +32,7 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.config.NCConfig.processor_power_multiplier;
 import static com.nred.nuclearcraft.config.NCConfig.processor_time_multiplier;
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends BlockEntityMenuInfo<TILE> {
     public final String recipeHandlerName;
@@ -258,6 +260,10 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
 
     public int getRedstoneControlButtonID() {
         return getTankCount() + 1;
+    }
+
+    public ResourceLocation getScreenTexture() {
+        return screenTexture != null && !screenTexture.isEmpty() && screenTexture.contains(":") ? ResourceLocation.parse(screenTexture) : ncLoc("screen/" + this.name);
     }
 
     public List<ItemSorption> defaultItemSorptions() {

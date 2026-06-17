@@ -75,7 +75,7 @@ public abstract class ItemSorptionsScreen<TILE extends BlockEntity & ITileGui<TI
         guiGraphics.setColor(1F, 1F, 1F, 0.75F);
         BlockState state = tile.getBlockState(tile.getTilePos());
         for (int i = 0; i < 6; ++i) {
-            renderGuiBlock(guiGraphics, state, dirs[i], a[i] + 1, b[i] + 1, 16, 16);
+            renderGuiBlock(guiGraphics, state, Direction.from3DDataValue(i), a[i] + 1, b[i] + 1, 16, 16);
         }
         guiGraphics.setColor(1F, 1F, 1F, 1F);
     }
@@ -113,7 +113,7 @@ public abstract class ItemSorptionsScreen<TILE extends BlockEntity & ITileGui<TI
         public Input(NCScreen<? extends InfoTileMenu<TILE, PACKET, INFO>> parent, TILE tile, int slot) {
             super(parent, tile, slot, ItemSorption.Type.INPUT);
             gui_texture = ncLoc("side_config/item_input");
-            a = new int[]{25, 25, 7, 43, 25, 43};
+            a = new int[]{25, 25, 7, 43, 25, 43}; // Bottom, Top, Left, Right, Front, Back
             b = new int[]{43, 7, 25, 25, 25, 43};
             imageWidth = 68;
             imageHeight = 68;

@@ -7,7 +7,6 @@ import com.nred.nuclearcraft.block_entity.processor.info.builder.ProcessorBlockI
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.util.BlockHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -50,7 +49,7 @@ public class ProcessorBlock<TILE extends BlockEntity> extends SidedTileBlock imp
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (!state.getValue(ACTIVE)) {
             return;
         }

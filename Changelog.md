@@ -1,3 +1,4 @@
-- Fixed shield never appearing closed
-- Added Custom Processors to KubeJS
-- Rewrote JEI and EMI implementations
+- Fixed crash on config screen
+- Fixed config screen showing wrong order
+- Fixed processors not giving off particles
+- Fixed processors rotating when placed next to hoppers

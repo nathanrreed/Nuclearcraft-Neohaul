@@ -10,13 +10,13 @@ public class CommandHandler {
         CommandSetPlayerRadiation.register(event.getDispatcher());
 
 //        event.getDispatcher().register(Commands.literal("nc_test").executes(ctx -> {  // For Testing places all blocks
-//                    BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos().set(0, 90, 0);
-//                    for (ResourceLocation resourceLocation : BuiltInRegistries.BLOCK.keySet()) {
-//                        if (resourceLocation.getNamespace().equals(NuclearcraftNeohaul.MODID) && !resourceLocation.getPath().contains("fission_cooler")) {
+//                    BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos().set(0, -61, 0);
+//                    for (ResourceLocation resourceLocation : BuiltInRegistries.BLOCK.keySet().stream().sorted(ResourceLocation::compareNamespaced).toList()) {
+//                        if (resourceLocation.getNamespace().equals(NuclearcraftNeohaul.MODID) || resourceLocation.getNamespace().equals("kubejs")) {
 //                            ctx.getSource().getLevel().setBlockAndUpdate(pos, BuiltInRegistries.BLOCK.get(resourceLocation).defaultBlockState());
 //
-//                            if (pos.getX() == 64) {
-//                                pos.move(-64, 0, 1);
+//                            if (pos.getX() == 32) {
+//                                pos.move(-32, 0, 1);
 //                            } else {
 //                                pos.move(1, 0, 0);
 //                            }

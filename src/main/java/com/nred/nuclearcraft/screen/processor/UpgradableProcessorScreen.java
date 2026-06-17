@@ -43,7 +43,7 @@ public abstract class UpgradableProcessorScreen<MENU extends InfoTileMenu<TILE, 
 
     @Override
     protected void setConfigScreen() {
-        Minecraft.getInstance().setScreen(new SideConfigScreen(menu, this, menu.inventory, Component.empty(), ResourceLocation.parse(info.screenTexture)));
+        Minecraft.getInstance().setScreen(new SideConfigScreen(menu, this, menu.inventory, Component.empty(), info.getScreenTexture()));
     }
 
     protected void drawUpgradeRenderers(GuiGraphics guiGraphics) {

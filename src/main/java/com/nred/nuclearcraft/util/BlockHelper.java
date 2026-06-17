@@ -3,9 +3,12 @@ package com.nred.nuclearcraft.util;
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -34,32 +37,32 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 public class BlockHelper {
 
     public static void setDefaultFacing(Level level, BlockPos pos, BlockState state, EnumProperty<Direction> property) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             level.setBlock(pos, state.setValue(property, getDefaultFacing(level, pos, state, property)), 2);
         }
     }
 
     public static Direction getDefaultFacing(Level level, BlockPos pos, BlockState state, EnumProperty<Direction> property) {
         Direction facing = state.getValue(property);
-        if (!level.isClientSide) {
-            boolean n = level.getBlockState(pos.north()).isSolid();
-            boolean s = level.getBlockState(pos.south()).isSolid();
+        if (!level.isClientSide()) {
+            boolean n = level.getBlockState(pos.north()).isCollisionShapeFullBlock(level, pos.north());
+            boolean s = level.getBlockState(pos.south()).isCollisionShapeFullBlock(level, pos.south());
 
             if (facing == Direction.NORTH && n && !s) {
                 facing = Direction.SOUTH;
             } else if (facing == Direction.SOUTH && s && !n) {
                 facing = Direction.NORTH;
             } else {
-                boolean w = level.getBlockState(pos.west()).isSolid();
-                boolean e = level.getBlockState(pos.east()).isSolid();
+                boolean w = level.getBlockState(pos.west()).isCollisionShapeFullBlock(level, pos.west());
+                boolean e = level.getBlockState(pos.east()).isCollisionShapeFullBlock(level, pos.east());
 
                 if (facing == Direction.WEST && w && !e) {
                     facing = Direction.EAST;
                 } else if (facing == Direction.EAST && e && !w) {
                     facing = Direction.WEST;
                 } else if (property == FACING_ALL) {
-                    boolean u = level.getBlockState(pos.above()).isSolid();
-                    boolean d = level.getBlockState(pos.below()).isSolid();
+                    boolean u = level.getBlockState(pos.above()).isCollisionShapeFullBlock(level, pos.above());
+                    boolean d = level.getBlockState(pos.below()).isCollisionShapeFullBlock(level, pos.below());
 
                     if (facing == Direction.UP && u && !d) {
                         facing = Direction.DOWN;
@@ -72,33 +75,38 @@ public class BlockHelper {
         return facing;
     }
 
-    public static void spawnParticleOnProcessor(BlockState state, Level level, BlockPos pos, RandomSource rand, Direction side, String particleName) {
+    public static void spawnParticleOnProcessor(BlockState state, Level level, BlockPos pos, RandomSource random, Direction direction, String particleName) {
         if (particleName.isEmpty() || !processor_particles) {
             return;
         }
 
-        double d0 = pos.getX() + 0.5D;
-        double d1 = pos.getY() + 0.125D + rand.nextDouble() * 0.75D;
-        double d2 = pos.getZ() + 0.5D;
-        double d3 = 0.52D;
-        double d4 = rand.nextDouble() * 0.6D - 0.3D;
-
-        switch (side) {
-            case WEST:
-                level.addParticle((ParticleOptions) BuiltInRegistries.PARTICLE_TYPE.get(ResourceLocation.parse(particleName)), d0 - d3, d1, d2 + d4, 0D, 0D, 0D);
-                break;
-            case EAST:
-                level.addParticle((ParticleOptions) BuiltInRegistries.PARTICLE_TYPE.get(ResourceLocation.parse(particleName)), d0 + d3, d1, d2 + d4, 0D, 0D, 0D);
-                break;
-            case NORTH:
-                level.addParticle((ParticleOptions) BuiltInRegistries.PARTICLE_TYPE.get(ResourceLocation.parse(particleName)), d0 + d4, d1, d2 - d3, 0D, 0D, 0D);
-                break;
-            case SOUTH:
-                level.addParticle((ParticleOptions) BuiltInRegistries.PARTICLE_TYPE.get(ResourceLocation.parse(particleName)), d0 + d4, d1, d2 + d3, 0D, 0D, 0D);
-                break;
-            default:
-                break;
+        double d0 = (double) pos.getX() + 0.5;
+        double d1 = (double) pos.getY();
+        double d2 = (double) pos.getZ() + 0.5;
+        if (random.nextDouble() < 0.1) {
+            level.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
         }
+
+        Direction.Axis direction$axis = direction.getAxis();
+        double d3 = 0.52;
+        double d4 = random.nextDouble() * 0.6 - 0.3;
+        double d5 = direction$axis == Direction.Axis.X ? (double) direction.getStepX() * 0.52 : d4;
+        double d6 = random.nextDouble() * 6.0 / 16.0;
+        double d7 = direction$axis == Direction.Axis.Z ? (double) direction.getStepZ() * 0.52 : d4;
+
+        ParticleOptions particle;
+        if (particleName.startsWith("red_dust")) {
+            particle = DustParticleOptions.REDSTONE;
+        } else {
+            particle = (ParticleOptions) BuiltInRegistries.PARTICLE_TYPE.get(ResourceLocation.parse(particleName));
+        }
+
+        if (particle == null) {
+            System.out.println("Error: no particle" + particleName + "found!");
+            return;
+        }
+
+        level.addParticle(particle, d0 + d5, d1 + d6, d2 + d7, 0.0, 0.0, 0.0);
     }
 
     // Accessing machine tanks - taken from net.minecraftforge.fluids.FluidUtil and modified to correctly handle ITileFluids
