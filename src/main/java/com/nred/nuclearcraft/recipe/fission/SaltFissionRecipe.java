@@ -54,6 +54,11 @@ public class SaltFissionRecipe extends BasicFissionRecipe {
         return fission_fuel_time_multiplier * time;
     }
 
+    @Override
+    public int getFissionFuelTime() {
+        return NCMath.toInt(getSaltFissionFuelTime());
+    }
+
     public int getFissionFuelHeatRaw() {
         return NCMath.toInt(heat);
     }

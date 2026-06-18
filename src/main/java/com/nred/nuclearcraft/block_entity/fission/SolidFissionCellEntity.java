@@ -45,7 +45,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnknownNullability;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -661,7 +660,7 @@ public class SolidFissionCellEntity extends AbstractFissionEntity implements IBa
     }
 
     @Override
-    public void setRecipeStats(@javax.annotation.Nullable @UnknownNullability SolidFissionRecipe basic) {
+    public void setRecipeStats(@Nullable SolidFissionRecipe basic) {
         if (basic instanceof SolidFissionRecipe recipe) {
             baseProcessTime = recipe.getFissionFuelTime();
             baseProcessHeat = recipe.getFissionFuelHeat();

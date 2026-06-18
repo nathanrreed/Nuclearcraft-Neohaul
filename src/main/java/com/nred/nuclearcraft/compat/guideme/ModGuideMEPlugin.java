@@ -29,6 +29,7 @@ public class ModGuideMEPlugin {
         return Guide.builder(ncLoc("guide")).index(ItemIndex.class, new ItemIndexWrapper())
                 .extension(TagCompiler.EXTENSION_POINT, new DataMapTagExtension())
                 .extension(TagCompiler.EXTENSION_POINT, new FuelTagExtension())
+                .extension(TagCompiler.EXTENSION_POINT, new FluidLinkCompiler())
                 .build();
     }
 }

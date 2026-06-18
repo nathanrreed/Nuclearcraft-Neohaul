@@ -30,6 +30,8 @@ public abstract class BasicFissionRecipe extends BasicRecipe {
 
     public abstract int getFissionFuelHeatRaw();
 
+    public abstract int getFissionFuelTime();
+
     public abstract int getFissionFuelHeat();
 
     public abstract double getFissionFuelEfficiencyRaw();

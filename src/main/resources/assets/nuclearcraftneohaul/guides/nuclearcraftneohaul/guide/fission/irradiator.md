@@ -3,6 +3,9 @@ navigation:
   title: Irradiator
   icon: fission_irradiator
   parent: fission/fission.md
+  
+categories:
+  - General Fission
 
 item_ids:
   - fission_irradiator

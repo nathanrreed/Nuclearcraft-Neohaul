@@ -13,7 +13,7 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
-import com.nred.nuclearcraft.recipe.fission.ItemFissionRecipe;
+import com.nred.nuclearcraft.recipe.fission.BasicFissionRecipe;
 import com.nred.nuclearcraft.util.Lang;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
@@ -86,7 +86,7 @@ public class NCInfo {
 
     // Fission Fuel
 
-    public static Component[] fissionFuelInfo(ItemFissionRecipe recipe) {
+    public static Component[] fissionFuelInfo(BasicFissionRecipe recipe) {
         List<Component> list = Lists.newArrayList(Component.translatable(MODID + ".info.fission_fuel"), Component.translatable(MODID + ".info.fission_fuel.base_time", UnitHelper.applyTimeUnit(recipe.getFissionFuelTime(), 3)), Component.translatable(MODID + ".info.fission_fuel.base_heat", UnitHelper.prefix(recipe.getFissionFuelHeat(), 5, "H/t")), Component.translatable(MODID + ".info.fission_fuel.base_efficiency", NCMath.pcDecimalPlaces(recipe.getFissionFuelEfficiency(), 1)), Component.translatable(MODID + ".info.fission_fuel.criticality", recipe.getFissionFuelCriticality() + " N/t"));
         int intrinsicFlux = recipe.getFissionFuelIntrinsicFlux();
         if (intrinsicFlux > 0) {
