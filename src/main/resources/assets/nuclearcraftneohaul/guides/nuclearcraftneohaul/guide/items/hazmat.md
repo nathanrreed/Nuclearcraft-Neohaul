@@ -6,10 +6,10 @@ navigation:
   position: 210
   
 item_ids:
-  - nuclearcraftneohaul:hazmat_helmet
-  - nuclearcraftneohaul:hazmat_chestplate
-  - nuclearcraftneohaul:hazmat_leggings
-  - nuclearcraftneohaul:hazmat_boots
+  - hazmat_helmet
+  - hazmat_chestplate
+  - hazmat_leggings
+  - hazmat_boots
 ---
 
 # Hazmat Suit

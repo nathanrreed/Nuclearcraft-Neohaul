@@ -2,6 +2,10 @@
 navigation:
   title: Fission Reactors
   position: 1
+
+item_ids:
+- fission_reactor_casing
+- fission_glass
 ---
 
 # General Info
