@@ -10,10 +10,8 @@ import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.RecipeStats;
 import com.nred.nuclearcraft.util.NCMath;
-import com.nred.nuclearcraft.util.StackHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -47,7 +45,7 @@ public class DecayGeneratorEntity extends TileEnergy implements ITickable, IInte
             tickGenerator();
             if (generatorCount == 0) {
                 getEnergyStorage().changeEnergyStored(getGenerated());
-				getRadiationSource().setRadiationLevel(getRadiation());
+                getRadiationSource().setRadiationLevel(getRadiation());
             }
             pushEnergy();
         }
@@ -69,27 +67,21 @@ public class DecayGeneratorEntity extends TileEnergy implements ITickable, IInte
     public double getRadiation() {
         double radiation = 0D;
         for (Direction side : Direction.values()) {
-            if (getDecayRecipe(side) != null) {
-                radiation += getDecayRecipe(side).getDecayGeneratorRadiation();
+            DecayGeneratorRecipe recipe = getDecayRecipe(side);
+            if (recipe != null) {
+                radiation += recipe.getDecayGeneratorRadiation();
             }
         }
         return machine_update_rate * radiation;
     }
 
     public double decayGen(Direction side) {
-        if (getDecayRecipe(side) == null) {
-            return 0D;
-        }
-        ItemStack stack = getOutput(side);
-        if (stack == null || stack.isEmpty()) {
+        BlockState result = getRecipeOutput(side);
+        if (result == null) {
             return 0D;
         }
         if (rand.nextDouble() * getRecipeLifetime(side) / machine_update_rate < 1D) {
-            BlockState block = StackHelper.getBlockStateFromStack(stack);
-            if (block == null) {
-                return 0D;
-            }
-            level.setBlockAndUpdate(worldPosition.relative(side), block);
+            level.setBlockAndUpdate(worldPosition.relative(side), result);
             refreshRecipe(side);
         }
         return getRecipePower(side);
@@ -114,24 +106,17 @@ public class DecayGeneratorEntity extends TileEnergy implements ITickable, IInte
     }
 
     public double getRecipeLifetime(Direction side) {
-        if (getDecayRecipe(side) == null) {
-            return 1200D;
-        }
-        return getDecayRecipe(side).getDecayGeneratorLifetime();
+        DecayGeneratorRecipe recipe = getDecayRecipe(side);
+        return recipe == null ? 1200D : recipe.getDecayGeneratorLifetime();
     }
 
     public double getRecipePower(Direction side) {
-        if (getDecayRecipe(side) == null) {
-            return 0D;
-        }
-        return getDecayRecipe(side).getDecayGeneratorPower();
+        DecayGeneratorRecipe recipe = getDecayRecipe(side);
+        return recipe == null ? 0D : recipe.getDecayGeneratorPower();
     }
 
-    public ItemStack getOutput(Direction side) {
-        if (getDecayRecipe(side) == null) {
-            return ItemStack.EMPTY;
-        }
-        ItemStack output = RecipeHelper.getItemStackFromIngredientList(getDecayRecipe(side).getItemProducts(), 0);
-        return output != null ? output : ItemStack.EMPTY;
+    public BlockState getRecipeOutput(Direction side) {
+        DecayGeneratorRecipe recipe = getDecayRecipe(side);
+        return recipe == null ? null : RecipeHelper.getBlockStateFromProductList(recipe.getItemProducts(), 0);
     }
 }

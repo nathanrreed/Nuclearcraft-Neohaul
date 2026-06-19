@@ -16,17 +16,17 @@ public class IngotFormerProvider {
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("steel"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("steel"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("ferroboron"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("ferroboron"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("tough"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("tough"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("hard_carbon"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("hard_carbon"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("lead_platinum"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("lead_platinum"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(HOT_GAS_MAP.get("sic_vapor"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("silicon_carbide"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("coal"), COAL_DUST_VOLUME).addItemResult(INGOT_MAP.get("graphite"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("manganese_dioxide"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("manganese_dioxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("hastelloy"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("hastelloy"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("beryllium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("beryllium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("zirconium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("zirconium"), 1).save(recipeOutput);
+//  TODO      new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("palladium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("palladium"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("holmium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("holmium"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("dysprosium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("dysprosium"), 1).save(recipeOutput);
+//   TODO     new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("gadolinium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("gadolinium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polydimethylsilylene"), INGOT_VOLUME).addItemResult(PART_MAP.get("polydimethylsilylene"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polyethersulfone"), INGOT_VOLUME).addItemResult(PART_MAP.get("polyethersulfone"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polytetrafluoroethene"), INGOT_VOLUME).addItemResult(PART_MAP.get("polytetrafluoroethene"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polymethylsilylene_methylene"), INGOT_VOLUME).addItemResult(PART_MAP.get("polymethylsilylene_methylene"), 1).save(recipeOutput);
+
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("thorium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("thorium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("uranium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("uranium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("iron"), INGOT_VOLUME).addItemResult(Items.IRON_INGOT, 1).save(recipeOutput);
@@ -49,7 +49,18 @@ public class IngotFormerProvider {
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("fluorite"), GEM_VOLUME).addItemResult(GEM_MAP.get("fluorite"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("villiaumite"), GEM_VOLUME).addItemResult(GEM_MAP.get("villiaumite"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("carobbiite"), GEM_VOLUME).addItemResult(GEM_MAP.get("carobbiite"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 2, 1).addFluidInput(MOLTEN_MAP.get("bas"), GEM_VOLUME).addItemResult(GEM_MAP.get("boron_arsenide"), 1).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("hard_carbon"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("hard_carbon"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("manganese_dioxide"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("manganese_dioxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("lead_platinum"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("lead_platinum"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("nickel_oxide"), INGOT_VOLUME).addItemResult(DUST_MAP.get("nickel_oxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 2, 2).addFluidInput(MOLTEN_MAP.get("bas"), GEM_VOLUME).addItemResult(GEM_MAP.get("boron_arsenide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(HOT_GAS_MAP.get("sic_vapor"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("silicon_carbide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polyethersulfone"), INGOT_VOLUME).addItemResult(PART_MAP.get("polyethersulfone"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("coal"), COAL_DUST_VOLUME).addItemResult(INGOT_MAP.get("graphite"), 1).save(recipeOutput);
+
+//    TODO    new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME).addItemResult(DUST_MAP.get("barium_oxide"), 1).save(recipeOutput);
+
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("silicon"), INGOT_VOLUME).addItemResult(GEM_MAP.get("silicon"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 2, 1).addFluidInput(MOLTEN_MAP.get("obsidian"), SEARED_BLOCK_VOLUME).addItemResult(Items.OBSIDIAN, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("nether_brick"), SEARED_MATERIAL_VOLUME).addItemResult(Items.NETHER_BRICK, 1).save(recipeOutput);

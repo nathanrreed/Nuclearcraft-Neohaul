@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:extractor_recipe",
+  "fluidProducts": [
+    {
+      "amount": 100,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:soul"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:soul_sand"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:soulless_sand"
+      }
+    }
+  ],
+  "powerModifier": 2.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

@@ -23,7 +23,7 @@
     },
     {
       "chancePercent": 25,
-      "count": 1,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:molybdenum_dust"
       }

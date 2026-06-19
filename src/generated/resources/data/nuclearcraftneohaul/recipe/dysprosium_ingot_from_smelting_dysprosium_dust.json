@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.25,
+  "group": "dysprosium",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:dysprosium_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:dysprosium_ingot"
+  }
+}

@@ -33,7 +33,7 @@ public class ManufactoryRecipeProvider {
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 2, 1).addItemInput(Items.OBSIDIAN, 1).addItemResult(GEM_DUST_MAP.get("obsidian"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.COBBLESTONE, 1).addItemResult(Items.SAND, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.GRAVEL, 1).addItemResult(Items.FLINT, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.END_STONE, 1).addItemResult(GEM_DUST_MAP.get("end_stone"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 2, 1).addItemInput(Items.END_STONE, 4).addItemResult(GEM_DUST_MAP.get("end_stone"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.BLAZE_ROD, 1).addItemResult(Items.BLAZE_POWDER, 4).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 1).addItemInput(Items.ROTTEN_FLESH, 4).addItemResult(Items.LEATHER, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.SUGAR_CANE, 2).addItemResult(PART_MAP.get("bioplastic"), 1).save(recipeOutput);

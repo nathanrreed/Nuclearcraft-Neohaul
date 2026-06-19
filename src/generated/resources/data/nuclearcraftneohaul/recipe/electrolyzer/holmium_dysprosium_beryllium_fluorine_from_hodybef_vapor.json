@@ -1,0 +1,40 @@
+{
+  "type": "nuclearcraftneohaul:electrolyzer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hodybef_vapor"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 250,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:holmium"
+      }
+    },
+    {
+      "amount": 36,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:dysprosium"
+      }
+    },
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:beryllium"
+      }
+    },
+    {
+      "amount": 1500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorine"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 2.0
+}

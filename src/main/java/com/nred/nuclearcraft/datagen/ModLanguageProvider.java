@@ -898,7 +898,10 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void blocks() {
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, " Block");
-        simpleBlocks(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, " Block");
+        replaceBlocks(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, ""," Block", Map.of(
+                "soulless_sand","Soulless Sand",
+                "soulless_sandstone","Soulless Sandstone"
+        ));
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "Block of Raw ", "");
 
         add(FERTILE_ISOTOPE_MAP.get("americium").get(), "Americium-243 Block");
@@ -1054,7 +1057,10 @@ public class ModLanguageProvider extends LanguageProvider {
                 "bas", "Molten Boron Arsenide"));
         molten.putAll(Map.of(
                 "polymethylsilylene_methylene", "Molten Polymethylsilylene-Methylene",
-                "polytetrafluoroethene", "Molten Polytetrafluoroethylene"
+                "polytetrafluoroethene", "Molten Polytetrafluoroethylene",
+                "baalo", "Molten Barium Aluminate",
+                "bacro", "Molten Barium Chromite",
+                "bacro_nio", "Molten Barium Nichromate Mixture"
         ));
 
         buckets(MOLTEN_MAP, molten, "Molten ");
@@ -1064,14 +1070,22 @@ public class ModLanguageProvider extends LanguageProvider {
                 "ethene_exhaust", "Exhaust Ethylene",
                 "ethene_hot", "Hot Ethylene",
                 "ethyne_exhaust", "Exhaust Acetylene",
-                "ethyne_hot", "Hot Acetylene"
+                "ethyne_hot", "Hot Acetylene",
+                "fso_vapor", "Sulfate-Fluoride Vapor",
+                "hodybef_vapor", "Holmium Dysprosium Diberyllium Dodecafluoride Vapor"
         ));
         buckets(SUGAR_MAP, Map.of("sugar", "Molten Sugar"));
         buckets(CHOCOLATE_MAP);
         buckets(FISSION_FLUID_MAP, Map.of(), "Molten ");
         buckets(STEAM_MAP);
-        buckets(SALT_SOLUTION_MAP);
+        buckets(SALT_SOLUTION_MAP, Map.of(
+                "hodybeso_solution", "Holmium Dysprosium Diberyllium Pentasulfate Solution"
+        ));
         buckets(ACID_MAP);
+        buckets(SOUL_MAP, Map.of(
+                "soul", "Concentrated Souls",
+                "mysterious_soul", "Mysterious Souls"
+        ));
         buckets(FLAMMABLE_MAP, Map.of("redstone_ethanol", "Redstone-Infused Ethanol"));
         nakBuckets(HOT_COOLANT_MAP);
         nakBuckets(COOLANT_MAP);

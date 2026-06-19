@@ -12,8 +12,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.GLOWING_MUSHR
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.COMPOUND_MAP;
 import static com.nred.nuclearcraft.registration.ItemRegistration.GEM_DUST_MAP;
-import static com.nred.nuclearcraft.util.FluidStackHelper.BUCKET_VOLUME;
-import static com.nred.nuclearcraft.util.FluidStackHelper.GEM_VOLUME;
+import static com.nred.nuclearcraft.util.FluidStackHelper.*;
 
 public class FluidEnricherProvider {
     public FluidEnricherProvider(RecipeOutput recipeOutput) {
@@ -32,10 +31,15 @@ public class FluidEnricherProvider {
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(COMPOUND_MAP.get("hydroquinone"), 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addFluidResult(SALT_SOLUTION_MAP.get("hydroquinone_solution"), GEM_VOLUME).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(COMPOUND_MAP.get("sodium_hydroquinone"), 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addFluidResult(SALT_SOLUTION_MAP.get("sodium_hydroquinone_solution"), GEM_VOLUME).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(COMPOUND_MAP.get("potassium_hydroquinone"), 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addFluidResult(SALT_SOLUTION_MAP.get("potassium_hydroquinone_solution"), GEM_VOLUME).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GEM_DUST_MAP.get("dysprholminite"), 1).addFluidInput(Fluids.WATER, BUCKET_VOLUME).addFluidResult(SALT_SOLUTION_MAP.get("dysprholminite_water"), GEM_VOLUME).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 2, 2).addItemInput(GEM_DUST_MAP.get("nichromite"), 1).addFluidInput(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME).addFluidResult(MOLTEN_MAP.get("bacro_nio"), INGOT_VOLUME).save(recipeOutput);
 
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("ethanol"), BUCKET_VOLUME / 4).addFluidResult(CUSTOM_FLUID_MAP.get("radaway"), BUCKET_VOLUME / 4).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("redstone_ethanol"), BUCKET_VOLUME / 4).addFluidResult(CUSTOM_FLUID_MAP.get("radaway_slow"), BUCKET_VOLUME / 4).save(recipeOutput);
 
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(Items.SNOWBALL, 4).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 25).addFluidResult(CRYOTHEUM_TAG, 25).save(recipeOutput, ncLoc("cryotheum_from_liquid_helium"));
+
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 2, 1).addItemInput(COMPOUND_MAP.get("dimensional_blend"), 1).addFluidInput(SOUL_MAP.get("soul"), 100).addFluidResult(SOUL_MAP.get("mysterious_soul"), 100).save(recipeOutput);
     }
 }

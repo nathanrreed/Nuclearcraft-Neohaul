@@ -1,0 +1,34 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hodybeso_solution"
+      }
+    },
+    {
+      "amount": 5500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fluorine"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:hodybef_vapor"
+      }
+    },
+    {
+      "amount": 2500,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:fso_vapor"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 2.0
+}

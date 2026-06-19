@@ -2,12 +2,10 @@ package com.nred.nuclearcraft.block.fluid;
 
 import com.nred.nuclearcraft.helpers.SimpleHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 
@@ -25,21 +23,6 @@ public class FissionFluidBlock extends MoltenFluidBlock {
             livingEntity.addEffect(SimpleHelper.newEffect(MobEffects.WEAKNESS, 1, 100));
             livingEntity.addEffect(SimpleHelper.newEffect(MobEffects.POISON, 1, 100));
         }
-    }
-
-    @Override
-    public BlockState getSourceMixingState() {
-        return Blocks.STONE.defaultBlockState();
-    }
-
-    @Override
-    public BlockState getFlowingMixingState() {
-        return Blocks.COBBLESTONE.defaultBlockState();
-    }
-
-    @Override
-    protected boolean canSetFireToSurroundings(Level level, BlockPos pos, BlockState state, RandomSource rand) {
-        return true;
     }
 
     @Override

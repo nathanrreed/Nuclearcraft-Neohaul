@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/tin"
-        },
-        {
-          "tag": "c:dusts/tin"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/tin"
+      }
     }
   ],
   "powerModifier": 1.0,

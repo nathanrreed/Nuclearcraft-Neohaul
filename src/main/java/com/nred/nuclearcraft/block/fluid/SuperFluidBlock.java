@@ -3,10 +3,10 @@ package com.nred.nuclearcraft.block.fluid;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 
+import static com.nred.nuclearcraft.registration.BlockRegistration.SUPERCOLD_ICE;
 import static com.nred.nuclearcraft.registration.DamageTypeRegistration.SUPERFLUID_FREEZE;
 
 public class SuperFluidBlock extends NCFluidBlock {
@@ -36,6 +36,6 @@ public class SuperFluidBlock extends NCFluidBlock {
 
     @Override
     public BlockState getFlowingIntoWaterState() {
-        return Blocks.ICE.defaultBlockState();
+        return SUPERCOLD_ICE.get().defaultBlockState();
     }
 }

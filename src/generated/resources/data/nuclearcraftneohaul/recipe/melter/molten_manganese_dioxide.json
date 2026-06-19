@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/manganese_dioxide"
-        },
-        {
-          "tag": "c:dusts/manganese_dioxide"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/manganese_dioxide"
+      }
     }
   ],
   "powerModifier": 1.0,

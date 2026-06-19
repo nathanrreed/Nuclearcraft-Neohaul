@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/lead"
-        },
-        {
-          "tag": "c:dusts/lead"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/lead"
+      }
     }
   ],
   "powerModifier": 1.0,

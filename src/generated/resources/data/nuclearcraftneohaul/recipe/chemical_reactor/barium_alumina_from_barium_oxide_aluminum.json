@@ -1,0 +1,34 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 108,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:barium_oxide"
+      }
+    },
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:aluminum"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 108,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:barium"
+      }
+    },
+    {
+      "amount": 36,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:alumina"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

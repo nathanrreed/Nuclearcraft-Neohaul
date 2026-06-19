@@ -22,7 +22,7 @@
       }
     },
     {
-      "amount": 16,
+      "amount": 32,
       "chancePercent": 75,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:molybdenum"

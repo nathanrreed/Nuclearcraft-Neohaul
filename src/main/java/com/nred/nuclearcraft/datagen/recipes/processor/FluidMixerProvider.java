@@ -21,6 +21,8 @@ public class FluidMixerProvider {
 
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("steel"), INGOT_VOLUME / 2).addFluidInput(MOLTEN_MAP.get("boron"), INGOT_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("ferroboron"), INGOT_VOLUME).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("ferroboron"), INGOT_VOLUME / 2).addFluidInput(MOLTEN_MAP.get("lithium"), INGOT_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("tough"), INGOT_VOLUME).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("nickel"), INGOT_VOLUME / 2).addFluidInput(MOLTEN_MAP.get("chromium"), INGOT_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("nichrome"), INGOT_VOLUME).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("nichrome"), INGOT_VOLUME * 3 / 4).addFluidInput(FISSION_FLUID_MAP.get("molybdenum"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("hastelloy"), INGOT_VOLUME).save(recipeOutput);
 
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("lead_platinum"), INGOT_VOLUME).addFluidInput(CUSTOM_FLUID_MAP.get("ender"), EUM_DUST_VOLUME).addFluidResult(MOLTEN_MAP.get("enderium"), INGOT_VOLUME).save(recipeOutput);
         new ProcessorRecipeBuilder(FluidMixerRecipe.class, 1, 0.5).addFluidInput(CUSTOM_FLUID_MAP.get("radaway"), BUCKET_VOLUME / 4).addFluidInput(MOLTEN_MAP.get("redstone"), REDSTONE_DUST_VOLUME * 2).addFluidResult(CUSTOM_FLUID_MAP.get("radaway_slow"), BUCKET_VOLUME / 4).save(recipeOutput);

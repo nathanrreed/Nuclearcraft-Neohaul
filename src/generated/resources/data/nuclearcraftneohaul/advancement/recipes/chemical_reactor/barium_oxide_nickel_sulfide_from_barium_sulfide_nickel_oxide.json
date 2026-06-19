@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:chemical_reactor/barium_oxide_nickel_sulfide_from_barium_sulfide_nickel_oxide"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:chemical_reactor/barium_oxide_nickel_sulfide_from_barium_sulfide_nickel_oxide"
+    ]
+  }
+}

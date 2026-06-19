@@ -25,7 +25,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_HORIZO
 
 public class NuclearFurnaceBlock extends AbstractFurnaceBlock implements IActivatable {
     public NuclearFurnaceBlock(Properties properties) {
-        super(properties);
+        super(properties.strength(3f, 15f));
     }
 
     MapCodec<NuclearFurnaceBlock> CODEC = RecordCodecBuilder.mapCodec(instance ->

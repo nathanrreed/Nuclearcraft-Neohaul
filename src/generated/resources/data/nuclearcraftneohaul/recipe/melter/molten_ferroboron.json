@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/ferroboron"
-        },
-        {
-          "tag": "c:dusts/ferroboron"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/ferroboron"
+      }
     }
   ],
   "powerModifier": 1.0,

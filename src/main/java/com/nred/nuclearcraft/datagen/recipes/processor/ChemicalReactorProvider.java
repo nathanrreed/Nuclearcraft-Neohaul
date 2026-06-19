@@ -33,6 +33,15 @@ public class ChemicalReactorProvider {
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(GAS_MAP.get("sulfur_dioxide"), BUCKET_VOLUME / 2).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME / 4).addFluidResult(GAS_MAP.get("sulfur_trioxide"), BUCKET_VOLUME / 2).save(recipeOutput);
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(GAS_MAP.get("sulfur_trioxide"), BUCKET_VOLUME / 4).addFluidInput(Fluids.WATER, BUCKET_VOLUME / 4).addFluidResult(ACID_MAP.get("sulfuric_acid"), BUCKET_VOLUME / 4).save(recipeOutput);
 
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5D, 0.5D).addFluidInput(MOLTEN_MAP.get("barium"), INGOT_VOLUME / 2).addFluidInput(MOLTEN_MAP.get("sulfur"), GEM_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("barium_sulfide"), INGOT_VOLUME / 2).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5D, 0.5D).addFluidInput(MOLTEN_MAP.get("nickel"), INGOT_VOLUME / 2).addFluidInput(MOLTEN_MAP.get("sulfur"), GEM_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("nickel_sulfide"), INGOT_VOLUME / 2).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1D, 0.5D).addFluidInput(MOLTEN_MAP.get("aluminum"), INGOT_VOLUME).addFluidInput(MOLTEN_MAP.get("sulfur"), GEM_VOLUME * 3 / 2).addFluidResult(MOLTEN_MAP.get("aluminum_sulfide"), INGOT_VOLUME / 2).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5D, 0.5D).addFluidInput(MOLTEN_MAP.get("barium"), INGOT_VOLUME / 2).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME / 2).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5D, 0.5D).addFluidInput(MOLTEN_MAP.get("nickel"), INGOT_VOLUME / 2).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("nickel_oxide"), INGOT_VOLUME / 2).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1D, 0.5D).addFluidInput(MOLTEN_MAP.get("aluminum"), INGOT_VOLUME).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME * 3 / 4).addFluidResult(MOLTEN_MAP.get("alumina"), INGOT_VOLUME / 2).save(recipeOutput);
+
+
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 0.5).addFluidInput(MOLTEN_MAP.get("sulfur"), GEM_VOLUME / 2).addFluidInput(HYDROGEN_TAG, BUCKET_VOLUME / 2).addFluidResult(GAS_MAP.get("hydrogen_sulfide"), BUCKET_VOLUME / 2).save(recipeOutput);
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 0.5).addFluidInput(MOLTEN_MAP.get("sulfur"), GEM_VOLUME / 2).addFluidInput(GAS_MAP.get("fluorine"), BUCKET_VOLUME * 3 / 2).addFluidResult(GAS_MAP.get("sulfur_hexafluoride"), BUCKET_VOLUME / 2).save(recipeOutput);
 
@@ -55,7 +64,10 @@ public class ChemicalReactorProvider {
 
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME / 4).addFluidInput(GAS_MAP.get("fluorine"), BUCKET_VOLUME / 2).addFluidResult(GAS_MAP.get("oxygen_difluoride"), BUCKET_VOLUME / 2).save(recipeOutput);
 
-//        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("manganese_dioxide"), INGOT_VOLUME).addFluidInput(MOLTEN_MAP.get("carbon"), 100).addFluidResult(MOLTEN_MAP.get("manganese"), BUCKET_VOLUME / 2).addFluidResult(GAS_MAP.get("carbon_monoxide"), BUCKET_VOLUME).save(recipeOutput); TODO
+
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 1).addFluidInput(HOT_GAS_MAP.get("fso_vapor"), BUCKET_VOLUME / 4).addFluidInput(Fluids.WATER, BUCKET_VOLUME / 4).addFluidResult(ACID_MAP.get("sulfuric_acid"), BUCKET_VOLUME / 4).addFluidResult(GAS_MAP.get("oxygen_difluoride"), BUCKET_VOLUME / 4).save(recipeOutput);
+//        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("manganese_dioxide"), INGOT_VOLUME).addFluidInput(MOLTEN_MAP.get("carbon"), COAL_DUST_VOLUME).addFluidResult(MOLTEN_MAP.get("manganese"), BUCKET_VOLUME / 2).addFluidResult(GAS_MAP.get("carbon_monoxide"), BUCKET_VOLUME).save(recipeOutput); TODO
+//        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5D, 1D).addFluidInput(MOLTEN_MAP.get("nickel_oxide"), INGOT_VOLUME / 2).addFluidInput(MOLTEN_MAP.get("carbon"), COAL_DUST_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("nickel"), INGOT_VOLUME / 2).addFluidResult(GAS_MAP.get("carbon_monoxide"), BUCKET_VOLUME / 2).save(recipeOutput);
 
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(SUGAR_MAP.get("sugar"), INGOT_VOLUME / 2).addFluidInput(Fluids.WATER, BUCKET_VOLUME / 2).addFluidResult(FLAMMABLE_MAP.get("ethanol"), BUCKET_VOLUME * 2).addFluidResult(GAS_MAP.get("carbon_dioxide"), BUCKET_VOLUME * 2).save(recipeOutput);
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(GAS_MAP.get("carbon_dioxide"), BUCKET_VOLUME / 4).addFluidInput(HYDROGEN_TAG, BUCKET_VOLUME / 4).addFluidResult(GAS_MAP.get("carbon_monoxide"), BUCKET_VOLUME / 4).addFluidResult(Fluids.WATER, BUCKET_VOLUME / 4).save(recipeOutput);
@@ -65,6 +77,9 @@ public class ChemicalReactorProvider {
 
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 1).addFluidInput(GAS_MAP.get("fluoromethane"), BUCKET_VOLUME / 2).addFluidInput(MOLTEN_MAP.get("naoh"), GEM_VOLUME / 2).addFluidResult(GAS_MAP.get("ethene"), BUCKET_VOLUME / 4).addFluidResult(SALT_SOLUTION_MAP.get("sodium_fluoride_solution"), GEM_VOLUME / 2).save(recipeOutput);
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 1).addFluidInput(GAS_MAP.get("fluoromethane"), BUCKET_VOLUME / 2).addFluidInput(MOLTEN_MAP.get("koh"), GEM_VOLUME / 2).addFluidResult(GAS_MAP.get("ethene"), BUCKET_VOLUME / 4).addFluidResult(SALT_SOLUTION_MAP.get("potassium_fluoride_solution"), GEM_VOLUME / 2).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("barium_sulfide"), INGOT_VOLUME / 4).addFluidInput(MOLTEN_MAP.get("naoh"), GEM_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("sodium_sulfide"), INGOT_VOLUME / 4).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("barium_sulfide"), INGOT_VOLUME / 4).addFluidInput(MOLTEN_MAP.get("koh"), GEM_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("potassium_sulfide"), INGOT_VOLUME / 4).save(recipeOutput);
 
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 1).addFluidInput(GAS_MAP.get("ethene"), BUCKET_VOLUME / 4).addFluidInput(ACID_MAP.get("sulfuric_acid"), BUCKET_VOLUME / 4).addFluidResult(FLAMMABLE_MAP.get("ethanol"), BUCKET_VOLUME / 4).addFluidResult(GAS_MAP.get("sulfur_trioxide"), BUCKET_VOLUME / 4).save(recipeOutput);
 
@@ -95,6 +110,16 @@ public class ChemicalReactorProvider {
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("boron"), INGOT_VOLUME / 2).addFluidInput(HOT_GAS_MAP.get("arsenic"), GEM_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("bas"), GEM_VOLUME / 2).save(recipeOutput);
 
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 0.5).addFluidInput(MOLTEN_MAP.get("alugentum"), INGOT_VOLUME / 2).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME * 3).addFluidResult(MOLTEN_MAP.get("alumina"), INGOT_VOLUME).addFluidResult(MOLTEN_MAP.get("silver"), INGOT_VOLUME / 2).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME * 3 / 4).addFluidInput(MOLTEN_MAP.get("aluminum"), INGOT_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("barium"), INGOT_VOLUME * 3 / 4).addFluidResult(MOLTEN_MAP.get("alumina"), INGOT_VOLUME / 4).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("barium_sulfide"), INGOT_VOLUME / 4).addFluidInput(MOLTEN_MAP.get("nickel_oxide"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("nickel_sulfide"), INGOT_VOLUME / 4).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(MOLTEN_MAP.get("nickel_sulfide"), INGOT_VOLUME * 3 / 4).addFluidInput(MOLTEN_MAP.get("aluminum"), INGOT_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("nickel"), INGOT_VOLUME * 3 / 4).addFluidResult(MOLTEN_MAP.get("alumina"), INGOT_VOLUME / 4).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("bacro"), INGOT_VOLUME / 4).addFluidInput(MOLTEN_MAP.get("aluminum"), INGOT_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("baalo"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("chromium"), INGOT_VOLUME / 2).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("baalo"), INGOT_VOLUME / 4).addFluidInput(MOLTEN_MAP.get("aluminum_sulfide"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("barium_sulfide"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("alumina"), INGOT_VOLUME / 2).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("dysprholminite_water"), GEM_VOLUME / 2).addFluidInput(ACID_MAP.get("sulfuric_acid"), BUCKET_VOLUME * 5 / 2).addFluidResult(SALT_SOLUTION_MAP.get("hodybeso_solution"), GEM_VOLUME / 2).addFluidResult(ACID_MAP.get("orthosilicic_acid"), BUCKET_VOLUME).save(recipeOutput);
+        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 2, 1).addFluidInput(SALT_SOLUTION_MAP.get("hodybeso_solution"), GEM_VOLUME / 2).addFluidInput(GAS_MAP.get("fluorine"), BUCKET_VOLUME * 11 / 2).addFluidResult(HOT_GAS_MAP.get("hodybef_vapor"), BUCKET_VOLUME / 2).addFluidResult(HOT_GAS_MAP.get("fso_vapor"), BUCKET_VOLUME * 5 / 2).save(recipeOutput);
 
         for (String name : FISSION_FUEL_FLUIDS) {
             new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(FISSION_FUEL_MAP.get(name), INGOT_VOLUME / 2).addFluidInput(GAS_MAP.get("fluorine"), BUCKET_VOLUME / 2).addFluidResult(FISSION_FUEL_MAP.get(name + "_fluoride"), INGOT_VOLUME / 2).save(recipeOutput);

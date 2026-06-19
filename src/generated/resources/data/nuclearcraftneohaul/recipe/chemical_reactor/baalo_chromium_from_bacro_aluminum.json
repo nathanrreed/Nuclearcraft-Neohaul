@@ -1,0 +1,34 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 36,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:bacro"
+      }
+    },
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:aluminum"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 36,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:baalo"
+      }
+    },
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:chromium"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

@@ -186,4 +186,30 @@ public class RecipeHelper {
     public static List<List<FluidStack>> getFluidOutputLists(List<SizedChanceFluidIngredient> fluidIngredientList) {
         return StreamHelper.map(fluidIngredientList, (e) -> Arrays.stream(e.getFluidsRaw()).toList());
     }
+
+    @Nullable
+    public static ItemStack getItemStackFromProductList(List<SizedChanceItemIngredient> itemProductList, int pos) {
+        if (pos < itemProductList.size()) {
+            return itemProductList.get(pos).getStack();
+        }
+        return null;
+    }
+
+    @Nullable
+    public static FluidStack getFluidStackFromProductList(List<SizedChanceFluidIngredient> fluidProductList, int pos) {
+        if (pos < fluidProductList.size()) {
+            return fluidProductList.get(pos).getStack();
+        }
+        return null;
+    }
+
+    public static BlockState getBlockStateFromIngredientList(List<SizedChanceItemIngredient> itemIngredientList, int pos) {
+        ItemStack stack = RecipeHelper.getItemStackFromIngredientList(itemIngredientList, pos);
+        return stack == null ? null : StackHelper.getBlockStateFromStack(stack);
+    }
+
+    public static BlockState getBlockStateFromProductList(List<SizedChanceItemIngredient> itemProductList, int pos) {
+        ItemStack stack = RecipeHelper.getItemStackFromProductList(itemProductList, pos);
+        return stack == null ? null : StackHelper.getBlockStateFromStack(stack);
+    }
 }

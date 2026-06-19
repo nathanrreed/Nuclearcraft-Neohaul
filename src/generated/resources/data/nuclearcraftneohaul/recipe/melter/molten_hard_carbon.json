@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/hard_carbon"
-        },
-        {
-          "tag": "c:dusts/hard_carbon"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/hard_carbon"
+      }
     }
   ],
   "powerModifier": 1.0,

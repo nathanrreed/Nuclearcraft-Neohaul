@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:electrolyzer/holmium_dysprosium_beryllium_fluorine_from_hodybef_vapor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:electrolyzer/holmium_dysprosium_beryllium_fluorine_from_hodybef_vapor"
+    ]
+  }
+}

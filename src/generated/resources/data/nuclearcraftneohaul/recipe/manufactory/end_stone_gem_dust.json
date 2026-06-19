@@ -2,7 +2,7 @@
   "type": "nuclearcraftneohaul:manufactory_recipe",
   "itemIngredients": [
     {
-      "count": 1,
+      "count": 4,
       "ingredient": {
         "item": "minecraft:end_stone"
       }
@@ -18,5 +18,5 @@
   ],
   "powerModifier": 1.0,
   "radiation": 0.0,
-  "timeModifier": 1.0
+  "timeModifier": 2.0
 }

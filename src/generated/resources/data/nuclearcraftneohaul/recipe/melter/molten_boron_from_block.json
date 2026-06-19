@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/boron"
+      }
+    }
+  ],
   "type": "nuclearcraftneohaul:melter_recipe",
   "fluidProducts": [
     {
@@ -11,14 +20,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:storage_blocks/boron"
-        },
-        {
-          "tag": "c:storage_blocks/raw_boron"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:storage_blocks/boron"
+      }
     }
   ],
   "powerModifier": 1.0,

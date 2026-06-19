@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:enricher_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:barium_oxide"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:bacro_nio"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:nichromite_gem_dust"
+      }
+    }
+  ],
+  "powerModifier": 2.0,
+  "radiation": 0.0,
+  "timeModifier": 2.0
+}

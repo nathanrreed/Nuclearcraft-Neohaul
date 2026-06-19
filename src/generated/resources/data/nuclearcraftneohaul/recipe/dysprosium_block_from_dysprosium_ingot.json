@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    },
+    {
+      "item": "nuclearcraftneohaul:dysprosium_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:dysprosium_block"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nickel"
+      }
+    },
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:sulfur"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nickel_sulfide"
+      }
+    }
+  ],
+  "powerModifier": 0.5,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

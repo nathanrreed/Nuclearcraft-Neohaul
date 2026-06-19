@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/lead_platinum"
+      }
+    }
+  ],
   "type": "nuclearcraftneohaul:melter_recipe",
   "fluidProducts": [
     {

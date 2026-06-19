@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/zirconium"
-        },
-        {
-          "tag": "c:dusts/zirconium"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/zirconium"
+      }
     }
   ],
   "powerModifier": 1.0,

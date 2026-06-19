@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/lithium"
+      }
+    }
+  ],
   "type": "nuclearcraftneohaul:melter_recipe",
   "fluidProducts": [
     {
@@ -11,14 +20,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:storage_blocks/lithium"
-        },
-        {
-          "tag": "c:storage_blocks/raw_lithium"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:storage_blocks/lithium"
+      }
     }
   ],
   "powerModifier": 1.0,

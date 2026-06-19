@@ -1,0 +1,34 @@
+{
+  "type": "nuclearcraftneohaul:chemical_reactor_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 36,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:barium_sulfide"
+      }
+    },
+    {
+      "amount": 333,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:koh"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 36,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:barium_oxide"
+      }
+    },
+    {
+      "amount": 36,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:potassium_sulfide"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 0.5
+}

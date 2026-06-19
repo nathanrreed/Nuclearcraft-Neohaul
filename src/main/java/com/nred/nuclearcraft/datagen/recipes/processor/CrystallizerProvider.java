@@ -4,11 +4,9 @@ import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.CrystallizerRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 
-import static com.nred.nuclearcraft.registration.FluidRegistration.HOT_GAS_MAP;
-import static com.nred.nuclearcraft.registration.FluidRegistration.SALT_SOLUTION_MAP;
+import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
-import static com.nred.nuclearcraft.util.FluidStackHelper.GEM_VOLUME;
-import static com.nred.nuclearcraft.util.FluidStackHelper.INGOT_VOLUME;
+import static com.nred.nuclearcraft.util.FluidStackHelper.*;
 
 public class CrystallizerProvider {
     public CrystallizerProvider(RecipeOutput recipeOutput) {
@@ -27,6 +25,10 @@ public class CrystallizerProvider {
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("hydroquinone_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("hydroquinone"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("sodium_hydroquinone_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("sodium_hydroquinone"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("potassium_hydroquinone_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("potassium_hydroquinone"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("dysprholminite_water"), GEM_VOLUME).addItemResult(GEM_DUST_MAP.get("dysprholminite"), 1).save(recipeOutput);
+
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 2, 2).addFluidInput(HOT_GAS_MAP.get("sic_vapor"), INGOT_VOLUME).addItemResult(PART_MAP.get("silicon_carbide_fiber"), 1).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(ACID_MAP.get("orthosilicic_acid"), BUCKET_VOLUME).addItemResult(COMPOUND_MAP.get("silica"), 1).save(recipeOutput);
     }
 }

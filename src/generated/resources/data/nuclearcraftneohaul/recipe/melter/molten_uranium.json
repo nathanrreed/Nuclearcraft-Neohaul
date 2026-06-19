@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/uranium"
-        },
-        {
-          "tag": "c:dusts/uranium"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/uranium"
+      }
     }
   ],
   "powerModifier": 1.0,

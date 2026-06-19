@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/holmium"
+      }
+    }
+  ],
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 432,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:holmium"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:ores/holmium"
+      }
+    }
+  ],
+  "powerModifier": 1.5,
+  "radiation": 0.0,
+  "timeModifier": 1.25
+}

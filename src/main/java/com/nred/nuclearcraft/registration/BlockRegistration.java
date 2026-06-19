@@ -40,14 +40,17 @@ import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.PrimitiveFunction.ObjIntFunction;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -58,11 +61,13 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.info.Names.*;
+import static com.nred.nuclearcraft.info.Names.FERTILE_ISOTOPES;
+import static com.nred.nuclearcraft.info.Names.ORES;
 import static com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType.BORON_SILVER;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType.*;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType.*;
@@ -82,9 +87,9 @@ public class BlockRegistration {
     public static final TagKey<Block> MINEABLE_WITH_SPAXELHOE = TagKey.create(Registries.BLOCK, ncLoc("mineable/spaxelhoe"));
 
     public static final HashMap<String, DeferredBlock<Block>> ORE_MAP = createOres();
-    public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createBlocks(INGOTS, "block", Blocks.IRON_BLOCK);
-    public static final HashMap<String, DeferredBlock<Block>> MATERIAL_BLOCK_MAP = createBlocks(MATERIAL_BLOCKS, "block", Blocks.IRON_BLOCK);
-    public static final HashMap<String, DeferredBlock<Block>> RAW_BLOCK_MAP = createBlocks(RAWS, "raw", "block", Blocks.RAW_IRON_BLOCK);
+    public static final HashMap<String, DeferredBlock<Block>> RAW_BLOCK_MAP = new LinkedHashMap<>();
+    public static final HashMap<String, DeferredBlock<Block>> INGOT_BLOCK_MAP = createIngotBlocks();
+    public static final HashMap<String, DeferredBlock<Block>> MATERIAL_BLOCK_MAP = createMaterialBlocks();
     public static final HashMap<String, DeferredBlock<Block>> FERTILE_ISOTOPE_MAP = createBlocks(FERTILE_ISOTOPES, "fertile_isotope", "block", Blocks.IRON_BLOCK);
     public static final HashMap<String, DeferredBlock<Block>> COLLECTOR_MAP = createCollectors();
     public static final HashMap<String, DeferredBlock<Block>> SOLAR_MAP = createSolarPanels();
@@ -139,11 +144,20 @@ public class BlockRegistration {
         return toReturn;
     }
 
+    private static DeferredBlock<Block> registerBlockAndRawItem(String name, Supplier<Block> block) {
+        DeferredBlock<Block> toReturn = BLOCKS.register(name + "_block", block);
+        DeferredBlock<Block> rawBlock = BLOCKS.register("raw_" + name + "_block", block);
+        RAW_BLOCK_MAP.put(name, rawBlock);
+        ITEMS.registerSimpleBlockItem(name + "_block", toReturn);
+        ITEMS.registerSimpleBlockItem("raw_" + name + "_block", rawBlock);
+        return toReturn;
+    }
+
     private static HashMap<String, DeferredBlock<Block>> createOres() {
         HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
         for (String ore : ORES) {
-            map.put(ore, registerBlockItem(ore + "_ore", () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 3.0F))));
-            map.put(ore + "_deepslate", registerBlockItem(ore + "_deepslate_ore", () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 3.0F).sound(SoundType.DEEPSLATE))));
+            map.put(ore, registerBlockItem(ore + "_ore", () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0F, 13.0F))));
+            map.put(ore + "_deepslate", registerBlockItem(ore + "_deepslate_ore", () -> new DropExperienceBlock(ConstantInt.of(0), BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5F, 15.0F).sound(SoundType.DEEPSLATE))));
         }
 
         return map;
@@ -160,6 +174,64 @@ public class BlockRegistration {
             map.put(name, BLOCKS.register(reg_name, () -> new Block(BlockBehaviour.Properties.ofFullCopy(copy))));
             ITEMS.registerSimpleBlockItem(reg_name, map.get(name));
         }
+        return map;
+    }
+
+    private static class NCFlammableBLock extends NCBlock {
+        public NCFlammableBLock(UnaryOperator<Properties> properties) {
+            super(properties);
+        }
+
+        @Override
+        public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+            return 5;
+        }
+
+        @Override
+        public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+            return 5;
+        }
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createIngotBlocks() {
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+
+        map.put("tin", registerBlockAndRawItem("tin", () -> new NCBlock(p -> p.strength(3f, 15f).sound(SoundType.METAL))));
+        map.put("lead", registerBlockAndRawItem("lead", () -> new NCBlock(p -> p.strength(3f, 15f).sound(SoundType.METAL))));
+        map.put("thorium", registerBlockAndRawItem("thorium", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.METAL))));
+        map.put("uranium", registerBlockAndRawItem("uranium", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.METAL))));
+        map.put("boron", registerBlockAndRawItem("boron", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.STONE))));
+        map.put("lithium", registerBlockAndRawItem("lithium", () -> new NCFlammableBLock(p -> p.strength(1f, 5f).sound(SoundType.METAL))));
+        map.put("magnesium", registerBlockAndRawItem("magnesium", () -> new NCFlammableBLock(p -> p.strength(3f, 15f).sound(SoundType.METAL))));
+        map.put("graphite", registerBlockItem("graphite_block", () -> new NCFlammableBLock(p -> p.strength(3f, 15f).sound(SoundType.STONE))));
+        map.put("beryllium", registerBlockItem("beryllium_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.STONE))));
+        map.put("zirconium", registerBlockItem("zirconium_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.METAL))));
+        map.put("manganese", registerBlockItem("manganese_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.METAL))));
+        map.put("aluminum", registerBlockItem("aluminum_block", () -> new NCBlock(p -> p.strength(3f, 15f).sound(SoundType.METAL))));
+        map.put("silver", registerBlockItem("silver_block", () -> new NCBlock(p -> p.strength(3f, 15f).sound(SoundType.METAL))));
+        map.put("manganese_oxide", registerBlockItem("manganese_oxide_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.STONE))));
+        map.put("manganese_dioxide", registerBlockItem("manganese_dioxide_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.STONE))));
+        map.put("zirconia", registerBlockItem("zirconia_block", () -> new NCBlock(p -> p.sound(SoundType.STONE))));
+        map.put("palladium", registerBlockItem("palladium_block", () -> new NCBlock(p -> p.sound(SoundType.METAL))));
+        map.put("tin_oxide", registerBlockItem("tin_oxide_block", () -> new NCBlock(p -> p.sound(SoundType.STONE))));
+        map.put("nickel_oxide", registerBlockItem("nickel_oxide_block", () -> new NCBlock(p -> p.sound(SoundType.STONE))));
+        map.put("cobalt_oxide", registerBlockItem("cobalt_oxide_block", () -> new NCBlock(p -> p.sound(SoundType.STONE))));
+        map.put("ruthenium_oxide", registerBlockItem("ruthenium_oxide_block", () -> new NCBlock(p -> p.sound(SoundType.STONE))));
+        map.put("iridium_oxide", registerBlockItem("iridium_oxide_block", () -> new NCBlock(p -> p.sound(SoundType.STONE))));
+        map.put("holmium", registerBlockItem("holmium_block", () -> new NCBlock(p -> p.sound(SoundType.METAL))));
+        map.put("dysprosium", registerBlockItem("dysprosium_block", () -> new NCBlock(p -> p.sound(SoundType.METAL))));
+        return map;
+    }
+
+    private static HashMap<String, DeferredBlock<Block>> createMaterialBlocks() {
+        HashMap<String, DeferredBlock<Block>> map = new LinkedHashMap<>();
+        map.put("molybdenum", registerBlockItem("molybdenum_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.METAL))));
+        map.put("copper_oxide", registerBlockItem("copper_oxide_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.STONE))));
+        map.put("cobalt", registerBlockItem("cobalt_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.METAL))));
+        map.put("nickel", registerBlockItem("nickel_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.METAL))));
+        map.put("platinum", registerBlockItem("platinum_block", () -> new NCBlock(p -> p.strength(5f, 25f).sound(SoundType.METAL))));
+        map.put("soulless_sand", registerBlockItem("soulless_sand", () -> new NCBlock(p -> p.strength(0.5f, 2.5f).sound(SoundType.SAND))));
+        map.put("soulless_sandstone", registerBlockItem("soulless_sandstone", () -> new NCBlock(p -> p.strength(0.8f, 4f).sound(SoundType.STONE))));
         return map;
     }
 
@@ -410,13 +482,13 @@ public class BlockRegistration {
         map.put("large_machine_computer_port", registerBlockItemWithTooltip("machine_computer_port", MachinePartType.ComputerPort::createBlock, false));
 
 
-        map.put("sintered_steel_diaphragm", registerBlockItem("sintered_steel_diaphragm", MachineTransparentBlock::new));
-        map.put("polyethersulfone_diaphragm", registerBlockItem("polyethersulfone_diaphragm", MachineTransparentBlock::new));
-        map.put("zirfon_diaphragm", registerBlockItem("zirfon_diaphragm", MachineTransparentBlock::new));
+        map.put("sintered_steel_diaphragm", registerBlockItem("sintered_steel_diaphragm", () -> new MachineTransparentBlock(p -> p.sound(SoundType.METAL))));
+        map.put("polyethersulfone_diaphragm", registerBlockItem("polyethersulfone_diaphragm", () -> new MachineTransparentBlock(p -> p.sound(SoundType.WOOL))));
+        map.put("zirfon_diaphragm", registerBlockItem("zirfon_diaphragm", () -> new MachineTransparentBlock(p -> p.sound(SoundType.STONE))));
 
-        map.put("steel_sieve_assembly", registerBlockItem("steel_sieve_assembly", MachineTransparentBlock::new));
-        map.put("polytetrafluoroethene_sieve_assembly", registerBlockItem("polytetrafluoroethene_sieve_assembly", MachineTransparentBlock::new));
-        map.put("hastelloy_sieve_assembly", registerBlockItem("hastelloy_sieve_assembly", MachineTransparentBlock::new));
+        map.put("steel_sieve_assembly", registerBlockItem("steel_sieve_assembly", () -> new MachineTransparentBlock(p -> p.sound(SoundType.METAL))));
+        map.put("polytetrafluoroethene_sieve_assembly", registerBlockItem("polytetrafluoroethene_sieve_assembly", () -> new MachineTransparentBlock(p -> p.sound(SoundType.WOOL))));
+        map.put("hastelloy_sieve_assembly", registerBlockItem("hastelloy_sieve_assembly", () -> new MachineTransparentBlock(p -> p.sound(SoundType.METAL))));
 
         // Electrolyzer
         map.put("electrolyzer_controller", registerBlockItem("electrolyzer_controller", MachinePartType.ElectrolyzerController::createBlock));

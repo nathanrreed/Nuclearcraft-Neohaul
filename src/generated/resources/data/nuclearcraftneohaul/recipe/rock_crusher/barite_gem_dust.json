@@ -1,0 +1,46 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "qmd"
+      }
+    }
+  ],
+  "type": "nuclearcraftneohaul:rock_crusher_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:soulless_sandstone"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "chancePercent": 80,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:barite_gem_dust"
+      }
+    },
+    {
+      "chancePercent": 60,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:nichromite_gem_dust"
+      }
+    },
+    {
+      "chancePercent": 40,
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:dysprholminite_gem_dust"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/manganese_dioxide"
+      }
+    }
+  ],
   "type": "nuclearcraftneohaul:melter_recipe",
   "fluidProducts": [
     {
@@ -11,14 +20,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:storage_blocks/manganese_dioxide"
-        },
-        {
-          "tag": "c:storage_blocks/raw_manganese_dioxide"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:storage_blocks/manganese_dioxide"
+      }
     }
   ],
   "powerModifier": 1.0,

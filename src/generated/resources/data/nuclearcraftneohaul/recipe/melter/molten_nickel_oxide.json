@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nickel_oxide"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:ingots/nickel_oxide"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

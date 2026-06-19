@@ -84,14 +84,16 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("manganese_oxide"))), MISC, INGOT_MAP.get("manganese"), 0f, 200, "manganese", true);
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("zirconia"))), MISC, INGOT_MAP.get("zirconium"), 0f, 200, "zirconium", true);
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("tin_oxide"))), MISC, INGOT_MAP.get("tin"), 0f, 200, "tin", true);
-
-//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("nickel_oxide"))), MISC, INGOT_MAP.get("nickle"), 0f, 200, "nickle", true); TODO results don't exist
+//
+//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("nickel_oxide"))), MISC, INGOT_MAP.get("nickel"), 0f, 200, "nickel", true); TODO not in NCO
 //        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("cobalt_oxide"))), MISC, INGOT_MAP.get("cobalt"), 0f, 200, "cobalt", true);
 //        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("ruthenium_oxide"))), MISC, INGOT_MAP.get("ruthenium"), 0f, 200, "ruthenium", true);
 //        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("iridium_oxide"))), MISC, INGOT_MAP.get("iridium"), 0f, 200, "iridium", true);
 
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(GEM_DUST_MAP.get("rhodochrosite"))), MISC, DUST_MAP.get("manganese_oxide"), 0f, 200, "manganese_oxide", true);
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(GEM_DUST_MAP.get("barite"))), MISC, COMPOUND_MAP.get("barium_sulfide"), 0f, 200, "barium_sulfide", true);
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(COMPOUND_MAP.get("ammonium_sulfate"))), MISC, COMPOUND_MAP.get("ammonium_bisulfate"), 0f, 200, "ammonium_bisulfate", true);
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(COMPOUND_MAP.get("silica"))), MISC, GEM_MAP.get("silicon"), 0f, 200, "silicon", true);
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(PART_MAP.get("polydimethylsilylene"))), MISC, PART_MAP.get("polymethylsilylene_methylene"), 0f, 200, "polymethylsilylene_methylene", true);
     }
 
@@ -107,6 +109,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         full9Single(recipeOutput, NEPTUNIUM_MAP.get("237"), FERTILE_ISOTOPE_MAP.get("neptunium"));
         full9Single(recipeOutput, PLUTONIUM_MAP.get("242"), FERTILE_ISOTOPE_MAP.get("plutonium"));
         full9Single(recipeOutput, URANIUM_MAP.get("238"), FERTILE_ISOTOPE_MAP.get("uranium"));
+
+        twoByTwoPacker(recipeOutput, BUILDING_BLOCKS, MATERIAL_BLOCK_MAP.get("soulless_sandstone"),MATERIAL_BLOCK_MAP.get("soulless_sand"));
 
         smelting(recipeOutput);
         parts(recipeOutput);

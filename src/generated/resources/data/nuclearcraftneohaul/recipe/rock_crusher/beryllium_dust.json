@@ -15,7 +15,7 @@
   ],
   "itemProducts": [
     {
-      "chancePercent": 50,
+      "chancePercent": 40,
       "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:beryllium_dust"

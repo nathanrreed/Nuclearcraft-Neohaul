@@ -58,6 +58,9 @@ public class Fluids {
     public static final TypeInfo STEAM_TYPE = new TypeInfo(8, true, "steam", "steam", FluidType.Properties.create().density(-10).viscosity(40).temperature(550).sound(SoundActions.BUCKET_FILL, SoundEvents.FIRE_EXTINGUISH).sound(SoundActions.BUCKET_EMPTY, SoundEvents.FIRE_EXTINGUISH), SteamFluidBlock::new);
     public static final TypeInfo SUGAR_TYPE = new TypeInfo(6, false, "molten_still", "molten_flow", FluidType.Properties.create().density(1150).viscosity(8000).temperature(350).sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA).sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA), SugarFluidBlock::new);
 
+    public static final TypeInfo SOUL_TYPE = new TypeInfo(8, true, "soul", "soul", FluidType.Properties.create().density(-10).viscosity(40).sound(SoundActions.BUCKET_FILL, SoundEvents.GHAST_SCREAM).sound(SoundActions.BUCKET_EMPTY, SoundEvents.GHAST_HURT), SoulFluidBlock::new);
+    public static final TypeInfo MYSTERIOUS_SOUL_TYPE = new TypeInfo(8, true, "soul", "soul", FluidType.Properties.create().density(-10).viscosity(40).sound(SoundActions.BUCKET_FILL, SoundEvents.GHAST_WARN).sound(SoundActions.BUCKET_EMPTY, SoundEvents.GHAST_AMBIENT), SoulFluidBlock::new);
+
     private static BlockBehaviour.Properties blockProperties(int tint) {
         return BlockBehaviour.Properties.of().mapColor(ARGBtoMapColor(tint)).replaceable().noCollission().pushReaction(PushReaction.DESTROY).noLootTable().liquid();
     }
@@ -205,6 +208,7 @@ public class Fluids {
     public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount, int minStackSize) {
         return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, minStackSize);
     }
+
     public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount, int minStackSize, int increment) {
         return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, minStackSize, increment);
     }

@@ -1,1 +1,2 @@
+- Updated to v2o.9.6 -Wasteland changes
 - Updated GuideME

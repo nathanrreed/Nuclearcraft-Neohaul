@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:crystallizer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 1000,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:orthosilicic_acid"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:silica"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

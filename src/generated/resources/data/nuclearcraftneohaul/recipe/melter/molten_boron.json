@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/boron"
-        },
-        {
-          "tag": "c:dusts/boron"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/boron"
+      }
     }
   ],
   "powerModifier": 1.0,

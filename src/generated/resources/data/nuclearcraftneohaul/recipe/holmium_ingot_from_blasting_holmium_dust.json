@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "holmium",
+  "ingredient": {
+    "item": "nuclearcraftneohaul:holmium_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:holmium_ingot"
+  }
+}

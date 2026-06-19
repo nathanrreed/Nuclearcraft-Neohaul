@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:ingots/iron"
-        },
-        {
-          "tag": "c:dusts/iron"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:ingots/iron"
+      }
     }
   ],
   "powerModifier": 1.0,

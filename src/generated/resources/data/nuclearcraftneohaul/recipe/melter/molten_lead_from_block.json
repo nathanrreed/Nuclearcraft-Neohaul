@@ -1,4 +1,13 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/lead"
+      }
+    }
+  ],
   "type": "nuclearcraftneohaul:melter_recipe",
   "fluidProducts": [
     {
@@ -11,14 +20,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:storage_blocks/lead"
-        },
-        {
-          "tag": "c:storage_blocks/raw_lead"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:storage_blocks/lead"
+      }
     }
   ],
   "powerModifier": 1.0,

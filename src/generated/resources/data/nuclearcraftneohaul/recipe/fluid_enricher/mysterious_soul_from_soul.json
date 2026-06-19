@@ -1,0 +1,30 @@
+{
+  "type": "nuclearcraftneohaul:enricher_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 100,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:soul"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 100,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:mysterious_soul"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:dimensional_blend"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 2.0
+}

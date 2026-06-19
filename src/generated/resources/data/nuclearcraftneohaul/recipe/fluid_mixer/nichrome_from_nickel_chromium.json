@@ -1,0 +1,28 @@
+{
+  "type": "nuclearcraftneohaul:salt_mixer_recipe",
+  "fluidIngredients": [
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nickel"
+      }
+    },
+    {
+      "amount": 72,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:chromium"
+      }
+    }
+  ],
+  "fluidProducts": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:nichrome"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

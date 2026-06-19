@@ -20,7 +20,7 @@ public class NCBlock extends Block {
     protected static boolean keepInventory;
 
     public NCBlock(UnaryOperator<Properties> properties) {
-        super(properties.apply(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(2.0f, 15.0f)));
+        super(properties.apply(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0f, 15.0f)));
     }
 
     @Override
@@ -47,29 +47,4 @@ public class NCBlock extends Block {
     public void dropItems(Level level, BlockPos pos, List<ItemStack> stacks) {
         NCInventoryHelper.dropInventoryItems(level, pos, stacks);
     }
-
-    // NBT Stuff
-//    @Override TODO
-//    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-//        if (this instanceof INBTDrop && willHarvest) {
-//            onBlockHarvested(world, pos, state, player);
-//            return true;
-//        }
-//        return super.removedByPlayer(state, world, pos, player, willHarvest);
-//    }
-//    @Override
-//    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-//        if (this instanceof INBTDrop drop) {
-//            return Lists.newArrayList(drop.getNBTDrop(world, pos, state));
-//        }
-//        return super.getDrops(world, pos, state, fortune);
-//    }
-//    @Override
-//    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-//        super.onBlockPlacedBy(world, pos, state, placer, stack);
-//        if (this instanceof INBTDrop drop && stack.hasTagCompound()) {
-//            drop.readStackData(world, pos, placer, stack);
-//            world.notifyBlockUpdate(pos, state, state, 3);
-//        }
-//    }
 }

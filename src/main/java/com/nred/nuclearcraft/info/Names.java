@@ -4,18 +4,18 @@ import java.util.List;
 
 public class Names {
     public static final List<String> ORES = List.of("boron", "lead", "lithium", "magnesium", "thorium", "tin", "uranium");
-    public static final List<String> INGOTS = List.of("aluminum", "beryllium", "boron", "cobalt_oxide", "graphite", "iridium_oxide", "lead", "lithium", "magnesium", "manganese", "manganese_dioxide", "manganese_oxide", "nickel_oxide", "palladium", "ruthenium_oxide", "silver", "thorium", "tin", "tin_oxide", "uranium", "zirconia", "zirconium");
+    public static final List<String> INGOTS = List.of("aluminum", "beryllium", "boron", "cobalt_oxide", "dysprosium", "graphite", "holmium", "iridium_oxide", "lead", "lithium", "magnesium", "manganese", "manganese_dioxide", "manganese_oxide", "nickel_oxide", "palladium", "ruthenium_oxide", "silver", "thorium", "tin", "tin_oxide", "uranium", "zirconia", "zirconium");
     public static final List<String> GEMS = List.of("boron_arsenide", "boron_nitride", "carobbiite", "fluorite", "rhodochrosite", "silicon", "villiaumite");
     public static final List<String> DUSTS = INGOTS;
     public static final List<String> FISSION_DUSTS = List.of("bismuth", "caesium_137", "europium_155", "molybdenum", "polonium", "promethium_147", "protactinium_233", "radium", "ruthenium_106", "strontium_90", "tbp");
-    public static final List<String> MATERIAL_BLOCKS = List.of("cobalt", "copper_oxide", "molybdenum", "nickel", "platinum");
+    public static final List<String> MATERIAL_BLOCKS = List.of("cobalt", "copper_oxide", "molybdenum", "nickel", "platinum", "soulless_sand", "soulless_sandstone");
     public static final List<String> RAWS = ORES;
     public static final List<String> NUGGETS = ORES;
-    public static final List<String> GEM_DUSTS = List.of("arsenic", "boron_nitride", "carobbiite", "coal", "diamond", "end_stone", "fluorite", "obsidian", "quartz", "rhodochrosite", "sulfur", "villiaumite");
+    public static final List<String> GEM_DUSTS = List.of("arsenic", "barite", "boron_nitride", "carobbiite", "coal", "diamond", "dysprholminite", "end_stone", "fluorite", "nichromite", "obsidian", "quartz", "rhodochrosite", "sulfur", "villiaumite");
     public static final List<String> ALLOYS = List.of("bronze", "extreme", "ferroboron", "hard_carbon", "hastelloy", "hsla_steel", "lead_platinum", "lithium_manganese_dioxide", "magnesium_diboride", "shibuichi", "sic_sic_cmc", "silicon_carbide", "steel", "thermoconducting", "tin_silver", "tough", "zircaloy", "zirconium_molybdenum");
     public static final List<String> PARTS = List.of("advanced_plating", "basic_plating", "bioplastic", "copper_solenoid", "du_plating", "electric_motor", "elite_plating", "linear_actuator", "magnesium_diboride_solenoid", "polyethersulfone", "polytetrafluoroethene", "polydimethylsilylene", "polymethylsilylene_methylene", "pyrolytic_carbon", "servomechanism", "silicon_carbide_fiber", "sintered_steel", "sintered_zirconia", "zirfon"); // "extreme_plating"
     public static final List<String> PART_BLOCKS = List.of("empty_frame", "empty_heat_sink", "empty_gas_cooler", "empty_gas_cooler_port", "machine_chassis", "steel_chassis");
-    public static final List<String> COMPOUNDS = List.of("alugentum", "ammonium_bisulfate", "ammonium_persulfate", "ammonium_sulfate", "borax", "c_mn_blend", "calcium_sulfate", "crystal_binder", "dimensional_blend", "energetic_blend", "hydroquinone", "irradiated_borax", "potassium_fluoride", "potassium_hydroquinone", "potassium_hydroxide", "sodium_fluoride", "sodium_hydroquinone", "sodium_hydroxide");
+    public static final List<String> COMPOUNDS = List.of("alugentum", "ammonium_bisulfate", "ammonium_persulfate", "ammonium_sulfate", "barium_sulfide", "borax", "c_mn_blend", "calcium_sulfate", "crystal_binder", "dimensional_blend", "energetic_blend", "hydroquinone", "irradiated_borax", "potassium_fluoride", "potassium_hydroquinone", "potassium_hydroxide", "silica", "sodium_fluoride", "sodium_hydroquinone", "sodium_hydroxide");
     public static final List<String> UPGRADES = List.of("speed", "energy");
     public static final List<String> AMERICIUMS = List.of("241", "241_c", "241_ni", "241_ox", "241_za", "242", "242_c", "242_ni", "242_ox", "242_za", "243", "243_c", "243_ni", "243_ox", "243_za");
     public static final List<String> BERKELIUMS = List.of("247", "247_c", "247_ni", "247_ox", "247_za", "248", "248_c", "248_ni", "248_ox", "248_za");
