@@ -16,7 +16,9 @@ import net.minecraft.world.item.crafting.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.nred.nuclearcraft.config.NCConfig.*;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
@@ -96,7 +98,7 @@ public class RadArmor {
     }
 
     public static void addArmorShieldingRecipes(RecipeManager recipeManager) {
-        ArrayList<RecipeHolder<?>> shielding_recipes = new ArrayList<>();
+        Set<RecipeHolder<?>> shielding_recipes = new HashSet<>();
         if (radiation_shielding_default_recipes) {
             for (Item item : BuiltInRegistries.ITEM.stream().toList()) {
                 if (ArmorHelper.isArmor(item, radiation_horse_armor_public)) {
