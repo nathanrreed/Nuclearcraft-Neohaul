@@ -80,18 +80,18 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(COPPER_DUST)), MISC, Items.COPPER_INGOT, 0.25f, 200, "copper", true);
 
 
-        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("manganese_dioxide"))), MISC, INGOT_MAP.get("manganese_oxide"), 0f, 200, "manganese_oxide", true);
-        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("manganese_oxide"))), MISC, INGOT_MAP.get("manganese"), 0f, 200, "manganese", true);
-        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("zirconia"))), MISC, INGOT_MAP.get("zirconium"), 0f, 200, "zirconium", true);
-        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("tin_oxide"))), MISC, INGOT_MAP.get("tin"), 0f, 200, "tin", true);
-//
-//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("nickel_oxide"))), MISC, INGOT_MAP.get("nickel"), 0f, 200, "nickel", true); TODO not in NCO
-//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("cobalt_oxide"))), MISC, INGOT_MAP.get("cobalt"), 0f, 200, "cobalt", true);
-//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("ruthenium_oxide"))), MISC, INGOT_MAP.get("ruthenium"), 0f, 200, "ruthenium", true);
-//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(INGOT_MAP.get("iridium_oxide"))), MISC, INGOT_MAP.get("iridium"), 0f, 200, "iridium", true);
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.INGOTS, "manganese_dioxide"))), MISC, INGOT_MAP.get("manganese_oxide"), 0f, 200, "manganese_oxide", true);
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.INGOTS, "manganese_oxide"))), MISC, INGOT_MAP.get("manganese"), 0f, 200, "manganese", true);
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.INGOTS, "zirconia"))), MISC, INGOT_MAP.get("zirconium"), 0f, 200, "zirconium", true);
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.INGOTS, "tin_oxide"))), MISC, INGOT_MAP.get("tin"), 0f, 200, "tin", true);
 
-        smeltAndBlast(recipeOutput, List.of(Ingredient.of(GEM_DUST_MAP.get("rhodochrosite"))), MISC, DUST_MAP.get("manganese_oxide"), 0f, 200, "manganese_oxide", true);
-        smeltAndBlast(recipeOutput, List.of(Ingredient.of(GEM_DUST_MAP.get("barite"))), MISC, COMPOUND_MAP.get("barium_sulfide"), 0f, 200, "barium_sulfide", true);
+//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.INGOTS, "nickel_oxide"))), MISC, INGOT_MAP.get("nickel"), 0f, 200, "nickel", true); TODO not in NCO
+//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.INGOTS, "cobalt_oxide"))), MISC, INGOT_MAP.get("cobalt"), 0f, 200, "cobalt", true);
+//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.INGOTS, "ruthenium_oxide"))), MISC, INGOT_MAP.get("ruthenium"), 0f, 200, "ruthenium", true);
+//        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.INGOTS, "iridium_oxide"))), MISC, INGOT_MAP.get("iridium"), 0f, 200, "iridium", true);
+
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.DUSTS, "rhodochrosite"))), MISC, DUST_MAP.get("manganese_oxide"), 0f, 200, "manganese_oxide", true);
+        smeltAndBlast(recipeOutput, List.of(Ingredient.of(tag(Tags.Items.DUSTS, "barite"))), MISC, COMPOUND_MAP.get("barium_sulfide"), 0f, 200, "barium_sulfide", true);
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(COMPOUND_MAP.get("ammonium_sulfate"))), MISC, COMPOUND_MAP.get("ammonium_bisulfate"), 0f, 200, "ammonium_bisulfate", true);
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(COMPOUND_MAP.get("silica"))), MISC, GEM_MAP.get("silicon"), 0f, 200, "silicon", true);
         smeltAndBlast(recipeOutput, List.of(Ingredient.of(PART_MAP.get("polydimethylsilylene"))), MISC, PART_MAP.get("polymethylsilylene_methylene"), 0f, 200, "polymethylsilylene_methylene", true);
@@ -110,7 +110,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         full9Single(recipeOutput, PLUTONIUM_MAP.get("242"), FERTILE_ISOTOPE_MAP.get("plutonium"));
         full9Single(recipeOutput, URANIUM_MAP.get("238"), FERTILE_ISOTOPE_MAP.get("uranium"));
 
-        twoByTwoPacker(recipeOutput, BUILDING_BLOCKS, MATERIAL_BLOCK_MAP.get("soulless_sandstone"),MATERIAL_BLOCK_MAP.get("soulless_sand"));
+        twoByTwoPacker(recipeOutput, BUILDING_BLOCKS, MATERIAL_BLOCK_MAP.get("soulless_sandstone"), MATERIAL_BLOCK_MAP.get("soulless_sand"));
 
         smelting(recipeOutput);
         parts(recipeOutput);
@@ -342,7 +342,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor), 1).addFluidResult(FISSION_FUEL_MAP.get(prefix + minor), INGOT_VOLUME).save(recipeOutput, prefix + minor);
 
-        new ProcessorRecipeBuilder(AssemblerRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor + "_c"), 9).addItemInput(DUST_MAP.get("graphite"), 1).addItemInput(PART_MAP.get("pyrolytic_carbon"), 1).addItemInput(ALLOY_MAP.get("silicon_carbide"), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_tr"), 9).save(recipeOutput, prefix + minor);
+        new ProcessorRecipeBuilder(AssemblerRecipe.class, 1, 1).addItemInput(pelletMap.get(prefix + minor + "_c"), 9).addItemInput(tag(Tags.Items.DUSTS, "graphite"), 1).addItemInput(PART_MAP.get("pyrolytic_carbon"), 1).addItemInput(ALLOY_MAP.get("silicon_carbide"), 1).addItemResult(fuelTypeMap.get(prefix + minor + "_tr"), 9).save(recipeOutput, prefix + minor);
     }
 
     private void full9Block(RecipeOutput recipeOutput, List<String> list, HashMap<String, DeferredItem<Item>> itemMap, HashMap<String, DeferredBlock<Block>> resultMap) {
@@ -384,11 +384,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(PART_MAP.get("basic_plating")), has(PART_MAP.get("basic_plating"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("du_plating")).pattern("SUS").pattern("UPU").pattern("SUS")
-                .define('S', GEM_DUST_MAP.get("sulfur")).define('P', PART_MAP.get("advanced_plating")).define('U', URANIUM_MAP.get("238"))
+                .define('S', tag(Tags.Items.DUSTS, "sulfur")).define('P', PART_MAP.get("advanced_plating")).define('U', URANIUM_MAP.get("238"))
                 .unlockedBy(getHasName(PART_MAP.get("advanced_plating")), has(PART_MAP.get("advanced_plating"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("elite_plating")).pattern("CBC").pattern("BPB").pattern("CBC")
-                .define('C', COMPOUND_MAP.get("crystal_binder")).define('P', PART_MAP.get("du_plating")).define('B', INGOT_MAP.get("boron"))
+                .define('C', COMPOUND_MAP.get("crystal_binder")).define('P', PART_MAP.get("du_plating")).define('B', tag(Tags.Items.INGOTS, "boron"))
                 .unlockedBy(getHasName(PART_MAP.get("du_plating")), has(PART_MAP.get("du_plating"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, PART_MAP.get("copper_solenoid"), 2).pattern("CC").pattern("II").pattern("CC")
@@ -562,12 +562,12 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         // Electric Furnace
         ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("electric_furnace"), 1).pattern("LIL").pattern("BFB").pattern("LCL")
-                .define('L', INGOT_MAP.get("lead")).define('I', Items.IRON_INGOT).define('B', Items.BRICK).define('F', Items.FURNACE).define('C', PART_MAP.get("copper_solenoid"))
+                .define('L', tag(Tags.Items.INGOTS, "lead")).define('I', Items.IRON_INGOT).define('B', Items.BRICK).define('F', Items.FURNACE).define('C', PART_MAP.get("copper_solenoid"))
                 .unlockedBy(getHasName(INGOT_MAP.get("lead")), has(INGOT_MAP.get("lead"))).save(recipeOutput);
 
         // Electrolyzer
         ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("electrolyzer"), 1).pattern("PGP").pattern("CMC").pattern("PEP")
-                .define('P', PART_MAP.get("advanced_plating")).define('G', INGOT_MAP.get("graphite")).define('C', PART_MAP.get("copper_solenoid")).define('E', PART_MAP.get("electric_motor")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .define('P', PART_MAP.get("advanced_plating")).define('G', tag(Tags.Items.INGOTS, "graphite")).define('C', PART_MAP.get("copper_solenoid")).define('E', PART_MAP.get("electric_motor")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
 
         // Enricher
@@ -582,7 +582,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         // Fuel Reprocessor
         ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("fuel_reprocessor"), 1).pattern("PBP").pattern("TMT").pattern("PLP")
-                .define('P', PART_MAP.get("basic_plating")).define('T', ALLOY_MAP.get("tough")).define('B', INGOT_MAP.get("boron")).define('L', PART_MAP.get("linear_actuator")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
+                .define('P', PART_MAP.get("basic_plating")).define('T', ALLOY_MAP.get("tough")).define('B', tag(Tags.Items.INGOTS, "boron")).define('L', PART_MAP.get("linear_actuator")).define('M', PART_BLOCK_MAP.get("machine_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("machine_chassis")), has(PART_BLOCK_MAP.get("machine_chassis"))).save(recipeOutput);
 
         // Infuser
@@ -597,7 +597,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         // Manufactory
         ShapedRecipeBuilder.shaped(MISC, PROCESSOR_MAP.get("manufactory"), 1).pattern("LRL").pattern("FPF").pattern("LCL")
-                .define('L', INGOT_MAP.get("lead")).define('R', Items.REDSTONE).define('F', Items.FLINT).define('P', Items.PISTON).define('C', PART_MAP.get("copper_solenoid"))
+                .define('L', tag(Tags.Items.INGOTS, "lead")).define('R', Items.REDSTONE).define('F', Items.FLINT).define('P', Items.PISTON).define('C', PART_MAP.get("copper_solenoid"))
                 .unlockedBy(getHasName(INGOT_MAP.get("lead")), has(INGOT_MAP.get("lead"))).save(recipeOutput);
 
         // Melter

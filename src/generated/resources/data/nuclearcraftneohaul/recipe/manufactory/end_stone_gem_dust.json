@@ -2,7 +2,7 @@
   "type": "nuclearcraftneohaul:manufactory_recipe",
   "itemIngredients": [
     {
-      "count": 4,
+      "count": 1,
       "ingredient": {
         "item": "minecraft:end_stone"
       }
@@ -10,7 +10,7 @@
   ],
   "itemProducts": [
     {
-      "count": 1,
+      "count": 4,
       "ingredient": {
         "item": "nuclearcraftneohaul:end_stone_gem_dust"
       }

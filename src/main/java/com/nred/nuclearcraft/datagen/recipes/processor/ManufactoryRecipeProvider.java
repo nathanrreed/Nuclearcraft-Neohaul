@@ -20,7 +20,7 @@ public class ManufactoryRecipeProvider {
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.5, 1.5).addItemInput(Items.DIAMOND, 1).addItemResult(GEM_DUST_MAP.get("diamond"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.5, 1.5).addItemInput(GEM_MAP.get("rhodochrosite"), 1).addItemResult(GEM_DUST_MAP.get("rhodochrosite"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.QUARTZ, 1).addItemResult(GEM_DUST_MAP.get("quartz"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.PRISMARINE, 1).addItemResult(Items.PRISMARINE_CRYSTALS, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.PRISMARINE_SHARD, 1).addItemResult(Items.PRISMARINE_CRYSTALS, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.5, 1.5).addItemInput(GEM_MAP.get("boron_nitride"), 1).addItemResult(GEM_DUST_MAP.get("boron_nitride"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.5, 1.5).addItemInput(GEM_MAP.get("fluorite"), 1).addItemResult(GEM_DUST_MAP.get("fluorite"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1.5, 1.5).addItemInput(GEM_MAP.get("villiaumite"), 1).addItemResult(GEM_DUST_MAP.get("villiaumite"), 1).save(recipeOutput);
@@ -30,13 +30,13 @@ public class ManufactoryRecipeProvider {
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(ItemTags.SAND, 1).addItemResult(GEM_MAP.get("silicon"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(PART_MAP.get("sintered_zirconia"), 1).addItemResult(DUST_MAP.get("zirconia"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 9, 1).addItemInput(MATERIAL_BLOCK_MAP.get("molybdenum"), 1).addItemResult(FISSION_DUST_MAP.get("molybdenum"), 9).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 2, 1).addItemInput(Items.OBSIDIAN, 1).addItemResult(GEM_DUST_MAP.get("obsidian"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 2, 1).addItemInput(Items.OBSIDIAN, 1).addItemResult(GEM_DUST_MAP.get("obsidian"), 4).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.COBBLESTONE, 1).addItemResult(Items.SAND, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.GRAVEL, 1).addItemResult(Items.FLINT, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 2, 1).addItemInput(Items.END_STONE, 4).addItemResult(GEM_DUST_MAP.get("end_stone"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 2, 1).addItemInput(Items.END_STONE, 1).addItemResult(GEM_DUST_MAP.get("end_stone"), 4).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.BLAZE_ROD, 1).addItemResult(Items.BLAZE_POWDER, 4).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 1).addItemInput(Items.ROTTEN_FLESH, 4).addItemResult(Items.LEATHER, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(Items.SUGAR_CANE, 2).addItemResult(PART_MAP.get("bioplastic"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 0.5).addItemInput(Items.SUGAR_CANE, 2).addItemResult(PART_MAP.get("bioplastic"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.25, 0.5).addItemInput(Items.WHEAT, 1).addItemResult(FOOD_MAP.get("flour"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 1).addItemInput(Items.BONE, 1).addItemResult(Items.BONE_MEAL, 6).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(FOOD_MAP.get("roasted_cocoa_beans"), 1).addItemResult(FOOD_MAP.get("ground_cocoa_nibs"), 1).save(recipeOutput);

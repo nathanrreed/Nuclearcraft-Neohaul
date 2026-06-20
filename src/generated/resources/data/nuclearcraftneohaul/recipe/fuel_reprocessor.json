@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "nuclearcraftneohaul:boron_ingot"
+      "tag": "c:ingots/boron"
     },
     "L": {
       "item": "nuclearcraftneohaul:linear_actuator"

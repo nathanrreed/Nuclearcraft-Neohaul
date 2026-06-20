@@ -11,10 +11,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/graphite"
+          "tag": "c:ingots/graphite"
         },
         {
-          "tag": "c:ingots/graphite"
+          "tag": "c:dusts/graphite"
         }
       ]
     }

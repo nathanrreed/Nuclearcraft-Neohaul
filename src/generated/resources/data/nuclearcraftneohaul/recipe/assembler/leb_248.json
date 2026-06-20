@@ -10,7 +10,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:graphite_dust"
+        "tag": "c:dusts/graphite"
       }
     },
     {

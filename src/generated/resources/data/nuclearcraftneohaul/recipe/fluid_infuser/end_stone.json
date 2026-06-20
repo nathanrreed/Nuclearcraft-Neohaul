@@ -11,14 +11,9 @@
   "itemIngredients": [
     {
       "count": 1,
-      "ingredient": [
-        {
-          "tag": "c:sands"
-        },
-        {
-          "tag": "c:sandstone/blocks"
-        }
-      ]
+      "ingredient": {
+        "tag": "c:sandstone/blocks"
+      }
     }
   ],
   "itemProducts": [

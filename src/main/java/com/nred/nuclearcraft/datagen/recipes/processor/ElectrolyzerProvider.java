@@ -19,14 +19,16 @@ public class ElectrolyzerProvider {
 
         new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("naoh"), GEM_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("sodium"), INGOT_VOLUME / 2).addFluidResult(Fluids.WATER, BUCKET_VOLUME / 4).addFluidResult(GAS_MAP.get("oxygen"), BUCKET_VOLUME / 8).save(recipeOutput);
         new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("koh"), GEM_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("potassium"), INGOT_VOLUME / 2).addFluidResult(Fluids.WATER, BUCKET_VOLUME / 4).addFluidResult(GAS_MAP.get("oxygen"), BUCKET_VOLUME / 8).save(recipeOutput);
-        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 2, 1).addFluidInput(MOLTEN_MAP.get("alumina"), INGOT_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("aluminum"), INGOT_VOLUME / 2).addFluidResult(GAS_MAP.get("oxygen"), BUCKET_VOLUME * 3 / 4).save(recipeOutput);
-        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("ammonium_bisulfate_solution"), GEM_VOLUME).addFluidResult(SALT_SOLUTION_MAP.get("ammonium_persulfate_solution"), GEM_VOLUME / 2).addFluidResult(GAS_MAP.get("hydrogen"), GEM_VOLUME / 2).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 2, 1).addFluidInput(HOT_GAS_MAP.get("hodybef_vapor"), BUCKET_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("holmium"), BUCKET_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("dysprosium"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("beryllium"), INGOT_VOLUME / 2).addFluidResult(GAS_MAP.get("fluorine"), BUCKET_VOLUME * 3 / 2).save(recipeOutput);
+        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 2, 1).addFluidInput(MOLTEN_MAP.get("alumina"), INGOT_VOLUME / 2).addFluidResult(MOLTEN_MAP.get("aluminum"), INGOT_VOLUME).addFluidResult(GAS_MAP.get("oxygen"), BUCKET_VOLUME * 3 / 4).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("ammonium_bisulfate_solution"), GEM_VOLUME).addFluidResult(SALT_SOLUTION_MAP.get("ammonium_persulfate_solution"), GEM_VOLUME / 2).addFluidResult(GAS_MAP.get("hydrogen"), BUCKET_VOLUME / 2).save(recipeOutput);
+
+        new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 2, 1).addFluidInput(HOT_GAS_MAP.get("hodybef_vapor"), BUCKET_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("holmium"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("dysprosium"), INGOT_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("beryllium"), INGOT_VOLUME / 2).addFluidResult(GAS_MAP.get("fluorine"), BUCKET_VOLUME * 3 / 2).save(recipeOutput);
 
         for (String name : FISSION_FUEL_FLUIDS) {
-            new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 0.5, 1).addFluidInput(FISSION_FUEL_MAP.get(name + "_fluoride"), BUCKET_VOLUME / 2).addFluidResult(FISSION_FUEL_MAP.get(name), BUCKET_VOLUME / 4).addFluidResult(GAS_MAP.get("fluorine"), BUCKET_VOLUME / 2).save(recipeOutput);
-            new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 0.5, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_" + name + "_fluoride"), BUCKET_VOLUME / 2).addFluidResult(FISSION_FUEL_MAP.get("depleted_" + name), BUCKET_VOLUME / 4).addFluidResult(GAS_MAP.get("fluorine"), BUCKET_VOLUME / 2).save(recipeOutput);
+            new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 0.5, 1).addFluidInput(FISSION_FUEL_MAP.get(name + "_fluoride"), INGOT_VOLUME / 2).addFluidResult(FISSION_FUEL_MAP.get(name), INGOT_VOLUME / 2).addFluidResult(GAS_MAP.get("fluorine"), BUCKET_VOLUME / 2).save(recipeOutput);
+            new ProcessorRecipeBuilder(ElectrolyzerRecipe.class, 0.5, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_" + name + "_fluoride"), INGOT_VOLUME / 2).addFluidResult(FISSION_FUEL_MAP.get("depleted_" + name), INGOT_VOLUME / 2).addFluidResult(GAS_MAP.get("fluorine"), BUCKET_VOLUME / 2).save(recipeOutput);
         }
     }
 }

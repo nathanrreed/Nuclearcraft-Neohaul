@@ -8,7 +8,7 @@
     }
   },
   "fluidProduct": {
-    "amount": 1,
+    "amount": 4,
     "ingredient": {
       "fluid": "nuclearcraftneohaul:low_pressure_steam"
     }

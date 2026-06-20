@@ -766,7 +766,9 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void items() {
         simpleItems(INGOTS, INGOT_MAP, " Ingot");
-        simpleItems(GEMS, GEM_MAP, "");
+        replaceItems(GEMS, GEM_MAP, "", "", Map.of(
+                "boron_nitride", "Cubic Boron Nitride"
+        ));
         simpleItems(DUSTS, DUST_MAP, " Dust");
         add(COPPER_DUST.get(), "Copper Dust");
         replaceItems(FISSION_DUSTS, FISSION_DUST_MAP, "", " Dust", Map.of("tbp", "Protactinium-Enriched Thorium Dust"));
@@ -806,7 +808,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(GEIGER_COUNTER.get(), "Geiger Counter");
         add(RADIATION_BADGE.get(), "Radiation Badge");
 
-        add(RADAWAY.get(), "Radaway");
+        add(RADAWAY.get(), "RadAway");
         add(RADAWAY_SLOW.get(), "Slow-Acting RadAway");
         add(RAD_X.get(), "Rad-X");
 
@@ -890,7 +892,12 @@ public class ModLanguageProvider extends LanguageProvider {
         add(DEPLETED_FUEL_MIXED_MAP.get("mix_241_tr").get(), "Depleted MTRISO-241 Fuel Pebble");
         add(DEPLETED_FUEL_MIXED_MAP.get("mix_241_za").get(), "Depleted MZA-241 Fuel Pellet");
 
-        simpleItems(FOOD_MAP, Map.of("dominos", "Domino's Special", "smore", "S'more S'mingot", "moresmore", "MoreS'more DoubleS'mingot"));
+        simpleItems(FOOD_MAP, Map.of(
+                "cocoa_butter", "Solidified Cocoa Butter",
+                "dominos", "Domino's Special",
+                "smore", "S'more S'mingot",
+                "moresmore", "MoreS'more DoubleS'mingot"
+        ));
         add(PORTABLE_ENDER_CHEST.get(), "Portable Ender Chest");
         add(FOURSMORE.get(), "FourS'more QuadS'mingot");
         add(MULTITOOL.get(), "Multitool");
@@ -898,9 +905,9 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void blocks() {
         simpleBlocks(INGOTS, INGOT_BLOCK_MAP, " Block");
-        replaceBlocks(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, ""," Block", Map.of(
-                "soulless_sand","Soulless Sand",
-                "soulless_sandstone","Soulless Sandstone"
+        replaceBlocks(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, "", " Block", Map.of(
+                "soulless_sand", "Soulless Sand",
+                "soulless_sandstone", "Soulless Sandstone"
         ));
         simpleBlocks(RAWS, RAW_BLOCK_MAP, "Block of Raw ", "");
 

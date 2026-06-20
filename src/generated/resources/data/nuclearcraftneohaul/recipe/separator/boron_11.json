@@ -5,10 +5,10 @@
       "count": 12,
       "ingredient": [
         {
-          "tag": "c:dusts/boron"
+          "tag": "c:ingots/boron"
         },
         {
-          "tag": "c:ingots/boron"
+          "tag": "c:dusts/boron"
         }
       ]
     }
@@ -29,5 +29,5 @@
   ],
   "powerModifier": 1.0,
   "radiation": 0.0,
-  "timeModifier": 1.0
+  "timeModifier": 6.0
 }

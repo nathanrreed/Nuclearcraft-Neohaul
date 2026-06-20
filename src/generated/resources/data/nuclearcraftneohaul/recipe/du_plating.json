@@ -6,7 +6,7 @@
       "item": "nuclearcraftneohaul:advanced_plating"
     },
     "S": {
-      "item": "nuclearcraftneohaul:sulfur_gem_dust"
+      "tag": "c:dusts/sulfur"
     },
     "U": {
       "item": "nuclearcraftneohaul:uranium_238"

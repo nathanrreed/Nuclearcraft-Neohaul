@@ -10,7 +10,7 @@
   ],
   "fluidProducts": [
     {
-      "amount": 250,
+      "amount": 36,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:holmium"
       }

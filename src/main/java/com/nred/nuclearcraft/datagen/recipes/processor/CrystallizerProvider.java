@@ -1,9 +1,11 @@
 package com.nred.nuclearcraft.datagen.recipes.processor;
 
+import com.nred.nuclearcraft.radiation.RadSources;
 import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.CrystallizerRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static com.nred.nuclearcraft.util.FluidStackHelper.*;
@@ -18,7 +20,7 @@ public class CrystallizerProvider {
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 0.5, 0.5).addFluidInput(SALT_SOLUTION_MAP.get("sodium_hydroxide_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("sodium_hydroxide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 0.5, 0.5).addFluidInput(SALT_SOLUTION_MAP.get("potassium_hydroxide_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("potassium_hydroxide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 0.5, 0.5).addFluidInput(SALT_SOLUTION_MAP.get("borax_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("borax"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(CrystallizerRecipe.class, 0.5, 0.5).addFluidInput(SALT_SOLUTION_MAP.get("irradiated_borax_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("irradiated_borax"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(CrystallizerRecipe.class, 0.5, 0.5, RadSources.CAESIUM_137 / 4D).addFluidInput(SALT_SOLUTION_MAP.get("irradiated_borax_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("borax"), 1).save(recipeOutput, ncLoc("from_irradiated_borax_solution"));
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("ammonium_sulfate_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("ammonium_sulfate"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("ammonium_bisulfate_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("ammonium_bisulfate"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(CrystallizerRecipe.class, 1, 1).addFluidInput(SALT_SOLUTION_MAP.get("ammonium_persulfate_solution"), GEM_VOLUME).addItemResult(COMPOUND_MAP.get("ammonium_persulfate"), 1).save(recipeOutput);

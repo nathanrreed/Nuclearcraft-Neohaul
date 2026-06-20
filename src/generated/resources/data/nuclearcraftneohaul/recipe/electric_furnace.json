@@ -15,7 +15,7 @@
       "item": "minecraft:iron_ingot"
     },
     "L": {
-      "item": "nuclearcraftneohaul:lead_ingot"
+      "tag": "c:ingots/lead"
     }
   },
   "pattern": [

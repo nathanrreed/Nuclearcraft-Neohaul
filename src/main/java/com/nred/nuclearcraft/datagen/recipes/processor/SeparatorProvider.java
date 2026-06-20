@@ -11,9 +11,9 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 public class SeparatorProvider {
     public SeparatorProvider(RecipeOutput recipeOutput) {
-        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(ingotDust("uranium", 10)).addItemResult(URANIUM_MAP.get("238"), 9).addItemResult(URANIUM_MAP.get("235"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(ingotDust("boron", 12)).addItemResult(BORON_MAP.get("11"), 9).addItemResult(BORON_MAP.get("10"), 3).save(recipeOutput);
-        new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(ingotDust("lithium", 10)).addItemResult(LITHIUM_MAP.get("7"), 9).addItemResult(LITHIUM_MAP.get("6"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 5, 1).addItemInput(ingotDust("uranium", 10)).addItemResult(URANIUM_MAP.get("238"), 9).addItemResult(URANIUM_MAP.get("235"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 6, 1).addItemInput(ingotDust("boron", 12)).addItemResult(BORON_MAP.get("11"), 9).addItemResult(BORON_MAP.get("10"), 3).save(recipeOutput);
+        new ProcessorRecipeBuilder(SeparatorRecipe.class, 5, 1).addItemInput(ingotDust("lithium", 10)).addItemResult(LITHIUM_MAP.get("7"), 9).addItemResult(LITHIUM_MAP.get("6"), 1).save(recipeOutput);
 
         for (String isotope : List.of("241", "242", "243")) {
             new ProcessorRecipeBuilder(SeparatorRecipe.class, 1, 1).addItemInput(AMERICIUM_MAP.get(isotope + "_za"), 1).addItemResult(AMERICIUM_MAP.get(isotope), 1).addItemResult(DUST_MAP.get("zirconium"), 1).save(recipeOutput, "americium_" + isotope + "_from_za");

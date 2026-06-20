@@ -4,7 +4,6 @@ import com.nred.nuclearcraft.NCInfo;
 import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
 import com.nred.nuclearcraft.capability.radiation.resistance.IRadiationResistance;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -15,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
@@ -59,14 +59,14 @@ public class RadShieldingItem extends TooltipItem {
             return InteractionResultHolder.fail(stack);
         }
 
-        HitResult ray = Minecraft.getInstance().hitResult;
-        if (ray == null || ray.getType() != HitResult.Type.BLOCK) {
+        BlockHitResult ray = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
+        if (ray.getType() != HitResult.Type.BLOCK) {
             return InteractionResultHolder.fail(stack);
         }
 
-        BlockPos pos = ((BlockHitResult) ray).getBlockPos();
+        BlockPos pos = ray.getBlockPos();
         BlockEntity tile = level.getBlockEntity(pos);
-        Direction side = ((BlockHitResult) ray).getDirection();
+        Direction side = ray.getDirection();
 
         if (!level.mayInteract(player, pos) || tile == null || level.getCapability(Capabilities.ItemHandler.BLOCK, pos, side) == null && level.getCapability(Capabilities.FluidHandler.BLOCK, pos, side) == null) {
             return InteractionResultHolder.fail(stack);

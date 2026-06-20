@@ -5,10 +5,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/lithium"
+          "tag": "c:ingots/lithium"
         },
         {
-          "tag": "c:ingots/lithium"
+          "tag": "c:dusts/lithium"
         }
       ]
     },
@@ -16,10 +16,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/manganese_dioxide"
+          "tag": "c:ingots/manganese_dioxide"
         },
         {
-          "tag": "c:ingots/manganese_dioxide"
+          "tag": "c:dusts/manganese_dioxide"
         }
       ]
     }

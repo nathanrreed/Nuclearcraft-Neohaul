@@ -5,10 +5,10 @@
       "count": 3,
       "ingredient": [
         {
-          "tag": "c:dusts/copper"
+          "tag": "c:ingots/copper"
         },
         {
-          "tag": "c:ingots/copper"
+          "tag": "c:dusts/copper"
         }
       ]
     },
@@ -16,10 +16,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/silver"
+          "tag": "c:ingots/silver"
         },
         {
-          "tag": "c:ingots/silver"
+          "tag": "c:dusts/silver"
         }
       ]
     }

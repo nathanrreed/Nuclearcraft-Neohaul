@@ -22,7 +22,7 @@
       }
     }
   ],
-  "powerModifier": 0.5,
+  "powerModifier": 1.0,
   "radiation": 0.0,
   "timeModifier": 0.5
 }

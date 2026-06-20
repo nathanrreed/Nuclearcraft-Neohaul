@@ -29,6 +29,12 @@
       }
     },
     {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:zirconium_dust"
+      }
+    },
+    {
       "count": 3,
       "ingredient": {
         "item": "nuclearcraftneohaul:curium_246_za"
@@ -45,12 +51,6 @@
       "count": 1,
       "ingredient": {
         "item": "nuclearcraftneohaul:promethium_147_dust"
-      }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "nuclearcraftneohaul:zirconium_dust"
       }
     }
   ],

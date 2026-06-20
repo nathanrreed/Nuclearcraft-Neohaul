@@ -9,7 +9,7 @@
       "item": "minecraft:flint"
     },
     "L": {
-      "item": "nuclearcraftneohaul:lead_ingot"
+      "tag": "c:ingots/lead"
     },
     "P": {
       "item": "minecraft:piston"

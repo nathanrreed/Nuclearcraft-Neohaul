@@ -11,7 +11,7 @@ import java.util.Set;
 
 public interface IMultiblockScreenPart<MULTIBLOCK extends Multiblock<MULTIBLOCK> & IPacketMultiblock<MULTIBLOCK, PACKET>, PACKET extends MultiblockUpdatePacket, GUITILE extends BlockEntity & IMultiblockScreenPart<MULTIBLOCK, PACKET, GUITILE, INFO>, INFO extends BlockEntityMenuInfo<GUITILE>> extends IMultiblockPart<MULTIBLOCK>, ITileGui<GUITILE, PACKET, INFO> {
     default void sendTileUpdatePacketToPlayer(Player player) {
-        if (!getCurrentWorld().isClientSide && getMultiblockController().isPresent()) {
+        if (!getCurrentWorld().isClientSide() && getMultiblockController().isPresent()) {
             getMultiblockController().get().sendMultiblockUpdatePacketToPlayer(player);
         }
     }

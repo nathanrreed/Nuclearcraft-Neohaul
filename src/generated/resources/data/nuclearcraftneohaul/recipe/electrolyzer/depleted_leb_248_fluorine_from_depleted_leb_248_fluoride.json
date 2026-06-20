@@ -2,7 +2,7 @@
   "type": "nuclearcraftneohaul:electrolyzer_recipe",
   "fluidIngredients": [
     {
-      "amount": 500,
+      "amount": 72,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:depleted_leb_248_fluoride"
       }
@@ -10,7 +10,7 @@
   ],
   "fluidProducts": [
     {
-      "amount": 250,
+      "amount": 72,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:depleted_leb_248"
       }

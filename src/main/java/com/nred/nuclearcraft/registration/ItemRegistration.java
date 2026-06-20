@@ -124,14 +124,15 @@ public class ItemRegistration {
     public static final DeferredItem<Item> FERAL_GHOUL_SPAWN_EGG = ITEMS.register("feral_ghoul_spawn_egg", () -> new DeferredSpawnEggItem(FERAL_GHOUL, 0xaf9890, 0x192124, new Properties()));
     public static final DeferredItem<Item> COPPER_DUST = ITEMS.register("copper_dust", () -> new Item(new Properties()));
 
-    public static final HashMap<String, DeferredItem<Item>> AMERICIUM_MAP = createItems(AMERICIUMS, "americium", "");
-    public static final HashMap<String, DeferredItem<Item>> BERKELIUM_MAP = createItems(BERKELIUMS, "berkelium", "");
-    public static final HashMap<String, DeferredItem<Item>> BORON_MAP = createItems(BORONS, "boron", "");
-    public static final HashMap<String, DeferredItem<Item>> CALIFORNIUM_MAP = createItems(CALIFORNIUMS, "californium", "");
-    public static final HashMap<String, DeferredItem<Item>> CURIUM_MAP = createItems(CURIUMS, "curium", "");
-    public static final HashMap<String, DeferredItem<Item>> NEPTUNIUM_MAP = createItems(NEPTUNIUMS, "neptunium", "");
-    public static final HashMap<String, DeferredItem<Item>> PLUTONIUM_MAP = createItems(PLUTONIUMS, "plutonium", "");
-    public static final HashMap<String, DeferredItem<Item>> URANIUM_MAP = createItems(URANIUMS, "uranium", "");
+    public static final HashMap<String, DeferredItem<Item >       >                        AMERICIUM_MAP    = createItems(AMERICIUMS ,     "americium" ,                 "");
+public        static   final HashMap<String ,   DeferredItem<Item      >   >               BERKELIUM_MAP   =    createItems(BERKELIUMS   ,  "berkelium"   ,  "");
+public        static   final HashMap<String ,   DeferredItem<Item      >   >               BORON_MAP       =    createItems(BORONS       ,  "boron"       ,  "");
+public        static   final HashMap<String ,   DeferredItem<Item      >   >               CALIFORNIUM_MAP =    createItems(CALIFORNIUMS ,  "californium" ,  "");
+public        static   final HashMap<String ,   DeferredItem<Item      >   >               CURIUM_MAP      =    createItems(CURIUMS      ,  "curium"      ,  "");
+public        static   final HashMap<String ,   DeferredItem<Item      >   >               NEPTUNIUM_MAP   =    createItems(NEPTUNIUMS   ,  "neptunium"   ,  "");
+public        static   final HashMap<String ,   DeferredItem<Item      >   >               PLUTONIUM_MAP   =    createItems(PLUTONIUMS   ,  "plutonium"   ,  "");
+public        static   final HashMap<String ,   DeferredItem<Item      >   >               URANIUM_MAP     =    createItems(URANIUMS     ,  "uranium"     ,  "");
+
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_AMERICIUM_MAP = createItems(DEPLETED_FUEL_AMERICIUMS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_BERKELIUM_MAP = createItems(DEPLETED_FUEL_BERKELIUMS, "depleted", "");
     public static final HashMap<String, DeferredItem<Item>> DEPLETED_FUEL_CALIFORNIUM_MAP = createItems(DEPLETED_FUEL_CALIFORNIUMS, "depleted", "");

@@ -23,11 +23,11 @@ import java.util.List;
 
 public class RecipeHelpers {
     public static List<@NotNull SizedChanceItemIngredient> ingotDusts(String input1, int count1, String input2, int count2) {
-        return List.of(tags(List.of(tag(Tags.Items.DUSTS, input1), tag(Tags.Items.INGOTS, input1)), count1), tags(List.of(tag(Tags.Items.DUSTS, input2), tag(Tags.Items.INGOTS, input2)), count2));
+        return List.of(tags(List.of(tag(Tags.Items.INGOTS, input1), tag(Tags.Items.DUSTS, input1)), count1), tags(List.of(tag(Tags.Items.INGOTS, input2), tag(Tags.Items.DUSTS, input2)), count2));
     }
 
     public static @NotNull SizedChanceItemIngredient ingotDust(String input, int count) {
-        return tags(List.of(tag(Tags.Items.DUSTS, input), tag(Tags.Items.INGOTS, input)), count);
+        return tags(List.of(tag(Tags.Items.INGOTS, input), tag(Tags.Items.DUSTS, input)), count);
     }
 
     public static @NotNull SizedChanceItemIngredient gemDust(String input, int count) {

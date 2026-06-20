@@ -5,10 +5,10 @@
       "count": 7,
       "ingredient": [
         {
-          "tag": "c:dusts/zirconium"
+          "tag": "c:ingots/zirconium"
         },
         {
-          "tag": "c:ingots/zirconium"
+          "tag": "c:dusts/zirconium"
         }
       ]
     },
@@ -16,10 +16,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/tin"
+          "tag": "c:ingots/tin"
         },
         {
-          "tag": "c:ingots/tin"
+          "tag": "c:dusts/tin"
         }
       ]
     }

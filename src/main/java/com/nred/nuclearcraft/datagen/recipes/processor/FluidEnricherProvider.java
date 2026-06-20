@@ -35,10 +35,10 @@ public class FluidEnricherProvider {
 
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 2, 2).addItemInput(GEM_DUST_MAP.get("nichromite"), 1).addFluidInput(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME).addFluidResult(MOLTEN_MAP.get("bacro_nio"), INGOT_VOLUME).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("ethanol"), BUCKET_VOLUME / 4).addFluidResult(CUSTOM_FLUID_MAP.get("radaway"), BUCKET_VOLUME / 4).save(recipeOutput);
-        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("redstone_ethanol"), BUCKET_VOLUME / 4).addFluidResult(CUSTOM_FLUID_MAP.get("radaway_slow"), BUCKET_VOLUME / 4).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 0.5).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("ethanol"), BUCKET_VOLUME / 4).addFluidResult(CUSTOM_FLUID_MAP.get("radaway"), BUCKET_VOLUME / 4).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 0.5).addItemInput(GLOWING_MUSHROOM, 3).addFluidInput(FLAMMABLE_MAP.get("redstone_ethanol"), BUCKET_VOLUME / 4).addFluidResult(CUSTOM_FLUID_MAP.get("radaway_slow"), BUCKET_VOLUME / 4).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 1, 1).addItemInput(Items.SNOWBALL, 4).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 25).addFluidResult(CRYOTHEUM_TAG, 25).save(recipeOutput, ncLoc("cryotheum_from_liquid_helium"));
+        new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 0.5, 1).addItemInput(Items.SNOWBALL, 4).addFluidInput(CUSTOM_FLUID_MAP.get("liquid_helium"), 25).addFluidResult(CRYOTHEUM_TAG, 25).save(recipeOutput, ncLoc("cryotheum_from_liquid_helium"));
 
         new ProcessorRecipeBuilder(FluidEnricherRecipe.class, 2, 1).addItemInput(COMPOUND_MAP.get("dimensional_blend"), 1).addFluidInput(SOUL_MAP.get("soul"), 100).addFluidResult(SOUL_MAP.get("mysterious_soul"), 100).save(recipeOutput);
     }

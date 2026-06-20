@@ -12,11 +12,11 @@
     {
       "count": 1,
       "ingredient": {
-        "tag": "c:storage_blocks/quartz"
+        "item": "minecraft:quartz_block"
       }
     }
   ],
   "powerModifier": 1.0,
   "radiation": 0.0,
-  "timeModifier": 9.0
+  "timeModifier": 4.0
 }

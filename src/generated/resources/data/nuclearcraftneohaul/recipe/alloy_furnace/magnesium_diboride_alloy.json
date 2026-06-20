@@ -5,10 +5,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/magnesium"
+          "tag": "c:ingots/magnesium"
         },
         {
-          "tag": "c:ingots/magnesium"
+          "tag": "c:dusts/magnesium"
         }
       ]
     },
@@ -16,10 +16,10 @@
       "count": 2,
       "ingredient": [
         {
-          "tag": "c:dusts/boron"
+          "tag": "c:ingots/boron"
         },
         {
-          "tag": "c:ingots/boron"
+          "tag": "c:dusts/boron"
         }
       ]
     }

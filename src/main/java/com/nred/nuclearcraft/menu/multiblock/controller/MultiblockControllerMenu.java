@@ -25,6 +25,6 @@ public class MultiblockControllerMenu<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
     @Override
     public void removed(@NotNull Player player) {
         super.removed(player);
-        tile.addTileUpdatePacketListener(inventory.player);
+        tile.removeTileUpdatePacketListener(inventory.player);
     }
 }

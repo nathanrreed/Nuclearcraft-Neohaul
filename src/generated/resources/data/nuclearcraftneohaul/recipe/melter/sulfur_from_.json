@@ -12,7 +12,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "nuclearcraftneohaul:sulfur_gem_dust"
+        "tag": "c:dusts/sulfur"
       }
     }
   ],

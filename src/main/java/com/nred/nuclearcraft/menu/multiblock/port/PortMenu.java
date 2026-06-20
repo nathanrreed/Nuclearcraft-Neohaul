@@ -33,7 +33,7 @@ public abstract class PortMenu<MULTIBLOCK extends Multiblock<MULTIBLOCK> & ILogi
     @Override
     public void removed(@NotNull Player player) {
         super.removed(player);
-        this.tile.addTileUpdatePacketListener(inventory.player);
+        this.tile.removeTileUpdatePacketListener(inventory.player);
     }
 
     @Override

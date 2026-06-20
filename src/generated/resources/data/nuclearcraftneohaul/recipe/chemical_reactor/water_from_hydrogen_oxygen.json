@@ -16,8 +16,7 @@
   ],
   "fluidProducts": [
     {
-      "amount": 100,
-      "chancePercent": 500,
+      "amount": 500,
       "ingredient": {
         "fluid": "minecraft:water"
       }

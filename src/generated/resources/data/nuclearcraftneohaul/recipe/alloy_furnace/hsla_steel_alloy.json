@@ -5,10 +5,10 @@
       "count": 15,
       "ingredient": [
         {
-          "tag": "c:dusts/iron"
+          "tag": "c:ingots/iron"
         },
         {
-          "tag": "c:ingots/iron"
+          "tag": "c:dusts/iron"
         }
       ]
     },

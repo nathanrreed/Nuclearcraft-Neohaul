@@ -11,7 +11,6 @@ import com.nred.nuclearcraft.multiblock.battery.BatteryMultiblock;
 import com.nred.nuclearcraft.multiblock.battery.BatteryType;
 import com.nred.nuclearcraft.property.ISidedEnergy;
 import com.nred.nuclearcraft.util.NCMath;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -222,6 +221,7 @@ public class BatteryEntity extends AbstractPartBlockEntity<BatteryMultiblock> im
         }
     }
 
+    // Added and read tag from itemstack
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         CompoundTag tag = new CompoundTag();
@@ -235,10 +235,7 @@ public class BatteryEntity extends AbstractPartBlockEntity<BatteryMultiblock> im
         CompoundTag tag = componentInput.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         HolderLookup.Provider registries = level.registryAccess();
         this.waitingEnergy += tag.getLong("waitingEnergy");
-
-        if (Minecraft.getInstance().player.isCrouching()) {
-            this.readEnergyConnections(tag, registries);
-        }
+        this.readEnergyConnections(tag, registries);
         super.applyImplicitComponents(componentInput);
     }
 }

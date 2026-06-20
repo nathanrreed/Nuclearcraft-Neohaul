@@ -15,6 +15,6 @@ public class FluidExtractorProvider {
     public FluidExtractorProvider(RecipeOutput recipeOutput) {
         new ProcessorRecipeBuilder(FluidExtractorRecipe.class, 1, 2).addItemInput(Blocks.SOUL_SAND, 1).addItemResult(MATERIAL_BLOCK_MAP.get("soulless_sand"), 1).addFluidResult(SOUL_MAP.get("soul"), 100).save(recipeOutput);
 
-        new ProcessorRecipeBuilder(FluidExtractorRecipe.class, 1, 1).addItemInput(FOOD_MAP.get("ground_cocoa_nibs"), 1).addItemResult(FOOD_MAP.get("cocoa_solids"), 1).addFluidResult(CHOCOLATE_MAP.get("cocoa_butter"), INGOT_VOLUME).save(recipeOutput);
+        new ProcessorRecipeBuilder(FluidExtractorRecipe.class, 0.5, 0.5).addItemInput(FOOD_MAP.get("ground_cocoa_nibs"), 1).addItemResult(FOOD_MAP.get("cocoa_solids"), 1).addFluidResult(CHOCOLATE_MAP.get("cocoa_butter"), INGOT_VOLUME).save(recipeOutput);
     }
 }

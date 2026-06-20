@@ -10,8 +10,7 @@
   ],
   "fluidProducts": [
     {
-      "amount": 100,
-      "chancePercent": 25,
+      "amount": 25,
       "ingredient": {
         "tag": "nuclearcraftneohaul:cryotheum"
       }
@@ -27,5 +26,5 @@
   ],
   "powerModifier": 1.0,
   "radiation": 0.0,
-  "timeModifier": 1.0
+  "timeModifier": 0.5
 }

@@ -5,10 +5,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/steel"
+          "tag": "c:ingots/steel"
         },
         {
-          "tag": "c:ingots/steel"
+          "tag": "c:dusts/steel"
         }
       ]
     },
@@ -16,10 +16,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/boron"
+          "tag": "c:ingots/boron"
         },
         {
-          "tag": "c:ingots/boron"
+          "tag": "c:dusts/boron"
         }
       ]
     }

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.0,
+  "group": "tin",
+  "ingredient": {
+    "tag": "c:ingots/tin_oxide"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:tin_ingot"
+  }
+}

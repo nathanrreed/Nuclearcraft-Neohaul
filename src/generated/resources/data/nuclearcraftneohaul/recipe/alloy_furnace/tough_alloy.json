@@ -11,10 +11,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/lithium"
+          "tag": "c:ingots/lithium"
         },
         {
-          "tag": "c:ingots/lithium"
+          "tag": "c:dusts/lithium"
         }
       ]
     }

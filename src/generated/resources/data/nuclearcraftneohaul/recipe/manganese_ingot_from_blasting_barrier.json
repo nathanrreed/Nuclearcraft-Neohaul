@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.0,
+  "group": "manganese",
+  "ingredient": {
+    "tag": "c:ingots/manganese_oxide"
+  },
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:manganese_ingot"
+  }
+}

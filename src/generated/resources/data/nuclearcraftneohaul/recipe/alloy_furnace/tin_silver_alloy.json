@@ -5,10 +5,10 @@
       "count": 3,
       "ingredient": [
         {
-          "tag": "c:dusts/tin"
+          "tag": "c:ingots/tin"
         },
         {
-          "tag": "c:ingots/tin"
+          "tag": "c:dusts/tin"
         }
       ]
     },
@@ -16,10 +16,10 @@
       "count": 1,
       "ingredient": [
         {
-          "tag": "c:dusts/silver"
+          "tag": "c:ingots/silver"
         },
         {
-          "tag": "c:ingots/silver"
+          "tag": "c:dusts/silver"
         }
       ]
     }

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "nuclearcraftneohaul:boron_ingot"
+      "tag": "c:ingots/boron"
     },
     "C": {
       "item": "nuclearcraftneohaul:crystal_binder"

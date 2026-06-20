@@ -137,7 +137,6 @@ public interface ITileEnergy extends ITile {
 
         if (adjStorage != null && getEnergyStorage().canExtract()) {
             getEnergyStorage().extractEnergy(adjStorage.receiveEnergy(getEnergyStorage().extractEnergy(getMaxEnergyStored(), true), false), false);
-            return;
         }
     }
 

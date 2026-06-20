@@ -141,13 +141,13 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ProcessorRecipeBuilder addFluidResult(Fluid output, int count) {
-        fluidResults.add(new SizedChanceFluidIngredient(FluidIngredient.of(output), 100, count, 0));
+    public ProcessorRecipeBuilder addFluidResult(Fluid output, int amount) {
+        fluidResults.add(new SizedChanceFluidIngredient(FluidIngredient.of(output), amount, 100, 0));
         return this;
     }
 
-    public ProcessorRecipeBuilder addFluidResult(TagKey<Fluid> output, int count) {
-        fluidResults.add(new SizedChanceFluidIngredient(FluidIngredient.tag(output), 100, count, 0));
+    public ProcessorRecipeBuilder addFluidResult(TagKey<Fluid> output, int amount) {
+        fluidResults.add(new SizedChanceFluidIngredient(FluidIngredient.tag(output), amount, 100, 0));
         return this;
     }
 

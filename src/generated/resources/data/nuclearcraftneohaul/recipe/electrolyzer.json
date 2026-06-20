@@ -9,7 +9,7 @@
       "item": "nuclearcraftneohaul:electric_motor"
     },
     "G": {
-      "item": "nuclearcraftneohaul:graphite_ingot"
+      "tag": "c:ingots/graphite"
     },
     "M": {
       "item": "nuclearcraftneohaul:machine_chassis"

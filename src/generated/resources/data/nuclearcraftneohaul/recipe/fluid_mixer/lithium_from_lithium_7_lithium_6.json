@@ -2,7 +2,7 @@
   "type": "nuclearcraftneohaul:salt_mixer_recipe",
   "fluidIngredients": [
     {
-      "amount": 72,
+      "amount": 144,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:lithium_7"
       }

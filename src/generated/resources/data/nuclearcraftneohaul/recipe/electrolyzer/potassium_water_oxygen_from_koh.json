@@ -16,8 +16,7 @@
       }
     },
     {
-      "amount": 100,
-      "chancePercent": 250,
+      "amount": 250,
       "ingredient": {
         "fluid": "minecraft:water"
       }

@@ -1,2 +1,4 @@
 - Updated to v2o.9.6 -Wasteland changes
 - Updated GuideME
+- Fixed incorrect recipes
+- Fixed batteries not placing properly causing duping

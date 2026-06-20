@@ -53,7 +53,7 @@ public class IngotFormerProvider {
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("hard_carbon"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("hard_carbon"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("manganese_dioxide"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("manganese_dioxide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("lead_platinum"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("lead_platinum"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("nickel_oxide"), INGOT_VOLUME).addItemResult(DUST_MAP.get("nickel_oxide"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("nickel_oxide"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("nickel_oxide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 2, 2).addFluidInput(MOLTEN_MAP.get("bas"), GEM_VOLUME).addItemResult(GEM_MAP.get("boron_arsenide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(HOT_GAS_MAP.get("sic_vapor"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("silicon_carbide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polyethersulfone"), INGOT_VOLUME).addItemResult(PART_MAP.get("polyethersulfone"), 1).save(recipeOutput);
@@ -66,13 +66,13 @@ public class IngotFormerProvider {
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("nether_brick"), SEARED_MATERIAL_VOLUME).addItemResult(Items.NETHER_BRICK, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 2, 1).addFluidInput(MOLTEN_MAP.get("end_stone"), SEARED_BLOCK_VOLUME).addItemResult(Items.END_STONE, 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 2, 1).addFluidInput(MOLTEN_MAP.get("purpur"), SEARED_BLOCK_VOLUME).addItemResult(Items.PURPUR_BLOCK, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(CHOCOLATE_MAP.get("cocoa_butter"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("cocoa_butter"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(CHOCOLATE_MAP.get("unsweetened_chocolate"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("unsweetened_chocolate"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(CHOCOLATE_MAP.get("dark_chocolate"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("dark_chocolate"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(CHOCOLATE_MAP.get("milk_chocolate"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("milk_chocolate"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(SUGAR_MAP.get("sugar"), INGOT_VOLUME).addItemResult(Items.SUGAR, 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(SUGAR_MAP.get("gelatin"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("gelatin"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(SUGAR_MAP.get("marshmallow"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("marshmallow"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 0.5).addFluidInput(CHOCOLATE_MAP.get("cocoa_butter"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("cocoa_butter"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 0.5).addFluidInput(CHOCOLATE_MAP.get("unsweetened_chocolate"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("unsweetened_chocolate"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 0.5).addFluidInput(CHOCOLATE_MAP.get("dark_chocolate"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("dark_chocolate"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 0.5).addFluidInput(CHOCOLATE_MAP.get("milk_chocolate"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("milk_chocolate"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 0.5).addFluidInput(SUGAR_MAP.get("sugar"), INGOT_VOLUME).addItemResult(Items.SUGAR, 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 0.5).addFluidInput(SUGAR_MAP.get("gelatin"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("gelatin"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 0.5).addFluidInput(SUGAR_MAP.get("marshmallow"), INGOT_VOLUME).addItemResult(FOOD_MAP.get("marshmallow"), 1).save(recipeOutput);
 
         for (String isotope : List.of("241", "242", "243")) {
             new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("americium_" + isotope), INGOT_VOLUME).addItemResult(AMERICIUM_MAP.get(isotope), 1).save(recipeOutput);

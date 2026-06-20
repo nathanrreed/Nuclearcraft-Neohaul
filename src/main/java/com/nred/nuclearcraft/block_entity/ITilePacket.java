@@ -9,7 +9,7 @@ public interface ITilePacket<PACKET extends NCPacket> extends ITile {
     void onTileUpdatePacket(PACKET message);
 
     default void sendTileUpdatePacketToPlayer(Player player) {
-        if (!getTileWorld().isClientSide) {
+        if (!getTileWorld().isClientSide()) {
             getTileUpdatePacket().sendTo(player);
         }
     }
