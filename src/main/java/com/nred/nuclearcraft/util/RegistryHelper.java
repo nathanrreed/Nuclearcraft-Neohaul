@@ -1,15 +1,10 @@
 package com.nred.nuclearcraft.util;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
@@ -54,15 +49,6 @@ public class RegistryHelper {
             return location;
         }
         return StringHelper.starting(location, location.lastIndexOf(':'));
-    }
-
-    public static Holder.Reference<Biome> biomeFromRegistry(String location) {
-        ResourceLocation resLoc = ResourceLocation.parse(location);
-        if (!ModList.get().isLoaded(resLoc.getNamespace())) {
-            return null;
-        }
-
-        return Minecraft.getInstance().level.registryAccess().asGetterLookup().get(Registries.BIOME, ResourceKey.create(Registries.BIOME, resLoc)).orElse(null);
     }
 
     public static EntityType<?> getEntityEntry(String location) {

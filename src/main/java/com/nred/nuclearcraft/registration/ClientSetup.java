@@ -8,7 +8,6 @@ import com.nred.nuclearcraft.block_entity.machine.InfiltratorControllerEntity;
 import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerQubitEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.config.ModConfigScreen;
-import com.nred.nuclearcraft.entity.FeralGhoul;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
 import com.nred.nuclearcraft.info.Fluids;
@@ -28,14 +27,12 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
@@ -66,7 +63,7 @@ public class ClientSetup {
     }
 
     @SubscribeEvent
-    public static void fluidColoring(final FMLCommonSetupEvent event) {
+    public static void fluidColoring(final FMLClientSetupEvent event) {
         for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             ItemBlockRenderTypes.setRenderLayer(fluid.still.get(), RenderType.TRANSLUCENT);
             ItemBlockRenderTypes.setRenderLayer(fluid.flowing.get(), RenderType.TRANSLUCENT);
@@ -75,7 +72,7 @@ public class ClientSetup {
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
-    public static void entityRenderer(final FMLCommonSetupEvent event) {
+    public static void entityRenderer(final FMLClientSetupEvent event) {
         BlockEntityRenderers.register((BlockEntityType<TurbineControllerEntity>) TURBINE_ENTITY_TYPE.get("controller").get(), TurbineRotorRenderer::new);
         BlockEntityRenderers.register((BlockEntityType<HeatExchangerControllerEntity>) HX_ENTITY_TYPE.get("heat_exchanger_controller").get(), MultiblockHeatExchangerRender::new);
         BlockEntityRenderers.register((BlockEntityType<CondenserControllerEntity>) HX_ENTITY_TYPE.get("condenser_controller").get(), MultiblockCondenserRender::new);
@@ -97,10 +94,5 @@ public class ClientSetup {
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(FeralGhoulModel.LAYER_LOCATION, FeralGhoulModel::createBodyLayer);
-    }
-
-    @SubscribeEvent
-    public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(FERAL_GHOUL.get(), FeralGhoul.createAttributes().build());
     }
 }

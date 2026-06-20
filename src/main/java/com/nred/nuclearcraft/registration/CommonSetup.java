@@ -3,6 +3,7 @@ package com.nred.nuclearcraft.registration;
 import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistanceItem;
 import com.nred.nuclearcraft.command.CommandHandler;
 import com.nred.nuclearcraft.compat.guideme.ModGuideMEPlugin;
+import com.nred.nuclearcraft.entity.FeralGhoul;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.handler.EntityHandler;
 import com.nred.nuclearcraft.handler.ItemUseHandler;
@@ -24,15 +25,18 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
@@ -89,14 +93,29 @@ public class CommonSetup {
     }
 
     @SubscribeEvent
-    public static void postInit(ServerAboutToStartEvent event) { // TODO is this the right event type
+    public static void postInitServer(ServerAboutToStartEvent event) { // TODO is this the right event type
+        postInit(event.getServer().getRecipeManager());
+    }
+
+    private static boolean init = false;
+
+    @SubscribeEvent
+    public static void postInitClient(RecipesUpdatedEvent event) { // TODO is this the right event type
+        if (init) {
+            return;
+        }
+        init = true;
+        postInit(event.getRecipeManager());
+    }
+
+    public static void postInit(RecipeManager manager) {
         PlacementRule.postInit();
-        NCRecipes.init(event.getServer().getRecipeManager());
-        RecipeStats.init(event.getServer().getRecipeManager());
+
+        NCRecipes.init(manager);
+        RecipeStats.init(manager);
 
         // TODO ADD
-
-        addArmorShieldingRecipes(event);
+        addArmorShieldingRecipes(manager);
 
         RadArmor.postInit();
         RadDimensions.init();
@@ -112,7 +131,7 @@ public class CommonSetup {
         NeoForge.EVENT_BUS.register(new PlayerRespawnHandler());
         NeoForge.EVENT_BUS.register(new ItemUseHandler());
 
-        NCRecipes.postInit(event.getServer().getRecipeManager());
+        NCRecipes.postInit(manager);
 
         NCPFWriter.exportNCPF();
     }
@@ -157,5 +176,10 @@ public class CommonSetup {
                     event.getContainer().addModifier(DamageContainer.Reduction.ARMOR, (container, reductionIn) -> (float) (reductionIn + rad_resistance.getTotalRadResistance())); // TODO check if this is the right way to do this
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(FERAL_GHOUL.get(), FeralGhoul.createAttributes().build());
     }
 }

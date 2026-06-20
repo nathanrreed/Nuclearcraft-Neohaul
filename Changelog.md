@@ -2,3 +2,5 @@
 - Updated GuideME
 - Fixed incorrect recipes
 - Fixed batteries not placing properly causing duping
+- Fixed screens not showing correct energy value
+- Fixed Ghouls not spawning on server

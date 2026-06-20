@@ -13,7 +13,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
-import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.ArrayList;
@@ -96,8 +95,7 @@ public class RadArmor {
         return holders;
     }
 
-    public static void addArmorShieldingRecipes(ServerAboutToStartEvent event) {
-        RecipeManager recipeManager = event.getServer().getRecipeManager();
+    public static void addArmorShieldingRecipes(RecipeManager recipeManager) {
         ArrayList<RecipeHolder<?>> shielding_recipes = new ArrayList<>();
         if (radiation_shielding_default_recipes) {
             for (Item item : BuiltInRegistries.ITEM.stream().toList()) {

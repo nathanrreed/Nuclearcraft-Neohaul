@@ -12,6 +12,8 @@ import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import org.joml.Matrix4f;
 
@@ -96,6 +98,7 @@ public class GuiHelper {
         return NCMath.toInt(Math.round(0.5D * height * (1 - cos * Math.abs(cos) + sin * Math.abs(sin))));
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void renderGuiFluid(GuiGraphics guiGraphics, Fluid fluid, int x, int y, int w, int h, float alpha) {
         if (!fluid.getFluidType().isAir()) {
             guiGraphics.setColor(1, 1, 1, alpha);

@@ -74,7 +74,7 @@ public abstract class EnergyProcessorEntity<TILE extends EnergyProcessorEntity<T
     }
 
     private EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, INFO info) {
-        this(type, pos, blockState, name, info, ITileInventory.inventoryConnectionAll(info.defaultItemSorptions()), info.getEnergyCapacity(1D,1D), ITileEnergy.energyConnectionAll(info.defaultEnergyConnection()), info.defaultTankCapacities(), e -> NCRecipes.getValidFluids(info.recipeHandlerName, e), ITileFluid.fluidConnectionAll(info.defaultTankSorptions()));
+        this(type, pos, blockState, name, info, ITileInventory.inventoryConnectionAll(info.defaultItemSorptions()), info.getEnergyCapacity(1D, 1D), ITileEnergy.energyConnectionAll(info.defaultEnergyConnection()), info.defaultTankCapacities(), e -> NCRecipes.getValidFluids(info.recipeHandlerName, e), ITileFluid.fluidConnectionAll(info.defaultTankSorptions()));
     }
 
     private EnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name, INFO info, @Nonnull InventoryConnection[] inventoryConnections, long capacity, @Nonnull EnergyConnection[] energyConnections, @Nonnull IntList fluidCapacity, Function<Level, List<Set<ResourceLocation>>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
