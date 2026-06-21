@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.hx;
 
-import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
+import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.IActivatable;
 import com.nred.nuclearcraft.registration.BlockRegistration;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.Nullable;
 
-public class HeatExchangerRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> implements IActivatable {
+public class HeatExchangerRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericTooltipDeviceBlock<Controller, PartType> implements IActivatable {
     public HeatExchangerRedstonePortBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(BlockRegistration.ACTIVE, false));

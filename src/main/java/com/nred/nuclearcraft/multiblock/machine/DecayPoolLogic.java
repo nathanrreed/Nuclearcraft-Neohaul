@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.multiblock.machine;
 
+import com.nred.nuclearcraft.block_entity.internal.fluid.FluidTileWrapper;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.machine.DecayPoolContainerEntity;
@@ -335,8 +336,8 @@ public class DecayPoolLogic extends MachineLogic {
     }
 
     @Override
-    public @Nonnull IFluidHandler getReservoirPortFluidHandler(MachineReservoirPortEntity port, @Nonnull Direction side) {
-        return new IFluidHandler() {
+    public @Nonnull FluidTileWrapper getReservoirPortFluidHandler(MachineReservoirPortEntity port, @Nonnull Direction side) {
+        return new FluidTileWrapper(port, side) {
             @Override
             public int getTanks() {
                 return 1;

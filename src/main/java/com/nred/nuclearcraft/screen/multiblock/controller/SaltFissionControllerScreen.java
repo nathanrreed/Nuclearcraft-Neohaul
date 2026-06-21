@@ -28,7 +28,7 @@ public class SaltFissionControllerScreen extends LogicMultiblockControllerScreen
 
     StringCenteringOperator heatMultText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.heat_mult", NCMath.pcDecimalPlaces(multiblock.meanHeatMult, 1)));
     StringCenteringOperator efficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.efficiency", NCMath.pcDecimalPlaces(multiblock.meanEfficiency, 1)));
-    StringCenteringOperator speedMultText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.salt_fission_controller.heating_speed_multiplier", NCMath.pcDecimalPlaces(getLogic().meanHeatingSpeedMultiplier, 1)));
+    StringCenteringOperator speedMultText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.heating_speed_multiplier", NCMath.pcDecimalPlaces(getLogic().meanHeatingSpeedMultiplier, 1)));
     StringCenteringOperator sparsityText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.sparsity", NCMath.pcDecimalPlaces(multiblock.sparsityEfficiencyMult, 1)));
     StringCenteringOperator usefulPartCountText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.useful_parts", multiblock.usefulPartCount + "/" + multiblock.getInteriorVolume()));
     StringCenteringOperator netClusterHeatingText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.net_cluster_heating", UnitHelper.prefix(getLogic().getNetClusterHeating(), 5, "H/t")));

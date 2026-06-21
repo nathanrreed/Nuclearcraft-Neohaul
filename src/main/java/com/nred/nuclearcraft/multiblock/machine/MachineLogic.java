@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.multiblock.machine;
 
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
 import com.nred.nuclearcraft.block_entity.internal.fluid.FluidConnection;
+import com.nred.nuclearcraft.block_entity.internal.fluid.FluidTileWrapper;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
@@ -42,7 +43,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -646,7 +646,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
         return !port.getTanks().isEmpty() && port.hasFluidSideCapability(side);
     }
 
-    public @Nonnull IFluidHandler getReservoirPortFluidHandler(MachineReservoirPortEntity port, @Nonnull Direction side) {
+    public @Nonnull FluidTileWrapper getReservoirPortFluidHandler(MachineReservoirPortEntity port, @Nonnull Direction side) {
         return port.getFluidSide(side);
     }
 
@@ -772,6 +772,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
         multiblock.baseSpeedMultiplier = message.baseSpeedMultiplier;
         multiblock.basePowerMultiplier = message.basePowerMultiplier;
         multiblock.recipeUnitInfo = message.recipeUnitInfo;
+        multiblock.readyToProcess = message.readyToProcess;
     }
 
     public MachineRenderPacket getRenderPacket() {

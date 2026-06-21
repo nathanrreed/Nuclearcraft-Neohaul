@@ -4,5 +4,10 @@
     "loader": "fusion:model",
     "textures": {
         "all": "nuclearcraftneohaul:block/machine_glass"
-    }
+    },
+    "connections": [
+        {
+            "type": "fusion:is_same_block"
+        }
+    ]
 }

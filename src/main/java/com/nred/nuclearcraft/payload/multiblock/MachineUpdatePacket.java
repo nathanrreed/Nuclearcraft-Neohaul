@@ -89,5 +89,6 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
         buf.writeDouble(baseSpeedMultiplier);
         buf.writeDouble(basePowerMultiplier);
         writeRecipeUnitInfo(buf, recipeUnitInfo);
+        buf.writeBoolean(readyToProcess);
     }
 }

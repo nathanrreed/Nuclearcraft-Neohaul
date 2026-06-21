@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.turbine;
 
-import com.nred.nuclearcraft.block.GenericHorizontalTooltipDeviceBlock;
+import com.nred.nuclearcraft.block.GenericTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.IActivatable;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 
-public class TurbineRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericHorizontalTooltipDeviceBlock<Controller, PartType> implements IActivatable {
+public class TurbineRedstonePortBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericTooltipDeviceBlock<Controller, PartType> implements IActivatable {
     public TurbineRedstonePortBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));

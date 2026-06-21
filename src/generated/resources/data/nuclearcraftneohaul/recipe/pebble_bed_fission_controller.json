@@ -5,19 +5,19 @@
     "C": {
       "item": "nuclearcraftneohaul:pyrolytic_carbon"
     },
+    "E": {
+      "item": "nuclearcraftneohaul:extreme_alloy"
+    },
     "P": {
       "item": "nuclearcraftneohaul:advanced_plating"
     },
     "S": {
       "item": "nuclearcraftneohaul:steel_chassis"
-    },
-    "T": {
-      "item": "nuclearcraftneohaul:tough_alloy"
     }
   },
   "pattern": [
     "PCP",
-    "TST",
+    "ESE",
     "PCP"
   ],
   "result": {

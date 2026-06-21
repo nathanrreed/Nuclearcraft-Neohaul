@@ -364,8 +364,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.solid_fission_controller.output_rate", "Production Rate: %s");
 
         add(MODID + ".tooltip.salt_fission_controller", "Molten Salt Reactor");
-        add(MODID + ".tooltip.salt_fission_controller.heating_speed_multiplier", "Mean Heating Speed: %s");
 
+        add(MODID + ".tooltip.fission_controller.heating_speed_multiplier", "Mean Heating Speed: %s");
         add(MODID + ".tooltip.fission_controller.clusters", "Number of Clusters: %s");
         add(MODID + ".tooltip.fission_controller.sparsity", "Sparsity Efficiency: %s");
         add(MODID + ".tooltip.fission_controller.useful_parts", "Useful Components: %s");
@@ -457,6 +457,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.infiltrator_controller.pressure_chamber_efficiency", "Chamber Efficiency: %s");
         add(MODID + ".tooltip.infiltrator_controller.pressure_fluid_efficiency", "Fluid Efficiency: %s");
 
+        add(MODID + ".tooltip.decay_pool_controller", "Decay Pool");
         add(MODID + ".tooltip.decay_pool_controller.containers", "Container Count: %s");
         add(MODID + ".tooltip.decay_pool_controller.heating_rate", "Heating Rate: %s");
         add(MODID + ".tooltip.decay_pool_controller.total_decay_rate", "Total Decay Rate: %s");

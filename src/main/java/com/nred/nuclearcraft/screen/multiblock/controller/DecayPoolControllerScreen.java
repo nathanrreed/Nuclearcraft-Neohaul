@@ -29,7 +29,7 @@ public class DecayPoolControllerScreen extends LogicMultiblockControllerScreen<M
     StringCenteringOperator containerCountText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.decay_pool_controller.containers", getLogic().getPartCount(DecayPoolContainerEntity.class)));
     StringCenteringOperator heatingRateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.decay_pool_controller.heating_rate", UnitHelper.prefix(multiblock.baseSpeedMultiplier, 5, "H/t")));
     StringCenteringOperator totalDecayRateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.decay_pool_controller.total_decay_rate", UnitHelper.prefix(getLogic().totalDecayRate, 5, "R/t")));
-    StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.decay_pool_controller.rate", multiblock.recipeUnitInfo.getString(multiblock.readyToProcess ? logic.getProcessTimeFP() : null, 5)));
+    StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(multiblock.readyToProcess ? logic.getProcessTimeFP() : null, 5)));
 
 
     public DecayPoolControllerScreen(DecayPoolControllerMenu menu, Inventory playerInventory, Component title) {
@@ -55,7 +55,7 @@ public class DecayPoolControllerScreen extends LogicMultiblockControllerScreen<M
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
 
-        int fontColor = multiblock.isMachineOn ? 4210752 : 15641088;
+        int fontColor = multiblock.isMachineOn ? -1 : 15641088;
         int middle_x = getGuiLeft() + imageWidth / 2;
         String title = multiblock.getInteriorLengthX() + "*" + multiblock.getInteriorLengthY() + "*" + multiblock.getInteriorLengthZ() + " " + Lang.localize(MODID + ".tooltip.decay_pool_controller");
         guiGraphics.drawCenteredString(this.font, title, middle_x, getGuiTop() + 6, fontColor);

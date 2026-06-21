@@ -31,6 +31,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -88,7 +89,14 @@ public class MachineReservoirPortEntity extends AbstractMachineEntity implements
     @Override
     public ItemStack getItem(int slot) {
         MachineLogic logic = getLogic();
-        return logic != null ? logic.getReservoirPortStackInSlot(this, slot) : ITileInventory.super.getItem(slot);
+
+        if (logic != null) {
+            return logic.getReservoirPortStackInSlot(this, slot);
+        } else if (getInventoryStacks().isEmpty()) {
+            return ItemStack.EMPTY;
+        } else {
+            return ITileInventory.super.getItem(slot);
+        }
     }
 
     @Override
@@ -334,5 +342,33 @@ public class MachineReservoirPortEntity extends AbstractMachineEntity implements
         super.readAll(nbt, registries);
         readInventoryConnections(nbt, registries);
         readFluidConnections(nbt, registries);
+    }
+
+    // Capability
+
+    @Override
+    public IItemHandler getItemSideCapability(@Nullable Direction side) {
+        MachineLogic logic = getLogic();
+        if (logic != null) {
+            if (logic.hasReservoirPortItemCapability(this, side)) {
+                return logic.getReservoirPortItemHandler(this, side);
+            }
+        } else if (hasInventorySideCapability(side)) {
+            return getItemHandler(side);
+        }
+        return null;
+    }
+
+    @Override
+    public FluidTileWrapper getFluidSideCapability(@Nullable Direction side) {
+        MachineLogic logic = getLogic();
+        if (logic != null) {
+            if (logic.hasReservoirPortFluidCapability(this, side)) {
+                return logic.getReservoirPortFluidHandler(this, nonNullSide(side));
+            }
+        } else if (hasFluidSideCapability(side)) {
+            return getFluidSide(nonNullSide(side));
+        }
+        return null;
     }
 }

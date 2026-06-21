@@ -714,8 +714,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), 1).pattern("PZP").pattern("ESE").pattern("PZP")
                 .define('P', PART_MAP.get("advanced_plating")).define('Z', ALLOY_MAP.get("zirconium_molybdenum")).define('E', ALLOY_MAP.get("extreme")).define('S', PART_BLOCK_MAP.get("steel_chassis"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
-        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"), 1).pattern("PCP").pattern("TST").pattern("PCP")
-                .define('P', PART_MAP.get("advanced_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('C', PART_MAP.get("pyrolytic_carbon")).define('T', ALLOY_MAP.get("tough"))
+        ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"), 1).pattern("PCP").pattern("ESE").pattern("PCP")
+                .define('P', PART_MAP.get("advanced_plating")).define('S', PART_BLOCK_MAP.get("steel_chassis")).define('C', PART_MAP.get("pyrolytic_carbon")).define('E', ALLOY_MAP.get("extreme"))
                 .unlockedBy(getHasName(PART_BLOCK_MAP.get("steel_chassis")), has(PART_BLOCK_MAP.get("steel_chassis"))).save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(MISC, FISSION_REACTOR_MAP.get("fission_casing"), 8).pattern(" P ").pattern("PSP").pattern(" P ")
