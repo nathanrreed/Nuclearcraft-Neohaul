@@ -440,11 +440,6 @@ public class SaltFissionVesselEntity extends AbstractFissionEntity implements IB
     }
 
     @Override
-    public double getEfficiencyIgnoreCoolingPenalty(boolean simulate) {
-        return isRunning(simulate) ? 0D : 1D;
-    }
-
-    @Override
     public void setUndercoolingLifetimeFactor(double undercoolingLifetimeFactor) {
         this.undercoolingLifetimeFactor = undercoolingLifetimeFactor;
     }

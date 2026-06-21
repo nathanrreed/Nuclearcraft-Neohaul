@@ -71,6 +71,16 @@ public class FissionFuelBunch {
         return getBunchingFactor() * rawHeating;
     }
 
+    public double getTotalBaseFuelHeating(boolean simulate) {
+        double totalBaseFuelHeating = 0D;
+        for (IFissionFuelBunchComponent fuelComponent : fuelComponentMap.values()) {
+            if (fuelComponent.isFunctional(simulate)) {
+                totalBaseFuelHeating += fuelComponent.getBaseProcessHeat();
+            }
+        }
+        return getBunchingFactor() * totalBaseFuelHeating;
+    }
+
     public long getRawHeatingIgnoreCoolingPenalty(boolean simulate) {
         long rawHeatingIgnoreCoolingPenalty = 0L;
         for (IFissionFuelBunchComponent fuelComponent : fuelComponentMap.values()) {
@@ -113,25 +123,5 @@ public class FissionFuelBunch {
 
     public double getFluxEfficiencyFactor(double floatingPointCriticalityFactor) {
         return (1D + Math.exp(-2D * floatingPointCriticalityFactor)) / (1D + Math.exp(2D * ((double) flux / (double) getSurfaceFactor() - 2D * floatingPointCriticalityFactor)));
-    }
-
-    public double getEfficiency(boolean simulate) {
-        double efficiency = 0D;
-        for (IFissionFuelBunchComponent fuelComponent : fuelComponentMap.values()) {
-            if (fuelComponent.isRunning(simulate)) {
-                efficiency += fuelComponent.getIndividualHeatMultiplier(simulate) * fuelComponent.getBaseProcessEfficiency() * fuelComponent.getSourceEfficiency() * fuelComponent.getModeratorEfficiencyFactor() * getFluxEfficiencyFactor(fuelComponent.getFloatingPointCriticality());
-            }
-        }
-        return getBunchingFactor() * efficiency;
-    }
-
-    public double getEfficiencyIgnoreCoolingPenalty(boolean simulate) {
-        double efficiencyIgnoreCoolingPenalty = 0D;
-        for (IFissionFuelBunchComponent fuelComponent : fuelComponentMap.values()) {
-            if (!fuelComponent.isRunning(simulate)) {
-                ++efficiencyIgnoreCoolingPenalty;
-            }
-        }
-        return getBunchingFactor() * efficiencyIgnoreCoolingPenalty;
     }
 }

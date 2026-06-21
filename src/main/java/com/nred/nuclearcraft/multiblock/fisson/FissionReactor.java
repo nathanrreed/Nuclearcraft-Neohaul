@@ -57,8 +57,8 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
     public boolean refreshFlag = true, isSimulation = false, isReactorOn = false;
     public double ambientTemp = 290D;
     public int fuelComponentCount = 0;
-    public long cooling = 0L, rawHeating = 0L, totalHeatMult = 0L, usefulPartCount = 0L;
-    public double meanHeatMult = 0D, totalEfficiency = 0D, meanEfficiency = 0D, sparsityEfficiencyMult = 0D;
+    public long cooling = 0L, rawHeating = 0L, usefulPartCount = 0L;
+    public double totalBaseFuelHeating = 0D, meanHeatMult = 0D, meanEfficiency = 0D, sparsityEfficiencyMult = 0D;
 
     protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
@@ -94,8 +94,8 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
     public void resetStats() {
         logic.onResetStats();
         fuelComponentCount = 0;
-        cooling = rawHeating = totalHeatMult = usefulPartCount = 0L;
-        meanHeatMult = totalEfficiency = meanEfficiency = sparsityEfficiencyMult = 0D;
+        cooling = rawHeating = usefulPartCount = 0L;
+        totalBaseFuelHeating = meanHeatMult = meanEfficiency = sparsityEfficiencyMult = 0D;
     }
 
     // Multiblock Size Limits
@@ -310,11 +310,9 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
         data.putInt("clusterCount", clusterCount);
         data.putLong("cooling", cooling);
         data.putLong("rawHeating", rawHeating);
-        data.putLong("totalHeatMult", totalHeatMult);
         data.putDouble("meanHeatMult", meanHeatMult);
         data.putInt("fuelComponentCount", fuelComponentCount);
         data.putLong("usefulPartCount", usefulPartCount);
-        data.putDouble("totalEfficiency", totalEfficiency);
         data.putDouble("meanEfficiency", meanEfficiency);
         data.putDouble("sparsityEfficiencyMult", sparsityEfficiencyMult);
 
@@ -330,11 +328,9 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
         clusterCount = data.getInt("clusterCount");
         cooling = data.getLong("cooling");
         rawHeating = data.getLong("rawHeating");
-        totalHeatMult = data.getLong("totalHeatMult");
         meanHeatMult = data.getDouble("meanHeatMult");
         fuelComponentCount = data.getInt("fuelComponentCount");
         usefulPartCount = data.getLong("usefulPartCount");
-        totalEfficiency = data.getDouble("totalEfficiency");
         meanEfficiency = data.getDouble("meanEfficiency");
         sparsityEfficiencyMult = data.getDouble("sparsityEfficiencyMult");
 
@@ -359,11 +355,8 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
         clusterCount = message.clusterCount;
         cooling = message.cooling;
         rawHeating = message.rawHeating;
-        totalHeatMult = message.totalHeatMult;
         meanHeatMult = message.meanHeatMult;
-        fuelComponentCount = message.fuelComponentCount;
         usefulPartCount = message.usefulPartCount;
-        totalEfficiency = message.totalEfficiency;
         meanEfficiency = message.meanEfficiency;
         sparsityEfficiencyMult = message.sparsityEfficiencyMult;
 

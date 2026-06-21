@@ -20,18 +20,16 @@ public class PebbleFissionUpdatePacket extends FissionUpdatePacket {
     public static final StreamCodec<RegistryFriendlyByteBuf, PebbleFissionUpdatePacket> STREAM_CODEC = StreamCodec.ofMember(
             PebbleFissionUpdatePacket::toBytes, PebbleFissionUpdatePacket::fromBytes
     );
-    public double meanHeatingSpeedMultiplier, totalHeatingSpeedMultiplier;
+    public double meanHeatingSpeedMultiplier;
 
-    public PebbleFissionUpdatePacket(BlockPos pos, boolean isReactorOn, HeatBuffer heatBuffer, int clusterCount, long cooling, long rawHeating, long totalHeatMult, double meanHeatMult, int fuelComponentCount, long usefulPartCount, double totalEfficiency, double meanEfficiency, double sparsityEfficiencyMult, double meanHeatingSpeedMultiplier, double totalHeatingSpeedMultiplier) {
-        super(pos, isReactorOn, heatBuffer, clusterCount, cooling, rawHeating, totalHeatMult, meanHeatMult, fuelComponentCount, usefulPartCount, totalEfficiency, meanEfficiency, sparsityEfficiencyMult);
+    public PebbleFissionUpdatePacket(BlockPos pos, boolean isReactorOn, HeatBuffer heatBuffer, int clusterCount, long cooling, long rawHeating, double meanHeatMult, long usefulPartCount, double meanEfficiency, double sparsityEfficiencyMult, double meanHeatingSpeedMultiplier) {
+        super(pos, isReactorOn, heatBuffer, clusterCount, cooling, rawHeating, meanHeatMult, usefulPartCount, meanEfficiency, sparsityEfficiencyMult);
         this.meanHeatingSpeedMultiplier = meanHeatingSpeedMultiplier;
-        this.totalHeatingSpeedMultiplier = totalHeatingSpeedMultiplier;
     }
 
-    public PebbleFissionUpdatePacket(FissionUpdatePacket fissionUpdatePacket, double meanHeatingSpeedMultiplier, double totalHeatingSpeedMultiplier) {
+    public PebbleFissionUpdatePacket(FissionUpdatePacket fissionUpdatePacket, double meanHeatingSpeedMultiplier) {
         super(fissionUpdatePacket);
         this.meanHeatingSpeedMultiplier = meanHeatingSpeedMultiplier;
-        this.totalHeatingSpeedMultiplier = totalHeatingSpeedMultiplier;
     }
 
     @Override
@@ -42,15 +40,13 @@ public class PebbleFissionUpdatePacket extends FissionUpdatePacket {
     public static PebbleFissionUpdatePacket fromBytes(RegistryFriendlyByteBuf buf) {
         FissionUpdatePacket fissionUpdatePacket = FissionUpdatePacket.fromBytes(buf);
         double meanHeatingSpeedMultiplier = buf.readDouble();
-        double totalHeatingSpeedMultiplier = buf.readDouble();
-        return new PebbleFissionUpdatePacket(fissionUpdatePacket, meanHeatingSpeedMultiplier, totalHeatingSpeedMultiplier);
+        return new PebbleFissionUpdatePacket(fissionUpdatePacket, meanHeatingSpeedMultiplier);
     }
 
     @Override
     public void toBytes(RegistryFriendlyByteBuf buf) {
         super.toBytes(buf);
         buf.writeDouble(meanHeatingSpeedMultiplier);
-        buf.writeDouble(totalHeatingSpeedMultiplier);
     }
 
     public static class Handler extends MultiblockUpdatePacket.Handler<FissionReactor, FissionUpdatePacket, PebbleFissionControllerEntity, BlockEntityMenuInfo<PebbleFissionControllerEntity>, PebbleFissionUpdatePacket> {

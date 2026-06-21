@@ -106,8 +106,6 @@ public interface IFissionFuelComponent extends IFissionFluxSink, IFissionHeating
 
     double getEfficiency(boolean simulate);
 
-    double getEfficiencyIgnoreCoolingPenalty(boolean simulate);
-
     void setUndercoolingLifetimeFactor(double undercoolingLifetimeFactor);
 
     long getCriticality();

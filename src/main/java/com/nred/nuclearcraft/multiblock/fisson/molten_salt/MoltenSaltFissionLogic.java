@@ -41,13 +41,12 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 
     public RecipeInfo<FissionEmergencyCoolingRecipe> emergencyCoolingRecipeInfo;
 
-    public double meanHeatingSpeedMultiplier = 0D, totalHeatingSpeedMultiplier = 0D;
+    public double meanHeatingSpeedMultiplier = 0D;
 
     public MoltenSaltFissionLogic(FissionReactorLogic oldLogic) {
         super(oldLogic.multiblock);
         if (oldLogic instanceof MoltenSaltFissionLogic oldMoltenSaltLogic) {
             meanHeatingSpeedMultiplier = oldMoltenSaltLogic.meanHeatingSpeedMultiplier;
-            totalHeatingSpeedMultiplier = oldMoltenSaltLogic.totalHeatingSpeedMultiplier;
         }
     }
 
@@ -58,7 +57,7 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
 
     @Override
     public void onResetStats() {
-        meanHeatingSpeedMultiplier = totalHeatingSpeedMultiplier = 0D;
+        meanHeatingSpeedMultiplier = 0D;
     }
 
     @Override
@@ -117,11 +116,9 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
                             fuelBunch.statsRetrieved = true;
                             cluster.rawHeating += fuelBunch.getRawHeating(simulate);
                             cluster.rawHeatingIgnoreCoolingPenalty += fuelBunch.getRawHeatingIgnoreCoolingPenalty(simulate);
+                            cluster.totalBaseFuelHeating += fuelBunch.getTotalBaseFuelHeating(simulate);
                             cluster.effectiveHeating += fuelBunch.getEffectiveHeating(simulate);
                             cluster.effectiveHeatingIgnoreCoolingPenalty += fuelBunch.getEffectiveHeatingIgnoreCoolingPenalty(simulate);
-                            cluster.totalHeatMult += fuelBunch.getHeatMultiplier(simulate);
-                            cluster.totalEfficiency += fuelBunch.getEfficiency(simulate);
-                            cluster.totalEfficiencyIgnoreCoolingPenalty += fuelBunch.getEfficiencyIgnoreCoolingPenalty(simulate);
                         }
                     } else {
                         cluster.rawHeating += heatingComponent.getRawHeating(simulate);
@@ -141,38 +138,35 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
     public void refreshReactorStats(boolean simulate) {
         super.refreshReactorStats(simulate);
 
-        for (FissionCluster cluster : getClusterMap().values()) {
+        double effectiveHeating = 0D;
+        for (FissionCluster cluster : multiblock.getClusterMap().values()) {
             multiblock.usefulPartCount += cluster.componentCount;
             multiblock.fuelComponentCount += cluster.fuelComponentCount;
             multiblock.cooling += cluster.cooling;
             multiblock.rawHeating += cluster.rawHeating;
-            // effectiveHeating += cluster.effectiveHeating;
-            multiblock.totalHeatMult += cluster.totalHeatMult;
-            multiblock.totalEfficiency += cluster.totalEfficiency;
+            multiblock.totalBaseFuelHeating += cluster.totalBaseFuelHeating;
+            effectiveHeating += cluster.effectiveHeating;
         }
 
         multiblock.usefulPartCount += multiblock.passiveModeratorCache.size() + multiblock.activeModeratorCache.size() + multiblock.activeReflectorCache.size();
         double usefulPartRatio = (double) multiblock.usefulPartCount / (double) multiblock.getInteriorVolume();
         multiblock.sparsityEfficiencyMult = usefulPartRatio >= fission_sparsity_penalty_params[1] ? 1D : (1D - fission_sparsity_penalty_params[0]) * Math.sin(usefulPartRatio * Math.PI / (2D * fission_sparsity_penalty_params[1])) + fission_sparsity_penalty_params[0];
-        // effectiveHeating *= multiblock.sparsityEfficiencyMult;
-        multiblock.totalEfficiency *= multiblock.sparsityEfficiencyMult;
-        multiblock.meanHeatMult = multiblock.fuelComponentCount == 0 ? 0D : (double) multiblock.totalHeatMult / (double) multiblock.fuelComponentCount;
-        multiblock.meanEfficiency = multiblock.fuelComponentCount == 0 ? 0D : multiblock.totalEfficiency / multiblock.fuelComponentCount;
+        multiblock.meanHeatMult = multiblock.totalBaseFuelHeating <= 0D ? 0D : (double) multiblock.rawHeating / multiblock.totalBaseFuelHeating;
+        multiblock.meanEfficiency = multiblock.totalBaseFuelHeating <= 0D ? 0D : effectiveHeating * multiblock.sparsityEfficiencyMult / multiblock.totalBaseFuelHeating;
 
-        for (FissionCluster cluster : getClusterMap().values()) {
-            cluster.meanHeatingSpeedMultiplier = cluster.totalHeatingSpeedMultiplier = 0D;
-            int clusterHeaters = 0;
+        double totalWeightedHeatingSpeedMultiplier = 0D, totalCooling = 0D;
+        for (FissionCluster cluster : multiblock.getClusterMap().values()) {
+            double heatingSpeedMultiplier = cluster.meanEfficiency * multiblock.sparsityEfficiencyMult * (cluster.rawHeating >= cluster.cooling ? 1D : (double) cluster.rawHeating / (double) cluster.cooling);
             for (IFissionComponent component : cluster.getComponentMap().values()) {
                 if (component instanceof SaltFissionHeaterEntity heater) {
-                    heater.heatingSpeedMultiplier = cluster.meanEfficiency * multiblock.sparsityEfficiencyMult * (cluster.rawHeating >= cluster.cooling ? 1D : (double) cluster.rawHeating / (double) cluster.cooling);
-                    cluster.totalHeatingSpeedMultiplier += heater.heatingSpeedMultiplier;
-                    ++clusterHeaters;
+                    long cooling = heater.isFunctional(simulate) ? heater.getCooling(simulate) : 0L;
+                    heater.heatingSpeedMultiplier = cooling > 0L ? heatingSpeedMultiplier : 0D;
+                    totalWeightedHeatingSpeedMultiplier += heater.heatingSpeedMultiplier * cooling;
+                    totalCooling += cooling;
                 }
             }
-            cluster.meanHeatingSpeedMultiplier = clusterHeaters == 0 ? 0D : cluster.totalHeatingSpeedMultiplier / clusterHeaters;
-            totalHeatingSpeedMultiplier += cluster.meanHeatingSpeedMultiplier;
         }
-        meanHeatingSpeedMultiplier = getClusterMap().isEmpty() ? 0D : totalHeatingSpeedMultiplier / getClusterMap().size();
+        meanHeatingSpeedMultiplier = totalCooling <= 0D ? 0D : totalWeightedHeatingSpeedMultiplier / totalCooling;
     }
 
     // Server
@@ -355,7 +349,6 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
         super.writeToLogicTag(data, registries, syncReason);
         writeTanks(tanks, data, registries, "tanks");
         data.putDouble("meanHeatingSpeedMultiplier", meanHeatingSpeedMultiplier);
-        data.putDouble("totalHeatingSpeedMultiplier", totalHeatingSpeedMultiplier);
     }
 
     @Override
@@ -363,14 +356,13 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
         super.readFromLogicTag(data, registries, syncReason);
         readTanks(tanks, data, registries, "tanks");
         meanHeatingSpeedMultiplier = data.getDouble("meanHeatingSpeedMultiplier");
-        totalHeatingSpeedMultiplier = data.getDouble("totalHeatingSpeedMultiplier");
     }
 
     // Packets
 
     @Override
     public SaltFissionUpdatePacket getMultiblockUpdatePacket() {
-        return new SaltFissionUpdatePacket(multiblock.controller.getTilePos(), multiblock.isReactorOn, heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.totalHeatMult, multiblock.meanHeatMult, multiblock.fuelComponentCount, multiblock.usefulPartCount, multiblock.totalEfficiency, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, meanHeatingSpeedMultiplier, totalHeatingSpeedMultiplier);
+        return new SaltFissionUpdatePacket(multiblock.controller.getTilePos(), multiblock.isReactorOn, heatBuffer, multiblock.clusterCount, multiblock.cooling, multiblock.rawHeating, multiblock.meanHeatMult, multiblock.usefulPartCount, multiblock.meanEfficiency, multiblock.sparsityEfficiencyMult, meanHeatingSpeedMultiplier);
     }
 
     @Override
@@ -378,7 +370,6 @@ public class MoltenSaltFissionLogic extends FissionReactorLogic {
         super.onMultiblockUpdatePacket(message);
         if (message instanceof SaltFissionUpdatePacket packet) {
             meanHeatingSpeedMultiplier = packet.meanHeatingSpeedMultiplier;
-            totalHeatingSpeedMultiplier = packet.totalHeatingSpeedMultiplier;
         }
     }
 
