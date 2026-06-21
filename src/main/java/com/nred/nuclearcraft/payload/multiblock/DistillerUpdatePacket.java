@@ -27,8 +27,8 @@ public class DistillerUpdatePacket extends MachineUpdatePacket {
     public double reboilingUnitBonus;
     public double liquidDistributorBonus;
 
-    public DistillerUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo, double refluxUnitBonus, double reboilingUnitBonus, double liquidDistributorBonus) {
-        super(pos, isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo);
+    public DistillerUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo, boolean readyToProcess, double refluxUnitBonus, double reboilingUnitBonus, double liquidDistributorBonus) {
+        super(pos, isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tanks, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo, readyToProcess);
         this.refluxUnitBonus = refluxUnitBonus;
         this.reboilingUnitBonus = reboilingUnitBonus;
         this.liquidDistributorBonus = liquidDistributorBonus;

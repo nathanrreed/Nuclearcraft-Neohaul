@@ -9,9 +9,7 @@ import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.util.NCMath;
@@ -138,6 +136,16 @@ public class EmiRecipeViewerImpl {
     public static class EmiMultiblockInfiltratorRecipe extends EmiRecipeViewerRecipe {
         public EmiMultiblockInfiltratorRecipe(ResourceLocation id, MultiblockInfiltratorRecipe recipe) {
             super("multiblock_infiltrator", EMI_MULTIBLOCK_INFILTRATOR_CATEGORY, id, new MultiblockInfiltratorRecipeViewer(recipe));
+        }
+    }
+    public static class EmiMultiblockDecayPoolRecipe extends EmiRecipeViewerRecipe {
+        public EmiMultiblockDecayPoolRecipe(ResourceLocation id, MultiblockDecayPoolRecipe recipe) {
+            super("multiblock_decay_pool", EMI_MULTIBLOCK_DECAY_POOL_CATEGORY, id, new MultiblockDecayPoolRecipeViewer(recipe));
+        }
+    }
+    public static class EmiDecayPoolHeatSourceRecipe extends EmiRecipeViewerRecipe {
+        public EmiDecayPoolHeatSourceRecipe(ResourceLocation id, DecayPoolHeatSourceRecipe recipe) {
+            super("decay_pool_heat_source", EMI_DECAY_POOL_HEAT_SOURCE_CATEGORY, id, new DecayPoolHeatSourceRecipeViewer(recipe));
         }
     }
 

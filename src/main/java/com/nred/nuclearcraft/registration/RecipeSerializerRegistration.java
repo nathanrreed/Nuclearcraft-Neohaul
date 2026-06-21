@@ -4,9 +4,7 @@ import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -62,6 +60,8 @@ public class RecipeSerializerRegistration {
     public static final DeferredHolder<RecipeSerializer<?>, MultiblockInfiltratorRecipe.Serializer> MULTIBLOCK_INFILTRATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("multiblock_infiltrator_recipe", MultiblockInfiltratorRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, MultiblockDistillerRecipe.Serializer> MULTIBLOCK_DISTILLER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("multiblock_distiller_recipe", MultiblockDistillerRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, MultiblockElectrolyzerRecipe.Serializer> MULTIBLOCK_ELECTROLYZER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("multiblock_electrolyzer_recipe", MultiblockElectrolyzerRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, MultiblockDecayPoolRecipe.Serializer> MULTIBLOCK_DECAY_POOL_RECIPE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("multiblock_decay_pool_recipe", MultiblockDecayPoolRecipe.Serializer::new);
+    public static final DeferredHolder<RecipeSerializer<?>, DecayPoolHeatSourceRecipe.Serializer> DECAY_POOL_HEAT_SOURCE_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("decay_pool_heat_source_recipe", DecayPoolHeatSourceRecipe.Serializer::new);
 
     public static final DeferredHolder<RecipeSerializer<?>, DecayGeneratorRecipe.Serializer> DECAY_GENERATOR_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("decay_generator_recipe", DecayGeneratorRecipe.Serializer::new);
     public static final DeferredHolder<RecipeSerializer<?>, RadiationScrubberRecipe.Serializer> RADIATION_SCRUBBER_RECIPE_SERIALIZER = RECIPE_SERIALIZERS.register("radiation_scrubber_recipe", RadiationScrubberRecipe.Serializer::new);

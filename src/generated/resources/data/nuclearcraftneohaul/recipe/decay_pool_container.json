@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "L": {
+      "tag": "c:ingots/lead"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "BLB",
+    "SMS",
+    "BLB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:decay_pool_container"
+  }
+}

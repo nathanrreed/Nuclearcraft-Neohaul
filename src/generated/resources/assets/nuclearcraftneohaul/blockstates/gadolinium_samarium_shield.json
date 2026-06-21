@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "nuclearcraftneohaul_active=false": {
+      "model": "nuclearcraftneohaul:block/gadolinium_samarium_shield_false"
+    },
+    "nuclearcraftneohaul_active=true": {
+      "model": "nuclearcraftneohaul:block/gadolinium_samarium_shield_true"
+    }
+  }
+}

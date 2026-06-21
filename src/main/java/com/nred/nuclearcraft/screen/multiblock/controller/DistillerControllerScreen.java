@@ -25,7 +25,7 @@ public class DistillerControllerScreen extends LogicMultiblockControllerScreen<M
     StringCenteringOperator refluxBonusText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.distiller_controller.reflux_bonus", NCMath.pcDecimalPlaces(getLogic().refluxUnitBonus, 1)));
     StringCenteringOperator reboilingBonusText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.distiller_controller.reboiling_bonus", NCMath.pcDecimalPlaces(getLogic().reboilingUnitBonus, 1)));
     StringCenteringOperator distributionBonusText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.distiller_controller.distribution_bonus", NCMath.pcDecimalPlaces(getLogic().liquidDistributorBonus, 1)));
-    StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(logic.getProcessTimeFP(), 5)));
+    StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(multiblock.readyToProcess ? logic.getProcessTimeFP() : null, 5)));
     StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "RF/t")));
 
     public DistillerControllerScreen(DistillerControllerMenu menu, Inventory playerInventory, Component title) {

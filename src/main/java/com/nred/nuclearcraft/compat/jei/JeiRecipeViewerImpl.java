@@ -9,9 +9,7 @@ import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.util.NCMath;
@@ -157,6 +155,18 @@ public class JeiRecipeViewerImpl {
     public static class JeiMultiblockInfiltratorCategory extends JeiRecipeViewerCategory<MultiblockInfiltratorRecipe> {
         public JeiMultiblockInfiltratorCategory(IGuiHelper helper) {
             super(helper, "multiblock_infiltrator", MultiblockInfiltratorRecipeViewer.class, MULTIBLOCK_INFILTRATOR_RECIPE_TYPE.get());
+        }
+    }
+
+    public static class JeiMultiblockDecayPoolCategory extends JeiRecipeViewerCategory<MultiblockDecayPoolRecipe> {
+        public JeiMultiblockDecayPoolCategory(IGuiHelper helper) {
+            super(helper, "multiblock_decay_pool", MultiblockDecayPoolRecipeViewer.class, MULTIBLOCK_DECAY_POOL_RECIPE_TYPE.get());
+        }
+    }
+
+    public static class JeiDecayPoolHeatSourceCategory extends JeiRecipeViewerCategory<DecayPoolHeatSourceRecipe> {
+        public JeiDecayPoolHeatSourceCategory(IGuiHelper helper) {
+            super(helper, "decay_pool_heat_source", DecayPoolHeatSourceRecipeViewer.class, DECAY_POOL_HEAT_SOURCE_RECIPE_TYPE.get());
         }
     }
 

@@ -7,7 +7,7 @@ import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
-import com.nred.nuclearcraft.multiblock.fisson.molten_salt.SaltFissionLogic;
+import com.nred.nuclearcraft.multiblock.fisson.molten_salt.MoltenSaltFissionLogic;
 import com.nred.nuclearcraft.multiblock.fisson.pebble.PebbleBedFissionLogic;
 import com.nred.nuclearcraft.multiblock.fisson.solid.SolidFuelFissionLogic;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
@@ -79,7 +79,7 @@ public class FissionReactor extends Multiblock<FissionReactor> implements ILogic
 
         UnaryOperator<FissionReactorLogic> constructor = switch (logicID) {
             case "solid_fuel" -> SolidFuelFissionLogic::new;
-            case "molten_salt" -> SaltFissionLogic::new;
+            case "molten_salt" -> MoltenSaltFissionLogic::new;
             case "pebble_bed" -> PebbleBedFissionLogic::new;
             default -> throw new IllegalStateException("Unexpected logicID: " + logicID);
         };

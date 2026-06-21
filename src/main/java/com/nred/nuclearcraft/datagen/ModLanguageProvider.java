@@ -457,12 +457,20 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.infiltrator_controller.pressure_chamber_efficiency", "Chamber Efficiency: %s");
         add(MODID + ".tooltip.infiltrator_controller.pressure_fluid_efficiency", "Fluid Efficiency: %s");
 
+        add(MODID + ".tooltip.decay_pool_controller.containers", "Container Count: %s");
+        add(MODID + ".tooltip.decay_pool_controller.heating_rate", "Heating Rate: %s");
+        add(MODID + ".tooltip.decay_pool_controller.total_decay_rate", "Total Decay Rate: %s");
+
         add(MODID + ".recipe_viewer.infiltrator_heating_factor", "Heating Factor: %s");
 
         add(MODID + ".recipe_viewer.electrolyte_efficiency", "Electrolyte Efficiency: %s");
         add(MODID + ".recipe_viewer.electrolyte", "Electrolyte: %s");
         add(MODID + ".recipe_viewer.distiller_sieve_tray_count", "Minimum Sieve Tray Count: %s");
         add(MODID + ".recipe_viewer.infiltrator_pressure_fluid_efficiency", "Efficiency Multiplier: %s");
+
+        add(MODID + ".recipe_viewer.decay_pool_heating_required", "Heating Required: %s");
+        add(MODID + ".recipe_viewer.decay_pool_container_lifetime", "Mean Lifetime: %s");
+        add(MODID + ".recipe_viewer.decay_pool_container_heat", "Heat Gen: %s");
     }
 
     private void string_formatting() {
@@ -945,6 +953,7 @@ public class ModLanguageProvider extends LanguageProvider {
         ));
         Map<String, String> fission = new HashMap<>(Map.of(
                 "boron_silver_shield", "Boron-Silver Fission Neutron Shield",
+                "gadolinium_samarium_shield", "Gadolinium-Samarium Fission Neutron Shield",
                 "radium_beryllium_source", "Ra-Be Fission Neutron Source",
                 "polonium_beryllium_source", "Po-Be Fission Neutron Source",
                 "californium_source", "Cf-252 Fission Neutron Source",
@@ -1602,7 +1611,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.fission_source_order", "Ra-Be, Po-Be, Cf-252");
         add(MODID + ".configuration.heat_sink_order", "Water, Iron, Redstone, Quartz, Obsidian, Nether Brick, Glowstone, Lapis, Gold, Prismarine, Slime, End Stone, Purpur, Diamond, Emerald, Copper, Tin, Lead, Boron, Lithium, Magnesium, Manganese, Aluminum, Silver, Fluorite, Villiaumite, Carobbiite, Arsenic, Liquid Nitrogen, Liquid Helium, Enderium, Cryotheum");
         add(MODID + ".configuration.heater_order", "Standard, Iron, Redstone, Quartz, Obsidian, Nether Brick, Glowstone, Lapis, Gold, Prismarine, Slime, End Stone, Purpur, Diamond, Emerald, Copper, Tin, Lead, Boron, Lithium, Magnesium, Manganese, Aluminum, Silver, Fluorite, Villiaumite, Carobbiite, Arsenic, Liquid Nitrogen, Liquid Helium, Enderium, Cryotheum");
-        add(MODID + ".configuration.fission_shield_order", "Boron Silver");
+        add(MODID + ".configuration.fission_shield_order", "Boron-Silver, Gadolinium-Samarium");
         add(MODID + ".configuration.turbine_blade_order", "Steel, Extreme Alloy, SiC-SiC CMC");
         add(MODID + ".configuration.turbine_coil_order", "Magnesium, Beryllium, Aluminum, Gold, Copper, Silver");
         add(MODID + ".configuration.turbine_connector_order", "Standard");

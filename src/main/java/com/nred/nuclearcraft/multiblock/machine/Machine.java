@@ -35,7 +35,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.UnaryOperator;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
@@ -47,13 +50,14 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
 
     public @Nonnull EnergyStorage energyStorage = new EnergyStorage(1);
 
+    public @Nonnull InventoryStackList reservoirInventoryStacks = new InventoryStackList(Collections.emptyList());
     public @Nonnull List<Tank> reservoirTanks = Collections.emptyList();
 
     public BasicRecipeHandler<?> recipeHandler;
 
     public int itemInputSize, itemOutputSize, fluidInputSize, fluidOutputSize;
 
-    public @Nonnull InventoryStackList inventoryStacks = new InventoryStackList(new ArrayList<>());
+    public @Nonnull InventoryStackList inventoryStacks = new InventoryStackList(Collections.emptyList());
     public @Nonnull List<Tank> tanks = Collections.emptyList();
 
     public @Nonnull List<InventoryConnection[]> inventoryConnections = Collections.emptyList();
@@ -67,9 +71,10 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
 
     public RecipeUnitInfo recipeUnitInfo = RecipeUnitInfo.DEFAULT;
 
-    public boolean isMachineOn, fullHalt;
+    public boolean isMachineOn, fullHalt, readyToProcess;
 
     public int machineActivityCooldown = 0;
+    public boolean isMachineOnQueued = false, machineActivityDirty = false;
 
     @OnlyIn(Dist.CLIENT)
     protected Object2ObjectMap<BlockPos, SoundInstance> soundMap;
@@ -250,6 +255,7 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
             case "distiller" -> DistillerLogic::new;
             case "electrolyzer" -> ElectrolyzerLogic::new;
             case "infiltrator" -> InfiltratorLogic::new;
+            case "decay_pool" -> DecayPoolLogic::new;
             default -> throw new IllegalStateException("Unexpected logicID: " + logicID);
         };
 
@@ -374,6 +380,7 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
 
     @Override
     public MachineUpdatePacket getMultiblockUpdatePacket() {
+        readyToProcess = processor.readyToProcess();
         return logic.getMultiblockUpdatePacket();
     }
 
@@ -438,8 +445,9 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
             tank.setFluidStored(null);
         }
 
-        for (Tank reservoirTank : reservoirTanks) {
-            reservoirTank.setFluidStored(null);
+        Collections.fill(reservoirInventoryStacks, ItemStack.EMPTY);
+        for (Tank tank : reservoirTanks) {
+            tank.setFluidStored(null);
         }
     }
 }

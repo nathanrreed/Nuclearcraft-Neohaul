@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:radiation_scrubber/radiation_scrubber_from_radaway"
+        "recipe": "nuclearcraftneohaul:decay_pool_heat_source/zirconium_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:radiation_scrubber/radiation_scrubber_from_radaway"
+      "nuclearcraftneohaul:decay_pool_heat_source/zirconium_dust"
     ]
   }
 }

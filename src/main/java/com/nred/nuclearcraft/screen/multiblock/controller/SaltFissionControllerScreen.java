@@ -6,7 +6,7 @@ import com.nred.nuclearcraft.handler.BlockEntityMenuInfo;
 import com.nred.nuclearcraft.menu.multiblock.controller.SaltFissionControllerMenu;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
-import com.nred.nuclearcraft.multiblock.fisson.molten_salt.SaltFissionLogic;
+import com.nred.nuclearcraft.multiblock.fisson.molten_salt.MoltenSaltFissionLogic;
 import com.nred.nuclearcraft.payload.multiblock.ClearAllMaterialPacket;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import com.nred.nuclearcraft.util.*;
@@ -23,7 +23,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-public class SaltFissionControllerScreen extends LogicMultiblockControllerScreen<FissionReactor, FissionReactorLogic, FissionUpdatePacket, SaltFissionControllerEntity, BlockEntityMenuInfo<SaltFissionControllerEntity>, SaltFissionLogic, SaltFissionControllerMenu> {
+public class SaltFissionControllerScreen extends LogicMultiblockControllerScreen<FissionReactor, FissionReactorLogic, FissionUpdatePacket, SaltFissionControllerEntity, BlockEntityMenuInfo<SaltFissionControllerEntity>, MoltenSaltFissionLogic, SaltFissionControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "salt_fission_controller");
 
     StringCenteringOperator heatMultText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.fission_controller.heat_mult", NCMath.pcDecimalPlaces(multiblock.meanHeatMult, 1)));

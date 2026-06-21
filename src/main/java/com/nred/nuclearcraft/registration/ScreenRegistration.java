@@ -83,5 +83,6 @@ public class ScreenRegistration {
         event.register(DISTILLER_CONTROLLER_MENU_TYPE.get(), DistillerControllerScreen::new);
         event.register(ELECTROLYZER_CONTROLLER_MENU_TYPE.get(), ElectrolyzerControllerScreen::new);
         event.register(INFILTRATOR_CONTROLLER_MENU_TYPE.get(), InfiltratorControllerScreen::new);
+        event.register(DECAY_POOL_CONTROLLER_MENU_TYPE.get(), DecayPoolControllerScreen::new);
     }
 }

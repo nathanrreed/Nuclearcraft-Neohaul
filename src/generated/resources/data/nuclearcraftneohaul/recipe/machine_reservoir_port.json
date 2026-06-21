@@ -5,6 +5,9 @@
     "B": {
       "tag": "c:ingots/bronze"
     },
+    "H": {
+      "item": "minecraft:hopper"
+    },
     "M": {
       "item": "nuclearcraftneohaul:machine_chassis"
     },
@@ -16,7 +19,7 @@
     }
   },
   "pattern": [
-    "BSB",
+    "BHB",
     "TMT",
     "BSB"
   ],

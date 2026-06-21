@@ -69,6 +69,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.FERTILE_ISOTOPES;
 import static com.nred.nuclearcraft.info.Names.ORES;
 import static com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType.BORON_SILVER;
+import static com.nred.nuclearcraft.multiblock.fisson.FissionNeutronShieldType.GADOLINIUM_SAMARIUM;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineDynamoCoilType.*;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeType.*;
 import static com.nred.nuclearcraft.multiblock.turbine.TurbineRotorStatorType.STANDARD;
@@ -220,6 +221,7 @@ public class BlockRegistration {
         map.put("iridium_oxide", registerBlockItem("iridium_oxide_block", () -> new NCBlock(p -> p.sound(SoundType.STONE))));
         map.put("holmium", registerBlockItem("holmium_block", () -> new NCBlock(p -> p.sound(SoundType.METAL))));
         map.put("dysprosium", registerBlockItem("dysprosium_block", () -> new NCBlock(p -> p.sound(SoundType.METAL))));
+        map.put("gadolinium", registerBlockItem("gadolinium_block", () -> new NCBlock(p -> p.sound(SoundType.METAL))));
         return map;
     }
 
@@ -364,6 +366,7 @@ public class BlockRegistration {
         map.put("californium_source", registerBlockItemWithTooltip("californium_source", () -> FissionPartType.Source.createBlock(FissionSourceType.CALIFORNIUM), x -> SOURCE_FUNCTION.apply(x, FissionSourceType.CALIFORNIUM)));
 
         map.put("boron_silver_shield", registerBlockItemWithTooltip("boron_silver_shield", () -> FissionPartType.Shield.createBlock(BORON_SILVER), x -> SHIELD_FUNCTION.apply(x, BORON_SILVER)));
+        map.put("gadolinium_samarium_shield", registerBlockItemWithTooltip("gadolinium_samarium_shield", () -> FissionPartType.Shield.createBlock(GADOLINIUM_SAMARIUM), x -> SHIELD_FUNCTION.apply(x, GADOLINIUM_SAMARIUM)));
 
         map.put("fission_shield_manager", registerBlockItem("fission_shield_manager", FissionPartType.ShieldManager::createBlock));
         map.put("fission_source_manager", registerBlockItem("fission_source_manager", FissionPartType.SourceManager::createBlock));
@@ -506,6 +509,10 @@ public class BlockRegistration {
         map.put("infiltrator_controller", registerBlockItem("infiltrator_controller", MachinePartType.InfiltratorController::createBlock));
         map.put("infiltrator_pressure_chamber", registerBlockItem("infiltrator_pressure_chamber", MachinePartType.InfiltratorPressureChamber::createBlock));
         map.put("infiltrator_heating_unit", registerBlockItem("infiltrator_heating_unit", MachinePartType.InfiltratorHeatingUnit::createBlock));
+
+        // Decay Pool
+        map.put("decay_pool_controller", registerBlockItem("decay_pool_controller", MachinePartType.DecayPoolControllerBlock::createBlock));
+        map.put("decay_pool_container", registerBlockItem("decay_pool_container", MachinePartType.DecayPoolContainerBlock::createBlock));
 
         return map;
     }

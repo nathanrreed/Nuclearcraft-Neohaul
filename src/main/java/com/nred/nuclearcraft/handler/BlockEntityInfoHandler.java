@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.handler;
 
+import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block.tile.info.BlockEntityInfoBlock;
 import com.nred.nuclearcraft.block.tile.info.SimpleTileInfoBlock;
 import com.nred.nuclearcraft.block_entity.UniversalBinEntity;
@@ -10,6 +11,7 @@ import com.nred.nuclearcraft.block_entity.generator.DecayGeneratorEntity;
 import com.nred.nuclearcraft.block_entity.generator.TileSolarPanel;
 import com.nred.nuclearcraft.block_entity.hx.CondenserControllerEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
+import com.nred.nuclearcraft.block_entity.machine.DecayPoolControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.DistillerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorControllerEntity;
@@ -120,6 +122,7 @@ public class BlockEntityInfoHandler {
         registerContainerInfo(new BlockEntityMenuInfo<>("electrolyzer_controller", ElectrolyzerControllerEntity.class, ElectrolyzerControllerMenu::new));
         registerContainerInfo(new BlockEntityMenuInfo<>("distiller_controller", DistillerControllerEntity.class, DistillerControllerMenu::new));
         registerContainerInfo(new BlockEntityMenuInfo<>("infiltrator_controller", InfiltratorControllerEntity.class, InfiltratorControllerMenu::new));
+        registerContainerInfo(new BlockEntityMenuInfo<>("decay_pool_controller", DecayPoolControllerEntity.class, DecayPoolControllerMenu::new));
         registerContainerInfo(new BlockEntityMenuInfo<>("heat_exchanger_controller", HeatExchangerControllerEntity.class, HeatExchangerControllerMenu::new));
         registerContainerInfo(new BlockEntityMenuInfo<>("condenser_controller", CondenserControllerEntity.class, CondenserControllerMenu::new));
 
@@ -182,9 +185,8 @@ public class BlockEntityInfoHandler {
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("multiblock_distiller", List.of(MACHINE_MAP.get("distiller_controller"))).setFluidInputSlots(standardSlot(20, 41), standardSlot(40, 41)).setFluidOutputSlots(standardSlot(96, 31), standardSlot(116, 31), standardSlot(136, 31), standardSlot(156, 31), standardSlot(96, 51), standardSlot(116, 51), standardSlot(136, 51), standardSlot(156, 51)).setProgressBarGuiXYWHUV(58, 30, 37, 38, 176, 3));
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("multiblock_infiltrator", List.of(MACHINE_MAP.get("infiltrator_controller"))).setItemInputSlots(standardSlot(46, 31), standardSlot(66, 31)).setFluidInputSlots(standardSlot(46, 51), standardSlot(66, 51)).setItemOutputSlots(bigSlot(122, 37)).setProgressBarGuiXYWHUV(84, 31, 37, 36, 176, 3));
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("infiltrator_pressure_fluid", List.of(MACHINE_MAP.get("infiltrator_pressure_chamber"))).setFluidInputSlots(standardSlot(86, 35)).disableProgressBar());
-//         TODO   registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("multiblock_decay_pool", List.of(NCBlocks.decay_pool_controller)).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31));
-//            registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("decay_pool_heat_source", List.of(NCBlocks.decay_pool_container)).setItemInputSlots(standardSlot(32, 35)).setFluidInputSlots(standardSlot(52, 35)).setItemOutputSlots(bigSlot(108, 31)).setFluidOutputSlots(bigSlot(136, 31)).setProgressBarGuiXYWHUV(70, 35, 37, 16, 176, 3));
-
+            registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("multiblock_decay_pool", Lists.newArrayList(MACHINE_MAP.get("decay_pool_controller"))).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)));
+            registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("decay_pool_heat_source", Lists.newArrayList(MACHINE_MAP.get("decay_pool_container"))).setItemInputSlots(standardSlot(32, 35)).setFluidInputSlots(standardSlot(52, 35)).setItemOutputSlots(bigSlot(108, 31)).setFluidOutputSlots(bigSlot(136, 31)).setProgressBarGuiXYWHUV(70, 35, 37, 16, 176, 3));
             registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fission_irradiator", List.of(FISSION_REACTOR_MAP.get("fission_irradiator"))));
             registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("pebble_fission", List.of(FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"))));
             registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("solid_fission", List.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"))));

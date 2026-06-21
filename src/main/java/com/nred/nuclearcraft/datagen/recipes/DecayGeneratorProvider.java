@@ -10,7 +10,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FERTILE_ISOTO
 import static com.nred.nuclearcraft.registration.BlockRegistration.INGOT_BLOCK_MAP;
 
 public class DecayGeneratorProvider {
-    public DecayGeneratorProvider(RecipeOutput recipeOutput) {
+    public DecayGeneratorProvider(RecipeOutput recipeOutput) { // TODO look at changes in v2o.9.7
         new BasicRecipeBuilder<>(new DecayGeneratorRecipe(INGOT_BLOCK_MAP.get("thorium"), INGOT_BLOCK_MAP.get("lead"), 12000D / 0.75D, 0.75D, RadSources.THORIUM)).save(recipeOutput, ncLoc("lead_from_thorium"));
         new BasicRecipeBuilder<>(new DecayGeneratorRecipe(INGOT_BLOCK_MAP.get("uranium"), FERTILE_ISOTOPE_MAP.get("uranium"), 12000D / 1.2D, 1.2D, RadSources.URANIUM)).save(recipeOutput);
         new BasicRecipeBuilder<>(new DecayGeneratorRecipe(FERTILE_ISOTOPE_MAP.get("uranium"), INGOT_BLOCK_MAP.get("lead"), 1200D, 1D, RadSources.URANIUM_238)).save(recipeOutput, ncLoc("lead_from_uranium"));

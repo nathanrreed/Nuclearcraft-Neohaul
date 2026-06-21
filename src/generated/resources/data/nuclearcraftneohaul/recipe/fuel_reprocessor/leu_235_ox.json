@@ -42,7 +42,7 @@
     },
     {
       "chancePercent": 25,
-      "count": 1,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:caesium_137_dust"
       }

@@ -5,6 +5,7 @@ import com.nred.nuclearcraft.block_entity.fission.FissionShieldEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionFuelComponent.ModeratorBlockInfo;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.multiblock.ITileLogicMultiblockPart;
 import com.nred.nuclearcraft.block_entity.multiblock.ITileSorptionPart;
@@ -27,7 +28,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.energy.EnergyStorage;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -290,12 +290,12 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
         }
     }
 
-    public CompoundTag writeEnergy(com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
+    public CompoundTag writeEnergy(EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
         storage.writeToNBT(data, registries, string);
         return data;
     }
 
-    public void readEnergy(com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
+    public void readEnergy(EnergyStorage storage, CompoundTag data, HolderLookup.Provider registries, String string) {
         storage.readFromNBT(data, registries, string);
     }
 

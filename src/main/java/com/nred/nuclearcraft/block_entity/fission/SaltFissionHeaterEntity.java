@@ -417,9 +417,14 @@ public class SaltFissionHeaterEntity extends AbstractFissionEntity implements IB
     public void setHasConsumed(boolean hasConsumed) {
     }
 
+    protected int getFluidIngredientStackSize() {
+        return recipeInfo == null ? 0 : recipeInfo.recipe.getFluidIngredients().get(0).amount();
+    }
+
     @Override
     public double getSpeedMultiplier() {
-        return (heatingSpeedMultiplier * baseProcessCooling) / fission_heater_coolant_heat_per_mb;
+        int inputSize = getFluidIngredientStackSize();
+        return inputSize <= 0 ? 0D : (heatingSpeedMultiplier * baseProcessCooling) / (fission_heater_coolant_heat_per_mb * inputSize);
     }
 
     @Override

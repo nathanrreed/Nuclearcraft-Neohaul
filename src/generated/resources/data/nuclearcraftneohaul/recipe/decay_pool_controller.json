@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "M": {
+      "item": "nuclearcraftneohaul:machine_chassis"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:silicon_carbide_alloy"
+    },
+    "T": {
+      "item": "nuclearcraftneohaul:tough_alloy"
+    }
+  },
+  "pattern": [
+    "BTB",
+    "SMS",
+    "BTB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nuclearcraftneohaul:decay_pool_controller"
+  }
+}

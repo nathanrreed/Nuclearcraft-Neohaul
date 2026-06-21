@@ -106,6 +106,12 @@ public class ModEmiPlugin implements EmiPlugin {
     private static final EmiStack MULTIBLOCK_INFILTRATOR_WORKSTATION = EmiStack.of(MACHINE_MAP.get("infiltrator_controller"));
     public static final EmiRecipeCategory EMI_MULTIBLOCK_INFILTRATOR_CATEGORY = new EmiRecipeCategory(ncLoc("multiblock_infiltrator"), MULTIBLOCK_INFILTRATOR_WORKSTATION);
 
+    private static final EmiStack MULTIBLOCK_DECAY_POOL_WORKSTATION = EmiStack.of(MACHINE_MAP.get("decay_pool_controller"));
+    public static final EmiRecipeCategory EMI_MULTIBLOCK_DECAY_POOL_CATEGORY = new EmiRecipeCategory(ncLoc("multiblock_decay_pool"), MULTIBLOCK_DECAY_POOL_WORKSTATION);
+
+    private static final EmiStack DECAY_POOL_HEAT_SOURCE_WORKSTATION = EmiStack.of(MACHINE_MAP.get("decay_pool_container"));
+    public static final EmiRecipeCategory EMI_DECAY_POOL_HEAT_SOURCE_CATEGORY = new EmiRecipeCategory(ncLoc("decay_pool_heat_source"), DECAY_POOL_HEAT_SOURCE_WORKSTATION);
+
     private static final EmiStack DECAY_GENERATOR_WORKSTATION = EmiStack.of(DECAY_GENERATOR);
     public static final EmiRecipeCategory EMI_DECAY_GENERATOR_CATEGORY = new EmiRecipeCategory(ncLoc("decay_generator"), DECAY_GENERATOR_WORKSTATION);
 
@@ -167,6 +173,8 @@ public class ModEmiPlugin implements EmiPlugin {
         addCategory(registry, manager, EMI_MULTIBLOCK_ELECTROLYZER_CATEGORY, MULTIBLOCK_ELECTROLYZER_WORKSTATION, MULTIBLOCK_ELECTROLYZER_RECIPE_TYPE.get(), EmiMultiblockElectrolyzerRecipe::new);
         addCategory(registry, manager, EMI_MULTIBLOCK_DISTILLER_CATEGORY, MULTIBLOCK_DISTILLER_WORKSTATION, MULTIBLOCK_DISTILLER_RECIPE_TYPE.get(), EmiMultiblockDistillerRecipe::new);
         addCategory(registry, manager, EMI_MULTIBLOCK_INFILTRATOR_CATEGORY, MULTIBLOCK_INFILTRATOR_WORKSTATION, MULTIBLOCK_INFILTRATOR_RECIPE_TYPE.get(), EmiMultiblockInfiltratorRecipe::new);
+        addCategory(registry, manager, EMI_MULTIBLOCK_DECAY_POOL_CATEGORY, MULTIBLOCK_DECAY_POOL_WORKSTATION, MULTIBLOCK_DECAY_POOL_RECIPE_TYPE.get(), EmiMultiblockDecayPoolRecipe::new);
+        addCategory(registry, manager, EMI_DECAY_POOL_HEAT_SOURCE_CATEGORY, DECAY_POOL_HEAT_SOURCE_WORKSTATION, DECAY_POOL_HEAT_SOURCE_RECIPE_TYPE.get(), EmiDecayPoolHeatSourceRecipe::new);
 
         registry.addCategory(EMI_CONDENSER_DISSIPATION_CATEGORY);
         registry.addWorkstation(EMI_CONDENSER_DISSIPATION_CATEGORY, CONDENSER_DISSIPATION_WORKSTATION);

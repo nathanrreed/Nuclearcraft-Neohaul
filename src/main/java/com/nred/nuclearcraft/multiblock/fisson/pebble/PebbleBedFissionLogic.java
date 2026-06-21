@@ -5,16 +5,15 @@ import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionChamberPortEntity;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCoolerPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionFuelBunch;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
 import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.PebbleFissionUpdatePacket;
-import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.fission.FissionEmergencyCoolingRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
@@ -24,6 +23,7 @@ import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -74,12 +74,7 @@ public class PebbleBedFissionLogic extends FissionReactorLogic {
         return !containsBlacklistedPart() && !isMissingSorption();
     }
 
-    public static final List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> PEBBLE_BED_PART_BLACKLIST = Lists.newArrayList(
-            Pair.of(SolidFissionCellEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_cells"),
-            Pair.of(SolidFissionHeatSinkEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_sinks"),
-            Pair.of(SaltFissionVesselEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_vessels"),
-            Pair.of(SaltFissionHeaterEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_heaters")
-    );
+    public static final List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> PEBBLE_BED_PART_BLACKLIST = Lists.newArrayList(Pair.of(SolidFissionCellEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_cells"), Pair.of(SolidFissionHeatSinkEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_sinks"), Pair.of(SaltFissionVesselEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_vessels"), Pair.of(SaltFissionHeaterEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_heaters"));
 
     @Override
     public List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> getPartBlacklist() {
@@ -87,8 +82,7 @@ public class PebbleBedFissionLogic extends FissionReactorLogic {
     }
 
     public boolean isMissingSorption() {
-        return super.isMissingSorption()
-                || isMissingSorption(FissionChamberPortEntity.class, PebbleFissionChamberEntity.class, FISSION_REACTOR_MAP.get("fission_fuel_chamber_port").get().getDescriptionId());
+        return super.isMissingSorption() || isMissingSorption(FissionChamberPortEntity.class, PebbleFissionChamberEntity.class, FISSION_REACTOR_MAP.get("fission_fuel_chamber_port").get().getDescriptionId());
     }
 
     @Override
@@ -249,7 +243,12 @@ public class PebbleBedFissionLogic extends FissionReactorLogic {
     }
 
     public boolean canProduceProducts() {
-        BasicRecipe recipe = emergencyCoolingRecipeInfo.recipe;
+        FissionEmergencyCoolingRecipe recipe = emergencyCoolingRecipeInfo.recipe;
+        int inputSize = recipe.getFluidIngredients().get(0).amount();
+        if (inputSize <= 0 || recipe.getEmergencyCoolingHeatPerInputMB() <= 0D) {
+            return false;
+        }
+
         SizedChanceFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
         int productSize = fluidProduct.amount();
         if (productSize <= 0 || fluidProduct.getStack() == null) {
@@ -257,31 +256,42 @@ public class PebbleBedFissionLogic extends FissionReactorLogic {
         }
 
         Tank outputTank = tanks.get(1);
-        return outputTank.isEmpty() || fluidProduct.test(outputTank.getFluid());
+        return outputTank.isEmpty() ? outputTank.getCapacity() >= productSize : FluidStack.isSameFluidSameComponents(outputTank.getFluid(), fluidProduct.getStack()) && outputTank.getCapacity() - outputTank.getFluidAmount() >= productSize;
     }
 
     public void produceProducts() {
         Tank inputTank = tanks.get(0), outputTank = tanks.get(1);
 
         FissionEmergencyCoolingRecipe recipe = emergencyCoolingRecipeInfo.recipe;
-        int usedInput = NCMath.toInt(Math.min(inputTank.getFluidAmount() / recipe.getEmergencyCoolingHeatPerInputMB(), Math.min(heatBuffer.getHeatStored(), (long) FissionReactor.BASE_TANK_CAPACITY * getPartCount(FissionVentEntity.class))));
+        int inputSize = recipe.getFluidIngredients().get(0).amount();
+        SizedChanceFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
+        int productSize = fluidProduct.amount();
+        double heatPerRecipe = recipe.getEmergencyCoolingHeatPerInputMB() * inputSize;
+        if (inputSize <= 0 || productSize <= 0 || heatPerRecipe <= 0D) {
+            return;
+        }
 
-        inputTank.changeFluidAmount(-usedInput);
+        int outputSpace = outputTank.isEmpty() ? outputTank.getCapacity() : outputTank.getCapacity() - outputTank.getFluidAmount();
+        int recipeRate = NCMath.toInt(Math.min((double) inputTank.getFluidAmount() / inputSize, Math.min((double) heatBuffer.getHeatStored() / heatPerRecipe, Math.min((double) FissionReactor.BASE_TANK_CAPACITY * getPartCount(FissionVentEntity.class) / inputSize, (double) outputSpace / productSize))));
+        if (recipeRate <= 0) {
+            return;
+        }
+        int inputAmount = NCMath.toInt((long) recipeRate * inputSize);
+        int productAmount = NCMath.toInt((long) recipeRate * productSize);
+
+        inputTank.changeFluidAmount(-inputAmount);
         if (inputTank.getFluidAmount() <= 0) {
             inputTank.setFluidStored(null);
         }
 
-        SizedChanceFluidIngredient fluidProduct = recipe.getFluidProducts().get(0);
-        if (fluidProduct.amount() > 0) {
-            if (outputTank.isEmpty()) {
-                outputTank.setFluidStored(fluidProduct.getStack());
-                outputTank.setFluidAmount(usedInput);
-            } else if (fluidProduct.test(outputTank.getFluid())) {
-                outputTank.changeFluidAmount(usedInput);
-            }
+        if (outputTank.isEmpty()) {
+            outputTank.setFluidStored(fluidProduct.getStack());
+            outputTank.setFluidAmount(productAmount);
+        } else if (FluidStack.isSameFluidSameComponents(outputTank.getFluid(), fluidProduct.getStack())) {
+            outputTank.changeFluidAmount(productAmount);
         }
 
-        heatBuffer.changeHeatStored((long) (-usedInput * recipe.getEmergencyCoolingHeatPerInputMB()));
+        heatBuffer.changeHeatStored((long) (-recipeRate * heatPerRecipe));
     }
 
     public long getNetClusterHeating() {

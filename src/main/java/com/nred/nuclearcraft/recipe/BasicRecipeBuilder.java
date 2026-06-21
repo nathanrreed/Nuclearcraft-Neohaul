@@ -19,7 +19,7 @@ public class BasicRecipeBuilder<T extends BasicRecipe> extends SimpleRecipeBuild
     private final T recipe;
 
     public BasicRecipeBuilder(T recipe) {
-        super(recipe.getItemProducts().stream().findFirst().map(i -> Arrays.stream(i.getItems()).findFirst()).orElse(Optional.of(ItemStack.EMPTY)).get());
+        super(recipe.getItemProducts().stream().findFirst().map(i -> Arrays.stream(i.getItems()).findFirst()).orElse(Optional.of(ItemStack.EMPTY)).orElse(ItemStack.EMPTY));
         this.recipe = recipe;
     }
 

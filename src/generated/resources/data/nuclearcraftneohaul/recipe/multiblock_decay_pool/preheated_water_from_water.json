@@ -1,0 +1,16 @@
+{
+  "type": "nuclearcraftneohaul:multiblock_decay_pool_recipe",
+  "fluidInput": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
+  },
+  "fluidProduct": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:preheated_water"
+    }
+  },
+  "heatPerInputMB": 32
+}

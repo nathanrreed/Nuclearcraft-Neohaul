@@ -230,6 +230,9 @@ public class BlockEntityRegistration {
         map.put("infiltrator_pressure_chamber", BLOCK_ENTITY_TYPES.register("infiltrator_pressure_chamber", () -> BlockEntityType.Builder.of(InfiltratorPressureChamberEntity::new, MACHINE_MAP.get("infiltrator_pressure_chamber").get()).build(null)));
         map.put("infiltrator_heating_unit", BLOCK_ENTITY_TYPES.register("infiltrator_heating_unit", () -> BlockEntityType.Builder.of(InfiltratorHeatingUnitEntity::new, MACHINE_MAP.get("infiltrator_heating_unit").get()).build(null)));
 
+        // Decay Pool
+        map.put("decay_pool_controller", BLOCK_ENTITY_TYPES.register("decay_pool_controller", () -> BlockEntityType.Builder.of(DecayPoolControllerEntity::new, MACHINE_MAP.get("decay_pool_controller").get()).build(null)));
+        map.put("decay_pool_container", BLOCK_ENTITY_TYPES.register("decay_pool_container", () -> BlockEntityType.Builder.of(DecayPoolContainerEntity::new, MACHINE_MAP.get("decay_pool_container").get()).build(null)));
         return map;
     }
 

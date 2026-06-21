@@ -23,7 +23,7 @@
     },
     {
       "chancePercent": 30,
-      "count": 1,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:ruthenium_106_dust"
       }
@@ -48,7 +48,7 @@
     },
     {
       "chancePercent": 20,
-      "count": 1,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:europium_155_dust"
       }

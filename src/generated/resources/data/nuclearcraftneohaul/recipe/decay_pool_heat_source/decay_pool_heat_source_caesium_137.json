@@ -1,0 +1,25 @@
+{
+  "type": "nuclearcraftneohaul:decay_pool_heat_source_recipe",
+  "fluidInput": {
+    "amount": 144,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:caesium_137"
+    }
+  },
+  "fluidProduct": {
+    "amount": 144,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:barium"
+    }
+  },
+  "itemInput": {
+    "count": 0,
+    "ingredient": []
+  },
+  "itemProduct": {
+    "count": 0,
+    "ingredient": []
+  },
+  "powerModifier": 235.0,
+  "timeModifier": 20260.0
+}

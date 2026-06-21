@@ -26,5 +26,5 @@
   ],
   "powerModifier": 1.0,
   "radiation": 0.38,
-  "timeModifier": 0.1
+  "timeModifier": 0.0625
 }

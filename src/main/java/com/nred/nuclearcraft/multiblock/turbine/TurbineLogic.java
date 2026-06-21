@@ -6,7 +6,6 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.turbine.*;
-import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
 import com.nred.nuclearcraft.multiblock.MultiblockLogic;
@@ -15,6 +14,7 @@ import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.*;
 import com.nred.nuclearcraft.payload.multiblock.TurbineRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.TurbineUpdatePacket;
 import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.registration.SoundRegistration;
 import com.nred.nuclearcraft.util.BlockStateHelper;
@@ -713,9 +713,11 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
         double prevRawPower = multiblock.rawPower;
 
         Tank inputTank = multiblock.tanks.get(0);
-        int maxRecipeRateMultiplier = getMaxRecipeRateMultiplier();
+        int inputSize = getFluidIngredientStackSize();
+        int maxInputRateMultiplier = getMaxRecipeRateMultiplier();
+        int maxRecipeRateMultiplier = inputSize <= 0 ? 0 : maxInputRateMultiplier / inputSize;
         double throughputMult = 1D + (turbine_tension_throughput_factor - 1D) * inputTank.getFluidAmountFraction();
-        multiblock.recipeInputRate = Math.min(inputTank.getFluidAmount(), NCMath.toInt(throughputMult * maxRecipeRateMultiplier));
+        multiblock.recipeInputRate = inputSize <= 0 ? 0 : Math.min(inputTank.getFluidAmount() / inputSize, NCMath.toInt(throughputMult * maxInputRateMultiplier / inputSize));
 
         double rawLimitPower = getRawLimitProcessPower(multiblock.recipeInputRate);
         double rawMaxPower = getRawLimitProcessPower(maxRecipeRateMultiplier);
@@ -743,13 +745,14 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             multiblock.recipeInputRate = 0;
         }
 
-        multiblock.recipeInputRateFP = multiblock.recipeInputRateTracker.update(multiblock.recipeInputRate);
+        multiblock.recipeInputRateFP = multiblock.recipeInputRateTracker.update((double) multiblock.recipeInputRate * inputSize);
 
         if (wasProcessing != multiblock.isProcessing && multiblock.controller != null) {
             multiblock.sendMultiblockUpdatePacketToAll();
         }
 
-        double tensionFactor = !multiblock.isProcessing || maxRecipeRateMultiplier <= 0 ? 0D : (multiblock.recipeInputRate - maxRecipeRateMultiplier * (1D + turbine_tension_leniency)) / maxRecipeRateMultiplier;
+        double inputRate = (double) multiblock.recipeInputRate * inputSize;
+        double tensionFactor = !multiblock.isProcessing || maxInputRateMultiplier <= 0 ? 0D : (inputRate - maxInputRateMultiplier * (1D + turbine_tension_leniency)) / maxInputRateMultiplier;
         if (tensionFactor > 0D) {
             tensionFactor /= (turbine_tension_throughput_factor < 2D ? 1D : turbine_tension_throughput_factor - 1D);
         } else {
@@ -822,7 +825,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
     }
 
     protected boolean canProcessInputs() {
-        if (!setRecipeStats() || !multiblock.isTurbineOn) {
+        if (!setRecipeStats() || !multiblock.isTurbineOn || multiblock.recipeInputRate <= 0) {
             return false;
         }
         return canProduceProducts();
@@ -850,11 +853,12 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
         }
 
         Tank outputTank = multiblock.tanks.get(1);
+        long productSize = (long) fluidProduct.amount() * multiblock.recipeInputRate;
 
         if (!outputTank.isEmpty()) {
             if (!fluidProduct.test(outputTank.getFluid())) {
                 return false;
-            } else return outputTank.getFluidAmount() + fluidProduct.amount() * multiblock.recipeInputRate <= outputTank.getCapacity();
+            } else return outputTank.getFluidAmount() + productSize <= outputTank.getCapacity();
         }
 
         return true;
@@ -863,7 +867,8 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
     protected void produceProducts() {
         Tank inputTank = multiblock.tanks.get(0), outputTank = multiblock.tanks.get(1);
 
-        int fluidIngredientSize = getFluidIngredientStackSize() * multiblock.recipeInputRate;
+        int fluidIngredientSize = NCMath.toInt((long) getFluidIngredientStackSize() * multiblock.recipeInputRate);
+
         if (fluidIngredientSize > 0) {
             inputTank.changeFluidAmount(-fluidIngredientSize);
         }
@@ -875,11 +880,13 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
         if (fluidProduct.amount() <= 0) {
             return;
         }
+        int productSize = NCMath.toInt((long) fluidProduct.amount() * multiblock.recipeInputRate);
+
         if (outputTank.isEmpty()) {
             outputTank.setFluidStored(fluidProduct.getStack());
-            outputTank.setFluidAmount(outputTank.getFluidAmount() * multiblock.recipeInputRate);
+            outputTank.setFluidAmount(productSize);
         } else if (fluidProduct.test(outputTank.getFluid())) {
-            outputTank.changeFluidAmount(fluidProduct.amount() * multiblock.recipeInputRate);
+            outputTank.changeFluidAmount(productSize);
         }
     }
 
@@ -892,7 +899,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
     }
 
     public double getRawLimitProcessPower(int recipeInputRate) {
-        return multiblock.noBladeSets == 0 ? 0D : recipeInputRate * multiblock.basePowerPerMB;
+        return multiblock.noBladeSets == 0 ? 0D : (double) recipeInputRate * getFluidIngredientStackSize() * multiblock.basePowerPerMB;
     }
 
     public double getNewRawProcessPower(double previousRawPower, double maxLimitPower, boolean increasing) {
@@ -961,7 +968,7 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
     }
 
     public void setInputRatePowerBonus() {
-        double rate = Math.min(multiblock.recipeInputRate, getMaxRecipeRateMultiplier());
+        double rate = Math.min((double) multiblock.recipeInputRate * getFluidIngredientStackSize(), getMaxRecipeRateMultiplier());
         double lengthBonus = rate / (turbine_mb_per_blade * multiblock.getBladeArea() * multiblock.effectiveMaxLength);
         double areaBonus = Math.sqrt(2D * rate / (turbine_mb_per_blade * multiblock.getFlowLength() * getMaximumInteriorLength() * multiblock.effectiveMaxLength));
         multiblock.powerBonus = 1D + turbine_power_bonus_multiplier * Math.pow(lengthBonus * areaBonus, 2D / 3D);

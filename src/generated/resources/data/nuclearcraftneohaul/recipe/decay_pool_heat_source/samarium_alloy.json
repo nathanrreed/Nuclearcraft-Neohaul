@@ -1,0 +1,25 @@
+{
+  "type": "nuclearcraftneohaul:decay_pool_heat_source_recipe",
+  "fluidInput": {
+    "amount": 0,
+    "ingredient": []
+  },
+  "fluidProduct": {
+    "amount": 0,
+    "ingredient": []
+  },
+  "itemInput": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:promethium_147_dust"
+    }
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:samarium_alloy"
+    }
+  },
+  "powerModifier": 305.0,
+  "timeModifier": 15620.0
+}

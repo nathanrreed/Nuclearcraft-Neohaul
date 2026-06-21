@@ -51,6 +51,8 @@ public class PayloadRegistration {
         registrar.playToClient(DistillerRenderPacket.TYPE, DistillerRenderPacket.STREAM_CODEC, DistillerRenderPacket.Handler::handleOnClient);
         registrar.playToClient(InfiltratorUpdatePacket.TYPE, InfiltratorUpdatePacket.STREAM_CODEC, InfiltratorUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(InfiltratorRenderPacket.TYPE, InfiltratorRenderPacket.STREAM_CODEC, InfiltratorRenderPacket.Handler::handleOnClient);
+        registrar.playToClient(DecayPoolUpdatePacket.TYPE, DecayPoolUpdatePacket.STREAM_CODEC, DecayPoolUpdatePacket.Handler::handleOnClient);
+        registrar.playToClient(DecayPoolRenderPacket.TYPE, DecayPoolRenderPacket.STREAM_CODEC, DecayPoolRenderPacket.Handler::handleOnClient);
 
         registrar.playToClient(ItemPortUpdatePacket.TYPE, ItemPortUpdatePacket.STREAM_CODEC, ItemPortUpdatePacket.Handler::handleOnClient);
         registrar.playToClient(FluidPortUpdatePacket.TYPE, FluidPortUpdatePacket.STREAM_CODEC, FluidPortUpdatePacket.Handler::handleOnClient);

@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/palladium"
+      }
+    }
+  ],
+  "type": "nuclearcraftneohaul:melter_recipe",
+  "fluidProducts": [
+    {
+      "amount": 144,
+      "ingredient": {
+        "fluid": "nuclearcraftneohaul:palladium"
+      }
+    }
+  ],
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "c:dusts/palladium"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

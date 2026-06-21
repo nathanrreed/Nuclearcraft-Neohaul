@@ -167,8 +167,8 @@ public class RecipeHelper {
         return recipeInfo == null ? null : recipeInfo.recipe;
     }
 
-    public static double getDecayTimeMultiplier(double baseRads, double radiation, double scaleFactor) {
-        return radiation > baseRads ? (Math.log1p(baseRads / scaleFactor) / Math.log1p(radiation / scaleFactor)) : (1D + (Math.log1p(scaleFactor / radiation) / Math.log1p(scaleFactor / baseRads) - 1D) * (baseRads / scaleFactor) * (Math.log1p(scaleFactor / baseRads) / Math.log1p(baseRads / scaleFactor)));
+    public static double getDecayTimeMultiplier(double radiation, double scale) {
+        return radiation > scale ? (Math.log(2D) / Math.log1p(radiation / scale)) : (Math.log1p(scale / radiation) / Math.log(2D));
     }
 
     public static List<List<ItemStack>> getItemInputLists(List<SizedChanceItemIngredient> itemIngredientList) {

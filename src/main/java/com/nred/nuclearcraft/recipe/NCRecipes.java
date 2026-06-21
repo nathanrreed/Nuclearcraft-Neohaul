@@ -7,9 +7,7 @@ import com.nred.nuclearcraft.multiblock.fisson.pebble.FissionCoolerType;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.ElectricFurnaceRecipe;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.util.NCUtil;
@@ -90,6 +88,8 @@ public class NCRecipes {
         putHandler(new MultiblockElectrolyzerRecipes());
         putHandler(new MultiblockDistillerRecipes());
         putHandler(new MultiblockInfiltratorRecipes());
+        putHandler(new MultiblockDecayPoolRecipes());
+        putHandler(new DecayPoolHeatSourceRecipes());
         putHandler(new FissionIrradiatorRecipes());
         putHandler(new PebbleFissionRecipes());
         putHandler(new GasCoolerRecipes());
@@ -137,6 +137,8 @@ public class NCRecipes {
     public static MultiblockElectrolyzerRecipes multiblock_electrolyzer;
     public static MultiblockDistillerRecipes multiblock_distiller;
     public static MultiblockInfiltratorRecipes multiblock_infiltrator;
+    public static MultiblockDecayPoolRecipes multiblock_decay_pool;
+    public static DecayPoolHeatSourceRecipes decay_pool_heat_source;
     public static FissionIrradiatorRecipes fission_irradiator;
     public static PebbleFissionRecipes pebble_fission;
     public static GasCoolerRecipes gas_cooler;
@@ -178,6 +180,8 @@ public class NCRecipes {
         multiblock_electrolyzer = getHandler("multiblock_electrolyzer");
         multiblock_distiller = getHandler("multiblock_distiller");
         multiblock_infiltrator = getHandler("multiblock_infiltrator");
+        multiblock_decay_pool = getHandler("multiblock_decay_pool");
+        decay_pool_heat_source = getHandler("decay_pool_heat_source");
         fission_irradiator = getHandler("fission_irradiator");
         pebble_fission = getHandler("pebble_fission");
         gas_cooler = getHandler("gas_cooler");
@@ -269,6 +273,18 @@ public class NCRecipes {
     public static class MultiblockInfiltratorRecipes extends BasicRecipeHandler<MultiblockInfiltratorRecipe> {
         public MultiblockInfiltratorRecipes() {
             super("multiblock_infiltrator", 2, 2, 1, 0);
+        }
+    }
+
+    public static class MultiblockDecayPoolRecipes extends BasicRecipeHandler<MultiblockDecayPoolRecipe> {
+        public MultiblockDecayPoolRecipes() {
+            super("multiblock_decay_pool", 0, 1, 0, 1);
+        }
+    }
+
+    public static class DecayPoolHeatSourceRecipes extends BasicRecipeHandler<DecayPoolHeatSourceRecipe> {
+        public DecayPoolHeatSourceRecipes() {
+            super("decay_pool_heat_source", 1, 1, 1, 1);
         }
     }
 

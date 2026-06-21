@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.fission.*;
 import com.nred.nuclearcraft.block_entity.fission.port.FissionCellPortEntity;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
-import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactorLogic;
@@ -12,6 +11,7 @@ import com.nred.nuclearcraft.payload.multiblock.FissionUpdatePacket;
 import com.nred.nuclearcraft.payload.multiblock.SolidFissionUpdatePacket;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.recipe.RecipeInfo;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.fission.FissionHeatingRecipe;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.ValueTracker;
@@ -80,12 +80,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
         return !containsBlacklistedPart() && !isMissingSorption();
     }
 
-    public static final List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> SOLID_FUEL_PART_BLACKLIST = Lists.newArrayList(
-            Pair.of(PebbleFissionChamberEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_chambers"),
-            Pair.of(PebbleFissionCoolerEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_coolers"),
-            Pair.of(SaltFissionVesselEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_vessels"),
-            Pair.of(SaltFissionHeaterEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_heaters")
-    );
+    public static final List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> SOLID_FUEL_PART_BLACKLIST = Lists.newArrayList(Pair.of(PebbleFissionChamberEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_chambers"), Pair.of(PebbleFissionCoolerEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_coolers"), Pair.of(SaltFissionVesselEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_vessels"), Pair.of(SaltFissionHeaterEntity.class, MODID + ".multiblock_validation.fission_reactor.prohibit_heaters"));
 
     @Override
     public List<Pair<Class<? extends IMultiblockPart<FissionReactor>>, String>> getPartBlacklist() {
@@ -93,9 +88,7 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
     }
 
     public boolean isMissingSorption() {
-        return super.isMissingSorption()
-                || isMissingSorption(FissionCellPortEntity.class, SolidFissionCellEntity.class, FISSION_REACTOR_MAP.get("fission_fuel_cell_port").get().getDescriptionId())
-                || isMissingSorption(FissionVentEntity.class, FISSION_REACTOR_MAP.get("fission_vent").get().getDescriptionId());
+        return super.isMissingSorption() || isMissingSorption(FissionCellPortEntity.class, SolidFissionCellEntity.class, FISSION_REACTOR_MAP.get("fission_fuel_cell_port").get().getDescriptionId()) || isMissingSorption(FissionVentEntity.class, FISSION_REACTOR_MAP.get("fission_vent").get().getDescriptionId());
     }
 
     @Override
@@ -183,7 +176,8 @@ public class SolidFuelFissionLogic extends FissionReactorLogic {
             refreshRecipe();
             if (heatingRecipeInfo != null) {
                 FissionHeatingRecipe recipe = heatingRecipeInfo.recipe;
-                heatingOutputRateFP = recipe.getFluidProducts().get(0).amount() * effectiveHeating / recipe.getFissionHeatingHeatPerInputMB();
+                int inputSize = recipe.getFluidIngredients().get(0).amount();
+                heatingOutputRateFP = inputSize <= 0 ? 0D : recipe.getFluidProducts().get(0).amount() * effectiveHeating / (recipe.getFissionHeatingHeatPerInputMB() * inputSize);
             }
         }
     }

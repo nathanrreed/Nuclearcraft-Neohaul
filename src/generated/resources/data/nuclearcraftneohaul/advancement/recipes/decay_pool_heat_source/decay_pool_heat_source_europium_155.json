@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:radiation_scrubber/irradiated_borax"
+        "recipe": "nuclearcraftneohaul:decay_pool_heat_source/decay_pool_heat_source_europium_155"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:radiation_scrubber/irradiated_borax"
+      "nuclearcraftneohaul:decay_pool_heat_source/decay_pool_heat_source_europium_155"
     ]
   }
 }

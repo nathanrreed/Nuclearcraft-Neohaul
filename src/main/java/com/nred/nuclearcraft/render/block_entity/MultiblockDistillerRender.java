@@ -180,8 +180,8 @@ public record MultiblockDistillerRender(BlockEntityRendererProvider.Context cont
     @OnlyIn(Dist.CLIENT)
     public @NotNull AABB getRenderBoundingBox(DistillerControllerEntity blockEntity) {
         if (blockEntity.getMultiblockController().isPresent()) {
-            Machine hx = blockEntity.getMultiblockController().get();
-            return hx.getBoundingBox().getAABB().inflate(hx.getInteriorLengthX(), hx.getInteriorLengthY(), hx.getInteriorLengthZ());
+            Machine machine = blockEntity.getMultiblockController().get();
+            return machine.getBoundingBox().getAABB().inflate(machine.getInteriorLengthX(), machine.getInteriorLengthY(), machine.getInteriorLengthZ());
         }
         return BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
     }

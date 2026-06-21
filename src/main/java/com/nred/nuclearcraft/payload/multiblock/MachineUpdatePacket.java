@@ -18,8 +18,9 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
     public double baseSpeedMultiplier;
     public double basePowerMultiplier;
     public RecipeUnitInfo recipeUnitInfo;
+    public boolean readyToProcess;
 
-    public MachineUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo) {
+    public MachineUpdatePacket(BlockPos pos, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<Tank> tanks, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo, boolean readyToProcess) {
         super(pos);
         this.isMachineOn = isMachineOn;
         this.isProcessing = isProcessing;
@@ -30,9 +31,10 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
         this.baseSpeedMultiplier = baseSpeedMultiplier;
         this.basePowerMultiplier = basePowerMultiplier;
         this.recipeUnitInfo = recipeUnitInfo;
+        this.readyToProcess = readyToProcess;
     }
 
-    public MachineUpdatePacket(MultiblockUpdatePacket machineUpdatePacket, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<TankInfo> tankInfos, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo) {
+    public MachineUpdatePacket(MultiblockUpdatePacket machineUpdatePacket, boolean isMachineOn, boolean isProcessing, double time, double baseProcessTime, double baseProcessPower, List<TankInfo> tankInfos, double baseSpeedMultiplier, double basePowerMultiplier, RecipeUnitInfo recipeUnitInfo, boolean readyToProcess) {
         super(machineUpdatePacket);
         this.isMachineOn = isMachineOn;
         this.isProcessing = isProcessing;
@@ -43,6 +45,7 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
         this.baseSpeedMultiplier = baseSpeedMultiplier;
         this.basePowerMultiplier = basePowerMultiplier;
         this.recipeUnitInfo = recipeUnitInfo;
+        this.readyToProcess = readyToProcess;
     }
 
     public MachineUpdatePacket(MachineUpdatePacket packet) {
@@ -56,6 +59,7 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
         this.baseSpeedMultiplier = packet.baseSpeedMultiplier;
         this.basePowerMultiplier = packet.basePowerMultiplier;
         this.recipeUnitInfo = packet.recipeUnitInfo;
+        this.readyToProcess = packet.readyToProcess;
     }
 
     public static MachineUpdatePacket fromBytes(RegistryFriendlyByteBuf buf) {
@@ -69,7 +73,8 @@ public class MachineUpdatePacket extends MultiblockUpdatePacket {
         double baseSpeedMultiplier = buf.readDouble();
         double basePowerMultiplier = buf.readDouble();
         RecipeUnitInfo recipeUnitInfo = readRecipeUnitInfo(buf);
-        return new MachineUpdatePacket(multiblockUpdatePacket, isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tankInfos, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo);
+        boolean readyToProcess = buf.readBoolean();
+        return new MachineUpdatePacket(multiblockUpdatePacket, isMachineOn, isProcessing, time, baseProcessTime, baseProcessPower, tankInfos, baseSpeedMultiplier, basePowerMultiplier, recipeUnitInfo, readyToProcess);
     }
 
     @Override

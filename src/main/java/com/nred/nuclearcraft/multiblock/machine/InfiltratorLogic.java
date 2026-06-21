@@ -244,7 +244,7 @@ public class InfiltratorLogic extends MachineLogic {
 
     @Override
     public MachineUpdatePacket getMultiblockUpdatePacket() {
-        return new InfiltratorUpdatePacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, multiblock.processor.isProcessing, multiblock.processor.time, multiblock.processor.baseProcessTime, multiblock.baseProcessPower, multiblock.tanks, multiblock.baseSpeedMultiplier, multiblock.basePowerMultiplier, multiblock.recipeUnitInfo, pressureFluidEfficiency, heatingBonus);
+        return new InfiltratorUpdatePacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, multiblock.processor.isProcessing, multiblock.processor.time, multiblock.processor.baseProcessTime, multiblock.baseProcessPower, multiblock.tanks, multiblock.baseSpeedMultiplier, multiblock.basePowerMultiplier, multiblock.recipeUnitInfo, multiblock.readyToProcess, pressureFluidEfficiency, heatingBonus);
     }
 
     @Override

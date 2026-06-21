@@ -59,8 +59,8 @@ public record MultiblockInfiltratorRender(BlockEntityRendererProvider.Context co
     @OnlyIn(Dist.CLIENT)
     public @NotNull AABB getRenderBoundingBox(InfiltratorControllerEntity blockEntity) {
         if (blockEntity.getMultiblockController().isPresent()) {
-            Machine hx = blockEntity.getMultiblockController().get();
-            return hx.getBoundingBox().getAABB().inflate(hx.getInteriorLengthX(), hx.getInteriorLengthY(), hx.getInteriorLengthZ());
+            Machine machine = blockEntity.getMultiblockController().get();
+            return machine.getBoundingBox().getAABB().inflate(machine.getInteriorLengthX(), machine.getInteriorLengthY(), machine.getInteriorLengthZ());
         }
         return BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
     }

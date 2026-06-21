@@ -70,7 +70,7 @@ public class DecayHastenerProvider {
     private static final Set<String> NON_FISSION = Sets.newHashSet("thorium", "lead", "bismuth", "thallium", "radium", "polonium", "tbp", "zirconium", "palladium", "barium", "neodymium", "gadolinium");
 
     private void addIsotopes(RecipeOutput recipeOutput, Map<String, DeferredItem<Item>> inputMap, String input, Map<String, DeferredItem<Item>> outputMap, String output, double radiation) {
-        double timeMult = NCMath.roundTo(RecipeHelper.getDecayTimeMultiplier(1E-6D, radiation, 3.16E-7D), 5D / 800);
+        double timeMult = NCMath.roundTo(RecipeHelper.getDecayTimeMultiplier(radiation / 9D, 1E-6D), 5D / 800);
 
         if (NON_FISSION.contains(output)) {
             Stream<DeferredItem<Item>> inputs = Stream.of(inputMap.getOrDefault(input, null), inputMap.getOrDefault(input + "_ox", null), inputMap.getOrDefault(input + "_ni", null));

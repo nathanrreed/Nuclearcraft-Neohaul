@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:radiation_scrubber/radiation_scrubber_from_radaway_slow"
+        "recipe": "nuclearcraftneohaul:decay_pool_heat_source/decay_pool_heat_source_caesium_137"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:radiation_scrubber/radiation_scrubber_from_radaway_slow"
+      "nuclearcraftneohaul:decay_pool_heat_source/decay_pool_heat_source_caesium_137"
     ]
   }
 }

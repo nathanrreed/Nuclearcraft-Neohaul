@@ -1,0 +1,25 @@
+{
+  "type": "nuclearcraftneohaul:decay_pool_heat_source_recipe",
+  "fluidInput": {
+    "amount": 144,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:ruthenium_106"
+    }
+  },
+  "fluidProduct": {
+    "amount": 144,
+    "ingredient": {
+      "fluid": "nuclearcraftneohaul:palladium"
+    }
+  },
+  "itemInput": {
+    "count": 0,
+    "ingredient": []
+  },
+  "itemProduct": {
+    "count": 0,
+    "ingredient": []
+  },
+  "powerModifier": 335.0,
+  "timeModifier": 14340.0
+}

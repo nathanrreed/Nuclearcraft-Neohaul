@@ -41,7 +41,10 @@ public enum MachinePartType implements IMachinePartType {
     InfiltratorController(() -> MACHINE_ENTITY_TYPE.get("infiltrator_controller")::get, InfiltratorControllerBlock::new),
     InfiltratorPressureChamber(() -> MACHINE_ENTITY_TYPE.get("infiltrator_pressure_chamber")::get, GenericTooltipDeviceBlock::new),
     InfiltratorHeatingUnit(() -> MACHINE_ENTITY_TYPE.get("infiltrator_heating_unit")::get, GenericActiveTooltipDeviceBlock::new),
-    ;
+
+    // Decay Pool
+    DecayPoolControllerBlock(() -> MACHINE_ENTITY_TYPE.get("decay_pool_controller")::get, DecayPoolControllerBlock::new),
+    DecayPoolContainerBlock(() -> MACHINE_ENTITY_TYPE.get("decay_pool_container")::get, GenericTooltipDeviceBlock::new);
 
     private final MultiblockPartTypeProperties<Machine, IMachinePartType> _properties;
 

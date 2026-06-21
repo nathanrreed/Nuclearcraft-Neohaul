@@ -36,9 +36,8 @@ public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine,
     StringCenteringOperator powerBonusText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.turbine_controller.power_bonus", NCMath.pcDecimalPlaces(multiblock.powerBonus, 1)));
     StringCenteringOperator recipeInputRateText = centeredTracker(() -> {
         double maxRecipeRateMultiplierFP = multiblock.getLogic().getMaxRecipeRateMultiplier();
-        double rateRatio = (double) multiblock.recipeInputRate / maxRecipeRateMultiplierFP;
-        double rateRatioFP = multiblock.recipeInputRateFP / maxRecipeRateMultiplierFP;
-        return Component.translatable(MODID + ".tooltip.turbine_controller.fluid_rate", UnitHelper.prefix(multiblock.recipeInputRateFP, 5, "B/t", -1) + " [" + NCMath.pcDecimalPlaces(rateRatioFP, 1) + (rateRatio > 1D ? "] [!]" : "]"));
+        double rateRatioFP = maxRecipeRateMultiplierFP <= 0D ? 0D : multiblock.recipeInputRateFP / maxRecipeRateMultiplierFP;
+        return Component.translatable(MODID + ".tooltip.turbine_controller.fluid_rate", UnitHelper.prefix(multiblock.recipeInputRateFP, 5, "B/t", -1) + " [" +NCMath.pcDecimalPlaces(rateRatioFP, 1) + (rateRatioFP > 1D ? "] [!]" : "]"));
     });
 
     public TurbineControllerScreen(TurbineControllerMenu menu, Inventory inventory, Component title) {

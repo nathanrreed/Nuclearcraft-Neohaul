@@ -15,7 +15,8 @@ import static com.nred.nuclearcraft.config.NCConfig.fission_shield_heat_per_flux
 
 public class FissionNeutronShieldType implements StringRepresentable, IMultiblockVariant {
     public static final FissionNeutronShieldType BORON_SILVER = new FissionNeutronShieldType("boron_silver", 0, () -> fission_shield_heat_per_flux[0], () -> fission_shield_efficiency[0]);
-    private static final AtomicInteger _id = new AtomicInteger(0); // Used to increment KubeJS additions
+    public static final FissionNeutronShieldType GADOLINIUM_SAMARIUM = new FissionNeutronShieldType("gadolinium_samarium", 1, () -> fission_shield_heat_per_flux[1], () -> fission_shield_efficiency[1]);
+    private static final AtomicInteger _id = new AtomicInteger(1); // Used to increment KubeJS additions
 
     private final String name;
     private final int id;

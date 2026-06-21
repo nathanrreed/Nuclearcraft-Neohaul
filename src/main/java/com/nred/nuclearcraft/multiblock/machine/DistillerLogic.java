@@ -8,7 +8,6 @@ import com.nred.nuclearcraft.block_entity.machine.DistillerSieveTrayEntity;
 import com.nred.nuclearcraft.config.NCConfig;
 import com.nred.nuclearcraft.datamap.MachineSieveAssemblyData;
 import com.nred.nuclearcraft.handler.BasicRecipeHandler;
-import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.payload.multiblock.DistillerRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.DistillerUpdatePacket;
@@ -16,6 +15,7 @@ import com.nred.nuclearcraft.payload.multiblock.MachineRenderPacket;
 import com.nred.nuclearcraft.payload.multiblock.MachineUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.NCRecipes;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
 import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.NCMath;
@@ -323,7 +323,7 @@ public class DistillerLogic extends MachineLogic {
 
     @Override
     public MachineUpdatePacket getMultiblockUpdatePacket() {
-        return new DistillerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, multiblock.processor.isProcessing, multiblock.processor.time, multiblock.processor.baseProcessTime, multiblock.baseProcessPower, multiblock.tanks, multiblock.baseSpeedMultiplier, multiblock.basePowerMultiplier, multiblock.recipeUnitInfo, refluxUnitBonus, reboilingUnitBonus, liquidDistributorBonus);
+        return new DistillerUpdatePacket(multiblock.controller.getTilePos(), multiblock.isMachineOn, multiblock.processor.isProcessing, multiblock.processor.time, multiblock.processor.baseProcessTime, multiblock.baseProcessPower, multiblock.tanks, multiblock.baseSpeedMultiplier, multiblock.basePowerMultiplier, multiblock.recipeUnitInfo, multiblock.readyToProcess, refluxUnitBonus, reboilingUnitBonus, liquidDistributorBonus);
     }
 
     @Override

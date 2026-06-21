@@ -27,7 +27,6 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.DISTRIBUTOR_INLET_ENTITY_TYPE;
 
-
 public class DistributorInletEntity extends AbstractDistributorEntity implements ITileInventory, ITileFluid, ITileEnergy {
     protected final @Nonnull EnergyStorage backupStorage = new EnergyStorage(0L);
     protected final @Nonnull NonNullList<ItemStack> backupInventory = NonNullList.withSize(0, ItemStack.EMPTY);

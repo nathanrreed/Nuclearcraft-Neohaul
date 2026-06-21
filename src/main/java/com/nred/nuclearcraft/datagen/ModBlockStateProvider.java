@@ -196,6 +196,7 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem("conductor", FISSION_REACTOR_MAP.get("fission_conductor"), "fission");
 
         booleanBlockOverlay("boron_silver", "on", "off", FISSION_REACTOR_MAP.get("boron_silver_shield"), "fission/shield", ACTIVE);
+        booleanBlockOverlay("gadolinium_samarium", "on", "off", FISSION_REACTOR_MAP.get("gadolinium_samarium_shield"), "fission/shield", ACTIVE);
 
         booleanBlock("radium_beryllium", false, "source_back", true, "source", "_on", "_off", FISSION_REACTOR_MAP.get("radium_beryllium_source"), "fission/source", ACTIVE, Horizontal);
         booleanBlock("polonium_beryllium", false, "source_back", true, "source", "_on", "_off", FISSION_REACTOR_MAP.get("polonium_beryllium_source"), "fission/source", ACTIVE, Horizontal);
@@ -292,6 +293,9 @@ class ModBlockStateProvider extends BlockStateProvider {
         directionalMachine("controller", MACHINE_MAP.get("infiltrator_controller"), "machine/infiltrator", ACTIVE);
         booleanBlock("heating_unit_on", "heating_unit_off", MACHINE_MAP.get("infiltrator_heating_unit"), "machine/infiltrator", ACTIVE);
         blockWithItem("pressure_chamber", MACHINE_MAP.get("infiltrator_pressure_chamber"), "machine/infiltrator");
+
+        directionalMachine("controller", MACHINE_MAP.get("decay_pool_controller"), "machine/decay_pool", ACTIVE);
+        blockWithItem("container", MACHINE_MAP.get("decay_pool_container"), "machine/decay_pool");
     }
 
     // TODO rename all these functions and merge similar

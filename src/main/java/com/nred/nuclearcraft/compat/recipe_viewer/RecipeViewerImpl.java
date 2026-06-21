@@ -9,9 +9,7 @@ import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.util.DataMapHelper;
@@ -516,6 +514,47 @@ public class RecipeViewerImpl {
         @Override
         public int getProgressArrowTime() {
             return NCMath.toInt(recipe.getBaseProcessTime(machine_infiltrator_time));
+        }
+    }
+
+    public static class MultiblockDecayPoolRecipeViewer extends RecipeViewer<MultiblockDecayPoolRecipe> {
+        public MultiblockDecayPoolRecipeViewer(MultiblockDecayPoolRecipe recipe) {
+            super(recipe);
+        }
+
+        @Override
+        public List<Component> progressTooltips(int x, int y) {
+            ArrayList<Component> list = new ArrayList<>(2);
+
+            list.add(Component.translatable(MODID + ".recipe_viewer.decay_pool_heating_required", Component.literal(UnitHelper.prefix(recipe.getDecayPoolHeatPerInputMB(), 5, "H/mB")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
+
+            return list;
+        }
+
+        @Override
+        public int getProgressArrowTime() {
+            return NCMath.toInt(4D * recipe.getDecayPoolHeatPerInputMB());
+        }
+    }
+
+    public static class DecayPoolHeatSourceRecipeViewer extends RecipeViewer<DecayPoolHeatSourceRecipe> {
+        public DecayPoolHeatSourceRecipeViewer(DecayPoolHeatSourceRecipe recipe) {
+            super(recipe);
+        }
+
+        @Override
+        public List<Component> progressTooltips(int x, int y) {
+            ArrayList<Component> list = new ArrayList<>(2);
+
+            list.add(Component.translatable(MODID + ".recipe_viewer.decay_pool_container_lifetime", Component.literal(UnitHelper.applyTimeUnitShort(recipe.getDecayPoolContainerLifetime(), 3, 1)).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
+            list.add(Component.translatable(MODID + ".recipe_viewer.decay_pool_container_heat", Component.literal(UnitHelper.prefix(recipe.getDecayPoolContainerHeat(), 5, "H/t")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
+
+            return list;
+        }
+
+        @Override
+        public int getProgressArrowTime() {
+            return NCMath.toInt(Math.sqrt(recipe.getDecayPoolContainerLifetime()));
         }
     }
 

@@ -48,7 +48,7 @@
     },
     {
       "chancePercent": 75,
-      "count": 1,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:promethium_147_dust"
       }

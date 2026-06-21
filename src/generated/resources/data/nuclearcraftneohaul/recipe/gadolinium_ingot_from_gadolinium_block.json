@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "nuclearcraftneohaul:gadolinium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "nuclearcraftneohaul:gadolinium_ingot"
+  }
+}

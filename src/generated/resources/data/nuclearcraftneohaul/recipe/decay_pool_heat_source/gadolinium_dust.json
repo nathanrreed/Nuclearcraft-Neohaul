@@ -1,0 +1,25 @@
+{
+  "type": "nuclearcraftneohaul:decay_pool_heat_source_recipe",
+  "fluidInput": {
+    "amount": 0,
+    "ingredient": []
+  },
+  "fluidProduct": {
+    "amount": 0,
+    "ingredient": []
+  },
+  "itemInput": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:europium_155_dust"
+    }
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:gadolinium_dust"
+    }
+  },
+  "powerModifier": 290.0,
+  "timeModifier": 16540.0
+}

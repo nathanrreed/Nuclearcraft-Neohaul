@@ -141,6 +141,7 @@ public class CapabilityRegistration {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MACHINE_ENTITY_TYPE.get("process_port").get(), (entity, direction) -> ((MachineProcessPortEntity) entity).getItemSideCapability(direction));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_ENTITY_TYPE.get("process_port").get(), (entity, direction) -> ((MachineProcessPortEntity) entity).getFluidSideCapability(direction));
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, MACHINE_ENTITY_TYPE.get("reservoir_port").get(), (entity, direction) -> ((MachineReservoirPortEntity) entity).getFluidSideCapability(direction));
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, MACHINE_ENTITY_TYPE.get("reservoir_port").get(), (entity, direction) -> ((MachineReservoirPortEntity) entity).getItemSideCapability(direction));
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, MACHINE_ENTITY_TYPE.get("power_port").get(), (entity, direction) -> ((MachinePowerPortEntity) entity).getEnergySideCapability(direction));
 
         // Distributor

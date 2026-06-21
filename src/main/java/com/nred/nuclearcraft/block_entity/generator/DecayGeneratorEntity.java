@@ -107,7 +107,7 @@ public class DecayGeneratorEntity extends TileEnergy implements ITickable, IInte
 
     public double getRecipeLifetime(Direction side) {
         DecayGeneratorRecipe recipe = getDecayRecipe(side);
-        return recipe == null ? 1200D : recipe.getDecayGeneratorLifetime();
+        return recipe == null ? 12000D : recipe.getDecayGeneratorLifetime();
     }
 
     public double getRecipePower(Direction side) {

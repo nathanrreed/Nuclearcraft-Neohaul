@@ -577,8 +577,8 @@ public class NCConfig {
     private static final ModConfigSpec.DoubleValue FISSION_CHAMBER_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_chamber_intrinsic_flux_efficiency", 1D, 0D, 255D);
     private static final ModConfigSpec.DoubleValue FISSION_CELL_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_cell_intrinsic_flux_efficiency", 1D, 0D, 255D);
     private static final ModConfigSpec.DoubleValue FISSION_VESSEL_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_vessel_intrinsic_flux_efficiency", 1D, 0D, 255D);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D), 0D, 255D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D, 10D), 0D, 32767D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D, 0.75D), 0D, 255D, ARRAY);
     private static final ModConfigSpec.IntValue FISSION_COOLING_EFFICIENCY_LENIENCY = add(CATEGORY_FISSION, "fission_cooling_efficiency_leniency", 10, 0, 32767);
     private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SPARSITY_PENALTY_PARAMS = add(CATEGORY_FISSION, "fission_sparsity_penalty_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
     private static final ModConfigSpec.DoubleValue FISSION_COOLER_COOLANT_HEAT_PER_MB = add(CATEGORY_FISSION, "fission_cooler_coolant_heat_per_mb", 32D, 0.001D, Integer.MAX_VALUE);

@@ -23,7 +23,7 @@
     },
     {
       "chancePercent": 75,
-      "count": 1,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:strontium_90_dust"
       }
@@ -48,7 +48,7 @@
     },
     {
       "chancePercent": 75,
-      "count": 1,
+      "count": 2,
       "ingredient": {
         "item": "nuclearcraftneohaul:caesium_137_dust"
       }

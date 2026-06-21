@@ -22,7 +22,7 @@
       }
     },
     {
-      "amount": 16,
+      "amount": 32,
       "chancePercent": 25,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:strontium_90"

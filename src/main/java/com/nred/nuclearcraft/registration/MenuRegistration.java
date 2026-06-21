@@ -29,6 +29,7 @@ public class MenuRegistration {
     public static final DeferredHolder<MenuType<?>, MenuType<DistillerControllerMenu>> DISTILLER_CONTROLLER_MENU_TYPE = MENUS.register("distiller_controller", () -> IMenuTypeExtension.create(DistillerControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<ElectrolyzerControllerMenu>> ELECTROLYZER_CONTROLLER_MENU_TYPE = MENUS.register("electrolyzer_controller", () -> IMenuTypeExtension.create(ElectrolyzerControllerMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<InfiltratorControllerMenu>> INFILTRATOR_CONTROLLER_MENU_TYPE = MENUS.register("infiltrator_controller", () -> IMenuTypeExtension.create(InfiltratorControllerMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<DecayPoolControllerMenu>> DECAY_POOL_CONTROLLER_MENU_TYPE = MENUS.register("decay_pool_controller", () -> IMenuTypeExtension.create(DecayPoolControllerMenu::new));
 
     // Ports
     public static final DeferredHolder<MenuType<?>, MenuType<FissionCellPortMenu>> FISSION_CELL_PORT_MENU_TYPE = MENUS.register("turbine_cell", () -> IMenuTypeExtension.create(FissionCellPortMenu::new));

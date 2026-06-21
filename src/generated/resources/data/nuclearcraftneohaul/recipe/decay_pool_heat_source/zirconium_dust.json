@@ -1,0 +1,25 @@
+{
+  "type": "nuclearcraftneohaul:decay_pool_heat_source_recipe",
+  "fluidInput": {
+    "amount": 0,
+    "ingredient": []
+  },
+  "fluidProduct": {
+    "amount": 0,
+    "ingredient": []
+  },
+  "itemInput": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:strontium_90_dust"
+    }
+  },
+  "itemProduct": {
+    "count": 1,
+    "ingredient": {
+      "item": "nuclearcraftneohaul:zirconium_dust"
+    }
+  },
+  "powerModifier": 240.0,
+  "timeModifier": 20160.0
+}

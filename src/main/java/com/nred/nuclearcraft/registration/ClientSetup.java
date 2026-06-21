@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.registration;
 
 import com.nred.nuclearcraft.block_entity.hx.CondenserControllerEntity;
 import com.nred.nuclearcraft.block_entity.hx.HeatExchangerControllerEntity;
+import com.nred.nuclearcraft.block_entity.machine.DecayPoolControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.DistillerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.ElectrolyzerControllerEntity;
 import com.nred.nuclearcraft.block_entity.machine.InfiltratorControllerEntity;
@@ -78,6 +79,7 @@ public class ClientSetup {
         BlockEntityRenderers.register((BlockEntityType<CondenserControllerEntity>) HX_ENTITY_TYPE.get("condenser_controller").get(), MultiblockCondenserRender::new);
         BlockEntityRenderers.register((BlockEntityType<ElectrolyzerControllerEntity>) MACHINE_ENTITY_TYPE.get("electrolyzer_controller").get(), MultiblockElectrolyzerRender::new);
         BlockEntityRenderers.register((BlockEntityType<DistillerControllerEntity>) MACHINE_ENTITY_TYPE.get("distiller_controller").get(), MultiblockDistillerRender::new);
+        BlockEntityRenderers.register((BlockEntityType<DecayPoolControllerEntity>) MACHINE_ENTITY_TYPE.get("decay_pool_controller").get(), MultiblockDecayPoolRender::new);
         BlockEntityRenderers.register((BlockEntityType<InfiltratorControllerEntity>) MACHINE_ENTITY_TYPE.get("infiltrator_controller").get(), MultiblockInfiltratorRender::new);
         BlockEntityRenderers.register((BlockEntityType<QuantumComputerQubitEntity>) QUANTUM_ENTITY_TYPE.get("quantum_computer_qubit").get(), QuantumComputerQubitRender::new);
 

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:ingots/samarium"
+    },
+    "G": {
+      "tag": "c:ingots/gadolinium"
+    },
+    "P": {
+      "item": "nuclearcraftneohaul:basic_plating"
+    },
+    "S": {
+      "item": "nuclearcraftneohaul:steel_chassis"
+    }
+  },
+  "pattern": [
+    "PGP",
+    "ASA",
+    "PGP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "nuclearcraftneohaul:gadolinium_samarium_shield"
+  }
+}

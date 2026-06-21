@@ -61,7 +61,7 @@ public class FuelReprocessorProvider {
     }
 
     private SizedChanceItemIngredient wasteStack(String waste, double chancePercent) {
-        return SizedChanceItemIngredient.of(FISSION_DUST_MAP.get(waste), waste.equals("molybdenum") ? 2 : 1, NCMath.toInt(chancePercent));
+        return SizedChanceItemIngredient.of(FISSION_DUST_MAP.get(waste), 2, NCMath.toInt(chancePercent));
     }
 
     private SizedChanceItemIngredient get(String name, int size) {

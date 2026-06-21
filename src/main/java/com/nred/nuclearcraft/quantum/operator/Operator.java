@@ -24,33 +24,22 @@ public abstract class Operator {
     public abstract Operator rebased(int[] basis);
 
     public static Operator phase(double angle) {
-        return new DiagonalOperator(new double[] {
-                1, 0,
-                Math.cos(angle), Math.sin(angle),
+        return new DiagonalOperator(new double[]{1, 0, Math.cos(angle), Math.sin(angle),
         });
     }
 
     public static Operator rotateX(double angle) {
         double half = 0.5 * angle, c = Math.cos(half), s = Math.sin(half);
-        return new DenseOperator(new double[] {
-                c, 0, 0, -s,
-                0, -s, c, 0,
-        });
+        return new DenseOperator(new double[]{c, 0, 0, -s, 0, -s, c, 0,});
     }
 
     public static Operator rotateY(double angle) {
         double half = 0.5 * angle, c = Math.cos(half), s = Math.sin(half);
-        return new DenseOperator(new double[] {
-                c, 0, -s, 0,
-                s, 0, c, 0,
-        });
+        return new DenseOperator(new double[]{c, 0, -s, 0, s, 0, c, 0,});
     }
 
     public static Operator rotateZ(double angle) {
         double half = 0.5 * angle, c = Math.cos(half), s = Math.sin(half);
-        return new DiagonalOperator(new double[] {
-                c, -s,
-                c, s,
-        });
+        return new DiagonalOperator(new double[]{c, -s, c, s,});
     }
 }

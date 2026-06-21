@@ -82,6 +82,9 @@ public class EmiLangProvider extends LanguageProvider {
         add("emi.category." + EMI_MULTIBLOCK_DISTILLER_CATEGORY.getId().toLanguageKey(), "Multiblock Distiller");
         add("emi.category." + EMI_MULTIBLOCK_ELECTROLYZER_CATEGORY.getId().toLanguageKey(), "Multiblock Electrolyzer");
         add("emi.category." + EMI_MULTIBLOCK_INFILTRATOR_CATEGORY.getId().toLanguageKey(), "Multiblock Infiltrator");
+        add("emi.category." + EMI_MULTIBLOCK_DECAY_POOL_CATEGORY.getId().toLanguageKey(), "Multiblock Decay Pool");
+        add("emi.category." + EMI_DECAY_POOL_HEAT_SOURCE_CATEGORY.getId().toLanguageKey(), "Decay Pool Heat Source");
+
         add("emi.category." + ncLoc("machine_diaphragm").toLanguageKey(), "Diaphragm");
         add("emi.category." + ncLoc("machine_sieve_assembly").toLanguageKey(), "Sieve Assembly");
         add("emi.category." + ncLoc("electrolyzer_cathode").toLanguageKey(), "Electrolyzer Cathode");

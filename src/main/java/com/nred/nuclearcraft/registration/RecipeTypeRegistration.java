@@ -4,9 +4,7 @@ import com.nred.nuclearcraft.recipe.*;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import net.minecraft.world.item.crafting.Recipe;
@@ -67,6 +65,8 @@ public static final DeferredHolder<RecipeType<?>, RecipeType<SupercoolerRecipe>>
     public static final DeferredHolder<RecipeType<?>, RecipeType<MultiblockInfiltratorRecipe>> MULTIBLOCK_INFILTRATOR_RECIPE_TYPE = register("multiblock_infiltrator");
     public static final DeferredHolder<RecipeType<?>, RecipeType<MultiblockDistillerRecipe>> MULTIBLOCK_DISTILLER_RECIPE_TYPE = register("multiblock_distiller");
     public static final DeferredHolder<RecipeType<?>, RecipeType<MultiblockElectrolyzerRecipe>> MULTIBLOCK_ELECTROLYZER_RECIPE_TYPE = register("multiblock_electrolyzer");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<MultiblockDecayPoolRecipe>> MULTIBLOCK_DECAY_POOL_RECIPE_TYPE = register("multiblock_decay_pool");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<DecayPoolHeatSourceRecipe>> DECAY_POOL_HEAT_SOURCE_RECIPE_TYPE = register("decay_pool_heat_source");
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<DecayGeneratorRecipe>> DECAY_GENERATOR_RECIPE_TYPE = register("decay_generator");
     public static final DeferredHolder<RecipeType<?>, RecipeType<RadiationScrubberRecipe>> RADIATION_SCRUBBER_RECIPE_TYPE = register("radiation_scrubber");

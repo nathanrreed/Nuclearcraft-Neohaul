@@ -8,9 +8,7 @@ import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
 import com.nred.nuclearcraft.recipe.exchanger.CondenserRecipe;
 import com.nred.nuclearcraft.recipe.exchanger.HeatExchangerRecipe;
 import com.nred.nuclearcraft.recipe.fission.*;
-import com.nred.nuclearcraft.recipe.machine.MultiblockDistillerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockElectrolyzerRecipe;
-import com.nred.nuclearcraft.recipe.machine.MultiblockInfiltratorRecipe;
+import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.util.StreamHelper;
@@ -94,6 +92,8 @@ public class ModJeiPlugin implements IModPlugin {
     public static IRecipeCategory<RecipeHolder<MultiblockDistillerRecipe>> JEI_MULTIBLOCK_DISTILLER_CATEGORY;
     public static IRecipeCategory<RecipeHolder<MultiblockElectrolyzerRecipe>> JEI_MULTIBLOCK_ELECTROLYZER_CATEGORY;
     public static IRecipeCategory<RecipeHolder<MultiblockInfiltratorRecipe>> JEI_MULTIBLOCK_INFILTRATOR_CATEGORY;
+    public static IRecipeCategory<RecipeHolder<MultiblockDecayPoolRecipe>> JEI_MULTIBLOCK_DECAY_POOL_CATEGORY;
+    public static IRecipeCategory<RecipeHolder<DecayPoolHeatSourceRecipe>> JEI_DECAY_POOL_HEAT_SOURCE_CATEGORY;
     public static IRecipeCategory<RecipeHolder<DecayGeneratorRecipe>> JEI_DECAY_GENERATOR_CATEGORY;
     public static IRecipeCategory<RecipeHolder<RadiationScrubberRecipe>> JEI_RADIATION_SCRUBBER_CATEGORY;
 
@@ -198,6 +198,10 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(JEI_MULTIBLOCK_ELECTROLYZER_CATEGORY);
         JEI_MULTIBLOCK_INFILTRATOR_CATEGORY = new JeiMultiblockInfiltratorCategory(helper);
         registration.addRecipeCategories(JEI_MULTIBLOCK_INFILTRATOR_CATEGORY);
+        JEI_MULTIBLOCK_DECAY_POOL_CATEGORY = new JeiMultiblockDecayPoolCategory(helper);
+        registration.addRecipeCategories(JEI_MULTIBLOCK_DECAY_POOL_CATEGORY);
+        JEI_DECAY_POOL_HEAT_SOURCE_CATEGORY = new JeiDecayPoolHeatSourceCategory(helper);
+        registration.addRecipeCategories(JEI_DECAY_POOL_HEAT_SOURCE_CATEGORY);
         JEI_ELECTROLYZER_CATHODE_CATEGORY = new JeiBasicInfoCategory(helper, "electrolyzer_cathode", MACHINE_MAP.get("electrolyzer_cathode_terminal"));
         registration.addRecipeCategories(JEI_ELECTROLYZER_CATHODE_CATEGORY);
         JEI_ELECTROLYZER_ANODE_CATEGORY = new JeiBasicInfoCategory(helper, "electrolyzer_anode", MACHINE_MAP.get("electrolyzer_anode_terminal"));
@@ -264,6 +268,8 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCatalysts(JEI_CONDENSER_DISSIPATION_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(HX_MAP.get("heat_exchanger_inlet").toStack()));
         registration.addRecipeCatalysts(JEI_MULTIBLOCK_ELECTROLYZER_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("electrolyzer_controller").toStack()));
         registration.addRecipeCatalysts(JEI_MULTIBLOCK_INFILTRATOR_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("infiltrator_controller").toStack()));
+        registration.addRecipeCatalysts(JEI_MULTIBLOCK_DECAY_POOL_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("decay_pool_controller").toStack()));
+        registration.addRecipeCatalysts(JEI_DECAY_POOL_HEAT_SOURCE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("decay_pool_container").toStack()));
         registration.addRecipeCatalysts(JEI_ELECTROLYZER_CATHODE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("electrolyzer_cathode_terminal").toStack()));
         registration.addRecipeCatalysts(JEI_ELECTROLYZER_ANODE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("electrolyzer_anode_terminal").toStack()));
         registration.addRecipeCatalysts(JEI_INFILTRATOR_PRESSURE_CATEGORY.getRecipeType(), VanillaTypes.ITEM_STACK, List.of(MACHINE_MAP.get("infiltrator_pressure_chamber").toStack()));
@@ -323,6 +329,8 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipes(JEI_MULTIBLOCK_DISTILLER_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MULTIBLOCK_DISTILLER_RECIPE_TYPE.get()).stream().toList());
         registration.addRecipes(JEI_MULTIBLOCK_ELECTROLYZER_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MULTIBLOCK_ELECTROLYZER_RECIPE_TYPE.get()).stream().toList());
         registration.addRecipes(JEI_MULTIBLOCK_INFILTRATOR_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MULTIBLOCK_INFILTRATOR_RECIPE_TYPE.get()).stream().toList());
+        registration.addRecipes(JEI_MULTIBLOCK_DECAY_POOL_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(MULTIBLOCK_DECAY_POOL_RECIPE_TYPE.get()).stream().toList());
+        registration.addRecipes(JEI_DECAY_POOL_HEAT_SOURCE_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(DECAY_POOL_HEAT_SOURCE_RECIPE_TYPE.get()).stream().toList());
         createItemDataMapCategory(registration, JEI_ELECTROLYZER_CATHODE_CATEGORY, ELECTROLYZER_CATHODE_DATA);
         createItemDataMapCategory(registration, JEI_ELECTROLYZER_ANODE_CATEGORY, ELECTROLYZER_ANODE_DATA);
         createFluidDataMapCategory(registration, JEI_INFILTRATOR_PRESSURE_CATEGORY, INFILTRATOR_PRESSURE_DATA, INFILTRATOR_PRESSURE_FLUID_TOOLTIP);

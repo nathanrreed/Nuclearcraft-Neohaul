@@ -86,9 +86,11 @@ public class FluidRegistration {
         map.put("barium_oxide", new Fluids("barium_oxide", 0xC7D4D6, Fluids.MOLTEN_TYPE));
         map.put("nickel", new Fluids("nickel", 0xA3A998, Fluids.MOLTEN_TYPE));
         map.put("nickel_oxide", new Fluids("nickel_oxide", 0x435E49, Fluids.MOLTEN_TYPE));
+        map.put("palladium", new Fluids("palladium", 0x767676, Fluids.MOLTEN_TYPE));
         map.put("chromium", new Fluids("chromium", 0xE7E7E7, Fluids.MOLTEN_TYPE));
         map.put("holmium", new Fluids("holmium", 0xDCB49C, Fluids.MOLTEN_TYPE));
         map.put("dysprosium", new Fluids("dysprosium", 0xC381E4, Fluids.MOLTEN_TYPE));
+        map.put("gadolinium", new Fluids("gadolinium", 0x99C3F2, Fluids.MOLTEN_TYPE));
 
         map.put("lead_platinum", new Fluids("lead_platinum", 0xFF415B60, Fluids.MOLTEN_TYPE));
         map.put("enderium", new Fluids("enderium", 0xFF0B5B5C, Fluids.MOLTEN_TYPE));
@@ -174,7 +176,7 @@ public class FluidRegistration {
         map.put("slurry_ice", new Fluids("slurry_ice", "liquid", false, false, 0xFF7EAEB7, 950, 270, 4000, 0, LiquidFluidBlock::new));
         map.put("emergency_coolant", new Fluids("emergency_coolant", "liquid", false, false, 0xFF6DD0E7, 2000, 100, 2000, 0, LiquidFluidBlock::new));
         map.put("emergency_coolant_heated", new Fluids("emergency_coolant_heated", "liquid", false, false, 0xFFCDBEE7, 2000, 400, 1500, 7, LiquidFluidBlock::new));
-        map.put("preheated_water", new Fluids("preheated_water", "liquid", false, false, 0xFF2F43F4, 1000, 400, 250, 0, LiquidFluidBlock::new));
+        map.put("preheated_water", new Fluids("preheated_water", "liquid", false, false, 0x1D35F2, 1000, 400, 250, 0, LiquidFluidBlock::new));
         map.put("condensate_water", new Fluids("condensate_water", "liquid", false, false, 0xFF2F43F4, 1000, 350, 850, 0, LiquidFluidBlock::new));
         return map;
     }
