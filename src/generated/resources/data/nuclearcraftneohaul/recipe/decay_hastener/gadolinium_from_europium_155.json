@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:decay_hastener_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:europium_155_dust"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:gadolinium_dust"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.21,
+  "timeModifier": 0.06875
+}

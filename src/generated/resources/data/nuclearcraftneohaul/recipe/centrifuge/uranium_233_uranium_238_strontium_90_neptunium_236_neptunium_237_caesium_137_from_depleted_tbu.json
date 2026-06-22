@@ -24,6 +24,7 @@
     {
       "amount": 32,
       "chancePercent": 25,
+      "increment": 16,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:strontium_90"
       }
@@ -41,8 +42,9 @@
       }
     },
     {
-      "amount": 16,
+      "amount": 32,
       "chancePercent": 25,
+      "increment": 16,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:caesium_137"
       }

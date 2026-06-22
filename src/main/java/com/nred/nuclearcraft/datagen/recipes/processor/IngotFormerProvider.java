@@ -19,10 +19,10 @@ public class IngotFormerProvider {
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("hastelloy"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("hastelloy"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("beryllium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("beryllium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("zirconium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("zirconium"), 1).save(recipeOutput);
-//  TODO      new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("palladium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("palladium"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("palladium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("palladium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("holmium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("holmium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("dysprosium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("dysprosium"), 1).save(recipeOutput);
-//   TODO     new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("gadolinium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("gadolinium"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("gadolinium"), INGOT_VOLUME).addItemResult(INGOT_MAP.get("gadolinium"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polydimethylsilylene"), INGOT_VOLUME).addItemResult(PART_MAP.get("polydimethylsilylene"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polytetrafluoroethene"), INGOT_VOLUME).addItemResult(PART_MAP.get("polytetrafluoroethene"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polymethylsilylene_methylene"), INGOT_VOLUME).addItemResult(PART_MAP.get("polymethylsilylene_methylene"), 1).save(recipeOutput);

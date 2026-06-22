@@ -131,6 +131,11 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
+    public ProcessorRecipeBuilder addFluidResult(SizedChanceFluidIngredient result) {
+        fluidResults.add(result);
+        return this;
+    }
+
     public ProcessorRecipeBuilder addFluidResult(Fluids output, int chancePercent, int amount) {
         fluidResults.add(Fluids.sizedIngredient(output, chancePercent, amount));
         return this;

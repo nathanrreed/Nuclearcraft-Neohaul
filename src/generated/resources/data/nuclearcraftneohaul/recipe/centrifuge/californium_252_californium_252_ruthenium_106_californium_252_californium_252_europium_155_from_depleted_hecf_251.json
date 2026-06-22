@@ -23,7 +23,8 @@
     },
     {
       "amount": 32,
-      "chancePercent": 20,
+      "chancePercent": 90,
+      "increment": 16,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:ruthenium_106"
       }
@@ -41,8 +42,9 @@
       }
     },
     {
-      "amount": 16,
+      "amount": 32,
       "chancePercent": 60,
+      "increment": 16,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:europium_155"
       }

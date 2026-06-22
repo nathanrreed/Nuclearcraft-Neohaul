@@ -24,6 +24,7 @@
     {
       "amount": 32,
       "chancePercent": 30,
+      "increment": 16,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:molybdenum"
       }
@@ -41,8 +42,9 @@
       }
     },
     {
-      "amount": 16,
+      "amount": 32,
       "chancePercent": 20,
+      "increment": 16,
       "ingredient": {
         "fluid": "nuclearcraftneohaul:europium_155"
       }

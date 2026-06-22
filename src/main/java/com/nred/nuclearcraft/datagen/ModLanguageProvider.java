@@ -792,7 +792,8 @@ public class ModLanguageProvider extends LanguageProvider {
                 "sic_sic_cmc", "SiC-SiC Ceramic Matrix Composite Ingot",
                 "silicon_carbide", "Silicon Carbide Ingot",
                 "zirconium_molybdenum", "Zirconium-Molybdenum Alloy Ingot",
-                "bronze", "Bronze Ingot"
+                "bronze", "Bronze Ingot",
+                "samarium", "Samarium Ingot"
         ));
         replaceItems(PARTS, PART_MAP, "", "", Map.of(
                 "du_plating", "DU Plating",

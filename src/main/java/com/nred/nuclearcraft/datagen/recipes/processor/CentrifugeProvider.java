@@ -1,7 +1,10 @@
 package com.nred.nuclearcraft.datagen.recipes.processor;
 
+import com.nred.nuclearcraft.info.Fluids;
 import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
+import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.processor.CentrifugeRecipe;
+import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.data.recipes.RecipeOutput;
 
 import java.util.List;
@@ -61,65 +64,41 @@ public class CentrifugeProvider {
 
         // Fuel Reprocessing
 
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_tbu"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_233"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 5).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("neptunium_236"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("neptunium_237"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("caesium_137"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_leu_233"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 5).addFluidResult(FISSION_FUEL_MAP.get("plutonium_241"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("caesium_137"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_heu_233"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_235"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 75, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("caesium_137"), 76, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_leu_235"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 4).addFluidResult(FISSION_FUEL_MAP.get("plutonium_239"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("caesium_137"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_heu_235"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("neptunium_236"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 75, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("caesium_137"), 76, NUGGET_VOLUME).save(recipeOutput);
+        addReprocessingRecipe(recipeOutput, "tbu", "uranium_233", 1, "uranium_238", 5, "neptunium_236", 1, "neptunium_237", 1, "strontium_90", "caesium_137", 0.5D, 50);
 
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_len_236"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 4).addFluidResult(FISSION_FUEL_MAP.get("neptunium_237"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("plutonium_241"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("caesium_137"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hen_236"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 4).addFluidResult(FISSION_FUEL_MAP.get("plutonium_238"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 75, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("plutonium_241"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("caesium_137"), 75, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_lep_239"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME * 5).addFluidResult(FISSION_FUEL_MAP.get("americium_242"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hep_239"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("plutonium_241"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("americium_242"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 75, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME * 4).addFluidResult(FISSION_FUEL_MAP.get("curium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 75, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_lep_241"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME * 5).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 25, NUGGET_VOLUME).save(recipeOutput);
+        addReprocessingRecipe(recipeOutput, "leu_233", "uranium_238", 5, "plutonium_241", 1, "plutonium_242", 1, "americium_243", 1, "strontium_90", "caesium_137", 0.5D, 50);
+        addReprocessingRecipe(recipeOutput, "heu_233", "uranium_235", 1, "uranium_238", 2, "plutonium_242", 3, "americium_243", 1, "strontium_90", "caesium_137", 1.5D, 50);
+        addReprocessingRecipe(recipeOutput, "leu_235", "uranium_238", 4, "plutonium_239", 1, "plutonium_242", 2, "americium_243", 1, "molybdenum", "caesium_137", 0.5D, 50);
+        addReprocessingRecipe(recipeOutput, "heu_235", "uranium_238", 3, "neptunium_236", 1, "plutonium_242", 2, "americium_243", 1, "molybdenum", "caesium_137", 1.5D, 50);
 
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hep_241"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("americium_241"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("americium_242"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 75, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 75, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_mix_239"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 4).addFluidResult(FISSION_FUEL_MAP.get("plutonium_241"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_mix_241"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("uranium_238"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("plutonium_241"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("strontium_90"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("plutonium_242"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_lea_242"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("curium_245"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("berkelium_248"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hea_242"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("americium_243"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("curium_243"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 75, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 75, NUGGET_VOLUME).save(recipeOutput);
+        addReprocessingRecipe(recipeOutput, "len_236", "uranium_238", 4, "neptunium_237", 1, "plutonium_241", 1, "plutonium_242", 2, "molybdenum", "caesium_137", 0.5D, 50);
+        addReprocessingRecipe(recipeOutput, "hen_236", "uranium_238", 4, "plutonium_238", 1, "plutonium_241", 1, "plutonium_242", 1, "molybdenum", "caesium_137", 1.5D, 50);
 
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_lecm_243"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME * 4).addFluidResult(FISSION_FUEL_MAP.get("curium_247"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 25, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("berkelium_248"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 25, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hecm_243"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("curium_245"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 75, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("berkelium_248"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 75, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_lecm_245"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME * 4).addFluidResult(FISSION_FUEL_MAP.get("curium_247"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 30, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_249"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("europium_155"), 20, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hecm_245"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FUEL_MAP.get("curium_247"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 90, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_249"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("europium_155"), 60, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_lecm_247"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("curium_246"), NUGGET_VOLUME * 5).addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 30, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("berkelium_248"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_249"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("europium_155"), 20, NUGGET_VOLUME).save(recipeOutput);
+        addReprocessingRecipe(recipeOutput, "lep_239", "plutonium_242", 5, "americium_242", 1, "americium_243", 1, "curium_246", 1, "strontium_90", "promethium_147", 0.5D, 50);
+        addReprocessingRecipe(recipeOutput, "hep_239", "plutonium_241", 1, "americium_242", 1, "americium_243", 4, "curium_243", 1, "strontium_90", "promethium_147", 1.5D, 50);
+        addReprocessingRecipe(recipeOutput, "lep_241", "plutonium_242", 5, "americium_243", 1, "curium_246", 1, "berkelium_247", 1, "strontium_90", "promethium_147", 0.5D, 50);
+        addReprocessingRecipe(recipeOutput, "hep_241", "americium_241", 1, "americium_242", 1, "americium_243", 3, "curium_246", 2, "strontium_90", "promethium_147", 1.5D, 50);
 
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hecm_247"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME * 4).addFluidResult(FISSION_FUEL_MAP.get("berkelium_248"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("molybdenum"), 90, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("californium_249"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_251"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("europium_155"), 60, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_leb_248"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("berkelium_247"), NUGGET_VOLUME * 5).addFluidResult(FISSION_FUEL_MAP.get("berkelium_248"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("ruthenium_106"), 30, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("californium_249"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_251"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 20, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_heb_248"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("berkelium_248"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_249"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("ruthenium_106"), 90, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("californium_251"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 3).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 60, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_lecf_249"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("ruthenium_106"), 30, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 20, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hecf_249"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_250"), NUGGET_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("ruthenium_106"), 90, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("promethium_147"), 60, NUGGET_VOLUME).save(recipeOutput);
+        addReprocessingRecipe(recipeOutput, "mix_239", "uranium_238", 4, "plutonium_241", 1, "plutonium_242", 2, "americium_243", 1, "strontium_90", "promethium_147", 0.5D, 50);
+        addReprocessingRecipe(recipeOutput, "mix_241", "uranium_238", 3, "plutonium_241", 1, "plutonium_242", 3, "americium_243", 1, "strontium_90", "promethium_147", 0.5D, 50);
 
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_lecf_251"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("ruthenium_106"), 30, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("europium_155"), 90, NUGGET_VOLUME).save(recipeOutput);
-        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_hecf_251"), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FLUID_MAP.get("ruthenium_106"), 20, 2 * NUGGET_VOLUME)
-                .addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME * 2).addFluidResult(FISSION_FUEL_MAP.get("californium_252"), NUGGET_VOLUME).addFluidResult(FISSION_FLUID_MAP.get("europium_155"), 60, NUGGET_VOLUME).save(recipeOutput);
+        addReprocessingRecipe(recipeOutput, "lea_242", "americium_243", 3, "curium_245", 1, "curium_246", 3, "berkelium_248", 1, "molybdenum", "promethium_147", 0.5D, 50);
+        addReprocessingRecipe(recipeOutput, "hea_242", "americium_243", 3, "curium_243", 1, "curium_246", 2, "berkelium_247", 1, "molybdenum", "promethium_147", 1.5D, 50);
+
+        addReprocessingRecipe(recipeOutput, "lecm_243", "curium_246", 4, "curium_247", 1, "berkelium_247", 2, "berkelium_248", 1, "molybdenum", "promethium_147", 0.5D, 50);
+        addReprocessingRecipe(recipeOutput, "hecm_243", "curium_245", 1, "curium_246", 3, "berkelium_247", 2, "berkelium_248", 1, "molybdenum", "promethium_147", 1.5D, 50);
+        addReprocessingRecipe(recipeOutput, "lecm_245", "curium_246", 4, "curium_247", 1, "berkelium_247", 2, "californium_249", 1, "molybdenum", "europium_155", 0.5D, 60);
+        addReprocessingRecipe(recipeOutput, "hecm_245", "curium_246", 3, "curium_247", 1, "berkelium_247", 2, "californium_249", 1, "molybdenum", "europium_155", 1.5D, 60);
+        addReprocessingRecipe(recipeOutput, "lecm_247", "curium_246", 5, "berkelium_247", 1, "berkelium_248", 1, "californium_249", 1, "molybdenum", "europium_155", 0.5D, 60);
+        addReprocessingRecipe(recipeOutput, "hecm_247", "berkelium_247", 4, "berkelium_248", 1, "californium_249", 1, "californium_251", 1, "molybdenum", "europium_155", 1.5D, 60);
+
+        addReprocessingRecipe(recipeOutput, "leb_248", "berkelium_247", 5, "berkelium_248", 1, "californium_249", 1, "californium_251", 1, "ruthenium_106", "promethium_147", 0.5D, 60);
+        addReprocessingRecipe(recipeOutput, "heb_248", "berkelium_248", 1, "californium_249", 1, "californium_251", 2, "californium_252", 3, "ruthenium_106", "promethium_147", 1.5D, 60);
+
+        addReprocessingRecipe(recipeOutput, "lecf_249", "californium_252", 2, "californium_252", 2, "californium_252", 2, "californium_252", 2, "ruthenium_106", "promethium_147", 0.5D, 60);
+        addReprocessingRecipe(recipeOutput, "hecf_249", "californium_250", 1, "californium_252", 2, "californium_252", 2, "californium_252", 2, "ruthenium_106", "promethium_147", 1.5D, 60);
+        addReprocessingRecipe(recipeOutput, "lecf_251", "californium_252", 2, "californium_252", 2, "californium_252", 2, "californium_252", 2, "ruthenium_106", "europium_155", 0.5D, 60);
+        addReprocessingRecipe(recipeOutput, "hecf_251", "californium_252", 2, "californium_252", 2, "californium_252", 2, "californium_252", 1, "ruthenium_106", "europium_155", 1.5D, 60);
     }
 
     public void addFissionFuelIsotopeRecipes(RecipeOutput recipeOutput, String suffix, String element, int fertile, int... fissiles) {
@@ -128,4 +107,13 @@ public class CentrifugeProvider {
             new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("he" + suffix + "_" + fissile), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get(element + "_" + fertile), NUGGET_VOLUME * 6).addFluidResult(FISSION_FUEL_MAP.get(element + "_" + fissile), NUGGET_VOLUME * 3).save(recipeOutput);
         }
     }
+
+    public void addReprocessingRecipe(RecipeOutput recipeOutput, String fuel, String out1, int n1, String out2, int n2, String out3, int n3, String out4, int n4, String waste1, String waste2, double w, int r) {
+        new ProcessorRecipeBuilder(CentrifugeRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("depleted_" + fuel), INGOT_VOLUME).addFluidResult(FISSION_FUEL_MAP.get(out1), NUGGET_VOLUME * n1).addFluidResult(FISSION_FUEL_MAP.get(out2), NUGGET_VOLUME * n2).addFluidResult(wasteStack(waste1, w * r)).addFluidResult(FISSION_FUEL_MAP.get(out3), NUGGET_VOLUME * n3).addFluidResult(FISSION_FUEL_MAP.get(out4), NUGGET_VOLUME * n4).addFluidResult(wasteStack(waste2, w * (100 - r))).save(recipeOutput);
+    }
+
+    public SizedChanceFluidIngredient wasteStack(String waste, double chancePercent) {
+        return Fluids.sizedIngredient(FISSION_FLUID_MAP.get(waste), NCMath.toInt(chancePercent), 2 * NUGGET_VOLUME, 0, NUGGET_VOLUME);
+    }
+
 }

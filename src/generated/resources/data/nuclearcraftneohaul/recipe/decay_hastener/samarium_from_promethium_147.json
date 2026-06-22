@@ -1,0 +1,22 @@
+{
+  "type": "nuclearcraftneohaul:decay_hastener_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:promethium_147_dust"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:samarium_alloy"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.38,
+  "timeModifier": 0.0625
+}

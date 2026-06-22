@@ -23,7 +23,7 @@ import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 public class DecayHastenerProvider {
     public DecayHastenerProvider(RecipeOutput recipeOutput) {
         addIsotopes(recipeOutput, INGOT_MAP, "thorium", DUST_MAP, "lead", RadSources.THORIUM);
-//        addIsotopes(recipeOutput, FISSION_DUST_MAP, "bismuth", DUST_MAP, "thallium", RadSources.BISMUTH);
+//        addIsotopes(recipeOutput, FISSION_DUST_MAP, "bismuth", DUST_MAP, "thallium", RadSources.BISMUTH); TODO
 
         addIsotopes(recipeOutput, FISSION_DUST_MAP, "radium", DUST_MAP, "lead", RadSources.RADIUM);
         addIsotopes(recipeOutput, FISSION_DUST_MAP, "polonium", DUST_MAP, "lead", RadSources.POLONIUM);
@@ -33,9 +33,9 @@ public class DecayHastenerProvider {
 
         addIsotopes(recipeOutput, FISSION_DUST_MAP, "strontium_90", DUST_MAP, "zirconium", RadSources.STRONTIUM_90);
         addIsotopes(recipeOutput, FISSION_DUST_MAP, "ruthenium_106", DUST_MAP, "palladium", RadSources.RUTHENIUM_106);
-//        addIsotopes(recipeOutput, FISSION_DUST_MAP, "caesium_137", DUST_MAP, "barium", RadSources.CAESIUM_137);
-//        addIsotopes(recipeOutput, FISSION_DUST_MAP, "promethium_147", DUST_MAP, "neodymium", RadSources.PROMETHIUM_147);
-//        addIsotopes(recipeOutput, FISSION_DUST_MAP, "europium_155", DUST_MAP, "gadolinium", RadSources.EUROPIUM_155);
+//        addIsotopes(recipeOutput, FISSION_DUST_MAP, "caesium_137", DUST_MAP, "barium", RadSources.CAESIUM_137); TODO
+        addIsotopes(recipeOutput, FISSION_DUST_MAP, "promethium_147", ALLOY_MAP, "samarium", RadSources.PROMETHIUM_147);
+        addIsotopes(recipeOutput, FISSION_DUST_MAP, "europium_155", DUST_MAP, "gadolinium", RadSources.EUROPIUM_155);
 
         addIsotopes(recipeOutput, URANIUM_MAP, "233", FISSION_DUST_MAP, "bismuth", RadSources.URANIUM_233);
         addIsotopes(recipeOutput, URANIUM_MAP, "235", DUST_MAP, "lead", RadSources.URANIUM_235);
@@ -67,7 +67,7 @@ public class DecayHastenerProvider {
         addIsotopes(recipeOutput, CALIFORNIUM_MAP, "252", DUST_MAP, "thorium", RadSources.CALIFORNIUM_252);
     }
 
-    private static final Set<String> NON_FISSION = Sets.newHashSet("thorium", "lead", "bismuth", "thallium", "radium", "polonium", "tbp", "zirconium", "palladium", "barium", "neodymium", "gadolinium");
+    private static final Set<String> NON_FISSION = Sets.newHashSet("thorium", "lead", "bismuth", "thallium", "radium", "polonium", "tbp", "zirconium", "palladium", "barium", "samarium", "neodymium", "gadolinium");
 
     private void addIsotopes(RecipeOutput recipeOutput, Map<String, DeferredItem<Item>> inputMap, String input, Map<String, DeferredItem<Item>> outputMap, String output, double radiation) {
         double timeMult = NCMath.roundTo(RecipeHelper.getDecayTimeMultiplier(radiation / 9D, 1E-6D), 5D / 800);
