@@ -139,6 +139,8 @@ minecraft {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
+    implementation "curse.maven:zerocore-247921:${zerocore_version}"
+    implementation("com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}")
 
     compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
@@ -160,12 +162,9 @@ dependencies {
     runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators") // Mekanism: Generators
     runtimeOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")      // Mekanism: Tools
 
-    implementation "curse.maven:zerocore-247921:${zerocore_version}"
-
     compileOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge-api:${cct_version}")
     runtimeOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cct_version}")
 
-    implementation("com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}")
 
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"

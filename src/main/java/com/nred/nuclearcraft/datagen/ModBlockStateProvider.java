@@ -273,9 +273,11 @@ class ModBlockStateProvider extends BlockStateProvider {
         booleanBlock("reservoir_port_front", true, "reservoir_port_back", false, "reservoir_port", "_output", "_input", MACHINE_MAP.get("large_machine_reservoir_port"), "machine", ACTIVE, Directional);
         blockWithStateItem("redstone_port", MACHINE_MAP.get("large_machine_redstone_port"), "machine", ACTIVE);
         blockWithItemCutout("computer_port", MACHINE_MAP.get("large_machine_computer_port"), "machine");
+
         blockWithItemCutout("sintered_steel", MACHINE_MAP.get("sintered_steel_diaphragm"), "machine/diaphragm");
-        blockWithItemCutout("polyethersulfone", MACHINE_MAP.get("polyethersulfone_diaphragm"), "machine/diaphragm");
-        blockWithItemCutout("zirfon", MACHINE_MAP.get("zirfon_diaphragm"), "machine/diaphragm");
+        blockWithItemRenderType("polyethersulfone", MACHINE_MAP.get("polyethersulfone_diaphragm"), "machine/diaphragm", "translucent");
+        blockWithItemRenderType("zirfon", MACHINE_MAP.get("zirfon_diaphragm"), "machine/diaphragm", "translucent");
+
         blockWithItemCutout("steel", MACHINE_MAP.get("steel_sieve_assembly"), "machine/sieve_assembly");
         blockWithItemCutout("polytetrafluoroethene", MACHINE_MAP.get("polytetrafluoroethene_sieve_assembly"), "machine/sieve_assembly");
         blockWithItemCutout("hastelloy", MACHINE_MAP.get("hastelloy_sieve_assembly"), "machine/sieve_assembly");
@@ -618,12 +620,16 @@ class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(BuiltInRegistries.BLOCK.getKey(deferredBlock.get()).getPath(), deferredBlock, folder);
     }
 
-    private void blockWithItemCutout(String name, DeferredBlock<Block> deferredBlock, String folder) {
+    private void blockWithItemRenderType(String name, DeferredBlock<Block> deferredBlock, String folder, String renderType) {
         Block block = deferredBlock.get();
         String texture = BLOCK_FOLDER + "/" + folder + "/" + name;
-        ModelFile model = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture)).renderType("cutout");
+        ModelFile model = models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), modLoc(texture)).renderType(renderType);
         simpleBlock(block, model);
         simpleBlockItem(block, model);
+    }
+
+    private void blockWithItemCutout(String name, DeferredBlock<Block> deferredBlock, String folder) {
+        blockWithItemRenderType(name, deferredBlock, folder, "cutout");
     }
 
     private void turbineBladeWithItem(String name, DeferredBlock<Block> deferredBlock, String folder) {
