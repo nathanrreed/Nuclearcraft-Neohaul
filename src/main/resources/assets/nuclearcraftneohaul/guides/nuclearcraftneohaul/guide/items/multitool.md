@@ -11,4 +11,8 @@ item_ids:
 
 # Multitool
 
-Used to change setting and copy data from one machine to another
+The Multitool is used to interact and configure multiblocks in various ways. It is highly recommended to carry one with you.
+
+<ItemGrid>
+<ItemIcon  id="multitool" />
+</ItemGrid>

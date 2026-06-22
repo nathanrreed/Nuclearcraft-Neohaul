@@ -3,6 +3,7 @@ navigation:
   title: Moderators
   icon: heavy_water_moderator
   parent: fission/fission.md
+  position: 4
 
 data_maps:
   - fission_moderator_data
@@ -30,6 +31,7 @@ Receiving <nuclearcraftneohaul:DataMapInfo datamap="fission_moderator_data" type
 <ItemImage id="leu_233_ni" /> It contains a LEU-233 Nitride Fuel Pellet
 
 which needs <nuclearcraftneohaul:FuelInfo id="leu_233_ni" value="getFissionFuelCriticality" /> N/t to work
+
 </BlockAnnotation>
 </BlockAnnotationTemplate>
 
@@ -43,16 +45,19 @@ Neutron Source sends Neutron Flux (N) along the line
 This moderator is <Color id="green">active</Color>, because it is beside an <Color id="green">active</Color> Fuel Component
 
 It contributes <nuclearcraftneohaul:DataMapInfo datamap="fission_moderator_data" type="heavy_water_moderator" value="fluxFactor" /> N/t
+
 </BlockAnnotation>
 <BlockAnnotation x="2" y="0" z="0" color="#cccccc">
 This moderator is <Color id="red">inactive</Color>
 
 It contributes <nuclearcraftneohaul:DataMapInfo datamap="fission_moderator_data" type="heavy_water_moderator" value="fluxFactor" /> N/t
+
 </BlockAnnotation>
 <BlockAnnotation x="3" y="0" z="0" color="#22cc00">
 This moderator is <Color id="green">active</Color>, because it is beside an <Color id="green">active</Color> Fuel Component
 
 It contributes <nuclearcraftneohaul:DataMapInfo datamap="fission_moderator_data" type="heavy_water_moderator" value="fluxFactor" /> N/t
+
 </BlockAnnotation>
 
 <LineAnnotation from="0.5 0.5 1.5" to="0.5 0.5 0.5" color="#ff0000" alwaysOnTop={true} />
@@ -77,6 +82,7 @@ Receiving <nuclearcraftneohaul:DataMapInfo datamap="fission_moderator_data" type
 <ItemImage id="leu_233_ni" /> It contains a LEU-233 Nitride Fuel Pellet
 
 which needs <nuclearcraftneohaul:FuelInfo id="leu_233_ni" value="getFissionFuelCriticality" /> N/t to work
+
 </BlockAnnotation>
 </BlockAnnotationTemplate>
 
@@ -90,16 +96,19 @@ Neutron Source sends Neutron Flux (N) along the line
 This moderator is <Color id="green">active</Color>, because it is beside an <Color id="green">active</Color> Fuel Component
 
 It contributes <nuclearcraftneohaul:DataMapInfo datamap="fission_moderator_data" type="heavy_water_moderator" value="fluxFactor" /> N/t
+
 </BlockAnnotation>
 <BlockAnnotation x="2" y="0" z="0" color="#cccccc">
 This moderator is <Color id="red">inactive</Color>
 
 It contributes <nuclearcraftneohaul:DataMapInfo datamap="fission_moderator_data" type="heavy_water_moderator" value="fluxFactor" /> N/t
+
 </BlockAnnotation>
 <BlockAnnotation x="3" y="0" z="0" color="#22cc00">
 This moderator is <Color id="green">active</Color>, because it is beside an <Color id="green">active</Color> Fuel Component
 
 It contributes <nuclearcraftneohaul:DataMapInfo datamap="fission_moderator_data" type="heavy_water_moderator" value="fluxFactor" /> N/t
+
 </BlockAnnotation>
 
 <LineAnnotation from="0.5 0.5 5.5" to="0.5 0.5 0.5" color="#ff0000" alwaysOnTop={true} />
@@ -120,8 +129,8 @@ Line shows the path of the Neutron Flux (N) from the Neutron Source to the Fuel 
 </Column>
 </Row>
 
-
 ## Broken Examples:
+
 <Row fullWidth={true}>
 <Column>
 ### Moderator line too short:

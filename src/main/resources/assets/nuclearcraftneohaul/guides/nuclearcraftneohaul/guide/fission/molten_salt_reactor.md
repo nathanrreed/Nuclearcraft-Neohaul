@@ -3,6 +3,7 @@ navigation:
   title: Molten Salt Fission Reactor
   icon: molten_salt_fission_controller
   parent: fission/fission.md
+  position: 3
 
 item_ids:
   - molten_salt_fission_controller

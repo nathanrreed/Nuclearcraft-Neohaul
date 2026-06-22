@@ -3,6 +3,7 @@ navigation:
   title: Pebble Bed Fission Reactor
   icon: pebble_bed_fission_controller
   parent: fission/fission.md
+  position: 2
 
 item_ids:
   - pebble_bed_fission_controller

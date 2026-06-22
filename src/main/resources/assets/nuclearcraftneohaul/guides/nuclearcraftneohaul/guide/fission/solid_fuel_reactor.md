@@ -3,6 +3,7 @@ navigation:
   title: Solid Fuel Fission Reactor
   icon: solid_fuel_fission_controller
   parent: fission/fission.md
+  position: 1
 
 item_ids:
   - solid_fuel_fission_controller

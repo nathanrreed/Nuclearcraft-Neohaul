@@ -3,6 +3,7 @@ navigation:
   title: Fuel Component
   icon: fission_fuel_cell
   parent: fission/fission.md
+  position: 5
 
 categories:
   - General Fission

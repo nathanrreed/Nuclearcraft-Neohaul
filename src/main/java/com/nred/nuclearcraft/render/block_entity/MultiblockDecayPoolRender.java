@@ -43,7 +43,7 @@ public record MultiblockDecayPoolRender(BlockEntityRendererProvider.Context cont
 
         BlockPos cornerPos = machine.getExtremeInteriorCoord(false, false, false);
         BlockPos posOffset = cornerPos.subtract(controller.getTilePos());
-        poseStack.translate(posOffset.getX(), posOffset.getY(), posOffset.getZ());
+        poseStack.translate(posOffset.getX() - ONE_PIXEL, posOffset.getY() - ONE_PIXEL, posOffset.getZ() - ONE_PIXEL);
 
         bindBlocksTexture();
 

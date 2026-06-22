@@ -1,1 +1,3 @@
 - Updated to v2o.9.7
+- Fixed gas cooler and the pebble bed controller having the same recipe
+- Updated GuideME

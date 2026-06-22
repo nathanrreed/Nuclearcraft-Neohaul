@@ -14,6 +14,9 @@ item_ids:
 
 # Hazmat Suit
 
+The Hazmat Suit is used to lower radiation exposure. Each part of the set has a rad resistance which determines how much protection it provides from radiation.
+
+
 <ItemGrid fullWidth={true}>
 <ItemIcon  id="hazmat_helmet" />
 <ItemIcon  id="hazmat_chestplate" />
