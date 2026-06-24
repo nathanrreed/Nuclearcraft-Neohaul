@@ -4,7 +4,6 @@ import com.nred.nuclearcraft.util.InfoHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
@@ -18,32 +17,52 @@ public class NCItemBlock extends BlockItem {
     private final ChatFormatting infoColor;
     public final Component[] fixedInfo, info;
 
-    public NCItemBlock(Block block, ChatFormatting[] fixedColors, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, boolean hasInfo, Component... tooltip) {
-        super(block, new Item.Properties());
+    public NCItemBlock(Block block, Properties properties, ChatFormatting[] fixedColors, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, boolean hasInfo, Component... tooltip) {
+        super(block, properties);
         this.fixedColors = fixedColors;
         this.fixedInfo = hasFixed ? InfoHelper.buildFixedInfo(block.getDescriptionId(), fixedTooltip) : new Component[]{};
         this.infoColor = infoColor;
         this.info = hasInfo ? InfoHelper.buildInfo(block.getDescriptionId(), tooltip) : new Component[]{};
     }
 
+    public NCItemBlock(Block block, ChatFormatting[] fixedColors, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, boolean hasInfo, Component... tooltip) {
+        this(block, new Properties(), fixedColors, fixedTooltip, hasFixed, infoColor, hasInfo, tooltip);
+    }
+
+    public NCItemBlock(Block block, Properties properties, ChatFormatting[] fixedColors, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, Component... tooltip) {
+        this(block, properties, fixedColors, fixedTooltip, hasFixed, infoColor, true, tooltip);
+    }
+
     public NCItemBlock(Block block, ChatFormatting[] fixedColors, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, Component... tooltip) {
-        this(block, fixedColors, fixedTooltip, hasFixed, infoColor, true, tooltip);
+        this(block, new Properties(), fixedColors, fixedTooltip, hasFixed, infoColor, true, tooltip);
+    }
+
+    public NCItemBlock(Block block, Properties properties, ChatFormatting fixedColor, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, boolean hasInfo, Component... tooltip) {
+        this(block, properties, new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, hasInfo, tooltip);
     }
 
     public NCItemBlock(Block block, ChatFormatting fixedColor, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, boolean hasInfo, Component... tooltip) {
-        this(block, new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, hasInfo, tooltip);
+        this(block, new Properties(), new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, hasInfo, tooltip);
+    }
+
+    public NCItemBlock(Block block, Properties properties, ChatFormatting fixedColor, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, Component... tooltip) {
+        this(block, properties, new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, true, tooltip);
     }
 
     public NCItemBlock(Block block, ChatFormatting fixedColor, Component[] fixedTooltip, boolean hasFixed, ChatFormatting infoColor, Component... tooltip) {
-        this(block, new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, true, tooltip);
+        this(block, new Properties(), new ChatFormatting[]{fixedColor}, fixedTooltip, hasFixed, infoColor, true, tooltip);
     }
 
-    public NCItemBlock(Block block, ChatFormatting infoColor, Component... tooltip) {
-        this(block, ChatFormatting.RED, InfoHelper.EMPTY_ARRAY, false, infoColor, tooltip);
+    public NCItemBlock(Block block, Properties properties, ChatFormatting infoColor, Component... tooltip) {
+        this(block, properties, ChatFormatting.RED, InfoHelper.EMPTY_ARRAY, false, infoColor, tooltip);
+    }
+
+    public NCItemBlock(Block block, Properties properties, Component... tooltip) {
+        this(block, properties, ChatFormatting.RED, InfoHelper.EMPTY_ARRAY, false, ChatFormatting.AQUA, tooltip);
     }
 
     public NCItemBlock(Block block, Component... tooltip) {
-        this(block, ChatFormatting.RED, InfoHelper.EMPTY_ARRAY, false, ChatFormatting.AQUA, tooltip);
+        this(block, new Properties(), ChatFormatting.RED, InfoHelper.EMPTY_ARRAY, false, ChatFormatting.AQUA, tooltip);
     }
 
     @Override

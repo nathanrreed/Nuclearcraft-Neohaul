@@ -14,6 +14,7 @@ import com.nred.nuclearcraft.util.NCMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -224,18 +225,17 @@ public class BatteryEntity extends AbstractPartBlockEntity<BatteryMultiblock> im
     // Added and read tag from itemstack
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
-        CompoundTag tag = new CompoundTag();
-        saveAdditional(tag, level.registryAccess());
-        components.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
         super.collectImplicitComponents(components);
+        CompoundTag tag = new CompoundTag();
+        RegistryAccess registries = level.registryAccess();
+        new EnergyStorage(batteryType.getCapacity().get(), batteryType.getMaxTransfer().get(), waitingEnergy).writeToNBT(tag, registries, "energyStorage");
+        readEnergyConnections(tag, registries);
+
+        components.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
 
     @Override
     protected void applyImplicitComponents(DataComponentInput componentInput) {
-        CompoundTag tag = componentInput.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        HolderLookup.Provider registries = level.registryAccess();
-        this.waitingEnergy += tag.getLong("waitingEnergy");
-        this.readEnergyConnections(tag, registries);
-        super.applyImplicitComponents(componentInput);
+        // Done on setPlacedBy in BatteryBlock
     }
 }

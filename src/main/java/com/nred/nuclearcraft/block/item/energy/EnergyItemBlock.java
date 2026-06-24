@@ -24,7 +24,7 @@ public class EnergyItemBlock extends NCItemBlock implements IChargeableNBTItem {
     private final EnergyConnection energyConnection;
 
     public EnergyItemBlock(Block block, Supplier<Integer> capacity, Supplier<Integer> maxTransfer, EnergyConnection connection, Component... tooltip) {
-        super(block, tooltip);
+        super(block, new Properties().stacksTo(1), tooltip);
         this.capacity = capacity;
         this.maxTransfer = maxTransfer;
         energyConnection = connection;

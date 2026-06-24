@@ -1,2 +1,3 @@
 - Reworked energy items
 - Fixed multitool clearing too much
+- Fixed battery energy duping

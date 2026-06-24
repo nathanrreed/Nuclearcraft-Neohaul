@@ -90,7 +90,6 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
 
     @Override
     protected void onPartRemoved(IMultiblockPart<BatteryMultiblock> oldPart) {
-        super.onPartRemoved(oldPart);
         if (oldPart instanceof BatteryEntity battery) {
             EnergyStorage storage = this.getEnergyStorage();
             if (this.getPartCount(BatteryEntity.class) < 2) {
@@ -102,6 +101,7 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
                 storage.changeEnergyStored(-energy);
             }
         }
+        super.onPartRemoved(oldPart);
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface IChargeableNBTItem extends IChargeableComponentItem {
 
         CompoundTag nbt = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         if (!nbt.contains("energyStorage")) {
-            new EnergyStorage(item.getMaxEnergyStored(stack), item.getMaxTransfer(stack), nbt.getLong("waitingEnergy")).writeToNBT(nbt, null, "energyStorage");
+            new EnergyStorage(item.getMaxEnergyStored(stack), item.getMaxTransfer(stack), 0L).writeToNBT(nbt, null,"energyStorage");
         }
 
         return nbt.getCompound("energyStorage");
@@ -22,7 +22,7 @@ public interface IChargeableNBTItem extends IChargeableComponentItem {
 
     default long getEnergyStored(ItemStack stack) {
         CompoundTag nbt = getEnergyStorageNBT(stack);
-        return nbt == null ? 0L : nbt.getLong("energy") + nbt.getLong("waitingEnergy");
+        return nbt == null ? 0L : nbt.getLong("energy");
     }
 
     default void setEnergyStored(ItemStack stack, long energy) {
