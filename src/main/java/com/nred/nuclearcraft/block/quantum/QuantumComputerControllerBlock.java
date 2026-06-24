@@ -25,7 +25,7 @@ public class QuantumComputerControllerBlock extends GenericTooltipDeviceBlock<Qu
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (hand != InteractionHand.MAIN_HAND || player.isCrouching()) {
-            return ItemInteractionResult.FAIL;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }

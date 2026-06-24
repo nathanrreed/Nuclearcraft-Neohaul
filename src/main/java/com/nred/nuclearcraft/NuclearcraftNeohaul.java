@@ -31,7 +31,8 @@ public class NuclearcraftNeohaul {
     public NuclearcraftNeohaul(IEventBus modEventBus, ModContainer modContainer) {
         enableMilkFluid();
         Registration.register(modEventBus);
-        modContainer.registerConfig(ModConfig.Type.COMMON, NCConfig.SPEC); // TODO split into client and server
+        modContainer.registerConfig(ModConfig.Type.COMMON, NCConfig.SPEC); // TODO split into client, server and startup
+        // Readd and reconfigure to no longer need suppliers
 
         NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::addReloadListeners);
         modEventBus.addListener(this::commonSetup);

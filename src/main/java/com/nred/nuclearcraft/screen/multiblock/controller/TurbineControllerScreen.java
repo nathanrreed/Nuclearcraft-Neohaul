@@ -25,7 +25,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 public class TurbineControllerScreen extends MultiblockControllerScreen<Turbine, TurbineUpdatePacket, TurbineControllerEntity, BlockEntityMenuInfo<TurbineControllerEntity>, TurbineControllerMenu> {
     protected static final ResourceLocation gui_texture = ncLoc("screen/" + "turbine_controller");
 
-    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.turbine_controller.power", UnitHelper.prefix(multiblock.power, 5, "RF/t")));
+    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.turbine_controller.power", UnitHelper.prefix(multiblock.power, 5, "FE/t")));
     StringCenteringOperator coilCountText = centeredTracker(() -> {
         int bearingCount = multiblock.getPartCount(TurbineRotorBearingEntity.class);
         return Component.translatable(MODID + ".tooltip.turbine_controller.dynamo_coil_count", (bearingCount == 0 ? "0/0, 0/0" : multiblock.dynamoCoilCount + "/" + bearingCount / 2 + ", " + multiblock.dynamoCoilCountOpposite + "/" + bearingCount / 2));

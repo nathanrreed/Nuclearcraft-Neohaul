@@ -7,8 +7,6 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +30,6 @@ import java.util.function.UnaryOperator;
 
 import static com.nred.nuclearcraft.config.NCConfig.processor_particles;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
-
 
 public class BlockHelper {
 
@@ -75,7 +72,7 @@ public class BlockHelper {
         return facing;
     }
 
-    public static void spawnParticleOnProcessor(BlockState state, Level level, BlockPos pos, RandomSource random, Direction direction, String particleName) {
+    public static void spawnParticleOnProcessor(Level level, BlockPos pos, RandomSource random, Direction direction, String particleName) {
         if (particleName.isEmpty() || !processor_particles) {
             return;
         }
@@ -83,9 +80,6 @@ public class BlockHelper {
         double d0 = (double) pos.getX() + 0.5;
         double d1 = (double) pos.getY();
         double d2 = (double) pos.getZ() + 0.5;
-        if (random.nextDouble() < 0.1) {
-            level.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
-        }
 
         Direction.Axis direction$axis = direction.getAxis();
         double d3 = 0.52;

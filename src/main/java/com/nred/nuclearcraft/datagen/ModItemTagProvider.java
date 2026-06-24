@@ -24,6 +24,7 @@ import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
+import static net.neoforged.neoforge.common.Tags.Items.TOOLS_WRENCH;
 
 class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper existingFileHelper) {
@@ -51,6 +52,8 @@ class ModItemTagProvider extends ItemTagsProvider {
         simpleTag(MUSIC_DISC_MAP, Tags.Items.MUSIC_DISCS);
         simpleTag(FOOD_MAP, Tags.Items.FOODS);
 
+        tag(TOOLS_WRENCH).add(MULTITOOL.get());
+
         simpleBlockTag(INGOTS, INGOT_BLOCK_MAP, Tags.Items.STORAGE_BLOCKS);
         simpleBlockTag(MATERIAL_BLOCKS, MATERIAL_BLOCK_MAP, Tags.Items.STORAGE_BLOCKS);
         simpleBlockTag(FERTILE_ISOTOPES, FERTILE_ISOTOPE_MAP, Tags.Items.STORAGE_BLOCKS);
@@ -59,11 +62,12 @@ class ModItemTagProvider extends ItemTagsProvider {
         tag(Tags.Items.MUSHROOMS).add(GLOWING_MUSHROOM.asItem());
 
         tag(Tags.Items.MINING_TOOL_TOOLS).add(BORON_PICKAXE.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_PICKAXE.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_PICKAXE.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_PICKAXE.asItem(), TOUGH_SPAXELHOE.asItem());
-        tag(ItemTags.AXES).add(BORON_AXE.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_AXE.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_AXE.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_AXE.asItem(), TOUGH_SPAXELHOE.asItem());
-        tag(ItemTags.HOES).add(BORON_HOE.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_HOE.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_HOE.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_HOE.asItem(), TOUGH_SPAXELHOE.asItem());
+        tag(Tags.Items.MELEE_WEAPON_TOOLS).add(BORON_SWORD.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_SWORD.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_SWORD.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_SWORD.asItem(), TOUGH_SPAXELHOE.asItem());
         tag(ItemTags.PICKAXES).add(BORON_PICKAXE.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_PICKAXE.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_PICKAXE.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_PICKAXE.asItem(), TOUGH_SPAXELHOE.asItem());
-        tag(ItemTags.SHOVELS).add(BORON_SHOVEL.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_SHOVEL.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_SHOVEL.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_SHOVEL.asItem(), TOUGH_SPAXELHOE.asItem());
         tag(ItemTags.SWORDS).add(BORON_SWORD.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_SWORD.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_SWORD.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_SWORD.asItem(), TOUGH_SPAXELHOE.asItem());
+        tag(ItemTags.AXES).add(BORON_AXE.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_AXE.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_AXE.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_AXE.asItem(), TOUGH_SPAXELHOE.asItem());
+        tag(ItemTags.SHOVELS).add(BORON_SHOVEL.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_SHOVEL.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_SHOVEL.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_SHOVEL.asItem(), TOUGH_SPAXELHOE.asItem());
+        tag(ItemTags.HOES).add(BORON_HOE.asItem(), BORON_SPAXELHOE.asItem(), BORON_NITRIDE_HOE.asItem(), BORON_NITRIDE_SPAXELHOE.asItem(), HARD_CARBON_HOE.asItem(), HARD_CARBON_SPAXELHOE.asItem(), TOUGH_HOE.asItem(), TOUGH_SPAXELHOE.asItem());
 
         // Add Curios Info
         tag(CuriosTags.CURIO).add(GEIGER_COUNTER.asItem(), RADIATION_BADGE.asItem());

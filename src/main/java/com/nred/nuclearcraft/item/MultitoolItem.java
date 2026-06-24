@@ -6,14 +6,12 @@ import com.nred.nuclearcraft.util.NBTHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.SoundHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -26,6 +24,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import javax.annotation.Nullable;
@@ -129,8 +128,8 @@ public class MultitoolItem extends Item {
         MULTITOOL_RIGHT_CLICK_LOGIC.add((MultitoolItem itemMultitool, Level level, Player player, InteractionHand usedHand, ItemStack heldItem) -> {
             CompoundTag nbt = NBTHelper.getStackNBT(heldItem, "ncMultitool");
             if (nbt != null && player.isCrouching() && !nbt.isEmpty() && !nbt.getBoolean("multitoolUsed")) {
-                HitResult ray = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
-                if (ray.getType() != HitResult.Type.BLOCK || !(level.getBlockEntity(new BlockPos(new Vec3i(Mth.floor(ray.getLocation().x), Mth.floor(ray.getLocation().y), Mth.floor(ray.getLocation().z)))) instanceof IMultitoolLogic)) {
+                BlockHitResult ray = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
+                if (ray.getType() != HitResult.Type.BLOCK || !(level.getBlockEntity(ray.getBlockPos()) instanceof IMultitoolLogic)) {
                     NBTHelper.clearStackNBT(heldItem, "ncMultitool");
                     player.sendSystemMessage(Component.translatable(MODID + ".multitool.clear_info"));
                     return new InteractionResultHolder<>(InteractionResult.SUCCESS, heldItem);

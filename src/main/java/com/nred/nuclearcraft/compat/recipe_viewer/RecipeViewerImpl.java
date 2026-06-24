@@ -309,7 +309,7 @@ public class RecipeViewerImpl {
         public List<Component> progressTooltips(int x, int y) {
             ArrayList<Component> tooltips = new ArrayList<>(2);
             tooltips.add(Component.translatable(MODID + ".tooltip.process_time", ChatFormatting.WHITE + UnitHelper.applyTimeUnitShort(recipe.getBaseProcessTime(menuInfo.getDefaultProcessTime()), 3)).withStyle(ChatFormatting.GREEN));
-            tooltips.add(Component.translatable(MODID + ".tooltip.process_power", ChatFormatting.WHITE + UnitHelper.prefix(recipe.getBaseProcessPower(menuInfo.getDefaultProcessPower()), 5, "RF/t")).withStyle(ChatFormatting.LIGHT_PURPLE));
+            tooltips.add(Component.translatable(MODID + ".tooltip.process_power", ChatFormatting.WHITE + UnitHelper.prefix(recipe.getBaseProcessPower(menuInfo.getDefaultProcessPower()), 5, "FE/t")).withStyle(ChatFormatting.LIGHT_PURPLE));
             double radiation = recipe.getBaseProcessRadiation();
             if (radiation > 0D) {
                 tooltips.add(Component.translatable(MODID + ".tooltip.base_process_radiation", RadiationHelper.radsColoredPrefix(radiation, true)).withStyle(ChatFormatting.GOLD));

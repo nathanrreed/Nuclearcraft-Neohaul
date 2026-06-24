@@ -54,7 +54,7 @@ public class ProcessorBlock<TILE extends BlockEntity> extends SidedTileBlock imp
             return;
         }
         for (String particle : tileInfo.particles) {
-            BlockHelper.spawnParticleOnProcessor(state, level, pos, random, state.getValue(FACING_HORIZONTAL), particle);
+            BlockHelper.spawnParticleOnProcessor(level, pos, random, state.getValue(FACING_HORIZONTAL), particle);
         }
     }
 

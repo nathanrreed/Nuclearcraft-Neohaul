@@ -25,7 +25,7 @@ public class InfiltratorControllerScreen extends LogicMultiblockControllerScreen
     StringCenteringOperator pressureChamberEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.infiltrator_controller.pressure_chamber_efficiency", NCMath.pcDecimalPlaces(multiblock.basePowerMultiplier <= 0D ? 0D : multiblock.baseSpeedMultiplier * (1D + getLogic().heatingBonus) / multiblock.basePowerMultiplier, 1)));
     StringCenteringOperator pressureFluidEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.infiltrator_controller.pressure_fluid_efficiency", NCMath.pcDecimalPlaces(getLogic().pressureFluidEfficiency, 1)));
     StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(multiblock.readyToProcess ? logic.getProcessTimeFP() : null, 5)));
-    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "RF/t")));
+    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "FE/t")));
 
     public InfiltratorControllerScreen(InfiltratorControllerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, gui_texture);

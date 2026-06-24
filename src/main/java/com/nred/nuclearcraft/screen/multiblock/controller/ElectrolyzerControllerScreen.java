@@ -25,7 +25,7 @@ public class ElectrolyzerControllerScreen extends LogicMultiblockControllerScree
     StringCenteringOperator electrodeEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.electrolyzer_controller.electrode_efficiency", NCMath.pcDecimalPlaces(multiblock.basePowerMultiplier <= 0D ? 0D : 8D * multiblock.baseSpeedMultiplier / multiblock.basePowerMultiplier, 1)));
     StringCenteringOperator electrolyteEfficiencyText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.electrolyzer_controller.electrolyte_efficiency", NCMath.pcDecimalPlaces(getLogic().electrolyteEfficiency, 1)));
     StringCenteringOperator rateText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.rate", multiblock.recipeUnitInfo.getString(multiblock.readyToProcess ? logic.getProcessTimeFP() : null, 5)));
-    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "RF/t")));
+    StringCenteringOperator powerText = centeredTracker(() -> Component.translatable(MODID + ".tooltip.machine_controller.power", UnitHelper.prefix(logic.getProcessPower(), 5, "FE/t")));
 
     public ElectrolyzerControllerScreen(ElectrolyzerControllerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title, gui_texture);

@@ -1,7 +1,6 @@
 package com.nred.nuclearcraft.handler;
 
-import com.nred.nuclearcraft.block.item.energy.EnergyItemBlock;
-import com.nred.nuclearcraft.item.energy.IChargeableItem;
+import com.nred.nuclearcraft.item.energy.IChargeableNBTItem;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -11,11 +10,10 @@ public class ItemEnergyStorage implements IEnergyStorage {
     protected final long capacity;
     protected final int maxTransfer;
 
-
     public ItemEnergyStorage(ItemStack parent) {
         this.parent = parent;
-        this.capacity = ((EnergyItemBlock) parent.getItem()).getMaxEnergyStored(parent);
-        this.maxTransfer = ((EnergyItemBlock) parent.getItem()).getMaxTransfer(parent);
+        this.capacity = ((IChargeableNBTItem) parent.getItem()).getMaxEnergyStored(parent);
+        this.maxTransfer = ((IChargeableNBTItem) parent.getItem()).getMaxTransfer(parent);
     }
 
     @Override
@@ -48,8 +46,11 @@ public class ItemEnergyStorage implements IEnergyStorage {
 
     @Override
     public int getEnergyStored() {
-        long rawEnergy = IChargeableItem.getEnergyStored(this.parent);
-        return Math.toIntExact(Mth.clamp(rawEnergy, 0, this.capacity));
+        if (this.parent.getItem() instanceof IChargeableNBTItem item) {
+            long rawEnergy = item.getEnergyStored(this.parent);
+            return Math.toIntExact(Mth.clamp(rawEnergy, 0, this.capacity));
+        }
+        return 0;
     }
 
     @Override
@@ -69,6 +70,8 @@ public class ItemEnergyStorage implements IEnergyStorage {
 
     protected void setEnergy(long energy) {
         long realEnergy = Mth.clamp(energy, 0, this.capacity);
-        IChargeableItem.setEnergyStored(this.parent, realEnergy);
+        if (this.parent.getItem() instanceof IChargeableNBTItem item) {
+            item.setEnergyStored(this.parent, realEnergy);
+        }
     }
 }
