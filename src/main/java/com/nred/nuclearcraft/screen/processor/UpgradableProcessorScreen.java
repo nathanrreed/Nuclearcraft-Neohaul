@@ -36,8 +36,8 @@ public abstract class UpgradableProcessorScreen<MENU extends InfoTileMenu<TILE, 
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
-        super.drawGuiContainerBackgroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
+    protected void drawBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        super.drawBackgroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
         drawUpgradeRenderers(guiGraphics);
     }
 
@@ -108,7 +108,7 @@ public abstract class UpgradableProcessorScreen<MENU extends InfoTileMenu<TILE, 
         }
 
         @Override
-        protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        protected void drawBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
             drawMainBackground(guiGraphics);
             drawBars(guiGraphics);
             drawTanks(guiGraphics);

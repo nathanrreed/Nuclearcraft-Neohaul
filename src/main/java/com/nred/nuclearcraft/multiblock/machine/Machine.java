@@ -88,11 +88,11 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
 
         @Override
         public Level getWorld() {
-            return getWorld();
+            return logic.getWorld();
         }
 
         @Override
-        public BasicRecipeHandler getRecipeHandler() {
+        public BasicRecipeHandler<?> getRecipeHandler() {
             return recipeHandler;
         }
 
@@ -193,17 +193,18 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
             return logic.readyToProcess();
         }
 
+        @Override
         public void process() {
             energyStorage.changeEnergyStored(logic.isGenerator() ? logic.getProcessPower() : -logic.getProcessPower());
             radiation.setRadiationLevel(baseProcessRadiation * getSpeedMultiplier());
-            super.process(getWorld());
+            super.process();
             productionCount = 0;
         }
 
         @Override
-        public void finishProcess(Level level) {
+        public void finishProcess() {
             ++productionCount;
-            super.finishProcess(level);
+            super.finishProcess();
         }
 
         @Override
@@ -348,6 +349,7 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
 
     @Override
     protected boolean updateServer() {
+        super.updateServer();
         return logic.onUpdateServer();
     }
 

@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import static com.nred.nuclearcraft.config.NCConfig.machine_update_rate;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.MACHINE_INTERFACE_ENTITY_TYPE;
 
-public class MachineInterfaceEntity extends TileDummy<IInterfaceable> {
+public class MachineInterfaceEntity extends DummyEnitity<IInterfaceable> {
     public MachineInterfaceEntity(BlockPos pos, BlockState blockState) {
         super(MACHINE_INTERFACE_ENTITY_TYPE.get(), pos, blockState, IInterfaceable.class, "machine_interface", ITileInventory.inventoryConnectionAll(ItemSorption.BOTH), ITileEnergy.energyConnectionAll(EnergyConnection.BOTH), machine_update_rate, null, ITileFluid.fluidConnectionAll(TankSorption.BOTH));
     }

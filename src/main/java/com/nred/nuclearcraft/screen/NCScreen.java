@@ -54,15 +54,14 @@ public abstract class NCScreen<MENU extends AbstractContainerMenu> extends Abstr
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        drawGuiContainerBackgroundLayer(guiGraphics, partialTick, mouseX, mouseY);
-        drawGuiContainerForegroundLayer(guiGraphics, partialTick, mouseX, mouseY);
+        drawBackgroundLayer(guiGraphics, partialTick, mouseX, mouseY);
+        drawForegroundLayer(guiGraphics, partialTick, mouseX, mouseY);
     }
 
-    //TODO RENAME
-    protected void drawGuiContainerForegroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void drawForegroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
     }
 
-    protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void drawBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
     }
 
     public void renderFakeItem(GuiGraphics guiGraphics, @Nonnull ItemStack stack, int x, int y, float alpha) {

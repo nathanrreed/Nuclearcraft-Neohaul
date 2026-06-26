@@ -301,7 +301,7 @@ public class CondenserLogic extends HeatExchangerLogic {
 
         int processCount = 0;
         while (processor.time >= processor.baseProcessTime) {
-            processor.finishProcess(inlet.getLevel());
+            processor.finishProcess();
             ++processCount;
         }
 

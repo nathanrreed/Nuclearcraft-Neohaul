@@ -49,7 +49,7 @@ public class ItemRegistration {
     public static final HashMap<String, DeferredItem<Item>> FOOD_MAP = createFoods();
     public static final HashMap<String, DeferredItem<Item>> MUSIC_DISC_MAP = createMusicDiscs();
     public static final DeferredItem<Item> PORTABLE_ENDER_CHEST = ITEMS.register("portable_ender_chest", () -> new PortableEnderChest(new Properties().stacksTo(1)));
-    public static final DeferredItem<Item> FOURSMORE = ITEMS.register("foursmore", () -> new FoodItem(48, 8.6F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 1200), newEffect(MobEffects.DIG_SPEED, 2, 1200), newEffect(MobEffects.ABSORPTION, 2, 1200))));
+    public static final DeferredItem<Item> FOURSMORE = ITEMS.register("foursmore", () -> new NCFoodItem(48, 8.6F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 1200), newEffect(MobEffects.DIG_SPEED, 2, 1200), newEffect(MobEffects.ABSORPTION, 2, 1200))));
     public static final DeferredItem<Item> LITHIUM_ION_CELL = ITEMS.register("lithium_ion_cell", () -> new BatteryItem(new Properties().stacksTo(1), () -> battery_item_capacity[0], () -> battery_item_max_transfer[0]));
     public static final DeferredItem<Item> MULTITOOL = ITEMS.register("multitool", () -> new MultitoolItem(new Properties().stacksTo(1)));
 
@@ -169,7 +169,7 @@ public class ItemRegistration {
     private static HashMap<String, DeferredItem<Item>> createItems(List<String> names, String prepend, String append) {
         HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
         for (String name : names) {
-            map.put(name, ITEMS.register((!prepend.isEmpty() ? prepend + "_" : "") + name + (!append.isEmpty() ? "_" + append : ""), () -> new TooltipItem(new Properties())));
+            map.put(name, ITEMS.register((!prepend.isEmpty() ? prepend + "_" : "") + name + (!append.isEmpty() ? "_" + append : ""), () -> new NCItem(new Properties())));
         }
         return map;
     }
@@ -184,36 +184,36 @@ public class ItemRegistration {
 
     public static HashMap<String, DeferredItem<Item>> createFoods() {
         HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
-        map.put("cocoa_butter", ITEMS.register("cocoa_butter", () -> new FoodItem(2, 0.2F, List.of(newEffect(MobEffects.ABSORPTION, 1, 300)))));
+        map.put("cocoa_butter", ITEMS.register("cocoa_butter", () -> new NCFoodItem(2, 0.2F, List.of(newEffect(MobEffects.ABSORPTION, 1, 300)))));
         map.put("cocoa_solids", ITEMS.register("cocoa_solids", () -> new Item(new Properties())));
-        map.put("dark_chocolate", ITEMS.register("dark_chocolate", () -> new FoodItem(3, 0.4F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)))));
-        map.put("dominos", ITEMS.register("dominos", () -> new FoodItem(16, 1.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 2, 600), newEffect(MobEffects.DIG_SPEED, 2, 600)), MODID + ".tooltip.dominos")));
+        map.put("dark_chocolate", ITEMS.register("dark_chocolate", () -> new NCFoodItem(3, 0.4F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)))));
+        map.put("dominos", ITEMS.register("dominos", () -> new NCFoodItem(16, 1.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 2, 600), newEffect(MobEffects.DIG_SPEED, 2, 600)), MODID + ".tooltip.dominos")));
         map.put("flour", ITEMS.register("flour", () -> new Item(new Properties())));
         map.put("gelatin", ITEMS.register("gelatin", () -> new Item(new Properties())));
-        map.put("graham_cracker", ITEMS.register("graham_cracker", () -> new FoodItem(1, 0.2f)));
-        map.put("ground_cocoa_nibs", ITEMS.register("ground_cocoa_nibs", () -> new FoodItem(1, 0.2F)));
-        map.put("marshmallow", ITEMS.register("marshmallow", () -> new FoodItem(1, 0.4F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)), MODID + ".tooltip.marshmallow")));
-        map.put("milk_chocolate", ITEMS.register("milk_chocolate", () -> new FoodItem(4, 0.6F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300), newEffect(MobEffects.ABSORPTION, 1, 300)))));
-        map.put("moresmore", ITEMS.register("moresmore", () -> new FoodItem(20, 3.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 600), newEffect(MobEffects.DIG_SPEED, 2, 600), newEffect(MobEffects.ABSORPTION, 2, 600)))));
+        map.put("graham_cracker", ITEMS.register("graham_cracker", () -> new NCFoodItem(1, 0.2f)));
+        map.put("ground_cocoa_nibs", ITEMS.register("ground_cocoa_nibs", () -> new NCFoodItem(1, 0.2F)));
+        map.put("marshmallow", ITEMS.register("marshmallow", () -> new NCFoodItem(1, 0.4F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 300)), MODID + ".tooltip.marshmallow")));
+        map.put("milk_chocolate", ITEMS.register("milk_chocolate", () -> new NCFoodItem(4, 0.6F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300), newEffect(MobEffects.MOVEMENT_SPEED, 1, 300), newEffect(MobEffects.ABSORPTION, 1, 300)))));
+        map.put("moresmore", ITEMS.register("moresmore", () -> new NCFoodItem(20, 3.8F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 1, 600), newEffect(MobEffects.DIG_SPEED, 2, 600), newEffect(MobEffects.ABSORPTION, 2, 600)))));
         map.put("roasted_cocoa_beans", ITEMS.register("roasted_cocoa_beans", () -> new Item(new Properties())));
-        map.put("smore", ITEMS.register("smore", () -> new FoodItem(8, 1.4F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 2, 300), newEffect(MobEffects.DIG_SPEED, 2, 300), newEffect(MobEffects.ABSORPTION, 2, 300)))));
-        map.put("unsweetened_chocolate", ITEMS.register("unsweetened_chocolate", () -> new FoodItem(2, 0.2F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300)))));
+        map.put("smore", ITEMS.register("smore", () -> new NCFoodItem(8, 1.4F, List.of(newEffect(MobEffects.MOVEMENT_SPEED, 2, 300), newEffect(MobEffects.DIG_SPEED, 2, 300), newEffect(MobEffects.ABSORPTION, 2, 300)))));
+        map.put("unsweetened_chocolate", ITEMS.register("unsweetened_chocolate", () -> new NCFoodItem(2, 0.2F, List.of(newEffect(MobEffects.DIG_SPEED, 1, 300)))));
         return map;
     }
 
     public static HashMap<String, DeferredItem<Item>> createUpgrades() {
         HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
-        map.put("speed", ITEMS.register("speed_upgrade", () -> new UpgradeItem(0, List.of(Component.translatable("item." + MODID + ".upgrade.speed.desc", (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")).withStyle(ChatFormatting.AQUA)), true, true)));
-        map.put("energy", ITEMS.register("energy_upgrade", () -> new UpgradeItem(1, List.of(Component.translatable("item." + MODID + ".upgrade.energy.desc", (Supplier<String>) () -> powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")).withStyle(ChatFormatting.AQUA)), true, true)));
+        map.put("speed", ITEMS.register("speed_upgrade", () -> new UpgradeItem(0, List.of(Component.translatable("item." + MODID + ".upgrade.speed.desc", (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[0], "increase", "with"), (Supplier<String>) () -> powerAdverb(speed_upgrade_power_laws_fp[1], "increase", "")).withStyle(ChatFormatting.AQUA)), true)));
+        map.put("energy", ITEMS.register("energy_upgrade", () -> new UpgradeItem(1, List.of(Component.translatable("item." + MODID + ".upgrade.energy.desc", (Supplier<String>) () -> powerAdverb(energy_upgrade_power_laws_fp[0], "decrease", "with")).withStyle(ChatFormatting.AQUA)), true)));
         return map;
     }
 
     public static HashMap<String, DeferredItem<Item>> createMusicDiscs() {
         HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
-        map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new TooltipItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(WANDERER_KEY), List.of(MODID + ".music_disc.wanderer", MODID + ".music_disc.wanderer.credit"))));
-        map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new TooltipItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(END_OF_THE_WORLD_KEY), List.of(MODID + ".music_disc.end_of_the_world", MODID + ".music_disc.end_of_the_world.credit"))));
-        map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new TooltipItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(MONEY_FOR_NOTHING_KEY), List.of(MODID + ".music_disc.money_for_nothing", MODID + ".music_disc.money_for_nothing.credit"))));
-        map.put("music_disc_hyperspace", ITEMS.register("music_disc_hyperspace", () -> new TooltipItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(HYPERSPACE_KEY), List.of(MODID + ".music_disc.hyperspace", MODID + ".music_disc.hyperspace.credit"))));
+        map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(WANDERER_KEY), List.of(MODID + ".music_disc.wanderer", MODID + ".music_disc.wanderer.credit"))));
+        map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(END_OF_THE_WORLD_KEY), List.of(MODID + ".music_disc.end_of_the_world", MODID + ".music_disc.end_of_the_world.credit"))));
+        map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(MONEY_FOR_NOTHING_KEY), List.of(MODID + ".music_disc.money_for_nothing", MODID + ".music_disc.money_for_nothing.credit"))));
+        map.put("music_disc_hyperspace", ITEMS.register("music_disc_hyperspace", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(HYPERSPACE_KEY), List.of(MODID + ".music_disc.hyperspace", MODID + ".music_disc.hyperspace.credit"))));
         return map;
     }
 

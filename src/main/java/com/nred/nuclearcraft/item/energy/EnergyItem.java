@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.item.energy;
 
 import com.nred.nuclearcraft.NuclearcraftNeohaul;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
-import com.nred.nuclearcraft.item.TooltipItem;
+import com.nred.nuclearcraft.item.NCItem;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 import static com.nred.nuclearcraft.registration.DataComponentRegistration.ENERGY_COMPONENT;
 
-public class EnergyItem extends TooltipItem implements IChargeableComponentItem {
+public class EnergyItem extends NCItem implements IChargeableComponentItem {
     public final Supplier<Integer> capacity;
     public final Supplier<Integer> maxTransfer;
     private final EnergyConnection energyConnection;

@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.multiblock.machine;
 
 import com.nred.nuclearcraft.block_entity.fluid.ITileFluid;
+import com.nred.nuclearcraft.block_entity.internal.energy.EnergyStorage;
 import com.nred.nuclearcraft.block_entity.internal.fluid.FluidConnection;
 import com.nred.nuclearcraft.block_entity.internal.fluid.FluidTileWrapper;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
@@ -420,7 +421,7 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
             --multiblock.machineActivityCooldown;
         }
 
-        boolean shouldUpdate = multiblock.processor.onTick(getWorld());
+        boolean shouldUpdate = multiblock.processor.onTick();
         if (multiblock.machineActivityCooldown <= 0 && multiblock.machineActivityDirty) {
             shouldUpdate |= setIsMachineOnInternal(multiblock.isMachineOnQueued);
         }
@@ -539,6 +540,11 @@ public class MachineLogic extends MultiblockLogic<Machine, MachineLogic> impleme
     }
 
     // Component Logic
+
+    public @Nonnull EnergyStorage getPowerPortEnergyStorage(EnergyStorage backupStorage) {
+        return multiblock.energyStorage;
+    }
+
     public @Nonnull NonNullList<ItemStack> getReservoirPortInventoryStacks(MachineReservoirPortEntity port) {
         return multiblock.reservoirInventoryStacks;
     }

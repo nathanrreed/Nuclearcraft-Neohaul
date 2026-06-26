@@ -29,7 +29,7 @@ public class TurbineRotorBladeType implements TurbineRotorBladeUtil.IRotorBladeT
         this.efficiency = efficiency;
         this.expansion = expansion;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
 
         this.id = id;

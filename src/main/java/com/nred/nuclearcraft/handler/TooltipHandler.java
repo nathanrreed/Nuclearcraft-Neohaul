@@ -46,7 +46,7 @@ import static com.nred.nuclearcraft.registration.DataMapTypeRegistration.*;
 public class TooltipHandler {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public void addAdditionalTooltips(ItemTooltipEvent event) { // TODO rework this in 26.1 style for ease of use and future compat
+    public void addAdditionalTooltips(ItemTooltipEvent event) {
         List<Component> tooltip = event.getToolTip();
         ItemStack stack = event.getItemStack();
 

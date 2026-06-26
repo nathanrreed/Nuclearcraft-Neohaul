@@ -29,7 +29,7 @@ public class FissionSourceType implements StringRepresentable, IMultiblockVarian
         this.id = id;
         this.efficiency = efficiency;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
     }
 

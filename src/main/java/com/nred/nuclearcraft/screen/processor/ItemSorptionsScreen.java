@@ -70,8 +70,8 @@ public abstract class ItemSorptionsScreen<TILE extends BlockEntity & ITileGui<TI
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
+    protected void drawForegroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        super.drawForegroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
         guiGraphics.setColor(1F, 1F, 1F, 0.75F);
         BlockState state = tile.getBlockState(tile.getTilePos());
         for (int i = 0; i < 6; ++i) {
@@ -81,7 +81,7 @@ public abstract class ItemSorptionsScreen<TILE extends BlockEntity & ITileGui<TI
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void drawBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
         guiGraphics.blitSprite(gui_texture, imageWidth, imageHeight, 0, 0, leftPos, topPos, imageWidth, imageHeight);
     }
 

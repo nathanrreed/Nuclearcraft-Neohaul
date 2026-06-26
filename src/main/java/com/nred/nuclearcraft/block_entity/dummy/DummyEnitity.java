@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
-public abstract class TileDummy<MASTER extends IDummyMaster> extends TileEnergyFluidSidedInventory implements ITickable {
+public abstract class DummyEnitity<MASTER extends IDummyMaster> extends TileEnergyFluidSidedInventory implements ITickable {
     public BlockPos masterPosition = null;
     protected final int updateRate;
 
@@ -40,35 +40,35 @@ public abstract class TileDummy<MASTER extends IDummyMaster> extends TileEnergyF
 
     protected final Class<MASTER> tClass;
 
-    public TileDummy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc) {
+    public DummyEnitity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc) {
         this(type, pos, blockState, tClass, name, ITileInventory.inventoryConnectionAll(ItemSorption.NON), ITileEnergy.energyConnectionAll(EnergyConnection.NON), updateRate, validFluidsFunc, ITileFluid.fluidConnectionAll(TankSorption.NON));
     }
 
-    public TileDummy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull EnergyConnection[] energyConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc) {
+    public DummyEnitity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull EnergyConnection[] energyConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc) {
         this(type, pos, blockState, tClass, name, ITileInventory.inventoryConnectionAll(ItemSorption.NON), energyConnections, updateRate, validFluidsFunc, ITileFluid.fluidConnectionAll(TankSorption.NON));
     }
 
-    public TileDummy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+    public DummyEnitity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
         this(type, pos, blockState, tClass, name, ITileInventory.inventoryConnectionAll(ItemSorption.NON), ITileEnergy.energyConnectionAll(EnergyConnection.NON), updateRate, validFluidsFunc, fluidConnections);
     }
 
-    public TileDummy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull EnergyConnection[] energyConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+    public DummyEnitity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull EnergyConnection[] energyConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
         this(type, pos, blockState, tClass, name, ITileInventory.inventoryConnectionAll(ItemSorption.NON), energyConnections, updateRate, validFluidsFunc, fluidConnections);
     }
 
-    public TileDummy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull InventoryConnection[] inventoryConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc) {
+    public DummyEnitity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull InventoryConnection[] inventoryConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc) {
         this(type, pos, blockState, tClass, name, inventoryConnections, ITileEnergy.energyConnectionAll(EnergyConnection.NON), updateRate, validFluidsFunc, ITileFluid.fluidConnectionAll(TankSorption.NON));
     }
 
-    public TileDummy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull InventoryConnection[] inventoryConnections, @Nonnull EnergyConnection[] energyConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc) {
+    public DummyEnitity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull InventoryConnection[] inventoryConnections, @Nonnull EnergyConnection[] energyConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc) {
         this(type, pos, blockState, tClass, name, inventoryConnections, energyConnections, updateRate, validFluidsFunc, ITileFluid.fluidConnectionAll(TankSorption.NON));
     }
 
-    public TileDummy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull InventoryConnection[] inventoryConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+    public DummyEnitity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull InventoryConnection[] inventoryConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
         this(type, pos, blockState, tClass, name, inventoryConnections, ITileEnergy.energyConnectionAll(EnergyConnection.NON), updateRate, validFluidsFunc, fluidConnections);
     }
 
-    public TileDummy(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull InventoryConnection[] inventoryConnections, @Nonnull EnergyConnection[] energyConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
+    public DummyEnitity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, Class<MASTER> tClass, String name, @Nonnull InventoryConnection[] inventoryConnections, @Nonnull EnergyConnection[] energyConnections, int updateRate, Function<Level, Set<ResourceLocation>> validFluidsFunc, @Nonnull FluidConnection[] fluidConnections) {
         super(type, pos, blockState, name, 1, inventoryConnections, 1, energyConnections, 1, validFluidsFunc, fluidConnections);
         this.updateRate = updateRate;
         this.tClass = tClass;

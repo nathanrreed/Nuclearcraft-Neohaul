@@ -83,7 +83,7 @@ public class PebbleFissionCoolerEntity extends AbstractFissionEntity implements 
 
     protected RecipeInfo<PebbleFissionCoolerRecipe> recipeInfo = null;
 
-    protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>(); // TODO Merge into parent?
+    protected final Set<Player> updatePacketListeners = new ObjectOpenHashSet<>();
 
     protected FissionCluster cluster = null;
     protected long heat = 0L;

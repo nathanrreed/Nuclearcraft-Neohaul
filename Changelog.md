@@ -1,3 +1,2 @@
-- Reworked energy items
-- Fixed multitool clearing too much
-- Fixed battery energy duping
+- Fixed quantum computers not working
+- Fixed machine power port not working

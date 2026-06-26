@@ -31,7 +31,7 @@ public class FissionNeutronShieldType implements StringRepresentable, IMultibloc
         this.heatPerFlux = heatPerFlux;
         this.efficiency = efficiency;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
     }
 

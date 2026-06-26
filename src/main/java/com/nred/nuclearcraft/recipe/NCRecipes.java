@@ -106,10 +106,6 @@ public class NCRecipes {
         putHandler(new RadiationBlockPurification());
 
         registerShortcuts();
-
-//        CraftingRecipeHandler.registerCraftingRecipes(); TODO
-//        FurnaceRecipeHandler.registerFurnaceRecipes();
-//        GameRegistry.registerFuelHandler(new FurnaceFuelHandler());
     }
 
     public static ManufactoryRecipes manufactory;

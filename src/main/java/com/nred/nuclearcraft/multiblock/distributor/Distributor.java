@@ -152,6 +152,7 @@ public class Distributor extends Multiblock<Distributor> {
 
     @Override
     protected boolean updateServer() {
+        super.updateServer();
         boolean shouldUpdate = storageUpdated;
         storageUpdated = false;
 

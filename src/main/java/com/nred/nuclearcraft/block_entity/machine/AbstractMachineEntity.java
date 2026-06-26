@@ -5,8 +5,6 @@ import com.nred.nuclearcraft.capability.radiation.source.IRadiationSource;
 import com.nred.nuclearcraft.multiblock.machine.IMachinePartType;
 import com.nred.nuclearcraft.multiblock.machine.Machine;
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartTypeProvider;
-import it.zerono.mods.zerocore.lib.multiblock.cuboid.PartPosition;
-import it.zerono.mods.zerocore.lib.multiblock.validation.IMultiblockValidator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,20 +33,6 @@ public abstract class AbstractMachineEntity extends AbstractPartBlockEntity<Mach
     protected @Nullable IRadiationSource getMultiblockRadiationSourceInternal() {
         Machine machine = getMultiblockController().orElse(null);
         return machine == null ? null : machine.radiation;
-    }
-
-    public boolean isTransparent() {
-        return false;
-    }
-
-    @Override
-    public boolean isGoodForPosition(PartPosition position, IMultiblockValidator validatorCallback) {
-//        if (position.isFace()) { TODO add if needed
-//            if (isTransparent() && getMultiblockController().isPresent()) {
-//                getMultiblockController().get().shouldSpecialRenderRotor = true;
-//            }
-//        }
-        return super.isGoodForPosition(position, validatorCallback);
     }
 
     @Override

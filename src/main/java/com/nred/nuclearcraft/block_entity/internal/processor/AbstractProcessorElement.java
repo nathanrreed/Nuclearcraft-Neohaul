@@ -184,17 +184,17 @@ public abstract class AbstractProcessorElement {
         return canProcess;
     }
 
-    public void process(Level level) {
+    public void process() {
         time += getSpeedMultiplier();
         while (time >= baseProcessTime) {
-            finishProcess(level);
+            finishProcess();
         }
     }
 
-    public void finishProcess(Level level) {
+    public void finishProcess() {
         double oldProcessTime = baseProcessTime;
         produceProducts();
-        refreshRecipe(level);
+        refreshRecipe(getWorld());
         double newTime = Math.max(0D, time - oldProcessTime);
         time = resetTime = newTime;
         refreshActivityOnProduction();
@@ -451,13 +451,13 @@ public abstract class AbstractProcessorElement {
         }
     }
 
-    public boolean onTick(Level level) {
+    public boolean onTick() {
         boolean wasProcessing = isProcessing;
         isProcessing = isProcessing();
         boolean shouldUpdate = false;
 
         if (isProcessing) {
-            process(level);
+            process();
         } else {
             shouldUpdate = onIdle(wasProcessing);
         }

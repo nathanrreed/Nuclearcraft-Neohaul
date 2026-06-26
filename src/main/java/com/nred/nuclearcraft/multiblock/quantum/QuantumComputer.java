@@ -179,6 +179,7 @@ public class QuantumComputer extends Multiblock<QuantumComputer> {
 
     @Override
     protected boolean updateServer() {
+        super.updateServer();
         boolean refresh = false;
 
         int qubits = getQubitCount();

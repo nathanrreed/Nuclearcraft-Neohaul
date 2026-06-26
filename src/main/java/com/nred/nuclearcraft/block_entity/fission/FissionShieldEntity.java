@@ -32,7 +32,7 @@ import static com.nred.nuclearcraft.registration.BlockEntityRegistration.FISSION
 import static com.nred.nuclearcraft.util.PosHelper.DEFAULT_NON;
 
 public class FissionShieldEntity extends AbstractFissionEntity implements IFissionHeatingComponent, IFissionManagerListener<FissionShieldManagerEntity, FissionShieldEntity> {
-    private final FissionNeutronShieldType fissionNeutronShieldType; // TODO
+    private final FissionNeutronShieldType fissionNeutronShieldType;
 
     public FissionShieldEntity(final BlockPos position, final BlockState blockState, FissionNeutronShieldType fissionNeutronShieldType) {
         super(FISSION_ENTITY_TYPE.get("shield").get(), position, blockState);

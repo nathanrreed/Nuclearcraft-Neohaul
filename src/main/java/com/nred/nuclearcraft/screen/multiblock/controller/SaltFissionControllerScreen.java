@@ -47,11 +47,6 @@ public class SaltFissionControllerScreen extends LogicMultiblockControllerScreen
         }));
     }
 
-    @Override
-    protected ResourceLocation getGuiTexture() {
-        return gui_texture;
-    }
-
     public List<Component> heatInfo() {
         List<Component> info = new ArrayList<>();
         info.add(Component.translatable(MODID + ".tooltip.fission_controller.heat_stored", Component.literal(UnitHelper.prefix(logic.heatBuffer.getHeatStored(), logic.heatBuffer.getHeatCapacity(), 5, "H")).withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.YELLOW));
@@ -103,10 +98,10 @@ public class SaltFissionControllerScreen extends LogicMultiblockControllerScreen
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
-        super.drawGuiContainerBackgroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
+    protected void drawBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+        super.drawBackgroundLayer(guiGraphics, partialTicks, mouseX, mouseY);
 
         int h = NCMath.toInt(Math.round((double) logic.heatBuffer.getHeatStored() / (double) logic.heatBuffer.getHeatCapacity() * 164));
-        guiGraphics.blitSprite(getGuiTexture(), 256, 256, 3, 114, leftPos + 6, topPos + 102, h, 6);
+        guiGraphics.blitSprite(gui_texture, 256, 256, 3, 114, leftPos + 6, topPos + 102, h, 6);
     }
 }

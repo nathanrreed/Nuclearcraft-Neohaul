@@ -33,7 +33,7 @@ public class RTGType implements StringRepresentable, IMultiblockVariant {
         this.power = power;
         this.radiation = radiation;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
     }
 

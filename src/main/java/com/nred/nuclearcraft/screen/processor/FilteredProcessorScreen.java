@@ -28,7 +28,7 @@ public class FilteredProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, INF
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
+    protected void drawBackgroundLayer(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
         drawMainBackground(guiGraphics);
         drawBars(guiGraphics);
         drawFilters(guiGraphics);

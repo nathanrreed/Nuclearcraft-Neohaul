@@ -50,10 +50,6 @@ public class ModKubeJSPlugin implements KubeJSPlugin {
             reg.add(ncLoc("gas"), FluidGasBuilder.class, FluidGasBuilder::new);
             reg.add(ncLoc("hot_gas"), FluidHotGasBuilder.class, FluidHotGasBuilder::new);
         });
-
-        // TODO add Fission Fuels
-        registry.of(Registries.ITEM, reg -> {
-        });
     }
 
     @Override

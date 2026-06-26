@@ -25,7 +25,7 @@ public class TurbineRotorStatorType implements TurbineRotorBladeUtil.IRotorStato
         this.id = id;
         this.expansion = expansion;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
     }
 

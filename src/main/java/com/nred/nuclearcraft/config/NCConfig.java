@@ -30,8 +30,8 @@ public class NCConfig {
     public static final String CATEGORY_HEAT_EXCHANGER = "heat_exchanger";
     public static final String CATEGORY_TURBINE = "turbine";
     public static final String CATEGORY_QUANTUM = "quantum";
-    public static final String CATEGORY_TOOL = "tool";
-    public static final String CATEGORY_ARMOR = "armour";
+    public static final String CATEGORY_TOOL = "tool"; // TODO add
+    public static final String CATEGORY_ARMOR = "armour";  // TODO add
     public static final String CATEGORY_ENTITY = "entity";
     public static final String CATEGORY_RADIATION = "radiation";
     public static final String CATEGORY_MISC = "misc";
@@ -279,6 +279,8 @@ public class NCConfig {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     static void onLoad(final ModConfigEvent event) {
+        if (event instanceof ModConfigEvent.Unloading)
+            return;
         loadConfig();
     }
 

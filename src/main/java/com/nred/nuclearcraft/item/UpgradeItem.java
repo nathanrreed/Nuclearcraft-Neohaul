@@ -10,11 +10,11 @@ import java.util.List;
 
 import static com.nred.nuclearcraft.config.NCConfig.upgrade_stack_sizes;
 
-public class UpgradeItem extends TooltipItem {
+public class UpgradeItem extends NCItem {
     private final int id;
 
-    public UpgradeItem(int id, List<MutableComponent> tooltips, boolean b, boolean b1) {
-        super(new Properties(), tooltips, b, b1);
+    public UpgradeItem(int id, List<MutableComponent> tooltips, boolean hasShiftTooltips) {
+        super(new Properties(), tooltips, hasShiftTooltips);
         this.id = id;
     }
 

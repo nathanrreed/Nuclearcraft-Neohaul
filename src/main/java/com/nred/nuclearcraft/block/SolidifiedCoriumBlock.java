@@ -24,7 +24,7 @@ import net.minecraft.world.level.material.MapColor;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.item.TooltipItem.shiftForDetails;
+import static com.nred.nuclearcraft.item.NCItem.shiftForDetails;
 import static com.nred.nuclearcraft.registration.DamageTypeRegistration.CORIUM_BURN;
 
 public class SolidifiedCoriumBlock extends MagmaBlock {

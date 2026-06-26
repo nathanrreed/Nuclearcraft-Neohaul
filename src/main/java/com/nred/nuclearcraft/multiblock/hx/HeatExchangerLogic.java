@@ -452,7 +452,7 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
             prepareTransferProposals();
         }
 
-        int[] inletUpdates = multiblock.getMasterInlets().mapToInt(x -> x.processor.onTick(getWorld()) ? 1 : 0).toArray();
+        int[] inletUpdates = multiblock.getMasterInlets().mapToInt(x -> x.processor.onTick() ? 1 : 0).toArray();
         boolean shouldUpdate = multiblock.refreshFlag || Arrays.stream(inletUpdates).anyMatch(x -> x != 0);
 
         multiblock.tubeInputRateFP = multiblock.tubeInputRateTracker.update(multiblock.tubeInputRate);
@@ -573,7 +573,7 @@ public class HeatExchangerLogic extends MultiblockLogic<HeatExchanger, HeatExcha
 
         int processCount = 0;
         while (processor.time >= processor.baseProcessTime) {
-            processor.finishProcess(inlet.getLevel());
+            processor.finishProcess();
             ++processCount;
         }
 

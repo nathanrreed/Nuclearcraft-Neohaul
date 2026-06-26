@@ -25,7 +25,7 @@ import static com.nred.nuclearcraft.registration.CapabilityRegistration.CAPABILI
 import static com.nred.nuclearcraft.registration.SoundRegistration.chems_wear_off;
 import static com.nred.nuclearcraft.registration.SoundRegistration.radaway;
 
-public class RadawayItem extends TooltipItem {
+public class RadawayItem extends NCItem {
     private final boolean slow;
 
     public RadawayItem(boolean slow, List<MutableComponent> tooltip) {

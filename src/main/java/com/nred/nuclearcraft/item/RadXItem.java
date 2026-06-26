@@ -25,7 +25,7 @@ import static com.nred.nuclearcraft.registration.CapabilityRegistration.CAPABILI
 import static com.nred.nuclearcraft.registration.SoundRegistration.chems_wear_off;
 import static com.nred.nuclearcraft.registration.SoundRegistration.rad_x;
 
-public class RadXItem extends TooltipItem {
+public class RadXItem extends NCItem {
     public RadXItem(List<MutableComponent> tooltip) {
         super(new Properties(), tooltip, true);
     }

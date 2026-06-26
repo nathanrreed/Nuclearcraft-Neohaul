@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 
-public abstract class NCTile extends BlockEntity implements ITile { // TODO check if used everywhere
+public abstract class NCTile extends BlockEntity implements ITile {
 
     private boolean isRedstonePowered = false, alternateComparator = false, redstoneControl = false;
 
@@ -61,17 +61,6 @@ public abstract class NCTile extends BlockEntity implements ITile { // TODO chec
     public IRadiationSource getRadiationSource() {
         return radiation;
     }
-
-//	@Override TODO
-//	public Component getDisplayName() {
-//		Block block = getBlockType();
-//		return block == null ? null : new TextComponentTranslation(block.getLocalizedName());
-//	}
-//
-//	@Override
-//	public boolean shouldRefresh(World worldIn, BlockPos posIn, IBlockState oldState, IBlockState newState) {
-//		return oldState.getBlock() != newState.getBlock();
-//	}
 
     @Override
     public final void markTileDirty() {
@@ -181,12 +170,4 @@ public abstract class NCTile extends BlockEntity implements ITile { // TODO chec
             notifyBlockUpdate();
         }
     }
-
-//    // TESR TODO remove
-//
-//    @Override
-//    @SideOnly(Side.CLIENT)
-//    public double getMaxRenderDistanceSquared() {
-//        return NCMath.sq(16D * FMLClientHandler.instance().getClient().gameSettings.renderDistanceChunks);
-//    }
 }

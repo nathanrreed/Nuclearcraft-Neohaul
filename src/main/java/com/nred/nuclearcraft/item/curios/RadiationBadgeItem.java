@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.item.curios;
 
 import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
 import com.nred.nuclearcraft.capability.radiation.sink.IRadiationSink;
-import com.nred.nuclearcraft.item.TooltipItem;
+import com.nred.nuclearcraft.item.NCItem;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -22,7 +22,7 @@ import static com.nred.nuclearcraft.registration.CapabilityRegistration.CAPABILI
 import static com.nred.nuclearcraft.registration.CapabilityRegistration.ITEM_CAPABILITY_RADIATION_SINK;
 import static com.nred.nuclearcraft.registration.SoundRegistration.chems_wear_off;
 
-public class RadiationBadgeItem extends TooltipItem {
+public class RadiationBadgeItem extends NCItem {
     private static final Component BADGE_BROKEN = Component.translatable(MODID + ".radiation_badge.broken").withStyle(ChatFormatting.ITALIC);
 
     public RadiationBadgeItem() {

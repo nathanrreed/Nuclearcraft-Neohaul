@@ -37,7 +37,7 @@ public class BatteryType implements IBatteryType, IMultiblockVariant {
         this.capacity = capacity;
         maxTransfer = max_transfer;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
     }
 
@@ -52,7 +52,7 @@ public class BatteryType implements IBatteryType, IMultiblockVariant {
 
     @Override
     public Supplier<Integer> getMaxTransfer() {
-        return maxTransfer; // TODO only used in item
+        return maxTransfer;
     }
 
     @Override

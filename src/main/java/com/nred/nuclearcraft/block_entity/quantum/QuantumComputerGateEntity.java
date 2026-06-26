@@ -182,6 +182,7 @@ public abstract class QuantumComputerGateEntity extends AbstractQuantumComputerE
         public BasicAngle(final BlockPos position, final BlockState blockState, String gateID) {
             super(position, blockState, gateID);
             targets = new IntRBTreeSet();
+            toolMode = "getAngle";
         }
 
         @Override

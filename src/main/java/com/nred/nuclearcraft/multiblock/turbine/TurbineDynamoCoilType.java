@@ -34,7 +34,7 @@ public class TurbineDynamoCoilType implements StringRepresentable, IMultiblockVa
         this.id = id;
         this.conductivity = conductivity;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
     }
 

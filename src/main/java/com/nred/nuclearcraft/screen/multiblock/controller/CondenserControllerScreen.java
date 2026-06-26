@@ -46,11 +46,6 @@ public class CondenserControllerScreen extends LogicMultiblockControllerScreen<H
     }
 
     @Override
-    protected ResourceLocation getGuiTexture() {
-        return gui_texture;
-    }
-
-    @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
 

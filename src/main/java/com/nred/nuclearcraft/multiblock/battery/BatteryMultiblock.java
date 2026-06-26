@@ -106,6 +106,7 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
 
     @Override
     protected boolean updateServer() {
+        super.updateServer();
         if (refreshEnergy) {
             storage.cullEnergyStored();
             refreshEnergy = false;
@@ -123,7 +124,7 @@ public class BatteryMultiblock extends Multiblock<BatteryMultiblock> {
                 battery.updateComparatorOutputLevel();
             }
         }
-        return shouldUpdate || super.updateServer();
+        return shouldUpdate;
     }
 
     public int getComparatorStrength() {

@@ -89,13 +89,14 @@ public class RTGMultiblock extends Multiblock<RTGMultiblock> {
 
     @Override
     protected boolean updateServer() {
+        super.updateServer();
         if (refreshEnergy) {
             storage.cullEnergyStored();
             refreshEnergy = false;
         }
 
         getEnergyStorage().changeEnergyStored(power);
-        return super.updateServer();
+        return false;
     }
 
     @Override

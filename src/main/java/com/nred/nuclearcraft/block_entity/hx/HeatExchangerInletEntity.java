@@ -169,7 +169,7 @@ public class HeatExchangerInletEntity extends AbstractHeatExchangerEntity implem
         }
 
         @Override
-        public void process(Level level) {
+        public void process() {
             HeatExchangerLogic logic = getLogic();
             if (logic != null) {
                 logic.inletProcess(HeatExchangerInletEntity.this);

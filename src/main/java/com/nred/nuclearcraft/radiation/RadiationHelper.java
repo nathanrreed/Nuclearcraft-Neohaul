@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.radiation;
 
-import com.nred.nuclearcraft.block_entity.dummy.TileDummy;
+import com.nred.nuclearcraft.block_entity.dummy.DummyEnitity;
 import com.nred.nuclearcraft.block_entity.multiblock.AbstractPartBlockEntity;
 import com.nred.nuclearcraft.block_entity.radiation.ITileRadiationEnvironment;
 import com.nred.nuclearcraft.capability.radiation.IRadiation;
@@ -83,14 +83,14 @@ public class RadiationHelper {
     }
 
     public static IItemHandler getTileInventory(BlockEntity blockEntity, Direction side) {
-        if (!(blockEntity instanceof BlockEntity entity) || blockEntity instanceof TileDummy || hasInfiniteRadiationResistance(blockEntity)) {
+        if (!(blockEntity instanceof BlockEntity entity) || blockEntity instanceof DummyEnitity || hasInfiniteRadiationResistance(blockEntity)) {
             return null;
         }
         return entity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, entity.getBlockPos(), side);
     }
 
     public static IFluidHandler getTileTanks(BlockEntity blockEntity, Direction side) {
-        if (!(blockEntity instanceof BlockEntity entity) || blockEntity instanceof TileDummy || hasInfiniteRadiationResistance(blockEntity)) {
+        if (!(blockEntity instanceof BlockEntity entity) || blockEntity instanceof DummyEnitity || hasInfiniteRadiationResistance(blockEntity)) {
             return null;
         }
         return entity.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, entity.getBlockPos(), side);

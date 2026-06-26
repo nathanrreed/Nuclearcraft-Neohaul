@@ -20,7 +20,7 @@ public abstract class NCButton extends Button {
 
     protected NCButton(int id, int x, int y, int width, int height, OnPressInfo onPress) {
         super(x, y, width, height, CommonComponents.EMPTY, (btn) -> {
-        }, DEFAULT_NARRATION); // TODO add narration
+        }, DEFAULT_NARRATION);
         this.id = id;
         this.onPressInfo = onPress;
     }

@@ -10,12 +10,12 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-public class TooltipItem extends Item {
+public class NCItem extends Item {
     private Component tooltip;
     public List<MutableComponent> shiftTooltips;
     public static final Component shiftForDetails = Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.shift_for_info").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
 
-    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips, boolean radiation) {
+    public NCItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips) {
         super(properties);
 
         if (tooltips.size() > 1 || hasShiftTooltips) {
@@ -25,16 +25,12 @@ public class TooltipItem extends Item {
         }
     }
 
-    public TooltipItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips) {
-        this(properties, tooltips, hasShiftTooltips, false);
-    }
-
-    public TooltipItem(Properties properties, List<String> tooltips) {
+    public NCItem(Properties properties, List<String> tooltips) {
         this(properties, tooltips.stream().map(tooltip -> Component.translatable(tooltip).withStyle(ChatFormatting.AQUA)).toList(), false);
     }
 
-    public TooltipItem(Properties properties) {
-        this(properties, List.of(), false, false);
+    public NCItem(Properties properties) {
+        this(properties, List.of(), false);
     }
 
     @Override

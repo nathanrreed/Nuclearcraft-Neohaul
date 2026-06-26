@@ -33,7 +33,7 @@ public class HeatExchangerTubeType implements StringRepresentable, IMultiblockVa
         this.heatTransferCoefficient = heatTransferCoefficient;
         this.heatRetentionMult = heatRetentionMult;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
     }
 

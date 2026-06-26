@@ -59,7 +59,7 @@ public class FissionCoolantHeaterPortType implements StringRepresentable, IMulti
         this.name = name;
         this.id = id;
 
-        this._translationKey = ""; // TODO ADD
+        this._translationKey = "";
         this._blockPropertiesFixer = null;
     }
 

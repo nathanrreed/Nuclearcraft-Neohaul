@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.item.curios;
 
 import com.nred.nuclearcraft.capability.radiation.entity.IEntityRads;
-import com.nred.nuclearcraft.item.TooltipItem;
+import com.nred.nuclearcraft.item.NCItem;
 import com.nred.nuclearcraft.radiation.RadiationHandler;
 import com.nred.nuclearcraft.radiation.RadiationHelper;
 import net.minecraft.ChatFormatting;
@@ -22,7 +22,7 @@ import java.util.List;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCConfig.radiation_require_counter;
 
-public class GeigerCounterItem extends TooltipItem {
+public class GeigerCounterItem extends NCItem {
     public GeigerCounterItem() {
         super(new Properties().stacksTo(1), List.of(Component.translatable(MODID + ".tooltip.geiger_counter").withStyle(ChatFormatting.AQUA)), true);
     }

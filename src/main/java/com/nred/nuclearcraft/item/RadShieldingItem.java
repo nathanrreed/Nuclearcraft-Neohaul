@@ -31,7 +31,7 @@ import static com.nred.nuclearcraft.registration.CapabilityRegistration.CAPABILI
 import static com.nred.nuclearcraft.registration.CapabilityRegistration.CAPABILITY_RADIATION_RESISTANCE;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
-public class RadShieldingItem extends TooltipItem {
+public class RadShieldingItem extends NCItem {
     private final int id;
 
     public RadShieldingItem(int id) {
