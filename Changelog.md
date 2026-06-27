@@ -1,2 +1,1 @@
-- Fixed quantum computers not working
-- Fixed machine power port not working
+- Fixed Machine frame and glass not connection with CTM

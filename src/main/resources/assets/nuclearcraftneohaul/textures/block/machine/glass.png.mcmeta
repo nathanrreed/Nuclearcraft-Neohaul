@@ -4,7 +4,7 @@
         "type": "ctm",
         "layer": "CUTOUT",
         "textures": [
-            "nuclearcraftneohaul:blocks/machine/glass_ctm"
+            "nuclearcraftneohaul:block/machine/glass_ctm"
         ]
     }
 }
