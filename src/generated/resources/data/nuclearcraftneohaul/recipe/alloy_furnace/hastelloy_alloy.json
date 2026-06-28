@@ -1,0 +1,42 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/nichrome"
+      }
+    }
+  ],
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemIngredients": [
+    {
+      "count": 3,
+      "ingredient": [
+        {
+          "tag": "c:ingots/nichrome"
+        },
+        {
+          "tag": "c:dusts/nichrome"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:molybdenum_dust"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "nuclearcraftneohaul:hastelloy_alloy"
+      }
+    }
+  ],
+  "powerModifier": 2.0,
+  "radiation": 0.0,
+  "timeModifier": 2.0
+}

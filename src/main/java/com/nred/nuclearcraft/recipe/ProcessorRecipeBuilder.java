@@ -71,7 +71,7 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemInput(List<SizedChanceItemIngredient> input) {
+    public ProcessorRecipeBuilder addItemInputs(List<SizedChanceItemIngredient> input) {
         itemInputs.addAll(input);
         return this;
     }
@@ -81,7 +81,7 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemResult(List<SizedChanceItemIngredient> output) {
+    public ProcessorRecipeBuilder addItemResults(List<SizedChanceItemIngredient> output) {
         itemResults.addAll(output);
         return this;
     }
