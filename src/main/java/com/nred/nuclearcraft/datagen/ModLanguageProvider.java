@@ -17,6 +17,7 @@ import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.compat.create.CreateRegistration.CREATE_TURBINE_ROTOR_BEARING;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
 import static com.nred.nuclearcraft.registration.EntityRegistration.FERAL_GHOUL;
@@ -338,6 +339,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("block." + MODID + ".turbine_rotor_bearing.desc", "Connects the rotor shaft to the turbine wall and dynamo. Must cover the full area of each end of the shaft. Dynamo coils must be connected to the bearings either directly or via other dynamo coils and dynamo coil connectors. Connecting at least as many coils as bearing blocks at each end will avoid efficiency penalties.");
         add(MODID + ".tooltip.turbine_dynamo_coil.conductivity", "Conductivity Multiplier: %s");
         addTooltip(TURBINE_MAP.get("turbine_computer_port"), "Used to access the turbine via CC: Tweaked.");
+
+        add(CREATE_TURBINE_ROTOR_BEARING.get(), "Create Turbine Bearing Attachment");
 
         add(MODID + ".tooltip.turbine_controller", "%s*%s*%s Turbine");
         add(MODID + ".tooltip.turbine_controller.power", "Power Output: %s");
@@ -1546,7 +1549,6 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".multiblock_validation.turbine.space_between_blades", "The space between the sets of rotor blades and stators must be empty for the turbine to form");
         add(MODID + ".multiblock_validation.turbine.different_type_blades", "The rotor blades or stators about each section of the rotor shaft must be of the same type for the turbine to form");
         add(MODID + ".multiblock_validation.turbine.missing_blades", "Each section of the rotor shaft must have rotor blades or stators of the same type extend fully to the wall for the turbine to form");
-
     }
 
     private void creativeTabs() {
@@ -2092,6 +2094,12 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".configuration.corium_solidification.tooltip", "List of IDs of dimensions to whitelist/blacklist for corium solidification.");
         add(MODID + ".configuration.corium_solidification_list_type", "Solid Corium Dim Whitelist/Blacklist");
         add(MODID + ".configuration.corium_solidification_list_type.tooltip", "Is the dimension list a whitelist (false) or a blacklist (true)?");
+
+        add(MODID + ".configuration.create_bearing_ang_vel_to_speed", "Create Angular Velocity to Speed");
+        add(MODID + ".configuration.create_bearing_ang_vel_to_speed.tooltip", "The value to multiply the angular velocity of the Turbine by to get the speed output by the Create Turbine Bearing Attachment");
+        add(MODID + ".configuration.create_bearing_max_stress", "Create Max stress");
+        add(MODID + ".configuration.create_bearing_max_stress.tooltip", "Max stress for the Create Turbine Bearing Attachment");
+        add(MODID + ".ponder.bearing_ponder.header", "Create Turbine Bearing Attachment");
     }
 
     private void fuelTypeItems(HashMap<String, DeferredItem<Item>> map, String prepend) {

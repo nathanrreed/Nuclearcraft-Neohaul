@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.internal.fluid.Tank.TankInfo;
 import com.nred.nuclearcraft.block_entity.internal.fluid.TankSorption;
 import com.nred.nuclearcraft.block_entity.turbine.*;
+import com.nred.nuclearcraft.compat.create.CreateTurbineUtil;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblockLogic;
 import com.nred.nuclearcraft.multiblock.MultiblockLogic;
@@ -18,6 +19,7 @@ import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
 import com.nred.nuclearcraft.registration.SoundRegistration;
 import com.nred.nuclearcraft.util.BlockStateHelper;
+import com.nred.nuclearcraft.util.ModCheck;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.SoundHelper;
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
@@ -29,6 +31,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
 import it.zerono.mods.zerocore.lib.data.nbt.ISyncableEntity;
+import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockPart;
 import it.zerono.mods.zerocore.lib.multiblock.registry.MultiblockRegistry;
 import net.minecraft.client.Minecraft;
@@ -692,12 +695,12 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
     }
 
     @Override
-    public void onAssimilate(it.zerono.mods.zerocore.lib.multiblock.IMultiblockController<Turbine> assimilated) {
+    public void onAssimilate(IMultiblockController<Turbine> assimilated) {
         multiblock.energyStorage.mergeEnergyStorage(((Turbine) assimilated).energyStorage);
     }
 
     @Override
-    public void onAssimilated(it.zerono.mods.zerocore.lib.multiblock.IMultiblockController<Turbine> assimilator) {
+    public void onAssimilated(IMultiblockController<Turbine> assimilator) {
         if (getWorld().isClientSide) {
             clearSounds();
         }
@@ -765,7 +768,9 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             return true;
         }
 
-        multiblock.energyStorage.changeEnergyStored((long) multiblock.power);
+        if (!ModCheck.createLoaded() || !CreateTurbineUtil.distributePower(multiblock)) {
+            multiblock.energyStorage.changeEnergyStored((long) multiblock.power);
+        }
 
         if (multiblock.controller != null) {
             multiblock.sendMultiblockUpdatePacketToListeners();
@@ -812,6 +817,10 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
             if (multiblock.controller != null) {
                 multiblock.controller.setActivity(multiblock.isTurbineOn);
                 multiblock.sendMultiblockUpdatePacketToAll();
+
+                if (ModCheck.createLoaded()) {
+                    CreateTurbineUtil.setTurbineOff(multiblock);
+                }
             }
         }
     }
@@ -984,6 +993,10 @@ public class TurbineLogic extends MultiblockLogic<Turbine, TurbineLogic> impleme
                 updateRenderData();
             }
             updateParticles();
+
+            if (ModCheck.createLoaded()) {
+                CreateTurbineUtil.distributePower(multiblock);
+            }
         }
         updateSounds();
     }

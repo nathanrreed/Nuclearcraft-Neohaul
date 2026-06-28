@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.compat.create.CreateRegistration.CREATE_TURBINE_ROTOR_BEARING;
 import static com.nred.nuclearcraft.datagen.ModBlockStateProvider.Directionality.*;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;

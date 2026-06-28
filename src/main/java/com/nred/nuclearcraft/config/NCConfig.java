@@ -279,7 +279,7 @@ public class NCConfig {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     static void onLoad(final ModConfigEvent event) {
-        if (event instanceof ModConfigEvent.Unloading)
+        if (event instanceof ModConfigEvent.Unloading || event.getConfig().getSpec() != SPEC)
             return;
         loadConfig();
     }
@@ -522,239 +522,239 @@ public class NCConfig {
         radiation_horse_armor_public = radiation_horse_armor;
     }
 
-    private static final ModConfigSpec.DoubleValue PROCESSOR_TIME_MULTIPLIER = add(CATEGORY_PROCESSOR, "processor_time_multiplier", 1D, 0.001D, 255D);
-    private static final ModConfigSpec.DoubleValue PROCESSOR_POWER_MULTIPLIER = add(CATEGORY_PROCESSOR, "processor_power_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> PROCESSOR_TIME = add(CATEGORY_PROCESSOR, "processor_time", List.of(400, 800, 800, 400, 400, 600, 800, 600, 3200, 600, 400, 600, 800, 600, 1600, 600, 2400, 1200, 400, 200), 1, 128000, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> PROCESSOR_POWER = add(CATEGORY_PROCESSOR, "processor_power", List.of(20, 10, 10, 20, 10, 10, 40, 20, 40, 10, 0, 40, 10, 20, 10, 10, 10, 10, 20, 20), 0, 16000, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> SPEED_UPGRADE_POWER_LAWS_FP = add(CATEGORY_PROCESSOR, "speed_upgrade_power_laws_fp", List.of(1D, 2D, 2D, 1D), 1D, 15D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> SPEED_UPGRADE_MULTIPLIERS_FP = add(CATEGORY_PROCESSOR, "speed_upgrade_multipliers_fp", List.of(1D, 1D, 1D, 1D), 0D, 15D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> ENERGY_UPGRADE_POWER_LAWS_FP = add(CATEGORY_PROCESSOR, "energy_upgrade_power_laws_fp", List.of(1D, 1D), 1D, 15D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> ENERGY_UPGRADE_MULTIPLIERS_FP = add(CATEGORY_PROCESSOR, "energy_upgrade_multipliers_fp", List.of(1D, 1D), 0D, 15D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> UPGRADE_STACK_SIZES = add(CATEGORY_PROCESSOR, "upgrade_stack_sizes", List.of(64, 64), 1, 64, ARRAY);
+    private static final ModConfigSpec.DoubleValue PROCESSOR_TIME_MULTIPLIER = add(BUILDER, CATEGORY_PROCESSOR, "processor_time_multiplier", 1D, 0.001D, 255D);
+    private static final ModConfigSpec.DoubleValue PROCESSOR_POWER_MULTIPLIER = add(BUILDER, CATEGORY_PROCESSOR, "processor_power_multiplier", 1D, 0D, 255D);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> PROCESSOR_TIME = add(BUILDER, CATEGORY_PROCESSOR, "processor_time", List.of(400, 800, 800, 400, 400, 600, 800, 600, 3200, 600, 400, 600, 800, 600, 1600, 600, 2400, 1200, 400, 200), 1, 128000, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> PROCESSOR_POWER = add(BUILDER, CATEGORY_PROCESSOR, "processor_power", List.of(20, 10, 10, 20, 10, 10, 40, 20, 40, 10, 0, 40, 10, 20, 10, 10, 10, 10, 20, 20), 0, 16000, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> SPEED_UPGRADE_POWER_LAWS_FP = add(BUILDER, CATEGORY_PROCESSOR, "speed_upgrade_power_laws_fp", List.of(1D, 2D, 2D, 1D), 1D, 15D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> SPEED_UPGRADE_MULTIPLIERS_FP = add(BUILDER, CATEGORY_PROCESSOR, "speed_upgrade_multipliers_fp", List.of(1D, 1D, 1D, 1D), 0D, 15D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> ENERGY_UPGRADE_POWER_LAWS_FP = add(BUILDER, CATEGORY_PROCESSOR, "energy_upgrade_power_laws_fp", List.of(1D, 1D), 1D, 15D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> ENERGY_UPGRADE_MULTIPLIERS_FP = add(BUILDER, CATEGORY_PROCESSOR, "energy_upgrade_multipliers_fp", List.of(1D, 1D), 0D, 15D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> UPGRADE_STACK_SIZES = add(BUILDER, CATEGORY_PROCESSOR, "upgrade_stack_sizes", List.of(64, 64), 1, 64, ARRAY);
 
-    private static final ModConfigSpec.BooleanValue ENABLE_MEK_GAS = add(CATEGORY_PROCESSOR, "enable_mek_gas", true);
-    private static final ModConfigSpec.IntValue MACHINE_UPDATE_RATE = add(CATEGORY_PROCESSOR, "machine_update_rate", 20, 1, 1200);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> PROCESSOR_PASSIVE_RATE = add(CATEGORY_PROCESSOR, "processor_passive_rate", List.of(0.125, 10.0, 5.0), 0D, 4000D, ARRAY);
-    private static final ModConfigSpec.BooleanValue PASSIVE_PUSH = add(CATEGORY_PROCESSOR, "passive_push", true);
-    private static final ModConfigSpec.DoubleValue COBBLE_GEN_POWER = add(CATEGORY_PROCESSOR, "cobble_gen_power", 0D, 0D, 255D);
-    private static final ModConfigSpec.BooleanValue SMART_PROCESSOR_INPUT = add(CATEGORY_PROCESSOR, "smart_processor_input", true);
-    private static final ModConfigSpec.BooleanValue PROCESSOR_PARTICLES = add(CATEGORY_PROCESSOR, "processor_particles", true);
+    private static final ModConfigSpec.BooleanValue ENABLE_MEK_GAS = add(BUILDER, CATEGORY_PROCESSOR, "enable_mek_gas", true);
+    private static final ModConfigSpec.IntValue MACHINE_UPDATE_RATE = add(BUILDER, CATEGORY_PROCESSOR, "machine_update_rate", 20, 1, 1200);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> PROCESSOR_PASSIVE_RATE = add(BUILDER, CATEGORY_PROCESSOR, "processor_passive_rate", List.of(0.125, 10.0, 5.0), 0D, 4000D, ARRAY);
+    private static final ModConfigSpec.BooleanValue PASSIVE_PUSH = add(BUILDER, CATEGORY_PROCESSOR, "passive_push", true);
+    private static final ModConfigSpec.DoubleValue COBBLE_GEN_POWER = add(BUILDER, CATEGORY_PROCESSOR, "cobble_gen_power", 0D, 0D, 255D);
+    private static final ModConfigSpec.BooleanValue SMART_PROCESSOR_INPUT = add(BUILDER, CATEGORY_PROCESSOR, "smart_processor_input", true);
+    private static final ModConfigSpec.BooleanValue PROCESSOR_PARTICLES = add(BUILDER, CATEGORY_PROCESSOR, "processor_particles", true);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RTG_POWER = add(CATEGORY_GENERATOR, "rtg_power", List.of(1, 40, 10, 200), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> SOLAR_POWER = add(CATEGORY_GENERATOR, "solar_power", List.of(5, 20, 80, 320), 1, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> RTG_POWER = add(BUILDER, CATEGORY_GENERATOR, "rtg_power", List.of(1, 40, 10, 200), 1, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> SOLAR_POWER = add(BUILDER, CATEGORY_GENERATOR, "solar_power", List.of(5, 20, 80, 320), 1, Integer.MAX_VALUE, ARRAY);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_CAPACITY = add(CATEGORY_ENERGY_STORAGE, "battery_block_capacity", List.of(1600000, 6400000, 25600000, 102400000, 32000000, 128000000, 512000000, 2048000000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_MAX_TRANSFER = add(CATEGORY_ENERGY_STORAGE, "battery_block_max_transfer", List.of(16000, 64000, 256000, 1024000, 320000, 1280000, 5120000, 20480000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_CAPACITY = add(CATEGORY_ENERGY_STORAGE, "battery_item_capacity", List.of(8000000), 1, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_MAX_TRANSFER = add(CATEGORY_ENERGY_STORAGE, "battery_item_max_transfer", List.of(80000), 1, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_CAPACITY = add(BUILDER, CATEGORY_ENERGY_STORAGE, "battery_block_capacity", List.of(1600000, 6400000, 25600000, 102400000, 32000000, 128000000, 512000000, 2048000000), 1, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_BLOCK_MAX_TRANSFER = add(BUILDER, CATEGORY_ENERGY_STORAGE, "battery_block_max_transfer", List.of(16000, 64000, 256000, 1024000, 320000, 1280000, 5120000, 20480000), 1, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_CAPACITY = add(BUILDER, CATEGORY_ENERGY_STORAGE, "battery_item_capacity", List.of(8000000), 1, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> BATTERY_ITEM_MAX_TRANSFER = add(BUILDER, CATEGORY_ENERGY_STORAGE, "battery_item_max_transfer", List.of(80000), 1, Integer.MAX_VALUE, ARRAY);
 
-    private static final ModConfigSpec.IntValue MACHINE_MIN_SIZE = add(CATEGORY_MACHINE, "machine_min_size", 1, 1, 255);
-    private static final ModConfigSpec.IntValue MACHINE_MAX_SIZE = add(CATEGORY_MACHINE, "machine_max_size", 24, 3, 255);
+    private static final ModConfigSpec.IntValue MACHINE_MIN_SIZE = add(BUILDER, CATEGORY_MACHINE, "machine_min_size", 1, 1, 255);
+    private static final ModConfigSpec.IntValue MACHINE_MAX_SIZE = add(BUILDER, CATEGORY_MACHINE, "machine_max_size", 24, 3, 255);
 
-    private static final ModConfigSpec.IntValue MACHINE_ELECTROLYZER_TIME = add(CATEGORY_MACHINE, "machine_electrolyzer_time", 20, 1, 128000);
-    private static final ModConfigSpec.IntValue MACHINE_ELECTROLYZER_POWER = add(CATEGORY_MACHINE, "machine_electrolyzer_power", 320, 1, 128000);
-    private static final ModConfigSpec.DoubleValue MACHINE_ELECTROLYZER_SOUND_VOLUME = add(CATEGORY_MACHINE, "machine_electrolyzer_sound_volume", 1D, 0D, 15D);
+    private static final ModConfigSpec.IntValue MACHINE_ELECTROLYZER_TIME = add(BUILDER, CATEGORY_MACHINE, "machine_electrolyzer_time", 20, 1, 128000);
+    private static final ModConfigSpec.IntValue MACHINE_ELECTROLYZER_POWER = add(BUILDER, CATEGORY_MACHINE, "machine_electrolyzer_power", 320, 1, 128000);
+    private static final ModConfigSpec.DoubleValue MACHINE_ELECTROLYZER_SOUND_VOLUME = add(BUILDER, CATEGORY_MACHINE, "machine_electrolyzer_sound_volume", 1D, 0D, 15D);
 
-    private static final ModConfigSpec.IntValue MACHINE_DISTILLER_TIME = add(CATEGORY_MACHINE, "machine_distiller_time", 800, 1, 128000);
-    private static final ModConfigSpec.IntValue MACHINE_DISTILLER_POWER = add(CATEGORY_MACHINE, "machine_distiller_power", 10, 1, 128000);
-    private static final ModConfigSpec.DoubleValue MACHINE_DISTILLER_SOUND_VOLUME = add(CATEGORY_MACHINE, "machine_distiller_sound_volume", 1D, 0D, 15D);
+    private static final ModConfigSpec.IntValue MACHINE_DISTILLER_TIME = add(BUILDER, CATEGORY_MACHINE, "machine_distiller_time", 800, 1, 128000);
+    private static final ModConfigSpec.IntValue MACHINE_DISTILLER_POWER = add(BUILDER, CATEGORY_MACHINE, "machine_distiller_power", 10, 1, 128000);
+    private static final ModConfigSpec.DoubleValue MACHINE_DISTILLER_SOUND_VOLUME = add(BUILDER, CATEGORY_MACHINE, "machine_distiller_sound_volume", 1D, 0D, 15D);
 
-    private static final ModConfigSpec.IntValue MACHINE_INFILTRATOR_TIME = add(CATEGORY_MACHINE, "machine_infiltrator_time", 1600, 1, 128000);
-    private static final ModConfigSpec.IntValue MACHINE_INFILTRATOR_POWER = add(CATEGORY_MACHINE, "machine_infiltrator_power", 320, 1, 128000);
-    private static final ModConfigSpec.DoubleValue MACHINE_INFILTRATOR_SOUND_VOLUME = add(CATEGORY_MACHINE, "machine_infiltrator_sound_volume", 1D, 0D, 15D);
+    private static final ModConfigSpec.IntValue MACHINE_INFILTRATOR_TIME = add(BUILDER, CATEGORY_MACHINE, "machine_infiltrator_time", 1600, 1, 128000);
+    private static final ModConfigSpec.IntValue MACHINE_INFILTRATOR_POWER = add(BUILDER, CATEGORY_MACHINE, "machine_infiltrator_power", 320, 1, 128000);
+    private static final ModConfigSpec.DoubleValue MACHINE_INFILTRATOR_SOUND_VOLUME = add(BUILDER, CATEGORY_MACHINE, "machine_infiltrator_sound_volume", 1D, 0D, 15D);
 
-    private static final ModConfigSpec.IntValue FISSION_MIN_SIZE = add(CATEGORY_FISSION, "fission_min_size", 1, 1, 255);
-    private static final ModConfigSpec.IntValue FISSION_MAX_SIZE = add(CATEGORY_FISSION, "fission_max_size", 24, 3, 255);
-    private static final ModConfigSpec.DoubleValue FISSION_FUEL_TIME_MULTIPLIER = add(CATEGORY_FISSION, "fission_fuel_time_multiplier", 1D, 0.001D, 255D);
-    private static final ModConfigSpec.DoubleValue FISSION_FUEL_HEAT_MULTIPLIER = add(CATEGORY_FISSION, "fission_fuel_heat_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.DoubleValue FISSION_FUEL_EFFICIENCY_MULTIPLIER = add(CATEGORY_FISSION, "fission_fuel_efficiency_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.DoubleValue FISSION_FUEL_RADIATION_MULTIPLIER = add(CATEGORY_FISSION, "fission_fuel_radiation_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SOURCE_EFFICIENCY = add(CATEGORY_FISSION, "fission_source_efficiency", List.of(0.9D, 0.95D, 1D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_COOLER_COOLING_RATE = add(CATEGORY_FISSION, "fission_cooler_cooling_rate", List.of(60, 110, 125, 115, 75, 100, 120, 105, 85, 80, 65, 95, 70, 50, 55, 90), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_COOLER_RULE = addString(CATEGORY_FISSION, "fission_cooler_rule", List.of("one chamber", "exactly two chambers", "three chambers", "exactly two oxygen coolers", "one moderator", "two axial moderators", "three moderators", "exactly one oxygen cooler", "exactly one methane cooler", "one ethene cooler && exactly one moderator", "one fluorine cooler", "exactly two nitrogen coolers && one casing", "two hydrogen coolers", "one reflector", "one sulfur_dioxide cooler", "two axial sulfur_trioxide coolers && one casing"), ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_SINK_COOLING_RATE = add(CATEGORY_FISSION, "fission_sink_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_SINK_RULE = addString(CATEGORY_FISSION, "fission_sink_rule", List.of("one cell", "one moderator", "one cell && one moderator", "one redstone sink", "two axial glowstone sinks", "one obsidian sink", "two moderators", "one cell && one casing", "exactly two iron sinks", "two water sinks", "exactly one water sink && two lead sinks", "one reflector", "one reflector && one iron sink", "one cell && one gold sink", "one moderator && one prismarine sink", "one water sink", "two axial lapis sinks", "one iron sink", "exactly one quartz sink && one casing", "exactly two axial lead sinks && one casing", "exactly one moderator && one casing", "two cells", "one quartz sink && one lapis sink", "two glowstone sinks && one tin sink", "one gold sink && one prismarine sink", "one redstone sink && one end_stone sink", "one end_stone sink && one copper sink", "two axial reflectors", "two copper sinks && one purpur sink", "exactly two redstone sinks", "three moderators", "three cells"), ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_HEATER_COOLING_RATE = add(CATEGORY_FISSION, "fission_heater_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_HEATER_RULE = addString(CATEGORY_FISSION, "fission_heater_rule", List.of("one vessel", "one moderator", "one vessel && one moderator", "one redstone heater", "two axial glowstone heaters", "one obsidian heater", "two moderators", "one vessel && one casing", "exactly two iron heaters", "two standard heaters", "exactly one standard heater && two lead heaters", "one reflector", "one reflector && one iron heater", "one vessel && one gold heater", "one moderator && one prismarine heater", "one standard heater", "two axial lapis heaters", "one iron heater", "exactly one quartz heater && one casing", "exactly two axial lead heaters && one casing", "exactly one moderator && one casing", "two vessels", "one quartz heater && one lapis heater", "two glowstone heaters && one tin heater", "one gold heater && one prismarine heater", "one redstone heater && one end_stone heater", "one end_stone heater && one copper heater", "two axial reflectors", "two copper heaters && one purpur heater", "exactly two redstone heaters", "three moderators", "three vessels"), ARRAY);
-    private static final ModConfigSpec.DoubleValue FISSION_CHAMBER_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_chamber_intrinsic_flux_efficiency", 1D, 0D, 255D);
-    private static final ModConfigSpec.DoubleValue FISSION_CELL_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_cell_intrinsic_flux_efficiency", 1D, 0D, 255D);
-    private static final ModConfigSpec.DoubleValue FISSION_VESSEL_INTRINSIC_FLUX_EFFICIENCY = add(CATEGORY_FISSION, "fission_vessel_intrinsic_flux_efficiency", 1D, 0D, 255D);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D, 10D), 0D, 32767D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D, 0.75D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.IntValue FISSION_COOLING_EFFICIENCY_LENIENCY = add(CATEGORY_FISSION, "fission_cooling_efficiency_leniency", 10, 0, 32767);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SPARSITY_PENALTY_PARAMS = add(CATEGORY_FISSION, "fission_sparsity_penalty_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.DoubleValue FISSION_COOLER_COOLANT_HEAT_PER_MB = add(CATEGORY_FISSION, "fission_cooler_coolant_heat_per_mb", 32D, 0.001D, Integer.MAX_VALUE);
-    private static final ModConfigSpec.DoubleValue FISSION_HEATER_COOLANT_HEAT_PER_MB = add(CATEGORY_FISSION, "fission_heater_coolant_heat_per_mb", 128D, 0.001D, Integer.MAX_VALUE);
-    private static final ModConfigSpec.DoubleValue FISSION_HEATING_GAS_COOLANT_HEAT_MULT = add(CATEGORY_FISSION, "fission_heating_gas_coolant_heat_mult", 1.5D, 0.001D, Integer.MAX_VALUE);
-    private static final ModConfigSpec.DoubleValue FISSION_HEATING_NAK_COOLANT_HEAT_MULT = add(CATEGORY_FISSION, "fission_heating_nak_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.IntValue FISSION_MIN_SIZE = add(BUILDER, CATEGORY_FISSION, "fission_min_size", 1, 1, 255);
+    private static final ModConfigSpec.IntValue FISSION_MAX_SIZE = add(BUILDER, CATEGORY_FISSION, "fission_max_size", 24, 3, 255);
+    private static final ModConfigSpec.DoubleValue FISSION_FUEL_TIME_MULTIPLIER = add(BUILDER, CATEGORY_FISSION, "fission_fuel_time_multiplier", 1D, 0.001D, 255D);
+    private static final ModConfigSpec.DoubleValue FISSION_FUEL_HEAT_MULTIPLIER = add(BUILDER, CATEGORY_FISSION, "fission_fuel_heat_multiplier", 1D, 0D, 255D);
+    private static final ModConfigSpec.DoubleValue FISSION_FUEL_EFFICIENCY_MULTIPLIER = add(BUILDER, CATEGORY_FISSION, "fission_fuel_efficiency_multiplier", 1D, 0D, 255D);
+    private static final ModConfigSpec.DoubleValue FISSION_FUEL_RADIATION_MULTIPLIER = add(BUILDER, CATEGORY_FISSION, "fission_fuel_radiation_multiplier", 1D, 0D, 255D);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SOURCE_EFFICIENCY = add(BUILDER, CATEGORY_FISSION, "fission_source_efficiency", List.of(0.9D, 0.95D, 1D), 0D, 255D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_COOLER_COOLING_RATE = add(BUILDER, CATEGORY_FISSION, "fission_cooler_cooling_rate", List.of(60, 110, 125, 115, 75, 100, 120, 105, 85, 80, 65, 95, 70, 50, 55, 90), 0, 32767, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_COOLER_RULE = addString(BUILDER, CATEGORY_FISSION, "fission_cooler_rule", List.of("one chamber", "exactly two chambers", "three chambers", "exactly two oxygen coolers", "one moderator", "two axial moderators", "three moderators", "exactly one oxygen cooler", "exactly one methane cooler", "one ethene cooler && exactly one moderator", "one fluorine cooler", "exactly two nitrogen coolers && one casing", "two hydrogen coolers", "one reflector", "one sulfur_dioxide cooler", "two axial sulfur_trioxide coolers && one casing"), ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_SINK_COOLING_RATE = add(BUILDER, CATEGORY_FISSION, "fission_sink_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_SINK_RULE = addString(BUILDER, CATEGORY_FISSION, "fission_sink_rule", List.of("one cell", "one moderator", "one cell && one moderator", "one redstone sink", "two axial glowstone sinks", "one obsidian sink", "two moderators", "one cell && one casing", "exactly two iron sinks", "two water sinks", "exactly one water sink && two lead sinks", "one reflector", "one reflector && one iron sink", "one cell && one gold sink", "one moderator && one prismarine sink", "one water sink", "two axial lapis sinks", "one iron sink", "exactly one quartz sink && one casing", "exactly two axial lead sinks && one casing", "exactly one moderator && one casing", "two cells", "one quartz sink && one lapis sink", "two glowstone sinks && one tin sink", "one gold sink && one prismarine sink", "one redstone sink && one end_stone sink", "one end_stone sink && one copper sink", "two axial reflectors", "two copper sinks && one purpur sink", "exactly two redstone sinks", "three moderators", "three cells"), ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Integer>> FISSION_HEATER_COOLING_RATE = add(BUILDER, CATEGORY_FISSION, "fission_heater_cooling_rate", List.of(55, 50, 85, 80, 70, 105, 90, 100, 110, 115, 145, 65, 95, 200, 195, 75, 120, 60, 160, 130, 125, 150, 175, 170, 165, 180, 140, 135, 185, 190, 155, 205), 0, 32767, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> FISSION_HEATER_RULE = addString(BUILDER, CATEGORY_FISSION, "fission_heater_rule", List.of("one vessel", "one moderator", "one vessel && one moderator", "one redstone heater", "two axial glowstone heaters", "one obsidian heater", "two moderators", "one vessel && one casing", "exactly two iron heaters", "two standard heaters", "exactly one standard heater && two lead heaters", "one reflector", "one reflector && one iron heater", "one vessel && one gold heater", "one moderator && one prismarine heater", "one standard heater", "two axial lapis heaters", "one iron heater", "exactly one quartz heater && one casing", "exactly two axial lead heaters && one casing", "exactly one moderator && one casing", "two vessels", "one quartz heater && one lapis heater", "two glowstone heaters && one tin heater", "one gold heater && one prismarine heater", "one redstone heater && one end_stone heater", "one end_stone heater && one copper heater", "two axial reflectors", "two copper heaters && one purpur heater", "exactly two redstone heaters", "three moderators", "three vessels"), ARRAY);
+    private static final ModConfigSpec.DoubleValue FISSION_CHAMBER_INTRINSIC_FLUX_EFFICIENCY = add(BUILDER, CATEGORY_FISSION, "fission_chamber_intrinsic_flux_efficiency", 1D, 0D, 255D);
+    private static final ModConfigSpec.DoubleValue FISSION_CELL_INTRINSIC_FLUX_EFFICIENCY = add(BUILDER, CATEGORY_FISSION, "fission_cell_intrinsic_flux_efficiency", 1D, 0D, 255D);
+    private static final ModConfigSpec.DoubleValue FISSION_VESSEL_INTRINSIC_FLUX_EFFICIENCY = add(BUILDER, CATEGORY_FISSION, "fission_vessel_intrinsic_flux_efficiency", 1D, 0D, 255D);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_HEAT_PER_FLUX = add(BUILDER, CATEGORY_FISSION, "fission_shield_heat_per_flux", List.of(5D, 10D), 0D, 32767D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SHIELD_EFFICIENCY = add(BUILDER, CATEGORY_FISSION, "fission_shield_efficiency", List.of(0.5D, 0.75D), 0D, 255D, ARRAY);
+    private static final ModConfigSpec.IntValue FISSION_COOLING_EFFICIENCY_LENIENCY = add(BUILDER, CATEGORY_FISSION, "fission_cooling_efficiency_leniency", 10, 0, 32767);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_SPARSITY_PENALTY_PARAMS = add(BUILDER, CATEGORY_FISSION, "fission_sparsity_penalty_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
+    private static final ModConfigSpec.DoubleValue FISSION_COOLER_COOLANT_HEAT_PER_MB = add(BUILDER, CATEGORY_FISSION, "fission_cooler_coolant_heat_per_mb", 32D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue FISSION_HEATER_COOLANT_HEAT_PER_MB = add(BUILDER, CATEGORY_FISSION, "fission_heater_coolant_heat_per_mb", 128D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue FISSION_HEATING_GAS_COOLANT_HEAT_MULT = add(BUILDER, CATEGORY_FISSION, "fission_heating_gas_coolant_heat_mult", 1.5D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue FISSION_HEATING_NAK_COOLANT_HEAT_MULT = add(BUILDER, CATEGORY_FISSION, "fission_heating_nak_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
 
-    private static final ModConfigSpec.BooleanValue FISSION_DECAY_MECHANICS = add(CATEGORY_FISSION, "fission_decay_mechanics", false);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_BUILD_UP_TIMES = add(CATEGORY_FISSION, "fission_decay_build_up_times", List.of(24000D, 24000D, 24000D), 0D, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_LIFETIMES = add(CATEGORY_FISSION, "fission_decay_lifetimes", List.of(6000D, 8000D, 12000D), 0D, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_EQUILIBRIUM_FACTORS = add(CATEGORY_FISSION, "fission_decay_equilibrium_factors", List.of(1D, 5D, 1D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_DAUGHTER_MULTIPLIERS = add(CATEGORY_FISSION, "fission_decay_daughter_multipliers", List.of(5D, 5D), 0D, 255D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_TERM_MULTIPLIERS = add(CATEGORY_FISSION, "fission_decay_term_multipliers", List.of(0.95D, 0.05D), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.BooleanValue FISSION_OVERHEAT = add(CATEGORY_FISSION, "fission_overheat", true);
-    private static final ModConfigSpec.DoubleValue FISSION_MELTDOWN_RADIATION_MULTIPLIER = add(CATEGORY_FISSION, "fission_meltdown_radiation_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.BooleanValue FISSION_HEAT_DAMAGE = add(CATEGORY_FISSION, "fission_heat_damage", false);
-    private static final ModConfigSpec.IntValue FISSION_NEUTRON_REACH = add(CATEGORY_FISSION, "fission_neutron_reach", 4, 1, 255);
-    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_HEAT_DISSIPATION = add(CATEGORY_FISSION, "fission_heat_dissipation", List.of(true, false), ARRAY);
-    private static final ModConfigSpec.DoubleValue FISSION_HEAT_DISSIPATION_RATE = add(CATEGORY_FISSION, "fission_heat_dissipation_rate", 0D, 1D / 292032000D, 1D);
-    private static final ModConfigSpec.DoubleValue FISSION_SOUND_VOLUME = add(CATEGORY_FISSION, "fission_sound_volume", 1D, 0D, 15D);
+    private static final ModConfigSpec.BooleanValue FISSION_DECAY_MECHANICS = add(BUILDER, CATEGORY_FISSION, "fission_decay_mechanics", false);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_BUILD_UP_TIMES = add(BUILDER, CATEGORY_FISSION, "fission_decay_build_up_times", List.of(24000D, 24000D, 24000D), 0D, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_LIFETIMES = add(BUILDER, CATEGORY_FISSION, "fission_decay_lifetimes", List.of(6000D, 8000D, 12000D), 0D, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_EQUILIBRIUM_FACTORS = add(BUILDER, CATEGORY_FISSION, "fission_decay_equilibrium_factors", List.of(1D, 5D, 1D), 0D, 255D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_DAUGHTER_MULTIPLIERS = add(BUILDER, CATEGORY_FISSION, "fission_decay_daughter_multipliers", List.of(5D, 5D), 0D, 255D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FISSION_DECAY_TERM_MULTIPLIERS = add(BUILDER, CATEGORY_FISSION, "fission_decay_term_multipliers", List.of(0.95D, 0.05D), 0D, 1D, ARRAY);
+    private static final ModConfigSpec.BooleanValue FISSION_OVERHEAT = add(BUILDER, CATEGORY_FISSION, "fission_overheat", true);
+    private static final ModConfigSpec.DoubleValue FISSION_MELTDOWN_RADIATION_MULTIPLIER = add(BUILDER, CATEGORY_FISSION, "fission_meltdown_radiation_multiplier", 1D, 0D, 255D);
+    private static final ModConfigSpec.BooleanValue FISSION_HEAT_DAMAGE = add(BUILDER, CATEGORY_FISSION, "fission_heat_damage", false);
+    private static final ModConfigSpec.IntValue FISSION_NEUTRON_REACH = add(BUILDER, CATEGORY_FISSION, "fission_neutron_reach", 4, 1, 255);
+    private static final ModConfigSpec.ConfigValue<List<? extends Boolean>> FISSION_HEAT_DISSIPATION = add(BUILDER, CATEGORY_FISSION, "fission_heat_dissipation", List.of(true, false), ARRAY);
+    private static final ModConfigSpec.DoubleValue FISSION_HEAT_DISSIPATION_RATE = add(BUILDER, CATEGORY_FISSION, "fission_heat_dissipation_rate", 0D, 1D / 292032000D, 1D);
+    private static final ModConfigSpec.DoubleValue FISSION_SOUND_VOLUME = add(BUILDER, CATEGORY_FISSION, "fission_sound_volume", 1D, 0D, 15D);
 
 //    TODO
-//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_TIME_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_time_multiplier", 1D, 0.001D, 255D);
-//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_HEAT_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_heat_multiplier", 1D, 0D, 255D);
-//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_EFFICIENCY_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_efficiency_multiplier", 1D, 0D, 255D);
-//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_RADIATION_MULTIPLIER = add(CATEGORY_FUSION, "fusion_fuel_radiation_multiplier", 1D, 0D, 255D);
-//    private static final ModConfigSpec.BooleanValue FUSION_OVERHEAT = add(CATEGORY_FUSION, "fusion_overheat", true);
-//    private static final ModConfigSpec.DoubleValue FUSION_MELTDOWN_RADIATION_MULTIPLIER = add(CATEGORY_FUSION, "fusion_meltdown_radiation_multiplier", 1D, 0D, 255D);
-//    private static final ModConfigSpec.IntValue FUSION_MIN_SIZE = add(CATEGORY_FUSION, "fusion_min_size", 1, 1, 255);
-//    private static final ModConfigSpec.IntValue FUSION_MAX_SIZE = add(CATEGORY_FUSION, "fusion_max_size", 24, 1, 255);
-//    private static final ModConfigSpec.IntValue FUSION_COMPARATOR_MAX_EFFICIENCY = add(CATEGORY_FUSION, "fusion_comparator_max_efficiency", 90, 1, 100);
-//    private static final ModConfigSpec.DoubleValue FUSION_ELECTROMAGNET_POWER = add(CATEGORY_FUSION, "fusion_electromagnet_power", 250D, 0D, Integer.MAX_VALUE);
-//    private static final ModConfigSpec.BooleanValue FUSION_PLASMA_CRAZINESS = add(CATEGORY_FUSION, "fusion_plasma_craziness", true);
-//    private static final ModConfigSpec.DoubleValue FUSION_SOUND_VOLUME = add(CATEGORY_FUSION, "fusion_sound_volume", 1D, 0D, 15D);
+//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_TIME_MULTIPLIER = add(BUILDER, CATEGORY_FUSION, "fusion_fuel_time_multiplier", 1D, 0.001D, 255D);
+//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_HEAT_MULTIPLIER = add(BUILDER, CATEGORY_FUSION, "fusion_fuel_heat_multiplier", 1D, 0D, 255D);
+//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_EFFICIENCY_MULTIPLIER = add(BUILDER, CATEGORY_FUSION, "fusion_fuel_efficiency_multiplier", 1D, 0D, 255D);
+//    private static final ModConfigSpec.DoubleValue FUSION_FUEL_RADIATION_MULTIPLIER = add(BUILDER, CATEGORY_FUSION, "fusion_fuel_radiation_multiplier", 1D, 0D, 255D);
+//    private static final ModConfigSpec.BooleanValue FUSION_OVERHEAT = add(BUILDER, CATEGORY_FUSION, "fusion_overheat", true);
+//    private static final ModConfigSpec.DoubleValue FUSION_MELTDOWN_RADIATION_MULTIPLIER = add(BUILDER, CATEGORY_FUSION, "fusion_meltdown_radiation_multiplier", 1D, 0D, 255D);
+//    private static final ModConfigSpec.IntValue FUSION_MIN_SIZE = add(BUILDER, CATEGORY_FUSION, "fusion_min_size", 1, 1, 255);
+//    private static final ModConfigSpec.IntValue FUSION_MAX_SIZE = add(BUILDER, CATEGORY_FUSION, "fusion_max_size", 24, 1, 255);
+//    private static final ModConfigSpec.IntValue FUSION_COMPARATOR_MAX_EFFICIENCY = add(BUILDER, CATEGORY_FUSION, "fusion_comparator_max_efficiency", 90, 1, 100);
+//    private static final ModConfigSpec.DoubleValue FUSION_ELECTROMAGNET_POWER = add(BUILDER, CATEGORY_FUSION, "fusion_electromagnet_power", 250D, 0D, Integer.MAX_VALUE);
+//    private static final ModConfigSpec.BooleanValue FUSION_PLASMA_CRAZINESS = add(BUILDER, CATEGORY_FUSION, "fusion_plasma_craziness", true);
+//    private static final ModConfigSpec.DoubleValue FUSION_SOUND_VOLUME = add(BUILDER, CATEGORY_FUSION, "fusion_sound_volume", 1D, 0D, 15D);
 //
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_TIME = add(CATEGORY_FUSION, "fusion_fuel_time", List.of(100D, 150D, 200D, 200D, 350D, 400D, 600D, 200D, 250D, 250D, 400D, 450D, 650D, 300D, 300D, 450D, 500D, 700D, 300D, 450D, 500D, 700D, 600D, 650D, 850D, 700D, 900D, 1100D), 1D, 32767D, ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_HEAT_GENERATION = add(CATEGORY_FUSION, "fusion_fuel_heat_generation", List.of(44200D, 112300D, 30D, 303600D, 35100D, 133000D, 44400D, 50700D, 172600D, 225200D, 171600D, 85900D, 26100D, 90100D, 109900D, 91500D, 43500D, 700D, 131500D, 115100D, 72700D, 14000D, 106800D, 55200D, 15700D, 22900D, 45D, 5D), 0D, Integer.MAX_VALUE, ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_OPTIMAL_TEMPERATURE = add(CATEGORY_FUSION, "fusion_fuel_optimal_temperature", List.of(3635D, 1022D, 4964D, 2740D, 5972D, 4161D, 13432D, 949D, 670D, 2160D, 3954D, 4131D, 13853D, 736D, 2137D, 4079D, 4522D, 27254D, 5420D, 7800D, 7937D, 24266D, 11268D, 11927D, 30399D, 13630D, 166414D, 293984D), 500D, 20000D, ARRAY);
-//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_RADIATION = add(CATEGORY_FUSION, "fusion_radiation", List.of(RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM + RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM / 2D + RadSources.NEUTRON / 2D) / 64D, (RadSources.FUSION + RadSources.TRITIUM + RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.TRITIUM + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D), 0D, 1000D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_TIME = add(BUILDER, CATEGORY_FUSION, "fusion_fuel_time", List.of(100D, 150D, 200D, 200D, 350D, 400D, 600D, 200D, 250D, 250D, 400D, 450D, 650D, 300D, 300D, 450D, 500D, 700D, 300D, 450D, 500D, 700D, 600D, 650D, 850D, 700D, 900D, 1100D), 1D, 32767D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_HEAT_GENERATION = add(BUILDER, CATEGORY_FUSION, "fusion_fuel_heat_generation", List.of(44200D, 112300D, 30D, 303600D, 35100D, 133000D, 44400D, 50700D, 172600D, 225200D, 171600D, 85900D, 26100D, 90100D, 109900D, 91500D, 43500D, 700D, 131500D, 115100D, 72700D, 14000D, 106800D, 55200D, 15700D, 22900D, 45D, 5D), 0D, Integer.MAX_VALUE, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_FUEL_OPTIMAL_TEMPERATURE = add(BUILDER, CATEGORY_FUSION, "fusion_fuel_optimal_temperature", List.of(3635D, 1022D, 4964D, 2740D, 5972D, 4161D, 13432D, 949D, 670D, 2160D, 3954D, 4131D, 13853D, 736D, 2137D, 4079D, 4522D, 27254D, 5420D, 7800D, 7937D, 24266D, 11268D, 11927D, 30399D, 13630D, 166414D, 293984D), 500D, 20000D, ARRAY);
+//    private static final ModConfigSpec.ConfigValue<List<? extends Double>> FUSION_RADIATION = add(BUILDER, CATEGORY_FUSION, "fusion_radiation", List.of(RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM + RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.TRITIUM / 2D + RadSources.NEUTRON / 2D) / 64D, (RadSources.FUSION + RadSources.TRITIUM + RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.TRITIUM + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, RadSources.FUSION / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D, (RadSources.FUSION + 2 * RadSources.NEUTRON) / 64D), 0D, 1000D, ARRAY);
 
-    private static final ModConfigSpec.IntValue HEAT_EXCHANGER_MIN_SIZE = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_min_size", 1, 1, 255);
-    private static final ModConfigSpec.IntValue HEAT_EXCHANGER_MAX_SIZE = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_max_size", 24, 2, 255);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_TRANSFER_COEFFICIENT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_transfer_coefficient", List.of(16D, 24D, 32D), 0.001D, Integer.MAX_VALUE, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_RETENTION_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_retention_mult", List.of(0.9D, 0.95D, 1D), 0.01D, 1D, ARRAY);
-    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_GAS_COOLANT_HEAT_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_gas_coolant_heat_mult", 1D, 0.001D, Integer.MAX_VALUE);
-    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_NAK_COOLANT_HEAT_MULT = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_nak_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.IntValue HEAT_EXCHANGER_MIN_SIZE = add(BUILDER, CATEGORY_HEAT_EXCHANGER, "heat_exchanger_min_size", 1, 1, 255);
+    private static final ModConfigSpec.IntValue HEAT_EXCHANGER_MAX_SIZE = add(BUILDER, CATEGORY_HEAT_EXCHANGER, "heat_exchanger_max_size", 24, 2, 255);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_TRANSFER_COEFFICIENT = add(BUILDER, CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_transfer_coefficient", List.of(16D, 24D, 32D), 0.001D, Integer.MAX_VALUE, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> HEAT_EXCHANGER_HEAT_RETENTION_MULT = add(BUILDER, CATEGORY_HEAT_EXCHANGER, "heat_exchanger_heat_retention_mult", List.of(0.9D, 0.95D, 1D), 0.01D, 1D, ARRAY);
+    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_GAS_COOLANT_HEAT_MULT = add(BUILDER, CATEGORY_HEAT_EXCHANGER, "heat_exchanger_gas_coolant_heat_mult", 1D, 0.001D, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue HEAT_EXCHANGER_NAK_COOLANT_HEAT_MULT = add(BUILDER, CATEGORY_HEAT_EXCHANGER, "heat_exchanger_nak_coolant_heat_mult", 2D, 0.001D, Integer.MAX_VALUE);
 
-    private static final ModConfigSpec.BooleanValue HEAT_EXCHANGER_LMTD = add(CATEGORY_HEAT_EXCHANGER, "heat_exchanger_lmtd", false);
+    private static final ModConfigSpec.BooleanValue HEAT_EXCHANGER_LMTD = add(BUILDER, CATEGORY_HEAT_EXCHANGER, "heat_exchanger_lmtd", false);
 
-    private static final ModConfigSpec.IntValue TURBINE_MIN_SIZE = add(CATEGORY_TURBINE, "turbine_min_size", 1, 1, 255);
-    private static final ModConfigSpec.IntValue TURBINE_MAX_SIZE = add(CATEGORY_TURBINE, "turbine_max_size", 24, 3, 255);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_BLADE_EFFICIENCY = add(CATEGORY_TURBINE, "turbine_blade_efficiency", List.of(1D, 1.1D, 1.2D), 0.01D, 15D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_BLADE_EXPANSION = add(CATEGORY_TURBINE, "turbine_blade_expansion", List.of(1.4D, 1.6D, 1.8D), 1D, 15D, ARRAY);
-    private static final ModConfigSpec.DoubleValue TURBINE_STATOR_EXPANSION = add(CATEGORY_TURBINE, "turbine_stator_expansion", 0.75D, 0.01D, 1D);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_COIL_CONDUCTIVITY = add(CATEGORY_TURBINE, "turbine_coil_conductivity", List.of(0.88D, 0.9D, 1D, 1.04D, 1.06D, 1.12D), 0.01D, 15D, ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> TURBINE_COIL_RULE = addString(CATEGORY_TURBINE, "turbine_coil_rule", List.of("one bearing || one connector", "one magnesium coil", "two magnesium coils", "one aluminum coil", "one beryllium coil", "one gold coil && one copper coil"), ARRAY);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> TURBINE_CONNECTOR_RULE = addString(CATEGORY_TURBINE, "turbine_connector_rule", List.of("one of any coil"), ARRAY);
-    private static final ModConfigSpec.DoubleValue TURBINE_SPIN_UP_MULTIPLIER_GLOBAL = add(CATEGORY_TURBINE, "turbine_spin_up_multiplier_global", 1D, 0D, 255D);
-    private static final ModConfigSpec.DoubleValue TURBINE_SPIN_DOWN_MULTIPLIER = add(CATEGORY_TURBINE, "turbine_spin_down_multiplier", 1D, 0.01D, 255D);
-    private static final ModConfigSpec.IntValue TURBINE_MB_PER_BLADE = add(CATEGORY_TURBINE, "turbine_mb_per_blade", 100, 1, 32767);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_THROUGHPUT_LENIENCY_PARAMS = add(CATEGORY_TURBINE, "turbine_throughput_leniency_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
-    private static final ModConfigSpec.DoubleValue TURBINE_TENSION_THROUGHPUT_FACTOR = add(CATEGORY_TURBINE, "turbine_tension_throughput_factor", 2D, 1D, 255D);
-    private static final ModConfigSpec.DoubleValue TURBINE_TENSION_LENIENCY = add(CATEGORY_TURBINE, "turbine_tension_leniency", 0.05D, 0D, 1D);
-    private static final ModConfigSpec.DoubleValue TURBINE_POWER_BONUS_MULTIPLIER = add(CATEGORY_TURBINE, "turbine_power_bonus_multiplier", 1D, 0D, 255D);
-    private static final ModConfigSpec.IntValue TURBINE_BASE_ENERGY_CAPACITY = add(CATEGORY_TURBINE, "turbine_base_energy_capacity", 16000, 1, Integer.MAX_VALUE);
-    private static final ModConfigSpec.DoubleValue TURBINE_SOUND_VOLUME = add(CATEGORY_TURBINE, "turbine_sound_volume", 1D, 0D, 15D);
-    private static final ModConfigSpec.DoubleValue TURBINE_PARTICLES = add(CATEGORY_TURBINE, "turbine_particles", 0.025D, 0D, 1D);
-    private static final ModConfigSpec.DoubleValue TURBINE_RENDER_BLADE_WIDTH = add(CATEGORY_TURBINE, "turbine_render_blade_width", NCMath.SQRT2, 0.01D, 4D);
-    private static final ModConfigSpec.BooleanValue TURBINE_RENDER_BLADE_FAST = add(CATEGORY_TURBINE, "turbine_render_blade_fast", false);
-    private static final ModConfigSpec.DoubleValue TURBINE_RENDER_ROTOR_EXPANSION = add(CATEGORY_TURBINE, "turbine_render_rotor_expansion", 4D, 1D, 15D);
-    private static final ModConfigSpec.DoubleValue TURBINE_RENDER_ROTOR_SPEED = add(CATEGORY_TURBINE, "turbine_render_rotor_speed", 1D, 0D, 15D);
+    private static final ModConfigSpec.IntValue TURBINE_MIN_SIZE = add(BUILDER, CATEGORY_TURBINE, "turbine_min_size", 1, 1, 255);
+    private static final ModConfigSpec.IntValue TURBINE_MAX_SIZE = add(BUILDER, CATEGORY_TURBINE, "turbine_max_size", 24, 3, 255);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_BLADE_EFFICIENCY = add(BUILDER, CATEGORY_TURBINE, "turbine_blade_efficiency", List.of(1D, 1.1D, 1.2D), 0.01D, 15D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_BLADE_EXPANSION = add(BUILDER, CATEGORY_TURBINE, "turbine_blade_expansion", List.of(1.4D, 1.6D, 1.8D), 1D, 15D, ARRAY);
+    private static final ModConfigSpec.DoubleValue TURBINE_STATOR_EXPANSION = add(BUILDER, CATEGORY_TURBINE, "turbine_stator_expansion", 0.75D, 0.01D, 1D);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_COIL_CONDUCTIVITY = add(BUILDER, CATEGORY_TURBINE, "turbine_coil_conductivity", List.of(0.88D, 0.9D, 1D, 1.04D, 1.06D, 1.12D), 0.01D, 15D, ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> TURBINE_COIL_RULE = addString(BUILDER, CATEGORY_TURBINE, "turbine_coil_rule", List.of("one bearing || one connector", "one magnesium coil", "two magnesium coils", "one aluminum coil", "one beryllium coil", "one gold coil && one copper coil"), ARRAY);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> TURBINE_CONNECTOR_RULE = addString(BUILDER, CATEGORY_TURBINE, "turbine_connector_rule", List.of("one of any coil"), ARRAY);
+    private static final ModConfigSpec.DoubleValue TURBINE_SPIN_UP_MULTIPLIER_GLOBAL = add(BUILDER, CATEGORY_TURBINE, "turbine_spin_up_multiplier_global", 1D, 0D, 255D);
+    private static final ModConfigSpec.DoubleValue TURBINE_SPIN_DOWN_MULTIPLIER = add(BUILDER, CATEGORY_TURBINE, "turbine_spin_down_multiplier", 1D, 0.01D, 255D);
+    private static final ModConfigSpec.IntValue TURBINE_MB_PER_BLADE = add(BUILDER, CATEGORY_TURBINE, "turbine_mb_per_blade", 100, 1, 32767);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> TURBINE_THROUGHPUT_LENIENCY_PARAMS = add(BUILDER, CATEGORY_TURBINE, "turbine_throughput_leniency_params", List.of(0.5D, 0.75D), 0D, 1D, ARRAY);
+    private static final ModConfigSpec.DoubleValue TURBINE_TENSION_THROUGHPUT_FACTOR = add(BUILDER, CATEGORY_TURBINE, "turbine_tension_throughput_factor", 2D, 1D, 255D);
+    private static final ModConfigSpec.DoubleValue TURBINE_TENSION_LENIENCY = add(BUILDER, CATEGORY_TURBINE, "turbine_tension_leniency", 0.05D, 0D, 1D);
+    private static final ModConfigSpec.DoubleValue TURBINE_POWER_BONUS_MULTIPLIER = add(BUILDER, CATEGORY_TURBINE, "turbine_power_bonus_multiplier", 1D, 0D, 255D);
+    private static final ModConfigSpec.IntValue TURBINE_BASE_ENERGY_CAPACITY = add(BUILDER, CATEGORY_TURBINE, "turbine_base_energy_capacity", 16000, 1, Integer.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue TURBINE_SOUND_VOLUME = add(BUILDER, CATEGORY_TURBINE, "turbine_sound_volume", 1D, 0D, 15D);
+    private static final ModConfigSpec.DoubleValue TURBINE_PARTICLES = add(BUILDER, CATEGORY_TURBINE, "turbine_particles", 0.025D, 0D, 1D);
+    private static final ModConfigSpec.DoubleValue TURBINE_RENDER_BLADE_WIDTH = add(BUILDER, CATEGORY_TURBINE, "turbine_render_blade_width", NCMath.SQRT2, 0.01D, 4D);
+    private static final ModConfigSpec.BooleanValue TURBINE_RENDER_BLADE_FAST = add(BUILDER, CATEGORY_TURBINE, "turbine_render_blade_fast", false);
+    private static final ModConfigSpec.DoubleValue TURBINE_RENDER_ROTOR_EXPANSION = add(BUILDER, CATEGORY_TURBINE, "turbine_render_rotor_expansion", 4D, 1D, 15D);
+    private static final ModConfigSpec.DoubleValue TURBINE_RENDER_ROTOR_SPEED = add(BUILDER, CATEGORY_TURBINE, "turbine_render_rotor_speed", 1D, 0D, 15D);
 
-    private static final ModConfigSpec.BooleanValue QUANTUM_DEDICATED_SERVER = add(CATEGORY_QUANTUM, "quantum_dedicated_server", false);
-    private static final ModConfigSpec.IntValue QUANTUM_MAX_QUBITS = add(CATEGORY_QUANTUM, "quantum_max_qubits", 16, 1, 28);
-    private static final ModConfigSpec.IntValue QUANTUM_ANGLE_PRECISION = add(CATEGORY_QUANTUM, "quantum_angle_precision", 16, 4, 1024);
+    private static final ModConfigSpec.BooleanValue QUANTUM_DEDICATED_SERVER = add(BUILDER, CATEGORY_QUANTUM, "quantum_dedicated_server", false);
+    private static final ModConfigSpec.IntValue QUANTUM_MAX_QUBITS = add(BUILDER, CATEGORY_QUANTUM, "quantum_max_qubits", 16, 1, 28);
+    private static final ModConfigSpec.IntValue QUANTUM_ANGLE_PRECISION = add(BUILDER, CATEGORY_QUANTUM, "quantum_angle_precision", 16, 4, 1024);
 
-    private static final ModConfigSpec.IntValue ENTITY_TRACKING_RANGE = add(CATEGORY_ENTITY, "entity_tracking_range", 8, 1, 255);
+    private static final ModConfigSpec.IntValue ENTITY_TRACKING_RANGE = add(BUILDER, CATEGORY_ENTITY, "entity_tracking_range", 8, 1, 255);
 
-    private static final ModConfigSpec.BooleanValue RADIATION_ENABLED = add(CATEGORY_RADIATION, "radiation_enabled", true);
+    private static final ModConfigSpec.BooleanValue RADIATION_ENABLED = add(BUILDER, CATEGORY_RADIATION, "radiation_enabled", true);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_IMMUNE_PLAYERS = addString(CATEGORY_RADIATION, "radiation_immune_players", List.of(), LIST);
-    private static final ModConfigSpec.IntValue RADIATION_LEVEL_CHUNKS_PER_TICK = add(CATEGORY_RADIATION, "radiation_level_chunks_per_tick", 5, 1, 400);
-    private static final ModConfigSpec.IntValue RADIATION_PLAYER_TICK_RATE = add(CATEGORY_RADIATION, "radiation_player_tick_rate", 5, 1, 400);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIMS = addString(CATEGORY_RADIATION, "radiation_dims", List.of("nuclearcraftneohaul:nuclear_wasteland_2.25"), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOMES = addString(CATEGORY_RADIATION, "radiation_biomes", List.of("nuclearcraftneohaul:nuclear_wasteland_0.25"), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_STRUCTURES = addString(CATEGORY_RADIATION, "radiation_structures", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIM_LIMITS = addString(CATEGORY_RADIATION, "radiation_dim_limits", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOME_LIMITS = addString(CATEGORY_RADIATION, "radiation_biome_limits", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FROM_BIOMES_DIMS_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_from_biomes_dims_blacklist", List.of(), e -> e instanceof String && ResourceLocation.tryParse((String) e) != null, LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_IMMUNE_PLAYERS = addString(BUILDER, CATEGORY_RADIATION, "radiation_immune_players", List.of(), LIST);
+    private static final ModConfigSpec.IntValue RADIATION_LEVEL_CHUNKS_PER_TICK = add(BUILDER, CATEGORY_RADIATION, "radiation_level_chunks_per_tick", 5, 1, 400);
+    private static final ModConfigSpec.IntValue RADIATION_PLAYER_TICK_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_player_tick_rate", 5, 1, 400);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIMS = addString(BUILDER, CATEGORY_RADIATION, "radiation_dims", List.of("nuclearcraftneohaul:nuclear_wasteland_2.25"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOMES = addString(BUILDER, CATEGORY_RADIATION, "radiation_biomes", List.of("nuclearcraftneohaul:nuclear_wasteland_0.25"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_STRUCTURES = addString(BUILDER, CATEGORY_RADIATION, "radiation_structures", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_DIM_LIMITS = addString(BUILDER, CATEGORY_RADIATION, "radiation_dim_limits", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BIOME_LIMITS = addString(BUILDER, CATEGORY_RADIATION, "radiation_biome_limits", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FROM_BIOMES_DIMS_BLACKLIST = addString(BUILDER, CATEGORY_RADIATION, "radiation_from_biomes_dims_blacklist", List.of(), e -> e instanceof String && ResourceLocation.tryParse((String) e) != null, LIST);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES = addString(CATEGORY_RADIATION, "radiation_ores", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ITEMS = addString(CATEGORY_RADIATION, "radiation_items", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BLOCKS = addString(CATEGORY_RADIATION, "radiation_blocks", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FLUIDS = addString(CATEGORY_RADIATION, "radiation_fluids", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FOODS = addString(CATEGORY_RADIATION, "radiation_foods", List.of("minecraft:golden_apple_-20_0.1", "minecraft:enchanted_golden_apple_-100_0.5", "minecraft:golden_carrot_-4_0", "minecraft:spider_eye_0_0.5", "minecraft:poisonous_potato_0_0.5", "minecraft:pufferfish_0_2", "minecraft:rabbit_stew_0_0.1", "minecraft:chorus_fruit_0_-0.25", "minecraft:beetroot:0_0.25", "minecraft:beetroot_soup_0_1.5", "quark:golden_frog_leg_-4_0"), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_ores_blacklist", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ITEMS_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_items_blacklist", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BLOCKS_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_blocks_blacklist", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FLUIDS_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_fluids_blacklist", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES = addString(BUILDER, CATEGORY_RADIATION, "radiation_ores", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ITEMS = addString(BUILDER, CATEGORY_RADIATION, "radiation_items", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BLOCKS = addString(BUILDER, CATEGORY_RADIATION, "radiation_blocks", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FLUIDS = addString(BUILDER, CATEGORY_RADIATION, "radiation_fluids", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FOODS = addString(BUILDER, CATEGORY_RADIATION, "radiation_foods", List.of("minecraft:golden_apple_-20_0.1", "minecraft:enchanted_golden_apple_-100_0.5", "minecraft:golden_carrot_-4_0", "minecraft:spider_eye_0_0.5", "minecraft:poisonous_potato_0_0.5", "minecraft:pufferfish_0_2", "minecraft:rabbit_stew_0_0.1", "minecraft:chorus_fruit_0_-0.25", "minecraft:beetroot:0_0.25", "minecraft:beetroot_soup_0_1.5", "quark:golden_frog_leg_-4_0"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ORES_BLACKLIST = addString(BUILDER, CATEGORY_RADIATION, "radiation_ores_blacklist", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_ITEMS_BLACKLIST = addString(BUILDER, CATEGORY_RADIATION, "radiation_items_blacklist", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_BLOCKS_BLACKLIST = addString(BUILDER, CATEGORY_RADIATION, "radiation_blocks_blacklist", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_FLUIDS_BLACKLIST = addString(BUILDER, CATEGORY_RADIATION, "radiation_fluids_blacklist", List.of(), LIST);
 
-    private static final ModConfigSpec.DoubleValue MAX_PLAYER_RADS = add(CATEGORY_RADIATION, "max_player_rads", 1000D, 1D, 1000000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_PLAYER_DECAY_RATE = add(CATEGORY_RADIATION, "radiation_player_decay_rate", 0.0000005D, 0D, 1D);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> MAX_ENTITY_RADS = addString(CATEGORY_RADIATION, "max_entity_rads", List.of(), LIST);
-    private static final ModConfigSpec.DoubleValue RADIATION_ENTITY_DECAY_RATE = add(CATEGORY_RADIATION, "radiation_entity_decay_rate", 0.001D, 0D, 1D);
-    private static final ModConfigSpec.DoubleValue RADIATION_SPREAD_RATE = add(CATEGORY_RADIATION, "radiation_spread_rate", 0.1D, 0D, 1D);
-    private static final ModConfigSpec.DoubleValue RADIATION_SPREAD_GRADIENT = add(CATEGORY_RADIATION, "radiation_spread_gradient", 0.5D, 1D, 1000000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_DECAY_RATE = add(CATEGORY_RADIATION, "radiation_decay_rate", 0.001D, 0D, 1D);
-    private static final ModConfigSpec.DoubleValue RADIATION_LOWEST_RATE = add(CATEGORY_RADIATION, "radiation_lowest_rate", 0.000000000000001D, 0D, 1D);
-    private static final ModConfigSpec.DoubleValue RADIATION_CHUNK_LIMIT = add(CATEGORY_RADIATION, "radiation_chunk_limit", -1D, -1D, Double.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue MAX_PLAYER_RADS = add(BUILDER, CATEGORY_RADIATION, "max_player_rads", 1000D, 1D, 1000000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_PLAYER_DECAY_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_player_decay_rate", 0.0000005D, 0D, 1D);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> MAX_ENTITY_RADS = addString(BUILDER, CATEGORY_RADIATION, "max_entity_rads", List.of(), LIST);
+    private static final ModConfigSpec.DoubleValue RADIATION_ENTITY_DECAY_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_entity_decay_rate", 0.001D, 0D, 1D);
+    private static final ModConfigSpec.DoubleValue RADIATION_SPREAD_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_spread_rate", 0.1D, 0D, 1D);
+    private static final ModConfigSpec.DoubleValue RADIATION_SPREAD_GRADIENT = add(BUILDER, CATEGORY_RADIATION, "radiation_spread_gradient", 0.5D, 1D, 1000000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_DECAY_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_decay_rate", 0.001D, 0D, 1D);
+    private static final ModConfigSpec.DoubleValue RADIATION_LOWEST_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_lowest_rate", 0.000000000000001D, 0D, 1D);
+    private static final ModConfigSpec.DoubleValue RADIATION_CHUNK_LIMIT = add(BUILDER, CATEGORY_RADIATION, "radiation_chunk_limit", -1D, -1D, Double.MAX_VALUE);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SOUND_VOLUMES = add(CATEGORY_RADIATION, "radiation_sound_volumes", List.of(1D, 1D, 1D, 1D, 1D, 1D, 1D, 1D), 0D, 15D, ARRAY);
-    private static final ModConfigSpec.BooleanValue RADIATION_CHECK_BLOCKS = add(CATEGORY_RADIATION, "radiation_check_blocks", true);
-    private static final ModConfigSpec.IntValue RADIATION_BLOCK_EFFECT_MAX_RATE = add(CATEGORY_RADIATION, "radiation_block_effect_max_rate", 0, 0, 15);
-    private static final ModConfigSpec.DoubleValue RADIATION_RAIN_MULT = add(CATEGORY_RADIATION, "radiation_rain_mult", 1D, 0.000001D, 1000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_SWIM_MULT = add(CATEGORY_RADIATION, "radiation_swim_mult", 2D, 0.000001D, 1000000D);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SOUND_VOLUMES = add(BUILDER, CATEGORY_RADIATION, "radiation_sound_volumes", List.of(1D, 1D, 1D, 1D, 1D, 1D, 1D, 1D), 0D, 15D, ARRAY);
+    private static final ModConfigSpec.BooleanValue RADIATION_CHECK_BLOCKS = add(BUILDER, CATEGORY_RADIATION, "radiation_check_blocks", true);
+    private static final ModConfigSpec.IntValue RADIATION_BLOCK_EFFECT_MAX_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_block_effect_max_rate", 0, 0, 15);
+    private static final ModConfigSpec.DoubleValue RADIATION_RAIN_MULT = add(BUILDER, CATEGORY_RADIATION, "radiation_rain_mult", 1D, 0.000001D, 1000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_SWIM_MULT = add(BUILDER, CATEGORY_RADIATION, "radiation_swim_mult", 2D, 0.000001D, 1000000D);
 
-    private static final ModConfigSpec.DoubleValue RADIATION_FERAL_GHOUL_ATTACK = add(CATEGORY_RADIATION, "radiation_feral_ghoul_attack", RadSources.CAESIUM_137, 0.000001D, 1000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_FERAL_GHOUL_ATTACK = add(BUILDER, CATEGORY_RADIATION, "radiation_feral_ghoul_attack", RadSources.CAESIUM_137, 0.000001D, 1000000D);
 
-    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_AMOUNT = add(CATEGORY_RADIATION, "radiation_radaway_amount", 300D, 0.001D, 1000000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_SLOW_AMOUNT = add(CATEGORY_RADIATION, "radiation_radaway_slow_amount", 300D, 0.001D, 1000000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_RATE = add(CATEGORY_RADIATION, "radiation_radaway_rate", 5D, 0.001D, 1000000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_SLOW_RATE = add(CATEGORY_RADIATION, "radiation_radaway_slow_rate", 0.025D, 0.00001D, 10000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_POISON_TIME = add(CATEGORY_RADIATION, "radiation_poison_time", 60D, 1D, 1000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_COOLDOWN = add(CATEGORY_RADIATION, "radiation_radaway_cooldown", 0D, 0D, 100000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_RAD_X_AMOUNT = add(CATEGORY_RADIATION, "radiation_rad_x_amount", 25D, 0.001D, 1000000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_RAD_X_LIFETIME = add(CATEGORY_RADIATION, "radiation_rad_x_lifetime", 12000D, 20D, 1000000000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_RAD_X_COOLDOWN = add(CATEGORY_RADIATION, "radiation_rad_x_cooldown", 0D, 0D, 100000D);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SHIELDING_LEVEL = add(CATEGORY_RADIATION, "radiation_shielding_level", List.of(0.01D, 0.1D, 1D), 0.000000000000000001D, 1000D, ARRAY);
-    private static final ModConfigSpec.BooleanValue RADIATION_BLOCK_ENTITY_SHIELDING = add(CATEGORY_RADIATION, "radiation_block_entity_shielding", true);
-    private static final ModConfigSpec.DoubleValue RADIATION_SCRUBBER_FRACTION = add(CATEGORY_RADIATION, "radiation_scrubber_fraction", 0.125D, 0.001D, 1D);
-    private static final ModConfigSpec.IntValue RADIATION_SCRUBBER_RADIUS = add(CATEGORY_RADIATION, "radiation_scrubber_radius", 4, 1, 10);
-    private static final ModConfigSpec.BooleanValue RADIATION_SCRUBBER_NON_LINEAR = add(CATEGORY_RADIATION, "radiation_scrubber_non_linear", true);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SCRUBBER_PARAM = add(CATEGORY_RADIATION, "radiation_scrubber_param", List.of(2.14280951676725D, 3D, 4D, 2D), 1D, 15D, ARRAY);
-    private static final ModConfigSpec.DoubleValue RADIATION_GEIGER_BLOCK_REDSTONE = add(CATEGORY_RADIATION, "radiation_geiger_block_redstone", 3D, -127D, 127D);
+    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_AMOUNT = add(BUILDER, CATEGORY_RADIATION, "radiation_radaway_amount", 300D, 0.001D, 1000000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_SLOW_AMOUNT = add(BUILDER, CATEGORY_RADIATION, "radiation_radaway_slow_amount", 300D, 0.001D, 1000000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_radaway_rate", 5D, 0.001D, 1000000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_SLOW_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_radaway_slow_rate", 0.025D, 0.00001D, 10000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_POISON_TIME = add(BUILDER, CATEGORY_RADIATION, "radiation_poison_time", 60D, 1D, 1000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_RADAWAY_COOLDOWN = add(BUILDER, CATEGORY_RADIATION, "radiation_radaway_cooldown", 0D, 0D, 100000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_RAD_X_AMOUNT = add(BUILDER, CATEGORY_RADIATION, "radiation_rad_x_amount", 25D, 0.001D, 1000000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_RAD_X_LIFETIME = add(BUILDER, CATEGORY_RADIATION, "radiation_rad_x_lifetime", 12000D, 20D, 1000000000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_RAD_X_COOLDOWN = add(BUILDER, CATEGORY_RADIATION, "radiation_rad_x_cooldown", 0D, 0D, 100000D);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SHIELDING_LEVEL = add(BUILDER, CATEGORY_RADIATION, "radiation_shielding_level", List.of(0.01D, 0.1D, 1D), 0.000000000000000001D, 1000D, ARRAY);
+    private static final ModConfigSpec.BooleanValue RADIATION_BLOCK_ENTITY_SHIELDING = add(BUILDER, CATEGORY_RADIATION, "radiation_block_entity_shielding", true);
+    private static final ModConfigSpec.DoubleValue RADIATION_SCRUBBER_FRACTION = add(BUILDER, CATEGORY_RADIATION, "radiation_scrubber_fraction", 0.125D, 0.001D, 1D);
+    private static final ModConfigSpec.IntValue RADIATION_SCRUBBER_RADIUS = add(BUILDER, CATEGORY_RADIATION, "radiation_scrubber_radius", 4, 1, 10);
+    private static final ModConfigSpec.BooleanValue RADIATION_SCRUBBER_NON_LINEAR = add(BUILDER, CATEGORY_RADIATION, "radiation_scrubber_non_linear", true);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_SCRUBBER_PARAM = add(BUILDER, CATEGORY_RADIATION, "radiation_scrubber_param", List.of(2.14280951676725D, 3D, 4D, 2D), 1D, 15D, ARRAY);
+    private static final ModConfigSpec.DoubleValue RADIATION_GEIGER_BLOCK_REDSTONE = add(BUILDER, CATEGORY_RADIATION, "radiation_geiger_block_redstone", 3D, -127D, 127D);
 
-    private static final ModConfigSpec.BooleanValue RADIATION_SHIELDING_DEFAULT_RECIPES = add(CATEGORY_RADIATION, "radiation_shielding_default_recipes", true);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_ITEM_BLACKLIST = addString(CATEGORY_RADIATION, "radiation_shielding_item_blacklist", List.of("nuclearcraftneohaul:hazmat_helmet", "nuclearcraftneohaul:hazmat_chestplate", "nuclearcraftneohaul:hazmat_leggings", "nuclearcraftneohaul:hazmat_boots", "extraplanets:tier1_space_suit_helmet", "extraplanets:tier1_space_suit_chest", "extraplanets:tier1_space_suit_jetpack_chest", "extraplanets:tier1_space_suit_leggings", "extraplanets:tier1_space_suit_boots", "extraplanets:tier1_space_suit_gravity_boots", "extraplanets:tier2_space_suit_helmet", "extraplanets:tier2_space_suit_chest", "extraplanets:tier2_space_suit_jetpack_chest", "extraplanets:tier2_space_suit_leggings", "extraplanets:tier2_space_suit_boots", "extraplanets:tier2_space_suit_gravity_boots", "extraplanets:tier3_space_suit_helmet", "extraplanets:tier3_space_suit_chest", "extraplanets:tier3_space_suit_jetpack_chest", "extraplanets:tier3_space_suit_leggings", "extraplanets:tier3_space_suit_boots", "extraplanets:tier3_space_suit_gravity_boots", "extraplanets:tier4_space_suit_helmet", "extraplanets:tier4_space_suit_chest", "extraplanets:tier4_space_suit_jetpack_chest", "extraplanets:tier4_space_suit_leggings", "extraplanets:tier4_space_suit_boots", "extraplanets:tier4_space_suit_gravity_boots"), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_CUSTOM_STACKS = addString(CATEGORY_RADIATION, "radiation_shielding_custom_stacks", List.of(), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_DEFAULT_LEVELS = addString(CATEGORY_RADIATION, "radiation_shielding_default_levels", List.of("nuclearcraftneohaul:hazmat_helmet_2.0", "nuclearcraftneohaul:hazmat_chestplate_3.0", "nuclearcraftneohaul:hazmat_leggings_2.0", "nuclearcraftneohaul:hazmat_boots_2.0", "gravisuite:gravichestplate_3.0", "gravisuit:gravisuit_3.0", "gravisuit:nucleargravisuit_3.0", "extraplanets:tier1_space_suit_helmet_1.0", "extraplanets:tier1_space_suit_chest_1.5", "extraplanets:tier1_space_suit_jetpack_chest_1.5", "extraplanets:tier1_space_suit_leggings_1.0", "extraplanets:tier1_space_suit_boots_1.0", "extraplanets:tier1_space_suit_gravity_boots_1.0", "extraplanets:tier2_space_suit_helmet_1.3", "extraplanets:tier2_space_suit_chest_1.95", "extraplanets:tier2_space_suit_jetpack_chest_1.95", "extraplanets:tier2_space_suit_leggings_1.3", "extraplanets:tier2_space_suit_boots_1.3", "extraplanets:tier2_space_suit_gravity_boots_1.3", "extraplanets:tier3_space_suit_helmet_1.6", "extraplanets:tier3_space_suit_chest_2.4", "extraplanets:tier3_space_suit_jetpack_chest_2.4", "extraplanets:tier3_space_suit_leggings_1.6", "extraplanets:tier3_space_suit_boots_1.6", "extraplanets:tier3_space_suit_gravity_boots_1.6", "extraplanets:tier4_space_suit_helmet_2.0", "extraplanets:tier4_space_suit_chest_3.0", "extraplanets:tier4_space_suit_jetpack_chest_3.0", "extraplanets:tier4_space_suit_leggings_2.0", "extraplanets:tier4_space_suit_boots_2.0", "extraplanets:tier4_space_suit_gravity_boots_2.0"), LIST);
+    private static final ModConfigSpec.BooleanValue RADIATION_SHIELDING_DEFAULT_RECIPES = add(BUILDER, CATEGORY_RADIATION, "radiation_shielding_default_recipes", true);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_ITEM_BLACKLIST = addString(BUILDER, CATEGORY_RADIATION, "radiation_shielding_item_blacklist", List.of("nuclearcraftneohaul:hazmat_helmet", "nuclearcraftneohaul:hazmat_chestplate", "nuclearcraftneohaul:hazmat_leggings", "nuclearcraftneohaul:hazmat_boots", "extraplanets:tier1_space_suit_helmet", "extraplanets:tier1_space_suit_chest", "extraplanets:tier1_space_suit_jetpack_chest", "extraplanets:tier1_space_suit_leggings", "extraplanets:tier1_space_suit_boots", "extraplanets:tier1_space_suit_gravity_boots", "extraplanets:tier2_space_suit_helmet", "extraplanets:tier2_space_suit_chest", "extraplanets:tier2_space_suit_jetpack_chest", "extraplanets:tier2_space_suit_leggings", "extraplanets:tier2_space_suit_boots", "extraplanets:tier2_space_suit_gravity_boots", "extraplanets:tier3_space_suit_helmet", "extraplanets:tier3_space_suit_chest", "extraplanets:tier3_space_suit_jetpack_chest", "extraplanets:tier3_space_suit_leggings", "extraplanets:tier3_space_suit_boots", "extraplanets:tier3_space_suit_gravity_boots", "extraplanets:tier4_space_suit_helmet", "extraplanets:tier4_space_suit_chest", "extraplanets:tier4_space_suit_jetpack_chest", "extraplanets:tier4_space_suit_leggings", "extraplanets:tier4_space_suit_boots", "extraplanets:tier4_space_suit_gravity_boots"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_CUSTOM_STACKS = addString(BUILDER, CATEGORY_RADIATION, "radiation_shielding_custom_stacks", List.of(), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_SHIELDING_DEFAULT_LEVELS = addString(BUILDER, CATEGORY_RADIATION, "radiation_shielding_default_levels", List.of("nuclearcraftneohaul:hazmat_helmet_2.0", "nuclearcraftneohaul:hazmat_chestplate_3.0", "nuclearcraftneohaul:hazmat_leggings_2.0", "nuclearcraftneohaul:hazmat_boots_2.0", "gravisuite:gravichestplate_3.0", "gravisuit:gravisuit_3.0", "gravisuit:nucleargravisuit_3.0", "extraplanets:tier1_space_suit_helmet_1.0", "extraplanets:tier1_space_suit_chest_1.5", "extraplanets:tier1_space_suit_jetpack_chest_1.5", "extraplanets:tier1_space_suit_leggings_1.0", "extraplanets:tier1_space_suit_boots_1.0", "extraplanets:tier1_space_suit_gravity_boots_1.0", "extraplanets:tier2_space_suit_helmet_1.3", "extraplanets:tier2_space_suit_chest_1.95", "extraplanets:tier2_space_suit_jetpack_chest_1.95", "extraplanets:tier2_space_suit_leggings_1.3", "extraplanets:tier2_space_suit_boots_1.3", "extraplanets:tier2_space_suit_gravity_boots_1.3", "extraplanets:tier3_space_suit_helmet_1.6", "extraplanets:tier3_space_suit_chest_2.4", "extraplanets:tier3_space_suit_jetpack_chest_2.4", "extraplanets:tier3_space_suit_leggings_1.6", "extraplanets:tier3_space_suit_boots_1.6", "extraplanets:tier3_space_suit_gravity_boots_1.6", "extraplanets:tier4_space_suit_helmet_2.0", "extraplanets:tier4_space_suit_chest_3.0", "extraplanets:tier4_space_suit_jetpack_chest_3.0", "extraplanets:tier4_space_suit_leggings_2.0", "extraplanets:tier4_space_suit_boots_2.0", "extraplanets:tier4_space_suit_gravity_boots_2.0"), LIST);
 
-    private static final ModConfigSpec.BooleanValue RADIATION_BLOCK_ENTITIES = add(CATEGORY_RADIATION, "radiation_block_entities", true);
-    private static final ModConfigSpec.BooleanValue RADIATION_HARDCORE_STACKS = add(CATEGORY_RADIATION, "radiation_hardcore_stacks", true);
-    private static final ModConfigSpec.DoubleValue RADIATION_HARDCORE_CONTAINERS = add(CATEGORY_RADIATION, "radiation_hardcore_containers", 0D, 0D, 1D);
-    private static final ModConfigSpec.BooleanValue RADIATION_DROPPED_ITEMS = add(CATEGORY_RADIATION, "radiation_dropped_items", true);
-    private static final ModConfigSpec.BooleanValue RADIATION_DEATH_PERSIST = add(CATEGORY_RADIATION, "radiation_death_persist", true);
-    private static final ModConfigSpec.DoubleValue RADIATION_DEATH_PERSIST_FRACTION = add(CATEGORY_RADIATION, "radiation_death_persist_fraction", 0.75D, 0D, 1D);
-    private static final ModConfigSpec.DoubleValue RADIATION_DEATH_IMMUNITY_TIME = add(CATEGORY_RADIATION, "radiation_death_immunity_time", 90D, 0D, 3600D);
+    private static final ModConfigSpec.BooleanValue RADIATION_BLOCK_ENTITIES = add(BUILDER, CATEGORY_RADIATION, "radiation_block_entities", true);
+    private static final ModConfigSpec.BooleanValue RADIATION_HARDCORE_STACKS = add(BUILDER, CATEGORY_RADIATION, "radiation_hardcore_stacks", true);
+    private static final ModConfigSpec.DoubleValue RADIATION_HARDCORE_CONTAINERS = add(BUILDER, CATEGORY_RADIATION, "radiation_hardcore_containers", 0D, 0D, 1D);
+    private static final ModConfigSpec.BooleanValue RADIATION_DROPPED_ITEMS = add(BUILDER, CATEGORY_RADIATION, "radiation_dropped_items", true);
+    private static final ModConfigSpec.BooleanValue RADIATION_DEATH_PERSIST = add(BUILDER, CATEGORY_RADIATION, "radiation_death_persist", true);
+    private static final ModConfigSpec.DoubleValue RADIATION_DEATH_PERSIST_FRACTION = add(BUILDER, CATEGORY_RADIATION, "radiation_death_persist_fraction", 0.75D, 0D, 1D);
+    private static final ModConfigSpec.DoubleValue RADIATION_DEATH_IMMUNITY_TIME = add(BUILDER, CATEGORY_RADIATION, "radiation_death_immunity_time", 90D, 0D, 3600D);
 
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_PLAYER_DEBUFF_LISTS = addString(CATEGORY_RADIATION, "radiation_player_debuff_lists", List.of("40.0_minecraft:weakness@1", "55.0_minecraft:weakness@1,minecraft:mining_fatigue@1", "70.0_minecraft:weakness@2,minecraft:mining_fatigue@1,minecraft:hunger@1", "80.0_minecraft:weakness@2,minecraft:mining_fatigue@2,minecraft:hunger@1,minecraft:poison@1", "90.0_minecraft:weakness@3,minecraft:mining_fatigue@3,minecraft:hunger@2,minecraft:poison@1,minecraft:wither@1"), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_PASSIVE_DEBUFF_LISTS = addString(CATEGORY_RADIATION, "radiation_passive_debuff_lists", List.of("40.0_minecraft:weakness@1", "55.0_minecraft:weakness@1,minecraft:mining_fatigue@1", "70.0_minecraft:weakness@2,minecraft:mining_fatigue@1,minecraft:hunger@1", "80.0_minecraft:weakness@2,minecraft:mining_fatigue@2,minecraft:hunger@1,minecraft:poison@1", "90.0_minecraft:weakness@3,minecraft:mining_fatigue@3,minecraft:hunger@2,minecraft:poison@1,minecraft:wither@1"), LIST);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_MOB_BUFF_LISTS = addString(CATEGORY_RADIATION, "radiation_mob_buff_lists", List.of("40.0_minecraft:speed@1", "55.0_minecraft:speed@1,minecraft:strength@1", "70.0_minecraft:speed@1,minecraft:strength@1,minecraft:resistance@1", "80.0_minecraft:speed@1,minecraft:strength@1,minecraft:resistance@1,minecraft:absorption@1", "90.0_minecraft:speed@1,minecraft:strength@1,minecraft:resistance@1,minecraft:absorption@1,minecraft:regeneration@1"), LIST);
-    private static final ModConfigSpec.BooleanValue RADIATION_PLAYER_RADS_FATAL = add(CATEGORY_RADIATION, "radiation_player_rads_fatal", true);
-    private static final ModConfigSpec.BooleanValue RADIATION_PASSIVE_RADS_FATAL = add(CATEGORY_RADIATION, "radiation_passive_rads_fatal", true);
-    private static final ModConfigSpec.BooleanValue RADIATION_MOB_RADS_FATAL = add(CATEGORY_RADIATION, "radiation_mob_rads_fatal", true);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_PLAYER_DEBUFF_LISTS = addString(BUILDER, CATEGORY_RADIATION, "radiation_player_debuff_lists", List.of("40.0_minecraft:weakness@1", "55.0_minecraft:weakness@1,minecraft:mining_fatigue@1", "70.0_minecraft:weakness@2,minecraft:mining_fatigue@1,minecraft:hunger@1", "80.0_minecraft:weakness@2,minecraft:mining_fatigue@2,minecraft:hunger@1,minecraft:poison@1", "90.0_minecraft:weakness@3,minecraft:mining_fatigue@3,minecraft:hunger@2,minecraft:poison@1,minecraft:wither@1"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_PASSIVE_DEBUFF_LISTS = addString(BUILDER, CATEGORY_RADIATION, "radiation_passive_debuff_lists", List.of("40.0_minecraft:weakness@1", "55.0_minecraft:weakness@1,minecraft:mining_fatigue@1", "70.0_minecraft:weakness@2,minecraft:mining_fatigue@1,minecraft:hunger@1", "80.0_minecraft:weakness@2,minecraft:mining_fatigue@2,minecraft:hunger@1,minecraft:poison@1", "90.0_minecraft:weakness@3,minecraft:mining_fatigue@3,minecraft:hunger@2,minecraft:poison@1,minecraft:wither@1"), LIST);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> RADIATION_MOB_BUFF_LISTS = addString(BUILDER, CATEGORY_RADIATION, "radiation_mob_buff_lists", List.of("40.0_minecraft:speed@1", "55.0_minecraft:speed@1,minecraft:strength@1", "70.0_minecraft:speed@1,minecraft:strength@1,minecraft:resistance@1", "80.0_minecraft:speed@1,minecraft:strength@1,minecraft:resistance@1,minecraft:absorption@1", "90.0_minecraft:speed@1,minecraft:strength@1,minecraft:resistance@1,minecraft:absorption@1,minecraft:regeneration@1"), LIST);
+    private static final ModConfigSpec.BooleanValue RADIATION_PLAYER_RADS_FATAL = add(BUILDER, CATEGORY_RADIATION, "radiation_player_rads_fatal", true);
+    private static final ModConfigSpec.BooleanValue RADIATION_PASSIVE_RADS_FATAL = add(BUILDER, CATEGORY_RADIATION, "radiation_passive_rads_fatal", true);
+    private static final ModConfigSpec.BooleanValue RADIATION_MOB_RADS_FATAL = add(BUILDER, CATEGORY_RADIATION, "radiation_mob_rads_fatal", true);
 
-    private static final ModConfigSpec.BooleanValue RADIATION_HORSE_ARMOR = add(CATEGORY_RADIATION, "radiation_horse_armor", false);
+    private static final ModConfigSpec.BooleanValue RADIATION_HORSE_ARMOR = add(BUILDER, CATEGORY_RADIATION, "radiation_horse_armor", false);
 
-    private static final ModConfigSpec.DoubleValue RADIATION_HUD_SIZE = add(CATEGORY_RADIATION, "radiation_hud_size", 1D, 0.1D, 10D);
-    private static final ModConfigSpec.DoubleValue RADIATION_HUD_POSITION = add(CATEGORY_RADIATION, "radiation_hud_position", 225D, 0D, 360D);
-    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_HUD_POSITION_CARTESIAN = add(CATEGORY_RADIATION, "radiation_hud_position_cartesian", List.of(), 0D, 1D, LIST);
-    private static final ModConfigSpec.BooleanValue RADIATION_HUD_TEXT_OUTLINE = add(CATEGORY_RADIATION, "radiation_hud_text_outline", false);
-    private static final ModConfigSpec.BooleanValue RADIATION_REQUIRE_COUNTER = add(CATEGORY_RADIATION, "radiation_require_counter", true);
-    private static final ModConfigSpec.BooleanValue RADIATION_CHUNK_BOUNDARIES = add(CATEGORY_RADIATION, "radiation_chunk_boundaries", true);
-    private static final ModConfigSpec.IntValue RADIATION_UNIT_PREFIXES = add(CATEGORY_RADIATION, "radiation_unit_prefixes", 0, 0, 15);
+    private static final ModConfigSpec.DoubleValue RADIATION_HUD_SIZE = add(BUILDER, CATEGORY_RADIATION, "radiation_hud_size", 1D, 0.1D, 10D);
+    private static final ModConfigSpec.DoubleValue RADIATION_HUD_POSITION = add(BUILDER, CATEGORY_RADIATION, "radiation_hud_position", 225D, 0D, 360D);
+    private static final ModConfigSpec.ConfigValue<List<? extends Double>> RADIATION_HUD_POSITION_CARTESIAN = add(BUILDER, CATEGORY_RADIATION, "radiation_hud_position_cartesian", List.of(), 0D, 1D, LIST);
+    private static final ModConfigSpec.BooleanValue RADIATION_HUD_TEXT_OUTLINE = add(BUILDER, CATEGORY_RADIATION, "radiation_hud_text_outline", false);
+    private static final ModConfigSpec.BooleanValue RADIATION_REQUIRE_COUNTER = add(BUILDER, CATEGORY_RADIATION, "radiation_require_counter", true);
+    private static final ModConfigSpec.BooleanValue RADIATION_CHUNK_BOUNDARIES = add(BUILDER, CATEGORY_RADIATION, "radiation_chunk_boundaries", true);
+    private static final ModConfigSpec.IntValue RADIATION_UNIT_PREFIXES = add(BUILDER, CATEGORY_RADIATION, "radiation_unit_prefixes", 0, 0, 15);
 
-    private static final ModConfigSpec.DoubleValue RADIATION_BADGE_DURABILITY = add(CATEGORY_RADIATION, "radiation_badge_durability", 250D, 0.000000000000000001D, 1000D);
-    private static final ModConfigSpec.DoubleValue RADIATION_BADGE_INFO_RATE = add(CATEGORY_RADIATION, "radiation_badge_info_rate", 0.1D, 0.000000000000000001D, 1D);
+    private static final ModConfigSpec.DoubleValue RADIATION_BADGE_DURABILITY = add(BUILDER, CATEGORY_RADIATION, "radiation_badge_durability", 250D, 0.000000000000000001D, 1000D);
+    private static final ModConfigSpec.DoubleValue RADIATION_BADGE_INFO_RATE = add(BUILDER, CATEGORY_RADIATION, "radiation_badge_info_rate", 0.1D, 0.000000000000000001D, 1D);
 
-    private static final ModConfigSpec.BooleanValue GIVE_GUIDEBOOK = add(CATEGORY_MISC, "give_guidebook", true);
-    private static final ModConfigSpec.BooleanValue CTRL_INFO = add(CATEGORY_MISC, "ctrl_info", false);
-    private static final ModConfigSpec.BooleanValue RARE_DROPS = add(CATEGORY_MISC, "rare_drops", false);
-    private static final ModConfigSpec.BooleanValue DUNGEON_LOOT = add(CATEGORY_MISC, "dungeon_loot", false);
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> CORIUM_SOLIDIFICATION = addString(CATEGORY_MISC, "corium_solidification", List.of("minecraft:overworld", "minecraft:the_end"), LIST); // TODO 2, -6, -100, 4598, -9999, -11325
-    private static final ModConfigSpec.BooleanValue CORIUM_SOLIDIFICATION_LIST_TYPE = add(CATEGORY_MISC, "corium_solidification_list_type", false);
+    private static final ModConfigSpec.BooleanValue GIVE_GUIDEBOOK = add(BUILDER, CATEGORY_MISC, "give_guidebook", true);
+    private static final ModConfigSpec.BooleanValue CTRL_INFO = add(BUILDER, CATEGORY_MISC, "ctrl_info", false);
+    private static final ModConfigSpec.BooleanValue RARE_DROPS = add(BUILDER, CATEGORY_MISC, "rare_drops", false);
+    private static final ModConfigSpec.BooleanValue DUNGEON_LOOT = add(BUILDER, CATEGORY_MISC, "dungeon_loot", false);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> CORIUM_SOLIDIFICATION = addString(BUILDER, CATEGORY_MISC, "corium_solidification", List.of("minecraft:overworld", "minecraft:the_end"), LIST); // TODO 2, -6, -100, 4598, -9999, -11325
+    private static final ModConfigSpec.BooleanValue CORIUM_SOLIDIFICATION_LIST_TYPE = add(BUILDER, CATEGORY_MISC, "corium_solidification_list_type", false);
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -778,52 +778,52 @@ public class NCConfig {
         return (fixedArray ? Arrays.stream(readStringArray(property)) : property.get().stream()).map(ResourceLocation::parse).toArray(ResourceLocation[]::new);
     }
 
-    public static ModConfigSpec.ConfigValue<Integer> add(String category, String name, int defaultValue) {
-        return BUILDER.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
+    public static ModConfigSpec.ConfigValue<Integer> add(ModConfigSpec.Builder builder, String category, String name, int defaultValue) {
+        return builder.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
     }
 
-    public static ModConfigSpec.IntValue add(String category, String name, int defaultValue, int minValue, int maxValue) {
-        return BUILDER.translation(MODID + ".configuration." + name).defineInRange(List.of(category, name), defaultValue, minValue, maxValue);
+    public static ModConfigSpec.IntValue add(ModConfigSpec.Builder builder, String category, String name, int defaultValue, int minValue, int maxValue) {
+        return builder.translation(MODID + ".configuration." + name).defineInRange(List.of(category, name), defaultValue, minValue, maxValue);
     }
 
-    public static ModConfigSpec.BooleanValue add(String category, String name, boolean defaultValue) {
-        return BUILDER.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
+    public static ModConfigSpec.BooleanValue add(ModConfigSpec.Builder builder, String category, String name, boolean defaultValue) {
+        return builder.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
     }
 
-    public static ModConfigSpec.ConfigValue<Double> add(String category, String name, double defaultValue) {
-        return BUILDER.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
+    public static ModConfigSpec.ConfigValue<Double> add(ModConfigSpec.Builder builder, String category, String name, double defaultValue) {
+        return builder.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
     }
 
-    public static ModConfigSpec.DoubleValue add(String category, String name, double defaultValue, double minValue, double maxValue) {
-        return BUILDER.translation(MODID + ".configuration." + name).defineInRange(List.of(category, name), defaultValue, minValue, maxValue);
+    public static ModConfigSpec.DoubleValue add(ModConfigSpec.Builder builder, String category, String name, double defaultValue, double minValue, double maxValue) {
+        return builder.translation(MODID + ".configuration." + name).defineInRange(List.of(category, name), defaultValue, minValue, maxValue);
     }
 
-    public static ModConfigSpec.ConfigValue<String> add(String category, String name, String defaultValue) {
-        return BUILDER.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
+    public static ModConfigSpec.ConfigValue<String> add(ModConfigSpec.Builder builder, String category, String name, String defaultValue) {
+        return builder.translation(MODID + ".configuration." + name).define(List.of(category, name), defaultValue);
     }
 
-    public static ModConfigSpec.ConfigValue<List<? extends Integer>> add(String category, String name, List<Integer> defaultValue) {
-        return BUILDER.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, () -> 0, e -> e instanceof Integer);
+    public static ModConfigSpec.ConfigValue<List<? extends Integer>> add(ModConfigSpec.Builder builder, String category, String name, List<Integer> defaultValue) {
+        return builder.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, () -> 0, e -> e instanceof Integer);
     }
 
-    public static ModConfigSpec.ConfigValue<List<? extends Integer>> add(String category, String name, List<Integer> defaultValue, int minValue, int maxValue, boolean fixedArray) {
-        return BUILDER.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> 0, e -> range(e, minValue, maxValue));
+    public static ModConfigSpec.ConfigValue<List<? extends Integer>> add(ModConfigSpec.Builder builder, String category, String name, List<Integer> defaultValue, int minValue, int maxValue, boolean fixedArray) {
+        return builder.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> 0, e -> range(e, minValue, maxValue));
     }
 
-    public static ModConfigSpec.ConfigValue<List<? extends Boolean>> add(String category, String name, List<Boolean> defaultValue, boolean fixedArray) {
-        return BUILDER.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> true, e -> e instanceof Boolean);
+    public static ModConfigSpec.ConfigValue<List<? extends Boolean>> add(ModConfigSpec.Builder builder, String category, String name, List<Boolean> defaultValue, boolean fixedArray) {
+        return builder.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> true, e -> e instanceof Boolean);
     }
 
-    public static ModConfigSpec.ConfigValue<List<? extends String>> addString(String category, String name, List<String> defaultValue, boolean fixedArray) {
-        return addString(category, name, defaultValue, e -> e instanceof String, fixedArray);
+    public static ModConfigSpec.ConfigValue<List<? extends String>> addString(ModConfigSpec.Builder builder, String category, String name, List<String> defaultValue, boolean fixedArray) {
+        return addString(builder, category, name, defaultValue, e -> e instanceof String, fixedArray);
     }
 
-    public static ModConfigSpec.ConfigValue<List<? extends String>> addString(String category, String name, List<String> defaultValue, Predicate<Object> validator, boolean fixedArray) {
-        return BUILDER.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> "", validator);
+    public static ModConfigSpec.ConfigValue<List<? extends String>> addString(ModConfigSpec.Builder builder, String category, String name, List<String> defaultValue, Predicate<Object> validator, boolean fixedArray) {
+        return builder.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> "", validator);
     }
 
-    public static ModConfigSpec.ConfigValue<List<? extends Double>> add(String category, String name, List<Double> defaultValue, double minValue, double maxValue, boolean fixedArray) {
-        return BUILDER.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> 0.0, e -> range(e, minValue, maxValue));
+    public static ModConfigSpec.ConfigValue<List<? extends Double>> add(ModConfigSpec.Builder builder, String category, String name, List<Double> defaultValue, double minValue, double maxValue, boolean fixedArray) {
+        return builder.translation(MODID + ".configuration." + name).defineList(List.of(category, name), defaultValue, fixedArray ? null : () -> 0.0, e -> range(e, minValue, maxValue));
     }
 
     public static int[] readIntegerArray(ModConfigSpec.ConfigValue<List<? extends Integer>> property) {
