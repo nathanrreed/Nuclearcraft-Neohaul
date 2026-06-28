@@ -8,12 +8,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.compat.create.CreateRegistration.CREATE_TURBINE_ROTOR_BEARING;
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public class ModPonderPlugin implements PonderPlugin {
     @Override
     public void registerScenes(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        helper.forComponents(CREATE_TURBINE_ROTOR_BEARING.getId())
+        helper.forComponents(ncLoc("create_turbine_rotor_bearing"))
                 .addStoryBoard("bearing_ponder", (builder, util) -> {
                     CreateSceneBuilder scene = new CreateSceneBuilder(builder);
                     scene.title("bearing_ponder", "Setting up Create Turbine Bearing Attachment");

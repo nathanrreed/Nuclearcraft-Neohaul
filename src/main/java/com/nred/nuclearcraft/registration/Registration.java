@@ -19,10 +19,6 @@ public class Registration {
         FluidRegistration.init();
         EntityRegistration.init();
 
-        if (ModCheck.createLoaded()){
-            CreateRegistration.init();
-        }
-
         PlacementRule.preInit();
         BlockEntityInfoHandler.preInit();
 
@@ -56,7 +52,7 @@ public class Registration {
         ARMOR_MATERIALS.register(modEventBus);
         DATA_COMPONENT_TYPES.register(modEventBus);
 
-        if (ModCheck.createLoaded()){
+        if (ModCheck.createLoaded()) {
             CreateRegistration.register(modEventBus);
         }
     }

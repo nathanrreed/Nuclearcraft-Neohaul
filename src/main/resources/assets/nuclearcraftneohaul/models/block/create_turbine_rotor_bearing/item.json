@@ -21,9 +21,9 @@
 			}
 		},
 		{
-			"from": [0, 0, 14],
-			"to": [16, 16, 16],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 16]},
+			"from": [0, 0, 12],
+			"to": [16, 16, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 14]},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#0"},
 				"east": {"uv": [0, 0, 1, 16], "texture": "#0"},
@@ -35,20 +35,20 @@
 		},
 		{
 			"from": [3, 3, 2],
-			"to": [13, 13, 14],
+			"to": [13, 13, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [3, 3, 2]},
 			"faces": {
 				"north": {"uv": [0, 0, 10, 10], "texture": "#missing"},
-				"east": {"uv": [2, 3, 14, 13], "texture": "#1"},
+				"east": {"uv": [3, 3, 13, 13], "texture": "#1"},
 				"south": {"uv": [0, 0, 10, 10], "texture": "#missing"},
-				"west": {"uv": [2, 3, 14, 13], "texture": "#1"},
-				"up": {"uv": [3, 2, 13, 14], "texture": "#1"},
-				"down": {"uv": [3, 2, 13, 14], "texture": "#1"}
+				"west": {"uv": [3, 3, 13, 13], "texture": "#1"},
+				"up": {"uv": [3, 3, 13, 13], "texture": "#1"},
+				"down": {"uv": [3, 3, 13, 13], "texture": "#1"}
 			}
 		},
 		{
 			"from": [1, 1, 2],
-			"to": [3, 3, 14],
+			"to": [3, 3, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [1, 1, 2]},
 			"faces": {
 				"north": {"uv": [0, 0, 2, 2], "texture": "#missing"},
@@ -61,7 +61,7 @@
 		},
 		{
 			"from": [13, 1, 2],
-			"to": [15, 3, 14],
+			"to": [15, 3, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [13, 1, 2]},
 			"faces": {
 				"north": {"uv": [0, 0, 2, 2], "texture": "#missing"},
@@ -74,7 +74,7 @@
 		},
 		{
 			"from": [1, 13, 2],
-			"to": [3, 15, 14],
+			"to": [3, 15, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [1, 13, 2]},
 			"faces": {
 				"north": {"uv": [0, 0, 2, 2], "texture": "#missing"},
@@ -87,7 +87,7 @@
 		},
 		{
 			"from": [13, 13, 2],
-			"to": [15, 15, 14],
+			"to": [15, 15, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [13, 13, 2]},
 			"faces": {
 				"north": {"uv": [0, 0, 2, 2], "texture": "#missing"},

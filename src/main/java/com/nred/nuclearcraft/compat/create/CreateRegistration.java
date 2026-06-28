@@ -1,8 +1,8 @@
 package com.nred.nuclearcraft.compat.create;
 
+import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.api.stress.BlockStressValues;
-import com.simibubi.create.content.kinetics.base.ShaftRenderer;
-import com.simibubi.create.content.kinetics.base.ShaftVisual;
+import com.simibubi.create.content.kinetics.base.OrientedRotatingVisual;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.item.ItemDescription;
@@ -29,28 +29,30 @@ public class CreateRegistration {
                         .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
     }
 
-    public static final BlockEntry<GeneratingKineticTurbineRotorBearingBlock> CREATE_TURBINE_ROTOR_BEARING = REGISTRATE.block("create_turbine_rotor_bearing", GeneratingKineticTurbineRotorBearingBlock::new)
-            .initialProperties(SharedProperties::stone)
-            .properties(BlockBehaviour.Properties::forceSolidOn)
-            .transform(pickaxeOnly())
-            .blockstate(new GeneratingKineticTurbineRotorGenerator()::generate)
-            .onRegister(BlockStressValues.setGeneratorSpeed(256, true))
-            .onRegister(block -> BlockStressValues.CAPACITIES.register(block, () -> create_bearing_max_stress))
-            .item()
-            .transform(customItemModel())
-            .register();
-
-    public static final BlockEntityEntry<GeneratingKineticTurbineRotorBearingEntity> CREATE_TURBINE_ROTOR_BEARING_ENTITY = REGISTRATE
-            .blockEntity("create_turbine_rotor_bearing", GeneratingKineticTurbineRotorBearingEntity::new)
-            .visual(() -> ShaftVisual::new, true)
-            .validBlocks(CREATE_TURBINE_ROTOR_BEARING)
-            .renderer(() -> ShaftRenderer::new)
-            .register();
-
-    public static void init() {
-    }
+    public static BlockEntry<GeneratingKineticTurbineRotorBearingBlock> CREATE_TURBINE_ROTOR_BEARING;
+    public static BlockEntityEntry<GeneratingKineticTurbineRotorBearingEntity> CREATE_TURBINE_ROTOR_BEARING_ENTITY;
 
     public static void register(IEventBus modEventBus) {
+        REGISTRATE.setModEventBus(modEventBus);
+
+        CREATE_TURBINE_ROTOR_BEARING = REGISTRATE.block("create_turbine_rotor_bearing", GeneratingKineticTurbineRotorBearingBlock::new)
+                .initialProperties(SharedProperties::stone)
+                .properties(BlockBehaviour.Properties::forceSolidOn)
+                .transform(pickaxeOnly())
+                .blockstate(new GeneratingKineticTurbineRotorGenerator()::generate)
+                .onRegister(BlockStressValues.setGeneratorSpeed(256, true))
+                .onRegister(block -> BlockStressValues.CAPACITIES.register(block, () -> create_bearing_max_stress))
+                .item()
+                .transform(customItemModel())
+                .register();
+
+        CREATE_TURBINE_ROTOR_BEARING_ENTITY = REGISTRATE
+                .blockEntity("create_turbine_rotor_bearing", GeneratingKineticTurbineRotorBearingEntity::new)
+                .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF), true)
+                .validBlocks(CREATE_TURBINE_ROTOR_BEARING)
+                .renderer(() -> GeneratingKineticTurbineRotorBearingRenderer::new)
+                .register();
+
         REGISTRATE.registerEventListeners(modEventBus);
     }
 }

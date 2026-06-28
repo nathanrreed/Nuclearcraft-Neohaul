@@ -1,7 +1,7 @@
 {
   "variants": {
     "facing=down": {
-      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block",
+      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block_vertical",
       "x": 180
     },
     "facing=east": {
@@ -16,7 +16,7 @@
       "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block"
     },
     "facing=up": {
-      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block"
+      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block_vertical"
     },
     "facing=west": {
       "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block",

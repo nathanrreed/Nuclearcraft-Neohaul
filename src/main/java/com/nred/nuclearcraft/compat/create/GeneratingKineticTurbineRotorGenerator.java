@@ -5,7 +5,6 @@ import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
-
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,8 +23,12 @@ public class GeneratingKineticTurbineRotorGenerator extends SpecialBlockStateGen
                 .getAxis()
                 .isVertical() ? 0 : horizontalAngle(state.getValue(CreativeMotorBlock.FACING));
     }
+
     @Override
     public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, BlockState state) {
-        return AssetLookup.partialBaseModel(ctx, prov);
+        return state.getValue(CreativeMotorBlock.FACING)
+                .getAxis()
+                .isVertical() ? AssetLookup.partialBaseModel(ctx, prov, "vertical")
+                : AssetLookup.partialBaseModel(ctx, prov);
     }
 }
