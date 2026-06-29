@@ -60,10 +60,17 @@ public class RecipeHelper {
         return IngredientMatchResult.FAIL;
     }
 
-    public static RecipeMatchResult matchIngredients(IngredientSorption sorption, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients, List<?> items, List<?> fluids) {
+    public static RecipeMatchResult matchIngredients(IngredientSorption sorption, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients, List<SizedChanceItemIngredient> items, List<SizedChanceFluidIngredient> fluids) {
         int itemCount = items.size(), fluidCount = fluids.size();
         if (itemIngredients.size() != itemCount || fluidIngredients.size() != fluidCount) {
-            return RecipeMatchResult.FAIL;
+            // Try filtering out empty
+            items = items.stream().filter(itemIngredient -> !itemIngredient.isEmpty()).toList();
+            fluids = fluids.stream().filter(fluidIngredient -> !fluidIngredient.isEmpty()).toList();
+            itemCount = items.size();
+            fluidCount = fluids.size();
+            if (itemIngredients.size() != itemCount || fluidIngredients.size() != fluidCount) {
+                return RecipeMatchResult.FAIL;
+            }
         }
 
         IntList itemInputOrder = CollectionHelper.increasingList(itemCount);
@@ -72,7 +79,7 @@ public class RecipeHelper {
         List<SizedChanceItemIngredient> itemIngredientsRemaining = new ArrayList<>(itemIngredients);
         itemInputs:
         for (int i = 0; i < itemCount; ++i) {
-            Object item = items.get(i);
+            SizedChanceItemIngredient item = items.get(i);
             for (int j = 0; j < itemCount; ++j) {
                 SizedChanceItemIngredient itemIngredient = itemIngredientsRemaining.get(j);
                 if (itemIngredient == null) {
@@ -90,10 +97,7 @@ public class RecipeHelper {
         List<SizedChanceFluidIngredient> fluidIngredientsRemaining = new ArrayList<>(fluidIngredients);
         fluidInputs:
         for (int i = 0; i < fluidCount; ++i) {
-            Object fluid = fluids.get(i);
-            if (fluid instanceof Tank tank) {
-                fluid = tank.getFluid();
-            }
+            SizedChanceFluidIngredient fluid = fluids.get(i);
             for (int j = 0; j < fluidCount; ++j) {
                 SizedChanceFluidIngredient fluidIngredient = fluidIngredientsRemaining.get(j);
                 if (fluidIngredient == null) {

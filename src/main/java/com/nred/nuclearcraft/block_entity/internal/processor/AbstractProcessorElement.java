@@ -321,8 +321,8 @@ public abstract class AbstractProcessorElement {
         }
 
         boolean consumesInputs = getConsumesInputs();
-        int itemInputSize = getItemInputSize();
-        int fluidInputSize = getFluidInputSize();
+        int itemInputSize = itemInputOrder.size();
+        int fluidInputSize = fluidInputOrder.size();
 
         if (consumesInputs) {
             for (int i = 0; i < itemInputSize; ++i) {
@@ -409,7 +409,7 @@ public abstract class AbstractProcessorElement {
             }
 
             ItemStack currentStack = stacks.get(slot);
-            ItemStack nextStack = product.getItems()[0];
+            ItemStack nextStack = product.getItems()[0].copy();
 
             if (currentStack.isEmpty()) {
                 stacks.set(slot, nextStack);
@@ -437,8 +437,7 @@ public abstract class AbstractProcessorElement {
                 continue;
             }
 
-            FluidStack nextStack = product.getFluids()[0];
-
+            FluidStack nextStack = product.getFluids()[0].copy();
             if (tank.isEmpty()) {
                 tank.setFluidStored(nextStack);
             } else if (product.test(tank.getFluid())) {

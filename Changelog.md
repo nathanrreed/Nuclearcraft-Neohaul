@@ -1,3 +1,3 @@
-- Added Alloy Furnace recipes from other mods
-- Fixed Machine frame and glass not connection with CTM
-- Fixed fission blockstates
+- Fixed machines stopping processing after one recipe
+- Fixed machines not using items
+- Fixed infiltrator crash

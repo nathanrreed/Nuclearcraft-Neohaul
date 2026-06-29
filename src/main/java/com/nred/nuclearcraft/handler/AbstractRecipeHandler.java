@@ -46,7 +46,7 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
         if (recipe == null)
             return null;
 
-        return new RecipeInfo<>(recipe, RecipeHelper.matchIngredients(IngredientSorption.INPUT, recipe.itemIngredients, recipe.fluidIngredients, itemInputs, fluidInputs));
+        return new RecipeInfo<>(recipe, RecipeHelper.matchIngredients(IngredientSorption.INPUT, recipe.itemIngredients, recipe.fluidIngredients, itemIngredients, fluidIngredients));
     }
 
     public static @Nullable BasicRecipe getRecipeFromIngredients(Level level, RecipeType<? extends BasicRecipe> recipeType, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients) {

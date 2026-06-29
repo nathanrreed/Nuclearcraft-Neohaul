@@ -29,6 +29,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -87,7 +88,7 @@ public class MachineReservoirPortEntity extends AbstractMachineEntity implements
     // Inventory
 
     @Override
-    public ItemStack getItem(int slot) {
+    public @NonNull ItemStack getItem(int slot) {
         MachineLogic logic = getLogic();
 
         if (logic != null) {
@@ -126,13 +127,13 @@ public class MachineReservoirPortEntity extends AbstractMachineEntity implements
     }
 
     @Override
-    public ItemStack removeItem(int slot, int amount) {
+    public @NonNull ItemStack removeItem(int slot, int amount) {
         MachineLogic logic = getLogic();
         return logic != null ? logic.decrReservoirPortStackSize(this, slot, amount) : ITileInventory.super.removeItem(slot, amount);
     }
 
     @Override
-    public ItemStack removeItemNoUpdate(int slot) {
+    public @NonNull ItemStack removeItemNoUpdate(int slot) {
         MachineLogic logic = getLogic();
         return logic != null ? logic.removeReservoirPortStackFromSlot(this, slot) : ITileInventory.super.removeItemNoUpdate(slot);
     }

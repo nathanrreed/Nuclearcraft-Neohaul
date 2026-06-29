@@ -2,13 +2,13 @@ package com.nred.nuclearcraft.block_entity.inventory;
 
 import com.google.common.collect.Lists;
 import com.nred.nuclearcraft.block_entity.ITile;
-import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePort;
 import com.nred.nuclearcraft.block_entity.hx.IHeatExchangerPart;
 import com.nred.nuclearcraft.block_entity.internal.inventory.InventoryConnection;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemHandler;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemOutputSetting;
 import com.nred.nuclearcraft.block_entity.internal.inventory.ItemSorption;
 import com.nred.nuclearcraft.block_entity.machine.IMachinePart;
+import com.nred.nuclearcraft.block_entity.multiblock.port.ITilePort;
 import com.nred.nuclearcraft.block_entity.processor.IProcessor;
 import com.nred.nuclearcraft.util.BlockHelper;
 import com.nred.nuclearcraft.util.NCInventoryHelper;
@@ -66,7 +66,7 @@ public interface ITileInventory extends ITile, WorldlyContainer {
 
     @Override
     default @NotNull ItemStack getItem(int slot) {
-        return getInventoryStacks().get(slot);
+        return getInventoryStacks().isEmpty() ? ItemStack.EMPTY : getInventoryStacks().get(slot);
     }
 
     @Override
