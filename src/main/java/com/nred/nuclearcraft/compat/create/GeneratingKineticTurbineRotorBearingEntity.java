@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.block_entity.turbine.TurbineRotorBearingEntity;
 import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
+import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -52,7 +53,7 @@ public class GeneratingKineticTurbineRotorBearingEntity extends GeneratingKineti
             averagePower = 0;
             count = 0;
         }
-        return convertToDirection(speed, turbine.flowDir == getBlockState().getValue(DirectionalKineticBlock.FACING) ? turbine.flowDir : turbine.flowDir.getOpposite());
+        return convertToDirection(Math.clamp(speed, 0, AllConfigs.server().kinetics.maxRotationSpeed.get()), turbine.flowDir == getBlockState().getValue(DirectionalKineticBlock.FACING) ? turbine.flowDir : turbine.flowDir.getOpposite());
     }
 
     public Turbine getTurbine() {
