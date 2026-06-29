@@ -1,2 +1,3 @@
-- Fixed Machine frame and glass not connection with CTM
 - Added Alloy Furnace recipes from other mods
+- Fixed Machine frame and glass not connection with CTM
+- Fixed fission blockstates

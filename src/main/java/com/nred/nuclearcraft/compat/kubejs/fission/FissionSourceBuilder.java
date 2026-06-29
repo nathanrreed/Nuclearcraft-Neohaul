@@ -54,6 +54,10 @@ public class FissionSourceBuilder extends BlockBuilder {
         bs.variant("facing=south,nuclearcraftneohaul_active=true", v -> v.model(modelActive).y(180));
         bs.variant("facing=west,nuclearcraftneohaul_active=false", v -> v.model(modelInactive).y(270));
         bs.variant("facing=west,nuclearcraftneohaul_active=true", v -> v.model(modelActive).y(270));
+        bs.variant("facing=down,nuclearcraftneohaul_active=false", v -> v.model(modelInactive).x(90));
+        bs.variant("facing=down,nuclearcraftneohaul_active=true", v -> v.model(modelActive).x(90));
+        bs.variant("facing=up,nuclearcraftneohaul_active=false", v -> v.model(modelInactive).x(270));
+        bs.variant("facing=up,nuclearcraftneohaul_active=true", v -> v.model(modelActive).x(270));
     }
 
     @Override

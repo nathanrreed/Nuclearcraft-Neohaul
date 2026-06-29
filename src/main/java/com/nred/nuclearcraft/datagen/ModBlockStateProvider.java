@@ -198,9 +198,9 @@ class ModBlockStateProvider extends BlockStateProvider {
         booleanBlockOverlay("boron_silver", "on", "off", FISSION_REACTOR_MAP.get("boron_silver_shield"), "fission/shield", ACTIVE);
         booleanBlockOverlay("gadolinium_samarium", "on", "off", FISSION_REACTOR_MAP.get("gadolinium_samarium_shield"), "fission/shield", ACTIVE);
 
-        booleanBlock("radium_beryllium", false, "source_back", true, "source", "_on", "_off", FISSION_REACTOR_MAP.get("radium_beryllium_source"), "fission/source", ACTIVE, Horizontal);
-        booleanBlock("polonium_beryllium", false, "source_back", true, "source", "_on", "_off", FISSION_REACTOR_MAP.get("polonium_beryllium_source"), "fission/source", ACTIVE, Horizontal);
-        booleanBlock("californium", false, "source_back", true, "source", "_on", "_off", FISSION_REACTOR_MAP.get("californium_source"), "fission/source", ACTIVE, Horizontal);
+        booleanBlock("radium_beryllium", false, "source_back", true, "source", "_on", "_off", FISSION_REACTOR_MAP.get("radium_beryllium_source"), "fission/source", ACTIVE, Directional);
+        booleanBlock("polonium_beryllium", false, "source_back", true, "source", "_on", "_off", FISSION_REACTOR_MAP.get("polonium_beryllium_source"), "fission/source", ACTIVE, Directional);
+        booleanBlock("californium", false, "source_back", true, "source", "_on", "_off", FISSION_REACTOR_MAP.get("californium_source"), "fission/source", ACTIVE, Directional);
 
         blockWithItem("beryllium_carbon", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"), "fission/reflector");
         blockWithItem("lead_steel", FISSION_REACTOR_MAP.get("lead_steel_reflector"), "fission/reflector");

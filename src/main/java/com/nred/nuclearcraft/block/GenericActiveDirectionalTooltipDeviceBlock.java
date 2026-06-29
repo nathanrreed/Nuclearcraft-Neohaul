@@ -2,6 +2,7 @@ package com.nred.nuclearcraft.block;
 
 import it.zerono.mods.zerocore.lib.block.multiblock.IMultiblockPartType;
 import it.zerono.mods.zerocore.lib.multiblock.IMultiblockController;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
@@ -17,7 +18,7 @@ import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 public class GenericActiveDirectionalTooltipDeviceBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericTooltipDeviceBlock<Controller, PartType> implements IActivatable {
     public GenericActiveDirectionalTooltipDeviceBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
-        registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
+        registerDefaultState(this.defaultBlockState().setValue(FACING_ALL, Direction.NORTH).setValue(ACTIVE, false));
     }
 
     @Override
