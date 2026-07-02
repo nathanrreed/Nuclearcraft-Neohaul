@@ -4,6 +4,7 @@ import com.nred.nuclearcraft.info.Fluids;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -17,6 +18,7 @@ import top.theillusivec4.curios.api.CuriosTags;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.regex.Pattern;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Concat.fluidValues;
@@ -52,6 +54,16 @@ class ModItemTagProvider extends ItemTagsProvider {
         simpleTag(MUSIC_DISC_MAP, Tags.Items.MUSIC_DISCS);
         simpleTag(FOOD_MAP, Tags.Items.FOODS);
 
+        isotopes("americium", AMERICIUM_MAP);
+        isotopes("berkelium", BERKELIUM_MAP);
+        isotopes("boron", BORON_MAP);
+        isotopes("lithium", LITHIUM_MAP);
+        isotopes("californium", CALIFORNIUM_MAP);
+        isotopes("curium", CURIUM_MAP);
+        isotopes("neptunium", NEPTUNIUM_MAP);
+        isotopes("plutonium", PLUTONIUM_MAP);
+        isotopes("uranium", URANIUM_MAP);
+
         tag(TOOLS_WRENCH).add(MULTITOOL.get());
 
         simpleBlockTag(INGOTS, INGOT_BLOCK_MAP, Tags.Items.STORAGE_BLOCKS);
@@ -73,6 +85,18 @@ class ModItemTagProvider extends ItemTagsProvider {
         tag(CuriosTags.CURIO).add(GEIGER_COUNTER.asItem(), RADIATION_BADGE.asItem());
 
         buckets();
+    }
+
+    private void isotopes(String name, HashMap<String, DeferredItem<Item>> isotopesMap) {
+        Pattern pattern = Pattern.compile("_[a-z]+");
+
+        for (String key: isotopesMap.keySet()) {
+            tag(isotopeTag(name + "/" + pattern.matcher(key).replaceAll(""))).add(isotopesMap.get(key).asItem());
+        }
+    }
+
+    private static TagKey<Item> isotopeTag(String name) {
+        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "isotopes/"+name));
     }
 
     private void buckets() {
