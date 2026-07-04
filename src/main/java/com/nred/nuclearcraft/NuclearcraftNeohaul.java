@@ -2,6 +2,7 @@ package com.nred.nuclearcraft;
 
 import com.mojang.logging.LogUtils;
 import com.nred.nuclearcraft.config.NCConfig;
+import com.nred.nuclearcraft.config.NCServerConfig;
 import com.nred.nuclearcraft.recipe.NCRecipes;
 import com.nred.nuclearcraft.registration.Registration;
 import com.nred.nuclearcraft.render.BlockHighlightTracker;
@@ -30,6 +31,7 @@ public class NuclearcraftNeohaul {
     public NuclearcraftNeohaul(IEventBus modEventBus, ModContainer modContainer) {
         enableMilkFluid();
         Registration.register(modEventBus);
+        modContainer.registerConfig(ModConfig.Type.SERVER, NCServerConfig.SPEC);
         NCRecipes.registerRecipes();
         modContainer.registerConfig(ModConfig.Type.COMMON, NCConfig.SPEC); // TODO split into client, server and startup
         // Readd and reconfigure to no longer need suppliers

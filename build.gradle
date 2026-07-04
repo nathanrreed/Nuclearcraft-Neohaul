@@ -79,7 +79,8 @@ repositories {
         }
     }
     maven { url = "https://maven.firstdark.dev/snapshots" }
-    maven { url = "https://maven.createmod.net" }
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
     exclusiveContent {
         forRepository {
             maven { url = "https://maven.ryanhcode.dev/releases" }
@@ -165,7 +166,6 @@ dependencies {
     compileOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge-api:${cct_version}")
     runtimeOnly("cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cct_version}")
 
-
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
@@ -181,6 +181,11 @@ dependencies {
     runtimeOnly("org.appliedenergistics:guideme:${guideme_version}")
 
     compileOnly("dev.ryanhcode.sable-companion:sable-companion-common-${minecraft_version}:${sable_companion_version}")
+    implementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
+    implementation("net.createmod.ponder:ponder-neoforge:${ponder_version}+mc${minecraft_version}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
+    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
+    implementation("com.tterrag.registrate:Registrate:${registrate_version}")
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -251,6 +256,7 @@ modrinth {
         optional.project "fusion-connected-textures"
         optional.project "guideme"
         optional.project "crafttweaker"
+        optional.project "create"
     }
     changelog = rootProject.file("Changelog.md").text
 }
@@ -270,7 +276,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
 
     mainFile.addRequirement("zerocore", "terrablender-neoforge")
-    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "guideme", "crafttweaker")
+    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "guideme", "crafttweaker", "create")
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.

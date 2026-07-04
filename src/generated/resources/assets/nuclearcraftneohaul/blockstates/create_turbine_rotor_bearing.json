@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block_vertical",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block"
+    },
+    "facing=up": {
+      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block_vertical"
+    },
+    "facing=west": {
+      "model": "nuclearcraftneohaul:block/create_turbine_rotor_bearing/block",
+      "y": 90
+    }
+  }
+}

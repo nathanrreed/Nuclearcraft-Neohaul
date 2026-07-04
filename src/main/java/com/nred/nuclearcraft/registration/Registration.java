@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.registration;
 
+import com.nred.nuclearcraft.compat.create.CreateRegistration;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.util.ModCheck;
@@ -50,5 +51,9 @@ public class Registration {
         ATTACHMENT_TYPES.register(modEventBus);
         ARMOR_MATERIALS.register(modEventBus);
         DATA_COMPONENT_TYPES.register(modEventBus);
+
+        if (ModCheck.createLoaded()) {
+            CreateRegistration.register(modEventBus);
+        }
     }
 }
