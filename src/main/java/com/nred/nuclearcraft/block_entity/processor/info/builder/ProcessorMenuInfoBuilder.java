@@ -8,6 +8,7 @@ import com.nred.nuclearcraft.menu.MenuFunction;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -22,6 +23,8 @@ public abstract class ProcessorMenuInfoBuilder<TILE extends BlockEntity & IProce
     public final Class<TILE> tileClass;
     public final MenuFunction<TILE> menuFunction;
     public final BiFunction<BlockPos, BlockState, TILE> tileSupplier;
+
+    public ResourceLocation frontTexture;
 
     public List<String> particles = new ArrayList<>();
 
@@ -53,6 +56,11 @@ public abstract class ProcessorMenuInfoBuilder<TILE extends BlockEntity & IProce
     }
 
     public abstract INFO buildContainerInfo();
+
+    public BUILDER setFrontTexture(ResourceLocation frontTexture) {
+        this.frontTexture = frontTexture;
+        return getThis();
+    }
 
     public BUILDER setParticles(String... particles) {
         this.particles = Lists.newArrayList(particles);

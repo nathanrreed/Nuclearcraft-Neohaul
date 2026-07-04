@@ -29,9 +29,8 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.registration.Registers.*;
 
-public class Fluids {
+public class NCFluid {
     public final DeferredHolder<Fluid, BaseFlowingFluid> still;
     public final DeferredHolder<Fluid, BaseFlowingFluid> flowing;
     public final boolean gaseous;
@@ -65,78 +64,18 @@ public class Fluids {
         return BlockBehaviour.Properties.of().mapColor(ARGBtoMapColor(tint)).replaceable().noCollission().pushReaction(PushReaction.DESTROY).noLootTable().liquid();
     }
 
-    public Fluids(String name, boolean same, int tint, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, same, tint, NCSourceFluid::new, BaseFlowingFluid.Flowing::new, block);
-    }
-
-    public Fluids(String name, boolean same, int tint, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, tint, same, false, blockSource, blockFlowing, block);
-    }
-
-    public Fluids(String name, int tint, boolean same, boolean gaseous, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, tint, same, gaseous, NCSourceFluid::new, BaseFlowingFluid.Flowing::new, block);
-    }
-
-    public Fluids(String name, int tint, boolean same, boolean gaseous, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, name, tint, same, gaseous, blockSource, blockFlowing, block);
-    }
-
-    public Fluids(String name, String file, int tint, boolean same, boolean gaseous, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, file, tint, same, gaseous, NCSourceFluid::new, BaseFlowingFluid.Flowing::new, block);
-    }
-
-    public Fluids(String name, String file, int tint, boolean same, boolean gaseous, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, tint, new TypeInfo(8, gaseous, file + (same ? "" : "_still"), file + (same ? "" : "_flow"), FluidType.Properties.create(), block), blockSource, blockFlowing);
-    }
-
-    public Fluids(String name, boolean same, int tint, int density, int temperature, int viscosity, int light_level, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, same, false, tint, density, viscosity, temperature, light_level, NCSourceFluid::new, BaseFlowingFluid.Flowing::new, block);
-    }
-
-    public Fluids(String name, boolean same, int tint, int density, int temperature, int viscosity, int light_level, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, same, false, tint, density, viscosity, temperature, light_level, blockSource, blockFlowing, block);
-    }
-
-    public Fluids(String name, boolean same, boolean gaseous, int tint, int density, int temperature, int viscosity, int light_level, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, same, gaseous, tint, density, temperature, viscosity, light_level, NCSourceFluid::new, BaseFlowingFluid.Flowing::new, block);
-    }
-
-    public Fluids(String name, boolean same, boolean gaseous, int tint, int density, int temperature, int viscosity, int light_level, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, name, same, gaseous, tint, density, viscosity, temperature, light_level, blockSource, blockFlowing, block);
-    }
-
-    public Fluids(String name, String file, boolean same, boolean gaseous, int tint, int density, int temperature, int viscosity, int light_level, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, file, same, gaseous, tint, density, temperature, viscosity, light_level, NCSourceFluid::new, BaseFlowingFluid.Flowing::new, block);
-    }
-
-    public Fluids(String name, String file, boolean same, boolean gaseous, int tint, int density, int temperature, int viscosity, int light_level, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing, BiFunction<FlowingFluid, BlockBehaviour.Properties, ? extends NCFluidBlock> block) {
-        this(name, tint, new TypeInfo(8, gaseous, file + (same ? "" : "_still"), file + (same ? "" : "_flow"), FluidType.Properties.create().density(density).viscosity(viscosity).temperature(temperature).lightLevel(light_level), block), blockSource, blockFlowing);
-    }
-
-    public Fluids(String name, int tint, TypeInfo type, int temperature) {
-        this(name, tint, type, temperature, NCSourceFluid::new, BaseFlowingFluid.Flowing::new);
-    }
-
-    public Fluids(String name, int tint, TypeInfo type, int temperature, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
-        this(name, tint, new TypeInfo(type.level, type.gaseous, type.still, type.flowing, type.properties.temperature(temperature), type.block), blockSource, blockFlowing);
-    }
-
-    public Fluids(String name, int tint, TypeInfo type) {
-        this(name, tint, type, NCSourceFluid::new, BaseFlowingFluid.Flowing::new);
-    }
-
-    public Fluids(String name, int tint, TypeInfo type, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
-        this.type = FLUID_TYPES.register(name + "_type", () -> new FluidType(type.properties));
+    public NCFluid(NCFluidMaker maker, String name, int tint, TypeInfo type, BiFunction<BaseFlowingFluid.Properties, Integer, NCSourceFluid> blockSource, Function<BaseFlowingFluid.Properties, ? extends BaseFlowingFluid> blockFlowing) {
+        this.type = maker.fluidTypes().register(name + "_type", () -> new FluidType(type.properties));
         this.gaseous = type.gaseous;
 
         if (gaseous) {
-            this.still = FLUIDS.register(name, () -> new GasFluid(this.properties));
+            this.still = maker.fluids().register(name, () -> new GasFluid(this.properties));
         } else {
-            this.still = FLUIDS.register(name, () -> blockSource.apply(this.properties, type.level));
+            this.still = maker.fluids().register(name, () -> blockSource.apply(this.properties, type.level));
         }
-        this.flowing = FLUIDS.register(name + "_flowing", () -> blockFlowing.apply(this.properties));
-        this.block = BLOCKS.register(name, () -> type.block.apply(this.still.get(), blockProperties(tint)));
-        this.bucket = ITEMS.register(name + "_bucket", () -> new BucketItem(this.still.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+        this.flowing = maker.fluids().register(name + "_flowing", () -> blockFlowing.apply(this.properties));
+        this.block = maker.blocks().register(name, () -> type.block.apply(this.still.get(), blockProperties(tint)));
+        this.bucket = maker.items().register(name + "_bucket", () -> new BucketItem(this.still.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         this.properties = new BaseFlowingFluid.Properties(this.type, this.still, this.flowing).bucket(this.bucket).block(this.block).tickRate(new FluidType(type.properties).getViscosity() / 200);
         this.client = new IClientFluidTypeExtensions() {
             @Override
@@ -197,19 +136,19 @@ public class Fluids {
         return closest;
     }
 
-    public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int amount) {
+    public static SizedChanceFluidIngredient sizedIngredient(NCFluid input, int amount) {
         return SizedChanceFluidIngredient.of(input.still.get(), amount);
     }
 
-    public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount) {
+    public static SizedChanceFluidIngredient sizedIngredient(NCFluid input, int amount, int chance) {
         return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, 0);
     }
 
-    public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount, int minStackSize) {
+    public static SizedChanceFluidIngredient sizedIngredient(NCFluid input, int amount, int chance, int minStackSize) {
         return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, minStackSize);
     }
 
-    public static SizedChanceFluidIngredient sizedIngredient(Fluids input, int chance, int amount, int minStackSize, int increment) {
+    public static SizedChanceFluidIngredient sizedIngredient(NCFluid input, int amount, int chance, int minStackSize, int increment) {
         return SizedChanceFluidIngredient.of(input.still.get(), amount, chance, minStackSize, increment);
     }
 }

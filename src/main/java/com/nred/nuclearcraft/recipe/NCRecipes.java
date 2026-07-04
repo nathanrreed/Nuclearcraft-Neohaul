@@ -28,10 +28,6 @@ public class NCRecipes {
 
     private static final Object2ObjectMap<String, BasicRecipeHandler<?>> RECIPE_HANDLER_MAP = new Object2ObjectOpenHashMap<>();
 
-    public NCRecipes() {
-        registerRecipes();
-    }
-
     public static void putHandler(BasicRecipeHandler<?> handler) {
         RECIPE_HANDLER_MAP.put(handler.getName(), handler);
     }
@@ -57,7 +53,7 @@ public class NCRecipes {
         return getHandler(name).getValidFluids(recipeManager);
     }
 
-    public void registerRecipes() {
+    public static void registerRecipes() {
         if (initialized) {
             return;
         }
@@ -150,7 +146,7 @@ public class NCRecipes {
     public static RadiationBlockMutation radiation_block_mutation;
     public static RadiationBlockPurification radiation_block_purification;
 
-    public void registerShortcuts() {
+    public static void registerShortcuts() {
         manufactory = getHandler("manufactory");
         separator = getHandler("separator");
         decay_hastener = getHandler("decay_hastener");

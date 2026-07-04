@@ -57,13 +57,17 @@ public abstract class AbstractRecipeHandler<RECIPE extends BasicRecipe> {
 
     @SuppressWarnings("unchecked")
     public @Nullable RECIPE getRecipeFromIngredients(Level level, List<SizedChanceItemIngredient> itemIngredients, List<SizedChanceFluidIngredient> fluidIngredients) {
-        return (RECIPE) getRecipeFromIngredients(level, (RecipeType<? extends BasicRecipe>) BuiltInRegistries.RECIPE_TYPE.get(getName().contains(":") ? ResourceLocation.parse(getName()) : ncLoc(getName())), itemIngredients, fluidIngredients);
+        return (RECIPE) getRecipeFromIngredients(level, getRecipeType(), itemIngredients, fluidIngredients);
     }
 
     @SuppressWarnings("unchecked")
+    public RecipeType<RECIPE> getRecipeType() {
+        return (RecipeType<RECIPE>) BuiltInRegistries.RECIPE_TYPE.get(getName().contains(":") ? ResourceLocation.parse(getName()) : ncLoc(getName()));
+    }
+
     public void setRecipes(@NotNull RecipeManager recipeManager) {
         if (recipeList.isEmpty()) {
-            recipeList = recipeManager.getAllRecipesFor((RecipeType<RECIPE>) BuiltInRegistries.RECIPE_TYPE.get(getName().contains(":") ? ResourceLocation.parse(getName()) : ncLoc(getName()))).stream().map(RecipeHolder::value).toList();
+            recipeList = recipeManager.getAllRecipesFor(getRecipeType()).stream().map(RecipeHolder::value).toList();
         }
     }
 

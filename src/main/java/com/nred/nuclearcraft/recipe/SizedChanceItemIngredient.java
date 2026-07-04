@@ -138,6 +138,9 @@ public class SizedChanceItemIngredient {
     public ItemStack getStack() {
         return Arrays.stream(getItems()).findFirst().orElse(ItemStack.EMPTY).copy();
     }
+    public ItemStack getStackRaw() {
+        return Arrays.stream(getItemsRaw()).findFirst().orElse(ItemStack.EMPTY).copy();
+    }
 
     @Override
     public boolean equals(Object o) {

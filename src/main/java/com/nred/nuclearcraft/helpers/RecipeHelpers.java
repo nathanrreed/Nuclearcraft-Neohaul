@@ -26,6 +26,7 @@ public class RecipeHelpers {
     public static @NotNull SizedChanceItemIngredient ingotDust(String input, int count) {
         return tags(List.of(tag(Tags.Items.INGOTS, input), tag(Tags.Items.DUSTS, input)), count);
     }
+
     public static @NotNull SizedChanceItemIngredient nugget(String input, int count) {
         return SizedChanceItemIngredient.of(tag(Tags.Items.NUGGETS, input), count);
     }
@@ -33,6 +34,7 @@ public class RecipeHelpers {
     public static @NotNull SizedChanceItemIngredient ingot(String input, int count) {
         return SizedChanceItemIngredient.of(tag(Tags.Items.INGOTS, input), count);
     }
+
     public static @NotNull SizedChanceItemIngredient gem(String input, int count) {
         return SizedChanceItemIngredient.of(tag(Tags.Items.GEMS, input), count);
     }
@@ -52,16 +54,23 @@ public class RecipeHelpers {
     public static RecipeOutput ingotExists(RecipeOutput recipeOutput, String name) {
         return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag(Tags.Items.INGOTS, name))));
     }
+
     public static RecipeOutput gemExists(RecipeOutput recipeOutput, String name) {
         return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag(Tags.Items.GEMS, name))));
+    }
+
+    public static RecipeOutput dustExists(RecipeOutput recipeOutput, String name) {
+        return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag(Tags.Items.DUSTS, name))));
     }
 
     public static RecipeOutput tagExists(RecipeOutput recipeOutput, TagKey<Item> tag) {
         return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag)));
     }
+
     public static RecipeOutput qmdLoaded(RecipeOutput recipeOutput) {
         return recipeOutput.withConditions(new ModLoadedCondition("qmd"));
     }
+
     public static RecipeOutput qmdNotLoaded(RecipeOutput recipeOutput) {
         return recipeOutput.withConditions(new NotCondition(new ModLoadedCondition("qmd")));
     }

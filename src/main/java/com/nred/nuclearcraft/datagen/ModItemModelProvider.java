@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.datagen;
 
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -156,7 +156,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private void buckets() {
-        for (Map.Entry<String, Fluids> entry : fluidEntries(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, SOUL_MAP, FISSION_FUEL_MAP)) {
+        for (Map.Entry<String, NCFluid> entry : fluidEntries(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, SOUL_MAP, FISSION_FUEL_MAP)) {
             dynamicBucket(entry);
         }
     }
@@ -205,8 +205,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         }
     }
 
-    private void dynamicBucket(Map.Entry<String, Fluids> entry) {
-        Fluids fluid = entry.getValue();
+    public void dynamicBucket(Map.Entry<String, NCFluid> entry) {
+        NCFluid fluid = entry.getValue();
         withExistingParent(entry.getKey() + "_bucket", fluid.gaseous ? neoLoc("item/bucket") : neoLoc("item/bucket_drip"))
                 .customLoader(DynamicFluidContainerModelBuilder::begin)
                 .fluid(fluid.still.get()).flipGas(fluid.gaseous).applyTint(true);

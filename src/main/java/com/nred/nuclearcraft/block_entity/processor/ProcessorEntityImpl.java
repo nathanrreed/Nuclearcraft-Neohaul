@@ -20,8 +20,8 @@ public class ProcessorEntityImpl {
     }
 
     public static abstract class BasicUpgradableEnergyProcessorEntity<RECIPE extends BasicRecipe, TILE extends BasicUpgradableEnergyProcessorEntity<RECIPE, TILE>> extends UpgradableEnergyProcessorEntity<TILE, BasicUpgradableProcessorMenuInfo<TILE, EnergyProcessorUpdatePacket, RECIPE>, RECIPE> implements IBasicUpgradableProcessor<TILE, EnergyProcessorUpdatePacket, RECIPE> {
-        protected BasicUpgradableEnergyProcessorEntity(BlockPos pos, BlockState blockState, String name) {
-            super(PROCESSOR_ENTITY_TYPE.get(name).get(), pos, blockState, name);
+        protected BasicUpgradableEnergyProcessorEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, String name) {
+            super(type, pos, blockState, name);
         }
     }
 
@@ -33,127 +33,127 @@ public class ProcessorEntityImpl {
 
     public static class BasicUpgradableEnergyProcessorEntityDyn extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipeDyn, BasicUpgradableEnergyProcessorEntityDyn> {
         public BasicUpgradableEnergyProcessorEntityDyn(BlockPos pos, BlockState blockState, String name) {
-            super(pos, blockState, name);
+            super(PROCESSOR_ENTITY_TYPE.get(name).get(), pos, blockState, name);
         }
     }
 
     public static class ManufactoryEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, ManufactoryEntity> {
         public ManufactoryEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "manufactory");
+            super(PROCESSOR_ENTITY_TYPE.get("manufactory").get(), pos, blockState, "manufactory");
         }
     }
 
     public static class SeparatorEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, SeparatorEntity> {
         public SeparatorEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "separator");
+            super(PROCESSOR_ENTITY_TYPE.get("separator").get(), pos, blockState, "separator");
         }
     }
 
     public static class DecayHastenerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, DecayHastenerEntity> {
         public DecayHastenerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "decay_hastener");
+            super(PROCESSOR_ENTITY_TYPE.get("decay_hastener").get(), pos, blockState, "decay_hastener");
         }
     }
 
     public static class FuelReprocessorEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, FuelReprocessorEntity> {
         public FuelReprocessorEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "fuel_reprocessor");
+            super(PROCESSOR_ENTITY_TYPE.get("fuel_reprocessor").get(), pos, blockState, "fuel_reprocessor");
         }
     }
 
     public static class AlloyFurnaceEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, AlloyFurnaceEntity> {
         public AlloyFurnaceEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "alloy_furnace");
+            super(PROCESSOR_ENTITY_TYPE.get("alloy_furnace").get(), pos, blockState, "alloy_furnace");
         }
     }
 
     public static class InfuserEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, InfuserEntity> {
         public InfuserEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "fluid_infuser");
+            super(PROCESSOR_ENTITY_TYPE.get("fluid_infuser").get(), pos, blockState, "fluid_infuser");
         }
     }
 
     public static class MelterEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, MelterEntity> {
         public MelterEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "melter");
+            super(PROCESSOR_ENTITY_TYPE.get("melter").get(), pos, blockState, "melter");
         }
     }
 
     public static class SupercoolerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, SupercoolerEntity> {
         public SupercoolerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "supercooler");
+            super(PROCESSOR_ENTITY_TYPE.get("supercooler").get(), pos, blockState, "supercooler");
         }
     }
 
     public static class ElectrolyzerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, ElectrolyzerEntity> {
         public ElectrolyzerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "electrolyzer");
+            super(PROCESSOR_ENTITY_TYPE.get("electrolyzer").get(), pos, blockState, "electrolyzer");
         }
     }
 
     public static class AssemblerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, AssemblerEntity> {
         public AssemblerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "assembler");
+            super(PROCESSOR_ENTITY_TYPE.get("assembler").get(), pos, blockState, "assembler");
         }
     }
 
     public static class IngotFormerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, IngotFormerEntity> {
         public IngotFormerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "ingot_former");
+            super(PROCESSOR_ENTITY_TYPE.get("ingot_former").get(), pos, blockState, "ingot_former");
         }
     }
 
     public static class PressurizerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, PressurizerEntity> {
         public PressurizerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "pressurizer");
+            super(PROCESSOR_ENTITY_TYPE.get("pressurizer").get(), pos, blockState, "pressurizer");
         }
     }
 
     public static class ChemicalReactorEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, ChemicalReactorEntity> {
         public ChemicalReactorEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "chemical_reactor");
+            super(PROCESSOR_ENTITY_TYPE.get("chemical_reactor").get(), pos, blockState, "chemical_reactor");
         }
     }
 
     public static class SaltMixerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, SaltMixerEntity> {
         public SaltMixerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "fluid_mixer");
+            super(PROCESSOR_ENTITY_TYPE.get("fluid_mixer").get(), pos, blockState, "fluid_mixer");
         }
     }
 
     public static class CrystallizerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, CrystallizerEntity> {
         public CrystallizerEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "crystallizer");
+            super(PROCESSOR_ENTITY_TYPE.get("crystallizer").get(), pos, blockState, "crystallizer");
         }
     }
 
     public static class EnricherEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, EnricherEntity> {
         public EnricherEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "fluid_enricher");
+            super(PROCESSOR_ENTITY_TYPE.get("fluid_enricher").get(), pos, blockState, "fluid_enricher");
         }
     }
 
     public static class ExtractorEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, ExtractorEntity> {
         public ExtractorEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "fluid_extractor");
+            super(PROCESSOR_ENTITY_TYPE.get("fluid_extractor").get(), pos, blockState, "fluid_extractor");
         }
     }
 
     public static class CentrifugeEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, CentrifugeEntity> {
         public CentrifugeEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "centrifuge");
+            super(PROCESSOR_ENTITY_TYPE.get("centrifuge").get(), pos, blockState, "centrifuge");
         }
     }
 
     public static class RockCrusherEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, RockCrusherEntity> {
         public RockCrusherEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "rock_crusher");
+            super(PROCESSOR_ENTITY_TYPE.get("rock_crusher").get(), pos, blockState, "rock_crusher");
         }
     }
 
     public static class ElectricFurnaceEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, ElectricFurnaceEntity> {
         public ElectricFurnaceEntity(BlockPos pos, BlockState blockState) {
-            super(pos, blockState, "electric_furnace");
+            super(PROCESSOR_ENTITY_TYPE.get("electric_furnace").get(), pos, blockState, "electric_furnace");
         }
     }
 }

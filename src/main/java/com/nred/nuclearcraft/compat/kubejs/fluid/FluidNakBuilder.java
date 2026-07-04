@@ -19,7 +19,7 @@ import java.nio.file.Path;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.info.Fluids.COOLANT_TYPE;
+import static com.nred.nuclearcraft.info.NCFluid.COOLANT_TYPE;
 
 public class FluidNakBuilder extends FluidBuilder {
     public FluidNakBuilder(ResourceLocation i) {

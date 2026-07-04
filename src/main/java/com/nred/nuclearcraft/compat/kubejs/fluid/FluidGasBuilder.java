@@ -19,7 +19,7 @@ import java.nio.file.Path;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.info.Fluids.GAS_TYPE;
+import static com.nred.nuclearcraft.info.NCFluid.GAS_TYPE;
 
 public class FluidGasBuilder extends FluidBuilder {
     public FluidGasBuilder(ResourceLocation i) {

@@ -151,7 +151,8 @@ public record TurbineRotorRenderer(BlockEntityRendererProvider.Context context) 
         Vector3f renderPos = turbine.renderPosArray[4 * flowLength * shaftWidth + depth];
 
         Axis flowAxis = flowDir.getAxis();
-        poseStack.translate(renderPos.x + 0.5D + (flowAxis == Axis.Z ? 1D : 0), renderPos.y + 0.5D, renderPos.z + 0.5D);
+        poseStack.translate(renderPos.x + 0.5D + (flowAxis == Axis.Z ? shaftWidth: 0), renderPos.y + 0.5D, renderPos.z + 0.5D);
+
         poseStack.scale(flowAxis == Axis.X ? (float) 1D : shaftWidth, flowAxis == Axis.Y ? (float) 1D : shaftWidth, flowAxis == Axis.Z ? (float) 1D : shaftWidth);
 
         poseStack.translate(-0.5D, -0.5D, -0.5D);

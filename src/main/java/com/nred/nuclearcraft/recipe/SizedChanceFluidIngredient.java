@@ -153,6 +153,10 @@ public class SizedChanceFluidIngredient {
         return Arrays.stream(getFluids()).findFirst().orElse(FluidStack.EMPTY);
     }
 
+    public FluidStack getStackRaw() {
+        return Arrays.stream(getFluidsRaw()).findFirst().orElse(FluidStack.EMPTY);
+    }
+
     public double getMeanStackSize() {
         return this.minStackSize + (double) (Arrays.stream(this.getFluidsRaw()).findFirst().get().getAmount() - this.minStackSize) * (double) this.chancePercent / 100D;
     }

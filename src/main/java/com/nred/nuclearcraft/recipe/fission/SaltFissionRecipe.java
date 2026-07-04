@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import java.util.List;
 
 import static com.nred.nuclearcraft.config.NCConfig.*;
-import static com.nred.nuclearcraft.info.Fluids.sizedIngredient;
+import static com.nred.nuclearcraft.info.NCFluid.sizedIngredient;
 import static com.nred.nuclearcraft.registration.FluidRegistration.FISSION_FUEL_MAP;
 import static com.nred.nuclearcraft.registration.RecipeSerializerRegistration.SALT_FISSION_RECIPE_SERIALIZER;
 import static com.nred.nuclearcraft.registration.RecipeTypeRegistration.SALT_FISSION_RECIPE_TYPE;

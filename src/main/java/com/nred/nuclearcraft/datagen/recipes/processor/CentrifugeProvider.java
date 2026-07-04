@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes.processor;
 
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.processor.CentrifugeRecipe;
@@ -113,7 +113,7 @@ public class CentrifugeProvider {
     }
 
     public SizedChanceFluidIngredient wasteStack(String waste, double chancePercent) {
-        return Fluids.sizedIngredient(FISSION_FLUID_MAP.get(waste), NCMath.toInt(chancePercent), 2 * NUGGET_VOLUME, 0, NUGGET_VOLUME);
+        return NCFluid.sizedIngredient(FISSION_FLUID_MAP.get(waste), 2 * NUGGET_VOLUME, NCMath.toInt(chancePercent), 0, NUGGET_VOLUME);
     }
 
 }

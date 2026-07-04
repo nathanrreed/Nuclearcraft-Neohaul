@@ -2,7 +2,7 @@ package com.nred.nuclearcraft.datagen;
 
 import com.nred.nuclearcraft.block.hx.HeatExchangerTubeBlock;
 import com.nred.nuclearcraft.block_entity.internal.energy.EnergyConnection;
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import com.nred.nuclearcraft.multiblock.hx.HeatExchangerTubeSetting;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil;
 import com.nred.nuclearcraft.multiblock.turbine.TurbineRotorBladeUtil.TurbinePartDir;
@@ -132,7 +132,7 @@ class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void fluids() {
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SOUL_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+        for (NCFluid fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SOUL_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             simpleBlock(fluid.block.get(), models().cubeAll(fluid.block.get().getName().getString(), fluid.client.getStillTexture()));
         }
     }
@@ -599,7 +599,6 @@ class ModBlockStateProvider extends BlockStateProvider {
                         .modelFile(modelFunc.apply(state))
                         .build());
     }
-
 
     private void blockWithItem(String name, DeferredBlock<Block> deferredBlock, String folder) {
         Block block = deferredBlock.get();

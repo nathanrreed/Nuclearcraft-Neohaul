@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.recipe;
 
 import com.google.common.base.CaseFormat;
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -91,18 +91,23 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemResult(ItemLike output, int chancePercent, int count) {
+    public ProcessorRecipeBuilder addItemResult(ItemLike output, int count, int chancePercent) {
         itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, 0));
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemResult(ItemLike output, int chancePercent, int count, int minStackSize) {
+    public ProcessorRecipeBuilder addItemResult(ItemLike output, int count, int chancePercent, int minStackSize) {
         itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, minStackSize));
         return this;
     }
 
-    public ProcessorRecipeBuilder addItemResult(TagKey<Item> output, int chancePercent, int count, int minStackSize) {
+    public ProcessorRecipeBuilder addItemResult(TagKey<Item> output, int count, int chancePercent, int minStackSize) {
         itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, minStackSize));
+        return this;
+    }
+
+    public ProcessorRecipeBuilder addItemResult(TagKey<Item> output, int count, int chancePercent) {
+        itemResults.add(new SizedChanceItemIngredient(Ingredient.of(output), count, chancePercent, 0));
         return this;
     }
 
@@ -121,13 +126,13 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ProcessorRecipeBuilder addFluidInput(Fluids input, int amount) {
-        fluidInputs.add(Fluids.sizedIngredient(input, 100, amount));
+    public ProcessorRecipeBuilder addFluidInput(NCFluid input, int amount) {
+        fluidInputs.add(NCFluid.sizedIngredient(input, amount, 100));
         return this;
     }
 
-    public ProcessorRecipeBuilder addFluidResult(Fluids output, int amount) {
-        fluidResults.add(Fluids.sizedIngredient(output, 100, amount));
+    public ProcessorRecipeBuilder addFluidResult(NCFluid output, int amount) {
+        fluidResults.add(NCFluid.sizedIngredient(output, amount, 100));
         return this;
     }
 
@@ -136,13 +141,13 @@ public class ProcessorRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ProcessorRecipeBuilder addFluidResult(Fluids output, int chancePercent, int amount) {
-        fluidResults.add(Fluids.sizedIngredient(output, chancePercent, amount));
+    public ProcessorRecipeBuilder addFluidResult(NCFluid output, int chancePercent, int amount) {
+        fluidResults.add(NCFluid.sizedIngredient(output, amount, chancePercent));
         return this;
     }
 
-    public ProcessorRecipeBuilder addFluidResult(Fluids output, int chancePercent, int amount, int minStackSize, int increment) {
-        fluidResults.add(Fluids.sizedIngredient(output, chancePercent, amount, minStackSize, increment));
+    public ProcessorRecipeBuilder addFluidResult(NCFluid output, int chancePercent, int amount, int minStackSize, int increment) {
+        fluidResults.add(NCFluid.sizedIngredient(output, amount, chancePercent, minStackSize, increment));
         return this;
     }
 

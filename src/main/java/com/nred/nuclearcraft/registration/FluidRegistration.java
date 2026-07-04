@@ -5,7 +5,8 @@ import com.nred.nuclearcraft.block.fluid.LiquidFluidBlock;
 import com.nred.nuclearcraft.block.fluid.SuperFluidBlock;
 import com.nred.nuclearcraft.fluid.CoriumFluid;
 import com.nred.nuclearcraft.fluid.PlasmaFluid;
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
+import com.nred.nuclearcraft.info.NCFluidMaker;
 import com.nred.nuclearcraft.util.ColorHelper;
 import net.minecraft.util.FastColor;
 import org.apache.commons.lang3.tuple.Triple;
@@ -14,250 +15,254 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.nred.nuclearcraft.registration.Registers.*;
+
 public class FluidRegistration {
-    public static final Map<String, Fluids> GAS_MAP = createGasses();
-    public static final Map<String, Fluids> MOLTEN_MAP = createMolten();
-    public static final Map<String, Fluids> HOT_GAS_MAP = createHotGas();
-    public static final Map<String, Fluids> SUGAR_MAP = createSugar();
-    public static final Map<String, Fluids> CHOCOLATE_MAP = createChocolate();
-    public static final Map<String, Fluids> FISSION_FLUID_MAP = createFission();
-    public static final Map<String, Fluids> STEAM_MAP = createSteam();
-    public static final Map<String, Fluids> SALT_SOLUTION_MAP = createSaltSolution();
-    public static final Map<String, Fluids> ACID_MAP = createAcid();
-    public static final Map<String, Fluids> FLAMMABLE_MAP = createFlammable();
-    public static final Map<String, Fluids> SOUL_MAP = createSoul();
-    public static final Map<String, Fluids> HOT_COOLANT_MAP = new HashMap<>();
-    public static final Map<String, Fluids> COOLANT_MAP = createCoolant();
-    public static final Map<String, Fluids> CUSTOM_FLUID_MAP = createCustomFluid();
-    public static final Map<String, Fluids> FISSION_FUEL_MAP = createFissionFuel();
+    private static final NCFluidMaker MAKER = new NCFluidMaker(FLUID_TYPES, FLUIDS, BLOCKS, ITEMS);
 
-    private static Map<String, Fluids> createGasses() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("oxygen", new Fluids("oxygen", 0xFF7E8CC8, Fluids.GAS_TYPE));
-        map.put("hydrogen", new Fluids("hydrogen", 0xFFB37AC4, Fluids.GAS_TYPE));
-        map.put("deuterium", new Fluids("deuterium", 0xFF9E6FEF, Fluids.GAS_TYPE));
-        map.put("tritium", new Fluids("tritium", 0xFF5DBBD6, Fluids.GAS_TYPE));
-        map.put("helium_3", new Fluids("helium_3", 0xFFCBBB67, Fluids.GAS_TYPE));
-        map.put("helium", new Fluids("helium", 0xFFC57B81, Fluids.GAS_TYPE));
+    public static final Map<String, NCFluid> GAS_MAP = createGasses();
+    public static final Map<String, NCFluid> MOLTEN_MAP = createMolten();
+    public static final Map<String, NCFluid> HOT_GAS_MAP = createHotGas();
+    public static final Map<String, NCFluid> SUGAR_MAP = createSugar();
+    public static final Map<String, NCFluid> CHOCOLATE_MAP = createChocolate();
+    public static final Map<String, NCFluid> FISSION_FLUID_MAP = createFission();
+    public static final Map<String, NCFluid> STEAM_MAP = createSteam();
+    public static final Map<String, NCFluid> SALT_SOLUTION_MAP = createSaltSolution();
+    public static final Map<String, NCFluid> ACID_MAP = createAcid();
+    public static final Map<String, NCFluid> FLAMMABLE_MAP = createFlammable();
+    public static final Map<String, NCFluid> SOUL_MAP = createSoul();
+    public static final Map<String, NCFluid> HOT_COOLANT_MAP = new HashMap<>();
+    public static final Map<String, NCFluid> COOLANT_MAP = createCoolant();
+    public static final Map<String, NCFluid> CUSTOM_FLUID_MAP = createCustomFluid();
+    public static final Map<String, NCFluid> FISSION_FUEL_MAP = createFissionFuel();
 
-        map.put("nitrogen", new Fluids("nitrogen", 0xFF7CC37B, Fluids.GAS_TYPE));
-        map.put("fluorine", new Fluids("fluorine", 0xFFD3C75D, Fluids.GAS_TYPE));
+    private static Map<String, NCFluid> createGasses() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("oxygen", MAKER.registerFluid("oxygen", 0xFF7E8CC8, NCFluid.GAS_TYPE));
+        map.put("hydrogen", MAKER.registerFluid("hydrogen", 0xFFB37AC4, NCFluid.GAS_TYPE));
+        map.put("deuterium", MAKER.registerFluid("deuterium", 0xFF9E6FEF, NCFluid.GAS_TYPE));
+        map.put("tritium", MAKER.registerFluid("tritium", 0xFF5DBBD6, NCFluid.GAS_TYPE));
+        map.put("helium_3", MAKER.registerFluid("helium_3", 0xFFCBBB67, NCFluid.GAS_TYPE));
+        map.put("helium", MAKER.registerFluid("helium", 0xFFC57B81, NCFluid.GAS_TYPE));
 
-        map.put("methane", new Fluids("methane", 0xFFD9AFB3, Fluids.GAS_TYPE));
-        map.put("carbon_dioxide", new Fluids("carbon_dioxide", 0xFF5C635A, Fluids.GAS_TYPE));
-        map.put("carbon_monoxide", new Fluids("carbon_monoxide", 0xFF4C5649, Fluids.GAS_TYPE));
-        map.put("ethene", new Fluids("ethene", 0xFFFFE4A3, Fluids.GAS_TYPE));
-        map.put("ethyne", new Fluids("ethyne", 0xFFFFE442, Fluids.GAS_TYPE));
+        map.put("nitrogen", MAKER.registerFluid("nitrogen", 0xFF7CC37B, NCFluid.GAS_TYPE));
+        map.put("fluorine", MAKER.registerFluid("fluorine", 0xFFD3C75D, NCFluid.GAS_TYPE));
 
-        map.put("fluoromethane", new Fluids("fluoromethane", 0xFF424C05, Fluids.GAS_TYPE));
-        map.put("ammonia", new Fluids("ammonia", 0xFF7AC3A0, Fluids.GAS_TYPE));
-        map.put("oxygen_difluoride", new Fluids("oxygen_difluoride", 0xFFEA1B01, Fluids.GAS_TYPE));
-        map.put("diborane", new Fluids("diborane", 0xFFCC6E8C, Fluids.GAS_TYPE));
-        map.put("sulfur_dioxide", new Fluids("sulfur_dioxide", 0xFFC3BC7A, Fluids.GAS_TYPE));
-        map.put("sulfur_trioxide", new Fluids("sulfur_trioxide", 0xFFD3AE5D, Fluids.GAS_TYPE));
-        map.put("sulfur_hexafluoride", new Fluids("sulfur_hexafluoride", 0xFFC6FC46, Fluids.GAS_TYPE));
-        map.put("tetrafluoroethene", new Fluids("tetrafluoroethene", 0xFF7EA542, Fluids.GAS_TYPE));
-        map.put("hydrogen_sulfide", new Fluids("hydrogen_sulfide", 0xFF785830, Fluids.GAS_TYPE));
-        map.put("depleted_hydrogen_sulfide", new Fluids("depleted_hydrogen_sulfide", 0xFF59514E, Fluids.GAS_TYPE));
+        map.put("methane", MAKER.registerFluid("methane", 0xFFD9AFB3, NCFluid.GAS_TYPE));
+        map.put("carbon_dioxide", MAKER.registerFluid("carbon_dioxide", 0xFF5C635A, NCFluid.GAS_TYPE));
+        map.put("carbon_monoxide", MAKER.registerFluid("carbon_monoxide", 0xFF4C5649, NCFluid.GAS_TYPE));
+        map.put("ethene", MAKER.registerFluid("ethene", 0xFFFFE4A3, NCFluid.GAS_TYPE));
+        map.put("ethyne", MAKER.registerFluid("ethyne", 0xFFFFE442, NCFluid.GAS_TYPE));
+
+        map.put("fluoromethane", MAKER.registerFluid("fluoromethane", 0xFF424C05, NCFluid.GAS_TYPE));
+        map.put("ammonia", MAKER.registerFluid("ammonia", 0xFF7AC3A0, NCFluid.GAS_TYPE));
+        map.put("oxygen_difluoride", MAKER.registerFluid("oxygen_difluoride", 0xFFEA1B01, NCFluid.GAS_TYPE));
+        map.put("diborane", MAKER.registerFluid("diborane", 0xFFCC6E8C, NCFluid.GAS_TYPE));
+        map.put("sulfur_dioxide", MAKER.registerFluid("sulfur_dioxide", 0xFFC3BC7A, NCFluid.GAS_TYPE));
+        map.put("sulfur_trioxide", MAKER.registerFluid("sulfur_trioxide", 0xFFD3AE5D, NCFluid.GAS_TYPE));
+        map.put("sulfur_hexafluoride", MAKER.registerFluid("sulfur_hexafluoride", 0xFFC6FC46, NCFluid.GAS_TYPE));
+        map.put("tetrafluoroethene", MAKER.registerFluid("tetrafluoroethene", 0xFF7EA542, NCFluid.GAS_TYPE));
+        map.put("hydrogen_sulfide", MAKER.registerFluid("hydrogen_sulfide", 0xFF785830, NCFluid.GAS_TYPE));
+        map.put("depleted_hydrogen_sulfide", MAKER.registerFluid("depleted_hydrogen_sulfide", 0xFF59514E, NCFluid.GAS_TYPE));
 
         return map;
     }
 
-    private static Map<String, Fluids> createMolten() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("boron_10", new Fluids("boron_10", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
-        map.put("boron_11", new Fluids("boron_11", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
-        map.put("lithium_6", new Fluids("lithium_6", 0xFFEFEFEF, Fluids.MOLTEN_TYPE));
-        map.put("lithium_7", new Fluids("lithium_7", 0xFFEFEFEF, Fluids.MOLTEN_TYPE));
+    private static Map<String, NCFluid> createMolten() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("boron_10", MAKER.registerFluid("boron_10", 0xFF7D7D7D, NCFluid.MOLTEN_TYPE));
+        map.put("boron_11", MAKER.registerFluid("boron_11", 0xFF7D7D7D, NCFluid.MOLTEN_TYPE));
+        map.put("lithium_6", MAKER.registerFluid("lithium_6", 0xFFEFEFEF, NCFluid.MOLTEN_TYPE));
+        map.put("lithium_7", MAKER.registerFluid("lithium_7", 0xFFEFEFEF, NCFluid.MOLTEN_TYPE));
 
-        map.put("steel", new Fluids("steel", 0xFF7B7B7B, Fluids.MOLTEN_TYPE));
-        map.put("ferroboron", new Fluids("ferroboron", 0xFF4A4A4A, Fluids.MOLTEN_TYPE));
-        map.put("tough", new Fluids("tough", 0xFF150F21, Fluids.MOLTEN_TYPE));
-        map.put("hard_carbon", new Fluids("hard_carbon", 0xFF202020, Fluids.MOLTEN_TYPE));
-        map.put("hastelloy", new Fluids("hastelloy", 0xFF8F9C9D, Fluids.MOLTEN_TYPE));
-        map.put("nichrome", new Fluids("nichrome", 0xFF5F6958, Fluids.MOLTEN_TYPE));
-        map.put("coal", new Fluids("coal", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
+        map.put("steel", MAKER.registerFluid("steel", 0xFF7B7B7B, NCFluid.MOLTEN_TYPE));
+        map.put("ferroboron", MAKER.registerFluid("ferroboron", 0xFF4A4A4A, NCFluid.MOLTEN_TYPE));
+        map.put("tough", MAKER.registerFluid("tough", 0xFF150F21, NCFluid.MOLTEN_TYPE));
+        map.put("hard_carbon", MAKER.registerFluid("hard_carbon", 0xFF202020, NCFluid.MOLTEN_TYPE));
+        map.put("hastelloy", MAKER.registerFluid("hastelloy", 0xFF8F9C9D, NCFluid.MOLTEN_TYPE));
+        map.put("nichrome", MAKER.registerFluid("nichrome", 0xFF5F6958, NCFluid.MOLTEN_TYPE));
+        map.put("coal", MAKER.registerFluid("coal", 0xFF7D7D7D, NCFluid.MOLTEN_TYPE));
 
-        map.put("beryllium", new Fluids("beryllium", 0xFFD4DBC2, Fluids.MOLTEN_TYPE));
-        map.put("zirconium", new Fluids("zirconium", 0xFFE0E0B8, Fluids.MOLTEN_TYPE));
-        map.put("manganese_dioxide", new Fluids("manganese_dioxide", 0xFF28211E, Fluids.MOLTEN_TYPE));
-        map.put("sulfur", new Fluids("sulfur", 0xFFDEDE7A, Fluids.MOLTEN_TYPE));
-        map.put("barium", new Fluids("barium", 0xFF4B4B4B, Fluids.MOLTEN_TYPE));
-        map.put("barium_oxide", new Fluids("barium_oxide", 0xFFC7D4D6, Fluids.MOLTEN_TYPE));
-        map.put("nickel", new Fluids("nickel", 0xFFA3A998, Fluids.MOLTEN_TYPE));
-        map.put("nickel_oxide", new Fluids("nickel_oxide", 0xFF435E49, Fluids.MOLTEN_TYPE));
-        map.put("palladium", new Fluids("palladium", 0xFF767676, Fluids.MOLTEN_TYPE));
-        map.put("chromium", new Fluids("chromium", 0xFFE7E7E7, Fluids.MOLTEN_TYPE));
-        map.put("holmium", new Fluids("holmium", 0xFFDCB49C, Fluids.MOLTEN_TYPE));
-        map.put("dysprosium", new Fluids("dysprosium", 0xFFC381E4, Fluids.MOLTEN_TYPE));
-        map.put("gadolinium", new Fluids("gadolinium", 0xFF99C3F2, Fluids.MOLTEN_TYPE));
+        map.put("beryllium", MAKER.registerFluid("beryllium", 0xFFD4DBC2, NCFluid.MOLTEN_TYPE));
+        map.put("zirconium", MAKER.registerFluid("zirconium", 0xFFE0E0B8, NCFluid.MOLTEN_TYPE));
+        map.put("manganese_dioxide", MAKER.registerFluid("manganese_dioxide", 0xFF28211E, NCFluid.MOLTEN_TYPE));
+        map.put("sulfur", MAKER.registerFluid("sulfur", 0xFFDEDE7A, NCFluid.MOLTEN_TYPE));
+        map.put("barium", MAKER.registerFluid("barium", 0xFF4B4B4B, NCFluid.MOLTEN_TYPE));
+        map.put("barium_oxide", MAKER.registerFluid("barium_oxide", 0xFFC7D4D6, NCFluid.MOLTEN_TYPE));
+        map.put("nickel", MAKER.registerFluid("nickel", 0xFFA3A998, NCFluid.MOLTEN_TYPE));
+        map.put("nickel_oxide", MAKER.registerFluid("nickel_oxide", 0xFF435E49, NCFluid.MOLTEN_TYPE));
+        map.put("palladium", MAKER.registerFluid("palladium", 0xFF767676, NCFluid.MOLTEN_TYPE));
+        map.put("chromium", MAKER.registerFluid("chromium", 0xFFE7E7E7, NCFluid.MOLTEN_TYPE));
+        map.put("holmium", MAKER.registerFluid("holmium", 0xFFDCB49C, NCFluid.MOLTEN_TYPE));
+        map.put("dysprosium", MAKER.registerFluid("dysprosium", 0xFFC381E4, NCFluid.MOLTEN_TYPE));
+        map.put("gadolinium", MAKER.registerFluid("gadolinium", 0xFF99C3F2, NCFluid.MOLTEN_TYPE));
 
-        map.put("lead_platinum", new Fluids("lead_platinum", 0xFF415B60, Fluids.MOLTEN_TYPE));
-        map.put("enderium", new Fluids("enderium", 0xFF0B5B5C, Fluids.MOLTEN_TYPE));
+        map.put("lead_platinum", MAKER.registerFluid("lead_platinum", 0xFF415B60, NCFluid.MOLTEN_TYPE));
+        map.put("enderium", MAKER.registerFluid("enderium", 0xFF0B5B5C, NCFluid.MOLTEN_TYPE));
 
-        map.put("lif", new Fluids("lif", 0xFFCDCDCB, Fluids.MOLTEN_TYPE));
-        map.put("bef2", new Fluids("bef2", 0xFFBEC6AA, Fluids.MOLTEN_TYPE));
-        map.put("flibe", new Fluids("flibe", 0xFFC1C8B0, Fluids.MOLTEN_TYPE));
-        map.put("naoh", new Fluids("naoh", 0xFFC2B7BB, Fluids.MOLTEN_TYPE));
-        map.put("koh", new Fluids("koh", 0xFFB8C6B0, Fluids.MOLTEN_TYPE));
-        map.put("barium_sulfide", new Fluids("barium_sulfide", 0xFFBDA776, Fluids.MOLTEN_TYPE));
-        map.put("bacro_nio", new Fluids("bacro_nio", 0xFF414641, Fluids.MOLTEN_TYPE));
-        map.put("bacro", new Fluids("bacro", 0xFF5E615E, Fluids.MOLTEN_TYPE));
-        map.put("baalo", new Fluids("baalo", 0xFF857958, Fluids.MOLTEN_TYPE));
-        map.put("aluminum_sulfide", new Fluids("aluminum_sulfide", 0xFFBEFFA2, Fluids.MOLTEN_TYPE));
-        map.put("nickel_sulfide", new Fluids("nickel_sulfide", 0xFFCBD3AD, Fluids.MOLTEN_TYPE));
+        map.put("lif", MAKER.registerFluid("lif", 0xFFCDCDCB, NCFluid.MOLTEN_TYPE));
+        map.put("bef2", MAKER.registerFluid("bef2", 0xFFBEC6AA, NCFluid.MOLTEN_TYPE));
+        map.put("flibe", MAKER.registerFluid("flibe", 0xFFC1C8B0, NCFluid.MOLTEN_TYPE));
+        map.put("naoh", MAKER.registerFluid("naoh", 0xFFC2B7BB, NCFluid.MOLTEN_TYPE));
+        map.put("koh", MAKER.registerFluid("koh", 0xFFB8C6B0, NCFluid.MOLTEN_TYPE));
+        map.put("barium_sulfide", MAKER.registerFluid("barium_sulfide", 0xFFBDA776, NCFluid.MOLTEN_TYPE));
+        map.put("bacro_nio", MAKER.registerFluid("bacro_nio", 0xFF414641, NCFluid.MOLTEN_TYPE));
+        map.put("bacro", MAKER.registerFluid("bacro", 0xFF5E615E, NCFluid.MOLTEN_TYPE));
+        map.put("baalo", MAKER.registerFluid("baalo", 0xFF857958, NCFluid.MOLTEN_TYPE));
+        map.put("aluminum_sulfide", MAKER.registerFluid("aluminum_sulfide", 0xFFBEFFA2, NCFluid.MOLTEN_TYPE));
+        map.put("nickel_sulfide", MAKER.registerFluid("nickel_sulfide", 0xFFCBD3AD, NCFluid.MOLTEN_TYPE));
 
-        map.put("dfdps", new Fluids("dfdps", 0xFFB4B3A7, Fluids.MOLTEN_TYPE));
-        map.put("polyphenylene_sulfide", new Fluids("polyphenylene_sulfide", 0xFF3F3D3E, Fluids.MOLTEN_TYPE));
-        map.put("polydimethylsilylene", new Fluids("polydimethylsilylene", 0xFF774F60, Fluids.MOLTEN_TYPE));
-        map.put("polymethylsilylene_methylene", new Fluids("polymethylsilylene_methylene", 0xFF5A5246, Fluids.MOLTEN_TYPE));
-        map.put("polyethersulfone", new Fluids("polyethersulfone", 0xFFC9B8A6, Fluids.MOLTEN_TYPE));
-        map.put("polytetrafluoroethene", new Fluids("polytetrafluoroethene", 0xFF7F9F4D, Fluids.MOLTEN_TYPE));
+        map.put("dfdps", MAKER.registerFluid("dfdps", 0xFFB4B3A7, NCFluid.MOLTEN_TYPE));
+        map.put("polyphenylene_sulfide", MAKER.registerFluid("polyphenylene_sulfide", 0xFF3F3D3E, NCFluid.MOLTEN_TYPE));
+        map.put("polydimethylsilylene", MAKER.registerFluid("polydimethylsilylene", 0xFF774F60, NCFluid.MOLTEN_TYPE));
+        map.put("polymethylsilylene_methylene", MAKER.registerFluid("polymethylsilylene_methylene", 0xFF5A5246, NCFluid.MOLTEN_TYPE));
+        map.put("polyethersulfone", MAKER.registerFluid("polyethersulfone", 0xFFC9B8A6, NCFluid.MOLTEN_TYPE));
+        map.put("polytetrafluoroethene", MAKER.registerFluid("polytetrafluoroethene", 0xFF7F9F4D, NCFluid.MOLTEN_TYPE));
 
-        map.put("sodium", new Fluids("sodium", 0xFFC1898C, Fluids.MOLTEN_TYPE));
-        map.put("potassium", new Fluids("potassium", 0xFFB8C503, Fluids.MOLTEN_TYPE));
+        map.put("sodium", MAKER.registerFluid("sodium", 0xFFC1898C, NCFluid.MOLTEN_TYPE));
+        map.put("potassium", MAKER.registerFluid("potassium", 0xFFB8C503, NCFluid.MOLTEN_TYPE));
 
-        map.put("sodium_sulfide", new Fluids("sodium_sulfide", 0xFF9A8B0B, Fluids.MOLTEN_TYPE));
-        map.put("potassium_sulfide", new Fluids("potassium_sulfide", 0xFF917C34, Fluids.MOLTEN_TYPE));
+        map.put("sodium_sulfide", MAKER.registerFluid("sodium_sulfide", 0xFF9A8B0B, NCFluid.MOLTEN_TYPE));
+        map.put("potassium_sulfide", MAKER.registerFluid("potassium_sulfide", 0xFF917C34, NCFluid.MOLTEN_TYPE));
 
-        map.put("silicon", new Fluids("silicon", 0xFF676767, Fluids.MOLTEN_TYPE));
-        map.put("bas", new Fluids("bas", 0xFF9B9B89, Fluids.MOLTEN_TYPE));
+        map.put("silicon", MAKER.registerFluid("silicon", 0xFF676767, NCFluid.MOLTEN_TYPE));
+        map.put("bas", MAKER.registerFluid("bas", 0xFF9B9B89, NCFluid.MOLTEN_TYPE));
 
-        map.put("alugentum", new Fluids("alugentum", 0xFFB5C9CB, Fluids.MOLTEN_TYPE));
-        map.put("alumina", new Fluids("alumina", 0xFF919880, Fluids.MOLTEN_TYPE));
+        map.put("alugentum", MAKER.registerFluid("alugentum", 0xFFB5C9CB, NCFluid.MOLTEN_TYPE));
+        map.put("alumina", MAKER.registerFluid("alumina", 0xFF919880, NCFluid.MOLTEN_TYPE));
 
-        map.put("iron", new Fluids("iron", 0xFF8D1515, Fluids.MOLTEN_TYPE));
-        map.put("redstone", new Fluids("redstone", 0xFFAB1C09, Fluids.MOLTEN_TYPE));
-        map.put("quartz", new Fluids("quartz", 0xFFECE9E2, Fluids.MOLTEN_TYPE));
-        map.put("obsidian", new Fluids("obsidian", 0xFF1C1828, Fluids.MOLTEN_TYPE));
-        map.put("nether_brick", new Fluids("nether_brick", 0xFF271317, Fluids.MOLTEN_TYPE));
-        map.put("glowstone", new Fluids("glowstone", 0xFFA38037, Fluids.GLOWSTONE_TYPE));
-        map.put("lapis", new Fluids("lapis", 0xFF27438A, Fluids.MOLTEN_TYPE));
-        map.put("gold", new Fluids("gold", 0xFFE6DA3C, Fluids.MOLTEN_TYPE));
-        map.put("prismarine", new Fluids("prismarine", 0xFF70A695, Fluids.MOLTEN_TYPE));
-        map.put("slime", new Fluids("slime", 0xFF79C865, Fluids.MOLTEN_TYPE));
-        map.put("end_stone", new Fluids("end_stone", 0xFFE7E9B3, Fluids.MOLTEN_TYPE));
-        map.put("purpur", new Fluids("purpur", 0xFFA979A9, Fluids.MOLTEN_TYPE));
-        map.put("diamond", new Fluids("diamond", 0xFF6FDFDA, Fluids.MOLTEN_TYPE));
-        map.put("emerald", new Fluids("emerald", 0xFF51D975, Fluids.MOLTEN_TYPE));
-        map.put("copper", new Fluids("copper", 0xFFAD6544, Fluids.MOLTEN_TYPE));
-        map.put("tin", new Fluids("tin", 0xFFD9DDF0, Fluids.MOLTEN_TYPE));
-        map.put("lead", new Fluids("lead", 0xFF3F4C4C, Fluids.MOLTEN_TYPE));
-        map.put("boron", new Fluids("boron", 0xFF7D7D7D, Fluids.MOLTEN_TYPE));
-        map.put("lithium", new Fluids("lithium", 0xFFEFEFEF, Fluids.MOLTEN_TYPE));
-        map.put("magnesium", new Fluids("magnesium", 0xFFEED5E1, Fluids.MOLTEN_TYPE));
-        map.put("manganese", new Fluids("manganese", 0xFF99A1CA, Fluids.MOLTEN_TYPE));
-        map.put("aluminum", new Fluids("aluminum", 0xFFB5ECD5, Fluids.MOLTEN_TYPE));
-        map.put("silver", new Fluids("silver", 0xFFE2DAF6, Fluids.MOLTEN_TYPE));
-        map.put("fluorite", new Fluids("fluorite", 0xFF8AB492, Fluids.MOLTEN_TYPE));
-        map.put("villiaumite", new Fluids("villiaumite", 0xFFB06C56, Fluids.MOLTEN_TYPE));
-        map.put("carobbiite", new Fluids("carobbiite", 0xFF95A251, Fluids.MOLTEN_TYPE));
+        map.put("iron", MAKER.registerFluid("iron", 0xFF8D1515, NCFluid.MOLTEN_TYPE));
+        map.put("redstone", MAKER.registerFluid("redstone", 0xFFAB1C09, NCFluid.MOLTEN_TYPE));
+        map.put("quartz", MAKER.registerFluid("quartz", 0xFFECE9E2, NCFluid.MOLTEN_TYPE));
+        map.put("obsidian", MAKER.registerFluid("obsidian", 0xFF1C1828, NCFluid.MOLTEN_TYPE));
+        map.put("nether_brick", MAKER.registerFluid("nether_brick", 0xFF271317, NCFluid.MOLTEN_TYPE));
+        map.put("glowstone", MAKER.registerFluid("glowstone", 0xFFA38037, NCFluid.GLOWSTONE_TYPE));
+        map.put("lapis", MAKER.registerFluid("lapis", 0xFF27438A, NCFluid.MOLTEN_TYPE));
+        map.put("gold", MAKER.registerFluid("gold", 0xFFE6DA3C, NCFluid.MOLTEN_TYPE));
+        map.put("prismarine", MAKER.registerFluid("prismarine", 0xFF70A695, NCFluid.MOLTEN_TYPE));
+        map.put("slime", MAKER.registerFluid("slime", 0xFF79C865, NCFluid.MOLTEN_TYPE));
+        map.put("end_stone", MAKER.registerFluid("end_stone", 0xFFE7E9B3, NCFluid.MOLTEN_TYPE));
+        map.put("purpur", MAKER.registerFluid("purpur", 0xFFA979A9, NCFluid.MOLTEN_TYPE));
+        map.put("diamond", MAKER.registerFluid("diamond", 0xFF6FDFDA, NCFluid.MOLTEN_TYPE));
+        map.put("emerald", MAKER.registerFluid("emerald", 0xFF51D975, NCFluid.MOLTEN_TYPE));
+        map.put("copper", MAKER.registerFluid("copper", 0xFFAD6544, NCFluid.MOLTEN_TYPE));
+        map.put("tin", MAKER.registerFluid("tin", 0xFFD9DDF0, NCFluid.MOLTEN_TYPE));
+        map.put("lead", MAKER.registerFluid("lead", 0xFF3F4C4C, NCFluid.MOLTEN_TYPE));
+        map.put("boron", MAKER.registerFluid("boron", 0xFF7D7D7D, NCFluid.MOLTEN_TYPE));
+        map.put("lithium", MAKER.registerFluid("lithium", 0xFFEFEFEF, NCFluid.MOLTEN_TYPE));
+        map.put("magnesium", MAKER.registerFluid("magnesium", 0xFFEED5E1, NCFluid.MOLTEN_TYPE));
+        map.put("manganese", MAKER.registerFluid("manganese", 0xFF99A1CA, NCFluid.MOLTEN_TYPE));
+        map.put("aluminum", MAKER.registerFluid("aluminum", 0xFFB5ECD5, NCFluid.MOLTEN_TYPE));
+        map.put("silver", MAKER.registerFluid("silver", 0xFFE2DAF6, NCFluid.MOLTEN_TYPE));
+        map.put("fluorite", MAKER.registerFluid("fluorite", 0xFF8AB492, NCFluid.MOLTEN_TYPE));
+        map.put("villiaumite", MAKER.registerFluid("villiaumite", 0xFFB06C56, NCFluid.MOLTEN_TYPE));
+        map.put("carobbiite", MAKER.registerFluid("carobbiite", 0xFF95A251, NCFluid.MOLTEN_TYPE));
 
-        map.put("thorium", new Fluids("thorium", 0xFF242424, Fluids.FISSION_TYPE));
-        map.put("uranium", new Fluids("uranium", 0xFF375437, Fluids.FISSION_TYPE));
+        map.put("thorium", MAKER.registerFluid("thorium", 0xFF242424, NCFluid.FISSION_TYPE));
+        map.put("uranium", MAKER.registerFluid("uranium", 0xFF375437, NCFluid.FISSION_TYPE));
         return map;
     }
 
-    private static Map<String, Fluids> createCustomFluid() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("liquid_helium", new Fluids("liquid_helium", true, -1, 150, 4, 1, 0, SuperFluidBlock::new));
-        map.put("le_water", new Fluids("le_water", false, -1, LiquidFluidBlock::new));
-        map.put("he_water", new Fluids("he_water", false, -1, LiquidFluidBlock::new));
-        map.put("heavy_water", new Fluids("heavy_water", false, -1, LiquidFluidBlock::new));
-        map.put("hydrogen_peroxide", new Fluids("hydrogen_peroxide", false, -1, LiquidFluidBlock::new));
-        map.put("liquid_nitrogen", new Fluids("liquid_nitrogen", "liquid", false, false, 0xFF31C23A, 810, 70, 170, 0, LiquidFluidBlock::new));
-        map.put("ender", new Fluids("ender", "liquid_still", true, false, 0xFF14584D, 4000, 300, 2500, 3, LiquidFluidBlock::new));
-        map.put("cryotheum", new Fluids("cryotheum", 0xFF0099C1, Fluids.CRYOTHEUM_TYPE));
-        map.put("plasma", new Fluids("plasma", -1, Fluids.PLASMA_TYPE, PlasmaFluid.Source::new, PlasmaFluid.Flowing::new));
-        map.put("radaway", new Fluids("radaway", false, -1, LiquidFluidBlock::new));
-        map.put("radaway_slow", new Fluids("radaway_slow", false, -1, LiquidFluidBlock::new));
-        map.put("corium", new Fluids("corium", 0xFF7C7C6F, new Fluids.TypeInfo(Fluids.MOLTEN_TYPE, CoriumFluidBlock::new), CoriumFluid.Source::new, CoriumFluid.Flowing::new));
-        map.put("ice", new Fluids("ice", "liquid", false, false, 0xFFAFF1FF, 1000, 250, 2000, 0, LiquidFluidBlock::new));
-        map.put("slurry_ice", new Fluids("slurry_ice", "liquid", false, false, 0xFF7EAEB7, 950, 270, 4000, 0, LiquidFluidBlock::new));
-        map.put("emergency_coolant", new Fluids("emergency_coolant", "liquid", false, false, 0xFF6DD0E7, 2000, 100, 2000, 0, LiquidFluidBlock::new));
-        map.put("emergency_coolant_heated", new Fluids("emergency_coolant_heated", "liquid", false, false, 0xFFCDBEE7, 2000, 400, 1500, 7, LiquidFluidBlock::new));
-        map.put("preheated_water", new Fluids("preheated_water", "liquid", false, false, 0xFF1D35F2, 1000, 400, 250, 0, LiquidFluidBlock::new));
-        map.put("condensate_water", new Fluids("condensate_water", "liquid", false, false, 0xFF2F43F4, 1000, 350, 850, 0, LiquidFluidBlock::new));
+    private static Map<String, NCFluid> createCustomFluid() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("liquid_helium", MAKER.registerFluid("liquid_helium", true, -1, 150, 4, 1, 0, SuperFluidBlock::new));
+        map.put("le_water", MAKER.registerFluid("le_water", false, -1, LiquidFluidBlock::new));
+        map.put("he_water", MAKER.registerFluid("he_water", false, -1, LiquidFluidBlock::new));
+        map.put("heavy_water", MAKER.registerFluid("heavy_water", false, -1, LiquidFluidBlock::new));
+        map.put("hydrogen_peroxide", MAKER.registerFluid("hydrogen_peroxide", false, -1, LiquidFluidBlock::new));
+        map.put("liquid_nitrogen", MAKER.registerFluid("liquid_nitrogen", "liquid", false, false, 0xFF31C23A, 810, 70, 170, 0, LiquidFluidBlock::new));
+        map.put("ender", MAKER.registerFluid("ender", "liquid_opaque", false, false, 0xFF14584D, 4000, 300, 2500, 3, LiquidFluidBlock::new));
+        map.put("cryotheum", MAKER.registerFluid("cryotheum", 0xFF0099C1, NCFluid.CRYOTHEUM_TYPE));
+        map.put("plasma", new NCFluid(MAKER, "plasma", -1, NCFluid.PLASMA_TYPE, PlasmaFluid.Source::new, PlasmaFluid.Flowing::new));
+        map.put("radaway", MAKER.registerFluid("radaway", false, -1, LiquidFluidBlock::new));
+        map.put("radaway_slow", MAKER.registerFluid("radaway_slow", false, -1, LiquidFluidBlock::new));
+        map.put("corium", new NCFluid(MAKER, "corium", 0xFF7C7C6F, new NCFluid.TypeInfo(NCFluid.MOLTEN_TYPE, CoriumFluidBlock::new), CoriumFluid.Source::new, CoriumFluid.Flowing::new));
+        map.put("ice", MAKER.registerFluid("ice", "liquid", false, false, 0xFFAFF1FF, 1000, 250, 2000, 0, LiquidFluidBlock::new));
+        map.put("slurry_ice", MAKER.registerFluid("slurry_ice", "liquid", false, false, 0xFF7EAEB7, 950, 270, 4000, 0, LiquidFluidBlock::new));
+        map.put("emergency_coolant", MAKER.registerFluid("emergency_coolant", "liquid_opaque", false, false, 0xFF6DD0E7, 2000, 100, 2000, 0, LiquidFluidBlock::new));
+        map.put("emergency_coolant_heated", MAKER.registerFluid("emergency_coolant_heated", "liquid_opaque", false, false, 0xFFCDBEE7, 2000, 400, 1500, 7, LiquidFluidBlock::new));
+        map.put("preheated_water", MAKER.registerFluid("preheated_water", "liquid", false, false, 0xFF1D35F2, 1000, 400, 250, 0, LiquidFluidBlock::new));
+        map.put("condensate_water", MAKER.registerFluid("condensate_water", "liquid", false, false, 0xFF2F43F4, 1000, 350, 850, 0, LiquidFluidBlock::new));
         return map;
     }
 
-    private static Map<String, Fluids> createFlammable() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("ethanol", new Fluids("ethanol", 0xFF655140, Fluids.FLAMMABLE_TYPE));
-        map.put("methanol", new Fluids("methanol", 0xFF71524C, Fluids.FLAMMABLE_TYPE));
-        map.put("benzene", new Fluids("benzene", 0xFF999999, Fluids.FLAMMABLE_TYPE));
-        map.put("phenol", new Fluids("phenol", 0xFFF2F2F2, Fluids.FLAMMABLE_TYPE));
-        map.put("fluorobenzene", new Fluids("fluorobenzene", 0xFFBAB58B, Fluids.FLAMMABLE_TYPE));
-        map.put("difluorobenzene", new Fluids("difluorobenzene", 0xFF8CB57B, Fluids.FLAMMABLE_TYPE));
-        map.put("dimethyldifluorosilane", new Fluids("dimethyldifluorosilane", 0xFFAEAF80, Fluids.FLAMMABLE_TYPE));
-        map.put("redstone_ethanol", new Fluids("redstone_ethanol", false, -1, LiquidFluidBlock::new));
+    private static Map<String, NCFluid> createFlammable() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("ethanol", MAKER.registerFluid("ethanol", 0xFF655140, NCFluid.FLAMMABLE_TYPE));
+        map.put("methanol", MAKER.registerFluid("methanol", 0xFF71524C, NCFluid.FLAMMABLE_TYPE));
+        map.put("benzene", MAKER.registerFluid("benzene", 0xFF999999, NCFluid.FLAMMABLE_TYPE));
+        map.put("phenol", MAKER.registerFluid("phenol", 0xFFF2F2F2, NCFluid.FLAMMABLE_TYPE));
+        map.put("fluorobenzene", MAKER.registerFluid("fluorobenzene", 0xFFBAB58B, NCFluid.FLAMMABLE_TYPE));
+        map.put("difluorobenzene", MAKER.registerFluid("difluorobenzene", 0xFF8CB57B, NCFluid.FLAMMABLE_TYPE));
+        map.put("dimethyldifluorosilane", MAKER.registerFluid("dimethyldifluorosilane", 0xFFAEAF80, NCFluid.FLAMMABLE_TYPE));
+        map.put("redstone_ethanol", MAKER.registerFluid("redstone_ethanol", false, -1, LiquidFluidBlock::new));
         return map;
     }
 
-    private static Map<String, Fluids> createAcid() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("hydrofluoric_acid", new Fluids("hydrofluoric_acid", 0xFF004C05, Fluids.ACID_TYPE));
-        map.put("boric_acid", new Fluids("boric_acid", 0xFF696939, Fluids.ACID_TYPE));
-        map.put("sulfuric_acid", new Fluids("sulfuric_acid", 0xFF454500, Fluids.ACID_TYPE));
-        map.put("orthosilicic_acid", new Fluids("orthosilicic_acid", 0xFFB8B8B8, Fluids.ACID_TYPE));
+    private static Map<String, NCFluid> createAcid() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("hydrofluoric_acid", MAKER.registerFluid("hydrofluoric_acid", 0xFF004C05, NCFluid.ACID_TYPE));
+        map.put("boric_acid", MAKER.registerFluid("boric_acid", 0xFF696939, NCFluid.ACID_TYPE));
+        map.put("sulfuric_acid", MAKER.registerFluid("sulfuric_acid", 0xFF454500, NCFluid.ACID_TYPE));
+        map.put("orthosilicic_acid", MAKER.registerFluid("orthosilicic_acid", 0xFFB8B8B8, NCFluid.ACID_TYPE));
         return map;
     }
 
-    private static Map<String, Fluids> createSaltSolution() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("boron_nitride_solution", new Fluids("boron_nitride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF6F8E5C), Fluids.SALT_SOLUTION_TYPE));
-        map.put("fluorite_water", new Fluids("fluorite_water", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF8AB492), Fluids.SALT_SOLUTION_TYPE));
-        map.put("calcium_sulfate_solution", new Fluids("calcium_sulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB8B0A6), Fluids.SALT_SOLUTION_TYPE));
-        map.put("sodium_fluoride_solution", new Fluids("sodium_fluoride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC2B1A1), Fluids.SALT_SOLUTION_TYPE));
-        map.put("potassium_fluoride_solution", new Fluids("potassium_fluoride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC1C99D), Fluids.SALT_SOLUTION_TYPE));
-        map.put("sodium_hydroxide_solution", new Fluids("sodium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC2B7BB), Fluids.SALT_SOLUTION_TYPE));
-        map.put("potassium_hydroxide_solution", new Fluids("potassium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB8C6B0), Fluids.SALT_SOLUTION_TYPE));
-        map.put("borax_solution", new Fluids("borax_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFEEEEEE), Fluids.SALT_SOLUTION_TYPE));
-        map.put("irradiated_borax_solution", new Fluids("irradiated_borax_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFFFD0A3), Fluids.SALT_SOLUTION_TYPE));
-        map.put("ammonium_sulfate_solution", new Fluids("ammonium_sulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF6CA377), Fluids.SALT_SOLUTION_TYPE));
-        map.put("ammonium_bisulfate_solution", new Fluids("ammonium_bisulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF5F8450), Fluids.SALT_SOLUTION_TYPE));
-        map.put("ammonium_persulfate_solution", new Fluids("ammonium_persulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF74A364), Fluids.SALT_SOLUTION_TYPE));
-        map.put("hydroquinone_solution", new Fluids("hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB7B7B7), Fluids.SALT_SOLUTION_TYPE));
-        map.put("sodium_hydroquinone_solution", new Fluids("sodium_hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC9B9BA), Fluids.SALT_SOLUTION_TYPE));
-        map.put("potassium_hydroquinone_solution", new Fluids("potassium_hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC6CA94), Fluids.SALT_SOLUTION_TYPE));
-        map.put("dysprholminite_water", new Fluids("dysprholminite_water", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF454215), Fluids.SALT_SOLUTION_TYPE));
-        map.put("hodybeso_solution", new Fluids("hodybeso_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFCAB94E), Fluids.SALT_SOLUTION_TYPE));
+    private static Map<String, NCFluid> createSaltSolution() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("boron_nitride_solution", MAKER.registerFluid("boron_nitride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF6F8E5C), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("fluorite_water", MAKER.registerFluid("fluorite_water", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF8AB492), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("calcium_sulfate_solution", MAKER.registerFluid("calcium_sulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB8B0A6), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("sodium_fluoride_solution", MAKER.registerFluid("sodium_fluoride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC2B1A1), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("potassium_fluoride_solution", MAKER.registerFluid("potassium_fluoride_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC1C99D), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("sodium_hydroxide_solution", MAKER.registerFluid("sodium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC2B7BB), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("potassium_hydroxide_solution", MAKER.registerFluid("potassium_hydroxide_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB8C6B0), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("borax_solution", MAKER.registerFluid("borax_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFEEEEEE), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("irradiated_borax_solution", MAKER.registerFluid("irradiated_borax_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFFFD0A3), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("ammonium_sulfate_solution", MAKER.registerFluid("ammonium_sulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF6CA377), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("ammonium_bisulfate_solution", MAKER.registerFluid("ammonium_bisulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF5F8450), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("ammonium_persulfate_solution", MAKER.registerFluid("ammonium_persulfate_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF74A364), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("hydroquinone_solution", MAKER.registerFluid("hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFB7B7B7), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("sodium_hydroquinone_solution", MAKER.registerFluid("sodium_hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC9B9BA), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("potassium_hydroquinone_solution", MAKER.registerFluid("potassium_hydroquinone_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFC6CA94), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("dysprholminite_water", MAKER.registerFluid("dysprholminite_water", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFF454215), NCFluid.SALT_SOLUTION_TYPE));
+        map.put("hodybeso_solution", MAKER.registerFluid("hodybeso_solution", FastColor.ARGB32.lerp(0.5f, 0xFF2F43F4, 0xFFCAB94E), NCFluid.SALT_SOLUTION_TYPE));
         return map;
     }
 
-    private static Map<String, Fluids> createChocolate() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("chocolate_liquor", new Fluids("chocolate_liquor", 0xFF41241C, Fluids.CHOCOLATE_TYPE));
-        map.put("cocoa_butter", new Fluids("cocoa_butter", 0xFFF6EEBF, Fluids.CHOCOLATE_TYPE));
-        map.put("unsweetened_chocolate", new Fluids("unsweetened_chocolate", 0xFF2C0A08, Fluids.CHOCOLATE_TYPE));
-        map.put("dark_chocolate", new Fluids("dark_chocolate", 0xFF2C0B06, Fluids.CHOCOLATE_TYPE));
-        map.put("milk_chocolate", new Fluids("milk_chocolate", 0xFF884121, Fluids.CHOCOLATE_TYPE));
+    private static Map<String, NCFluid> createChocolate() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("chocolate_liquor", MAKER.registerFluid("chocolate_liquor", 0xFF41241C, NCFluid.CHOCOLATE_TYPE));
+        map.put("cocoa_butter", MAKER.registerFluid("cocoa_butter", 0xFFF6EEBF, NCFluid.CHOCOLATE_TYPE));
+        map.put("unsweetened_chocolate", MAKER.registerFluid("unsweetened_chocolate", 0xFF2C0A08, NCFluid.CHOCOLATE_TYPE));
+        map.put("dark_chocolate", MAKER.registerFluid("dark_chocolate", 0xFF2C0B06, NCFluid.CHOCOLATE_TYPE));
+        map.put("milk_chocolate", MAKER.registerFluid("milk_chocolate", 0xFF884121, NCFluid.CHOCOLATE_TYPE));
         return map;
     }
 
-    private static Map<String, Fluids> createSugar() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("sugar", new Fluids("sugar", 0xFFFFD59A, Fluids.SUGAR_TYPE));
-        map.put("gelatin", new Fluids("gelatin", 0xFFDDD09C, Fluids.CHOCOLATE_TYPE));
-        map.put("hydrated_gelatin", new Fluids("hydrated_gelatin", FastColor.ARGB32.lerp(0.8f, 0xFF2F43F4, 0xFFDDD09C), Fluids.CHOCOLATE_TYPE));
-        map.put("marshmallow", new Fluids("marshmallow", 0xFFE1E1E3, Fluids.CHOCOLATE_TYPE));
+    private static Map<String, NCFluid> createSugar() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("sugar", MAKER.registerFluid("sugar", 0xFFFFD59A, NCFluid.SUGAR_TYPE));
+        map.put("gelatin", MAKER.registerFluid("gelatin", 0xFFDDD09C, NCFluid.CHOCOLATE_TYPE));
+        map.put("hydrated_gelatin", MAKER.registerFluid("hydrated_gelatin", FastColor.ARGB32.lerp(0.8f, 0xFF2F43F4, 0xFFDDD09C), NCFluid.CHOCOLATE_TYPE));
+        map.put("marshmallow", MAKER.registerFluid("marshmallow", 0xFFE1E1E3, NCFluid.CHOCOLATE_TYPE));
         return map;
     }
 
-    private static Map<String, Fluids> createSteam() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("steam", new Fluids("steam", 0xFF929292, Fluids.STEAM_TYPE, 800));
-        map.put("high_pressure_steam", new Fluids("high_pressure_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 1200));
-        map.put("exhaust_steam", new Fluids("exhaust_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 500));
-        map.put("low_pressure_steam", new Fluids("low_pressure_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 800));
-        map.put("low_quality_steam", new Fluids("low_quality_steam", 0xFFBDBDBD, Fluids.STEAM_TYPE, 350));
+    private static Map<String, NCFluid> createSteam() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("steam", MAKER.registerFluid("steam", 0xFF929292, NCFluid.STEAM_TYPE, 800));
+        map.put("high_pressure_steam", MAKER.registerFluid("high_pressure_steam", 0xFFBDBDBD, NCFluid.STEAM_TYPE, 1200));
+        map.put("exhaust_steam", MAKER.registerFluid("exhaust_steam", 0xFFBDBDBD, NCFluid.STEAM_TYPE, 500));
+        map.put("low_pressure_steam", MAKER.registerFluid("low_pressure_steam", 0xFFBDBDBD, NCFluid.STEAM_TYPE, 800));
+        map.put("low_quality_steam", MAKER.registerFluid("low_quality_steam", 0xFFBDBDBD, NCFluid.STEAM_TYPE, 350));
         return map;
     }
 
-    private static Map<String, Fluids> createCoolant() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("nak", new Fluids("nak", 0xFFFFE5BC, Fluids.COOLANT_TYPE));
-        HOT_COOLANT_MAP.put("nak_hot", new Fluids("nak_hot", FastColor.ARGB32.lerp(0.2f, 0xFFFFD5AC, 0xFFFFE5BC), Fluids.HOT_COOLANT_TYPE));
+    private static Map<String, NCFluid> createCoolant() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("nak", MAKER.registerFluid("nak", 0xFFFFE5BC, NCFluid.COOLANT_TYPE));
+        HOT_COOLANT_MAP.put("nak_hot", MAKER.registerFluid("nak_hot", FastColor.ARGB32.lerp(0.2f, 0xFFFFD5AC, 0xFFFFE5BC), NCFluid.HOT_COOLANT_TYPE));
 
         addNAKPairs("iron", 0xFF8D1515, map);
         addNAKPairs("redstone", 0xFFAB1C09, map);
@@ -294,88 +299,88 @@ public class FluidRegistration {
         return map;
     }
 
-    private static void addNAKPairs(String name, int colour, Map<String, Fluids> map) {
-        map.put(name + "_nak", new Fluids(name + "_nak", FastColor.ARGB32.lerp(0.375f, colour, 0xFFE5BC), Fluids.COOLANT_TYPE));
-        HOT_COOLANT_MAP.put(name + "_nak_hot", new Fluids(name + "_nak_hot", FastColor.ARGB32.lerp(0.2f, colour, 0xFFE5BC), Fluids.HOT_COOLANT_TYPE));
+    private static void addNAKPairs(String name, int colour, Map<String, NCFluid> map) {
+        map.put(name + "_nak", MAKER.registerFluid(name + "_nak", FastColor.ARGB32.lerp(0.375f, colour, 0xFFE5BC), NCFluid.COOLANT_TYPE));
+        HOT_COOLANT_MAP.put(name + "_nak_hot", MAKER.registerFluid(name + "_nak_hot", FastColor.ARGB32.lerp(0.2f, colour, 0xFFE5BC), NCFluid.HOT_COOLANT_TYPE));
     }
 
-    private static Map<String, Fluids> createHotGas() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("arsenic", new Fluids("arsenic", 0xFF818475, Fluids.HOT_GAS_TYPE));
-        map.put("sic_vapor", new Fluids("sic_vapor", 0xFF78746A, Fluids.HOT_GAS_TYPE));
-        map.put("fso_vapor", new Fluids("fso_vapor", 0xFF8C862E, Fluids.HOT_GAS_TYPE));
-        map.put("hodybef_vapor", new Fluids("hodybef_vapor", 0xFFA18A72, Fluids.HOT_GAS_TYPE));
+    private static Map<String, NCFluid> createHotGas() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("arsenic", MAKER.registerFluid("arsenic", 0xFF818475, NCFluid.HOT_GAS_TYPE));
+        map.put("sic_vapor", MAKER.registerFluid("sic_vapor", 0xFF78746A, NCFluid.HOT_GAS_TYPE));
+        map.put("fso_vapor", MAKER.registerFluid("fso_vapor", 0xFF8C862E, NCFluid.HOT_GAS_TYPE));
+        map.put("hodybef_vapor", MAKER.registerFluid("hodybef_vapor", 0xFFA18A72, NCFluid.HOT_GAS_TYPE));
 
         for (Triple<String, Float, Integer> triple : Arrays.asList(Triple.of("hot", 4F, 1000), Triple.of("exhaust", 2F, 800))) {
             String suffix = triple.getLeft();
             Float saturation = triple.getMiddle();
             Integer temp = triple.getRight();
 
-            map.put("oxygen_" + suffix, new Fluids("oxygen_" + suffix, ColorHelper.saturate(0xFF7E8CC8, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("hydrogen_" + suffix, new Fluids("hydrogen_" + suffix, ColorHelper.saturate(0xFFB37AC4, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("helium_" + suffix, new Fluids("helium_" + suffix, ColorHelper.saturate(0xFFC57B81, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("nitrogen_" + suffix, new Fluids("nitrogen_" + suffix, ColorHelper.saturate(0xFF7CC37B, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("fluorine_" + suffix, new Fluids("fluorine_" + suffix, ColorHelper.saturate(0xFFD3C75D, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("methane_" + suffix, new Fluids("methane_" + suffix, ColorHelper.saturate(0xFFD9AFB3, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("carbon_dioxide_" + suffix, new Fluids("carbon_dioxide_" + suffix, ColorHelper.saturate(0xFF5C635A, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("carbon_monoxide_" + suffix, new Fluids("carbon_monoxide_" + suffix, ColorHelper.saturate(0xFF4C5649, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("ethene_" + suffix, new Fluids("ethene_" + suffix, ColorHelper.saturate(0xFFFFE4A3, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("ethyne_" + suffix, new Fluids("ethyne_" + suffix, ColorHelper.saturate(0xFFFFE442, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("fluoromethane_" + suffix, new Fluids("fluoromethane_" + suffix, ColorHelper.saturate(0xFF424C05, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("ammonia_" + suffix, new Fluids("ammonia_" + suffix, ColorHelper.saturate(0xFF7AC3A0, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("diborane_" + suffix, new Fluids("diborane_" + suffix, ColorHelper.saturate(0xFFCC6E8C, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("sulfur_dioxide_" + suffix, new Fluids("sulfur_dioxide_" + suffix, ColorHelper.saturate(0xFFC3BC7A, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("sulfur_trioxide_" + suffix, new Fluids("sulfur_trioxide_" + suffix, ColorHelper.saturate(0xFFD3AE5D, saturation), Fluids.HOT_GAS_TYPE, temp));
-            map.put("sulfur_hexafluoride_" + suffix, new Fluids("sulfur_hexafluoride_" + suffix, ColorHelper.saturate(0xFFC6FC46, saturation), Fluids.HOT_GAS_TYPE, temp));
+            map.put("oxygen_" + suffix, MAKER.registerFluid("oxygen_" + suffix, ColorHelper.saturate(0xFF7E8CC8, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("hydrogen_" + suffix, MAKER.registerFluid("hydrogen_" + suffix, ColorHelper.saturate(0xFFB37AC4, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("helium_" + suffix, MAKER.registerFluid("helium_" + suffix, ColorHelper.saturate(0xFFC57B81, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("nitrogen_" + suffix, MAKER.registerFluid("nitrogen_" + suffix, ColorHelper.saturate(0xFF7CC37B, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("fluorine_" + suffix, MAKER.registerFluid("fluorine_" + suffix, ColorHelper.saturate(0xFFD3C75D, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("methane_" + suffix, MAKER.registerFluid("methane_" + suffix, ColorHelper.saturate(0xFFD9AFB3, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("carbon_dioxide_" + suffix, MAKER.registerFluid("carbon_dioxide_" + suffix, ColorHelper.saturate(0xFF5C635A, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("carbon_monoxide_" + suffix, MAKER.registerFluid("carbon_monoxide_" + suffix, ColorHelper.saturate(0xFF4C5649, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("ethene_" + suffix, MAKER.registerFluid("ethene_" + suffix, ColorHelper.saturate(0xFFFFE4A3, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("ethyne_" + suffix, MAKER.registerFluid("ethyne_" + suffix, ColorHelper.saturate(0xFFFFE442, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("fluoromethane_" + suffix, MAKER.registerFluid("fluoromethane_" + suffix, ColorHelper.saturate(0xFF424C05, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("ammonia_" + suffix, MAKER.registerFluid("ammonia_" + suffix, ColorHelper.saturate(0xFF7AC3A0, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("diborane_" + suffix, MAKER.registerFluid("diborane_" + suffix, ColorHelper.saturate(0xFFCC6E8C, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("sulfur_dioxide_" + suffix, MAKER.registerFluid("sulfur_dioxide_" + suffix, ColorHelper.saturate(0xFFC3BC7A, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("sulfur_trioxide_" + suffix, MAKER.registerFluid("sulfur_trioxide_" + suffix, ColorHelper.saturate(0xFFD3AE5D, saturation), NCFluid.HOT_GAS_TYPE, temp));
+            map.put("sulfur_hexafluoride_" + suffix, MAKER.registerFluid("sulfur_hexafluoride_" + suffix, ColorHelper.saturate(0xFFC6FC46, saturation), NCFluid.HOT_GAS_TYPE, temp));
         }
 
         return map;
     }
 
-    private static Map<String, Fluids> createFission() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("strontium_90", new Fluids("strontium_90", 0xFFB8BE88, Fluids.FISSION_TYPE));
-        map.put("molybdenum", new Fluids("molybdenum", 0xFFBCC5E4, Fluids.FISSION_TYPE));
-        map.put("ruthenium_106", new Fluids("ruthenium_106", 0xFFA3A3A3, Fluids.FISSION_TYPE));
-        map.put("caesium_137", new Fluids("caesium_137", 0xFFADADAD, Fluids.FISSION_TYPE));
-        map.put("promethium_147", new Fluids("promethium_147", 0xFF96C199, Fluids.FISSION_TYPE));
-        map.put("europium_155", new Fluids("europium_155", 0xFF74664A, Fluids.FISSION_TYPE));
+    private static Map<String, NCFluid> createFission() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("strontium_90", MAKER.registerFluid("strontium_90", 0xFFB8BE88, NCFluid.FISSION_TYPE));
+        map.put("molybdenum", MAKER.registerFluid("molybdenum", 0xFFBCC5E4, NCFluid.FISSION_TYPE));
+        map.put("ruthenium_106", MAKER.registerFluid("ruthenium_106", 0xFFA3A3A3, NCFluid.FISSION_TYPE));
+        map.put("caesium_137", MAKER.registerFluid("caesium_137", 0xFFADADAD, NCFluid.FISSION_TYPE));
+        map.put("promethium_147", MAKER.registerFluid("promethium_147", 0xFF96C199, NCFluid.FISSION_TYPE));
+        map.put("europium_155", MAKER.registerFluid("europium_155", 0xFF74664A, NCFluid.FISSION_TYPE));
         return map;
     }
 
-    private static Map<String, Fluids> createSoul() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
-        map.put("soul", new Fluids("soul", 0xFF7B6F68, Fluids.SOUL_TYPE));
-        map.put("mysterious_soul", new Fluids("mysterious_soul", 0xFF985CA4, Fluids.MYSTERIOUS_SOUL_TYPE));
+    private static Map<String, NCFluid> createSoul() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
+        map.put("soul", MAKER.registerFluid("soul", 0xFF7B6F68, NCFluid.SOUL_TYPE));
+        map.put("mysterious_soul", MAKER.registerFluid("mysterious_soul", 0xFF985CA4, NCFluid.MYSTERIOUS_SOUL_TYPE));
         return map;
     }
 
-    private static Map<String, Fluids> createFissionFuel() {
-        Map<String, Fluids> map = new java.util.HashMap<>();
+    private static Map<String, NCFluid> createFissionFuel() {
+        Map<String, NCFluid> map = new java.util.HashMap<>();
 
         // Isotopes
-        map.put("uranium_233", new Fluids("uranium_233", 0xFF212E20, Fluids.MOLTEN_TYPE));
-        map.put("uranium_235", new Fluids("uranium_235", 0xFF102D10, Fluids.MOLTEN_TYPE));
-        map.put("uranium_238", new Fluids("uranium_238", 0xFF333E32, Fluids.MOLTEN_TYPE));
-        map.put("neptunium_236", new Fluids("neptunium_236", 0xFF293E40, Fluids.MOLTEN_TYPE));
-        map.put("neptunium_237", new Fluids("neptunium_237", 0xFF2E3A42, Fluids.MOLTEN_TYPE));
-        map.put("plutonium_238", new Fluids("plutonium_238", 0xFF999999, Fluids.MOLTEN_TYPE));
-        map.put("plutonium_239", new Fluids("plutonium_239", 0xFF9E9E9E, Fluids.MOLTEN_TYPE));
-        map.put("plutonium_241", new Fluids("plutonium_241", 0xFF909090, Fluids.MOLTEN_TYPE));
-        map.put("plutonium_242", new Fluids("plutonium_242", 0xFFABABAB, Fluids.MOLTEN_TYPE));
-        map.put("americium_241", new Fluids("americium_241", 0xFF393725, Fluids.MOLTEN_TYPE));
-        map.put("americium_242", new Fluids("americium_242", 0xFF332D1A, Fluids.MOLTEN_TYPE));
-        map.put("americium_243", new Fluids("americium_243", 0xFF2C280C, Fluids.MOLTEN_TYPE));
-        map.put("curium_243", new Fluids("curium_243", 0xFF311137, Fluids.MOLTEN_TYPE));
-        map.put("curium_245", new Fluids("curium_245", 0xFF2D102D, Fluids.MOLTEN_TYPE));
-        map.put("curium_246", new Fluids("curium_246", 0xFF3F2442, Fluids.MOLTEN_TYPE));
-        map.put("curium_247", new Fluids("curium_247", 0xFF321635, Fluids.MOLTEN_TYPE));
-        map.put("berkelium_247", new Fluids("berkelium_247", 0xFF5A2301, Fluids.MOLTEN_TYPE));
-        map.put("berkelium_248", new Fluids("berkelium_248", 0xFF602502, Fluids.MOLTEN_TYPE));
-        map.put("californium_249", new Fluids("californium_249", 0xFF460D12, Fluids.MOLTEN_TYPE));
-        map.put("californium_250", new Fluids("californium_250", 0xFF3E0C14, Fluids.MOLTEN_TYPE));
-        map.put("californium_251", new Fluids("californium_251", 0xFF3B0B16, Fluids.MOLTEN_TYPE));
-        map.put("californium_252", new Fluids("californium_252", 0xFF430B0E, Fluids.MOLTEN_TYPE));
+        map.put("uranium_233", MAKER.registerFluid("uranium_233", 0xFF212E20, NCFluid.MOLTEN_TYPE));
+        map.put("uranium_235", MAKER.registerFluid("uranium_235", 0xFF102D10, NCFluid.MOLTEN_TYPE));
+        map.put("uranium_238", MAKER.registerFluid("uranium_238", 0xFF333E32, NCFluid.MOLTEN_TYPE));
+        map.put("neptunium_236", MAKER.registerFluid("neptunium_236", 0xFF293E40, NCFluid.MOLTEN_TYPE));
+        map.put("neptunium_237", MAKER.registerFluid("neptunium_237", 0xFF2E3A42, NCFluid.MOLTEN_TYPE));
+        map.put("plutonium_238", MAKER.registerFluid("plutonium_238", 0xFF999999, NCFluid.MOLTEN_TYPE));
+        map.put("plutonium_239", MAKER.registerFluid("plutonium_239", 0xFF9E9E9E, NCFluid.MOLTEN_TYPE));
+        map.put("plutonium_241", MAKER.registerFluid("plutonium_241", 0xFF909090, NCFluid.MOLTEN_TYPE));
+        map.put("plutonium_242", MAKER.registerFluid("plutonium_242", 0xFFABABAB, NCFluid.MOLTEN_TYPE));
+        map.put("americium_241", MAKER.registerFluid("americium_241", 0xFF393725, NCFluid.MOLTEN_TYPE));
+        map.put("americium_242", MAKER.registerFluid("americium_242", 0xFF332D1A, NCFluid.MOLTEN_TYPE));
+        map.put("americium_243", MAKER.registerFluid("americium_243", 0xFF2C280C, NCFluid.MOLTEN_TYPE));
+        map.put("curium_243", MAKER.registerFluid("curium_243", 0xFF311137, NCFluid.MOLTEN_TYPE));
+        map.put("curium_245", MAKER.registerFluid("curium_245", 0xFF2D102D, NCFluid.MOLTEN_TYPE));
+        map.put("curium_246", MAKER.registerFluid("curium_246", 0xFF3F2442, NCFluid.MOLTEN_TYPE));
+        map.put("curium_247", MAKER.registerFluid("curium_247", 0xFF321635, NCFluid.MOLTEN_TYPE));
+        map.put("berkelium_247", MAKER.registerFluid("berkelium_247", 0xFF5A2301, NCFluid.MOLTEN_TYPE));
+        map.put("berkelium_248", MAKER.registerFluid("berkelium_248", 0xFF602502, NCFluid.MOLTEN_TYPE));
+        map.put("californium_249", MAKER.registerFluid("californium_249", 0xFF460D12, NCFluid.MOLTEN_TYPE));
+        map.put("californium_250", MAKER.registerFluid("californium_250", 0xFF3E0C14, NCFluid.MOLTEN_TYPE));
+        map.put("californium_251", MAKER.registerFluid("californium_251", 0xFF3B0B16, NCFluid.MOLTEN_TYPE));
+        map.put("californium_252", MAKER.registerFluid("californium_252", 0xFF430B0E, NCFluid.MOLTEN_TYPE));
 
         // Fuels
         addFuelFluids("tbu", 0xFF272727, map);
@@ -452,10 +457,10 @@ public class FluidRegistration {
         return map;
     }
 
-    public static void addFuelFluids(String name, int color, Map<String, Fluids> map) {
-        map.put(name, new Fluids(name, color, Fluids.MOLTEN_TYPE));
-        map.put(name + "_fluoride", new Fluids(name + "_fluoride", FastColor.ARGB32.lerp(0.125f, color, 0xFFD3C85D), Fluids.MOLTEN_TYPE));
-        map.put(name + "_fluoride_flibe", new Fluids(name + "_fluoride_flibe", FastColor.ARGB32.lerp(0.4f, color, 0xFFC1C8B0), Fluids.MOLTEN_TYPE));
+    public static void addFuelFluids(String name, int color, Map<String, NCFluid> map) {
+        map.put(name, MAKER.registerFluid(name, color, NCFluid.MOLTEN_TYPE));
+        map.put(name + "_fluoride", MAKER.registerFluid(name + "_fluoride", FastColor.ARGB32.lerp(0.125f, color, 0xFFD3C85D), NCFluid.MOLTEN_TYPE));
+        map.put(name + "_fluoride_flibe", MAKER.registerFluid(name + "_fluoride_flibe", FastColor.ARGB32.lerp(0.4f, color, 0xFFC1C8B0), NCFluid.MOLTEN_TYPE));
     }
 
     public static void init() {

@@ -11,7 +11,7 @@ import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.config.ModConfigScreen;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import com.nred.nuclearcraft.model.FeralGhoulModel;
 import com.nred.nuclearcraft.radiation.RadiationRenders;
 import com.nred.nuclearcraft.render.BlockHighlightHandler;
@@ -58,16 +58,23 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void fluidLoad(RegisterClientExtensionsEvent event) {
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+        for (NCFluid fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             event.registerFluidType(fluid.client, fluid.type);
         }
     }
 
     @SubscribeEvent
     public static void fluidColoring(final FMLClientSetupEvent event) {
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+        for (NCFluid fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             ItemBlockRenderTypes.setRenderLayer(fluid.still.get(), RenderType.TRANSLUCENT);
             ItemBlockRenderTypes.setRenderLayer(fluid.flowing.get(), RenderType.TRANSLUCENT);
+        }
+    }
+
+    @SubscribeEvent
+    public static void bucketColoring(RegisterColorHandlersEvent.Item event) {
+        for (NCFluid fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+            event.register(((stack, tintIndex) -> tintIndex == 0 ? -1 : fluid.client.getTintColor()), fluid.bucket.asItem());
         }
     }
 
@@ -84,13 +91,6 @@ public class ClientSetup {
         BlockEntityRenderers.register((BlockEntityType<QuantumComputerQubitEntity>) QUANTUM_ENTITY_TYPE.get("quantum_computer_qubit").get(), QuantumComputerQubitRender::new);
 
         EntityRenderers.register(FERAL_GHOUL.get(), FeralGhoulRender::new);
-    }
-
-    @SubscribeEvent
-    public static void bucketColoring(RegisterColorHandlersEvent.Item event) {
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
-            event.register(((stack, tintIndex) -> tintIndex == 0 ? -1 : fluid.client.getTintColor()), fluid.bucket.asItem());
-        }
     }
 
     @SubscribeEvent

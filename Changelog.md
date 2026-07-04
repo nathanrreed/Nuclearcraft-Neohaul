@@ -1,3 +1,4 @@
-- Fixed machines stopping processing after one recipe
-- Fixed machines not using items
-- Fixed infiltrator crash
+- Fixed missing advancement translations
+- Fixed EMI not having chance ingredients
+- Fixed some fluids not being opaque when they should be
+- Fixed turbine rendering issues

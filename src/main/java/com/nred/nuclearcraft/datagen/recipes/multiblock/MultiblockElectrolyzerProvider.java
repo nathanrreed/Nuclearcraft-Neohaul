@@ -7,7 +7,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 
 import java.util.List;
 
-import static com.nred.nuclearcraft.info.Fluids.sizedIngredient;
+import static com.nred.nuclearcraft.info.NCFluid.sizedIngredient;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 
 public class MultiblockElectrolyzerProvider {
