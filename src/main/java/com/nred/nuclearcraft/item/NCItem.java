@@ -25,8 +25,12 @@ public class NCItem extends Item {
         }
     }
 
+    public NCItem(Properties properties, boolean hasShiftTooltips, List<String> tooltips) {
+        this(properties, tooltips.stream().map(tooltip -> Component.translatable(tooltip).withStyle(ChatFormatting.AQUA)).toList(), hasShiftTooltips);
+    }
+
     public NCItem(Properties properties, List<String> tooltips) {
-        this(properties, tooltips.stream().map(tooltip -> Component.translatable(tooltip).withStyle(ChatFormatting.AQUA)).toList(), false);
+        this(properties, false, tooltips);
     }
 
     public NCItem(Properties properties) {

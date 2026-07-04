@@ -20,7 +20,6 @@ import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.config.NCServerConfig.create_bearing_max_stress;
 import static com.nred.nuclearcraft.registration.CreativeTabsRegistration.MULTIBLOCKS_TAB;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class CreateRegistration {
     private static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
@@ -40,7 +39,6 @@ public class CreateRegistration {
         CREATE_TURBINE_ROTOR_BEARING = REGISTRATE.block("create_turbine_rotor_bearing", GeneratingKineticTurbineRotorBearingBlock::new)
                 .initialProperties(SharedProperties::stone)
                 .properties(BlockBehaviour.Properties::forceSolidOn)
-                .transform(pickaxeOnly())
                 .blockstate(new GeneratingKineticTurbineRotorGenerator()::generate)
                 .onRegister(BlockStressValues.setGeneratorSpeed(256, true))
                 .onRegister(block -> BlockStressValues.CAPACITIES.register(block, () -> create_bearing_max_stress))

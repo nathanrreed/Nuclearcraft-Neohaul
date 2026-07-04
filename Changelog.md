@@ -1,5 +1,1 @@
-- Fixed missing advancement translations
-- Fixed EMI not having chance ingredients
-- Fixed some fluids not being opaque when they should be
-- Fixed turbine rendering issues
-- Fixed create piston crash
+- Fixed minable pickaxe tag being broken
