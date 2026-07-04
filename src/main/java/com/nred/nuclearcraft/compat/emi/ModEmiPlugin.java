@@ -1,7 +1,7 @@
 package com.nred.nuclearcraft.compat.emi;
 
 import com.nred.nuclearcraft.compat.emi.EmiRecipeViewerImpl.*;
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
 import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
 import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
@@ -126,7 +126,7 @@ public class ModEmiPlugin implements EmiPlugin {
     public void register(EmiRegistry registry) {
         RecipeManager manager = registry.getRecipeManager();
 
-        for (Map.Entry<String, Fluids> entry : fluidEntries(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FUEL_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
+        for (Map.Entry<String, NCFluid> entry : fluidEntries(GAS_MAP, MOLTEN_MAP, CUSTOM_FLUID_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FUEL_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, SOUL_MAP, FLAMMABLE_MAP, HOT_COOLANT_MAP, COOLANT_MAP, FISSION_FUEL_MAP)) {
             registry.addEmiStack(EmiStack.of(entry.getValue().bucket));
         }
 
@@ -182,7 +182,6 @@ public class ModEmiPlugin implements EmiPlugin {
             registry.addRecipe(new EmiBasicInfoRecipe(List.of(EmiStack.of(fluidStack.getFluid())), EMI_CONDENSER_DISSIPATION_CATEGORY, ncLoc("/condenser_dissipation/" + fluidStack.getDescriptionId()), () -> ClientTooltipComponent.create(CONDENSER_DISSIPATION_TOOLTIP.apply(fluidStack).getVisualOrderText())));
         }
 
-
         addCategory(registry, manager, EMI_IRRADIATOR_CATEGORY, IRRADIATOR_WORKSTATION, FISSION_IRRADIATOR_RECIPE_TYPE.get(), EmiFissionIrradiatorRecipe::new);
         addCategory(registry, manager, EMI_SOLID_FISSION_CATEGORY, List.of(SOLID_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_fuel_cell"))), SOLID_FISSION_RECIPE_TYPE.get(), EmiSolidFissionRecipe::new);
         addCategory(registry, manager, EMI_SALT_FISSION_CATEGORY, List.of(SALT_FISSION_WORKSTATION, EmiStack.of(FISSION_REACTOR_MAP.get("fission_fuel_vessel"))), SALT_FISSION_RECIPE_TYPE.get(), EmiSaltFissionRecipe::new);
@@ -215,11 +214,11 @@ public class ModEmiPlugin implements EmiPlugin {
     }
 
     public static EmiStack getEmiFluidStack(SizedChanceFluidIngredient fluidIngredient) {
-        return EmiStack.of(fluidIngredient.getStack().getFluid(), fluidIngredient.amount());
+        return EmiStack.of(fluidIngredient.getStackRaw().getFluid(), fluidIngredient.amount());
     }
 
     public static EmiStack getEmiItemStack(SizedChanceItemIngredient itemIngredient) {
-        return EmiStack.of(itemIngredient.getStack());
+        return EmiStack.of(itemIngredient.getStackRaw());
     }
 
     private void addWorkstations(EmiRegistry registry, EmiRecipeCategory category, List<EmiStack> stacks) {
@@ -242,6 +241,7 @@ public class ModEmiPlugin implements EmiPlugin {
         createDataMapCategory(registry, BuiltInRegistries.FLUID.getDataMap(dataMapType).entrySet(), name, EmiStack.of(icon), List.of(EmiStack.of(icon)), (e) -> EmiStack.of(Objects.requireNonNull(BuiltInRegistries.FLUID.get(e.getKey()))), tooltip);
     }
 
+    @SuppressWarnings("unchecked")
     private <T, R, S> void createDataMapCategory(EmiRegistry registry, Set<Map.Entry<ResourceKey<T>, R>> entrySet, String name, EmiStack icon, List<EmiStack> workStations, Function<Map.Entry<ResourceKey<T>, R>, EmiStack> toEmiStack, Function<S, Component> tooltip) {
         if (entrySet.isEmpty()) return;
         EmiRecipeCategory category = new EmiRecipeCategory(ncLoc(name), icon);

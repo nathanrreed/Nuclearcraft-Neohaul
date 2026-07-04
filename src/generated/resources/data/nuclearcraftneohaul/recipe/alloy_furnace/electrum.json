@@ -1,0 +1,47 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/electrum"
+      }
+    }
+  ],
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "tag": "c:ingots/gold"
+        },
+        {
+          "tag": "c:dusts/gold"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "tag": "c:ingots/silver"
+        },
+        {
+          "tag": "c:dusts/silver"
+        }
+      ]
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 2,
+      "ingredient": {
+        "tag": "c:ingots/electrum"
+      }
+    }
+  ],
+  "powerModifier": 0.5,
+  "radiation": 0.0,
+  "timeModifier": 1.0
+}

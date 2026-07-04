@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes.processor;
 
+import com.nred.nuclearcraft.info.NCFluid;
 import com.nred.nuclearcraft.recipe.ProcessorRecipeBuilder;
 import com.nred.nuclearcraft.recipe.processor.MelterRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -21,11 +22,11 @@ import static com.nred.nuclearcraft.util.FluidStackHelper.*;
 
 
 public class MelterProvider {
-    public void createSet(RecipeOutput recipeOutput, String name, Map<String, com.nred.nuclearcraft.info.Fluids> map) {
+    public void createSet(RecipeOutput recipeOutput, String name, Map<String, NCFluid> map) {
         createSet(recipeOutput, name, map, name);
     }
 
-    public void createSet(RecipeOutput recipeOutput, String name, Map<String, com.nred.nuclearcraft.info.Fluids> map, String result) {
+    public void createSet(RecipeOutput recipeOutput, String name, Map<String, NCFluid> map, String result) {
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(tag(Tags.Items.INGOTS, name), 1).addFluidResult(map.get(result), INGOT_VOLUME).save(recipeOutput, "molten_" + name);
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(tag(Tags.Items.DUSTS, name), 1).addFluidResult(map.get(result), INGOT_VOLUME).save(recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag(Tags.Items.DUSTS, name)))), "molten_" + name + "_from_dust");
         new ProcessorRecipeBuilder(MelterRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, name), 1).addFluidResult(map.get(result), 33, INGOT_VOLUME * 2, INGOT_VOLUME, INGOT_VOLUME / 4).save(recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag(Tags.Items.RAW_MATERIALS, name)))), "molten_" + name + "_from_raw");

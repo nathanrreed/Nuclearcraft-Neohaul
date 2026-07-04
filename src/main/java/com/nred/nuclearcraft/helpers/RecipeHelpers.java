@@ -1,24 +1,21 @@
 package com.nred.nuclearcraft.helpers;
 
 import com.nred.nuclearcraft.recipe.SizedChanceItemIngredient;
-import dev.emi.emi.api.stack.EmiIngredient;
-import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeHelpers {
@@ -28,6 +25,18 @@ public class RecipeHelpers {
 
     public static @NotNull SizedChanceItemIngredient ingotDust(String input, int count) {
         return tags(List.of(tag(Tags.Items.INGOTS, input), tag(Tags.Items.DUSTS, input)), count);
+    }
+
+    public static @NotNull SizedChanceItemIngredient nugget(String input, int count) {
+        return SizedChanceItemIngredient.of(tag(Tags.Items.NUGGETS, input), count);
+    }
+
+    public static @NotNull SizedChanceItemIngredient ingot(String input, int count) {
+        return SizedChanceItemIngredient.of(tag(Tags.Items.INGOTS, input), count);
+    }
+
+    public static @NotNull SizedChanceItemIngredient gem(String input, int count) {
+        return SizedChanceItemIngredient.of(tag(Tags.Items.GEMS, input), count);
     }
 
     public static @NotNull SizedChanceItemIngredient gemDust(String input, int count) {
@@ -42,8 +51,28 @@ public class RecipeHelpers {
         return ItemTags.create(tag.location().withSuffix("/" + name));
     }
 
+    public static RecipeOutput ingotExists(RecipeOutput recipeOutput, String name) {
+        return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag(Tags.Items.INGOTS, name))));
+    }
+
+    public static RecipeOutput gemExists(RecipeOutput recipeOutput, String name) {
+        return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag(Tags.Items.GEMS, name))));
+    }
+
+    public static RecipeOutput dustExists(RecipeOutput recipeOutput, String name) {
+        return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag(Tags.Items.DUSTS, name))));
+    }
+
     public static RecipeOutput tagExists(RecipeOutput recipeOutput, TagKey<Item> tag) {
         return recipeOutput.withConditions(new NotCondition(new TagEmptyCondition(tag)));
+    }
+
+    public static RecipeOutput qmdLoaded(RecipeOutput recipeOutput) {
+        return recipeOutput.withConditions(new ModLoadedCondition("qmd"));
+    }
+
+    public static RecipeOutput qmdNotLoaded(RecipeOutput recipeOutput) {
+        return recipeOutput.withConditions(new NotCondition(new ModLoadedCondition("qmd")));
     }
 
     @SafeVarargs
@@ -60,16 +89,5 @@ public class RecipeHelpers {
 
     public static TagKey<Fluid> fluidTag(TagKey<Fluid> tag, String name) {
         return FluidTags.create(tag.location().withSuffix("/" + name));
-    }
-
-    public static List<EmiIngredient> removeBarriers(List<EmiIngredient> itemInputs) {
-        ArrayList<EmiIngredient> list = new ArrayList<>();
-        for (EmiIngredient ingredient : itemInputs) {
-            List<EmiStack> stacks = ingredient.getEmiStacks().stream().filter(emiStack -> !emiStack.getItemStack().is(Items.BARRIER)).map(emiStack -> emiStack.setAmount(ingredient.getAmount())).toList();
-            if (!stacks.isEmpty()) {
-                list.add(EmiIngredient.of(stacks));
-            }
-        }
-        return list;
     }
 }

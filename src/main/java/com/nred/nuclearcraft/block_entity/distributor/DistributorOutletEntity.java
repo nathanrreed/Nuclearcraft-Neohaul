@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -69,7 +70,7 @@ public class DistributorOutletEntity extends AbstractDistributorEntity implement
     }
 
     @Override
-    public ItemStack removeItem(int slot, int amount) {
+    public @NonNull ItemStack removeItem(int slot, int amount) {
         ItemStack stack = ITileInventory.super.removeItem(slot, amount);
         if (!stack.isEmpty()) {
             Distributor multiblock = getMultiblockController().orElse(null);
@@ -81,7 +82,7 @@ public class DistributorOutletEntity extends AbstractDistributorEntity implement
     }
 
     @Override
-    public ItemStack removeItemNoUpdate(int slot) {
+    public @NonNull ItemStack removeItemNoUpdate(int slot) {
         ItemStack stack = ITileInventory.super.removeItemNoUpdate(slot);
         if (!stack.isEmpty()) {
             Distributor multiblock = getMultiblockController().orElse(null);

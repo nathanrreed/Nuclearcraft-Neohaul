@@ -25,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.jspecify.annotations.NonNull;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -253,7 +254,7 @@ public class MachineProcessPortEntity extends AbstractMachineEntity implements I
     }
 
     @Override
-    public ItemStack removeItem(int slot, int amount) {
+    public @NonNull ItemStack removeItem(int slot, int amount) {
         ItemStack stack = ITileInventory.super.removeItem(slot, amount);
         if (!getTileWorld().isClientSide()) {
             if (this.slot < 0) {

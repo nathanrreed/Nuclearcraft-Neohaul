@@ -36,6 +36,7 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends BlockEntityMenuInfo<TILE> {
     public final String recipeHandlerName;
+    public final ResourceLocation frontTexture;
 
     public final int itemInputSize;
     public final int fluidInputSize;
@@ -125,6 +126,14 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
         super(builder.name, builder.tileClass, builder.menuFunction);
 
         this.recipeHandlerName = builder.recipeHandlerName;
+
+        if (builder.frontTexture != null) {
+            frontTexture = builder.frontTexture;
+        } else if (name.contains(":")) {
+            frontTexture = ResourceLocation.parse(name).withPrefix("block/");
+        } else {
+            frontTexture = ncLoc("block/processor/" + name + "_front");
+        }
 
         itemInputSize = builder.itemInputGuiXYWH.size();
         fluidInputSize = builder.fluidInputGuiXYWH.size();
@@ -329,5 +338,9 @@ public abstract class ProcessorMenuInfo<TILE extends BlockEntity & IProcessor<TI
 
     public long getEnergyCapacity(double speedMultiplier, double powerMultiplier) {
         return (long) (Math.ceil(maxBaseProcessTime / speedMultiplier) * Math.ceil(maxBaseProcessPower * powerMultiplier));
+    }
+
+    public ResourceLocation getFrontTexture() {
+        return this.frontTexture;
     }
 }

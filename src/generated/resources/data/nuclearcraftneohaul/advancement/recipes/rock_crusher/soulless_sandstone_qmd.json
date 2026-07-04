@@ -9,7 +9,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nuclearcraftneohaul:rock_crusher/qmd"
+        "recipe": "nuclearcraftneohaul:rock_crusher/soulless_sandstone_qmd"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,7 +21,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nuclearcraftneohaul:rock_crusher/qmd"
+      "nuclearcraftneohaul:rock_crusher/soulless_sandstone_qmd"
     ]
   }
 }

@@ -35,6 +35,9 @@ public class ModFluidTagProvider extends FluidTagsProvider {
     public static final TagKey<Fluid> ARGON_TAG = FluidTags.create(ResourceLocation.parse("c:argon"));
     public static final TagKey<Fluid> NEON_TAG = FluidTags.create(ResourceLocation.parse("c:neon"));
 
+    public static final TagKey<Fluid> SULFURIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:sulfuric_acid"));
+
+
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         tag(CRYOTHEUM_TAG).add(CUSTOM_FLUID_MAP.get("cryotheum").still.get());
@@ -44,5 +47,7 @@ public class ModFluidTagProvider extends FluidTagsProvider {
         for (String gas : GAS_COOLANTS) {
             tag(FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", gas))).add(GAS_MAP.get(gas).still.get());
         }
+
+        tag(SULFURIC_ACID_TAG).add(ACID_MAP.get("sulfuric_acid").still.get());
     }
 }

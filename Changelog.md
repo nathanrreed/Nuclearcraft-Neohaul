@@ -1,1 +1,4 @@
-- Fixed Machine frame and glass not connection with CTM
+- Fixed missing advancement translations
+- Fixed EMI not having chance ingredients
+- Fixed some fluids not being opaque when they should be
+- Fixed turbine rendering issues

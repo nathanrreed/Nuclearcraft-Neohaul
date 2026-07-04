@@ -6,7 +6,7 @@ import com.nred.nuclearcraft.recipe.fission.FissionHeatingRecipe;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.level.material.Fluids;
 
-import static com.nred.nuclearcraft.info.Fluids.sizedIngredient;
+import static com.nred.nuclearcraft.info.NCFluid.sizedIngredient;
 import static com.nred.nuclearcraft.info.Names.COOLANTS;
 import static com.nred.nuclearcraft.info.Names.GAS_COOLANTS;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;

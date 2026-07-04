@@ -54,9 +54,9 @@ public class ManufactoryRecipeProvider {
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.INGOTS, "copper"), 1).addItemResult(COPPER_DUST, 1).save(recipeOutput, "copper_dust_from_ingot");
 
         for (String raw : RAW_MAP.keySet()) {
-            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, raw), 1).addItemResult(DUST_MAP.get(raw), 33, 2, 1).save(recipeOutput, raw + "_dust_from_raw");
+            new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, raw), 1).addItemResult(DUST_MAP.get(raw), 2, 33, 1).save(recipeOutput, raw + "_dust_from_raw");
         }
-        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, "copper"), 1).addItemResult(COPPER_DUST, 33, 2, 1).save(recipeOutput, "copper_dust_from_raw");
+        new ProcessorRecipeBuilder(ManufactoryRecipe.class, 1, 1).addItemInput(tag(Tags.Items.RAW_MATERIALS, "copper"), 1).addItemResult(COPPER_DUST, 2, 33, 1).save(recipeOutput, "copper_dust_from_raw");
 
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.25, 0.5).addItemInput(ItemTags.PLANKS, 1).addItemResult(Items.STICK, 4).save(recipeOutput);
         new ProcessorRecipeBuilder(ManufactoryRecipe.class, 0.5, 0.5).addItemInput(ItemTags.ACACIA_LOGS, 1).addItemResult(Blocks.ACACIA_PLANKS, 6).save(recipeOutput, "acacia_planks_from_logs");

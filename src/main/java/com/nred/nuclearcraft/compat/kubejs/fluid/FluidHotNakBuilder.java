@@ -6,7 +6,7 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.neoforged.neoforge.fluids.FluidType;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
-import static com.nred.nuclearcraft.info.Fluids.HOT_COOLANT_TYPE;
+import static com.nred.nuclearcraft.info.NCFluid.HOT_COOLANT_TYPE;
 
 public class FluidHotNakBuilder extends FluidNakBuilder {
     public FluidHotNakBuilder(ResourceLocation i) {

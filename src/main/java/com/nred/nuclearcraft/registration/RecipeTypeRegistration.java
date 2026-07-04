@@ -24,26 +24,26 @@ public class RecipeTypeRegistration {
 
     public static final DeferredHolder<RecipeType<?>, RecipeType<CollectorRecipe>> COLLECTOR_RECIPE_TYPE = register("collector");
 
-public static final DeferredHolder<RecipeType<?>, RecipeType<AlloyFurnaceRecipe>>    ALLOY_FURNACE_RECIPE_TYPE    = register("alloy_furnace");
-public static final DeferredHolder<RecipeType<?>, RecipeType<AssemblerRecipe>>       ASSEMBLER_RECIPE_TYPE        = register("assembler");
-public static final DeferredHolder<RecipeType<?>, RecipeType<CentrifugeRecipe>>      CENTRIFUGE_RECIPE_TYPE       = register("centrifuge");
-public static final DeferredHolder<RecipeType<?>, RecipeType<ChemicalReactorRecipe>> CHEMICAL_REACTOR_RECIPE_TYPE = register("chemical_reactor");
-public static final DeferredHolder<RecipeType<?>, RecipeType<CrystallizerRecipe>>    CRYSTALLIZER_RECIPE_TYPE     = register("crystallizer");
-public static final DeferredHolder<RecipeType<?>, RecipeType<DecayHastenerRecipe>>   DECAY_HASTENER_RECIPE_TYPE   = register("decay_hastener");
-public static final DeferredHolder<RecipeType<?>, RecipeType<ElectricFurnaceRecipe>> ELECTRIC_FURNACE_RECIPE_TYPE = register("electric_furnace");
-public static final DeferredHolder<RecipeType<?>, RecipeType<ElectrolyzerRecipe>>    ELECTROLYZER_RECIPE_TYPE     = register("electrolyzer");
-public static final DeferredHolder<RecipeType<?>, RecipeType<FluidEnricherRecipe>>   FLUID_ENRICHER_RECIPE_TYPE   = register("fluid_enricher");
-public static final DeferredHolder<RecipeType<?>, RecipeType<FluidExtractorRecipe>>  FLUID_EXTRACTOR_RECIPE_TYPE  = register("fluid_extractor");
-public static final DeferredHolder<RecipeType<?>, RecipeType<FluidInfuserRecipe>>    FLUID_INFUSER_RECIPE_TYPE    = register("fluid_infuser");
-public static final DeferredHolder<RecipeType<?>, RecipeType<FluidMixerRecipe>>      FLUID_MIXER_RECIPE_TYPE      = register("fluid_mixer");
-public static final DeferredHolder<RecipeType<?>, RecipeType<FuelReprocessorRecipe>> FUEL_REPROCESSOR_RECIPE_TYPE = register("fuel_reprocessor");
-public static final DeferredHolder<RecipeType<?>, RecipeType<IngotFormerRecipe>>     INGOT_FORMER_RECIPE_TYPE     = register("ingot_former");
-public static final DeferredHolder<RecipeType<?>, RecipeType<ManufactoryRecipe>>     MANUFACTORY_RECIPE_TYPE      = register("manufactory");
-public static final DeferredHolder<RecipeType<?>, RecipeType<MelterRecipe>>          MELTER_RECIPE_TYPE           = register("melter");
-public static final DeferredHolder<RecipeType<?>, RecipeType<PressurizerRecipe>>     PRESSURIZER_RECIPE_TYPE      = register("pressurizer");
-public static final DeferredHolder<RecipeType<?>, RecipeType<RockCrusherRecipe>>     ROCK_CRUSHER_RECIPE_TYPE     = register("rock_crusher");
-public static final DeferredHolder<RecipeType<?>, RecipeType<SeparatorRecipe>>       SEPARATOR_RECIPE_TYPE        = register("separator");
-public static final DeferredHolder<RecipeType<?>, RecipeType<SupercoolerRecipe>>     SUPERCOOLER_RECIPE_TYPE      = register("supercooler");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<AlloyFurnaceRecipe>> ALLOY_FURNACE_RECIPE_TYPE = register("alloy_furnace");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<AssemblerRecipe>> ASSEMBLER_RECIPE_TYPE = register("assembler");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CentrifugeRecipe>> CENTRIFUGE_RECIPE_TYPE = register("centrifuge");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ChemicalReactorRecipe>> CHEMICAL_REACTOR_RECIPE_TYPE = register("chemical_reactor");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CrystallizerRecipe>> CRYSTALLIZER_RECIPE_TYPE = register("crystallizer");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<DecayHastenerRecipe>> DECAY_HASTENER_RECIPE_TYPE = register("decay_hastener");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ElectricFurnaceRecipe>> ELECTRIC_FURNACE_RECIPE_TYPE = register("electric_furnace");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ElectrolyzerRecipe>> ELECTROLYZER_RECIPE_TYPE = register("electrolyzer");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FluidEnricherRecipe>> FLUID_ENRICHER_RECIPE_TYPE = register("fluid_enricher");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FluidExtractorRecipe>> FLUID_EXTRACTOR_RECIPE_TYPE = register("fluid_extractor");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FluidInfuserRecipe>> FLUID_INFUSER_RECIPE_TYPE = register("fluid_infuser");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FluidMixerRecipe>> FLUID_MIXER_RECIPE_TYPE = register("fluid_mixer");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FuelReprocessorRecipe>> FUEL_REPROCESSOR_RECIPE_TYPE = register("fuel_reprocessor");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<IngotFormerRecipe>> INGOT_FORMER_RECIPE_TYPE = register("ingot_former");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<ManufactoryRecipe>> MANUFACTORY_RECIPE_TYPE = register("manufactory");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<MelterRecipe>> MELTER_RECIPE_TYPE = register("melter");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<PressurizerRecipe>> PRESSURIZER_RECIPE_TYPE = register("pressurizer");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<RockCrusherRecipe>> ROCK_CRUSHER_RECIPE_TYPE = register("rock_crusher");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<SeparatorRecipe>> SEPARATOR_RECIPE_TYPE = register("separator");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<SupercoolerRecipe>> SUPERCOOLER_RECIPE_TYPE = register("supercooler");
 
     public static final HashMap<String, DeferredHolder<RecipeType<?>, RecipeType<ProcessorRecipeDyn>>> _PROCESSOR_RECIPE_DYN_TYPES = new HashMap<>();
     public static final Map<String, DeferredHolder<RecipeType<?>, RecipeType<ProcessorRecipeDyn>>> PROCESSOR_RECIPE_DYN_TYPES = Collections.synchronizedMap(_PROCESSOR_RECIPE_DYN_TYPES);

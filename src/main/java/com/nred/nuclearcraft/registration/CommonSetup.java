@@ -8,7 +8,7 @@ import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.handler.EntityHandler;
 import com.nred.nuclearcraft.handler.ItemUseHandler;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import com.nred.nuclearcraft.item.MultitoolItem;
 import com.nred.nuclearcraft.multiblock.PlacementRule;
 import com.nred.nuclearcraft.ncpf.NCPFWriter;
@@ -78,17 +78,21 @@ public class CommonSetup {
         SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, NuclearWastelandBiome.makeRules());
 
         // Add Fluid Mixing
-        for (Fluids fluid : fluidValues(GAS_MAP, MOLTEN_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, SOUL_MAP, HOT_COOLANT_MAP, COOLANT_MAP, CUSTOM_FLUID_MAP, FISSION_FUEL_MAP)) { // TODO add custom coolants
-            if (fluid.block.get().getSourceMixingState() != null && fluid.block.get().getFlowingMixingState() != null) {
-                FluidInteractionRegistry.addInteraction(fluid.type.value(), new FluidInteractionRegistry.InteractionInformation(
-                        NeoForgeMod.WATER_TYPE.value(),
-                        fluidState -> fluidState.isSource() ? fluid.block.get().getSourceMixingState() : fluid.block.get().getFlowingMixingState()));
-            }
-            if (fluid.block.get().getFlowingIntoWaterState() != null) {
-                FluidInteractionRegistry.addInteraction(NeoForgeMod.WATER_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
-                        fluid.type.value(),
-                        fluidState -> fluid.block.get().getFlowingIntoWaterState()));
-            }
+        for (NCFluid fluid : fluidValues(GAS_MAP, MOLTEN_MAP, HOT_GAS_MAP, SUGAR_MAP, CHOCOLATE_MAP, FISSION_FLUID_MAP, STEAM_MAP, SALT_SOLUTION_MAP, ACID_MAP, FLAMMABLE_MAP, SOUL_MAP, HOT_COOLANT_MAP, COOLANT_MAP, CUSTOM_FLUID_MAP, FISSION_FUEL_MAP)) { // TODO add custom coolants
+            addFluidsMixing(fluid);
+        }
+    }
+
+    public static void addFluidsMixing(NCFluid fluid) {
+        if (fluid.block.get().getSourceMixingState() != null && fluid.block.get().getFlowingMixingState() != null) {
+            FluidInteractionRegistry.addInteraction(fluid.type.value(), new FluidInteractionRegistry.InteractionInformation(
+                    NeoForgeMod.WATER_TYPE.value(),
+                    fluidState -> fluidState.isSource() ? fluid.block.get().getSourceMixingState() : fluid.block.get().getFlowingMixingState()));
+        }
+        if (fluid.block.get().getFlowingIntoWaterState() != null) {
+            FluidInteractionRegistry.addInteraction(NeoForgeMod.WATER_TYPE.value(), new FluidInteractionRegistry.InteractionInformation(
+                    fluid.type.value(),
+                    fluidState -> fluid.block.get().getFlowingIntoWaterState()));
         }
     }
 

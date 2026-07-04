@@ -1,0 +1,42 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/pulsating_alloy"
+      }
+    }
+  ],
+  "type": "nuclearcraftneohaul:alloy_furnace_recipe",
+  "itemIngredients": [
+    {
+      "count": 1,
+      "ingredient": [
+        {
+          "tag": "c:ingots/iron"
+        },
+        {
+          "tag": "c:dusts/iron"
+        }
+      ]
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "minecraft:ender_pearl"
+      }
+    }
+  ],
+  "itemProducts": [
+    {
+      "count": 2,
+      "ingredient": {
+        "tag": "c:ingots/pulsating_alloy"
+      }
+    }
+  ],
+  "powerModifier": 1.0,
+  "radiation": 0.0,
+  "timeModifier": 1.5
+}

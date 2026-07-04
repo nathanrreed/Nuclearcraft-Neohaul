@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.datagen;
 
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -110,8 +110,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("advancement." + MODID + ".decay_generator.title", "Alpha Power");
         add("advancement." + MODID + ".decay_generator.description", "Craft a Decay Generator");
 
-        add("advancement." + MODID + ".bin.title", "Mr Dilkington");
-        add("advancement." + MODID + ".bin.description", "Craft a Universal Bin");
+        add("advancement." + MODID + ".universal_bin.title", "Mr Dilkington");
+        add("advancement." + MODID + ".universal_bin.description", "Craft a Universal Bin");
 
         add("advancement." + MODID + ".portable_ender_chest.title", "Mary Poppins");
         add("advancement." + MODID + ".portable_ender_chest.description", "Craft a Portable Ender Chest");
@@ -146,8 +146,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("advancement." + MODID + ".rtg_uranium.title", "Warm Green Glow");
         add("advancement." + MODID + ".rtg_uranium.description", "Craft a Uranium RTG");
 
-        add("advancement." + MODID + ".infuser.title", "Soaking it Up");
-        add("advancement." + MODID + ".infuser.description", "Craft a Fluid Infuser");
+        add("advancement." + MODID + ".fluid_infuser.title", "Soaking it Up");
+        add("advancement." + MODID + ".fluid_infuser.description", "Craft a Fluid Infuser");
 
         add("advancement." + MODID + ".melter.title", "Hot and Spicy");
         add("advancement." + MODID + ".melter.description", "Craft a Melter");
@@ -158,11 +158,11 @@ public class ModLanguageProvider extends LanguageProvider {
         add("advancement." + MODID + ".supercooler.title", "Hoth Machine");
         add("advancement." + MODID + ".supercooler.description", "Craft a Supercooler");
 
-        add("advancement." + MODID + ".extractor.title", "Squeezing the Sponge");
-        add("advancement." + MODID + ".extractor.description", "Craft a Fluid Extractor");
+        add("advancement." + MODID + ".fluid_extractor.title", "Squeezing the Sponge");
+        add("advancement." + MODID + ".fluid_extractor.description", "Craft a Fluid Extractor");
 
-        add("advancement." + MODID + ".enricher.title", "Chemical Brewery");
-        add("advancement." + MODID + ".enricher.description", "Craft a Fluid Enricher");
+        add("advancement." + MODID + ".fluid_enricher.title", "Chemical Brewery");
+        add("advancement." + MODID + ".fluid_enricher.description", "Craft a Fluid Enricher");
 
         add("advancement." + MODID + ".nuclear_furnace.title", "Kitchen Nightmare");
         add("advancement." + MODID + ".nuclear_furnace.description", "Craft a Nuclear Furnace");
@@ -176,8 +176,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("advancement." + MODID + ".ingot_former.title", "Ceramic Mold");
         add("advancement." + MODID + ".ingot_former.description", "Craft an Ingot Former");
 
-        add("advancement." + MODID + ".salt_mixer.title", "Blend and Fold");
-        add("advancement." + MODID + ".salt_mixer.description", "Craft a Fluid Mixer");
+        add("advancement." + MODID + ".fluid_mixer.title", "Blend and Fold");
+        add("advancement." + MODID + ".fluid_mixer.description", "Craft a Fluid Mixer");
 
         add("advancement." + MODID + ".crystallizer.title", "Breaking Bad");
         add("advancement." + MODID + ".crystallizer.description", "Craft a Crystallizer");
@@ -221,8 +221,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add("advancement." + MODID + ".molten_salt_fission_controller.title", "Next Gen Nuclear [1/2]");
         add("advancement." + MODID + ".molten_salt_fission_controller.description", "Craft a Molten Salt Fission Controller");
 
-        add("advancement." + MODID + ".pebble_fission_controller.title", "Watch For Roentgen Rocks [1/2]");
-        add("advancement." + MODID + ".pebble_fission_controller.description", "Craft a Pebble Bed Fission Controller");
+        add("advancement." + MODID + ".pebble_bed_fission_controller.title", "Watch For Roentgen Rocks [1/2]");
+        add("advancement." + MODID + ".pebble_bed_fission_controller.description", "Craft a Pebble Bed Fission Controller");
 
         add("advancement." + MODID + ".heat_exchanger_controller.title", "Thermal Contact [1/2]");
         add("advancement." + MODID + ".heat_exchanger_controller.description", "Craft a Heat Exchanger Controller");
@@ -1138,15 +1138,15 @@ public class ModLanguageProvider extends LanguageProvider {
         fissionBuckets(FISSION_FUEL_MAP, fission_fuel);
     }
 
-    private void buckets(Map<String, Fluids> type) {
+    private void buckets(Map<String, NCFluid> type) {
         buckets(type, Map.of(), "");
     }
 
-    private void buckets(Map<String, Fluids> type, Map<String, String> replacers) {
+    private void buckets(Map<String, NCFluid> type, Map<String, String> replacers) {
         buckets(type, replacers, "");
     }
 
-    private void buckets(Map<String, Fluids> type, Map<String, String> replacers, String prefix) {
+    private void buckets(Map<String, NCFluid> type, Map<String, String> replacers, String prefix) {
         for (String fluid : type.keySet()) {
             String name = replacers.getOrDefault(fluid, prefix + capitalize(fluid, true));
             add(type.get(fluid).bucket.asItem(), name + " Bucket");
@@ -1155,7 +1155,7 @@ public class ModLanguageProvider extends LanguageProvider {
         }
     }
 
-    private void fissionBuckets(Map<String, Fluids> type, Map<String, String> replacers) {
+    private void fissionBuckets(Map<String, NCFluid> type, Map<String, String> replacers) {
         for (String fluid : type.keySet()) {
             String name = fluid;
             if (!replacers.containsKey(fluid)) {
@@ -1193,7 +1193,7 @@ public class ModLanguageProvider extends LanguageProvider {
         }
     }
 
-    private void nakBuckets(Map<String, Fluids> type) {
+    private void nakBuckets(Map<String, NCFluid> type) {
         for (String fluid : type.keySet()) {
             String name = switch (fluid) {
                 case "nak" -> "Eutectic NaK Alloy";
@@ -1213,7 +1213,7 @@ public class ModLanguageProvider extends LanguageProvider {
         }
     }
 
-    private void gasBuckets(Map<String, Fluids> type, Map<String, String> replacers) {
+    private void gasBuckets(Map<String, NCFluid> type, Map<String, String> replacers) {
         for (String fluid : type.keySet()) {
             String name = fluid;
             if (fluid.endsWith("_hot")) {

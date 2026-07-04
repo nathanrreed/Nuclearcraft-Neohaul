@@ -27,12 +27,12 @@ public class NuclearcraftNeohaul {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final BlockHighlightTracker blockOverlayTracker = new BlockHighlightTracker();
-    public static final NCRecipes recipes = new NCRecipes();
 
     public NuclearcraftNeohaul(IEventBus modEventBus, ModContainer modContainer) {
         enableMilkFluid();
         Registration.register(modEventBus);
         modContainer.registerConfig(ModConfig.Type.SERVER, NCServerConfig.SPEC);
+        NCRecipes.registerRecipes();
         modContainer.registerConfig(ModConfig.Type.COMMON, NCConfig.SPEC); // TODO split into client, server and startup
         // Readd and reconfigure to no longer need suppliers
 

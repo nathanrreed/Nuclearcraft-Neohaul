@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.datagen.recipes.multiblock;
 
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import com.nred.nuclearcraft.recipe.BasicRecipeBuilder;
 import com.nred.nuclearcraft.recipe.RecipeHelper;
 import com.nred.nuclearcraft.recipe.SizedChanceFluidIngredient;
@@ -36,8 +36,8 @@ public class DecayPoolHeatSourceProvider {
         addDecayRecipe(recipeOutput, SizedChanceItemIngredient.of(input, 1), SizedChanceFluidIngredient.EMPTY, SizedChanceItemIngredient.of(output, 1), SizedChanceFluidIngredient.EMPTY, radiation, "");
     }
 
-    public void addFluidDecayRecipe(RecipeOutput recipeOutput, Fluids input, Fluids output, double radiation, String name) {
-        addDecayRecipe(recipeOutput, SizedChanceItemIngredient.EMPTY, Fluids.sizedIngredient(input, INGOT_VOLUME), SizedChanceItemIngredient.EMPTY, Fluids.sizedIngredient(output, INGOT_VOLUME), radiation, name);
+    public void addFluidDecayRecipe(RecipeOutput recipeOutput, NCFluid input, NCFluid output, double radiation, String name) {
+        addDecayRecipe(recipeOutput, SizedChanceItemIngredient.EMPTY, NCFluid.sizedIngredient(input, INGOT_VOLUME), SizedChanceItemIngredient.EMPTY, NCFluid.sizedIngredient(output, INGOT_VOLUME), radiation, name);
     }
 
     public void addDecayRecipe(RecipeOutput recipeOutput, SizedChanceItemIngredient itemInput, SizedChanceFluidIngredient fluidInput, SizedChanceItemIngredient itemOutput, SizedChanceFluidIngredient fluidOutput, double radiation, String name) {

@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.block.fission;
 
-import com.nred.nuclearcraft.block.GenericDirectionalTooltipDeviceBlock;
+import com.nred.nuclearcraft.block.GenericActiveDirectionalTooltipDeviceBlock;
 import com.nred.nuclearcraft.block.IActivatable;
 import com.nred.nuclearcraft.block_entity.fission.FissionMonitorEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
@@ -29,10 +29,9 @@ import java.util.Optional;
 import static com.nred.nuclearcraft.registration.BlockRegistration.ACTIVE;
 import static com.nred.nuclearcraft.registration.BlockRegistration.FACING_ALL;
 
-public class FissionMonitorBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericDirectionalTooltipDeviceBlock<Controller, PartType> implements IActivatable {
+public class FissionMonitorBlock<Controller extends IMultiblockController<Controller>, PartType extends IMultiblockPartType> extends GenericActiveDirectionalTooltipDeviceBlock<Controller, PartType> implements IActivatable {
     public FissionMonitorBlock(MultiblockPartProperties<PartType> properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(ACTIVE, false));
     }
 
     @Override

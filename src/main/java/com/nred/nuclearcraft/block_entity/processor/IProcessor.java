@@ -346,7 +346,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
         }
 
         List<ItemStack> stacks = getInventoryStacks();
-        for (int i = 0; i < itemInputSize; ++i) {
+        for (int i = 0; i < Math.min(itemInputOrder.size(), itemInputSize); ++i) {
             int slot = info.itemInputSlots[i];
             int itemIngredientStackSize = getItemIngredients().get(itemInputOrder.get(i)).count();
             ItemStack stack = stacks.get(slot);
@@ -364,7 +364,7 @@ public interface IProcessor<TILE extends BlockEntity & IProcessor<TILE, PACKET, 
         }
 
         List<Tank> tanks = getTanks();
-        for (int i = 0; i < fluidInputSize; ++i) {
+        for (int i = 0; i < Math.min(fluidInputOrder.size(), fluidInputSize); ++i) {
             Tank tank = tanks.get(info.fluidInputTanks[i]);
             int fluidIngredientStackSize = getFluidIngredients().get(fluidInputOrder.get(i)).amount();
             if (fluidIngredientStackSize > 0) {

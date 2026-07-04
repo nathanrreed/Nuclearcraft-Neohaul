@@ -1,6 +1,6 @@
 package com.nred.nuclearcraft.helpers;
 
-import com.nred.nuclearcraft.info.Fluids;
+import com.nred.nuclearcraft.info.NCFluid;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -12,17 +12,17 @@ import java.util.*;
 
 public class Concat {
     @SafeVarargs
-    public static List<String> fluidKeys(Map<String, Fluids>... args) {
+    public static List<String> fluidKeys(Map<String, NCFluid>... args) {
         return Arrays.stream(args).flatMap(m -> m.keySet().stream()).toList();
     }
 
     @SafeVarargs
-    public static List<Map.Entry<String, Fluids>> fluidEntries(Map<String, Fluids>... args) {
+    public static List<Map.Entry<String, NCFluid>> fluidEntries(Map<String, NCFluid>... args) {
         return Arrays.stream(args).flatMap(m -> m.entrySet().stream()).toList();
     }
 
     @SafeVarargs
-    public static List<Fluids> fluidValues(Map<String, Fluids>... args) {
+    public static List<NCFluid> fluidValues(Map<String, NCFluid>... args) {
         return Arrays.stream(args).flatMap(m -> m.values().stream()).toList();
     }
 
