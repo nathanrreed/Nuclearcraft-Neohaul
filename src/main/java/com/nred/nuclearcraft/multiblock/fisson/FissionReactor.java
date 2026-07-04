@@ -3,7 +3,6 @@ package com.nred.nuclearcraft.multiblock.fisson;
 import com.nred.nuclearcraft.block_entity.fission.FissionMonitorEntity;
 import com.nred.nuclearcraft.block_entity.fission.IFissionComponent;
 import com.nred.nuclearcraft.block_entity.fission.IFissionController;
-import com.nred.nuclearcraft.block_entity.internal.heat.HeatBuffer;
 import com.nred.nuclearcraft.multiblock.ILogicMultiblock;
 import com.nred.nuclearcraft.multiblock.IPacketMultiblock;
 import com.nred.nuclearcraft.multiblock.Multiblock;
@@ -25,8 +24,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -36,13 +33,11 @@ import java.util.function.UnaryOperator;
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 
 public class FissionReactor extends Multiblock<FissionReactor> implements ILogicMultiblock<FissionReactor, FissionReactorLogic>, IPacketMultiblock<FissionReactor, FissionUpdatePacket> {
-    private static final Logger log = LoggerFactory.getLogger(FissionReactor.class);
+    public @Nonnull FissionReactorLogic logic = new FissionReactorLogic(this);
+
     protected final Int2ObjectMap<FissionCluster> clusterMap = new Int2ObjectOpenHashMap<>();
     protected final ObjectSet<FissionCluster> clustersToRefresh = new ObjectOpenHashSet<>();
     public int clusterCount = 0;
-
-    public @Nonnull FissionReactorLogic logic = new FissionReactorLogic(this);
-    public final HeatBuffer heatBuffer = new HeatBuffer(FissionReactor.BASE_MAX_HEAT);
 
     public IFissionController<?> controller;
 

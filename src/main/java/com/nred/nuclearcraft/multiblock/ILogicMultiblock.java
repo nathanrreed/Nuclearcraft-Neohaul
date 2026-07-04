@@ -26,7 +26,7 @@ public interface ILogicMultiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK> & IL
     }
 
     default void readLogicNBT(CompoundTag data, HolderLookup.Provider registries, SyncReason syncReason) {
-        if (syncReason == SyncReason.FullSync && data.contains("logicID")) {
+        if (syncReason == SyncReason.FullSync && data.contains("logicID") && !data.getString("logicID").isEmpty()) {
             setLogic(data.getString("logicID"));
         }
         if (data.contains("logic")) {

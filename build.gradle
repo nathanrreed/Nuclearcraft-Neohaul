@@ -256,6 +256,7 @@ modrinth {
         optional.project "fusion-connected-textures"
         optional.project "guideme"
         optional.project "crafttweaker"
+        optional.project "create"
     }
     changelog = rootProject.file("Changelog.md").text
 }
@@ -275,7 +276,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
 
     mainFile.addRequirement("zerocore", "terrablender-neoforge")
-    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "guideme", "crafttweaker")
+    mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "guideme", "crafttweaker", "create")
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
