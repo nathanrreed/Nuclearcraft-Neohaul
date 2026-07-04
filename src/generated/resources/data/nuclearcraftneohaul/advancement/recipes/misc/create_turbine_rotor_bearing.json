@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nuclearcraftneohaul:create_turbine_rotor_bearing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_turbine_rotor_bearing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nuclearcraftneohaul:turbine_rotor_bearing"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_turbine_rotor_bearing"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nuclearcraftneohaul:create_turbine_rotor_bearing"
+    ]
+  }
+}

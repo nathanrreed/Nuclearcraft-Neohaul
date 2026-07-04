@@ -351,6 +351,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(MODID + ".tooltip.turbine_controller.fluid_rate", "Input: %s");
         add(MODID + ".tooltip.turbine_controller.power_bonus", "Rate Power Bonus: %s");
 
+        add(MODID + ".tooltip.create_turbine_bearing", "Attaches to a Turbine Bearing stopping the generation of FE and instead splits kinetic force between attachments to be used with Create");
+
         add(MODID + ".recipe_viewer.turbine_energy_density", "Base Energy Density: %s");
         add(MODID + ".recipe_viewer.turbine_expansion", "Fluid Expansion: %s");
         add(MODID + ".recipe_viewer.turbine_spin_up_multiplier", "Spin-up Multiplier: %s");

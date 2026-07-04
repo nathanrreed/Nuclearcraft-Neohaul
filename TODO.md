@@ -11,3 +11,4 @@
 - Add tests
 - Add ProjectE values
 - Redraw some texture to better align with modern Minecraft
+- Use isotope tags

@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.compat.create;
 
+import com.nred.nuclearcraft.block.item.NCItemBlock;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.kinetics.base.OrientedRotatingVisual;
@@ -11,6 +12,7 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.createmod.catnip.lang.FontHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 
@@ -42,7 +44,7 @@ public class CreateRegistration {
                 .blockstate(new GeneratingKineticTurbineRotorGenerator()::generate)
                 .onRegister(BlockStressValues.setGeneratorSpeed(256, true))
                 .onRegister(block -> BlockStressValues.CAPACITIES.register(block, () -> create_bearing_max_stress))
-                .item()
+                .item((block, properties) -> new NCItemBlock(block, properties, Component.translatable(MODID + ".tooltip.create_turbine_bearing")))
                 .transform(customItemModel())
                 .register();
 

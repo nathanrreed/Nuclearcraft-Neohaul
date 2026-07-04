@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.antlr.v4.runtime.misc.Triple;
@@ -32,6 +33,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
+import static com.nred.nuclearcraft.compat.create.CreateRegistration.CREATE_TURBINE_ROTOR_BEARING;
 import static com.nred.nuclearcraft.datagen.ModFluidTagProvider.NITROGEN_TAG;
 import static com.nred.nuclearcraft.datagen.ModFluidTagProvider.OXYGEN_TAG;
 import static com.nred.nuclearcraft.helpers.Location.cLoc;
@@ -705,6 +707,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(MISC, TURBINE_MAP.get("standard_turbine_rotor_stator"), 4).pattern("HH").pattern("HH").pattern("HH")
                 .define('H', ALLOY_MAP.get("hsla_steel"))
                 .unlockedBy(getHasName(ALLOY_MAP.get("hsla_steel")), has(ALLOY_MAP.get("hsla_steel"))).save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, CREATE_TURBINE_ROTOR_BEARING, 1)
+                .requires(TURBINE_MAP.get("turbine_rotor_bearing")).requires(Ingredient.of(BuiltInRegistries.ITEM.get(ResourceLocation.parse("create:shaft"))))
+                .unlockedBy(getHasName(TURBINE_MAP.get("turbine_rotor_bearing")), has(TURBINE_MAP.get("turbine_rotor_bearing"))).save(recipeOutput.withConditions(new ModLoadedCondition("create")));
     }
 
     private void fission(RecipeOutput recipeOutput) {
