@@ -30,13 +30,18 @@ public class ModFluidTagProvider extends FluidTagsProvider {
     public static final TagKey<Fluid> TRITIUM_TAG = FluidTags.create(ResourceLocation.parse("c:tritium"));
     public static final TagKey<Fluid> HYDROGEN_TAG = FluidTags.create(ResourceLocation.parse("c:hydrogen"));
     public static final TagKey<Fluid> HELIUM_TAG = FluidTags.create(ResourceLocation.parse("c:helium"));
+    public static final TagKey<Fluid> SODIUM_TAG = FluidTags.create(ResourceLocation.parse("c:sodium"));
 
     // Used in INFILTRATOR_PRESSURE_DATA, but not created in mod
     public static final TagKey<Fluid> ARGON_TAG = FluidTags.create(ResourceLocation.parse("c:argon"));
     public static final TagKey<Fluid> NEON_TAG = FluidTags.create(ResourceLocation.parse("c:neon"));
 
-    public static final TagKey<Fluid> SULFURIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:sulfuric_acid"));
+    public static final TagKey<Fluid> CHLORINE_TAG = FluidTags.create(ResourceLocation.parse("c:chlorine"));
 
+    public static final TagKey<Fluid> HYDROFLUORIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:hydrofluoric_acid"));
+    public static final TagKey<Fluid> BORIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:boric_acid"));
+    public static final TagKey<Fluid> SULFURIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:sulfuric_acid"));
+    public static final TagKey<Fluid> ORTHOSILICIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:orthosilicic_acid"));
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
@@ -48,6 +53,11 @@ public class ModFluidTagProvider extends FluidTagsProvider {
             tag(FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", gas))).add(GAS_MAP.get(gas).still.get());
         }
 
+        tag(HYDROFLUORIC_ACID_TAG).add(ACID_MAP.get("hydrofluoric_acid").still.get());
+        tag(BORIC_ACID_TAG).add(ACID_MAP.get("boric_acid").still.get());
         tag(SULFURIC_ACID_TAG).add(ACID_MAP.get("sulfuric_acid").still.get());
+        tag(ORTHOSILICIC_ACID_TAG).add(ACID_MAP.get("orthosilicic_acid").still.get());
+
+        tag(SODIUM_TAG).add(MOLTEN_MAP.get("sodium").still.get());
     }
 }

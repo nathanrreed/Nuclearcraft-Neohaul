@@ -52,7 +52,7 @@ public class FuelReprocessorProvider {
         addReprocessingRecipes(recipeOutput, "hecf_251", DEPLETED_FUEL_CALIFORNIUM_MAP, "Californium252", 2, "Californium252", 2, "Californium252", 2, "Californium252", 1, "ruthenium_106", "europium_155", 1.5D, 60);
     }
 
-    private void addReprocessingRecipes(RecipeOutput recipeOutput, String fuel, Map<String, DeferredItem<Item>> depleted_map, String out1, int n1, String out2, int n2, String out3, int n3, String out4, int n4, String waste1, String waste2, double m, int r) {
+    public static void addReprocessingRecipes(RecipeOutput recipeOutput, String fuel, Map<String, DeferredItem<Item>> depleted_map, String out1, int n1, String out2, int n2, String out3, int n3, String out4, int n4, String waste1, String waste2, double m, int r) {
         int extraReturn = 9 - n1 - n2 - n3 - n4;
         new ProcessorRecipeBuilder(FuelReprocessorRecipe.class, 1, 1).addItemInput(depleted_map.get(fuel + "_tr"), 9).addItemResult(get(out1 + "_c", n1)).addItemResult(get(out2 + "_c", n2)).addItemResult(wasteStack(waste1, m * r)).addItemResult(DUST_MAP.get("graphite"), extraReturn + 2).addItemResult(get(out3 + "_c", n3)).addItemResult(get(out4 + "_c", n4)).addItemResult(wasteStack(waste2, m * (100 - r))).addItemResult(ALLOY_MAP.get("silicon_carbide"), 1).save(recipeOutput, ncLoc(fuel + "_tr"));
         new ProcessorRecipeBuilder(FuelReprocessorRecipe.class, 1, 1).addItemInput(depleted_map.get(fuel + "_ox"), 9).addItemResult(get(out1 + "_ox", n1)).addItemResult(get(out2 + "_ox", n2)).addItemResult(wasteStack(waste1, m * r)).addItemResult(get(out3 + "_ox", n3)).addItemResult(get(out4 + "_ox", n4)).addItemResult(wasteStack(waste2, m * (100 - r))).save(recipeOutput, ncLoc(fuel + "_ox"));
@@ -60,11 +60,11 @@ public class FuelReprocessorProvider {
         new ProcessorRecipeBuilder(FuelReprocessorRecipe.class, 1, 1).addItemInput(depleted_map.get(fuel + "_za"), 9).addItemResult(get(out1 + "_za", n1)).addItemResult(get(out2 + "_za", n2)).addItemResult(wasteStack(waste1, m * r)).addItemResult(DUST_MAP.get("zirconium"), extraReturn).addItemResult(get(out3 + "_za", n3)).addItemResult(get(out4 + "_za", n4)).addItemResult(wasteStack(waste2, m * (100 - r))).save(recipeOutput, ncLoc(fuel + "_za"));
     }
 
-    private SizedChanceItemIngredient wasteStack(String waste, double chancePercent) {
+    private static SizedChanceItemIngredient wasteStack(String waste, double chancePercent) {
         return SizedChanceItemIngredient.of(FISSION_DUST_MAP.get(waste), 2, NCMath.toInt(chancePercent));
     }
 
-    private SizedChanceItemIngredient get(String name, int size) {
+    private static SizedChanceItemIngredient get(String name, int size) {
         String type = name.replaceFirst("^\\D+", "");
         name = name.replaceFirst("\\d.*", "");
         return SizedChanceItemIngredient.of(switch (name) {

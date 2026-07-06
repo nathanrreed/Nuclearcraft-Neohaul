@@ -18,6 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static com.nred.nuclearcraft.datagen.ModItemTagProvider.isotopeTag;
+
 public class RecipeHelpers {
     public static List<@NotNull SizedChanceItemIngredient> ingotDusts(String input1, int count1, String input2, int count2) {
         return List.of(tags(List.of(tag(Tags.Items.INGOTS, input1), tag(Tags.Items.DUSTS, input1)), count1), tags(List.of(tag(Tags.Items.INGOTS, input2), tag(Tags.Items.DUSTS, input2)), count2));
@@ -33,6 +35,14 @@ public class RecipeHelpers {
 
     public static @NotNull SizedChanceItemIngredient ingot(String input, int count) {
         return SizedChanceItemIngredient.of(tag(Tags.Items.INGOTS, input), count);
+    }
+
+    public static @NotNull SizedChanceItemIngredient dust(String input, int count) {
+        return SizedChanceItemIngredient.of(tag(Tags.Items.DUSTS, input), count);
+    }
+
+    public static @NotNull SizedChanceItemIngredient isotope(String input, int count) {
+        return SizedChanceItemIngredient.of(isotopeTag(input), count);
     }
 
     public static @NotNull SizedChanceItemIngredient gem(String input, int count) {

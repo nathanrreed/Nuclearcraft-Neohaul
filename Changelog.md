@@ -1,1 +1,2 @@
-- Fixed minable pickaxe tag being broken
+- Added Patchouli book recipe
+- Added Corium translation

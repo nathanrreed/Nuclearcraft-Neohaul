@@ -26,6 +26,7 @@ import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.antlr.v4.runtime.misc.Triple;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,7 @@ import static com.nred.nuclearcraft.compat.create.CreateRegistration.CREATE_TURB
 import static com.nred.nuclearcraft.datagen.ModFluidTagProvider.NITROGEN_TAG;
 import static com.nred.nuclearcraft.datagen.ModFluidTagProvider.OXYGEN_TAG;
 import static com.nred.nuclearcraft.helpers.Location.cLoc;
+import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
 import static com.nred.nuclearcraft.info.Names.*;
 import static com.nred.nuclearcraft.registration.BlockRegistration.*;
@@ -176,6 +178,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new RadiationScrubberProvider(recipeOutput);
         new RadiationBlockMutationProvider(recipeOutput);
         new RadiationBlockPurificationProvider(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(MISC, PatchouliAPI.get().getBookStack(ncLoc("guide"))).requires(Items.BOOK).requires(INGOT_MAP.get("uranium"))
+                .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK)).save(recipeOutput.withConditions(new ModLoadedCondition("patchouli")));
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))

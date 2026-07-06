@@ -28,7 +28,7 @@ import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static net.neoforged.neoforge.common.Tags.Items.TOOLS_WRENCH;
 
-class ModItemTagProvider extends ItemTagsProvider {
+public class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, blockTags, MODID, existingFileHelper);
     }
@@ -90,13 +90,13 @@ class ModItemTagProvider extends ItemTagsProvider {
     private void isotopes(String name, HashMap<String, DeferredItem<Item>> isotopesMap) {
         Pattern pattern = Pattern.compile("_[a-z]+");
 
-        for (String key: isotopesMap.keySet()) {
+        for (String key : isotopesMap.keySet()) {
             tag(isotopeTag(name + "/" + pattern.matcher(key).replaceAll(""))).add(isotopesMap.get(key).asItem());
         }
     }
 
-    private static TagKey<Item> isotopeTag(String name) {
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "isotopes/"+name));
+    public static TagKey<Item> isotopeTag(String name) {
+        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "isotopes/" + name));
     }
 
     private void buckets() {

@@ -937,6 +937,8 @@ public class ModLanguageProvider extends LanguageProvider {
         add(GEIGER_COUNTER_BLOCK.get(), "Geiger Counter Block");
         add(RADIATION_SCRUBBER.get(), "Radiation Scrubber");
 
+        add(SOLIDIFIED_CORIUM.get(), "Solidified Corium");
+
         add(COLLECTOR_MAP.get("cobblestone_generator").asItem(), "Cobblestone Generator");
         add(COLLECTOR_MAP.get("cobblestone_generator_compact").asItem(), "Compact Cobblestone Generator");
         add(COLLECTOR_MAP.get("cobblestone_generator_dense").asItem(), "Dense Cobblestone Generator");
