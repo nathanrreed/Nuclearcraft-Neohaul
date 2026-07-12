@@ -1,12 +1,17 @@
 package com.nred.nuclearcraft.compat.guideme;
 
 import guideme.Guide;
+import guideme.GuideItemSettings;
 import guideme.compiler.TagCompiler;
 import guideme.indices.ItemIndex;
+import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.registries.datamaps.DataMapsUpdatedEvent;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Optional;
 
+import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 public class ModGuideMEPlugin {
@@ -30,6 +35,7 @@ public class ModGuideMEPlugin {
                 .extension(TagCompiler.EXTENSION_POINT, new DataMapTagExtension())
                 .extension(TagCompiler.EXTENSION_POINT, new FuelTagExtension())
                 .extension(TagCompiler.EXTENSION_POINT, new FluidLinkCompiler())
+                .itemSettings(new GuideItemSettings(Optional.of(Component.translatable(MODID + ".guide_book.name")), List.of(Component.translatable(MODID + ".guide_book.edition")), Optional.empty()))
                 .build();
     }
 }
