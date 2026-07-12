@@ -294,6 +294,10 @@ public abstract class Multiblock<MULTIBLOCK extends Multiblock<MULTIBLOCK>> exte
         return new BlockPos(maxX ? getMaxInteriorX() : getMinInteriorX(), maxY ? getMaxInteriorY() : getMinInteriorY(), maxZ ? getMaxInteriorZ() : getMinInteriorZ());
     }
 
+    public BlockPos getExtremeCoord(boolean maxX, boolean maxY, boolean maxZ) {
+        return new BlockPos(maxX ? this.getMaxX() : this.getMinX(), maxY ? this.getMaxY() : this.getMinY(), maxZ ? this.getMaxZ() : this.getMinZ());
+    }
+
     public int getClampedInteriorX(int x) {
         return Mth.clamp(x, getMinInteriorX(), getMaxInteriorX());
     }

@@ -36,7 +36,7 @@ public abstract class MenuInfoBuilder<BUILDER extends MenuInfoBuilder<BUILDER>> 
 
     public int[] recipeViewerBackgroundXYWH = new int[]{51, 30, 86, 26};
     public int[] recipeViewerTooltipXYWH = new int[]{73, 34, 38, 18};
-    public int[] recipeViewerClickAreaXYWH = new int[]{73, 34, 38, 18}; // TODO
+    public int[] recipeViewerClickAreaXYWH = new int[]{73, 34, 38, 18};
 
     protected MenuInfoBuilder(String name) {
         this.name = name;

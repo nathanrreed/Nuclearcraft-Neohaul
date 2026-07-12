@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.compat.jei;
 
 import com.nred.nuclearcraft.compat.jei.JeiRecipeViewerImpl.*;
+import com.nred.nuclearcraft.compat.recipe_viewer.info.RecipeViewerProcessorCategoryInfo;
 import com.nred.nuclearcraft.recipe.CollectorRecipe;
 import com.nred.nuclearcraft.recipe.DecayGeneratorRecipe;
 import com.nred.nuclearcraft.recipe.RadiationScrubberRecipe;
@@ -11,6 +12,9 @@ import com.nred.nuclearcraft.recipe.fission.*;
 import com.nred.nuclearcraft.recipe.machine.*;
 import com.nred.nuclearcraft.recipe.processor.*;
 import com.nred.nuclearcraft.recipe.turbine.TurbineRecipe;
+import com.nred.nuclearcraft.screen.multiblock.PebbleFissionCoolerScreen;
+import com.nred.nuclearcraft.screen.multiblock.SaltFissionHeaterScreen;
+import com.nred.nuclearcraft.screen.processor.NuclearFurnaceScreen;
 import com.nred.nuclearcraft.util.StreamHelper;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -20,6 +24,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -45,6 +50,8 @@ import java.util.stream.Stream;
 
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.CONDENSER_DISSIPATION_TOOLTIP;
 import static com.nred.nuclearcraft.compat.recipe_viewer.RecipeViewerImpl.INFILTRATOR_PRESSURE_FLUID_TOOLTIP;
+import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.RECIPE_VIEWER_CATEGORY_INFO_MAP;
+import static com.nred.nuclearcraft.handler.BlockEntityInfoHandler.getProcessorMenuInfo;
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.multiblock.hx.CondenserLogic.getCondenserDissipationFluids;
 import static com.nred.nuclearcraft.registration.BlockEntityRegistration.*;
@@ -341,12 +348,21 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipes(JEI_RADIATION_SCRUBBER_CATEGORY.getRecipeType(), recipeManager.getAllRecipesFor(RADIATION_SCRUBBER_RECIPE_TYPE.get()).stream().toList());
     }
 
-//    @Override TODO
-//    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-//        for (var recipe_category : RECIPE_VIEWER_CATEGORY_INFO_MAP.entrySet()){
-//            registration.addRecipeClickArea(GuiCrafting.class, 88, 32, 28, 23, VanillaRecipeCategoryUid.CRAFTING);
-//        }
-//    }
+    @Override
+    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+        for (var recipe_category : RECIPE_VIEWER_CATEGORY_INFO_MAP.entrySet()) {
+            if (recipe_category.getValue() instanceof RecipeViewerProcessorCategoryInfo<?, ?, ?, ?> processorCategoryInfo && processorCategoryInfo.screenClass != null) {
+                registration.addRecipeClickArea(processorCategoryInfo.screenClass, processorCategoryInfo.containerInfo.jeiClickAreaX, processorCategoryInfo.containerInfo.jeiClickAreaY, processorCategoryInfo.containerInfo.jeiClickAreaW, processorCategoryInfo.containerInfo.jeiClickAreaH, mezz.jei.api.recipe.RecipeType.createFromVanilla(processorCategoryInfo.getRecipeHandler().getRecipeType()));
+            }
+            // TODO not doing this for Custom processors
+        }
+        var info = getProcessorMenuInfo("pebble_fission_cooler");
+        registration.addRecipeClickArea(PebbleFissionCoolerScreen.class, info.jeiClickAreaX, info.jeiClickAreaY, info.jeiClickAreaW, info.jeiClickAreaH, mezz.jei.api.recipe.RecipeType.createFromVanilla(COOLER_RECIPE_TYPE.get()));
+        info = getProcessorMenuInfo("salt_cooling");
+        registration.addRecipeClickArea(SaltFissionHeaterScreen.class, info.jeiClickAreaX, info.jeiClickAreaY, info.jeiClickAreaW, info.jeiClickAreaH, mezz.jei.api.recipe.RecipeType.createFromVanilla(COOLANT_HEATER_RECIPE_TYPE.get()));
+
+        registration.addRecipeClickArea(NuclearFurnaceScreen.class, 80, 35, 22, 15, RecipeTypes.SMELTING);
+    }
 
     private <R> void createItemDataMapCategory(IRecipeRegistration registration, IRecipeCategory<IJeiBasicInfoRecipe> category, DataMapType<Block, R> dataMapType) {
         createItemDataMapCategory(registration, category, dataMapType, null);

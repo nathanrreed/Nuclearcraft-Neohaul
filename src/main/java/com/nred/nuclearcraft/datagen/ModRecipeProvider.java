@@ -26,7 +26,6 @@ import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.antlr.v4.runtime.misc.Triple;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.HashMap;
 import java.util.List;
@@ -179,8 +178,12 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         new RadiationBlockMutationProvider(recipeOutput);
         new RadiationBlockPurificationProvider(recipeOutput);
 
-        ShapelessRecipeBuilder.shapeless(MISC, PatchouliAPI.get().getBookStack(ncLoc("guide"))).requires(Items.BOOK).requires(INGOT_MAP.get("uranium"))
+        ShapelessRecipeBuilder.shapeless(MISC, vazkii.patchouli.api.PatchouliAPI.get().getBookStack(ncLoc("guide"))).requires(Items.BOOK).requires(INGOT_MAP.get("uranium"))
                 .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK)).save(recipeOutput.withConditions(new ModLoadedCondition("patchouli")));
+
+        ShapedRecipeBuilder.shaped(MISC, guideme.Guides.createGuideItem(ncLoc("guide"))).pattern("NNN").pattern("NBN").pattern("NNN")
+                .define('B', Items.BOOK).define('N', NUGGET_MAP.get("uranium"))
+                .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK)).save(recipeOutput.withConditions(new ModLoadedCondition("guideme")));
 
         ShapedRecipeBuilder.shaped(MISC, PORTABLE_ENDER_CHEST).pattern(" S ").pattern("WEW").pattern("TWT")
                 .define('S', Items.STRING).define('W', ItemTags.WOOL).define('E', Items.ENDER_CHEST).define('T', ALLOY_MAP.get("tough"))

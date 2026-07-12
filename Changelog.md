@@ -1,2 +1,1 @@
-- Added Patchouli book recipe
-- Added Corium translation
+- Added JEI click areas

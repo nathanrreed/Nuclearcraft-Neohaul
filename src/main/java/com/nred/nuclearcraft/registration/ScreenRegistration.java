@@ -42,15 +42,15 @@ public class ScreenRegistration {
         event.register((MenuType<MelterMenu>) PROCESSOR_MENU_TYPES.get("melter").get(), MelterScreen::new);
         event.register((MenuType<PressurizerMenu>) PROCESSOR_MENU_TYPES.get("pressurizer").get(), PressurizerScreen::new);
         event.register((MenuType<RockCrusherMenu>) PROCESSOR_MENU_TYPES.get("rock_crusher").get(), RockCrusherScreen::new);
-        event.register((MenuType<SaltMixerMenu>) PROCESSOR_MENU_TYPES.get("fluid_mixer").get(), SaltMixerScreen::new);
+        event.register((MenuType<SaltMixerMenu>) PROCESSOR_MENU_TYPES.get("fluid_mixer").get(), MixerScreen::new);
         event.register((MenuType<SeparatorMenu>) PROCESSOR_MENU_TYPES.get("separator").get(), SeparatorScreen::new);
         event.register((MenuType<SupercoolerMenu>) PROCESSOR_MENU_TYPES.get("supercooler").get(), SupercoolerScreen::new);
 
         for (String name : PROCESSOR_RECIPE_DYN_TYPES.keySet()) {
             if (getProcessorMenuUpgradable(name)) {
-                event.register((MenuType<BasicUpgradableEnergyProcessorMenuDyn>) PROCESSOR_MENU_TYPES.get(name).get(), (MenuScreens.ScreenConstructor<BasicUpgradableEnergyProcessorMenuDyn, BasicUpgradableEnergyProcessorDynScreen>)(menu, inventory, title) -> new BasicUpgradableEnergyProcessorDynScreen(menu, inventory, title, ResourceLocation.parse(getRecipeViewerCategoryInfo(name).getScreenTexture())));
+                event.register((MenuType<BasicUpgradableEnergyProcessorMenuDyn>) PROCESSOR_MENU_TYPES.get(name).get(), (MenuScreens.ScreenConstructor<BasicUpgradableEnergyProcessorMenuDyn, BasicUpgradableEnergyProcessorDynScreen>) (menu, inventory, title) -> new BasicUpgradableEnergyProcessorDynScreen(menu, inventory, title, ResourceLocation.parse(getRecipeViewerCategoryInfo(name).getScreenTexture())));
             } else {
-                event.register((MenuType<BasicEnergyProcessorMenuDyn>) PROCESSOR_MENU_TYPES.get(name).get(), (MenuScreens.ScreenConstructor<BasicEnergyProcessorMenuDyn, BasicEnergyProcessorDynScreen>)(menu, inventory, title) -> new BasicEnergyProcessorDynScreen(menu, inventory, title, ResourceLocation.parse(getRecipeViewerCategoryInfo(name).getScreenTexture())));
+                event.register((MenuType<BasicEnergyProcessorMenuDyn>) PROCESSOR_MENU_TYPES.get(name).get(), (MenuScreens.ScreenConstructor<BasicEnergyProcessorMenuDyn, BasicEnergyProcessorDynScreen>) (menu, inventory, title) -> new BasicEnergyProcessorDynScreen(menu, inventory, title, ResourceLocation.parse(getRecipeViewerCategoryInfo(name).getScreenTexture())));
             }
         }
 

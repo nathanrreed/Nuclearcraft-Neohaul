@@ -95,6 +95,14 @@ public class ProcessorEntityImpl {
         public AssemblerEntity(BlockPos pos, BlockState blockState) {
             super(PROCESSOR_ENTITY_TYPE.get("assembler").get(), pos, blockState, "assembler");
         }
+
+        @Override
+        public void produceProducts() {
+            super.produceProducts();
+            if (recipeInfo.recipe.isSpecial()) { // For QMD
+                getInventoryStacks().set(info.itemOutputSlots[0], recipeInfo.recipe.getResultItem(null));
+            }
+        }
     }
 
     public static class IngotFormerEntity extends BasicUpgradableEnergyProcessorEntity<ProcessorRecipe, IngotFormerEntity> {

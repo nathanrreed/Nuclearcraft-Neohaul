@@ -150,8 +150,8 @@ public class ProcessorScreenImpl {
         }
     }
 
-    public static class SaltMixerScreen extends BasicUpgradableEnergyProcessorScreen<SaltMixerMenu, SaltMixerEntity, ProcessorRecipe> {
-        public SaltMixerScreen(SaltMixerMenu menu, Inventory inventory, Component title) {
+    public static class MixerScreen extends BasicUpgradableEnergyProcessorScreen<SaltMixerMenu, SaltMixerEntity, ProcessorRecipe> {
+        public MixerScreen(SaltMixerMenu menu, Inventory inventory, Component title) {
             super(menu, inventory, title, ncLoc("screen/" + "fluid_mixer"));
         }
     }

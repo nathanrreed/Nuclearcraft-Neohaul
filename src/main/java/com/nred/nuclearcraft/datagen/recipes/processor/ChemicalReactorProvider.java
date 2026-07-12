@@ -23,7 +23,7 @@ public class ChemicalReactorProvider {
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(HYDROGEN_TAG, BUCKET_VOLUME / 2).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME / 4).addFluidResult(Fluids.WATER, BUCKET_VOLUME / 2).save(recipeOutput);
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(GAS_MAP.get("deuterium"), BUCKET_VOLUME / 2).addFluidInput(OXYGEN_TAG, BUCKET_VOLUME / 4).addFluidResult(CUSTOM_FLUID_MAP.get("heavy_water"), BUCKET_VOLUME / 2).save(recipeOutput);
 
-//        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(HYDROGEN_TAG, BUCKET_VOLUME / 4).addFluidInput(GAS_MAP.get("chlorine"), BUCKET_VOLUME / 4).addFluidResult(ACID_MAP.get("hydrogen_chloride"), BUCKET_VOLUME / 4).save(recipeOutput); TODO
+//        new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(HYDROGEN_TAG, BUCKET_VOLUME / 4).addFluidInput(CHLORINE_TAG, BUCKET_VOLUME / 4).addFluidResult(ACID_MAP.get("hydrogen_chloride"), BUCKET_VOLUME / 4).save(recipeOutput); TODO
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(HYDROGEN_TAG, BUCKET_VOLUME / 4).addFluidInput(GAS_MAP.get("fluorine"), BUCKET_VOLUME / 4).addFluidResult(ACID_MAP.get("hydrofluoric_acid"), BUCKET_VOLUME / 4).save(recipeOutput);
 
         new ProcessorRecipeBuilder(ChemicalReactorRecipe.class, 0.5, 0.5).addFluidInput(MOLTEN_MAP.get("lithium"), INGOT_VOLUME / 2).addFluidInput(GAS_MAP.get("fluorine"), BUCKET_VOLUME / 4).addFluidResult(MOLTEN_MAP.get("lif"), INGOT_VOLUME / 2).save(recipeOutput);

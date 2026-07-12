@@ -20,7 +20,7 @@ public class GenericAxisTooltipDeviceBlock<Controller extends IMultiblockControl
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(AXIS_ALL, context.getHorizontalDirection().getAxis());
+        return this.defaultBlockState().setValue(AXIS_ALL, context.getNearestLookingDirection().getAxis());
     }
 
     @Override

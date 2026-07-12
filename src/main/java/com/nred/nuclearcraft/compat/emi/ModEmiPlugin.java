@@ -16,7 +16,6 @@ import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.recipe.EmiWorldInteractionRecipe;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
-import dev.emi.emi.api.recipe.handler.StandardRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -24,8 +23,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -194,13 +191,13 @@ public class ModEmiPlugin implements EmiPlugin {
         addCategory(registry, manager, EMI_CONDENSER_CATEGORY, Stream.concat(Stream.of(CONDENSER_WORKSTATION), HX_ENTITY_TYPE.get("tube").get().getValidBlocks().stream().map(EmiStack::of)).toList(), CONDENSER_RECIPE_TYPE.get(), EmiCondenserRecipe::new);
         addCategory(registry, manager, EMI_TURBINE_CATEGORY, StreamHelper.concatToList(Stream.of(TURBINE_MAP.get("turbine_controller")), TURBINE_ENTITY_TYPE.get("rotor_stator").get().getValidBlocks().stream(), TURBINE_ENTITY_TYPE.get("rotor_blade").get().getValidBlocks().stream()).stream().map(EmiStack::of).toList(), TURBINE_RECIPE_TYPE.get(), EmiTurbineRecipe::new);
 
-        createBlockDataMapCategory(registry, MACHINE_DIAPHRAGM_DATA, "machine_diaphragm", MACHINE_MAP.get("sintered_steel_diaphragm"));
-        createBlockDataMapCategory(registry, MACHINE_SIEVE_ASSEMBLY_DATA, "machine_sieve_assembly", MACHINE_MAP.get("steel_sieve_assembly"));
-        createBlockDataMapCategory(registry, ELECTROLYZER_CATHODE_DATA, "electrolyzer_cathode", MACHINE_MAP.get("electrolyzer_cathode_terminal"));
-        createBlockDataMapCategory(registry, ELECTROLYZER_ANODE_DATA, "electrolyzer_anode", MACHINE_MAP.get("electrolyzer_anode_terminal"));
-        createBlockDataMapCategory(registry, FISSION_REFLECTOR_DATA, "fission_reflector", FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"));
-        createBlockDataMapCategory(registry, FISSION_MODERATOR_DATA, "fission_moderator", HEAVY_WATER_MODERATOR);
-        createFluidDataMapCategory(registry, INFILTRATOR_PRESSURE_DATA, "infiltrator_pressure", MACHINE_MAP.get("infiltrator_pressure_chamber"), INFILTRATOR_PRESSURE_FLUID_TOOLTIP);
+        createBlockDataMapCategory(registry, MACHINE_DIAPHRAGM_DATA, ncLoc("machine_diaphragm"), MACHINE_MAP.get("sintered_steel_diaphragm"));
+        createBlockDataMapCategory(registry, MACHINE_SIEVE_ASSEMBLY_DATA, ncLoc("machine_sieve_assembly"), MACHINE_MAP.get("steel_sieve_assembly"));
+        createBlockDataMapCategory(registry, ELECTROLYZER_CATHODE_DATA, ncLoc("electrolyzer_cathode"), MACHINE_MAP.get("electrolyzer_cathode_terminal"));
+        createBlockDataMapCategory(registry, ELECTROLYZER_ANODE_DATA, ncLoc("electrolyzer_anode"), MACHINE_MAP.get("electrolyzer_anode_terminal"));
+        createBlockDataMapCategory(registry, FISSION_REFLECTOR_DATA, ncLoc("fission_reflector"), FISSION_REACTOR_MAP.get("beryllium_carbon_reflector"));
+        createBlockDataMapCategory(registry, FISSION_MODERATOR_DATA, ncLoc("fission_moderator"), HEAVY_WATER_MODERATOR);
+        createFluidDataMapCategory(registry, INFILTRATOR_PRESSURE_DATA, ncLoc("infiltrator_pressure"), MACHINE_MAP.get("infiltrator_pressure_chamber"), INFILTRATOR_PRESSURE_FLUID_TOOLTIP);
 
         registry.addRecipe(EmiWorldInteractionRecipe.builder().rightInput(EmiStack.of(CUSTOM_FLUID_MAP.get("corium").still.get(), 1000), false).leftInput(EmiStack.EMPTY).output(EmiStack.of(SOLIDIFIED_CORIUM.get())).build());
     }
@@ -221,37 +218,37 @@ public class ModEmiPlugin implements EmiPlugin {
         return EmiStack.of(itemIngredient.getStackRaw());
     }
 
-    private void addWorkstations(EmiRegistry registry, EmiRecipeCategory category, List<EmiStack> stacks) {
+    private static void addWorkstations(EmiRegistry registry, EmiRecipeCategory category, List<EmiStack> stacks) {
         stacks.forEach(e -> registry.addWorkstation(category, e));
     }
 
-    private <R> void createBlockDataMapCategory(EmiRegistry registry, DataMapType<Block, R> dataMapType, String name, ItemLike icon) {
+    private static <R> void createBlockDataMapCategory(EmiRegistry registry, DataMapType<Block, R> dataMapType, ResourceLocation name, ItemLike icon) {
         createBlockDataMapCategory(registry, dataMapType, name, icon, null);
     }
 
-    private <R> void createBlockDataMapCategory(EmiRegistry registry, DataMapType<Block, R> dataMapType, String name, ItemLike defaultIcon, Function<ItemStack, Component> tooltip) {
+    private static <R> void createBlockDataMapCategory(EmiRegistry registry, DataMapType<Block, R> dataMapType, ResourceLocation name, ItemLike defaultIcon, Function<ItemStack, Component> tooltip) {
         createDataMapCategory(registry, BuiltInRegistries.BLOCK.getDataMap(dataMapType).entrySet(), name, EmiStack.of(defaultIcon), List.of(), (e) -> EmiStack.of(Objects.requireNonNull(BuiltInRegistries.BLOCK.get(e.getKey()))), tooltip);
     }
 
-    private <R> void createFluidDataMapCategory(EmiRegistry registry, DataMapType<Fluid, R> dataMapType, String name, ItemLike icon) {
+    private static <R> void createFluidDataMapCategory(EmiRegistry registry, DataMapType<Fluid, R> dataMapType, ResourceLocation name, ItemLike icon) {
         createFluidDataMapCategory(registry, dataMapType, name, icon, null);
     }
 
-    private <R> void createFluidDataMapCategory(EmiRegistry registry, DataMapType<Fluid, R> dataMapType, String name, ItemLike icon, Function<FluidStack, Component> tooltip) {
+    private static <R> void createFluidDataMapCategory(EmiRegistry registry, DataMapType<Fluid, R> dataMapType, ResourceLocation name, ItemLike icon, Function<FluidStack, Component> tooltip) {
         createDataMapCategory(registry, BuiltInRegistries.FLUID.getDataMap(dataMapType).entrySet(), name, EmiStack.of(icon), List.of(EmiStack.of(icon)), (e) -> EmiStack.of(Objects.requireNonNull(BuiltInRegistries.FLUID.get(e.getKey()))), tooltip);
     }
 
     @SuppressWarnings("unchecked")
-    private <T, R, S> void createDataMapCategory(EmiRegistry registry, Set<Map.Entry<ResourceKey<T>, R>> entrySet, String name, EmiStack icon, List<EmiStack> workStations, Function<Map.Entry<ResourceKey<T>, R>, EmiStack> toEmiStack, Function<S, Component> tooltip) {
+    public static <T, R, S> void createDataMapCategory(EmiRegistry registry, Set<Map.Entry<ResourceKey<T>, R>> entrySet, ResourceLocation name, EmiStack icon, List<EmiStack> workStations, Function<Map.Entry<ResourceKey<T>, R>, EmiStack> toEmiStack, Function<S, Component> tooltip) {
         if (entrySet.isEmpty()) return;
-        EmiRecipeCategory category = new EmiRecipeCategory(ncLoc(name), icon);
+        EmiRecipeCategory category = new EmiRecipeCategory(name, icon);
         registry.addCategory(category);
 
         addWorkstations(registry, category, workStations);
         for (Map.Entry<ResourceKey<T>, R> entry : entrySet) {
             EmiStack stack = toEmiStack.apply(entry);
             S key = (S) (stack.getKey() instanceof Fluid fluid ? new FluidStack(fluid, 1000) : stack.getKey());
-            registry.addRecipe(new EmiBasicInfoRecipe(List.of(stack), category, ncLoc("/" + name + "/" + stack.getId().toString().replace(':', '_')), tooltip == null ? null : () -> ClientTooltipComponent.create(tooltip.apply(key).getVisualOrderText())));
+            registry.addRecipe(new EmiBasicInfoRecipe(List.of(stack), category, name.withPrefix("/").withSuffix("/" + stack.getId().toString().replace(':', '_')), tooltip == null ? null : () -> ClientTooltipComponent.create(tooltip.apply(key).getVisualOrderText())));
 
             if (workStations.isEmpty()) {
                 registry.addWorkstation(category, stack);
@@ -270,23 +267,6 @@ public class ModEmiPlugin implements EmiPlugin {
         }
         for (RecipeHolder<T> recipe : manager.getAllRecipesFor(recipeType)) {
             registry.addRecipe(emiRecipeFunc.apply(recipe.id(), recipe.value()));
-        }
-    }
-
-    private record SimpleRecipeHandler<T extends AbstractContainerMenu>(EmiRecipeCategory category) implements StandardRecipeHandler<T> {
-        @Override
-        public List<Slot> getInputSources(T handler) {
-            return handler.slots;
-        }
-
-        @Override
-        public List<Slot> getCraftingSlots(T handler) {
-            return List.of();
-        }
-
-        @Override
-        public boolean supportsRecipe(EmiRecipe recipe) {
-            return (recipe.getCategory() == category);
         }
     }
 }

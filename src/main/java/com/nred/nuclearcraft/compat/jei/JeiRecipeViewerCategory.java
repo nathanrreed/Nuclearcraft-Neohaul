@@ -84,12 +84,17 @@ public abstract class JeiRecipeViewerCategory<RECIPE extends BasicRecipe> extend
         }
 
         List<int[]> itemOutputStackXY = categoryInfo.getItemOutputStackXY();
-        for (int i = 0; i < recipe.itemProducts.size(); i++) {
-            int[] stackXY = itemOutputStackXY.get(i);
-            SizedChanceItemIngredient ingredient = recipe.getItemProducts().get(i);
-            IRecipeSlotBuilder temp = builder.addOutputSlot(stackXY[0] - backgroundX, stackXY[1] - backgroundY).addItemStacks(Arrays.asList(ingredient.getItemsRaw()));
-            if (ingredient.chancePercent() < 100) {
-                temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable(MODID + ".recipe_viewer.chance_output", ingredient.minStackSize(), ingredient.count(), NCMath.decimalPlaces(ingredient.getMeanStackSize(), 2))));
+        if (recipe.isSpecial()) {
+            int[] stackXY = itemOutputStackXY.getFirst();
+            builder.addOutputSlot(stackXY[0] - backgroundX, stackXY[1] - backgroundY).addItemStack(recipe.getResultItem(null));
+        } else {
+            for (int i = 0; i < recipe.itemProducts.size(); i++) {
+                int[] stackXY = itemOutputStackXY.get(i);
+                SizedChanceItemIngredient ingredient = recipe.getItemProducts().get(i);
+                IRecipeSlotBuilder temp = builder.addOutputSlot(stackXY[0] - backgroundX, stackXY[1] - backgroundY).addItemStacks(Arrays.asList(ingredient.getItemsRaw()));
+                if (ingredient.chancePercent() < 100) {
+                    temp.setSlotName("" + i).addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(Component.translatable(MODID + ".recipe_viewer.chance_output", ingredient.minStackSize(), ingredient.count(), NCMath.decimalPlaces(ingredient.getMeanStackSize(), 2))));
+                }
             }
         }
 

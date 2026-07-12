@@ -36,6 +36,11 @@ import com.nred.nuclearcraft.menu.multiblock.port.*;
 import com.nred.nuclearcraft.menu.processor.ProcessorMenuImpl.*;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import com.nred.nuclearcraft.screen.multiblock.FissionIrradiatorScreen;
+import com.nred.nuclearcraft.screen.multiblock.PebbleFissionChamberScreen;
+import com.nred.nuclearcraft.screen.multiblock.SaltFissionVesselScreen;
+import com.nred.nuclearcraft.screen.multiblock.SolidFissionCellScreen;
+import com.nred.nuclearcraft.screen.processor.ProcessorScreenImpl.*;
 import com.nred.nuclearcraft.util.DataMapHelper;
 import com.nred.nuclearcraft.util.ModCheck;
 import com.nred.nuclearcraft.util.StreamHelper;
@@ -152,27 +157,27 @@ public class BlockEntityInfoHandler {
 
     public static void init() {
         if (ModCheck.jeiLoaded() || ModCheck.emiLoaded()) {
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("alloy_furnace", List.of(PROCESSOR_MAP.get("alloy_furnace"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("assembler", List.of(PROCESSOR_MAP.get("assembler"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("centrifuge", List.of(PROCESSOR_MAP.get("centrifuge"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("chemical_reactor", List.of(PROCESSOR_MAP.get("chemical_reactor"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("crystallizer", List.of(PROCESSOR_MAP.get("crystallizer"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("decay_hastener", List.of(PROCESSOR_MAP.get("decay_hastener"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("electric_furnace", List.of(PROCESSOR_MAP.get("electric_furnace"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("electrolyzer", List.of(PROCESSOR_MAP.get("electrolyzer"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fluid_infuser", List.of(PROCESSOR_MAP.get("fluid_infuser"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fluid_enricher", List.of(PROCESSOR_MAP.get("fluid_enricher"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fluid_extractor", List.of(PROCESSOR_MAP.get("fluid_extractor"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fluid_mixer", List.of(PROCESSOR_MAP.get("fluid_mixer"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fuel_reprocessor", List.of(PROCESSOR_MAP.get("fuel_reprocessor"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("ingot_former", List.of(PROCESSOR_MAP.get("ingot_former"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("manufactory", List.of(PROCESSOR_MAP.get("manufactory"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("melter", List.of(PROCESSOR_MAP.get("melter"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("pressurizer", List.of(PROCESSOR_MAP.get("pressurizer"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("rock_crusher", List.of(PROCESSOR_MAP.get("rock_crusher"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("separator", List.of(PROCESSOR_MAP.get("separator"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("supercooler", List.of(PROCESSOR_MAP.get("supercooler"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("radiation_scrubber", List.of(RADIATION_SCRUBBER)));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("alloy_furnace", AlloyFurnaceScreen.class, List.of(PROCESSOR_MAP.get("alloy_furnace"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("assembler", AssemblerScreen.class, List.of(PROCESSOR_MAP.get("assembler"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("centrifuge", CentrifugeScreen.class, List.of(PROCESSOR_MAP.get("centrifuge"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("chemical_reactor", ChemicalReactorScreen.class, List.of(PROCESSOR_MAP.get("chemical_reactor"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("crystallizer", CrystallizerScreen.class, List.of(PROCESSOR_MAP.get("crystallizer"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("decay_hastener", DecayHastenerScreen.class, List.of(PROCESSOR_MAP.get("decay_hastener"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("electric_furnace", ElectricFurnaceScreen.class, List.of(PROCESSOR_MAP.get("electric_furnace"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("electrolyzer", ElectrolyzerScreen.class, List.of(PROCESSOR_MAP.get("electrolyzer"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fluid_infuser", InfuserScreen.class, List.of(PROCESSOR_MAP.get("fluid_infuser"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fluid_enricher", EnricherScreen.class, List.of(PROCESSOR_MAP.get("fluid_enricher"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fluid_extractor", ExtractorScreen.class, List.of(PROCESSOR_MAP.get("fluid_extractor"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fluid_mixer", MixerScreen.class, List.of(PROCESSOR_MAP.get("fluid_mixer"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fuel_reprocessor", FuelReprocessorScreen.class, List.of(PROCESSOR_MAP.get("fuel_reprocessor"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("ingot_former", IngotFormerScreen.class, List.of(PROCESSOR_MAP.get("ingot_former"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("manufactory", ManufactoryScreen.class, List.of(PROCESSOR_MAP.get("manufactory"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("melter", MelterScreen.class, List.of(PROCESSOR_MAP.get("melter"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("pressurizer", PressurizerScreen.class, List.of(PROCESSOR_MAP.get("pressurizer"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("rock_crusher", RockCrusherScreen.class, List.of(PROCESSOR_MAP.get("rock_crusher"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("separator", SeparatorScreen.class, List.of(PROCESSOR_MAP.get("separator"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("supercooler", SupercoolerScreen.class, List.of(PROCESSOR_MAP.get("supercooler"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("radiation_scrubber", RadiationScrubberScreen.class, List.of(RADIATION_SCRUBBER)));
 
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("collector", COLLECTOR_MAP.values().stream().toList()).setItemInputSlots(standardSlot(42, 35)).setItemOutputSlots(bigSlot(98, 31)).setFluidOutputSlots(bigSlot(126, 31)).setProgressBarGuiXYWHUV(60, 34, 37, 18, 176, 3));
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("decay_generator", List.of(DECAY_GENERATOR)).setItemInputSlots(standardSlot(56, 35)).setItemOutputSlots(bigSlot(112, 31)));
@@ -187,10 +192,10 @@ public class BlockEntityInfoHandler {
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("infiltrator_pressure_fluid", List.of(MACHINE_MAP.get("infiltrator_pressure_chamber"))).setFluidInputSlots(standardSlot(86, 35)).disableProgressBar());
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("multiblock_decay_pool", Lists.newArrayList(MACHINE_MAP.get("decay_pool_controller"))).setFluidInputSlots(standardSlot(56, 35)).setFluidOutputSlots(bigSlot(112, 31)));
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("decay_pool_heat_source", Lists.newArrayList(MACHINE_MAP.get("decay_pool_container"))).setItemInputSlots(standardSlot(32, 35)).setFluidInputSlots(standardSlot(52, 35)).setItemOutputSlots(bigSlot(108, 31)).setFluidOutputSlots(bigSlot(136, 31)).setProgressBarGuiXYWHUV(70, 35, 37, 16, 176, 3));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fission_irradiator", List.of(FISSION_REACTOR_MAP.get("fission_irradiator"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("pebble_fission", List.of(FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("solid_fission", List.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"))));
-            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("salt_fission", List.of(FISSION_REACTOR_MAP.get("molten_salt_fission_controller"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("fission_irradiator", FissionIrradiatorScreen.class, List.of(FISSION_REACTOR_MAP.get("fission_irradiator"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("pebble_fission", PebbleFissionChamberScreen.class, List.of(FISSION_REACTOR_MAP.get("pebble_bed_fission_controller"), FISSION_REACTOR_MAP.get("fission_fuel_chamber"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("solid_fission", SolidFissionCellScreen.class, List.of(FISSION_REACTOR_MAP.get("solid_fuel_fission_controller"), FISSION_REACTOR_MAP.get("fission_fuel_cell"))));
+            registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("salt_fission", SaltFissionVesselScreen.class, List.of(FISSION_REACTOR_MAP.get("molten_salt_fission_controller"), FISSION_REACTOR_MAP.get("fission_fuel_vessel"))));
 
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("fission_moderator", DataMapHelper.get(FISSION_MODERATOR_DATA)).setItemInputSlots(standardSlot(86, 35)).disableProgressBar());
             registerRecipeViewerCategoryInfo(new RecipeViewerSimpleCategoryInfoBuilder<>("fission_reflector", DataMapHelper.get(FISSION_REFLECTOR_DATA)).setItemInputSlots(standardSlot(86, 35)).disableProgressBar());

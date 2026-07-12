@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 import static com.nred.nuclearcraft.recipe.RecipeHelper.matchFluidIngredient;
 import static com.nred.nuclearcraft.recipe.RecipeHelper.matchIngredient;
 
-public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends AbstractRecipeHandler<RECIPE> {
+public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends AbstractRecipeHandler<RECIPE> implements IRecipeHandler {
     public final String name;
     public final int itemInputSize, fluidInputSize, itemOutputSize, fluidOutputSize;
 
@@ -69,6 +69,8 @@ public abstract class BasicRecipeHandler<RECIPE extends BasicRecipe> extends Abs
         super.postInit(recipeManager);
         this.setValidFluids();
     }
+
+    // TODO cache
 
     public void setValidFluids() {
         validFluids.clear();

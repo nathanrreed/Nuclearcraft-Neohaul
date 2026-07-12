@@ -16,8 +16,8 @@ import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
 @SuppressWarnings("unused")
 public final class FissionPeripheral extends MultiblockPeripheral<FissionReactor> implements IPeripheral {
-    public FissionPeripheral(FissionComputerPortEntity turbineComputerPort) {
-        super(turbineComputerPort);
+    public FissionPeripheral(FissionComputerPortEntity fissionComputerPort) {
+        super(fissionComputerPort);
     }
 
     @LuaFunction(mainThread = true)

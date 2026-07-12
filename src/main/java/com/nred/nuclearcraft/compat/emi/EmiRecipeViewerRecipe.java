@@ -41,7 +41,11 @@ public abstract class EmiRecipeViewerRecipe extends BasicEmiRecipe {
             this.inputs.addAll(recipe.fluidIngredients.stream().map(ModEmiPlugin::getEmiFluidIngredient).toList());
         }
         if (!recipe.itemProducts.isEmpty() && recipe.getItemProduct().count() > 0) {
-            this.outputs.addAll(recipe.itemProducts.stream().map(ModEmiPlugin::getEmiItemStack).toList());
+            if (recipe.isSpecial()) { // For QMD
+                this.outputs.add(EmiStack.of(recipe.getResultItem(null)));
+            } else {
+                this.outputs.addAll(recipe.itemProducts.stream().map(ModEmiPlugin::getEmiItemStack).toList());
+            }
         }
         if (!recipe.fluidProducts.isEmpty() && recipe.getFluidProduct().amount() > 0) {
             this.outputs.addAll(recipe.fluidProducts.stream().map(ModEmiPlugin::getEmiFluidStack).toList());

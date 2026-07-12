@@ -115,11 +115,11 @@ public class RecipeHelper {
         return new RecipeMatchResult(true, itemInputOrder, fluidInputOrder);
     }
 
-    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler<?> recipeHandler, RecipeManager recipeManager) {
+    public static List<Set<ResourceLocation>> validFluids(IRecipeHandler recipeHandler, RecipeManager recipeManager) {
         return validFluids(recipeHandler, Collections.emptySet(), recipeManager);
     }
 
-    public static List<Set<ResourceLocation>> validFluids(BasicRecipeHandler<?> recipeHandler, Set<ResourceLocation> exceptions, RecipeManager recipeManager) {
+    public static List<Set<ResourceLocation>> validFluids(IRecipeHandler recipeHandler, Set<ResourceLocation> exceptions, RecipeManager recipeManager) {
         Set<ResourceLocation> fluidNameSet = new ObjectOpenHashSet<>();
         for (Map.Entry<ResourceKey<Fluid>, Fluid> entry : BuiltInRegistries.FLUID.entrySet()) { // TODO do this better
             ResourceLocation fluidKey = entry.getKey().location();
@@ -129,10 +129,10 @@ public class RecipeHelper {
         }
 
         List<Set<ResourceLocation>> allowedFluidSets = new ArrayList<>();
-        for (int i = 0; i < recipeHandler.fluidInputSize; ++i) {
+        for (int i = 0; i < recipeHandler.getFluidInputSize(); ++i) {
             allowedFluidSets.add(fluidNameSet);
         }
-        for (int i = recipeHandler.fluidInputSize; i < recipeHandler.fluidInputSize + recipeHandler.fluidOutputSize; ++i) {
+        for (int i = recipeHandler.getFluidInputSize(); i < recipeHandler.getFluidInputSize() + recipeHandler.getFluidOutputSize(); ++i) {
             allowedFluidSets.add(null);
         }
 
@@ -145,7 +145,7 @@ public class RecipeHelper {
             hash = 31L * hash + (stack == null || stack.isEmpty() ? 0L : pack(stack));
         }
         for (FluidStack stack : fluids) {
-            hash = 31L * hash + (stack == null ? 0L : BuiltInRegistries.FLUID.getId(stack.getFluid()));
+            hash = 31L * hash + (stack == null ? 0L : pack(stack));
         }
         return hash;
     }
@@ -156,6 +156,10 @@ public class RecipeHelper {
 
     public static int pack(Item item) {
         return BuiltInRegistries.ITEM.getId(item);
+    }
+
+    public static int pack(FluidStack stack) {
+        return BuiltInRegistries.FLUID.getId(stack.getFluid());
     }
 
     public static ItemStack unpack(int id) {

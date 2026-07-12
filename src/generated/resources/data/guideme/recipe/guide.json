@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "guideme"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "N": {
+      "item": "nuclearcraftneohaul:uranium_nugget"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NBN",
+    "NNN"
+  ],
+  "result": {
+    "components": {
+      "guideme:guide_id": "nuclearcraftneohaul:guide"
+    },
+    "count": 1,
+    "id": "guideme:guide"
+  }
+}

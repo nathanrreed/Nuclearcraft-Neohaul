@@ -6,6 +6,7 @@ import com.nred.nuclearcraft.handler.BasicRecipeHandler;
 import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.payload.processor.ProcessorUpdatePacket;
 import com.nred.nuclearcraft.recipe.BasicRecipe;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -13,15 +14,21 @@ import java.util.List;
 
 public class RecipeViewerProcessorCategoryInfo<TILE extends BlockEntity & IProcessor<TILE, PACKET, INFO, RECIPE>, PACKET extends ProcessorUpdatePacket, INFO extends ProcessorMenuInfo<TILE, PACKET, INFO, RECIPE>, RECIPE extends BasicRecipe> extends RecipeViewerCategoryInfo {
     public final INFO containerInfo;
+    public final Class<? extends AbstractContainerScreen<?>> screenClass;
 
-    public RecipeViewerProcessorCategoryInfo(String name, List<ItemLike> crafters) {
-        this(BlockEntityInfoHandler.<TILE, PACKET, INFO, RECIPE>getProcessorMenuInfo(name), crafters);
+    public RecipeViewerProcessorCategoryInfo(String name, Class<? extends AbstractContainerScreen<?>> screenClass, List<ItemLike> crafters) {
+        this(BlockEntityInfoHandler.<TILE, PACKET, INFO, RECIPE>getProcessorMenuInfo(name), screenClass, crafters);
     }
 
-    private RecipeViewerProcessorCategoryInfo(INFO containerInfo, List<ItemLike> crafters) {
+    public RecipeViewerProcessorCategoryInfo(String name, List<ItemLike> crafters) {
+        this(BlockEntityInfoHandler.<TILE, PACKET, INFO, RECIPE>getProcessorMenuInfo(name), null, crafters);
+    }
+
+    private RecipeViewerProcessorCategoryInfo(INFO containerInfo, Class<? extends AbstractContainerScreen<?>> screenClass, List<ItemLike> crafters) {
         super(containerInfo.recipeHandlerName, crafters);
 
         this.containerInfo = containerInfo;
+        this.screenClass = screenClass;
     }
 
     @Override
