@@ -14,7 +14,7 @@ import java.util.Map;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
-abstract class SimpleRecipeBuilder implements RecipeBuilder {
+public abstract class SimpleRecipeBuilder implements RecipeBuilder {
     protected ItemStack result;
     protected Map<String, Criterion<?>> criteria = new HashMap<>();
     protected String group = null;

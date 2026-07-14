@@ -13,12 +13,12 @@ public class TankVoid implements IFluidTank, IFluidHandler {
 
     @Override
     public @Nullable FluidStack drain(FluidStack resource, FluidAction doDrain) {
-        return null;
+        return FluidStack.EMPTY;
     }
 
     @Override
     public @Nullable FluidStack getFluid() {
-        return null;
+        return FluidStack.EMPTY;
     }
 
     @Override

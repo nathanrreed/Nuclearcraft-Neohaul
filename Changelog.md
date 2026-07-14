@@ -1,1 +1,2 @@
-- Added JEI click areas
+- Added fluids tags
+- Fixed crash with fluids trying to be removed from universal bin

@@ -36,12 +36,16 @@ public class ModFluidTagProvider extends FluidTagsProvider {
     public static final TagKey<Fluid> ARGON_TAG = FluidTags.create(ResourceLocation.parse("c:argon"));
     public static final TagKey<Fluid> NEON_TAG = FluidTags.create(ResourceLocation.parse("c:neon"));
 
-    public static final TagKey<Fluid> CHLORINE_TAG = FluidTags.create(ResourceLocation.parse("c:chlorine"));
+    public static final TagKey<Fluid> DEUTERIUM_TAG = FluidTags.create(ResourceLocation.parse("c:deuterium"));
+    public static final TagKey<Fluid> HELIUM_3_TAG = FluidTags.create(ResourceLocation.parse("c:helium_3"));
 
     public static final TagKey<Fluid> HYDROFLUORIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:hydrofluoric_acid"));
     public static final TagKey<Fluid> BORIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:boric_acid"));
     public static final TagKey<Fluid> SULFURIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:sulfuric_acid"));
     public static final TagKey<Fluid> ORTHOSILICIC_ACID_TAG = FluidTags.create(ResourceLocation.parse("c:orthosilicic_acid"));
+
+    public static final TagKey<Fluid> LIQUID_HELIUM_TAG = FluidTags.create(ResourceLocation.parse("c:liquid_helium"));
+    public static final TagKey<Fluid> LIQUID_NITROGEN_TAG = FluidTags.create(ResourceLocation.parse("c:liquid_nitrogen"));
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
@@ -59,5 +63,11 @@ public class ModFluidTagProvider extends FluidTagsProvider {
         tag(ORTHOSILICIC_ACID_TAG).add(ACID_MAP.get("orthosilicic_acid").still.get());
 
         tag(SODIUM_TAG).add(MOLTEN_MAP.get("sodium").still.get());
+
+        tag(DEUTERIUM_TAG).add(GAS_MAP.get("deuterium").still.get());
+        tag(HELIUM_3_TAG).add(GAS_MAP.get("helium_3").still.get());
+
+        tag(LIQUID_HELIUM_TAG).add(CUSTOM_FLUID_MAP.get("liquid_helium").still.get());
+        tag(LIQUID_NITROGEN_TAG).add(CUSTOM_FLUID_MAP.get("liquid_nitrogen").still.get());
     }
 }
