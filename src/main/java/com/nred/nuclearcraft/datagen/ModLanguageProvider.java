@@ -1568,14 +1568,14 @@ public class ModLanguageProvider extends LanguageProvider {
             add(disc.get(), "Music Disc");
         }
 
-        add(MODID + ".music_disc.money_for_nothing", "Dire Straits - Money For Nothing");
-        add(MODID + ".music_disc.money_for_nothing.credit", "8-Bit Cover by 'Omnigrad'");
-        add(MODID + ".music_disc.wanderer", "Dion - The Wanderer");
-        add(MODID + ".music_disc.wanderer.credit", "8-Bit Cover by '8 Bit Universe'");
-        add(MODID + ".music_disc.end_of_the_world", "Skeeter Davis - The End of the World");
-        add(MODID + ".music_disc.end_of_the_world.credit", "8-Bit Cover by 'GermanPikachuGaming'");
-        add(MODID + ".music_disc.hyperspace", "Ur-Quan Masters - Hyperspace");
-        add(MODID + ".music_disc.hyperspace.credit", "8-Bit Cover by 'Riku Nuottajärvi'");
+        add(MODID + ":music_disc.money_for_nothing", "Dire Straits - Money For Nothing");
+        add(MODID + ":music_disc.money_for_nothing.credit", "8-Bit Cover by 'Omnigrad'");
+        add(MODID + ":music_disc.wanderer", "Dion - The Wanderer");
+        add(MODID + ":music_disc.wanderer.credit", "8-Bit Cover by '8 Bit Universe'");
+        add(MODID + ":music_disc.end_of_the_world", "Skeeter Davis - The End of the World");
+        add(MODID + ":music_disc.end_of_the_world.credit", "8-Bit Cover by 'GermanPikachuGaming'");
+        add(MODID + ":music_disc.hyperspace", "Ur-Quan Masters - Hyperspace");
+        add(MODID + ":music_disc.hyperspace.credit", "8-Bit Cover by 'Riku Nuottajärvi'");
 
         add(MODID + ".sound.block.electrolyzer_run", "Electrolyzer Running");
         add(MODID + ".sound.block.distiller_run", "Distiller Running");

@@ -11,17 +11,17 @@ import net.minecraft.world.item.TooltipFlag;
 import java.util.List;
 
 public class NCItem extends Item {
-    private Component tooltip;
+    private List<MutableComponent> tooltip;
     public List<MutableComponent> shiftTooltips;
     public static final Component shiftForDetails = Component.translatable(NuclearcraftNeohaul.MODID + ".tooltip.shift_for_info").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
 
     public NCItem(Properties properties, List<MutableComponent> tooltips, boolean hasShiftTooltips) {
         super(properties);
 
-        if (tooltips.size() > 1 || hasShiftTooltips) {
+        if (hasShiftTooltips) {
             shiftTooltips = tooltips;
         } else if (!tooltips.isEmpty()) {
-            tooltip = tooltips.getFirst();
+            tooltip = tooltips;
         }
     }
 
@@ -30,7 +30,7 @@ public class NCItem extends Item {
     }
 
     public NCItem(Properties properties, List<String> tooltips) {
-        this(properties, false, tooltips);
+        this(properties, tooltips.size() > 1, tooltips);
     }
 
     public NCItem(Properties properties) {
@@ -46,7 +46,7 @@ public class NCItem extends Item {
                 tooltipComponents.add(shiftForDetails);
             }
         } else if (tooltip != null) {
-            tooltipComponents.add(tooltip);
+            tooltipComponents.addAll(tooltip);
         }
     }
 }

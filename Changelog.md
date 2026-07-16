@@ -1,1 +1,1 @@
-- Fixed pellet recipes giving too few pellets
+- Fixed music disc translation

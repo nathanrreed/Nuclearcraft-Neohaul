@@ -9,6 +9,7 @@ import com.nred.nuclearcraft.radiation.RadiationHelper;
 import com.nred.nuclearcraft.util.NCMath;
 import com.nred.nuclearcraft.util.UnitHelper;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.*;
@@ -210,10 +211,10 @@ public class ItemRegistration {
 
     public static HashMap<String, DeferredItem<Item>> createMusicDiscs() {
         HashMap<String, DeferredItem<Item>> map = new LinkedHashMap<>();
-        map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(WANDERER_KEY), List.of(MODID + ".music_disc.wanderer", MODID + ".music_disc.wanderer.credit"))));
-        map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(END_OF_THE_WORLD_KEY), List.of(MODID + ".music_disc.end_of_the_world", MODID + ".music_disc.end_of_the_world.credit"))));
-        map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(MONEY_FOR_NOTHING_KEY), List.of(MODID + ".music_disc.money_for_nothing", MODID + ".music_disc.money_for_nothing.credit"))));
-        map.put("music_disc_hyperspace", ITEMS.register("music_disc_hyperspace", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).jukeboxPlayable(HYPERSPACE_KEY), List.of(MODID + ".music_disc.hyperspace", MODID + ".music_disc.hyperspace.credit"))));
+        map.put("music_disc_wanderer", ITEMS.register("music_disc_wanderer", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.JUKEBOX_PLAYABLE, new JukeboxPlayable(new EitherHolder<>(WANDERER_KEY), false)), false, List.of(MODID + ":music_disc.wanderer", MODID + ":music_disc.wanderer.credit"))));
+        map.put("music_disc_end_of_the_world", ITEMS.register("music_disc_end_of_the_world", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.JUKEBOX_PLAYABLE, new JukeboxPlayable(new EitherHolder<>(END_OF_THE_WORLD_KEY), false)), false, List.of(MODID + ":music_disc.end_of_the_world", MODID + ":music_disc.end_of_the_world.credit"))));
+        map.put("music_disc_money_for_nothing", ITEMS.register("music_disc_money_for_nothing", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.JUKEBOX_PLAYABLE, new JukeboxPlayable(new EitherHolder<>(MONEY_FOR_NOTHING_KEY), false)), false, List.of(MODID + ":music_disc.money_for_nothing", MODID + ":music_disc.money_for_nothing.credit"))));
+        map.put("music_disc_hyperspace", ITEMS.register("music_disc_hyperspace", () -> new NCItem(new Properties().stacksTo(1).rarity(Rarity.EPIC).component(DataComponents.JUKEBOX_PLAYABLE, new JukeboxPlayable(new EitherHolder<>(HYPERSPACE_KEY), false)), false, List.of(MODID + ":music_disc.hyperspace", MODID + ":music_disc.hyperspace.credit"))));
         return map;
     }
 
