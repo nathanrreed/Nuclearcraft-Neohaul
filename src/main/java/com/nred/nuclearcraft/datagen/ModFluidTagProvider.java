@@ -13,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 import static com.nred.nuclearcraft.NuclearcraftNeohaul.MODID;
-import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 import static com.nred.nuclearcraft.info.Names.GAS_COOLANTS;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 
@@ -23,7 +22,8 @@ public class ModFluidTagProvider extends FluidTagsProvider {
         super(output, provider, MODID, existingFileHelper);
     }
 
-    public static final TagKey<Fluid> CRYOTHEUM_TAG = FluidTags.create(ncLoc("cryotheum"));
+    public static final TagKey<Fluid> CRYOTHEUM_TAG = FluidTags.create(ResourceLocation.parse("c:cryotheum"));
+    public static final TagKey<Fluid> ENDERIUM_TAG = FluidTags.create(ResourceLocation.parse("c:enderium"));
     public static final TagKey<Fluid> STEAM_TAG = FluidTags.create(ResourceLocation.parse("c:steam"));
     public static final TagKey<Fluid> OXYGEN_TAG = FluidTags.create(ResourceLocation.parse("c:oxygen"));
     public static final TagKey<Fluid> NITROGEN_TAG = FluidTags.create(ResourceLocation.parse("c:nitrogen"));
@@ -57,17 +57,23 @@ public class ModFluidTagProvider extends FluidTagsProvider {
             tag(FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", gas))).add(GAS_MAP.get(gas).still.get());
         }
 
+        for (String molten : MOLTEN_MAP.keySet()) { // TODO use these tags
+            tag(FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", molten))).add(MOLTEN_MAP.get(molten).still.get());
+        }
+
         tag(HYDROFLUORIC_ACID_TAG).add(ACID_MAP.get("hydrofluoric_acid").still.get());
         tag(BORIC_ACID_TAG).add(ACID_MAP.get("boric_acid").still.get());
         tag(SULFURIC_ACID_TAG).add(ACID_MAP.get("sulfuric_acid").still.get());
         tag(ORTHOSILICIC_ACID_TAG).add(ACID_MAP.get("orthosilicic_acid").still.get());
-
-        tag(SODIUM_TAG).add(MOLTEN_MAP.get("sodium").still.get());
 
         tag(DEUTERIUM_TAG).add(GAS_MAP.get("deuterium").still.get());
         tag(HELIUM_3_TAG).add(GAS_MAP.get("helium_3").still.get());
 
         tag(LIQUID_HELIUM_TAG).add(CUSTOM_FLUID_MAP.get("liquid_helium").still.get());
         tag(LIQUID_NITROGEN_TAG).add(CUSTOM_FLUID_MAP.get("liquid_nitrogen").still.get());
+    }
+
+    public static TagKey<Fluid> fluidTag(String name){
+        return FluidTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
     }
 }

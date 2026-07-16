@@ -7,6 +7,7 @@ import net.minecraft.world.item.Items;
 
 import java.util.List;
 
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.qmdNotLoaded;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 import static com.nred.nuclearcraft.util.FluidStackHelper.*;
@@ -57,7 +58,7 @@ public class IngotFormerProvider {
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 2, 2).addFluidInput(MOLTEN_MAP.get("bas"), GEM_VOLUME).addItemResult(GEM_MAP.get("boron_arsenide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(HOT_GAS_MAP.get("sic_vapor"), INGOT_VOLUME).addItemResult(ALLOY_MAP.get("silicon_carbide"), 1).save(recipeOutput);
         new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("polyethersulfone"), INGOT_VOLUME).addItemResult(PART_MAP.get("polyethersulfone"), 1).save(recipeOutput);
-        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("coal"), COAL_DUST_VOLUME).addItemResult(INGOT_MAP.get("graphite"), 1).save(recipeOutput);
+        new ProcessorRecipeBuilder(IngotFormerRecipe.class, 0.5, 1).addFluidInput(MOLTEN_MAP.get("coal"), COAL_DUST_VOLUME).addItemResult(INGOT_MAP.get("graphite"), 1).save(qmdNotLoaded(recipeOutput));
 
 //    TODO    new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(MOLTEN_MAP.get("barium_oxide"), INGOT_VOLUME).addItemResult(DUST_MAP.get("barium_oxide"), 1).save(recipeOutput);
 
@@ -101,5 +102,7 @@ public class IngotFormerProvider {
         for (String isotope : List.of("233", "235", "238")) {
             new ProcessorRecipeBuilder(IngotFormerRecipe.class, 1, 1).addFluidInput(FISSION_FUEL_MAP.get("uranium_" + isotope), INGOT_VOLUME).addItemResult(URANIUM_MAP.get(isotope), 1).save(recipeOutput);
         }
+
+        // TODO add other mods recipes
     }
 }

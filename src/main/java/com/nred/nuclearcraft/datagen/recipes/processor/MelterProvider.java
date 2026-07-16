@@ -14,6 +14,7 @@ import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import java.util.List;
 import java.util.Map;
 
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.qmdNotLoaded;
 import static com.nred.nuclearcraft.helpers.RecipeHelpers.tag;
 import static com.nred.nuclearcraft.registration.BlockRegistration.INGOT_BLOCK_MAP;
 import static com.nred.nuclearcraft.registration.FluidRegistration.*;
@@ -126,9 +127,9 @@ public class MelterProvider {
         new ProcessorRecipeBuilder(MelterRecipe.class, 0.5, 1.5).addItemInput(Items.ENDER_PEARL, 1).addFluidResult(CUSTOM_FLUID_MAP.get("ender"), ENDER_PEARL_VOLUME).save(recipeOutput, "molten_ender_from_pearl");
 
         new ProcessorRecipeBuilder(MelterRecipe.class, 0.5, 1).addItemInput(Ingredient.of(Items.COAL, GEM_DUST_MAP.get("coal")), 1).addFluidResult(MOLTEN_MAP.get("coal"), COAL_DUST_VOLUME).save(recipeOutput, "molten_coal_from_coal");
-        new ProcessorRecipeBuilder(MelterRecipe.class, 0.5, 1).addItemInput(INGOT_MAP.get("graphite"), 1).addFluidResult(MOLTEN_MAP.get("coal"), COAL_DUST_VOLUME).save(recipeOutput, "molten_coal_from_graphite");
+        new ProcessorRecipeBuilder(MelterRecipe.class, 0.5, 1).addItemInput(INGOT_MAP.get("graphite"), 1).addFluidResult(MOLTEN_MAP.get("coal"), COAL_DUST_VOLUME).save(qmdNotLoaded(recipeOutput), "molten_coal_from_graphite");
         new ProcessorRecipeBuilder(MelterRecipe.class, 4.5, 1).addItemInput(Items.COAL_BLOCK, 1).addFluidResult(MOLTEN_MAP.get("coal"), COAL_BLOCK_VOLUME).save(recipeOutput, "molten_coal_from_block");
-        new ProcessorRecipeBuilder(MelterRecipe.class, 4.5, 1).addItemInput(INGOT_BLOCK_MAP.get("graphite"), 1).addFluidResult(MOLTEN_MAP.get("coal"), COAL_BLOCK_VOLUME).save(recipeOutput, "molten_coal_from_graphite_block");
+        new ProcessorRecipeBuilder(MelterRecipe.class, 4.5, 1).addItemInput(INGOT_BLOCK_MAP.get("graphite"), 1).addFluidResult(MOLTEN_MAP.get("coal"), COAL_BLOCK_VOLUME).save(qmdNotLoaded(recipeOutput), "molten_coal_from_graphite_block");
 
         new ProcessorRecipeBuilder(MelterRecipe.class, 0.25, 0.5).addItemInput(FOOD_MAP.get("ground_cocoa_nibs"), 1).addFluidResult(CHOCOLATE_MAP.get("chocolate_liquor"), INGOT_VOLUME).save(recipeOutput);
         new ProcessorRecipeBuilder(MelterRecipe.class, 0.25, 0.5).addItemInput(FOOD_MAP.get("cocoa_butter"), 1).addFluidResult(CHOCOLATE_MAP.get("cocoa_butter"), INGOT_VOLUME).save(recipeOutput);
@@ -165,5 +166,7 @@ public class MelterProvider {
             if (!FISSION_FLUID_MAP.containsKey(dust)) continue;
             createSet(recipeOutput, dust, FISSION_FLUID_MAP);
         }
+
+        // TODO add other mods recipes
     }
 }

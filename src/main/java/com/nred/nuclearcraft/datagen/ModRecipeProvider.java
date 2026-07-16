@@ -323,11 +323,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     private void fuel(RecipeOutput recipeOutput, String minor, String major, HashMap<String, DeferredItem<Item>> typeMap1, HashMap<String, DeferredItem<Item>> typeMap2, HashMap<String, DeferredItem<Item>> pelletMap, HashMap<String, DeferredItem<Item>> fuelTypeMap, int amount, String prefix) {
         if (!prefix.isEmpty()) {
             for (String suffix : List.of("", "_c")) {
-                ShapelessRecipeBuilder.shapeless(MISC, pelletMap.get(prefix + minor + suffix)).requires(typeMap1.get(minor + suffix), amount).requires(typeMap2.get(major + suffix), 9 - amount)
+                ShapelessRecipeBuilder.shapeless(MISC, pelletMap.get(prefix + minor + suffix), 9).requires(typeMap1.get(minor + suffix), amount).requires(typeMap2.get(major + suffix), 9 - amount)
                         .unlockedBy(getHasName(typeMap1.get(minor + suffix)), has(typeMap1.get(minor + suffix))).save(recipeOutput, prefix + minor + suffix);
             }
             for (String suffix : List.of("_ox", "_ni", "_za")) {
-                ShapelessRecipeBuilder.shapeless(MISC, fuelTypeMap.get(prefix + minor + suffix)).requires(typeMap1.get(minor + suffix), amount).requires(typeMap2.get(major + suffix), 9 - amount)
+                ShapelessRecipeBuilder.shapeless(MISC, fuelTypeMap.get(prefix + minor + suffix), 9).requires(typeMap1.get(minor + suffix), amount).requires(typeMap2.get(major + suffix), 9 - amount)
                         .unlockedBy(getHasName(typeMap1.get(minor + suffix)), has(typeMap1.get(minor + suffix))).save(recipeOutput, prefix + minor + suffix);
             }
         }

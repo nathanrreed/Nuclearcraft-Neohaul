@@ -52,6 +52,7 @@ public class AlloyFurnaceRecipeProvider {
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1.5).addItemInputs(List.of(gemDust("diamond", 1), nugget("pulsating_alloy", 8))).addItemResult(gem("pulsating_crystal", 1)).save(gemExists(recipeOutput, "pulsating_crystal"), "pulsating_crystal");
         new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1.5).addItemInputs(List.of(gemDust("emerald", 1), nugget("vibrant_alloy", 8))).addItemResult(gem("vibrant_crystal", 2)).save(gemExists(recipeOutput, "vibrant_crystal"), "vibrant_crystal");
 
+        // Isotopes
         for (String isotope : List.of("241", "242", "243")) {
             new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInputs(List.of(SizedChanceItemIngredient.of(AMERICIUM_MAP.get(isotope), 1), ingotDust("zirconium", 1))).addItemResult(AMERICIUM_MAP.get(isotope + "_za"), 1).save(recipeOutput, "americium_" + isotope + "_from_za");
             new ProcessorRecipeBuilder(AlloyFurnaceRecipe.class, 1, 1).addItemInputs(List.of(SizedChanceItemIngredient.of(AMERICIUM_MAP.get(isotope), 1), ingotDust("graphite", 1))).addItemResult(AMERICIUM_MAP.get(isotope + "_c"), 1).save(recipeOutput, "americium_" + isotope + "_from_c");

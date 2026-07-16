@@ -18,6 +18,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import static com.nred.nuclearcraft.helpers.RecipeHelpers.qmdNotLoaded;
 import static com.nred.nuclearcraft.registration.ItemRegistration.*;
 
 public class DecayHastenerProvider {
@@ -44,7 +45,7 @@ public class DecayHastenerProvider {
         addIsotopes(recipeOutput, NEPTUNIUM_MAP, "236", DUST_MAP, "thorium", RadSources.NEPTUNIUM_236);
         addIsotopes(recipeOutput, NEPTUNIUM_MAP, "237", URANIUM_MAP, "233", RadSources.NEPTUNIUM_237);
 
-        addIsotopes(recipeOutput, PLUTONIUM_MAP, "238", DUST_MAP, "lead", RadSources.PLUTONIUM_238);
+        addIsotopes(qmdNotLoaded(recipeOutput), PLUTONIUM_MAP, "238", DUST_MAP, "lead", RadSources.PLUTONIUM_238);
         addIsotopes(recipeOutput, PLUTONIUM_MAP, "239", URANIUM_MAP, "235", RadSources.PLUTONIUM_239);
         addIsotopes(recipeOutput, PLUTONIUM_MAP, "241", NEPTUNIUM_MAP, "237", RadSources.PLUTONIUM_241);
         addIsotopes(recipeOutput, PLUTONIUM_MAP, "242", URANIUM_MAP, "238", RadSources.PLUTONIUM_242);
