@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.block_entity.turbine;
 
+import com.nred.nuclearcraft.multiblock.turbine.TurbinePlacement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -9,7 +10,6 @@ public class TurbineCoilConnectorEntity extends TurbineDynamoEntityPart {
     public TurbineCoilConnectorEntity(BlockPos position, BlockState blockState) {
         super(TURBINE_ENTITY_TYPE.get("coil_connector").get(), position, blockState);
         conductivity = null;
-
-        ruleID = "connector";
+        this.placementRule = TurbinePlacement.RULE_MAP.get("connector");
     }
 }

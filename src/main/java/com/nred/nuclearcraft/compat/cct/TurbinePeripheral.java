@@ -1,5 +1,6 @@
 package com.nred.nuclearcraft.compat.cct;
 
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineComputerPortEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoCoilEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoEntityPart;
@@ -7,6 +8,8 @@ import com.nred.nuclearcraft.multiblock.turbine.Turbine;
 import com.nred.nuclearcraft.util.CCHelper;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.minecraft.core.BlockPos;
 import org.jspecify.annotations.Nullable;
 
@@ -133,6 +136,20 @@ public final class TurbinePeripheral extends MultiblockPeripheral<Turbine> imple
             getMultiblock().computerActivated = false;
             getMultiblock().getLogic().setIsTurbineOn();
         }
+    }
+
+    @LuaFunction(mainThread = true)
+    public Object[] getTanks() {
+        List<Object> map = new ArrayList<>();
+        if (test()) {
+            for (Tank tank : getMultiblock().tanks) {
+                Object2ObjectMap<String, Object> infoMap = new Object2ObjectLinkedOpenHashMap<>();
+                infoMap.put("name", tank.getFluidId().toString());
+                infoMap.put("amount", tank.getFluidAmount());
+                map.add(infoMap);
+            }
+        }
+        return new Object[]{map};
     }
 
     @Override

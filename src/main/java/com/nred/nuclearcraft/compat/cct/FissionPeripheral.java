@@ -1,6 +1,7 @@
 package com.nred.nuclearcraft.compat.cct;
 
 import com.nred.nuclearcraft.block_entity.fission.*;
+import com.nred.nuclearcraft.block_entity.internal.fluid.Tank;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineDynamoEntityPart;
 import com.nred.nuclearcraft.multiblock.fisson.FissionCluster;
 import com.nred.nuclearcraft.multiblock.fisson.FissionReactor;
@@ -11,6 +12,9 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import org.jspecify.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.nred.nuclearcraft.helpers.Location.ncLoc;
 
@@ -177,6 +181,20 @@ public final class FissionPeripheral extends MultiblockPeripheral<FissionReactor
         infoMap.put("components", componentsMap);
 
         return new Object[]{infoMap};
+    }
+
+    @LuaFunction(mainThread = true)
+    public Object[] getVentTanks() {
+        List<Object> map = new ArrayList<>();
+        if (test()) {
+            for (Tank tank : getMultiblock().logic.getVentTanks(List.of())) {
+                Object2ObjectMap<String, Object> infoMap = new Object2ObjectLinkedOpenHashMap<>();
+                infoMap.put("name", tank.getFluidId().toString());
+                infoMap.put("amount", tank.getFluidAmount());
+                map.add(infoMap);
+            }
+        }
+        return new Object[]{map};
     }
 
     @Override

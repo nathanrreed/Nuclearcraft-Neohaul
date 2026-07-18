@@ -342,6 +342,7 @@ public class Machine extends Multiblock<Machine> implements ILogicMultiblock<Mac
 
     @Override
     protected void onAssimilated(IMultiblockController<Machine> assimilated) {
+        super.onAssimilated(assimilated);
         logic.onAssimilate(assimilated);
     }
 

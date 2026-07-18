@@ -28,7 +28,6 @@ public class TurbineDynamoEntityPart extends AbstractTurbineEntity implements IT
     protected final EnergyTileWrapper[] energySides = ITileEnergy.getDefaultEnergySides(this);
 
     public Double conductivity;
-    public String ruleID;
 
     public boolean isSearched = false, isInValidPosition = false;
 

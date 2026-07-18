@@ -96,6 +96,8 @@ int getNumberOfClusters()
 
 Table[] getClusterInfo(int clusterID)
 
+Table[] getVentTanks()
+
 void clearAllMaterial()
 ```
 
@@ -167,6 +169,8 @@ Table[] getDynamoPartStats()
 
 void activate()
 void deactivate()
+
+Table[] getTanks()
 
 void clearAllMaterial()
 ```

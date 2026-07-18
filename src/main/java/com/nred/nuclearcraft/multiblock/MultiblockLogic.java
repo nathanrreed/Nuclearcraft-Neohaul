@@ -105,14 +105,6 @@ public abstract class MultiblockLogic<MULTIBLOCK extends Multiblock<MULTIBLOCK> 
         return backupStorage;
     }
 
-    public int getPowerPortEUSinkTier() {
-        return 10;
-    }
-
-    public int getPowerPortEUSourceTier() {
-        return 1;
-    }
-
     public @Nonnull List<Tank> getVentTanks(List<Tank> backupTanks) {
         return backupTanks;
     }

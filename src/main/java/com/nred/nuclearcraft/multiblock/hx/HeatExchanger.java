@@ -177,6 +177,7 @@ public class HeatExchanger extends Multiblock<HeatExchanger> implements ILogicMu
 
     @Override
     protected void onAssimilated(IMultiblockController<HeatExchanger> assimilator) {
+        super.onAssimilated(assimilator);
         logic.onAssimilated(assimilator);
     }
 
