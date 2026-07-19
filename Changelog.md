@@ -1,1 +1,1 @@
-- Fixed music disc translation
+- Fixed crash on server startup

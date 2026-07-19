@@ -49,6 +49,8 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
 import java.util.Map;
@@ -155,6 +157,7 @@ public class BlockEntityInfoHandler {
         registerContainerInfo(new BlockEntityMenuInfo<>("fission_heater_port", FissionHeaterPortEntity.class, FissionHeaterPortMenu::new));
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void init() {
         if (ModCheck.jeiLoaded() || ModCheck.emiLoaded()) {
             registerRecipeViewerCategoryInfo(new RecipeViewerProcessorCategoryInfo<>("alloy_furnace", AlloyFurnaceScreen.class, List.of(PROCESSOR_MAP.get("alloy_furnace"))));

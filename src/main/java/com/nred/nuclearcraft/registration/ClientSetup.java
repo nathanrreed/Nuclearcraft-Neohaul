@@ -10,6 +10,7 @@ import com.nred.nuclearcraft.block_entity.quantum.QuantumComputerQubitEntity;
 import com.nred.nuclearcraft.block_entity.turbine.TurbineControllerEntity;
 import com.nred.nuclearcraft.compat.create.ModPonderPlugin;
 import com.nred.nuclearcraft.config.ModConfigScreen;
+import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.handler.SoundHandler;
 import com.nred.nuclearcraft.handler.TooltipHandler;
 import com.nred.nuclearcraft.info.NCFluid;
@@ -56,6 +57,8 @@ public class ClientSetup {
         NeoForge.EVENT_BUS.register(new TooltipHandler());
         NeoForge.EVENT_BUS.register(new BlockHighlightHandler());
         NeoForge.EVENT_BUS.register(new RadiationRenders());
+
+        BlockEntityInfoHandler.init();
 
         if(ModCheck.createLoaded()){
             ModPonderPlugin.init();

@@ -274,6 +274,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
     mainFile.addModLoader("NeoForge")
     mainFile.changelog = rootProject.file("Changelog.md").text
     mainFile.changelogType = 'markdown'
+    mainFile.addEnvironment("Server", "Client")
 
     mainFile.addRequirement("zerocore", "terrablender-neoforge")
     mainFile.addOptional("emi", "jei", "jade", "cc-tweaked", "patchouli", "kubejs", "mekanism", "fusion-connected-textures", "ctm", "guideme", "crafttweaker", "create")

@@ -4,7 +4,6 @@ import com.nred.nuclearcraft.capability.radiation.resistance.RadiationResistance
 import com.nred.nuclearcraft.command.CommandHandler;
 import com.nred.nuclearcraft.compat.guideme.ModGuideMEPlugin;
 import com.nred.nuclearcraft.entity.FeralGhoul;
-import com.nred.nuclearcraft.handler.BlockEntityInfoHandler;
 import com.nred.nuclearcraft.handler.EntityHandler;
 import com.nred.nuclearcraft.handler.ItemUseHandler;
 import com.nred.nuclearcraft.handler.PlayerRespawnHandler;
@@ -63,8 +62,6 @@ public class CommonSetup {
     public static void init(FMLCommonSetupEvent event) { // TODO is this the right event type
         PlacementRule.init();
         MultitoolItem.registerRightClickLogic();
-
-        BlockEntityInfoHandler.init();
 
         RadSources.refreshRadSources(false);
         RadArmor.init();
