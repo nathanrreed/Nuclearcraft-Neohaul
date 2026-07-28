@@ -9,6 +9,7 @@ import com.nred.nuclearcraft.screen.processor.UpgradableProcessorScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 public class ProcessorInputSlot extends Slot {
     protected final BasicRecipeHandler<?> recipeHandler;
@@ -25,6 +26,9 @@ public class ProcessorInputSlot extends Slot {
 
     @Override
     public boolean isActive() {
+        if (FMLEnvironment.dist.isDedicatedServer()) {
+            return false;
+        }
         return !(Minecraft.getInstance().screen instanceof ProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof UpgradableProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof ItemSorptionsScreen<?, ?, ?, ?> || Minecraft.getInstance().screen instanceof FluidSorptionsScreen<?, ?, ?, ?>);
     }
 }

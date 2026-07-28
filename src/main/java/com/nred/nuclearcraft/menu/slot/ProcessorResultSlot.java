@@ -8,6 +8,7 @@ import com.nred.nuclearcraft.screen.processor.UpgradableProcessorScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 public class ProcessorResultSlot extends ResultSlot {
     public ProcessorResultSlot(Player player, Container tile, int index, int xPosition, int yPosition) {
@@ -16,6 +17,9 @@ public class ProcessorResultSlot extends ResultSlot {
 
     @Override
     public boolean isActive() {
+        if (FMLEnvironment.dist.isDedicatedServer()) {
+            return false;
+        }
         return !(Minecraft.getInstance().screen instanceof ProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof UpgradableProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof ItemSorptionsScreen<?, ?, ?, ?> || Minecraft.getInstance().screen instanceof FluidSorptionsScreen<?, ?, ?, ?>);
     }
 }

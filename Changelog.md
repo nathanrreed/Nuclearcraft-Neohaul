@@ -1,1 +1,2 @@
-- Fixed crash on server startup
+- Fixed Machines drawing title in wrong place
+- Fixed relics breaking processor slots

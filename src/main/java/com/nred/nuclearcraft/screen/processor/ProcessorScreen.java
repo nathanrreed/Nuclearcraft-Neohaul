@@ -94,7 +94,7 @@ public abstract class ProcessorScreen<MENU extends InfoTileMenu<TILE, PACKET, IN
 
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.drawCenteredString(FONT, title, leftPos + imageWidth / 2, topPos + 6, -1);
+        guiGraphics.drawCenteredString(FONT, title,  imageWidth / 2, 6, -1);
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 public class ProcessorSpecificInputSlot extends Slot {
     public final Object[] inputs;
@@ -43,6 +44,9 @@ public class ProcessorSpecificInputSlot extends Slot {
 
     @Override
     public boolean isActive() {
+        if (FMLEnvironment.dist.isDedicatedServer()) {
+            return false;
+        }
         return !(Minecraft.getInstance().screen instanceof ProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof UpgradableProcessorScreen.SideConfigScreen || Minecraft.getInstance().screen instanceof ItemSorptionsScreen<?, ?, ?, ?> || Minecraft.getInstance().screen instanceof FluidSorptionsScreen<?, ?, ?, ?>);
     }
 }
