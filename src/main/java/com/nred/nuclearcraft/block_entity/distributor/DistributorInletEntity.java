@@ -60,7 +60,7 @@ public class DistributorInletEntity extends AbstractDistributorEntity implements
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        if (slot != 0 || stack.isEmpty()) {
+        if (slot != 0 || stack.isEmpty() || slot >= getContainerSize()) {
             return false;
         }
 

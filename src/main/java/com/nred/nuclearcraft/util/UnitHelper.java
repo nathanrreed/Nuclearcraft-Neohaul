@@ -29,10 +29,19 @@ public class UnitHelper {
     // Double
 
     public static String prefix(double value, double max, int maxLength, String unit, int startingPrefix) {
+        if (Double.isNaN(value)) {
+            value = 0;
+        }
+        if (Double.isNaN(max)) {
+            max = 0;
+        }
         return prefixInternal(BigDecimal.valueOf(value), BigDecimal.valueOf(max), maxLength, unit, startingPrefix);
     }
 
     public static String prefix(double value, int maxLength, String unit, int startingPrefix) {
+        if (Double.isNaN(value)) {
+            value = 0;
+        }
         return prefixInternal(BigDecimal.valueOf(value), null, maxLength, unit, startingPrefix);
     }
 
